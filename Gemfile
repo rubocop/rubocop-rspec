@@ -14,6 +14,9 @@ group :test do
 
   # Code coverage in badge form.
   gem 'coveralls', '~> 0.7'
+
+  # Coverage and friends for rubinius
+  gem 'rubinius-developer_tools', platform: :rbx
 end
 
 group :debugging do
