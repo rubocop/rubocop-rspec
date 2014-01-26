@@ -1,0 +1,4 @@
+UnitSpecNaming:
+  Enabled: true
+  Include:
+    - 'spec/rubocop/*'
