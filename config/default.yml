@@ -1,0 +1,5 @@
+UnitSpecNaming:
+  Description: 'Check that RSpec unit tests conform to a naming scheme.'
+  Enabled: false
+  EnforceDescribeStatement: true
+  EnforceFilenames: true
