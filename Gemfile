@@ -14,15 +14,22 @@ group :test do
 
   # Code coverage in badge form.
   gem 'coveralls', '~> 0.7'
-
-  # Coverage and friends for rubinius
-  gem 'rubinius-developer_tools', platform: :rbx
-
-  # Fill in the standard library for rubinius
-  gem 'rubysl', platform: :rbx
 end
 
 group :debugging do
   # Don't leave home without a debugger!
   gem 'debugger', '~> 1.6', :platforms => :mri
+end
+
+# Rubinius doesn't bundle up everything in the regular standard library; get the
+# heaver things we rely on.
+group :rubinius do
+  # Fill in the standard library.
+  gem 'rubysl', '~> 2.0', platform: :rbx
+
+  # Coverage and friends.
+  gem 'rubinius-developer_tools', '~> 2.0', platform: :rbx
+
+  # Ruby parser/generator.
+  gem 'racc', '~> 1.4', platform: :rbx
 end
