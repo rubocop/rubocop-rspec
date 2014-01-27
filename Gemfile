@@ -17,6 +17,9 @@ group :test do
 
   # Coverage and friends for rubinius
   gem 'rubinius-developer_tools', platform: :rbx
+
+  # Fill in the standard library for rubinius
+  gem 'rubysl', platform: :rbx
 end
 
 group :debugging do
