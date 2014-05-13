@@ -37,7 +37,7 @@ module Rubocop
             enforce_describe_statement(node, args)
           end
 
-          if offences.size == 0 && cop_config['EnforceFilenames']
+          if offenses.size == 0 && cop_config['EnforceFilenames']
             enforce_filename(node, args)
           end
         end
@@ -65,7 +65,7 @@ module Rubocop
 
         def check_described_class(node, first_arg)
           if !first_arg || first_arg.type != :const
-            add_offence(first_arg || node, :expression, DESCRIBE_CLASS_MSG)
+            add_offense(first_arg || node, :expression, DESCRIBE_CLASS_MSG)
           end
         end
 
@@ -73,14 +73,14 @@ module Rubocop
           return unless second_arg
 
           unless METHOD_STRING_MATCHER =~ second_arg.children.first
-            add_offence(second_arg, :expression, METHOD_STRING_MSG)
+            add_offense(second_arg, :expression, METHOD_STRING_MSG)
           end
         end
 
         def check_class_spec(node, path_parts)
           spec_path = File.join(path_parts) + '_spec.rb'
           unless source_filename.end_with? spec_path
-            add_offence(node, :expression, format(CLASS_SPEC_MSG, spec_path))
+            add_offense(node, :expression, format(CLASS_SPEC_MSG, spec_path))
           end
         end
 
@@ -92,7 +92,7 @@ module Rubocop
           glob_matcher = File.join(matcher_parts)
           unless source_filename =~ regexp_from_glob(glob_matcher)
             message = format(METHOD_SPEC_MSG, glob_matcher)
-            add_offence(node, :expression, message)
+            add_offense(node, :expression, message)
           end
         end
 
