@@ -7,7 +7,9 @@ require 'rubocop/rspec/inject'
 
 Rubocop::RSpec::Inject.defaults!
 
-# We are housing ourselves directly into RuboCop's module structure. This is
-# less than ideal, but until RuboCop directly supports plugins, we can avoid
-# breaking too many assumptions.
-require 'rubocop/cop/rspec/unit_spec_naming'
+require 'rubocop/cop/top_level_describe'
+
+# cops
+require 'rubocop/cop/rspec_described_class'
+require 'rubocop/cop/rspec_described_method'
+require 'rubocop/cop/rspec_file_name'
