@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecDescription do
+describe Rubocop::Cop::RSpecExampleWording do
   subject(:cop) { described_class.new }
 
   it 'finds description with `should` at the beginning' do

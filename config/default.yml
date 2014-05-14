@@ -1,12 +1,12 @@
-RSpecDescribedClass:
+RSpecDescribeClass:
   Description: 'Check that the first argument to the top level describe is the tested class or module.'
   Enabled: true
 
-RSpecDescribedMethod:
+RSpecDescribeMethod:
   Description: 'Checks that the second argument to top level describe is the tested method name.'
   Enabled: true
 
-RSpecDescription:
+RSpecExampleWording:
   Description: 'Do not use should when describing your tests.'
   Enabled: true
 

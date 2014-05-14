@@ -13,7 +13,7 @@ module Rubocop
     #   # good
     #   it 'finds nothing' do
     #   end
-    class RSpecDescription < Cop
+    class RSpecExampleWording < Cop
       MSG = 'Do not use should when describing your tests.'
 
       def on_block(node)

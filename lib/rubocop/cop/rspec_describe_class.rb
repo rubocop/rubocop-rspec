@@ -13,7 +13,7 @@ module Rubocop
     #   # good
     #   describe TestedClass do
     #   end
-    class RSpecDescribedClass < Cop
+    class RSpecDescribeClass < Cop
       include TopLevelDescribe
 
       MESSAGE = 'The first argument to describe should be the class or ' \
