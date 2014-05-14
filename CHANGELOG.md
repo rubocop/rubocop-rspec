@@ -7,6 +7,8 @@
   `RSpecFileName` and enabled them all by default ([@geniou][])
 * Add `RSpecDescription` cop to prevent to use of should in spec
   description. ([@geniou][])
-* `SpecFileName` cop for non-class specs ([@geniou][])
+* `RSpecFileName` cop for non-class specs ([@geniou][])
+* Adapt `RSpecFileName` cop to commen naming convention and skip spec
+  with multiple top level describes. ([@geniou][])
 
 [@geniou]: https://github.com/geniou

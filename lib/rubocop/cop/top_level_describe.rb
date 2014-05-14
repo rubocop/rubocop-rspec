@@ -20,17 +20,28 @@ module Rubocop
         _receiver, method_name, *_args = *node
         return false unless method_name == :describe
 
-        root_node = processed_source.ast
-        top_level_nodes = describe_statement_children(root_node)
+        top_level_nodes.include?(node)
+      end
+
+      def top_level_nodes
+        nodes = describe_statement_children(root_node)
         # If we have no top level describe statements, we need to check any
         # blocks on the top level (e.g. after a require).
-        if top_level_nodes.size == 0
-          top_level_nodes = node_children(root_node).map do |child|
+        if nodes.size == 0
+          nodes = node_children(root_node).map do |child|
             describe_statement_children(child) if child.type == :block
           end.flatten.compact
         end
 
-        top_level_nodes.include? node
+        nodes
+      end
+
+      def root_node
+        processed_source.ast
+      end
+
+      def single_top_level_describe?
+        top_level_nodes.count == 1
       end
 
       def describe_statement_children(node)
