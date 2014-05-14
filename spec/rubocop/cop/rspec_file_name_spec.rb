@@ -25,6 +25,13 @@ describe Rubocop::Cop::RSpecFileName do
                                 'with `my_class_spec.rb`'])
   end
 
+  it 'skips specs that do not describe a class / method' do
+    inspect_source(cop,
+                   ["describe 'Test something' do; end"],
+                   'some/class_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
   it 'checks class specs' do
     inspect_source(cop,
                    ['describe Some::Class do; end'],

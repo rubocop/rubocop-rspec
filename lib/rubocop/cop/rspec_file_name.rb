@@ -15,7 +15,10 @@ module Rubocop
       METHOD_STRING_MATCHER = /^[\#\.].+/
 
       def on_top_level_describe(node, args)
-        path_parts = const_name(args.first).split('::').map do |part|
+        class_or_method = const_name(args.first)
+        return unless class_or_method
+
+        path_parts = class_or_method.split('::').map do |part|
           camel_to_underscore(part)
         end
 
