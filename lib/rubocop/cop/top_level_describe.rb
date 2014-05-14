@@ -5,6 +5,7 @@ module Rubocop
     # Helper methods for top level describe cops
     module TopLevelDescribe
       def on_send(node)
+        return unless respond_to?(:on_top_level_describe)
         return unless top_level_describe?(node)
 
         _receiver, _method_name, *args = *node

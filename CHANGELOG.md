@@ -12,5 +12,7 @@
   with multiple top level describes. ([@geniou][])
 * Add `RSpecMultipleDescribes` to check for multiple top level
   describes. ([@geniou][])
+* Add `RSpecDescribedClass` to promote the use of `described_class`
+  ([@geniou][])
 
 [@geniou]: https://github.com/geniou
