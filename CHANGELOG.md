@@ -10,5 +10,7 @@
 * `RSpecFileName` cop for non-class specs ([@geniou][])
 * Adapt `RSpecFileName` cop to commen naming convention and skip spec
   with multiple top level describes. ([@geniou][])
+* Add `RSpecMultipleDescribes` to check for multiple top level
+  describes. ([@geniou][])
 
 [@geniou]: https://github.com/geniou
