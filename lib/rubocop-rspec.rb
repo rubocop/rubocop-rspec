@@ -12,4 +12,5 @@ require 'rubocop/cop/top_level_describe'
 # cops
 require 'rubocop/cop/rspec_described_class'
 require 'rubocop/cop/rspec_described_method'
+require 'rubocop/cop/rspec_description'
 require 'rubocop/cop/rspec_file_name'

@@ -6,6 +6,10 @@ RSpecDescribedMethod:
   Description: 'Checks that the second argument to top level describe is the tested method name.'
   Enabled: true
 
+RSpecDescription:
+  Description: 'Do not use should when describing your tests.'
+  Enabled: true
+
 RSpecFileName:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true
