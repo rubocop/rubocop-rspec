@@ -14,5 +14,7 @@
   describes. ([@geniou][])
 * Add `RSpecDescribedClass` to promote the use of `described_class`
   ([@geniou][])
+* Add `RSpecInstanceVariable` cop to check for the usage of instance
+  variables.([@geniou][])
 
 [@geniou]: https://github.com/geniou

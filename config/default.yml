@@ -18,6 +18,10 @@ RSpecMultipleDescribes:
   Description: 'Checks for multiple top level describes.'
   Enabled: true
 
+RSpecInstanceVariable:
+  Description: 'Checks for the usage of instance variables.'
+  Enabled: true
+
 RSpecFileName:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true
