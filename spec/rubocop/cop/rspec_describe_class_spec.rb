@@ -6,8 +6,7 @@ describe Rubocop::Cop::RSpecDescribeClass do
   subject(:cop) { described_class.new }
 
   it 'checks first-line describe statements' do
-    inspect_source(cop,
-                   ['describe "bad describe" do; end'])
+    inspect_source(cop, ['describe "bad describe" do; end'])
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages).to eq(['The first argument to describe should be ' \
@@ -24,10 +23,9 @@ describe Rubocop::Cop::RSpecDescribeClass do
   end
 
   it 'ignores nested describe statements' do
-    inspect_source(cop,
-                   ['describe Some::Class do',
-                    '  describe "bad describe" do; end',
-                    'end'])
+    inspect_source(cop, ['describe Some::Class do',
+                         '  describe "bad describe" do; end',
+                         'end'])
     expect(cop.offenses).to be_empty
   end
 

@@ -19,11 +19,9 @@ module Rubocop
       MESSAGE = 'The first argument to describe should be the class or ' \
                 'module being tested.'
 
-      def on_top_level_describe(node, args)
-        first_arg = args.first
-        return unless !first_arg || first_arg.type != :const
-
-        add_offense(first_arg || node, :expression, MESSAGE)
+      def on_top_level_describe(_node, args)
+        return if args.first && args.first.type == :const
+        add_offense(args.first, :expression, MESSAGE)
       end
     end
   end

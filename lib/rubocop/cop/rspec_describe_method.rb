@@ -11,10 +11,10 @@ module Rubocop
     #   end
     #
     #   # good
-    #   describe MyClass,'#my_instance_method' do
+    #   describe MyClass, '#my_instance_method' do
     #   end
     #
-    #   describe MyClass,'.my_class_method' do
+    #   describe MyClass, '.my_class_method' do
     #   end
     class RSpecDescribeMethod < Cop
       include TopLevelDescribe

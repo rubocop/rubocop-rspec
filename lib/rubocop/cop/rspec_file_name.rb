@@ -2,7 +2,8 @@
 
 module Rubocop
   module Cop
-    # Checks the file and folder naming of the spec file.
+    # Checks the path of the spec file and enforces that it reflects the
+    # described class/module.
     #
     # @example
     #   class/method_spec.rb
@@ -27,8 +28,8 @@ module Rubocop
       private
 
       def matcher(object, method)
-        method_strg = method ? method.children.first.gsub(/\W+/, '') : nil
-        path = [File.join(path_parts(object)), method_strg].compact.join('_')
+        method_string = method ? method.children.first.gsub(/\W+/, '') : nil
+        path = [File.join(path_parts(object)), method_string].compact.join('_')
         "#{path}*_spec.rb"
       end
 
