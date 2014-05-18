@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
     A plugin for the RuboCop code style enforcing & linting tool.
   end_description
   spec.homepage = 'http://github.com/nevir/rubocop-rspec'
-  spec.authors = ['Ian MacLeod']
-  spec.email = ['ian@nevir.net']
+  spec.authors = ['Ian MacLeod', 'Nils Gemeinhardt']
+  spec.email = ['ian@nevir.net', 'git@nilsgemeinhardt.de']
   spec.licenses = ['MIT']
 
   spec.version = Rubocop::RSpec::Version::STRING
