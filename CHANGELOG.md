@@ -1,6 +1,6 @@
 # Change log
 
-## master (unreleased)
+## 1.0.rc1
 
 * Update code to work with rubocop >= 0.19 ([@geniou][])
 * Split `UnitSpecNaming` cop into `RSpecDescribeClass`,
@@ -18,4 +18,7 @@
 * Add `RSpecInstanceVariable` cop to check for the usage of instance
   variables. ([@geniou][])
 
+<!-- Contributors -->
+
 [@geniou]: https://github.com/geniou
+[@nevir]: https://github.com/nevir
