@@ -1,5 +1,27 @@
-UnitSpecNaming:
-  Description: 'Check that RSpec unit tests conform to a naming scheme.'
-  Enabled: false
-  EnforceDescribeStatement: true
-  EnforceFilenames: true
+RSpecDescribeClass:
+  Description: 'Check that the first argument to the top level describe is the tested class or module.'
+  Enabled: true
+
+RSpecDescribedClass:
+  Description: 'Use `described_class` for tested class / module'
+  Enabled: true
+
+RSpecDescribeMethod:
+  Description: 'Checks that the second argument to top level describe is the tested method name.'
+  Enabled: true
+
+RSpecExampleWording:
+  Description: 'Do not use should when describing your tests.'
+  Enabled: true
+
+RSpecMultipleDescribes:
+  Description: 'Checks for multiple top level describes.'
+  Enabled: true
+
+RSpecInstanceVariable:
+  Description: 'Checks for the usage of instance variables.'
+  Enabled: true
+
+RSpecFileName:
+  Description: 'Checks the file and folder naming of the spec file.'
+  Enabled: true

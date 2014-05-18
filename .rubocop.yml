@@ -1,4 +1,3 @@
-UnitSpecNaming:
-  Enabled: true
-  Include:
-    - 'spec/rubocop/*'
+FileName:
+  Exclude:
+    - lib/rubocop-rspec.rb
