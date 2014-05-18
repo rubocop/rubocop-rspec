@@ -20,7 +20,7 @@ module Rubocop
     #     end
     #   end
     class RSpecMultipleDescribes < Cop
-      include TopLevelDescribe
+      include RSpec::TopLevelDescribe
 
       MESSAGE = 'Do not use multiple top level describes - try to nest them.'
 

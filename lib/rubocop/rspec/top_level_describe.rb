@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Rubocop
-  module Cop
+  module RSpec
     # Helper methods for top level describe cops
     module TopLevelDescribe
       def on_send(node)

@@ -17,7 +17,7 @@ module Rubocop
     #     subject { described_class.do_something }
     #   end
     class RSpecDescribedClass < Cop
-      include TopLevelDescribe
+      include RSpec::TopLevelDescribe
 
       MESSAGE = 'Use `described_class` instead of `%s`'
 

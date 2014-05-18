@@ -17,7 +17,7 @@ module Rubocop
     #   describe MyClass, '.my_class_method' do
     #   end
     class RSpecDescribeMethod < Cop
-      include TopLevelDescribe
+      include RSpec::TopLevelDescribe
 
       MESSAGE = 'The second argument to describe should be the method being ' \
                 "tested. '#instance' or '.class'"

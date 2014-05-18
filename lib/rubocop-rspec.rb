@@ -4,10 +4,9 @@ require 'rubocop'
 
 require 'rubocop/rspec/version'
 require 'rubocop/rspec/inject'
+require 'rubocop/rspec/top_level_describe'
 
 Rubocop::RSpec::Inject.defaults!
-
-require 'rubocop/cop/top_level_describe'
 
 # cops
 require 'rubocop/cop/rspec_describe_class'

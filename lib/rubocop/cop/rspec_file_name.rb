@@ -9,7 +9,7 @@ module Rubocop
     #   class/method_spec.rb
     #   class_spec.rb
     class RSpecFileName < Cop
-      include TopLevelDescribe
+      include RSpec::TopLevelDescribe
 
       MESSAGE = 'Spec path should end with `%s`'
       METHOD_STRING_MATCHER = /^[\#\.].+/
