@@ -33,7 +33,8 @@ The Cops
 --------
 
 **WARNING: Cop names are under flux and will likely change in the near future.**
-We're hoping to [introduce namespaces](bbatsov/rubocop#1097) into the mix.
+We're hoping to
+[introduce namespaces](https://github.com/bbatsov/rubocop/issues/1097) into the mix.
 
 All cops are located under [`lib/rubocop/cop`](lib/rubocop/cop), and contain
 examples/documentation.
