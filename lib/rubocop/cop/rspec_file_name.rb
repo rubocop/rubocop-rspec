@@ -3,11 +3,11 @@
 module Rubocop
   module Cop
     # Checks the path of the spec file and enforces that it reflects the
-    # described class/module.
+    # described class/module and its optionally called out method.
     #
     # @example
-    #   class/method_spec.rb
-    #   class_spec.rb
+    #   my_class/method_spec.rb  # describe MyClass, '#method'
+    #   my_class_spec.rb         # describe MyClass
     class RSpecFileName < Cop
       include RSpec::TopLevelDescribe
 
@@ -19,24 +19,19 @@ module Rubocop
         object = const_name(args.first)
         return unless object
 
-        glob_matcher = matcher(object, args[1])
-        return if source_filename =~ regexp_from_glob(glob_matcher)
+        path_matcher = matcher(object, args[1])
+        return if source_filename =~ regexp_from_glob(path_matcher)
 
-        add_offense(node, :expression, format(MESSAGE, glob_matcher))
+        add_offense(node, :expression, format(MESSAGE, path_matcher))
       end
 
       private
 
       def matcher(object, method)
-        method_string = method ? method.children.first.gsub(/\W+/, '') : nil
-        path = [File.join(path_parts(object)), method_string].compact.join('_')
-        "#{path}*_spec.rb"
-      end
+        path = File.join(object.split('::').map { |p| camel_to_underscore(p) })
+        path += '*' + method.children.first.gsub(/\W+/, '') if method
 
-      def path_parts(object)
-        object.split('::').map do |part|
-          camel_to_underscore(part)
-        end
+        "#{path}*_spec.rb"
       end
 
       def source_filename
@@ -45,7 +40,7 @@ module Rubocop
 
       def camel_to_underscore(string)
         string.dup.tap do |result|
-          result.gsub!(/([^A-Z])([A-Z]+)/,       '\\1_\\2')
+          result.gsub!(/([^A-Z])([A-Z]+)/,          '\\1_\\2')
           result.gsub!(/([A-Z]{2,})([A-Z][^A-Z]+)/, '\\1_\\2')
           result.downcase!
         end
