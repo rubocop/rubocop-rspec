@@ -20,7 +20,13 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9.2'
 
   spec.require_paths = ['lib']
-  spec.files = Dir['**/*']
+  spec.files = Dir[
+    '{lib,spec}/**/*',
+    '*.md',
+    '*.gemspec',
+    'Gemfile',
+    'Rakefile'
+  ]
   spec.test_files = spec.files.grep(/^spec\//)
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
