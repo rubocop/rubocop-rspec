@@ -1,5 +1,10 @@
 # Change log
 
+## 1.0.rc2
+
+* Gem is no longer 20MB (sorry!). ([@nevir][])
+* `RspecFileName` cop allows for method specs to organized into directories by class and type. ([@nevir][])
+
 ## 1.0.rc1
 
 * Update code to work with rubocop `>= 0.19`. ([@geniou][])
