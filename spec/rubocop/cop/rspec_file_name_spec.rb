@@ -12,7 +12,7 @@ describe Rubocop::Cop::RSpecFileName do
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages)
-      .to eq(['Spec path should end with `my_class_foo*_spec.rb`'])
+      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
   end
 
   it 'checks the path' do
@@ -22,7 +22,7 @@ describe Rubocop::Cop::RSpecFileName do
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages)
-      .to eq(['Spec path should end with `my_class_foo*_spec.rb`'])
+      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
   end
 
   it 'checks class spec paths' do
@@ -38,7 +38,7 @@ describe Rubocop::Cop::RSpecFileName do
   it 'skips specs that do not describe a class / method' do
     inspect_source(cop,
                    ["describe 'Test something' do; end"],
-                   'some/class_spec.rb')
+                   'some/class/spec.rb')
     expect(cop.offenses).to be_empty
   end
 
@@ -46,7 +46,7 @@ describe Rubocop::Cop::RSpecFileName do
     inspect_source(cop,
                    ["describe MyClass, 'do_this' do; end",
                     "describe MyClass, 'do_that' do; end"],
-                   'some/class_spec.rb')
+                   'some/class/spec.rb')
     expect(cop.offenses).to be_empty
   end
 
@@ -81,42 +81,63 @@ describe Rubocop::Cop::RSpecFileName do
   it 'checks instance methods' do
     inspect_source(cop,
                    ["describe Some::Class, '#inst' do; end"],
-                   'some/class_inst_spec.rb')
-    expect(cop.offenses).to be_empty
-  end
-
-  it 'checks methods' do
-    inspect_source(cop,
-                   ["describe Some::Class, 'inst' do; end"],
-                   'some/class_inst_spec.rb')
+                   'some/class/inst_spec.rb')
     expect(cop.offenses).to be_empty
   end
 
   it 'checks class methods' do
     inspect_source(cop,
                    ["describe Some::Class, '.inst' do; end"],
+                   'some/class/inst_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'allows flat hierarchies for instance methods' do
+    inspect_source(cop,
+                   ["describe Some::Class, '#inst' do; end"],
                    'some/class_inst_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'allows flat hierarchies for class methods' do
+    inspect_source(cop,
+                   ["describe Some::Class, '.inst' do; end"],
+                   'some/class_inst_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'allows subdirs for instance methods' do
+    inspect_source(cop,
+                   ["describe Some::Class, '#inst' do; end"],
+                   'some/class/instance_methods/inst_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'allows subdirs for class methods' do
+    inspect_source(cop,
+                   ["describe Some::Class, '.inst' do; end"],
+                   'some/class/class_methods/inst_spec.rb')
     expect(cop.offenses).to be_empty
   end
 
   it 'ignores non-alphanumeric characters' do
     inspect_source(cop,
                    ["describe Some::Class, '#pred?' do; end"],
-                   'some/class_pred_spec.rb')
+                   'some/class/pred_spec.rb')
     expect(cop.offenses).to be_empty
   end
 
   it 'allows flexibility with predicates' do
     inspect_source(cop,
                    ["describe Some::Class, '#thing?' do; end"],
-                   'some/class_thing_predicate_spec.rb')
+                   'some/class/thing_predicate_spec.rb')
     expect(cop.offenses).to be_empty
   end
 
   it 'allows flexibility with operators' do
     inspect_source(cop,
                    ["describe MyClass, '#<=>' do; end"],
-                   'my_class_spaceship_operator_spec.rb')
+                   'my_class/spaceship_operator_spec.rb')
     expect(cop.offenses).to be_empty
   end
 end
