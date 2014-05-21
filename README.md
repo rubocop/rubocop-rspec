@@ -1,5 +1,4 @@
-RuboCop RSpec
-=============
+# RuboCop RSpec
 
 [![Gem Version](https://badge.fury.io/rb/rubocop-rspec.png)](https://rubygems.org/gems/rubocop-rspec)
 [![Dependency Status](https://gemnasium.com/nevir/rubocop-rspec.png)](https://gemnasium.com/nevir/rubocop-rspec)
@@ -11,26 +10,54 @@ RSpec-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/bbatsov/rubocop).
 
 
-Usage
------
+## Installation
 
-Add it to your bundle, or environment, and then you can load it via:
+Just install the `rubocop-rspec` gem
+
+```bash
+gem install rubocop-rspec
+```
+
+or if you use bundler put this in your `Gemfile`
+
+```
+gem 'rubocop-rspec'
+```
+
+
+## Usage
+
+You need to tell RuboCop to load the RSpec extension. There are three
+ways to do this:
+
+### RuboCop configuration file
+
+Put this into you `.rubocop.yml`. **For now this is only supported in the
+github version of RuboCop.**
+
+```
+require: rubocop-rspec
+```
+
+Now you can run `rubocop` and it will autmaticly load the RuboCop RSpec
+cops together with the standard cops.
+
+### Command line
 
 ```bash
 rubocop --require rubocop-rspec
 ```
 
-or as part of your rubocop rake task:
+### Rake task
 
 ```ruby
-Rubocop::RakeTask.new(:style) do |task|
+Rubocop::RakeTask.new do |task|
   task.requires << 'rubocop-rspec'
 end
 ```
 
 
-The Cops
---------
+## The Cops
 
 **WARNING: Cop names are under flux and will likely change in the near future.**
 We're hoping to
@@ -49,8 +76,7 @@ RSpecFileName:
 ```
 
 
-License
--------
+## License
 
 `rubocop-rspec` is MIT licensed. [See the accompanying file](MIT-LICENSE.md) for
 the full text.
