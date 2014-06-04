@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-module Rubocop
+module RuboCop
   module RSpec
     # Because RuboCop doesn't yet support plugins, we have to monkey patch in a
     # bit of our configuration.

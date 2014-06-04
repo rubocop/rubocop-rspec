@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # When you have to assign a variable instead of using an instance variable,
     # use let.

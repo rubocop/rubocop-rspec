@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # Check that the first argument to the top level describe is the tested
     # class or module.

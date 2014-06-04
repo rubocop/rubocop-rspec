@@ -25,7 +25,7 @@ desc 'Run RuboCop over this gem'
 task :internal_investigation do
   require 'rubocop-rspec'
 
-  result = Rubocop::CLI.new.run
+  result = RuboCop::CLI.new.run
   abort('RuboCop failed!') unless result == 0
 end
 

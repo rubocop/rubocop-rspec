@@ -15,7 +15,7 @@ describe 'RuboCop Project' do # rubocop:disable RSpecDescribeClass
     end
 
     subject(:default_config) do
-      Rubocop::ConfigLoader.load_file('config/default.yml')
+      RuboCop::ConfigLoader.load_file('config/default.yml')
     end
 
     it 'has configuration for all cops' do

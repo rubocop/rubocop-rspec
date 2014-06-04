@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # If the first argument of describe is a class, the class is exposed to
     # each example via described_class - this should be used instead of

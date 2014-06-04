@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # Checks the path of the spec file and enforces that it reflects the
     # described class/module and its optionally called out method.

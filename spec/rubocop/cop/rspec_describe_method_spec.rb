@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecDescribeMethod do
+describe RuboCop::Cop::RSpecDescribeMethod do
   subject(:cop) { described_class.new }
 
   it 'enforces non-method names' do
