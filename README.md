@@ -51,7 +51,7 @@ rubocop --require rubocop-rspec
 ### Rake task
 
 ```ruby
-Rubocop::RakeTask.new do |task|
+RuboCop::RakeTask.new do |task|
   task.requires << 'rubocop-rspec'
 end
 ```

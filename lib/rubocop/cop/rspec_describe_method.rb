@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # Checks that the second argument to the top level describe is the tested
     # method name.

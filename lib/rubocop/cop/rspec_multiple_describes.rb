@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # Checks for multiple top level describes. They should be nested if it is
     # for the same class or module or seperated into different files.

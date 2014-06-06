@@ -6,7 +6,7 @@ require 'rubocop/rspec/version'
 require 'rubocop/rspec/inject'
 require 'rubocop/rspec/top_level_describe'
 
-Rubocop::RSpec::Inject.defaults!
+RuboCop::RSpec::Inject.defaults!
 
 # cops
 require 'rubocop/cop/rspec_describe_class'

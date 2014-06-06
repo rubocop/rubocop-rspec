@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     # Do not use should when describing your tests.
     # see: http://betterspecs.org/#should

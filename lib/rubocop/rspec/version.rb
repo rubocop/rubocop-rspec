@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module RSpec
     # Version information for the RSpec RuboCop plugin.
     module Version

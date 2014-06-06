@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecDescribedClass do
+describe RuboCop::Cop::RSpecDescribedClass do
   subject(:cop) { described_class.new }
 
   it 'checks for the use of the described class' do

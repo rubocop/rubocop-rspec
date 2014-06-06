@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.email = ['ian@nevir.net', 'git@nilsgemeinhardt.de']
   spec.licenses = ['MIT']
 
-  spec.version = Rubocop::RSpec::Version::STRING
+  spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 1.9.2'
 
@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(/^spec\//)
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
-  spec.add_runtime_dependency('rubocop', '~> 0.19', '>= 0.19')
+  spec.add_runtime_dependency('rubocop', '~> 0.23.0')
 end
