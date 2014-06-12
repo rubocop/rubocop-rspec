@@ -38,7 +38,7 @@ Put this into you `.rubocop.yml`.
 require: rubocop-rspec
 ```
 
-Now you can run `rubocop` and it will autmaticly load the RuboCop RSpec
+Now you can run `rubocop` and it will automaticly load the RuboCop RSpec
 cops together with the standard cops.
 
 ### Command line
@@ -68,7 +68,7 @@ cop. For example:
 ```yaml
 RSpec/FileName:
   Exclude:
-  - spec/my_poorly_named_spec_file.rb
+    - spec/my_poorly_named_spec_file.rb
 ```
 
 
