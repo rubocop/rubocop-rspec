@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecInstanceVariable do
+describe Rubocop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
   it 'finds an instance variable inside a describe' do

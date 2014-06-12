@@ -32,8 +32,7 @@ ways to do this:
 
 ### RuboCop configuration file
 
-Put this into you `.rubocop.yml`. **For now this is only supported in the
-github version of RuboCop.**
+Put this into you `.rubocop.yml`.
 
 ```
 require: rubocop-rspec
@@ -59,18 +58,15 @@ end
 
 ## The Cops
 
-**WARNING: Cop names are under flux and will likely change in the near future.**
-We're hoping to
-[introduce namespaces](https://github.com/bbatsov/rubocop/issues/1097) into the mix.
-
-All cops are located under [`lib/rubocop/cop`](lib/rubocop/cop), and contain
+All cops are located under
+[`lib/rubocop/cop/spec`](lib/rubocop/cop/rspec), and contain
 examples/documentation.
 
-In your `.rubocop.yml`, you may treat the RSpec cops just like any other cop.
-For example:
+In your `.rubocop.yml`, you may treat the RSpec cops just like any other
+cop. For example:
 
 ```yaml
-RSpecFileName:
+RSpec/FileName:
   Exclude:
   - spec/my_poorly_named_spec_file.rb
 ```

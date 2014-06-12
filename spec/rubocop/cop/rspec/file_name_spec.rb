@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecFileName do
+describe Rubocop::Cop::RSpec::FileName do
   subject(:cop) { described_class.new }
 
   it 'checks the path' do

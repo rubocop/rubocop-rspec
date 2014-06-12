@@ -2,15 +2,16 @@
 
 require 'spec_helper'
 
-describe 'RuboCop Project' do # rubocop:disable RSpecDescribeClass
+describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
   describe 'default configuration file' do
     let(:cop_names) do
       Dir.glob(File.join(File.dirname(__FILE__), '..', 'lib', 'rubocop', 'cop',
-                         '*.rb'))
+                         'rspec', '*.rb'))
         .map do |file|
-          File.basename(file, '.rb')
+          cop_name = File.basename(file, '.rb')
           .gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
-          .gsub('Rspec', 'RSpec')
+
+          "RSpec/#{cop_name}"
         end
     end
 

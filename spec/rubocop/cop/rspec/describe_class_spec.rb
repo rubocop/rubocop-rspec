@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpecDescribeClass do
+describe Rubocop::Cop::RSpec::DescribeClass do
   subject(:cop) { described_class.new }
 
   it 'checks first-line describe statements' do
