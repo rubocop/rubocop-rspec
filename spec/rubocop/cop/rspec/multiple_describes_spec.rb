@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpec::MultipleDescribes do
+describe RuboCop::Cop::RSpec::MultipleDescribes do
   subject(:cop) { described_class.new }
 
   it 'finds multiple top level describes with class and method' do

@@ -1,16 +1,21 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     module RSpec
       # Checks the path of the spec file and enforces that it reflects the
       # described class/module and its optionally called out method.
       #
+      # With the configuration option `CustomTransform` modules or clases can be
+      # specified that should not as usual be transformed from CamelCase to
+      # snake_case (e.g. 'RuboCop' => 'rubocop' ).
+      #
       # @example
       #   my_class/method_spec.rb  # describe MyClass, '#method'
+      #   my_class_method_spec.rb  # describe MyClass, '#method'
       #   my_class_spec.rb         # describe MyClass
       class FileName < Cop
-        include Rubocop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'
         METHOD_STRING_MATCHER = /^[\#\.].+/
@@ -29,11 +34,16 @@ module Rubocop
         private
 
         def matcher(object, method)
-          object_parts = object.split('::').map { |p| camel_to_underscore(p) }
-          path = File.join(object_parts)
+          path = File.join(parts(object))
           path += '*' + method.children.first.gsub(/\W+/, '') if method
 
           "#{path}*_spec.rb"
+        end
+
+        def parts(object)
+          object.split('::').map do |p|
+            custom_transform[p] || camel_to_underscore(p)
+          end
         end
 
         def source_filename
@@ -50,6 +60,10 @@ module Rubocop
 
         def regexp_from_glob(glob)
           Regexp.new(glob.gsub('.', '\\.').gsub('*', '.*') + '$')
+        end
+
+        def custom_transform
+          cop_config['CustomTransform'] || []
         end
       end
     end

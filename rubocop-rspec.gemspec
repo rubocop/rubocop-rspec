@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.email = ['ian@nevir.net', 'git@nilsgemeinhardt.de']
   spec.licenses = ['MIT']
 
-  spec.version = Rubocop::RSpec::Version::STRING
+  spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 1.9.2'
 

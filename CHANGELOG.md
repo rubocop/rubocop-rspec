@@ -1,5 +1,10 @@
 # Change log
 
+## master
+
+* Update to RuboCop `>= 0.23`. ([@geniou][])
+* Add configuration option for `CustomTransformation` to `FileName` cop. ([@geniou][])
+
 ## 1.0.rc2
 
 * Gem is no longer 20MB (sorry!). ([@nevir][])

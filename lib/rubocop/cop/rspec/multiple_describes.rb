@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     module RSpec
       # Checks for multiple top level describes. They should be nested if it is
@@ -21,7 +21,7 @@ module Rubocop
       #     end
       #   end
       class MultipleDescribes < Cop
-        include Rubocop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Do not use multiple top level describes - try to nest them.'
 

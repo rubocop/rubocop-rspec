@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     module RSpec
       # If the first argument of describe is a class, the class is exposed to
@@ -18,7 +18,7 @@ module Rubocop
       #     subject { described_class.do_something }
       #   end
       class DescribedClass < Cop
-        include Rubocop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Use `described_class` instead of `%s`'
 

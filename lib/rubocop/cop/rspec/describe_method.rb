@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     module RSpec
       # Checks that the second argument to the top level describe is the tested
@@ -18,7 +18,7 @@ module Rubocop
       #   describe MyClass, '.my_class_method' do
       #   end
       class DescribeMethod < Cop
-        include Rubocop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'The second argument to describe should be the method ' \
                   "being tested. '#instance' or '.class'"

@@ -2,8 +2,9 @@
 
 require 'spec_helper'
 
-describe Rubocop::Cop::RSpec::FileName do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::FileName, :config do
+  subject(:cop) { described_class.new(config) }
+  let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
   it 'checks the path' do
     inspect_source(cop,
@@ -138,6 +139,13 @@ describe Rubocop::Cop::RSpec::FileName do
     inspect_source(cop,
                    ["describe MyClass, '#<=>' do; end"],
                    'my_class/spaceship_operator_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'respects custom module name transformation' do
+    inspect_source(cop,
+                   ["describe FooFoo::Some::Class, '#bar' do; end"],
+                   'foofoo/some/class/bar_spec.rb')
     expect(cop.offenses).to be_empty
   end
 end

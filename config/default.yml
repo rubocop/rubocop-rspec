@@ -25,3 +25,5 @@ RSpec/InstanceVariable:
 RSpec/FileName:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true
+  CustomTransform:
+    RuboCop: rubocop

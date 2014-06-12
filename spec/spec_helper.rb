@@ -15,12 +15,12 @@ require 'rubocop-rspec'
 def parse_source(source, file = nil)
   source = source.join($RS) if source.is_a?(Array)
   if file.is_a? String
-    Rubocop::SourceParser.parse(source, file)
+    RuboCop::SourceParser.parse(source, file)
   elsif file
     file.write(source)
     file.rewind
-    Rubocop::SourceParser.parse(source, file.path)
+    RuboCop::SourceParser.parse(source, file.path)
   else
-    Rubocop::SourceParser.parse(source)
+    RuboCop::SourceParser.parse(source)
   end
 end

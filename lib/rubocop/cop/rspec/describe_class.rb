@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Rubocop
+module RuboCop
   module Cop
     module RSpec
       # Check that the first argument to the top level describe is the tested
@@ -15,7 +15,7 @@ module Rubocop
       #   describe TestedClass do
       #   end
       class DescribeClass < Cop
-        include Rubocop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'The first argument to describe should be the class or ' \
                   'module being tested.'
