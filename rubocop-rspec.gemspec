@@ -31,4 +31,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.add_runtime_dependency('rubocop', '~> 0.23', '>= 0.23')
+  spec.add_development_dependency('rake', '~> 10.1')
+  spec.add_development_dependency('rspec', '~> 2.14')
+  spec.add_development_dependency('simplecov', '~> 0.8')
 end
