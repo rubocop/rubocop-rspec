@@ -27,3 +27,4 @@ RSpec/FileName:
   Enabled: true
   CustomTransform:
     RuboCop: rubocop
+    RSpec: rspec
