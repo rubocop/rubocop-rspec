@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.1
+
+* Add `config` folder to gemspec. ([@pstengel][])
+
 ## 1.0.rc3
 
 * Update to RuboCop `>= 0.23`. ([@geniou][])
@@ -25,3 +29,4 @@
 
 [@geniou]: https://github.com/geniou
 [@nevir]: https://github.com/nevir
+[@pstengel]: https://github.com/pstengel
