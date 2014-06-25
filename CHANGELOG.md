@@ -1,6 +1,6 @@
 # Change log
 
-## master (unreleased)
+## 1.1.0
 
 * Add `autocorrect` to `RSpec::DescribedClass` cop. ([@geniou][])
 
