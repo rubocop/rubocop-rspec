@@ -33,6 +33,12 @@ module RuboCop
           inspect_children(body, object)
         end
 
+        def autocorrect(node)
+          @corrections << lambda do |corrector|
+            corrector.replace(node.loc.expression, 'described_class')
+          end
+        end
+
         private
 
         def inspect_children(node, object)

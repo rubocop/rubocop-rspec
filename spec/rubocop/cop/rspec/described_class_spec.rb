@@ -7,14 +7,15 @@ describe RuboCop::Cop::RSpec::DescribedClass do
 
   it 'checks for the use of the described class' do
     inspect_source(cop, ['describe MyClass do',
+                         '  include MyClass',
                          '  subject { MyClass.do_something }',
                          '  before { MyClass.do_something }',
                          'end'])
-    expect(cop.offenses.size).to eq(2)
-    expect(cop.offenses.map(&:line).sort).to eq([2, 3])
+    expect(cop.offenses.size).to eq(3)
+    expect(cop.offenses.map(&:line).sort).to eq([2, 3, 4])
     expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyClass`'] * 2)
-    expect(cop.highlights).to eq(['MyClass'] * 2)
+      .to eq(['Use `described_class` instead of `MyClass`'] * 3)
+    expect(cop.highlights).to eq(['MyClass'] * 3)
   end
 
   it 'ignores described class as string' do
@@ -24,22 +25,11 @@ describe RuboCop::Cop::RSpec::DescribedClass do
     expect(cop.offenses).to be_empty
   end
 
-  it 'ignores describes that do not referece to a class' do
+  it 'ignores describe that do not referece to a class' do
     inspect_source(cop, ['describe "MyClass" do',
                          '  subject { "MyClass" }',
                          'end'])
     expect(cop.offenses).to be_empty
-  end
-
-  it 'ignores if the scope is changing' do
-    inspect_source(cop, ['describe MyClass do',
-                         '  include MyClass',
-                         'end'])
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([2])
-    expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyClass`'])
-    expect(cop.highlights).to eq(['MyClass'])
   end
 
   it 'ignores class if the scope is changing' do
@@ -109,5 +99,18 @@ describe RuboCop::Cop::RSpec::DescribedClass do
     expect(cop.messages)
       .to eq(['Use `described_class` instead of `MyNamespace::MyClass`'])
     expect(cop.highlights).to eq(['MyNamespace::MyClass'])
+  end
+
+  it 'autocorrects an offenses' do
+    new_source = autocorrect_source(cop, ['describe MyClass do',
+                                          '  include MyClass',
+                                          '  subject { MyClass.do_something }',
+                                          '  before { MyClass.do_something }',
+                                          'end'])
+    expect(new_source).to eq(['describe MyClass do',
+                              '  include described_class',
+                              '  subject { described_class.do_something }',
+                              '  before { described_class.do_something }',
+                              'end'].join("\n"))
   end
 end

@@ -1,5 +1,9 @@
 # Change log
 
+## master (unreleased)
+
+* Add `autocorrect` to `RSpec::DescribedClass` cop. ([@geniou][])
+
 ## 1.0.1
 
 * Add `config` folder to gemspec. ([@pstengel][])
