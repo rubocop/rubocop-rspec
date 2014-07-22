@@ -13,6 +13,12 @@ RSpec/DescribeMethod:
 RSpec/ExampleWording:
   Description: 'Do not use should when describing your tests.'
   Enabled: true
+  CustomTransform:
+    be: is
+    have: has
+    not: does not
+  IgnoredWords: []
+
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
