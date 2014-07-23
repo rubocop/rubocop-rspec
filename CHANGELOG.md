@@ -1,5 +1,10 @@
 # Change log
 
+## master (unreleased)
+
+* Drop support of ruby `1.9.2`. ([@geniou][])
+* Update to RuboCop `~> 0.24`. ([@geniou][])
+
 ## 1.1.0
 
 * Add `autocorrect` to `RSpec::DescribedClass` cop. ([@geniou][])
