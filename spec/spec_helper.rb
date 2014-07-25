@@ -8,19 +8,3 @@ require File.join(
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rubocop-rspec'
-
-# Overwriting RuboCop's parse_source to add support for mocked file paths.
-#
-# Remove once rubocop > 0.17.0 releases.
-def parse_source(source, file = nil)
-  source = source.join($RS) if source.is_a?(Array)
-  if file.is_a? String
-    RuboCop::SourceParser.parse(source, file)
-  elsif file
-    file.write(source)
-    file.rewind
-    RuboCop::SourceParser.parse(source, file.path)
-  else
-    RuboCop::SourceParser.parse(source)
-  end
-end
