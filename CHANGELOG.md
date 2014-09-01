@@ -5,6 +5,7 @@
 * Drop support of ruby `1.9.2`. ([@geniou][])
 * Update to RuboCop `~> 0.24`. ([@geniou][])
 * Add `autocorrect` to `RSpec::ExampleWording`. This experimental - use with care and check the changes. ([@geniou][])
+* Fix config loader debug output. ([@geniou][])
 
 ## 1.1.0
 
