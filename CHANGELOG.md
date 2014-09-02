@@ -6,6 +6,7 @@
 * Update to RuboCop `~> 0.24`. ([@geniou][])
 * Add `autocorrect` to `RSpec::ExampleWording`. This experimental - use with care and check the changes. ([@geniou][])
 * Fix config loader debug output. ([@geniou][])
+* Rename `FileName` cop to `FilePath` as a workaround - see [#19](https://github.com/nevir/rubocop-rspec/issues/19). ([@geniou][])
 
 ## 1.1.0
 

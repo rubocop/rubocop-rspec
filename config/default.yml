@@ -28,7 +28,7 @@ RSpec/InstanceVariable:
   Description: 'Checks for the usage of instance variables.'
   Enabled: true
 
-RSpec/FileName:
+RSpec/FilePath:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true
   CustomTransform:

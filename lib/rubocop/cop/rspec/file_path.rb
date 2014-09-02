@@ -14,7 +14,7 @@ module RuboCop
       #   my_class/method_spec.rb  # describe MyClass, '#method'
       #   my_class_method_spec.rb  # describe MyClass, '#method'
       #   my_class_spec.rb         # describe MyClass
-      class FileName < Cop
+      class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'
