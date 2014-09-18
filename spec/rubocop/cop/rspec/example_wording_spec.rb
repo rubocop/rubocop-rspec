@@ -7,7 +7,7 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
   let(:cop_config) do
     {
       'CustomTransform' => { 'have' => 'has', 'not' => 'does not' },
-      'IgnoredWords' => %w(only realy)
+      'IgnoredWords' => %w(only really)
     }
   end
 
@@ -44,7 +44,7 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     'should worry about the future' => 'worries about the future',
     'should pay for pizza' => 'pays for pizza',
     'should miss me' => 'misses me',
-    'should realy only return one item' => 'realy only returns one item'
+    'should really only return one item' => 'really only returns one item'
   }.each do |old, new|
     it 'autocorrects an offenses' do
       new_source = autocorrect_source(cop, ["it '#{old}' do", 'end'])
