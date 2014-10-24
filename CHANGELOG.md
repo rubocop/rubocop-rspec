@@ -1,5 +1,7 @@
 # Change log
 
+* Add `RSpec::VerifiedDoubles` cop. ([@andyw8][])
+
 ## 1.2.0
 
 * Drop support of ruby `1.9.2`. ([@geniou][])
@@ -39,6 +41,7 @@
 
 <!-- Contributors -->
 
+[@andyw8]: https://github.com/andyw8
 [@geniou]: https://github.com/geniou
 [@nevir]: https://github.com/nevir
 [@pstengel]: https://github.com/pstengel
