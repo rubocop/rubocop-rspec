@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'spec_helper'
-
 describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
   describe 'default configuration file' do
     let(:cop_names) do
