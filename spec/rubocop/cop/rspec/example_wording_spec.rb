@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'spec_helper'
-
 describe RuboCop::Cop::RSpec::ExampleWording, :config do
   subject(:cop) { described_class.new(config) }
   let(:cop_config) do

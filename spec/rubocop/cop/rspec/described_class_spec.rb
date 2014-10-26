@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'spec_helper'
-
 describe RuboCop::Cop::RSpec::DescribedClass do
   subject(:cop) { described_class.new }
 
