@@ -10,13 +10,13 @@ module RuboCop
       #   # bad
       #   describe MyClass do
       #     before { @foo = [] }
-      #     it { expect(@foo).to be_emtpy }
+      #     it { expect(@foo).to be_empty }
       #   end
       #
       #   # good
       #   describe MyClass do
       #     let(:foo) { [] }
-      #     it { expect(foo).to be_emtpy }
+      #     it { expect(foo).to be_empty }
       #   end
       class InstanceVariable < Cop
         MESSAGE = 'Use `let` instead of an instance variable'
