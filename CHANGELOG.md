@@ -1,5 +1,7 @@
 # Change log
 
+## 1.2.1
+
 * Add `RSpec::VerifiedDoubles` cop. ([@andyw8][])
 
 ## 1.2.0
