@@ -1,3 +1,6 @@
 Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented

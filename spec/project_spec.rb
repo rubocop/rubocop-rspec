@@ -7,7 +7,7 @@ describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
                          'rspec', '*.rb'))
         .map do |file|
           cop_name = File.basename(file, '.rb')
-          .gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
+            .gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
 
           "RSpec/#{cop_name}"
         end

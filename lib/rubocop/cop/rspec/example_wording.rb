@@ -20,7 +20,7 @@ module RuboCop
       class ExampleWording < Cop
         MSG = 'Do not use should when describing your tests.'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable Metrics/AbcSize
           method, _, _ = *node
           _, method_name, *args = *method
 
@@ -63,7 +63,7 @@ module RuboCop
 
           # ends with o s x ch sh or ss
           if %w(o s x]).include?(word[-1]) ||
-            %w(ch sh ss]).include?(word[-2..-1])
+              %w(ch sh ss]).include?(word[-2..-1])
             return "#{word}es"
           end
 

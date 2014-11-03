@@ -8,8 +8,8 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages)
-    .to eq(['The second argument to describe should be the method being ' \
-            "tested. '#instance' or '.class'"])
+      .to eq(['The second argument to describe should be the method being ' \
+              "tested. '#instance' or '.class'"])
   end
 
   it 'skips methods starting with a . or #' do
