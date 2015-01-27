@@ -18,6 +18,16 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     expect(cop.highlights).to eq(['should do something'])
   end
 
+  it 'finds description with `Should` at the beginning' do
+    inspect_source(cop, ["it 'Should do something' do", 'end'])
+    expect(cop.offenses.size).to eq(1)
+    expect(cop.offenses.map(&:line).sort).to eq([1])
+    expect(cop.messages)
+      .to eq(['Do not use should when describing your tests.'])
+    expect(cop.highlights).to eq(['Should do something'])
+  end
+
+
   it 'finds description with `shouldn\'t` at the beginning' do
     inspect_source(cop, ['it "shouldn\'t do something" do', 'end'])
     expect(cop.offenses.size).to eq(1)
