@@ -28,7 +28,7 @@ module RuboCop
 
           arguments = *(args.first)
           message = arguments.first.to_s
-          return unless message.start_with?('should')
+          return unless message.start_with?('should', 'Should')
 
           arg1 = args.first.loc.expression
           message = Parser::Source::Range
