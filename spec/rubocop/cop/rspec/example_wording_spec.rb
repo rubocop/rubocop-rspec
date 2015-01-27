@@ -27,7 +27,6 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     expect(cop.highlights).to eq(['Should do something'])
   end
 
-
   it 'finds description with `shouldn\'t` at the beginning' do
     inspect_source(cop, ['it "shouldn\'t do something" do', 'end'])
     expect(cop.offenses.size).to eq(1)
