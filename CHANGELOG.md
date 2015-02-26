@@ -1,5 +1,9 @@
 # Change log
 
+# master
+
+* Make `RSpec::ExampleWording` case insensitive. ([@geniou][])
+
 ## 1.2.1
 
 * Add `RSpec::VerifiedDoubles` cop. ([@andyw8][])
