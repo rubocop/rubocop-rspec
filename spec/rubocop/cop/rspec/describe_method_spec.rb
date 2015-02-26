@@ -4,7 +4,7 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
   subject(:cop) { described_class.new }
 
   it 'enforces non-method names' do
-    inspect_source(cop, ["describe Some::Class, 'nope' do; end"])
+    inspect_source(cop, "describe Some::Class, 'nope' do; end")
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages)

@@ -4,7 +4,7 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   subject(:cop) { described_class.new }
 
   it 'checks first-line describe statements' do
-    inspect_source(cop, ['describe "bad describe" do; end'])
+    inspect_source(cop, 'describe "bad describe" do; end')
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([1])
     expect(cop.messages).to eq(['The first argument to describe should be ' \
@@ -28,7 +28,7 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   end
 
   it "doesn't blow up on single-line describes" do
-    inspect_source(cop, ['describe Some::Class'])
+    inspect_source(cop, 'describe Some::Class')
     expect(cop.offenses).to be_empty
   end
 end

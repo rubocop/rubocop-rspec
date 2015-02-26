@@ -86,7 +86,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'checks for the use of described class with module' do
-    pending 'TODO'
+    skip
     inspect_source(cop, ['module MyNamespace',
                          '  describe MyClass do',
                          '    subject { MyNamespace::MyClass }',
