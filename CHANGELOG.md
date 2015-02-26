@@ -1,6 +1,6 @@
 # Change log
 
-# master
+# 1.2.2
 
 * Make `RSpec::ExampleWording` case insensitive. ([@geniou][])
 
