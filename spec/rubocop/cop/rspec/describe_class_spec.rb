@@ -27,6 +27,16 @@ describe RuboCop::Cop::RSpec::DescribeClass do
     expect(cop.offenses).to be_empty
   end
 
+  it 'ignores request specs' do
+    inspect_source(cop, "describe 'my new feature', type: :request do; end")
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'ignores feature specs' do
+    inspect_source(cop, "describe 'my new feature', type: :feature do; end")
+    expect(cop.offenses).to be_empty
+  end
+
   it "doesn't blow up on single-line describes" do
     inspect_source(cop, 'describe Some::Class')
     expect(cop.offenses).to be_empty
