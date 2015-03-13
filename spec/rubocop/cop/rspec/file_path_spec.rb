@@ -49,6 +49,12 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
+  it 'skips specs not having a string second argument' do
+    inspect_source(cop, 'describe Some::Class, :config do; end')
+
+    expect(cop.offenses).to be_empty
+  end
+
   it 'checks class specs' do
     inspect_source(cop,
                    'describe Some::Class do; end',

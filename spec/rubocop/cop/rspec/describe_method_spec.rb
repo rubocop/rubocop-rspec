@@ -17,4 +17,10 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
                          "describe Some::Class, '#fdsa' do; end"])
     expect(cop.offenses).to be_empty
   end
+
+  it 'skips specs not having a string second argument' do
+    inspect_source(cop, 'describe Some::Class, :config do; end')
+
+    expect(cop.offenses).to be_empty
+  end
 end
