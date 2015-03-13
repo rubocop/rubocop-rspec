@@ -9,8 +9,6 @@ module RuboCop
         return unless top_level_describe?(node)
 
         _receiver, _method_name, *args = *node
-        # Ignore non-string args (RSpec metadata)
-        args = [args.first] + args[1..-1].select { |a| a.type == :str }
 
         on_top_level_describe(node, args)
       end
