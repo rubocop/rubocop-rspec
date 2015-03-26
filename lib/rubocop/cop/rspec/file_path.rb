@@ -25,10 +25,7 @@ module RuboCop
           object = const_name(args.first)
           return unless object
 
-          method = args[1]
-          return unless method.nil? || method.type == :str
-
-          path_matcher = matcher(object, method)
+          path_matcher = matcher(object, args[1])
           return if source_filename =~ regexp_from_glob(path_matcher)
 
           add_offense(node, :expression, format(MESSAGE, path_matcher))
@@ -38,7 +35,9 @@ module RuboCop
 
         def matcher(object, method)
           path = File.join(parts(object))
-          path += '*' + method.children.first.gsub(/\W+/, '') if method
+          if method && method.type == :str
+            path += '*' + method.children.first.gsub(/\W+/, '')
+          end
 
           "#{path}*_spec.rb"
         end
