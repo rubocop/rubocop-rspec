@@ -2,6 +2,12 @@
 
 # master
 
+* Ignore non string arguments for FilePathCop - thanks to @deivid-rodriguez. ([@geniou][])
+* Skip DescribeMethod cop for tagged specs. ([@deivid-rodriguez][])
+* Skip DescribeClass cop for feature/request specs. ([@deivid-rodriguez][])
+
+# 1.2.2
+
 * Make `RSpec::ExampleWording` case insensitive. ([@geniou][])
 
 ## 1.2.1
@@ -48,6 +54,7 @@
 <!-- Contributors -->
 
 [@andyw8]: https://github.com/andyw8
+[@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
 [@nevir]: https://github.com/nevir
 [@pstengel]: https://github.com/pstengel
