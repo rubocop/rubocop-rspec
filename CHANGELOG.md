@@ -1,6 +1,6 @@
 # Change log
 
-# master
+# 1.3.0
 
 * Ignore non string arguments for FilePathCop - thanks to @deivid-rodriguez. ([@geniou][])
 * Skip DescribeMethod cop for tagged specs. ([@deivid-rodriguez][])
