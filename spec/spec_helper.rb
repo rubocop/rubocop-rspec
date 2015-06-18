@@ -2,8 +2,11 @@
 
 require 'rubocop'
 
-rubocop_gem_path = Gem::Specification.find_by_name('rubocop').gem_dir
-Dir["#{rubocop_gem_path}/spec/support/**/*.rb"].each { |f| require f }
+rubocop_path = File.join(File.dirname(__FILE__), '../vendor/rubocop')
+unless File.directory?(rubocop_path)
+  fail "Can't run specs without a local RuboCop checkout. Look in the README."
+end
+Dir["#{rubocop_path}/spec/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   config.order = :random
