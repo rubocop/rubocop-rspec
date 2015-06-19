@@ -38,7 +38,7 @@ module RuboCop
         end
 
         def autocorrect(range)
-          @corrections << lambda do |corrector|
+          lambda do |corrector|
             corrector.replace(range, corrected_message(range))
           end
         end
