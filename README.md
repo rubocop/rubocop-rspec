@@ -59,7 +59,7 @@ end
 ## The Cops
 
 All cops are located under
-[`lib/rubocop/cop/spec`](lib/rubocop/cop/rspec), and contain
+[`lib/rubocop/cop/rspec`](lib/rubocop/cop/rspec), and contain
 examples/documentation.
 
 In your `.rubocop.yml`, you may treat the RSpec cops just like any other
