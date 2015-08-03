@@ -21,7 +21,7 @@ module RuboCop
         MSG = 'Do not use should when describing your tests.'
 
         def on_block(node) # rubocop:disable Metrics/AbcSize
-          method, _, _ = *node
+          method, = *node
           _, method_name, *args = *method
 
           return unless method_name == :it
@@ -38,7 +38,7 @@ module RuboCop
         end
 
         def autocorrect(range)
-          @corrections << lambda do |corrector|
+          lambda do |corrector|
             corrector.replace(range, corrected_message(range))
           end
         end

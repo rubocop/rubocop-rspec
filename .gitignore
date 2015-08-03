@@ -49,3 +49,5 @@ pkg
 
 # For rubinius:
 #*.rbc
+
+/vendor
