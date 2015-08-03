@@ -1,5 +1,10 @@
 # Change log
 
+# master
+
+* Fix auto correction issue - syntax had changed in RuboCop v0.31. ([@bquorning][])
+* Add RuboCop clone to vendor folder - see #39 for details. ([@bquorning][])
+
 # 1.3.0
 
 * Ignore non string arguments for FilePathCop - thanks to @deivid-rodriguez. ([@geniou][])
@@ -53,7 +58,8 @@
 
 <!-- Contributors -->
 
-[@andyw8]: https://github.com/andyw8
+[@andyw8]: https://github.com/andyw8i
+[@bquorning]: https://github.com/bquorning
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
 [@nevir]: https://github.com/nevir
