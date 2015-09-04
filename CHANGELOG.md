@@ -1,6 +1,6 @@
 # Change log
 
-# master
+# 1.3.1
 
 * Fix auto correction issue - syntax had changed in RuboCop v0.31. ([@bquorning][])
 * Add RuboCop clone to vendor folder - see #39 for details. ([@bquorning][])
