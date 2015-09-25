@@ -51,3 +51,6 @@ pkg
 #*.rbc
 
 /vendor
+
+# Added to not force other to use .rvmrc file.
+.rvmrc
