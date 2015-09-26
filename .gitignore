@@ -52,5 +52,6 @@ pkg
 
 /vendor
 
-# Added to not force other to use .rvmrc file.
+# Added to not force other to use .rvmrc or .overcommit.yml files.
 .rvmrc
+.overcommit.yml

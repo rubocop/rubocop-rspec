@@ -16,3 +16,5 @@ before_install:
  - git clone --depth 1 git://github.com/bbatsov/rubocop.git vendor/rubocop
 script:
   - bundle exec rake
+cache: bundler
+sudo: false
