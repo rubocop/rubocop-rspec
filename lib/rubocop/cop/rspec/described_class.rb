@@ -47,7 +47,7 @@ module RuboCop
 
           node.children.each do |child|
             if child == object
-              name =  object.loc.expression.source
+              name = object.loc.expression.source
               add_offense(child, :expression, format(MESSAGE, name))
               break
             end
