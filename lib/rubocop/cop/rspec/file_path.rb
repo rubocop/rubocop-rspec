@@ -19,6 +19,9 @@ module RuboCop
 
         MESSAGE = 'Spec path should end with `%s`'
         METHOD_STRING_MATCHER = /^[\#\.].+/
+        EXCEPTIONS = {
+          'RSpec' => 'rspec'
+        }
 
         def on_top_level_describe(node, args)
           return unless single_top_level_describe?
@@ -53,11 +56,19 @@ module RuboCop
         end
 
         def camel_to_underscore(string)
-          string.dup.tap do |result|
+          filter_exceptions(string).dup.tap do |result|
             result.gsub!(/([^A-Z])([A-Z]+)/,          '\\1_\\2')
             result.gsub!(/([A-Z])([A-Z][^A-Z]+)/, '\\1_\\2')
             result.downcase!
           end
+        end
+
+        def filter_exceptions(string)
+          output = string.dup
+          EXCEPTIONS.each do |from, to|
+            output.gsub!(from, to)
+          end
+          output
         end
 
         def regexp_from_glob(glob)
