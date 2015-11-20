@@ -73,6 +73,13 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
+  it 'handles exception for class names including RSpec' do
+    inspect_source(cop,
+                   'describe RSpecHelper do; end',
+                   'rspec_helper_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
+
   it 'handles ACRONYMClassNames' do
     inspect_source(cop,
                    'describe ABCOne::Two do; end',
