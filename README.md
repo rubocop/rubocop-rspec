@@ -32,7 +32,7 @@ ways to do this:
 
 ### RuboCop configuration file
 
-Put this into you `.rubocop.yml`.
+Put this into your `.rubocop.yml`.
 
 ```
 require: rubocop-rspec
