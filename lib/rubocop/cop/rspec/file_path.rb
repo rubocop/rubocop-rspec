@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -54,7 +55,7 @@ module RuboCop
 
         def camel_to_underscore(string)
           string.dup.tap do |result|
-            result.gsub!(/([^A-Z])([A-Z]+)/,          '\\1_\\2')
+            result.gsub!(/([^A-Z])([A-Z]+)/, '\\1_\\2')
             result.gsub!(/([A-Z])([A-Z][^A-Z]+)/, '\\1_\\2')
             result.downcase!
           end

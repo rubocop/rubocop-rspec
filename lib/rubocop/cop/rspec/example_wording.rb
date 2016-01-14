@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -20,19 +21,20 @@ module RuboCop
       class ExampleWording < Cop
         MSG = 'Do not use should when describing your tests.'
 
-        def on_block(node) # rubocop:disable Metrics/AbcSize
+        def on_block(node) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/LineLength
           method, = *node
           _, method_name, *args = *method
 
           return unless method_name == :it
 
-          arguments = *(args.first)
+          arguments = *args.first
           message = arguments.first.to_s
           return unless message.downcase.start_with?('should')
 
           arg1 = args.first.loc.expression
-          message = Parser::Source::Range
-            .new(arg1.source_buffer, arg1.begin_pos + 1, arg1.end_pos - 1)
+          message = Parser::Source::Range.new(arg1.source_buffer,
+                                              arg1.begin_pos + 1,
+                                              arg1.end_pos - 1)
 
           add_offense(message, message, MSG)
         end

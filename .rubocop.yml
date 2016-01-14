@@ -2,5 +2,12 @@ Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Style/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+# to be re-enabled once bbatsov/rubocop#2634 is merged
+Style/MutableConstant:
+  Enabled: false
