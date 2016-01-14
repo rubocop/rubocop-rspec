@@ -22,7 +22,7 @@ module RuboCop
 
         def on_top_level_describe(node, args)
           return unless single_top_level_describe?
-          object = const_name(args.first)
+          object = args.first.const_name
           return unless object
 
           path_matcher = matcher(object, args[1])
