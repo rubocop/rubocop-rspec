@@ -1,8 +1,11 @@
+cache: bundler
 language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
+  - 2.2
+  - 2.3
   - ruby-head
   - jruby-19mode
   - rbx-2
@@ -10,6 +13,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: rbx-2
+  fast_finish: true
 before_install:
  - gem update --remote bundler
  - git clone --depth 1 git://github.com/bbatsov/rubocop.git vendor/rubocop
