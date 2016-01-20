@@ -2,6 +2,11 @@
 
 require 'rubocop'
 
+if ENV['TRAVIS']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
 rubocop_path = File.join(File.dirname(__FILE__), '../vendor/rubocop')
 unless File.directory?(rubocop_path)
   fail "Can't run specs without a local RuboCop checkout. Look in the README."
