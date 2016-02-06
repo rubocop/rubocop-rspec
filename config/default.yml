@@ -38,3 +38,8 @@ RSpec/FilePath:
 RSpec/VerifiedDoubles:
   Description: 'Prefer using verifying doubles over normal doubles.'
   Enabled: false
+
+RSpec/NotToNot:
+  Description: 'Enforces the usage of the same method on all negative message expectations.'
+  Enabled: true
+  AcceptedMethod: 'not_to'
