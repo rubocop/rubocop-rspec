@@ -1,17 +1,22 @@
 # Change log
 
-# 1.3.1
+## master (unreleased)
+
+* Update to rubocop 0.37.1
+* Update ruby versions we test against
+
+## 1.3.1
 
 * Fix auto correction issue - syntax had changed in RuboCop v0.31. ([@bquorning][])
 * Add RuboCop clone to vendor folder - see #39 for details. ([@bquorning][])
 
-# 1.3.0
+## 1.3.0
 
 * Ignore non string arguments for FilePathCop - thanks to @deivid-rodriguez. ([@geniou][])
 * Skip DescribeMethod cop for tagged specs. ([@deivid-rodriguez][])
 * Skip DescribeClass cop for feature/request specs. ([@deivid-rodriguez][])
 
-# 1.2.2
+## 1.2.2
 
 * Make `RSpec::ExampleWording` case insensitive. ([@geniou][])
 
