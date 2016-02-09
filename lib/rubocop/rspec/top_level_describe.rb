@@ -26,7 +26,7 @@ module RuboCop
         nodes = describe_statement_children(root_node)
         # If we have no top level describe statements, we need to check any
         # blocks on the top level (e.g. after a require).
-        if nodes.size == 0
+        if nodes.empty?
           nodes = node_children(root_node).map do |child|
             describe_statement_children(child) if child.type == :block
           end.flatten.compact
