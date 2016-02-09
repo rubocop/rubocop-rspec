@@ -2,8 +2,8 @@
 
 ## master (unreleased)
 
-* Update to rubocop 0.37.1
-* Update ruby versions we test against
+* Update to rubocop 0.37.1 ([@nijikon][])
+* Update ruby versions we test against ([@nijikon][])
 
 ## 1.3.1
 
@@ -67,5 +67,7 @@
 [@bquorning]: https://github.com/bquorning
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
+[@jawshooah]: https://github.com/jawshooah
 [@nevir]: https://github.com/nevir
+[@nijikon]: https://github.com/nijikon
 [@pstengel]: https://github.com/pstengel
