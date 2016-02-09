@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -22,7 +23,7 @@ module RuboCop
 
         def on_top_level_describe(node, args)
           return unless single_top_level_describe?
-          object = const_name(args.first)
+          object = args.first.const_name
           return unless object
 
           path_matcher = matcher(object, args[1])
@@ -54,7 +55,7 @@ module RuboCop
 
         def camel_to_underscore(string)
           string.dup.tap do |result|
-            result.gsub!(/([^A-Z])([A-Z]+)/,          '\\1_\\2')
+            result.gsub!(/([^A-Z])([A-Z]+)/, '\\1_\\2')
             result.gsub!(/([A-Z])([A-Z][^A-Z]+)/, '\\1_\\2')
             result.downcase!
           end
