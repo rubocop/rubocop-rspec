@@ -24,5 +24,9 @@ matrix:
     - rvm: rbx-3
   fast_finish: true
 
+addons:
+  code_climate:
+    repo_token: 40adf93a016e2779eef43dce8f16ca10098ed9f498522e87c8bc94cf14f3e977
+
 before_install: gem update --remote bundler
 script: bundle exec rake

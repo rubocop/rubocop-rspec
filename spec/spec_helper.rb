@@ -10,6 +10,11 @@ end
 
 Dir["#{rubocop_path}/spec/support/**/*.rb"].each { |f| require f }
 
+if ENV['CI']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
 RSpec.configure do |config|
   config.order = :random
 
