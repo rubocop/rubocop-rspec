@@ -9,6 +9,7 @@ require 'rubocop/rspec/top_level_describe'
 RuboCop::RSpec::Inject.defaults!
 
 # cops
+require 'rubocop/cop/rspec/any_instance'
 require 'rubocop/cop/rspec/describe_class'
 require 'rubocop/cop/rspec/describe_method'
 require 'rubocop/cop/rspec/described_class'

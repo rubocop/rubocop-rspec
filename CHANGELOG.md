@@ -5,6 +5,7 @@
 * Update to rubocop 0.37.1. ([@nijikon][])
 * Update ruby versions we test against. ([@nijikon][])
 * Add `RSpec::NotToNot` cop. ([@miguelfteixeira][])
+* Add `Rspec/AnyInstance` cop. ([@mlarraz][])
 
 ## 1.3.1
 
@@ -73,3 +74,4 @@
 [@nijikon]: https://github.com/nijikon
 [@pstengel]: https://github.com/pstengel
 [@miguelfteixeira]: https://github.com/miguelfteixeira
+[@mlarraz]: https://github.com/mlarraz
