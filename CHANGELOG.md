@@ -2,8 +2,8 @@
 
 ## master (unreleased)
 
-* Update to rubocop 0.37.1 ([@nijikon][])
-* Update ruby versions we test against ([@nijikon][])
+* Update to rubocop 0.37.1. ([@nijikon][])
+* Update ruby versions we test against. ([@nijikon][])
 
 ## 1.3.1
 
