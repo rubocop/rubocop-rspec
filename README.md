@@ -1,10 +1,10 @@
 # RuboCop RSpec
 
-[![Gem Version](https://badge.fury.io/rb/rubocop-rspec.png)](https://rubygems.org/gems/rubocop-rspec)
-[![Dependency Status](https://gemnasium.com/nevir/rubocop-rspec.png)](https://gemnasium.com/nevir/rubocop-rspec)
-[![Build Status](https://secure.travis-ci.org/nevir/rubocop-rspec.png?branch=master)](http://travis-ci.org/nevir/rubocop-rspec)
-[![Coverage Status](https://codeclimate.com/github/nevir/rubocop-rspec/badges/coverage.png)](https://codeclimate.com/github/nevir/rubocop-rspec/coverage)
-[![Code Climate](https://codeclimate.com/github/nevir/rubocop-rspec.png)](https://codeclimate.com/github/nevir/rubocop-rspec)
+[![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
+[![Dependency Status](https://gemnasium.com/nevir/rubocop-rspec.svg)](https://gemnasium.com/nevir/rubocop-rspec)
+[![Build Status](https://secure.travis-ci.org/nevir/rubocop-rspec.svg?branch=master)](http://travis-ci.org/nevir/rubocop-rspec)
+[![Coverage Status](https://codeclimate.com/github/nevir/rubocop-rspec/badges/coverage.svg)](https://codeclimate.com/github/nevir/rubocop-rspec/coverage)
+[![Code Climate](https://codeclimate.com/github/nevir/rubocop-rspec.svg)](https://codeclimate.com/github/nevir/rubocop-rspec)
 
 RSpec-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/bbatsov/rubocop).
