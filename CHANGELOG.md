@@ -2,7 +2,7 @@
 
 ## master (unreleased)
 
-* Update to rubocop 0.37.1. ([@nijikon][])
+* Update to rubocop 0.37.2. ([@nijikon][])
 * Update ruby versions we test against. ([@nijikon][])
 * Add `RSpec::NotToNot` cop. ([@miguelfteixeira][])
 * Add `Rspec/AnyInstance` cop. ([@mlarraz][])
