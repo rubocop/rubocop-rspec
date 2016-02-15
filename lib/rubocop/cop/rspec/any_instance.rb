@@ -21,13 +21,13 @@ module RuboCop
       #     end
       #   end
       class AnyInstance < Cop
-        MESSAGE = 'Avoid stubbing using `%{method}`'
+        MESSAGE = 'Avoid stubbing using `%{method}`'.freeze
 
         ANY_INSTANCE_METHODS = [
           :any_instance,
           :allow_any_instance_of,
           :expect_any_instance_of
-        ]
+        ].freeze
 
         def on_send(node)
           _receiver, method_name, *_args = *node

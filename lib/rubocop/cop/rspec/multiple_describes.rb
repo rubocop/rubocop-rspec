@@ -24,13 +24,14 @@ module RuboCop
       class MultipleDescribes < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Do not use multiple top level describes - try to nest them.'
+        MSG = 'Do not use multiple top level describes - ' \
+              'try to nest them.'.freeze
 
         def on_top_level_describe(node, _args)
           return if single_top_level_describe?
           return unless top_level_nodes.first == node
 
-          add_offense(node, :expression, MESSAGE)
+          add_offense(node, :expression, MSG)
         end
       end
     end

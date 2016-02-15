@@ -21,7 +21,7 @@ module RuboCop
       class DescribedClass < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Use `described_class` instead of `%s`'
+        MESSAGE = 'Use `described_class` instead of `%s`'.freeze
 
         def on_block(node)
           method, _args, body = *node

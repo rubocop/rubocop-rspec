@@ -25,7 +25,7 @@ module RuboCop
         FEATURE_PAIR = s(:pair, s(:sym, :type), s(:sym, :feature))
 
         MESSAGE = 'The first argument to describe should be the class or ' \
-                  'module being tested.'
+                  'module being tested.'.freeze
 
         def on_top_level_describe(_node, args)
           return if args[0] && args[0].type == :const

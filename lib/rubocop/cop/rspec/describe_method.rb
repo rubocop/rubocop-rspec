@@ -22,7 +22,7 @@ module RuboCop
         include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'The second argument to describe should be the method ' \
-                  "being tested. '#instance' or '.class'"
+                  "being tested. '#instance' or '.class'".freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
 
         def on_top_level_describe(_node, args)
