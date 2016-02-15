@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 1.4.0 (15/02/2016)
+
 * Update to rubocop 0.37.2. ([@nijikon][])
 * Update ruby versions we test against. ([@nijikon][])
 * Add `RSpec::NotToNot` cop. ([@miguelfteixeira][])

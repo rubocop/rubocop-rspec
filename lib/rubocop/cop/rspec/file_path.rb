@@ -18,7 +18,7 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Spec path should end with `%s`'
+        MESSAGE = 'Spec path should end with `%s`'.freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
 
         def on_top_level_describe(node, args)

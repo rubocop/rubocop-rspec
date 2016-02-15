@@ -18,7 +18,7 @@ module RuboCop
       #     widget = instance_double("Widget")
       #   end
       class VerifiedDoubles < Cop
-        MSG = 'Prefer using verifying doubles over normal doubles.'
+        MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
 
         def on_send(node)
           _receiver, method_name, *_args = *node
