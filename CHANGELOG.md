@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+* Ignore routing specs for DescribeClass cop. ([@nijikon][])
+
 ## 1.4.0 (15/02/2016)
 
 * Update to rubocop 0.37.2. ([@nijikon][])
