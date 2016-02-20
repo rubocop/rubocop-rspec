@@ -36,6 +36,11 @@ describe RuboCop::Cop::RSpec::DescribeClass do
     inspect_source(cop, "describe 'my new feature', type: :feature do; end")
     expect(cop.offenses).to be_empty
   end
+  
+  it 'ignores routing specs' do
+    inspect_source(cop, "describe 'my new feature', type: :routing do; end")
+    expect(cop.offenses).to be_empty
+  end
 
   it 'ignores feature specs - also with complex options' do
     inspect_source(cop, ["describe 'my new feature',",
