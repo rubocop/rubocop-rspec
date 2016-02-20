@@ -23,6 +23,7 @@ module RuboCop
 
         REQUEST_PAIR = s(:pair, s(:sym, :type), s(:sym, :request))
         FEATURE_PAIR = s(:pair, s(:sym, :type), s(:sym, :feature))
+        ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         MESSAGE = 'The first argument to describe should be the class or ' \
                   'module being tested.'.freeze
@@ -33,7 +34,7 @@ module RuboCop
           return if args[1..-1].any? do |arg|
             next unless arg.hash_type?
             arg.children.any? do |n|
-              [REQUEST_PAIR, FEATURE_PAIR].include?(n)
+              [REQUEST_PAIR, FEATURE_PAIR, ROUTING_PAIR].include?(n)
             end
           end
 
