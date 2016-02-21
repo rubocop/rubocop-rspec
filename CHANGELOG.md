@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Ignore routing specs for DescribeClass cop. ([@nijikon][])
+* Move rubocop dependency to runtime. ([@nijikon][])
 
 ## 1.4.0 (15/02/2016)
 
