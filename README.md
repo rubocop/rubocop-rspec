@@ -38,7 +38,7 @@ Put this into your `.rubocop.yml`.
 require: rubocop-rspec
 ```
 
-Now you can run `rubocop` and it will automaticly load the RuboCop RSpec
+Now you can run `rubocop` and it will automatically load the RuboCop RSpec
 cops together with the standard cops.
 
 ### Command line
