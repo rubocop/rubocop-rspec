@@ -8,13 +8,22 @@ describe RuboCop::Cop::RSpec::Focus do
     :it, :example, :specify, :xit, :xexample, :xspecify,
     :feature, :scenario, :xfeature, :xscenario
   ].each do |block_type|
-    it "finds focused `#{block_type}` blocks" do
+    it "finds `#{block_type}` blocks with `focus: true`" do
       inspect_source(cop, ["#{block_type} 'test', focus: true do",
                            'end'])
       expect(cop.offenses.size).to eq(1)
       expect(cop.offenses.map(&:line).sort).to eq([1])
       expect(cop.messages).to eq(['Focused spec found.'])
       expect(cop.highlights).to eq(['focus: true'])
+    end
+
+    it "finds `#{block_type}` blocks with `:focus`" do
+      inspect_source(cop, ["#{block_type} 'test', :focus do",
+                           'end'])
+      expect(cop.offenses.size).to eq(1)
+      expect(cop.offenses.map(&:line).sort).to eq([1])
+      expect(cop.messages).to eq(['Focused spec found.'])
+      expect(cop.highlights).to eq([':focus'])
     end
 
     it 'detects no offense when spec is not focused' do
