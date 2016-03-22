@@ -45,8 +45,11 @@ RSpec/VerifiedDoubles:
 
 RSpec/NotToNot:
   Description: 'Enforces the usage of the same method on all negative message expectations.'
+  EnforcedStyle: not_to
+  SupportedStyles:
+    - not_to
+    - to_not
   Enabled: true
-  AcceptedMethod: 'not_to'
 
 RSpec/Focus:
   Description: 'Checks if there are focused specs.'
