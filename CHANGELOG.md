@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+* Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])
+
 ## 1.4.1 (03/04/2016)
 
 * Ignore routing specs for DescribeClass cop. ([@nijikon][])
@@ -83,3 +85,5 @@
 [@pstengel]: https://github.com/pstengel
 [@miguelfteixeira]: https://github.com/miguelfteixeira
 [@mlarraz]: https://github.com/mlarraz
+[@renanborgescampos]: https://github.com/renanborgescampos
+[@jaredmoody]: https://github.com/jaredmoody
