@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^spec/})
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
-  spec.add_runtime_dependency 'rubocop', '0.37.2'
+  spec.add_runtime_dependency 'rubocop', '0.39.0'
 
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '>= 3.4'
