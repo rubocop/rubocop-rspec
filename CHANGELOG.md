@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])
+* Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal][])
 
 ## 1.4.1 (03/04/2016)
 
@@ -87,3 +88,4 @@
 [@mlarraz]: https://github.com/mlarraz
 [@renanborgescampos]: https://github.com/renanborgescampos
 [@jaredmoody]: https://github.com/jaredmoody
+[@baberthal]: https://github.com/baberthal

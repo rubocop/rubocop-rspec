@@ -17,36 +17,37 @@ module RuboCop
       #     expect(false).not_to be_true
       #   end
       class NotToNot < Cop
-        ACCEPTED_METHODS = [:not_to, :to_not].freeze
+        include RuboCop::Cop::ConfigurableEnforcedStyle
+
+        MSG = 'Prefer `%s` over `%s`'.freeze
+
+        METHOD_NAMES = [:not_to, :to_not].freeze
 
         def on_send(node)
           _receiver, method_name, *_args = *node
 
-          if method_name == rejected_method
-            add_offense(node, :expression, offense_message)
+          return unless METHOD_NAMES.include?(method_name)
+
+          return if style == method_name
+          add_offense(node, :expression)
+        end
+
+        def message(node)
+          _receiver, method_name, *_args = *node
+
+          if method_name == :not_to
+            format(MSG, 'to_not', 'not_to')
+          else
+            format(MSG, 'not_to', 'to_not')
           end
         end
 
-        private
-
-        def accepted_method
-          @accepted_method ||= begin
-            method = cop_config['AcceptedMethod'].to_sym
-
-            unless ACCEPTED_METHODS.include?(method)
-              raise "Invalid AcceptedMethod value: #{method}"
-            end
-
-            method
+        def autocorrect(node)
+          _receiver, method_name, *_args = *node
+          lambda do |corrector|
+            corrector.replace(node.loc.selector,
+                              method_name == :not_to ? 'to_not' : 'not_to')
           end
-        end
-
-        def rejected_method
-          @rejected_method ||= (ACCEPTED_METHODS - [accepted_method]).first
-        end
-
-        def offense_message
-          "Use `#{accepted_method}` instead of `#{rejected_method}`"
         end
       end
     end
