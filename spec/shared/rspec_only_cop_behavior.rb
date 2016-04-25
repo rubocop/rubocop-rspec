@@ -4,6 +4,6 @@ RSpec.shared_examples 'an rspec only cop' do
   end
 
   it 'deems spec/feature/thing_spec.rb to be a relevant file' do
-    expect(cop.relevant_file?('spec/feature/thing_spec.rb')).to be(true)
+    expect(cop.relevant_file?('spec/feature/thing_spec.rb')).to be_truthy
   end
 end

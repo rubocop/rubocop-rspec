@@ -13,11 +13,11 @@ describe RuboCop::RSpec::Language::SelectorSet do
 
   context '#include?' do
     it 'returns false for selectors not in the set' do
-      expect(selector_set.include?(:baz)).to be(false)
+      expect(selector_set).not_to include(:baz)
     end
 
     it 'returns true for selectors in the set' do
-      expect(selector_set.include?(:foo)).to be(true)
+      expect(selector_set).to include(:foo)
     end
   end
 
