@@ -7,3 +7,6 @@ Style/MultilineMethodCallIndentation:
 
 Style/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+RSpec/ExampleLength:
+  Max: 19
