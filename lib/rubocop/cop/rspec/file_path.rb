@@ -7,8 +7,8 @@ module RuboCop
       # Checks the path of the spec file and enforces that it reflects the
       # described class/module and its optionally called out method.
       #
-      # With the configuration option `CustomTransform` modules or clases can be
-      # specified that should not as usual be transformed from CamelCase to
+      # With the configuration option `CustomTransform` modules or classes can
+      # be specified that should not as usual be transformed from CamelCase to
       # snake_case (e.g. 'RuboCop' => 'rubocop' ).
       #
       # @example
