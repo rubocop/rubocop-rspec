@@ -2,6 +2,7 @@
 
 ## master (unreleased)
 
+* Handle alphanumeric class names in `FilePath` cop. ([@andyw8][])
 * Skip `DescribeClass` cop for view specs. ([@andyw8][])
 * Skip `FilePath` cop for Rails routing specs. ([@andyw8][])
 * Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])

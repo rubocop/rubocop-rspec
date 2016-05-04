@@ -109,6 +109,15 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
+  it 'handles alphanumeric class names' do
+    inspect_source(
+      cop,
+      'describe IPV6 do; end',
+      'ipv6_spec.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
   it 'checks instance methods' do
     inspect_source(
       cop,
