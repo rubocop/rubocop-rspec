@@ -20,8 +20,11 @@ module RuboCop
 
         MESSAGE = 'Spec path should end with `%s`'.freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
+        ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         def on_top_level_describe(node, args)
+          return if routing_spec?(args)
+
           return unless single_top_level_describe?
           object = args.first.const_name
           return unless object
@@ -33,6 +36,13 @@ module RuboCop
         end
 
         private
+
+        def routing_spec?(args)
+          args[1..-1].any? do |arg|
+            next unless arg.hash_type?
+            arg.children.include?(ROUTING_PAIR)
+          end
+        end
 
         def matcher(object, method)
           path = File.join(parts(object))

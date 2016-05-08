@@ -156,4 +156,11 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
                    'foofoo/some/class/bar_spec.rb')
     expect(cop.offenses).to be_empty
   end
+
+  it 'ignores routing specs' do
+    inspect_source(cop,
+                   'describe MyController, type: :routing do; end',
+                   'foofoo/some/class/bar_spec.rb')
+    expect(cop.offenses).to be_empty
+  end
 end
