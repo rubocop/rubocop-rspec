@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Skip `DescribeClass` cop for view specs. ([@andyw8][])
+* Skip `FilePath` cop for Rails routing specs. ([@andyw8][])
 * Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])
 * Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal][])
 
