@@ -49,6 +49,11 @@ describe RuboCop::Cop::RSpec::DescribeClass do
     expect(cop.offenses).to be_empty
   end
 
+  it 'ignores view specs' do
+    inspect_source(cop, "describe 'widgets/index', type: :view do; end")
+    expect(cop.offenses).to be_empty
+  end
+
   it "doesn't blow up on single-line describes" do
     inspect_source(cop, 'describe Some::Class')
     expect(cop.offenses).to be_empty
