@@ -12,8 +12,13 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   end
 
   it 'checks describe statements after a require' do
-    inspect_source(cop, ["require 'spec_helper'",
-                         'describe "bad describe" do; end'])
+    inspect_source(
+      cop,
+      [
+        "require 'spec_helper'",
+        'describe "bad describe" do; end'
+      ]
+    )
     expect(cop.offenses.size).to eq(1)
     expect(cop.offenses.map(&:line).sort).to eq([2])
     expect(cop.messages).to eq(['The first argument to describe should be ' \
@@ -21,9 +26,14 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   end
 
   it 'ignores nested describe statements' do
-    inspect_source(cop, ['describe Some::Class do',
-                         '  describe "bad describe" do; end',
-                         'end'])
+    inspect_source(
+      cop,
+      [
+        'describe Some::Class do',
+        '  describe "bad describe" do; end',
+        'end'
+      ]
+    )
     expect(cop.offenses).to be_empty
   end
 
@@ -38,9 +48,14 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   end
 
   it 'ignores feature specs - also with complex options' do
-    inspect_source(cop, ["describe 'my new feature',",
-                         '  :test, :type => :feature, :foo => :bar do;',
-                         'end'])
+    inspect_source(
+      cop,
+      [
+        "describe 'my new feature',",
+        '  :test, :type => :feature, :foo => :bar do;',
+        'end'
+      ]
+    )
     expect(cop.offenses).to be_empty
   end
 

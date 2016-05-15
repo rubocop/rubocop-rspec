@@ -37,9 +37,14 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
   end
 
   it 'skips descriptions without `should` at the beginning' do
-    inspect_source(cop, ["it 'finds no should ' \\",
-                         "   'here' do",
-                         'end'])
+    inspect_source(
+      cop,
+      [
+        "it 'finds no should ' \\",
+        "   'here' do",
+        'end'
+      ]
+    )
     expect(cop.offenses).to be_empty
   end
 
@@ -60,8 +65,10 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
   end
 
   it "autocorrects shouldn't" do
-    new_source =
-      autocorrect_source(cop, 'it "shouldn\'t return something" do; end')
+    new_source = autocorrect_source(
+      cop,
+      'it "shouldn\'t return something" do; end'
+    )
     expect(new_source).to eq('it "does not return something" do; end')
   end
 end
