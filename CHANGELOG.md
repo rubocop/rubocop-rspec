@@ -6,6 +6,7 @@
 * Skip `FilePath` cop for Rails routing specs. ([@andyw8][])
 * Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])
 * Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal][])
+* Update to rubocop 0.40.0. ([@nijikon][])
 
 ## 1.4.1 (03/04/2016)
 
