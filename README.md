@@ -85,7 +85,7 @@ This means that in order to run the specs locally, you need a (shallow) clone
 of the RuboCop repository:
 
 ```bash
-git submodule update --init --depth 1 vendor/rubocop
+git submodule update --init vendor/rubocop
 ```
 
 ## License
