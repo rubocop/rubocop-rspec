@@ -2,6 +2,9 @@
 
 ## master (unreleased)
 
+* Expand `VerifiedDoubles` cop to check for `spy` as well as `double`. ([@andyw8][])
+* Enable `VerifiedDoubles` cop by default. ([@andyw8][])
+* Add `IgnoreSymbolicNames` option for `VerifiedDoubles` cop. ([@andyw8][])
 * Add `RSpec::ExampleLength` cop. ([@andyw8][])
 * Handle alphanumeric class names in `FilePath` cop. ([@andyw8][])
 * Skip `DescribeClass` cop for view specs. ([@andyw8][])
