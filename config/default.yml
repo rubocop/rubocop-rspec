@@ -54,3 +54,8 @@ RSpec/NotToNot:
 RSpec/Focus:
   Description: 'Checks if there are focused specs.'
   Enabled: true
+
+RSpec/ExampleLength:
+  Description: 'Checks for long example'
+  Enabled: true
+  Max: 5

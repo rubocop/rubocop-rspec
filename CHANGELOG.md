@@ -2,6 +2,7 @@
 
 ## master (unreleased)
 
+* Add `RSpec::ExampleLength` cop. ([@andyw8][])
 * Handle alphanumeric class names in `FilePath` cop. ([@andyw8][])
 * Skip `DescribeClass` cop for view specs. ([@andyw8][])
 * Skip `FilePath` cop for Rails routing specs. ([@andyw8][])
