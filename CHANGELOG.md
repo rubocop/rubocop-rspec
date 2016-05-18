@@ -84,7 +84,7 @@
 
 <!-- Contributors -->
 
-[@andyw8]: https://github.com/andyw8i
+[@andyw8]: https://github.com/andyw8
 [@bquorning]: https://github.com/bquorning
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
