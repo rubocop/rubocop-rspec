@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 1.5.0 (2016-05-17)
+
 * Expand `VerifiedDoubles` cop to check for `spy` as well as `double`. ([@andyw8][])
 * Enable `VerifiedDoubles` cop by default. ([@andyw8][])
 * Add `IgnoreSymbolicNames` option for `VerifiedDoubles` cop. ([@andyw8][])
