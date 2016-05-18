@@ -13,13 +13,13 @@
 * Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal][])
 * Update to rubocop 0.40.0. ([@nijikon][])
 
-## 1.4.1 (03/04/2016)
+## 1.4.1 (2016-04-03)
 
 * Ignore routing specs for DescribeClass cop. ([@nijikon][])
 * Move rubocop dependency to runtime. ([@nijikon][])
 * Update to rubocop 0.39.0. ([@nijikon][])
 
-## 1.4.0 (15/02/2016)
+## 1.4.0 (2016-02-15)
 
 * Update to rubocop 0.37.2. ([@nijikon][])
 * Update ruby versions we test against. ([@nijikon][])
