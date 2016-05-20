@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+* Fix `unrecognized parameter RSpec/VerifiedDoubles:IgnoreSymbolicNames` warning. ([@jeffreyc][])
+
 ## 1.5.0 (2016-05-17)
 
 * Expand `VerifiedDoubles` cop to check for `spy` as well as `double`. ([@andyw8][])
@@ -99,3 +101,4 @@
 [@renanborgescampos]: https://github.com/renanborgescampos
 [@jaredmoody]: https://github.com/jaredmoody
 [@baberthal]: https://github.com/baberthal
+[@jeffreyc]: https://github.com/jeffreyc
