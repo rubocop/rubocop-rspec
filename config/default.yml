@@ -42,6 +42,7 @@ RSpec/FilePath:
 RSpec/VerifiedDoubles:
   Description: 'Prefer using verifying doubles over normal doubles.'
   Enabled: true
+  IgnoreSymbolicNames: false
 
 RSpec/NotToNot:
   Description: 'Enforces the usage of the same method on all negative message expectations.'
