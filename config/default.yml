@@ -14,6 +14,10 @@ RSpec/BeEql:
   Description: 'Check for expectations where `be(...)` can be used instead of `eql(...)`'
   Enabled: true
 
+RSpec/DefaultHookArgument:
+  Description: 'Omit the default `:each` argument for RSpec hooks.'
+  Enabled: true
+
 RSpec/DescribeClass:
   Description: 'Check that the first argument to the top level describe is the tested class or module.'
   Enabled: true
