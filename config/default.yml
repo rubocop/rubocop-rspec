@@ -39,6 +39,10 @@ RSpec/FilePath:
     RuboCop: rubocop
     RSpec: rspec
 
+RSpec/UnspecifiedValidation:
+  Description: 'Specify fields for validation.'
+  Enabled: true
+
 RSpec/VerifiedDoubles:
   Description: 'Prefer using verifying doubles over normal doubles.'
   Enabled: true
