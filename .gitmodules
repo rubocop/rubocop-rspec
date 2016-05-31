@@ -1,3 +1,0 @@
-[submodule "vendor/rubocop"]
-    path = vendor/rubocop
-    url = https://github.com/bbatsov/rubocop.git
