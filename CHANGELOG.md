@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Fix `unrecognized parameter RSpec/VerifiedDoubles:IgnoreSymbolicNames` warning. ([@jeffreyc][])
+* Add 'RSpec::DocString` cop to check quoting for examples/example groups. ([@tjwp][])
 
 ## 1.5.0 (2016-05-17)
 
@@ -102,3 +103,4 @@
 [@jaredmoody]: https://github.com/jaredmoody
 [@baberthal]: https://github.com/baberthal
 [@jeffreyc]: https://github.com/jeffreyc
+[@tjwp]: https://github.com/tjwp
