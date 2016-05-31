@@ -14,6 +14,14 @@ RSpec/DescribeMethod:
   Description: 'Checks that the second argument to top level describe is the tested method name.'
   Enabled: true
 
+RSpec/DocString:
+  Description: 'Check that RSpec doc strings use the correct quoting.'
+  Enabled: false
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
 RSpec/ExampleWording:
   Description: 'Do not use should when describing your tests.'
   Enabled: true
