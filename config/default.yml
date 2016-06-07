@@ -23,6 +23,9 @@ RSpec/ExampleWording:
     not: does not
   IgnoredWords: []
 
+RSpec/BeforeAfterAll:
+  Description: 'Do not use before/after(:all).'
+  Enabled: true
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
