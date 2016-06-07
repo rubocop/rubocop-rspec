@@ -16,8 +16,8 @@ describe RuboCop::Cop::RSpec::BeforeAfterAll do
     expect(cop.offenses.size).to eq(2)
     expect(cop.offenses.map(&:line).sort).to eq([2, 3])
     expect(cop.messages).to eq([
-      'Avoid the use of before/after(:all)',
-      'Avoid the use of before/after(:all)'
+      'Avoid the use of before/after(:all) to avoid specs flakyness when split out',
+      'Avoid the use of before/after(:all) to avoid specs flakyness when split out'
     ])
   end
 
