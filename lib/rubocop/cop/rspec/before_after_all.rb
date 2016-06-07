@@ -4,7 +4,8 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that before/after(:all) isn't being used
+      # Check that before/after(:all) isn't being used.
+      # This leads to flaky tests when being split out.
       #
       # @example
       #   # bad

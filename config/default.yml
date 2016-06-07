@@ -49,6 +49,10 @@ RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
 
+RSpec/BeforeAfterAll:
+  Description: 'Do not use before/after(:all).'
+  Enabled: false
+
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent with the test subject.
   Enabled: true
