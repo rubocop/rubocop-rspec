@@ -25,7 +25,7 @@ RSpec/ExampleWording:
 
 RSpec/BeforeAfterAll:
   Description: 'Do not use before/after(:all).'
-  Enabled: true
+  Enabled: false
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
