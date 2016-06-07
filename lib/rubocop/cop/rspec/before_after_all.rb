@@ -4,8 +4,8 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that before/after(:all) isn't being used.
-      # This leads to flaky tests when being split out.
+      # Check that before/after(:all) isn't being used as they are not rolled back.
+      # See https://relishapp.com/rspec/rspec-rails/docs/transactions
       #
       # @example
       #   # bad
@@ -20,7 +20,7 @@ module RuboCop
       #     after(:each) { do_something_else }
       #   end
       class BeforeAfterAll < Cop
-        MESSAGE = 'Avoid the use of before/after(:all) to avoid specs flakiness when split out'.freeze
+        MESSAGE = 'Avoid the use of before/after(:all) as they are not rolled back and leads to flakiness'.freeze
 
         BEFORE_AFTER_METHODS = [
           :before,
