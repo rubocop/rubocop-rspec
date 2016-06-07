@@ -20,7 +20,7 @@ module RuboCop
       #     after(:each) { do_something_else }
       #   end
       class BeforeAfterAll < Cop
-        MESSAGE = 'Avoid the use of before/after(:all) as they are not rolled back and leads to flakiness'.freeze
+        MESSAGE = 'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples'.freeze
 
         BEFORE_AFTER_METHODS = [
           :before,

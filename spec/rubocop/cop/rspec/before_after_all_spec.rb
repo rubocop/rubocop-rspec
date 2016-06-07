@@ -16,8 +16,8 @@ describe RuboCop::Cop::RSpec::BeforeAfterAll do
     expect(cop.offenses.size).to eq(2)
     expect(cop.offenses.map(&:line).sort).to eq([2, 3])
     expect(cop.messages).to eq([
-      'Avoid the use of before/after(:all) as they are not rolled back and leads to flakiness',
-      'Avoid the use of before/after(:all) as they are not rolled back and leads to flakiness',
+      'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples',
+      'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples',
     ])
   end
 
