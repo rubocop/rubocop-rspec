@@ -50,7 +50,7 @@ RSpec/ExpectActual:
   Enabled: true
 
 RSpec/BeforeAfterAll:
-  Description: 'Do not use before/after(:all).'
+  Description: 'Avoid the use of before/after(:all) as they are not rolled back and leads to flakiness.'
   Enabled: false
 
 RSpec/FilePath:
