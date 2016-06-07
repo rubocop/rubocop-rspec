@@ -20,7 +20,7 @@ module RuboCop
       #     after(:each) { do_something_else }
       #   end
       class BeforeAfterAll < Cop
-        MESSAGE = 'Avoid the use of before/after(:all)'.freeze
+        MESSAGE = 'Avoid the use of before/after(:all) to avoid specs flakyness when split out'.freeze
 
         BEFORE_AFTER_METHODS = [
           :before,
