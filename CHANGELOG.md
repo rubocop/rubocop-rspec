@@ -1,8 +1,9 @@
 # Change log
 
-## master (unreleased)
+## 1.5.1 (2016-07-20)
 
 * Fix `unrecognized parameter RSpec/VerifiedDoubles:IgnoreSymbolicNames` warning. ([@jeffreyc][])
+* Update to rubocop 0.41.2. ([@backus][])
 
 ## 1.5.0 (2016-05-17)
 
@@ -89,6 +90,7 @@
 <!-- Contributors -->
 
 [@andyw8]: https://github.com/andyw8
+[@backus]: https://github.com/backus
 [@bquorning]: https://github.com/bquorning
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou

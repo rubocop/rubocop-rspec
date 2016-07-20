@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 1.9.3'
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.require_paths = ['lib']
   spec.files = Dir[
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^spec/})
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
-  spec.add_runtime_dependency 'rubocop', '>= 0.40.0'
+  spec.add_runtime_dependency 'rubocop', '>= 0.41.2'
 
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '>= 3.4'
