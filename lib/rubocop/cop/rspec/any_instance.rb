@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module RuboCop
   module Cop
     module RSpec

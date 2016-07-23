@@ -1,4 +1,3 @@
-# encoding: utf-8
 module RuboCop
   module RSpec
     # Because RuboCop doesn't yet support plugins, we have to monkey patch in a
