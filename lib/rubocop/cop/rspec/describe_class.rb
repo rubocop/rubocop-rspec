@@ -29,16 +29,15 @@ module RuboCop
                   'module being tested.'.freeze
 
         def on_top_level_describe(_node, args)
-          return if args[0] && args[0].type == :const
+          return if args.empty? || args.first.type.equal?(:const)
 
-          return if args[1..-1].any? do |arg|
-            next unless arg.hash_type?
+          return if args.any? do |arg|
             arg.children.any? do |n|
               [REQUEST_PAIR, FEATURE_PAIR, ROUTING_PAIR, VIEW_PAIR].include?(n)
             end
           end
 
-          add_offense(args[0], :expression, MESSAGE)
+          add_offense(args.first, :expression, MESSAGE)
         end
       end
     end
