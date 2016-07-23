@@ -45,6 +45,12 @@ describe RuboCop::Cop::RSpec::DescribeClass do
     expect(cop.offenses).to be_empty
   end
 
+  it 'flags specs with non :type metadata' do
+    inspect_source(cop, "describe 'my new feature', foo: :feature do; end")
+    expect(cop.messages).to eq(['The first argument to describe should be ' \
+                                'the class or module being tested.'])
+  end
+
   it 'flags normal metadata in describe' do
     inspect_source(cop, "describe 'my new feature', blah, type: :wow do; end")
     expect(cop.messages).to eq(['The first argument to describe should be ' \
