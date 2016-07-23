@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 describe RuboCop::Cop::RSpec::AnyInstance do
   subject(:cop) { described_class.new }
 
