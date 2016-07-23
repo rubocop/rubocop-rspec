@@ -18,23 +18,16 @@ module RuboCop
       #   end
       class VerifiedDoubles < Cop
         MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
-        DOUBLE_TYPES = [:double, :spy].freeze
+
+        def_node_matcher :unverified_double, <<-PATTERN
+          {(send nil {:double :spy} $_ ...) }
+        PATTERN
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          name, *_stubs = *args
-          return unless DOUBLE_TYPES.include?(method_name)
-          return if name.nil?
-          return if name_is_symbol?(name) && cop_config['IgnoreSymbolicNames']
-          add_offense(node,
-                      :expression,
-                      format(MSG, node.loc.expression.source))
-        end
+          return unless (name = unverified_double(node))
+          return if name.type.equal?(:sym) && cop_config['IgnoreSymbolicNames']
 
-        private
-
-        def name_is_symbol?(name)
-          name.children.first.is_a? Symbol
+          add_offense(node, :expression)
         end
       end
     end
