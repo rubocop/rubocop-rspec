@@ -1,5 +1,9 @@
 # Change log
 
+## Master (unreleased)
+
+* Drop support for ruby `2.0.0`. ([@backus][])
+
 ## 1.5.1 (2016-07-20)
 
 * Fix `unrecognized parameter RSpec/VerifiedDoubles:IgnoreSymbolicNames` warning. ([@jeffreyc][])
