@@ -10,7 +10,7 @@ describe RuboCop::Cop::RSpec::Focus do
       inspect_source(
         cop,
         [
-          "#{block_type} 'test', focus: true do",
+          "#{block_type} 'test', meta: true, focus: true do",
           'end'
         ]
       )
@@ -44,6 +44,16 @@ describe RuboCop::Cop::RSpec::Focus do
       )
       expect(subject.messages).to be_empty
     end
+  end
+
+  it 'does not flag a method that is focused twice' do
+    inspect_source(cop, 'fit "foo", :focus do; end')
+    expect(cop.offenses.size).to be(1)
+  end
+
+  it 'ignores non-rspec code with :focus blocks' do
+    inspect_source(cop, 'some_method "foo", focus: true do; end')
+    expect(cop.offenses).to be_empty
   end
 
   [
