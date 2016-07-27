@@ -23,32 +23,32 @@ module RuboCop
         MSG = 'Focused spec found.'.freeze
 
         FOCUSABLE_SELECTORS = '
-          :example_group
-          :describe
           :context
-          :xdescribe
-          :xcontext
-          :it
+          :describe
           :example
-          :specify
-          :xit
-          :xexample
-          :xspecify
+          :example_group
           :feature
+          :it
           :scenario
+          :specify
+          :xcontext
+          :xdescribe
+          :xexample
           :xfeature
+          :xit
           :xscenario
+          :xspecify
         '.freeze
 
         FOCUSING_SELECTORS = '
-          :fdescribe
           :fcontext
-          :focus
+          :fdescribe
           :fexample
-          :fit
-          :fspecify
           :ffeature
+          :fit
+          :focus
           :fscenario
+          :fspecify
         '.freeze
 
         FOCUS_SYMBOL = s(:sym, :focus)
