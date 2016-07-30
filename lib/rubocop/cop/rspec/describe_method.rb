@@ -24,8 +24,7 @@ module RuboCop
                   "being tested. '#instance' or '.class'".freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
 
-        def on_top_level_describe(_node, args)
-          second_arg = args[1]
+        def on_top_level_describe(_node, (_, second_arg))
           return unless second_arg && second_arg.type.equal?(:str)
           return if METHOD_STRING_MATCHER =~ second_arg.children.first
 
