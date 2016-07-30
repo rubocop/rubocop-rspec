@@ -36,7 +36,6 @@ module RuboCop
             :expression,
             format(
               MESSAGE % { method: method_name },
-              node.loc.expression.source
             )
           )
         end
