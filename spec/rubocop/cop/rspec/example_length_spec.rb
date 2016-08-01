@@ -43,7 +43,7 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
     expect(cop.offenses).to be_empty
   end
 
-  it 'doesn\t allow a long example' do
+  it "doesn't allow a long example" do
     inspect_source(
       cop,
       [
