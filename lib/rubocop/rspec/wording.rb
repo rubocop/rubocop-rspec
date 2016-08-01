@@ -28,7 +28,7 @@ module RuboCop
       attr_reader :text, :ignores, :replacements
 
       def simple_present(word)
-        return replacements[word] if replacements[word]
+        return replacements.fetch(word) if replacements.key?(word)
 
         # ends with o s x ch sh or ss
         if %w(o s x ch sh).any?(&word.public_method(:end_with?))
