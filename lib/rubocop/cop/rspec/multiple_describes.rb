@@ -28,9 +28,9 @@ module RuboCop
 
         def on_top_level_describe(node, _args)
           return if single_top_level_describe?
-          return unless top_level_nodes.first == node
+          return unless top_level_nodes.first.equal?(node)
 
-          add_offense(node, :expression, MSG)
+          add_offense(node, :expression)
         end
       end
     end
