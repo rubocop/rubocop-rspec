@@ -31,14 +31,7 @@ module RuboCop
           _receiver, method_name, *_args = *node
           return unless ANY_INSTANCE_METHODS.include?(method_name)
 
-          add_offense(
-            node,
-            :expression,
-            format(
-              MESSAGE % { method: method_name },
-              node.loc.expression.source
-            )
-          )
+          add_offense(node, :expression, MESSAGE % { method: method_name })
         end
       end
     end
