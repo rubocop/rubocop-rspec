@@ -4,14 +4,14 @@ module RuboCop
   module RSpec
     # RSpec example wording rewriter
     class Wording
-      def initialize(range, ignore:, replace:)
-        @range        = range
+      def initialize(text, ignore:, replace:)
+        @text         = text
         @ignores      = ignore
         @replacements = replace
       end
 
       def rewrite
-        range.source.split(' ').tap do |words|
+        text.split(' ').tap do |words|
           first_word = words.shift
           words.unshift('not') if first_word == "shouldn't"
 
@@ -25,7 +25,7 @@ module RuboCop
 
       private
 
-      attr_reader :range, :ignores, :replacements
+      attr_reader :text, :ignores, :replacements
 
       def simple_present(word)
         return replacements[word] if replacements[word]

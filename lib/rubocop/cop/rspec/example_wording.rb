@@ -43,7 +43,7 @@ module RuboCop
             corrector.replace(
               range,
               RuboCop::RSpec::Wording.new(
-                range,
+                range.source,
                 ignore: ignored_words,
                 replace: custom_transform
               ).rewrite
