@@ -34,23 +34,19 @@ module RuboCop
 
           length = code_length(node)
 
-          return unless length > max
-          add_offense(node, :expression, message(length, max))
+          return unless length > max_length
+          add_offense(node, :expression, message(length))
         end
 
         private
 
-        def max
-          cop_config['Max']
-        end
-
         def code_length(node)
-          lines = node.source.lines.to_a[1..-2] || []
+          lines = node.source.lines[1..-2]
 
           lines.count { |line| !irrelevant_line(line) }
         end
 
-        def message(length, max_length)
+        def message(length)
           format('Example has too many lines. [%d/%d]', length, max_length)
         end
       end

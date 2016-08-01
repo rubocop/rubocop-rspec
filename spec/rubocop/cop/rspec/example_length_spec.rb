@@ -2,6 +2,22 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
   subject(:cop) { described_class.new(config) }
   let(:cop_config) { { 'Max' => 3 } }
 
+  it 'ignores non-spec blocks' do
+    inspect_source(
+      cop,
+      [
+        'foo do',
+        '  line 1',
+        '  line 2',
+        '  line 3',
+        '  line 4',
+        'end'
+      ]
+    )
+
+    expect(cop.offenses).to be_empty
+  end
+
   it 'allows an empty example' do
     inspect_source(
       cop,
@@ -27,7 +43,7 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
     expect(cop.offenses).to be_empty
   end
 
-  it 'doesn\t allow a long example' do
+  it "doesn't allow a long example" do
     inspect_source(
       cop,
       [
