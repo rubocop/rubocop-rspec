@@ -27,7 +27,6 @@ module RuboCop
           return unless top_level_describe?(method)
 
           _receiver, method_name, object = *method
-          return unless method_name == :describe
           return unless object && object.type.equal?(:const)
 
           inspect_children(body, object)
