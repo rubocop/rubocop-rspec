@@ -9,6 +9,11 @@ describe RuboCop::Cop::RSpec::DescribeClass do
                                 'the class or module being tested.'])
   end
 
+  it 'supports RSpec.describe' do
+    inspect_source(cop, 'RSpec.describe Foo do; end')
+    expect(cop.offenses).to be_empty
+  end
+
   it 'checks describe statements after a require' do
     inspect_source(
       cop,
@@ -47,6 +52,15 @@ describe RuboCop::Cop::RSpec::DescribeClass do
 
   it 'ignores feature specs' do
     inspect_source(cop, "describe 'my new feature', type: :feature do; end")
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'ignores feature specs when RSpec.describe is used' do
+    inspect_source(
+      cop,
+      "RSpec.describe 'my new feature', type: :feature do; end"
+    )
+
     expect(cop.offenses).to be_empty
   end
 
