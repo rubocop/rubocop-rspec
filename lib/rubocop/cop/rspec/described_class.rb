@@ -26,7 +26,7 @@ module RuboCop
           method, _args, body = *node
           return unless top_level_describe?(method)
 
-          _receiver, method_name, object = *method
+          _receiver, _method_name, object = *method
           return unless object && object.type.equal?(:const)
 
           inspect_children(body, object)
@@ -45,7 +45,7 @@ module RuboCop
           return if scope_change?(node) || node.type.equal?(:const)
 
           node.children.each do |child|
-            if child == object
+            if child.eql?(object)
               name = object.loc.expression.source
               add_offense(child, :expression, format(MESSAGE, name))
             end
