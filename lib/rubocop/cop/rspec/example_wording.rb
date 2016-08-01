@@ -54,11 +54,11 @@ module RuboCop
         private
 
         def custom_transform
-          cop_config['CustomTransform'] || []
+          cop_config.fetch('CustomTransform', {})
         end
 
         def ignored_words
-          cop_config['IgnoredWords'] || []
+          cop_config.fetch('IgnoredWords', [])
         end
 
         class Corrector
