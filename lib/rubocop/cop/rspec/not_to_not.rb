@@ -26,14 +26,14 @@ module RuboCop
 
           return unless METHOD_NAMES.include?(method_name)
 
-          return if style == method_name
+          return if style.equal?(method_name)
           add_offense(node, :expression)
         end
 
         def message(node)
           _receiver, method_name, *_args = *node
 
-          if method_name == :not_to
+          if method_name.equal?(:not_to)
             format(MSG, 'to_not', 'not_to')
           else
             format(MSG, 'not_to', 'to_not')
@@ -44,7 +44,7 @@ module RuboCop
           _receiver, method_name, *_args = *node
           lambda do |corrector|
             corrector.replace(node.loc.selector,
-                              method_name == :not_to ? 'to_not' : 'not_to')
+                              method_name.equal?(:not_to) ? 'to_not' : 'not_to')
           end
         end
       end
