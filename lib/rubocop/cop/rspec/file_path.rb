@@ -44,8 +44,8 @@ module RuboCop
 
         def matcher(object, method)
           path = File.join(parts(object))
-          if method && method.type == :str
-            path += '*' + method.children.first.gsub(/\W+/, '')
+          if method && method.type.equal?(:str)
+            path += '*' + method.str_content.gsub(/\W+/, '')
           end
 
           "#{path}*_spec.rb"

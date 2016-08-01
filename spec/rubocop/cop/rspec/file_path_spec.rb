@@ -191,6 +191,15 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
+  it 'allows bang method' do
+    inspect_source(
+      cop,
+      "describe Some::Class, '#bang!' do; end",
+      'some/class/bang_spec.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
   it 'allows flexibility with predicates' do
     inspect_source(
       cop,
