@@ -53,40 +53,21 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
       expect(cop.offenses).to be_empty
     end
 
-    {
-      'should return something' => 'returns something',
-      'should not return something' => 'does not return something',
-      'should do nothing' => 'does nothing',
-      'should have sweets' => 'has sweets',
-      'should worry about the future' => 'worries about the future',
-      'should pay for pizza' => 'pays for pizza',
-      'should miss me' => 'misses me',
-      'should really only return one item' => 'really only returns one item'
-    }.each do |old, new|
-      it 'autocorrects an offenses' do
-        new_source = autocorrect_source(cop, ["it '#{old}' do", 'end'])
-        expect(new_source).to eq("it '#{new}' do\nend")
-      end
-    end
-
-    it "autocorrects shouldn't" do
-      new_source = autocorrect_source(
-        cop,
-        'it "shouldn\'t return something" do; end'
-      )
-      expect(new_source).to eq('it "does not return something" do; end')
-    end
-
-    it 'corrects `it "should have"` to it "has"' do
-      corrected = autocorrect_source(cop, 'it "should have trait" do end')
-      expect(corrected).to eql('it "has trait" do end')
+    it 'corrects `it "should only have"` to it "only has"' do
+      corrected = autocorrect_source(cop, 'it "should only have trait" do end')
+      expect(corrected).to eql('it "only has trait" do end')
     end
   end
 
   context 'when configuration is empty' do
-    it 'only corrects the word "should"' do
+    it 'only does not correct "have"' do
       corrected = autocorrect_source(cop, 'it "should have trait" do end')
       expect(corrected).to eql('it "haves trait" do end')
+    end
+
+    it 'only does not make an exception for the word "only"' do
+      corrected = autocorrect_source(cop, 'it "should only fail" do end')
+      expect(corrected).to eql('it "onlies fail" do end')
     end
   end
 end
