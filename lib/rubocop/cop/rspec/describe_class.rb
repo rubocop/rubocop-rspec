@@ -24,11 +24,11 @@ module RuboCop
               'the class or module being tested.'.freeze
 
         def_node_matcher :valid_describe?, <<-PATTERN
-        {(send nil :describe const ...) (send nil :describe)}
+        {(send {(const nil :RSpec) nil} :describe const ...) (send nil :describe)}
         PATTERN
 
         def_node_matcher :describe_with_metadata, <<-PATTERN
-        (send nil :describe
+        (send {(const nil :RSpec) nil} :describe
           !const
           ...
           (hash $...))
