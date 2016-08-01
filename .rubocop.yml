@@ -1,3 +1,7 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.1
+
 Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
