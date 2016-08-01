@@ -123,6 +123,38 @@ describe RuboCop::Cop::RSpec::DescribedClass do
     expect(cop.highlights).to eq(['MyNamespace::MyClass'])
   end
 
+  it 'does not flag violations within a scope change' do
+    inspect_source(
+      cop,
+      [
+        'describe MyNamespace::MyClass do',
+        '  before do',
+        '    class Foo',
+        '      thing = MyNamespace::MyClass.new',
+        '    end',
+        '  end',
+        'end'
+      ]
+    )
+
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'does not flag violations within a scope change' do
+    inspect_source(
+      cop,
+      [
+        'describe do',
+        '  before do',
+        '    MyNamespace::MyClass.new',
+        '  end',
+        'end'
+      ]
+    )
+
+    expect(cop.offenses).to be_empty
+  end
+
   it 'checks for the use of described class with module' do
     skip
     inspect_source(
