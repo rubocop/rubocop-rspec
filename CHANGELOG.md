@@ -2,7 +2,10 @@
 
 ## Master (unreleased)
 
-* Drop support for ruby `2.0.0`. ([@backus][])
+## 1.5.2 (2016-08-01)
+
+* Drop support for ruby `2.0.0` and `2.1.0`. ([@backus][])
+* Internal refactorings and improved test coverage. ([@backus][])
 
 ## 1.5.1 (2016-07-20)
 
