@@ -122,8 +122,8 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
   it 'handles alphanumeric class names' do
     inspect_source(
       cop,
-      'describe IPV6 do; end',
-      'ipv6_spec.rb'
+      'describe IPv4AndIPv6 do; end',
+      'i_pv4_and_i_pv6_spec.rb'
     )
     expect(cop.offenses).to be_empty
   end
@@ -203,8 +203,8 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
   it 'allows flexibility with operators' do
     inspect_source(
       cop,
-      "describe MyClass, '#<=>' do; end",
-      'my_class/spaceship_operator_spec.rb'
+      "describe MyLittleClass, '#<=>' do; end",
+      'my_little_class/spaceship_operator_spec.rb'
     )
     expect(cop.offenses).to be_empty
   end
