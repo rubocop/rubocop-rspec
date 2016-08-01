@@ -3,6 +3,7 @@ require 'rubocop'
 require 'rubocop/rspec/version'
 require 'rubocop/rspec/inject'
 require 'rubocop/rspec/top_level_describe'
+require 'rubocop/rspec/wording'
 
 RuboCop::RSpec::Inject.defaults!
 

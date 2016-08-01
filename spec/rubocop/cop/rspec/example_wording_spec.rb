@@ -76,6 +76,11 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
       )
       expect(new_source).to eq('it "does not return something" do; end')
     end
+
+    it 'corrects `it "should have"` to it "has"' do
+      corrected = autocorrect_source(cop, 'it "should have trait" do end')
+      expect(corrected).to eql('it "has trait" do end')
+    end
   end
 
   context 'when configuration is empty' do
