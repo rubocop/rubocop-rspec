@@ -35,7 +35,7 @@ module RuboCop
                                               arg1.begin_pos + 1,
                                               arg1.end_pos - 1)
 
-          add_offense(message, message, MSG)
+          add_offense(message, message)
         end
 
         def autocorrect(range)
