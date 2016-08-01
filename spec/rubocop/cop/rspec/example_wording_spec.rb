@@ -7,6 +7,11 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     }
   end
 
+  it 'ignores non-example blocks' do
+    inspect_source(cop, 'foo "should do something" do; end')
+    expect(cop.offenses).to be_empty
+  end
+
   it 'finds description with `should` at the beginning' do
     inspect_source(cop, ["it 'should do something' do", 'end'])
     expect(cop.offenses.size).to eq(1)
