@@ -28,7 +28,7 @@ module RuboCop
           object = args.first.const_name
           return unless object
 
-          path_matcher = matcher(object, args[1])
+          path_matcher = matcher(object, args.at(1))
           return if source_filename =~ regexp_from_glob(path_matcher)
 
           add_offense(node, :expression, format(MESSAGE, path_matcher))

@@ -26,6 +26,18 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
       .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
   end
 
+  it 'checks path even when metadata is included' do
+    inspect_source(
+      cop,
+      "describe MyClass, '#foo', blah: :blah do; end",
+      'wrong_class_foo_spec.rb'
+    )
+    expect(cop.offenses.size).to eq(1)
+    expect(cop.offenses.map(&:line).sort).to eq([1])
+    expect(cop.messages)
+      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
+  end
+
   it 'checks class spec paths' do
     inspect_source(
       cop,
