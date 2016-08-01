@@ -48,7 +48,6 @@ module RuboCop
             if child == object
               name = object.loc.expression.source
               add_offense(child, :expression, format(MESSAGE, name))
-              break
             end
             inspect_children(child, object)
           end
