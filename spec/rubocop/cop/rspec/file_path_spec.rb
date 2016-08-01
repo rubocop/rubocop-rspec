@@ -1,6 +1,5 @@
 describe RuboCop::Cop::RSpec::FilePath, :config do
   subject(:cop) { described_class.new(config) }
-  let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
   it 'checks the path' do
     inspect_source(
@@ -236,21 +235,25 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
-  it 'respects custom module name transformation' do
-    inspect_source(
-      cop,
-      "describe FooFoo::Some::Class, '#bar' do; end",
-      'foofoo/some/class/bar_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
-  end
+  context 'when configured' do
+    let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
-  it 'ignores routing specs' do
-    inspect_source(
-      cop,
-      'describe MyController, "#foo", type: :routing do; end',
-      'foofoo/some/class/bar_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
+    it 'respects custom module name transformation' do
+      inspect_source(
+        cop,
+        "describe FooFoo::Some::Class, '#bar' do; end",
+        'foofoo/some/class/bar_spec.rb'
+      )
+      expect(cop.offenses).to be_empty
+    end
+
+    it 'ignores routing specs' do
+      inspect_source(
+        cop,
+        'describe MyController, "#foo", type: :routing do; end',
+        'foofoo/some/class/bar_spec.rb'
+      )
+      expect(cop.offenses).to be_empty
+    end
   end
 end

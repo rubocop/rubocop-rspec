@@ -73,7 +73,7 @@ module RuboCop
         end
 
         def custom_transform
-          cop_config['CustomTransform'] || []
+          cop_config['CustomTransform'] || {}
         end
       end
     end
