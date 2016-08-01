@@ -20,8 +20,6 @@ module RuboCop
       class DescribeClass < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        RAILS_METADATA_TYPES = %i(request feature routing view).freeze
-
         MSG = 'The first argument to describe should be '\
               'the class or module being tested.'.freeze
 
@@ -36,21 +34,20 @@ module RuboCop
           (hash $...))
         PATTERN
 
+        def_node_matcher :rails_metadata?, <<-PATTERN
+        (pair
+          (sym :type)
+          (sym {:request :feature :routing :view}))
+        PATTERN
+
         def on_top_level_describe(node, args)
           return if valid_describe?(node)
 
           describe_with_metadata(node) do |pairs|
-            return if pairs.any? { |pair| rails_metadata?(*pair) }
+            return if pairs.any?(&method(:rails_metadata?))
           end
 
           add_offense(args.first, :expression)
-        end
-
-        private
-
-        def rails_metadata?(key, value)
-          key.eql?(s(:sym, :type)) &&
-            RAILS_METADATA_TYPES.include?(value.children.first)
         end
       end
     end
