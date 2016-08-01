@@ -15,7 +15,16 @@ describe RuboCop::RSpec::Wording do
       'should have sweets'                 => 'has sweets',
       'should worry about the future'      => 'worries about the future',
       'should pay for pizza'               => 'pays for pizza',
+      'should obey my orders'              => 'obeys my orders',
+      'should deploy the app'              => 'deploys the app',
+      'should buy the product'             => 'buys the product',
       'should miss me'                     => 'misses me',
+      'should fax the document'            => 'faxes the document',
+      'should amass debt'                  => 'amasses debt',
+      'should echo the input'              => 'echoes the input',
+      'should alias the method'            => 'aliases the method',
+      'should search the internet'         => 'searches the internet',
+      'should wish me luck'                => 'wishes me luck',
       'should really only return one item' => 'really only returns one item',
       "shouldn't return something"         => 'does not return something'
     }

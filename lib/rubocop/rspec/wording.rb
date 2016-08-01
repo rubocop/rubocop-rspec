@@ -31,13 +31,12 @@ module RuboCop
         return replacements[word] if replacements[word]
 
         # ends with o s x ch sh or ss
-        if %w(o s x]).include?(word[-1]) ||
-            %w(ch sh ss]).include?(word[-2..-1])
+        if %w(o s x ch sh).any?(&word.public_method(:end_with?))
           return "#{word}es"
         end
 
         # ends with y
-        if word[-1] == 'y' && !%w(a u i o e).include?(word[-2])
+        if word.end_with?('y') && !%w(a u o e).include?(word[-2])
           return "#{word[0..-2]}ies"
         end
 
