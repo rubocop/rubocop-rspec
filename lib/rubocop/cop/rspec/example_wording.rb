@@ -24,9 +24,9 @@ module RuboCop
           method, = *node
           _, method_name, *args = *method
 
-          return unless method_name == :it
+          return unless method_name.equal?(:it)
 
-          arguments = *args.first
+          arguments = args.first.to_a
           message = arguments.first.to_s
           return unless message.downcase.start_with?('should')
 
@@ -35,53 +35,30 @@ module RuboCop
                                               arg1.begin_pos + 1,
                                               arg1.end_pos - 1)
 
-          add_offense(message, message, MSG)
+          add_offense(message, message)
         end
 
         def autocorrect(range)
           lambda do |corrector|
-            corrector.replace(range, corrected_message(range))
+            corrector.replace(
+              range,
+              RuboCop::RSpec::Wording.new(
+                range.source,
+                ignore: ignored_words,
+                replace: custom_transform
+              ).rewrite
+            )
           end
         end
 
         private
 
-        def corrected_message(range)
-          range.source.split(' ').tap do |words|
-            first_word = words.shift
-            words.unshift('not') if first_word == "shouldn't"
-
-            words.each_with_index do |value, key|
-              next if ignored_words.include?(value)
-              words[key] = simple_present(words[key])
-              break
-            end
-          end.join(' ')
-        end
-
-        def simple_present(word)
-          return custom_transform[word] if custom_transform[word]
-
-          # ends with o s x ch sh or ss
-          if %w(o s x]).include?(word[-1]) ||
-              %w(ch sh ss]).include?(word[-2..-1])
-            return "#{word}es"
-          end
-
-          # ends with y
-          if word[-1] == 'y' && !%w(a u i o e).include?(word[-2])
-            return "#{word[0..-2]}ies"
-          end
-
-          "#{word}s"
-        end
-
         def custom_transform
-          cop_config['CustomTransform'] || []
+          cop_config.fetch('CustomTransform', {})
         end
 
         def ignored_words
-          cop_config['IgnoredWords'] || []
+          cop_config.fetch('IgnoredWords', [])
         end
       end
     end
