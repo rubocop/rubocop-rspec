@@ -11,7 +11,7 @@ module RuboCop
       end
 
       def rewrite
-        text.split(' ').tap do |words|
+        text.split.tap do |words|
           first_word = words.shift
           words.unshift('not') if first_word == "shouldn't"
 
