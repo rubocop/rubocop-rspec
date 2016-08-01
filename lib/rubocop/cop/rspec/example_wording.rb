@@ -26,7 +26,7 @@ module RuboCop
 
           return unless method_name.equal?(:it)
 
-          arguments = *args.first
+          arguments = args.first.to_a
           message = arguments.first.to_s
           return unless message.downcase.start_with?('should')
 
