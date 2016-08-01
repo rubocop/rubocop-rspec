@@ -24,7 +24,7 @@ task :internal_investigation do
   require 'rubocop-rspec'
 
   result = RuboCop::CLI.new.run
-  abort('RuboCop failed!') unless result == 0
+  abort('RuboCop failed!') unless result.zero?
 end
 
 task default: [:spec, :internal_investigation]
