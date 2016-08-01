@@ -1,6 +1,11 @@
 describe RuboCop::Cop::RSpec::DescribeMethod do
   subject(:cop) { described_class.new }
 
+  it 'ignores describes with only a class' do
+    inspect_source(cop, 'describe Some::Class do; end')
+    expect(cop.offenses.empty?).to be(true)
+  end
+
   it 'enforces non-method names' do
     inspect_source(cop, "describe Some::Class, 'nope' do; end")
     expect(cop.offenses.size).to eq(1)
