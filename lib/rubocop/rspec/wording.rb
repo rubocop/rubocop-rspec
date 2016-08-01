@@ -17,7 +17,7 @@ module RuboCop
 
           words.each_with_index do |value, key|
             next if ignores.include?(value)
-            words[key] = simple_present(words[key])
+            words[key] = simple_present(words.fetch(key))
             break
           end
         end.join(' ')
