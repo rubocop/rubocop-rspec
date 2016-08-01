@@ -28,7 +28,7 @@ module RuboCop
 
           _receiver, method_name, object = *method
           return unless method_name == :describe
-          return unless object && object.type == :const
+          return unless object && object.type.equal?(:const)
 
           inspect_children(body, object)
         end
@@ -43,7 +43,7 @@ module RuboCop
 
         def inspect_children(node, object)
           return unless node.is_a? Parser::AST::Node
-          return if scope_change?(node) || node.type == :const
+          return if scope_change?(node) || node.type.equal?(:const)
 
           node.children.each do |child|
             if child == object
