@@ -18,7 +18,7 @@ module RuboCop
       #   describe MyClass, '.my_class_method' do
       #   end
       class DescribeMethod < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe, RuboCop::RSpec::Util
 
         MESSAGE = 'The second argument to describe should be the method ' \
                   "being tested. '#instance' or '.class'".freeze
@@ -26,7 +26,7 @@ module RuboCop
 
         def on_top_level_describe(_node, (_, second_arg))
           return unless second_arg && second_arg.type.equal?(:str)
-          return if METHOD_STRING_MATCHER =~ second_arg.children.first
+          return if METHOD_STRING_MATCHER =~ one(second_arg.children)
 
           add_offense(second_arg, :expression, MESSAGE)
         end
