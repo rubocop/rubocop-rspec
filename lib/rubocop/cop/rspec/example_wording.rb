@@ -40,41 +40,18 @@ module RuboCop
 
         def autocorrect(range)
           lambda do |corrector|
-            corrector.replace(range, corrected_message(range))
+            corrector.replace(
+              range,
+              Corrector.new(
+                range,
+                ignore: ignored_words,
+                replace: custom_transform
+              ).to_s
+            )
           end
         end
 
         private
-
-        def corrected_message(range)
-          range.source.split(' ').tap do |words|
-            first_word = words.shift
-            words.unshift('not') if first_word == "shouldn't"
-
-            words.each_with_index do |value, key|
-              next if ignored_words.include?(value)
-              words[key] = simple_present(words[key])
-              break
-            end
-          end.join(' ')
-        end
-
-        def simple_present(word)
-          return custom_transform[word] if custom_transform[word]
-
-          # ends with o s x ch sh or ss
-          if %w(o s x]).include?(word[-1]) ||
-              %w(ch sh ss]).include?(word[-2..-1])
-            return "#{word}es"
-          end
-
-          # ends with y
-          if word[-1] == 'y' && !%w(a u i o e).include?(word[-2])
-            return "#{word[0..-2]}ies"
-          end
-
-          "#{word}s"
-        end
 
         def custom_transform
           cop_config['CustomTransform'] || []
@@ -82,6 +59,48 @@ module RuboCop
 
         def ignored_words
           cop_config['IgnoredWords'] || []
+        end
+
+        class Corrector
+          def initialize(range, ignore:, replace:)
+            @range        = range
+            @ignores      = ignore
+            @replacements = replace
+          end
+
+          def to_s
+            range.source.split(' ').tap do |words|
+              first_word = words.shift
+              words.unshift('not') if first_word == "shouldn't"
+
+              words.each_with_index do |value, key|
+                next if ignores.include?(value)
+                words[key] = simple_present(words[key])
+                break
+              end
+            end.join(' ')
+          end
+
+          private
+
+          attr_reader :range, :ignores, :replacements
+
+          def simple_present(word)
+            return replacements[word] if replacements[word]
+
+            # ends with o s x ch sh or ss
+            if %w(o s x]).include?(word[-1]) ||
+                %w(ch sh ss]).include?(word[-2..-1])
+              return "#{word}es"
+            end
+
+            # ends with y
+            if word[-1] == 'y' && !%w(a u i o e).include?(word[-2])
+              return "#{word[0..-2]}ies"
+            end
+
+            "#{word}s"
+          end
         end
       end
     end
