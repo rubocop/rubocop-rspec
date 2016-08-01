@@ -41,7 +41,7 @@ module RuboCop
         private
 
         def inspect_children(node, object)
-          return unless node.is_a? Parser::AST::Node
+          return unless node.instance_of?(Node)
           return if scope_change?(node) || node.type.equal?(:const)
 
           node.children.each do |child|
