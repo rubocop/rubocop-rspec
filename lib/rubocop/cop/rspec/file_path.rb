@@ -69,7 +69,7 @@ module RuboCop
         end
 
         def regexp_from_glob(glob)
-          Regexp.new(glob.gsub('.', '\\.').gsub('*', '.*') + '$')
+          Regexp.new(glob.sub('.', '\\.').gsub('*', '.*') + '$')
         end
 
         def custom_transform
