@@ -37,8 +37,7 @@ module RuboCop
         private
 
         def routing_spec?(args)
-          args[1..-1].any? do |arg|
-            next unless arg.hash_type?
+          args.any? do |arg|
             arg.children.include?(ROUTING_PAIR)
           end
         end
