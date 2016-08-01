@@ -24,7 +24,7 @@ module RuboCop
           method, = *node
           _, method_name, *args = *method
 
-          return unless method_name == :it
+          return unless method_name.equal?(:it)
 
           arguments = *args.first
           message = arguments.first.to_s
