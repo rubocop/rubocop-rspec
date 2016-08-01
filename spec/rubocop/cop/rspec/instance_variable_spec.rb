@@ -16,6 +16,19 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
     expect(cop.messages).to eq(['Use `let` instead of an instance variable'])
   end
 
+  it 'ignores non-spec blocks' do
+    inspect_source(
+      cop,
+      [
+        'not_rspec do',
+        '  before { @foo = [] }',
+        '  it { expect(@foo).to be_empty }',
+        'end'
+      ]
+    )
+    expect(cop.offenses).to be_empty
+  end
+
   it 'finds an instance variable inside a shared example' do
     inspect_source(
       cop,
