@@ -23,6 +23,11 @@ describe RuboCop::Cop::RSpec::DescribeClass do
                                 'the class or module being tested.'])
   end
 
+  it 'checks highlights the first argument of a describe' do
+    inspect_source(cop, 'describe "bad describe", "blah blah" do; end')
+    expect(cop.offenses.first.location.column_range).to eq(9...23)
+  end
+
   it 'ignores nested describe statements' do
     inspect_source(
       cop,
