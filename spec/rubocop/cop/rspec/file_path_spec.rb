@@ -1,6 +1,5 @@
 describe RuboCop::Cop::RSpec::FilePath, :config do
   subject(:cop) { described_class.new(config) }
-  let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
   it 'checks the path' do
     inspect_source(
@@ -18,6 +17,36 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     inspect_source(
       cop,
       "describe MyClass, '#foo' do; end",
+      'wrong_class_foo_spec.rb'
+    )
+    expect(cop.offenses.size).to eq(1)
+    expect(cop.offenses.map(&:line).sort).to eq([1])
+    expect(cop.messages)
+      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
+  end
+
+  it 'flags foo_spec.rb.rb' do
+    inspect_source(
+      cop,
+      "describe MyClass, '#foo' do; end",
+      'my_class/foo_spec.rb.rb'
+    )
+    expect(cop.offenses.size).to eq(1)
+  end
+
+  it 'flags foo_specorb' do
+    inspect_source(
+      cop,
+      "describe MyClass, '#foo' do; end",
+      'my_class/foo_specorb'
+    )
+    expect(cop.offenses.size).to eq(1)
+  end
+
+  it 'checks path even when metadata is included' do
+    inspect_source(
+      cop,
+      "describe MyClass, '#foo', blah: :blah do; end",
       'wrong_class_foo_spec.rb'
     )
     expect(cop.offenses.size).to eq(1)
@@ -110,8 +139,8 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
   it 'handles alphanumeric class names' do
     inspect_source(
       cop,
-      'describe IPV6 do; end',
-      'ipv6_spec.rb'
+      'describe IPv4AndIPv6 do; end',
+      'i_pv4_and_i_pv6_spec.rb'
     )
     expect(cop.offenses).to be_empty
   end
@@ -179,6 +208,15 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
+  it 'allows bang method' do
+    inspect_source(
+      cop,
+      "describe Some::Class, '#bang!' do; end",
+      'some/class/bang_spec.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
   it 'allows flexibility with predicates' do
     inspect_source(
       cop,
@@ -191,27 +229,31 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
   it 'allows flexibility with operators' do
     inspect_source(
       cop,
-      "describe MyClass, '#<=>' do; end",
-      'my_class/spaceship_operator_spec.rb'
+      "describe MyLittleClass, '#<=>' do; end",
+      'my_little_class/spaceship_operator_spec.rb'
     )
     expect(cop.offenses).to be_empty
   end
 
-  it 'respects custom module name transformation' do
-    inspect_source(
-      cop,
-      "describe FooFoo::Some::Class, '#bar' do; end",
-      'foofoo/some/class/bar_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
-  end
+  context 'when configured' do
+    let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
-  it 'ignores routing specs' do
-    inspect_source(
-      cop,
-      'describe MyController, type: :routing do; end',
-      'foofoo/some/class/bar_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
+    it 'respects custom module name transformation' do
+      inspect_source(
+        cop,
+        "describe FooFoo::Some::Class, '#bar' do; end",
+        'foofoo/some/class/bar_spec.rb'
+      )
+      expect(cop.offenses).to be_empty
+    end
+
+    it 'ignores routing specs' do
+      inspect_source(
+        cop,
+        'describe MyController, "#foo", type: :routing do; end',
+        'foofoo/some/class/bar_spec.rb'
+      )
+      expect(cop.offenses).to be_empty
+    end
   end
 end
