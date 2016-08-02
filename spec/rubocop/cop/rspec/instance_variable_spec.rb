@@ -2,49 +2,37 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
   it 'finds an instance variable inside a describe' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  before { @foo = [] }',
-        '  it { expect(@foo).to be_empty }',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([3])
-    expect(cop.messages).to eq(['Use `let` instead of an instance variable'])
+    expect_violation(<<-RUBY)
+      describe MyClass do
+        before { @foo = [] }
+        it { expect(@foo).to be_empty }
+                    ^^^^ Use `let` instead of an instance variable
+      end
+    RUBY
   end
 
   it 'ignores non-spec blocks' do
-    inspect_source(
-      cop,
-      [
-        'not_rspec do',
-        '  before { @foo = [] }',
-        '  it { expect(@foo).to be_empty }',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_violation(<<-RUBY)
+      not_rspec do
+        before { @foo = [] }
+        it { expect(@foo).to be_empty }
+      end
+    RUBY
   end
 
   it 'finds an instance variable inside a shared example' do
-    inspect_source(
-      cop,
-      [
-        "shared_examples 'shared example' do",
-        '  it { expect(@foo).to be_empty }',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([2])
-    expect(cop.messages).to eq(['Use `let` instead of an instance variable'])
+    expect_violation(<<-RUBY)
+      shared_examples 'shared example' do
+        it { expect(@foo).to be_empty }
+                    ^^^^ Use `let` instead of an instance variable
+      end
+    RUBY
   end
 
   it 'ignores an instance variable without describe' do
-    inspect_source(cop, ['@foo = []', '@foo.empty?'])
-    expect(cop.offenses).to be_empty
+    expect_violation(<<-RUBY)
+      @foo = []
+      @foo.empty?
+    RUBY
   end
 end
