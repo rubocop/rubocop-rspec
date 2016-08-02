@@ -2,176 +2,126 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   subject(:cop) { described_class.new }
 
   it 'checks for the use of the described class' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  include MyClass',
-        '  subject { MyClass.do_something }',
-        '  before { MyClass.do_something }',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(3)
-    expect(cop.offenses.map(&:line).sort).to eq([2, 3, 4])
-    expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyClass`'] * 3)
-    expect(cop.highlights).to eq(['MyClass'] * 3)
+    expect_violation(<<-RUBY)
+      describe MyClass do
+        include MyClass
+                ^^^^^^^ Use `described_class` instead of `MyClass`
+
+        subject { MyClass.do_something }
+                  ^^^^^^^ Use `described_class` instead of `MyClass`
+
+        before { MyClass.do_something }
+                 ^^^^^^^ Use `described_class` instead of `MyClass`
+      end
+    RUBY
   end
 
   it 'ignores described class as string' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  subject { "MyClass" }',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe MyClass do
+        subject { "MyClass" }
+      end
+    RUBY
   end
 
   it 'ignores describe that do not referece to a class' do
-    inspect_source(
-      cop,
-      [
-        'describe "MyClass" do',
-        '  subject { "MyClass" }',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe "MyClass" do
+        subject { "MyClass" }
+      end
+    RUBY
   end
 
   it 'ignores class if the scope is changing' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  def method',
-        '    include MyClass',
-        '  end',
-        '  class OtherClass',
-        '    include MyClass',
-        '  end',
-        '  module MyModle',
-        '    include MyClass',
-        '  end',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe MyClass do
+        def method
+          include MyClass
+        end
+
+        class OtherClass
+          include MyClass
+        end
+
+        module MyModle
+          include MyClass
+        end
+      end
+    RUBY
   end
 
   it 'only takes class from top level describes' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  describe MyClass::Foo do',
-        '    subject { MyClass::Foo }',
-        '    let(:foo) { MyClass }',
-        '  end',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([4])
-    expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyClass`'])
-    expect(cop.highlights).to eq(['MyClass'])
+    expect_violation(<<-RUBY)
+      describe MyClass do
+        describe MyClass::Foo do
+          subject { MyClass::Foo }
+
+          let(:foo) { MyClass }
+                      ^^^^^^^ Use `described_class` instead of `MyClass`
+        end
+      end
+    RUBY
   end
 
   it 'ignores subclasses' do
-    inspect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  subject { MyClass::SubClass }',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe MyClass do
+        subject { MyClass::SubClass }
+      end
+    RUBY
   end
 
   it 'ignores if namespace is not matching' do
-    inspect_source(
-      cop,
-      [
-        'describe MyNamespace::MyClass do',
-        '  subject { ::MyClass }',
-        '  let(:foo) { MyClass }',
-        'end'
-      ]
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe MyNamespace::MyClass do
+        subject { ::MyClass }
+        let(:foo) { MyClass }
+      end
+    RUBY
   end
 
   it 'checks for the use of described class with namespace' do
-    inspect_source(
-      cop,
-      [
-        'describe MyNamespace::MyClass do',
-        '  subject { MyNamespace::MyClass }',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([2])
-    expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyNamespace::MyClass`'])
-    expect(cop.highlights).to eq(['MyNamespace::MyClass'])
+    expect_violation(<<-RUBY)
+      describe MyNamespace::MyClass do
+        subject { MyNamespace::MyClass }
+                  ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+      end
+    RUBY
   end
 
   it 'does not flag violations within a scope change' do
-    inspect_source(
-      cop,
-      [
-        'describe MyNamespace::MyClass do',
-        '  before do',
-        '    class Foo',
-        '      thing = MyNamespace::MyClass.new',
-        '    end',
-        '  end',
-        'end'
-      ]
-    )
-
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe MyNamespace::MyClass do
+        before do
+          class Foo
+            thing = MyNamespace::MyClass.new
+          end
+        end
+      end
+    RUBY
   end
 
   it 'does not flag violations within a scope change' do
-    inspect_source(
-      cop,
-      [
-        'describe do',
-        '  before do',
-        '    MyNamespace::MyClass.new',
-        '  end',
-        'end'
-      ]
-    )
-
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      describe do
+        before do
+          MyNamespace::MyClass.new
+        end
+      end
+    RUBY
   end
 
   it 'checks for the use of described class with module' do
     skip
-    inspect_source(
-      lcop,
-      [
-        'module MyNamespace',
-        '  describe MyClass do',
-        '    subject { MyNamespace::MyClass }',
-        '  end',
-        'end'
-      ]
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([2])
-    expect(cop.messages)
-      .to eq(['Use `described_class` instead of `MyNamespace::MyClass`'])
-    expect(cop.highlights).to eq(['MyNamespace::MyClass'])
+
+    expect_violation(<<-RUBY)
+      module MyNamespace
+        describe MyClass do
+          subject { MyNamespace::MyClass }
+                    ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+        end
+      end
+    RUBY
   end
 
   it 'autocorrects an offenses' do

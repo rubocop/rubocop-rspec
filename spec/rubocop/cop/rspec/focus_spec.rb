@@ -1,78 +1,130 @@
 describe RuboCop::Cop::RSpec::Focus do
   subject(:cop) { described_class.new }
 
-  [
-    :example_group, :describe, :context, :xdescribe, :xcontext,
-    :it, :example, :specify, :xit, :xexample, :xspecify,
-    :feature, :scenario, :xfeature, :xscenario
-  ].each do |block_type|
-    it "finds `#{block_type}` blocks with `focus: true`" do
-      inspect_source(
-        cop,
-        [
-          "#{block_type} 'test', meta: true, focus: true do",
-          'end'
-        ]
-      )
-      expect(cop.offenses.size).to eq(1)
-      expect(cop.offenses.map(&:line).sort).to eq([1])
-      expect(cop.messages).to eq(['Focused spec found.'])
-      expect(cop.highlights).to eq(['focus: true'])
-    end
+  # rubocop:disable RSpec/ExampleLength
+  it 'flags all rspec example blocks with that include `focus: true`' do
+    expect_violation(<<-RUBY)
+      example 'test', meta: true, focus: true do; end
+                                  ^^^^^^^^^^^ Focused spec found.
+      xit 'test', meta: true, focus: true do; end
+                              ^^^^^^^^^^^ Focused spec found.
+      describe 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      it 'test', meta: true, focus: true do; end
+                             ^^^^^^^^^^^ Focused spec found.
+      xspecify 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      specify 'test', meta: true, focus: true do; end
+                                  ^^^^^^^^^^^ Focused spec found.
+      example_group 'test', meta: true, focus: true do; end
+                                        ^^^^^^^^^^^ Focused spec found.
+      scenario 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      xexample 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      xdescribe 'test', meta: true, focus: true do; end
+                                    ^^^^^^^^^^^ Focused spec found.
+      context 'test', meta: true, focus: true do; end
+                                  ^^^^^^^^^^^ Focused spec found.
+      xcontext 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      feature 'test', meta: true, focus: true do; end
+                                  ^^^^^^^^^^^ Focused spec found.
+      xfeature 'test', meta: true, focus: true do; end
+                                   ^^^^^^^^^^^ Focused spec found.
+      xscenario 'test', meta: true, focus: true do; end
+                                    ^^^^^^^^^^^ Focused spec found.
+    RUBY
+  end
 
-    it "finds `#{block_type}` blocks with `:focus`" do
-      inspect_source(
-        cop,
-        [
-          "#{block_type} 'test', :focus do",
-          'end'
-        ]
-      )
-      expect(cop.offenses.size).to eq(1)
-      expect(cop.offenses.map(&:line).sort).to eq([1])
-      expect(cop.messages).to eq(['Focused spec found.'])
-      expect(cop.highlights).to eq([':focus'])
-    end
+  it 'flags all repec example blocks that include `:focus`' do
+    expect_violation(<<-RUBY)
+      example_group 'test', :focus do; end
+                            ^^^^^^ Focused spec found.
+      feature 'test', :focus do; end
+                      ^^^^^^ Focused spec found.
+      xexample 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      xdescribe 'test', :focus do; end
+                        ^^^^^^ Focused spec found.
+      xscenario 'test', :focus do; end
+                        ^^^^^^ Focused spec found.
+      specify 'test', :focus do; end
+                      ^^^^^^ Focused spec found.
+      example 'test', :focus do; end
+                      ^^^^^^ Focused spec found.
+      xfeature 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      xspecify 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      scenario 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      describe 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      xit 'test', :focus do; end
+                  ^^^^^^ Focused spec found.
+      context 'test', :focus do; end
+                      ^^^^^^ Focused spec found.
+      xcontext 'test', :focus do; end
+                       ^^^^^^ Focused spec found.
+      it 'test', :focus do; end
+                 ^^^^^^ Focused spec found.
+    RUBY
+  end
 
-    it 'detects no offense when spec is not focused' do
-      inspect_source(
-        cop,
-        [
-          "#{block_type} 'test' do",
-          'end'
-        ]
-      )
-      expect(subject.messages).to be_empty
-    end
+  it 'does not flag unfocused specs' do
+    expect_no_violations(<<-RUBY)
+      xcontext      'test' do; end
+      xscenario     'test' do; end
+      xspecify      'test' do; end
+      describe      'test' do; end
+      example       'test' do; end
+      xexample      'test' do; end
+      scenario      'test' do; end
+      specify       'test' do; end
+      xit           'test' do; end
+      feature       'test' do; end
+      xfeature      'test' do; end
+      context       'test' do; end
+      it            'test' do; end
+      example_group 'test' do; end
+      xdescribe     'test' do; end
+    RUBY
   end
 
   it 'does not flag a method that is focused twice' do
-    inspect_source(cop, 'fit "foo", :focus do; end')
-    expect(cop.offenses.size).to be(1)
+    expect_violation(<<-RUBY)
+      fit "foo", :focus do
+      ^^^^^^^^^^^^^^^^^ Focused spec found.
+      end
+    RUBY
   end
 
   it 'ignores non-rspec code with :focus blocks' do
-    inspect_source(cop, 'some_method "foo", focus: true do; end')
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      some_method "foo", focus: true do
+      end
+    RUBY
   end
 
-  [
-    :fdescribe, :fcontext,
-    :focus, :fexample, :fit, :fspecify,
-    :ffeature, :fscenario
-  ].each do |block_type|
-    it "finds `#{block_type}` blocks" do
-      inspect_source(
-        cop,
-        [
-          "#{block_type} 'test' do",
-          'end'
-        ]
-      )
-      expect(cop.offenses.size).to eq(1)
-      expect(cop.offenses.map(&:line).sort).to eq([1])
-      expect(cop.messages).to eq(['Focused spec found.'])
-      expect(cop.highlights).to eq(["#{block_type} 'test'"])
-    end
+  it 'flags focused block types' do
+    expect_violation(<<-RUBY)
+      fdescribe 'test' do; end
+      ^^^^^^^^^^^^^^^^ Focused spec found.
+      ffeature 'test' do; end
+      ^^^^^^^^^^^^^^^ Focused spec found.
+      fcontext 'test' do; end
+      ^^^^^^^^^^^^^^^ Focused spec found.
+      fit 'test' do; end
+      ^^^^^^^^^^ Focused spec found.
+      fscenario 'test' do; end
+      ^^^^^^^^^^^^^^^^ Focused spec found.
+      fexample 'test' do; end
+      ^^^^^^^^^^^^^^^ Focused spec found.
+      fspecify 'test' do; end
+      ^^^^^^^^^^^^^^^ Focused spec found.
+      focus 'test' do; end
+      ^^^^^^^^^^^^ Focused spec found.
+    RUBY
   end
 end
