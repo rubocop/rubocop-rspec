@@ -17,7 +17,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'ignores described class as string' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe MyClass do
         subject { "MyClass" }
       end
@@ -25,7 +25,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'ignores describe that do not referece to a class' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe "MyClass" do
         subject { "MyClass" }
       end
@@ -33,7 +33,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'ignores class if the scope is changing' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe MyClass do
         def method
           include MyClass
@@ -64,7 +64,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'ignores subclasses' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe MyClass do
         subject { MyClass::SubClass }
       end
@@ -72,7 +72,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'ignores if namespace is not matching' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe MyNamespace::MyClass do
         subject { ::MyClass }
         let(:foo) { MyClass }
@@ -90,7 +90,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'does not flag violations within a scope change' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe MyNamespace::MyClass do
         before do
           class Foo
@@ -102,7 +102,7 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   it 'does not flag violations within a scope change' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe do
         before do
           MyNamespace::MyClass.new

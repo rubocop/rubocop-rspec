@@ -2,7 +2,7 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
   subject(:cop) { described_class.new }
 
   it 'ignores describes with only a class' do
-    expect_violation('describe Some::Class do; end')
+    expect_no_violations('describe Some::Class do; end')
   end
 
   it 'enforces non-method names' do
@@ -14,7 +14,7 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'skips methods starting with a . or #' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe Some::Class, '.asdf' do
       end
 
@@ -24,7 +24,7 @@ describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'skips specs not having a string second argument' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       describe Some::Class, :config do
       end
     RUBY

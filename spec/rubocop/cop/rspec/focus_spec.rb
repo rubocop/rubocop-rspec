@@ -73,7 +73,7 @@ describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'does not flag unfocused specs' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       xcontext      'test' do; end
       xscenario     'test' do; end
       xspecify      'test' do; end
@@ -101,7 +101,7 @@ describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'ignores non-rspec code with :focus blocks' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       some_method "foo", focus: true do
       end
     RUBY

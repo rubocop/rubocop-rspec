@@ -12,7 +12,7 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores non-spec blocks' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       not_rspec do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -30,7 +30,7 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores an instance variable without describe' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       @foo = []
       @foo.empty?
     RUBY

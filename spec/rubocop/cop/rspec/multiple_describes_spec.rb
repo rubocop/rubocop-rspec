@@ -18,7 +18,7 @@ describe RuboCop::Cop::RSpec::MultipleDescribes do
   end
 
   it 'skips single top level describe' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       require 'spec_helper'
 
       describe MyClass do

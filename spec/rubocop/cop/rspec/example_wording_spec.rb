@@ -10,7 +10,7 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'ignores non-example blocks' do
-      expect_violation('foo "should do something" do; end')
+      expect_no_violations('foo "should do something" do; end')
     end
 
     it 'finds description with `should` at the beginning' do
@@ -38,7 +38,7 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'skips descriptions without `should` at the beginning' do
-      expect_violation(<<-RUBY)
+      expect_no_violations(<<-RUBY)
         it 'finds no should here' do
         end
       RUBY

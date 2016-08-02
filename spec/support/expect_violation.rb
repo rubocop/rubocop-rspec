@@ -7,11 +7,23 @@ require 'anima'
 module ExpectViolation
   DEFAULT_FILENAME = 'example_spec.rb'.freeze
 
+  # rubocop:disable Metrics/AbcSize
   def expect_violation(source, filename: DEFAULT_FILENAME)
     expectation = Expectation.new(source)
     inspect_source(cop, expectation.source, filename)
     offenses = cop.offenses.map(&method(:to_assertion)).sort
+
+    if expectation.assertions.empty?
+      raise 'Use expect_no_violations to assert no violations'
+    end
+
     expect(offenses).to eq(expectation.assertions.sort)
+  end
+
+  def expect_no_violations(source, filename: DEFAULT_FILENAME)
+    inspect_source(cop, source, filename)
+
+    expect(cop.offenses.empty?).to be(true)
   end
 
   private

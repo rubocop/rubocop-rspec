@@ -12,7 +12,7 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
     end
 
     it 'detects no offense when using `not_to`' do
-      expect_violation(<<-RUBY)
+      expect_no_violations(<<-RUBY)
         it { expect(false).not_to be_true }
       RUBY
     end
@@ -34,7 +34,7 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
     end
 
     it 'detects no offense when using `to_not`' do
-      expect_violation(<<-RUBY)
+      expect_no_violations(<<-RUBY)
         it { expect(false).to_not be_true }
       RUBY
     end

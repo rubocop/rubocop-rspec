@@ -36,7 +36,7 @@ describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
     let(:cop_config) { { 'IgnoreSymbolicNames' => true } }
 
     it 'ignores doubles whose name is a symbol' do
-      expect_violation(<<-RUBY)
+      expect_no_violations(<<-RUBY)
         it do
           foo = double(:widget)
         end
@@ -54,7 +54,7 @@ describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
   end
 
   it 'ignores doubles without a name' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       it do
         foo = double
       end
@@ -62,7 +62,7 @@ describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
   end
 
   it 'ignores instance_doubles' do
-    expect_violation(<<-RUBY)
+    expect_no_violations(<<-RUBY)
       it do
         foo = instance_double("Foo")
       end
