@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.5.3 (2016-08-02)
+
 * Add `RSpec/NamedSubject` cop. ([@backus][])
 
 ## 1.5.2 (2016-08-01)
