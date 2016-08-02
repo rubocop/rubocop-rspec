@@ -23,6 +23,9 @@ RSpec/ExampleWording:
     not: does not
   IgnoredWords: []
 
+RSpec/BeforeAfterAll:
+  Description: 'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples.'
+  Enabled: false
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
