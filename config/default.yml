@@ -60,3 +60,7 @@ RSpec/ExampleLength:
   Description: 'Checks for long example'
   Enabled: true
   Max: 5
+
+RSpec/NamedSubject:
+  Description: 'Name your RSpec subject if you reference it explicitly'
+  Enabled: true
