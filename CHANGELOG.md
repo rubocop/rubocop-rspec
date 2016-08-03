@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.6.0 (2016-08-03)
+
 * Add `SkipBlocks` option for `DescribedClass` cop. ([@backus][])
 
 ## 1.5.3 (2016-08-02)
