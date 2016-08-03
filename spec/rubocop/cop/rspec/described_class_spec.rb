@@ -35,6 +35,9 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   it 'ignores class if the scope is changing' do
     expect_no_violations(<<-RUBY)
       describe MyClass do
+        Class.new  { foo = MyClass }
+        Module.new { bar = MyClass }
+
         def method
           include MyClass
         end

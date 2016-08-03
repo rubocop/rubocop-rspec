@@ -30,7 +30,15 @@ module RuboCop
             (args) $_)
         PATTERN
 
-        def_node_matcher :scope_change?, '{def class module}'
+        def_node_matcher :scope_changing_syntax?, '{def class module}'
+
+        def_node_matcher :common_instance_exec_closure?, <<-PATTERN
+          (block
+            (send
+              (const nil {:Class :Module}) :new
+              ...)
+            ...)
+        PATTERN
 
         def on_block(node)
           describe, described_class, body = described_constant(node)
@@ -58,6 +66,10 @@ module RuboCop
           node.children.each do |child|
             find_constant_usage(child, described_class, &block)
           end
+        end
+
+        def scope_change?(node)
+          scope_changing_syntax?(node) || common_instance_exec_closure?(node)
         end
       end
     end
