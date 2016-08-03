@@ -1,5 +1,73 @@
-describe RuboCop::Cop::RSpec::DescribedClass do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::DescribedClass, :config do
+  subject(:cop) { described_class.new(config) }
+
+  shared_examples 'SkipBlocks enabled' do
+    it 'does not flag violations within non-rspec blocks' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          controller(ApplicationController) do
+            bar = MyClass
+          end
+
+          before do
+            MyClass
+            ^^^^^^^ Use `described_class` instead of `MyClass`
+
+            Foo.custom_block do
+              MyClass
+            end
+          end
+        end
+      RUBY
+    end
+  end
+
+  shared_examples 'SkipBlocks disabled' do
+    it 'flags violations within all blocks' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          controller(ApplicationController) do
+            bar = MyClass
+                  ^^^^^^^ Use `described_class` instead of `MyClass`
+          end
+
+          before(:each) do
+            MyClass
+            ^^^^^^^ Use `described_class` instead of `MyClass`
+
+            Foo.custom_block do
+              MyClass
+              ^^^^^^^ Use `described_class` instead of `MyClass`
+            end
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'when SkipBlocks is `true`' do
+    let(:cop_config) { { 'SkipBlocks' => true } }
+
+    include_examples 'SkipBlocks enabled'
+  end
+
+  context 'when SkipBlocks anything besides `true`' do
+    let(:cop_config) { { 'SkipBlocks' => 'yes' } }
+
+    include_examples 'SkipBlocks disabled'
+  end
+
+  context 'when SkipBlocks is not set' do
+    let(:cop_config) { Hash.new }
+
+    include_examples 'SkipBlocks disabled'
+  end
+
+  context 'when SkipBlocks is `false`' do
+    let(:cop_config) { { 'SkipBlocks' => false } }
+
+    include_examples 'SkipBlocks disabled'
+  end
 
   it 'checks for the use of the described class' do
     expect_violation(<<-RUBY)
@@ -35,6 +103,9 @@ describe RuboCop::Cop::RSpec::DescribedClass do
   it 'ignores class if the scope is changing' do
     expect_no_violations(<<-RUBY)
       describe MyClass do
+        Class.new  { foo = MyClass }
+        Module.new { bar = MyClass }
+
         def method
           include MyClass
         end

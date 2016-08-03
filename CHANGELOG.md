@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Add `SkipBlocks` option for `DescribedClass` cop. ([@backus][])
+
 ## 1.5.3 (2016-08-02)
 
 * Add `RSpec/NamedSubject` cop. ([@backus][])

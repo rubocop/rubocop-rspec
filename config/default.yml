@@ -8,6 +8,7 @@ RSpec/DescribeClass:
 
 RSpec/DescribedClass:
   Description: 'Use `described_class` for tested class / module'
+  SkipBlocks: false
   Enabled: true
 
 RSpec/DescribeMethod:
