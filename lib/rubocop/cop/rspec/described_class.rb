@@ -23,22 +23,50 @@ module RuboCop
         DESCRIBED_CLASS = 'described_class'.freeze
         MSG             = "Use `#{DESCRIBED_CLASS}` instead of `%s`".freeze
 
+        RSPEC_BLOCK_METHODS = '
+          :after
+          :around
+          :before
+          :context
+          :describe
+          :example
+          :example_group
+          :fcontext
+          :fdescribe
+          :feature
+          :fexample
+          :ffeature
+          :fit
+          :focus
+          :fscenario
+          :fspecify
+          :it
+          :let
+          :let!
+          :scenario
+          :specify
+          :xcontext
+          :xdescribe
+          :xexample
+          :xfeature
+          :xit
+          :xscenario
+          :xspecify
+        '.freeze
+
         def_node_matcher :described_constant, <<-PATTERN
-          (block
-            $(send _ :describe
-              $(const ...))
-            (args) $_)
+          (block $(send _ :describe $(const ...)) (args) $_)
+        PATTERN
+
+        def_node_matcher :common_instance_exec_closure?, <<-PATTERN
+          (block (send (const nil {:Class :Module}) :new ...) ...)
+        PATTERN
+
+        def_node_matcher :rspec_block?, <<-PATTERN
+          (block (send nil {#{RSPEC_BLOCK_METHODS}} ...) ...)
         PATTERN
 
         def_node_matcher :scope_changing_syntax?, '{def class module}'
-
-        def_node_matcher :common_instance_exec_closure?, <<-PATTERN
-          (block
-            (send
-              (const nil {:Class :Module}) :new
-              ...)
-            ...)
-        PATTERN
 
         def on_block(node)
           describe, described_class, body = described_constant(node)
@@ -69,7 +97,17 @@ module RuboCop
         end
 
         def scope_change?(node)
-          scope_changing_syntax?(node) || common_instance_exec_closure?(node)
+          scope_changing_syntax?(node)          ||
+            common_instance_exec_closure?(node) ||
+            skippable_block?(node)
+        end
+
+        def skippable_block?(node)
+          node.block_type? && !rspec_block?(node) && skip_blocks?
+        end
+
+        def skip_blocks?
+          cop_config['SkipBlocks'].equal?(true)
         end
       end
     end
