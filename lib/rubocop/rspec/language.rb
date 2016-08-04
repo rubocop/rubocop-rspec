@@ -46,7 +46,7 @@ module RuboCop
       end
 
       module Examples
-        EXAMPLES = SelectorSet.new(%i(it specify example scenario))
+        EXAMPLES = SelectorSet.new(%i(it specify example scenario its))
         FOCUSED  = SelectorSet.new(%i(fit fspecify fexample fscenario focus))
         SKIPPED  = SelectorSet.new(%i(xit xspecify xexample xscenario skip))
         PENDING  = SelectorSet.new(%i(pending))
