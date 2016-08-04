@@ -20,36 +20,20 @@ module RuboCop
       #   describe MyClass do
       #   end
       class Focus < Cop
+        include RuboCop::RSpec::Language
+
         MSG = 'Focused spec found.'.freeze
 
-        FOCUSABLE_SELECTORS = '
-          :context
-          :describe
-          :example
-          :example_group
-          :feature
-          :it
-          :scenario
-          :specify
-          :xcontext
-          :xdescribe
-          :xexample
-          :xfeature
-          :xit
-          :xscenario
-          :xspecify
-        '.freeze
+        focusable =
+          ExampleGroups::GROUPS  +
+          ExampleGroups::SKIPPED +
+          Examples::EXAMPLES     +
+          Examples::SKIPPED
 
-        FOCUSING_SELECTORS = '
-          :fcontext
-          :fdescribe
-          :fexample
-          :ffeature
-          :fit
-          :focus
-          :fscenario
-          :fspecify
-        '.freeze
+        focused = ExampleGroups::FOCUSED + Examples::FOCUSED
+
+        FOCUSABLE_SELECTORS = focusable.map(&:inspect).join(' ')
+        FOCUSING_SELECTORS  = focused.map(&:inspect).join(' ')
 
         FOCUS_SYMBOL = s(:sym, :focus)
         FOCUS_TRUE   = s(:pair, FOCUS_SYMBOL, s(:true))
