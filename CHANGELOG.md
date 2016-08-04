@@ -2,6 +2,9 @@
 
 ## Master (unreleased)
 
+* Add support for checking all example groups with `ExampleLength`. ([@backus][])
+* Add support for checking shared example groups for `DescribedClass`. ([@backus][])
+
 ## 1.6.0 (2016-08-03)
 
 * Add `SkipBlocks` option for `DescribedClass` cop. ([@backus][])
