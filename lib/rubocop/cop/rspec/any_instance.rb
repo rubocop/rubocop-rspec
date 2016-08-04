@@ -1,7 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Pefer instance doubles over stubbing any instance of a class
+      # Prefer instance doubles over stubbing any instance of a class
       #
       # @example
       #   # bad
