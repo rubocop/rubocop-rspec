@@ -4,42 +4,70 @@ module RuboCop
   module RSpec
     # RSpec public API methods that are commonly used in cops
     module Language
-      module ExampleGroups
-        GROUPS  = %i(describe context feature example_group).freeze
-        SKIPPED = %i(xdescribe xcontext xfeature).freeze
-        FOCUSED = %i(fdescribe fcontext ffeature).freeze
+      # Set of method selectors
+      class SelectorSet
+        def initialize(selectors)
+          @selectors = selectors
+        end
 
-        ALL = (GROUPS + SKIPPED + FOCUSED).freeze
+        def ==(other)
+          selectors.eql?(other.selectors)
+        end
+
+        def +(other)
+          self.class.new(selectors + other.selectors)
+        end
+
+        def include?(selector)
+          selectors.include?(selector)
+        end
+
+        def to_node_pattern
+          selectors.map(&:inspect).join(' ')
+        end
+
+        protected
+
+        attr_reader :selectors
+      end
+
+      module ExampleGroups
+        GROUPS  = SelectorSet.new(%i(describe context feature example_group))
+        SKIPPED = SelectorSet.new(%i(xdescribe xcontext xfeature))
+        FOCUSED = SelectorSet.new(%i(fdescribe fcontext ffeature))
+
+        ALL = GROUPS + SKIPPED + FOCUSED
       end
 
       module SharedGroups
-        ALL = %i(shared_examples shared_context shared_examples_for).freeze
+        ALL = SelectorSet.new(
+          %i(shared_examples shared_context shared_examples_for)
+        )
       end
 
       module Examples
-        EXAMPLES = %i(it specify example scenario).freeze
-        FOCUSED  = %i(fit fspecify fexample fscenario focus).freeze
-        SKIPPED  = %i(xit xspecify xexample xscenario skip).freeze
-        PENDING  = %i(pending).freeze
+        EXAMPLES = SelectorSet.new(%i(it specify example scenario))
+        FOCUSED  = SelectorSet.new(%i(fit fspecify fexample fscenario focus))
+        SKIPPED  = SelectorSet.new(%i(xit xspecify xexample xscenario skip))
+        PENDING  = SelectorSet.new(%i(pending))
 
-        ALL = (EXAMPLES + FOCUSED + SKIPPED + PENDING).freeze
+        ALL = EXAMPLES + FOCUSED + SKIPPED + PENDING
       end
 
       module Hooks
-        ALL = %i(after around before).freeze
+        ALL = SelectorSet.new(%i(after around before))
       end
 
       module Helpers
-        ALL = %i(let let!).freeze
+        ALL = SelectorSet.new(%i(let let!))
       end
 
-      ALL = (
+      ALL =
         ExampleGroups::ALL +
         SharedGroups::ALL  +
         Examples::ALL      +
         Hooks::ALL         +
         Helpers::ALL
-      ).freeze
     end
   end
 end

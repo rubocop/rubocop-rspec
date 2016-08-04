@@ -32,8 +32,8 @@ module RuboCop
 
         focused = ExampleGroups::FOCUSED + Examples::FOCUSED
 
-        FOCUSABLE_SELECTORS = focusable.map(&:inspect).join(' ')
-        FOCUSING_SELECTORS  = focused.map(&:inspect).join(' ')
+        FOCUSABLE_SELECTORS = focusable.to_node_pattern
+        FOCUSING_SELECTORS  = focused.to_node_pattern
 
         FOCUS_SYMBOL = s(:sym, :focus)
         FOCUS_TRUE   = s(:pair, FOCUS_SYMBOL, s(:true))
