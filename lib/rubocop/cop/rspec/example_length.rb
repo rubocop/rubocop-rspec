@@ -25,7 +25,8 @@ module RuboCop
       #   end
       class ExampleLength < Cop
         include CodeLength
-        EXAMPLE_BLOCKS = [:it, :specify].freeze
+
+        EXAMPLE_BLOCKS = RuboCop::RSpec::Language::Examples::ALL
 
         def on_block(node)
           method, _args, _body = *node

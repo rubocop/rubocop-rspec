@@ -5,6 +5,7 @@ require 'rubocop/rspec/inject'
 require 'rubocop/rspec/top_level_describe'
 require 'rubocop/rspec/wording'
 require 'rubocop/rspec/util'
+require 'rubocop/rspec/language'
 
 RuboCop::RSpec::Inject.defaults!
 

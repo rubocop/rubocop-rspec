@@ -23,36 +23,7 @@ module RuboCop
         DESCRIBED_CLASS = 'described_class'.freeze
         MSG             = "Use `#{DESCRIBED_CLASS}` instead of `%s`".freeze
 
-        RSPEC_BLOCK_METHODS = '
-          :after
-          :around
-          :before
-          :context
-          :describe
-          :example
-          :example_group
-          :fcontext
-          :fdescribe
-          :feature
-          :fexample
-          :ffeature
-          :fit
-          :focus
-          :fscenario
-          :fspecify
-          :it
-          :let
-          :let!
-          :scenario
-          :specify
-          :xcontext
-          :xdescribe
-          :xexample
-          :xfeature
-          :xit
-          :xscenario
-          :xspecify
-        '.freeze
+        RSPEC_BLOCK_METHODS = RuboCop::RSpec::Language::ALL.to_node_pattern
 
         def_node_matcher :described_constant, <<-PATTERN
           (block $(send _ :describe $(const ...)) (args) $_)
