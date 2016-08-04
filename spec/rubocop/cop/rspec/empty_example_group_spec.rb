@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::EmptyExampleGroup do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
+  subject(:cop) { described_class.new(config) }
 
   it 'flags an empty context' do
     expect_violation(<<-RUBY)
@@ -47,5 +47,33 @@ describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+  end
+
+  it 'does not recognize custom include methods by default' do
+    expect_violation(<<-RUBY)
+      describe Foo do
+      ^^^^^^^^^^^^ Empty example group detected.
+        context "when I do something clever" do
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+          it_has_special_behavior
+        end
+      end
+    RUBY
+  end
+
+  context 'when a custom include method is specified' do
+    let(:cop_config) do
+      { 'CustomIncludeMethods' => %w(it_has_special_behavior) }
+    end
+
+    it 'does not flag an otherwise empty example group' do
+      expect_no_violations(<<-RUBY)
+        describe Foo do
+          context "when I do something clever" do
+            it_has_special_behavior
+          end
+        end
+      RUBY
+    end
   end
 end
