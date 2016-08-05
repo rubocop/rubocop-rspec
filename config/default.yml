@@ -24,6 +24,10 @@ RSpec/ExampleWording:
     not: does not
   IgnoredWords: []
 
+RSpec/EmptyExampleGroup:
+  Description: 'Checks for `describe` and `context` groups without tests.'
+  Enabled: true
+  CustomIncludeMethods: []
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
