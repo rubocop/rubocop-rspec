@@ -7,6 +7,8 @@
 * Add support for checking `its` from [rspec-its](https://github.com/rspec/rspec-its). ([@backus][])
 * Add `EmptyExampleGroup` cop for detecting `describe`s and `context`s without any tests inside. ([@backus][])
 * Add `CustomIncludeMethods` configuration option for `EmptyExampleGroup`. ([@backus][])
+* Add `NestedGroups` cop for detecting excessive example group nesting. ([@backus][])
+* Add `MaxNesting` configuration option for `NestedGroups` cop. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 
