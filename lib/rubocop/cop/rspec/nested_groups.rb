@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for nested contexts
+      # Checks for nested example groups
       #
       # This cop is configurable using the `MaxNesting` option
       #
@@ -55,7 +55,7 @@ module RuboCop
       # @example configuration
       #
       #   # .rubocop.yml
-      #   RSpec/NestedContext:
+      #   RSpec/NestedGroups:
       #     MaxNesting: 2
       #
       #   context 'when using some feature' do
@@ -84,13 +84,14 @@ module RuboCop
       #     end
       #   end
       #
-      class NestedContext < Cop
+      class NestedGroups < Cop
         include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::Language
 
-        MSG = 'Maximum context nesting exceeded'.freeze
+        MSG = 'Maximum example group nesting exceeded'.freeze
 
         def_node_search :find_contexts, <<-PATTERN
-          (block (send nil :context ...) (args) ...)
+          (block (send nil {#{ExampleGroups::ALL.to_node_pattern}} ...) (args) ...)
         PATTERN
 
         def on_block(node)
@@ -115,7 +116,7 @@ module RuboCop
         end
 
         def max_nesting
-          Integer(cop_config.fetch('MaxNesting', 1))
+          Integer(cop_config.fetch('MaxNesting', 2))
         end
       end
     end
