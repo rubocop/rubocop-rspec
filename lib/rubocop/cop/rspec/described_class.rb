@@ -25,10 +25,6 @@ module RuboCop
 
         RSPEC_BLOCK_METHODS = RuboCop::RSpec::Language::ALL.to_node_pattern
 
-        def_node_matcher :described_constant, <<-PATTERN
-          (block $(send _ :describe $(const ...)) (args) $_)
-        PATTERN
-
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
           (block (send (const nil {:Class :Module}) :new ...) ...)
         PATTERN
