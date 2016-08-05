@@ -5,13 +5,15 @@ module RuboCop
     module RSpec
       # Checks for nested contexts
       #
+      # This cop is configurable using the `MaxNesting` option
+      #
       # @example
       #   # bad
       #   context 'when using some feature' do
       #     let(:some)    { :various }
       #     let(:feature) { :setup   }
       #
-      #     context 'when user is signed in' do
+      #     context 'when user is signed in' do  # flagged by rubocop
       #       let(:user) do
       #         UserCreate.call(user_attributes)
       #       end
@@ -24,7 +26,7 @@ module RuboCop
       #         }
       #       end
       #
-      #       context 'when user is an admin' do
+      #       context 'when user is an admin' do # flagged by rubocop
       #         let(:role) { 'admin' }
       #
       #         it 'blah blah'
@@ -50,6 +52,38 @@ module RuboCop
       #     it 'yada yada'
       #   end
       #
+      # @example configuration
+      #
+      #   # .rubocop.yml
+      #   RSpec/NestedContext:
+      #     MaxNesting: 2
+      #
+      #   context 'when using some feature' do
+      #     let(:some)    { :various }
+      #     let(:feature) { :setup   }
+      #
+      #     context 'when user is signed in' do
+      #       let(:user) do
+      #         UserCreate.call(user_attributes)
+      #       end
+      #
+      #       let(:user_attributes) do
+      #         {
+      #           name: 'John',
+      #           age:  22
+      #           role: role
+      #         }
+      #       end
+      #
+      #       context 'when user is an admin' do # flagged by rubocop
+      #         let(:role) { 'admin' }
+      #
+      #         it 'blah blah'
+      #         it 'yada yada'
+      #       end
+      #     end
+      #   end
+      #
       class NestedContext < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
@@ -70,14 +104,18 @@ module RuboCop
 
         private
 
-        def find_nested_contexts(node, nesting: nil, &block)
+        def find_nested_contexts(node, nesting: 1, &block)
           find_contexts(node) do |nested_context|
-            yield(nested_context) if nesting
+            yield(nested_context) if nesting > max_nesting
 
             nested_context.each_child_node do |child|
-              find_nested_contexts(child, nesting: true, &block)
+              find_nested_contexts(child, nesting: nesting + 1, &block)
             end
           end
+        end
+
+        def max_nesting
+          Integer(cop_config.fetch('MaxNesting', 1))
         end
       end
     end

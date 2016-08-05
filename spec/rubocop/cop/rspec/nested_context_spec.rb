@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::NestedContext do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::NestedContext, :config do
+  subject(:cop) { described_class.new(config) }
 
   it 'flags nested contexts' do
     expect_violation(<<-RUBY)
@@ -33,5 +33,23 @@ describe RuboCop::Cop::RSpec::NestedContext do
         end
       end
     RUBY
+  end
+
+  context 'when MaxNesting is configured as 2' do
+    let(:cop_config) { { 'MaxNesting' => '2' } }
+
+    it 'only flags third level of nesting' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          context 'when foo' do
+            context 'when bar' do
+              context 'when baz' do
+              ^^^^^^^^^^^^^^^^^^ Maximum context nesting exceeded
+              end
+            end
+          end
+        end
+      RUBY
+    end
   end
 end
