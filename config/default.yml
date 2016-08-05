@@ -33,6 +33,10 @@ RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
   Enabled: true
 
+RSpec/NestedContext:
+  Description: 'Checks for multiple levels of context nesting.'
+  Enabled: true
+
 RSpec/InstanceVariable:
   Description: 'Checks for the usage of instance variables.'
   Enabled: true
