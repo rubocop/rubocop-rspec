@@ -83,3 +83,7 @@ RSpec/ExampleLength:
 RSpec/NamedSubject:
   Description: 'Name your RSpec subject if you reference it explicitly'
   Enabled: true
+
+RSpec/SubjectStub:
+  Description: 'Checks for stubbed test subjects'
+  Enabled: true
