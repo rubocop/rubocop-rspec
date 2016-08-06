@@ -1,24 +1,14 @@
 describe 'RuboCop Project' do
   describe 'default configuration file' do
     let(:cop_names) do
-      path = File.join(
-        File.dirname(__FILE__),
-        '..',
-        '..',
-        'lib',
-        'rubocop',
-        'cop',
-        'rspec',
-        '*.rb'
-      )
+      glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec', '*.rb')
 
-      Dir.glob(path)
-        .map do |file|
-          cop_name = File.basename(file, '.rb')
-            .gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
+      Pathname.glob(glob).map do |file|
+        file_name = file.basename('.rb').to_s
+        cop_name  = file_name.gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
 
-          "RSpec/#{cop_name}"
-        end
+        "RSpec/#{cop_name}"
+      end
     end
 
     subject(:default_config) do
@@ -39,10 +29,7 @@ describe 'RuboCop Project' do
   end
 
   describe 'changelog' do
-    subject(:changelog) do
-      path = File.join(File.dirname(__FILE__), '..', '..', 'CHANGELOG.md')
-      File.read(path)
-    end
+    subject(:changelog) { SpecHelper::ROOT.join('CHANGELOG.md').read }
 
     it 'has link definitions for all implicit links' do
       implicit_link_names = changelog.scan(/\[([^\]]+)\]\[\]/).flatten.uniq
