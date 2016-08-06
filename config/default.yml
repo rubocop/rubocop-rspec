@@ -29,6 +29,10 @@ RSpec/EmptyExampleGroup:
   Enabled: true
   CustomIncludeMethods: []
 
+RSpec/ExpectActual:
+  Description: 'Checks for `expect(...)` with literal values'
+  Enabled: true
+
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
   Enabled: true
