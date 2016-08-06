@@ -16,3 +16,7 @@ Style/MultilineOperationIndentation:
 
 RSpec/ExampleLength:
   Max: 19
+
+RSpec/DescribeClass:
+  Exclude:
+  - spec/project/**/*.rb

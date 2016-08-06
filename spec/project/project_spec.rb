@@ -1,4 +1,4 @@
-describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
+describe 'RuboCop Project' do
   describe 'default configuration file' do
     let(:cop_names) do
       path = File.join(
