@@ -37,6 +37,11 @@ RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
   Enabled: true
 
+RSpec/MultipleExpectations:
+  Description: 'Checks for multiple `expect(...)` calls in one example.'
+  Enabled: true
+  Max: 1
+
 RSpec/NestedGroups:
   Description: 'Checks for multiple levels of context nesting.'
   Enabled: true

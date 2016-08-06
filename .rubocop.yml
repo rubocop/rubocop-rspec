@@ -1,5 +1,7 @@
 require: rubocop-rspec
 
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.2
