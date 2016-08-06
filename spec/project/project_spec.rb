@@ -1,8 +1,18 @@
 describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
   describe 'default configuration file' do
     let(:cop_names) do
-      Dir.glob(File.join(File.dirname(__FILE__), '..', 'lib', 'rubocop', 'cop',
-                         'rspec', '*.rb'))
+      path = File.join(
+        File.dirname(__FILE__),
+        '..',
+        '..',
+        'lib',
+        'rubocop',
+        'cop',
+        'rspec',
+        '*.rb'
+      )
+
+      Dir.glob(path)
         .map do |file|
           cop_name = File.basename(file, '.rb')
             .gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
@@ -30,7 +40,7 @@ describe 'RuboCop Project' do # rubocop:disable RSpec/DescribeClass
 
   describe 'changelog' do
     subject(:changelog) do
-      path = File.join(File.dirname(__FILE__), '..', 'CHANGELOG.md')
+      path = File.join(File.dirname(__FILE__), '..', '..', 'CHANGELOG.md')
       File.read(path)
     end
 
