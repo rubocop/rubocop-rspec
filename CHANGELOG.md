@@ -9,6 +9,7 @@
 * Add `CustomIncludeMethods` configuration option for `EmptyExampleGroup`. ([@backus][])
 * Add `NestedGroups` cop for detecting excessive example group nesting. ([@backus][])
 * Add `MaxNesting` configuration option for `NestedGroups` cop. ([@backus][])
+* Add `ExpectActual` cop for detecting literal values within `expect(...)`. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 
