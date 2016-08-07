@@ -19,24 +19,24 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       class InstanceVariable < Cop
-        include RuboCop::RSpec::SpecOnly
+        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::Language
 
         MESSAGE = 'Use `let` instead of an instance variable'.freeze
 
-        include RuboCop::RSpec::SpecOnly
+        EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
 
-        EXAMPLE_GROUP_METHODS =
-          RuboCop::RSpec::Language::ExampleGroups::ALL +
-          RuboCop::RSpec::Language::SharedGroups::ALL
+        def_node_matcher :spec_group?, <<-PATTERN
+          (block (send _ {#{EXAMPLE_GROUP_METHODS.to_node_pattern}} ...) ...)
+        PATTERN
+
+        def_node_search :ivar_usage, '$(ivar $_)'
 
         def on_block(node)
-          method, _args, _body = *node
-          _receiver, method_name, _object = *method
-          @in_spec = true if EXAMPLE_GROUP_METHODS.include?(method_name)
-        end
+          return unless spec_group?(node)
 
-        def on_ivar(node)
-          add_offense(node, :expression, MESSAGE) if @in_spec
+          ivar_usage(node) do |ivar, _|
+            add_offense(ivar, :expression, MESSAGE)
+          end
         end
       end
     end
