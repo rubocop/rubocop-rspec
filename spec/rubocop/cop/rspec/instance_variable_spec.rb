@@ -35,4 +35,15 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
       @foo.empty?
     RUBY
   end
+
+  # Regression test for nevir/rubocop-rspec#115
+  it 'ignores instance variables outside of specs' do
+    expect_no_violations(<<-RUBY, filename: 'lib/source_code.rb')
+      feature do
+        @foo = bar
+
+        @foo
+      end
+    RUBY
+  end
 end
