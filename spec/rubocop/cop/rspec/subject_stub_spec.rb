@@ -150,7 +150,7 @@ describe RuboCop::Cop::RSpec::SubjectStub do
           subject { blah }
         end
 
-        it 'stil flags this test' do
+        it 'still flags this test' do
           allow(foo).to receive(:blah)
           ^^^^^^^^^^ Do not stub your test subject.
         end

@@ -37,7 +37,7 @@ describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
-  it 'flags all repec example blocks that include `:focus`' do
+  it 'flags all rspec example blocks that include `:focus`' do
     expect_violation(<<-RUBY)
       example_group 'test', :focus do; end
                             ^^^^^^ Focused spec found.

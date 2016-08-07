@@ -92,7 +92,7 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
     RUBY
   end
 
-  it 'ignores describe that do not referece to a class' do
+  it 'ignores describe that do not reference to a class' do
     expect_no_violations(<<-RUBY)
       describe "MyClass" do
         subject { "MyClass" }

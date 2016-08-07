@@ -22,7 +22,7 @@ module RuboCop
       #   # Good
       #   before { create(:widget) }
       #
-      #   it 'counts widegts' do
+      #   it 'counts widgets' do
       #     expect(Widget.count).to eq(1)
       #   end
       class LetSetup < Cop
