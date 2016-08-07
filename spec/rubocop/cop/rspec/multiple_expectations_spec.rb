@@ -3,6 +3,8 @@
 describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   context 'without configuration' do
     let(:cop_config) { Hash.new }
 
@@ -64,7 +66,7 @@ describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
   end
 
   it 'generates a todo based on the worst violation' do
-    inspect_source(cop, <<-RUBY)
+    inspect_source(cop, <<-RUBY, 'spec/foo_spec.rb')
       describe Foo do
         it 'uses expect twice' do
           expect(foo).to eq(bar)

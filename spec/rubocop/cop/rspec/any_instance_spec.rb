@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::AnyInstance do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'finds `allow_any_instance_of` instead of an instance double' do
     expect_violation(<<-RUBY)
       before do

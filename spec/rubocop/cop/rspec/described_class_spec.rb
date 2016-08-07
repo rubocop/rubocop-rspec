@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::DescribedClass, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   shared_examples 'SkipBlocks enabled' do
     it 'does not flag violations within non-rspec blocks' do
       expect_violation(<<-RUBY)
@@ -204,7 +206,7 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
         '  subject { MyClass.do_something }',
         '  before { MyClass.do_something }',
         'end'
-      ]
+      ], 'spec/foo_spec.rb'
     )
     expect(new_source).to eq(
       [

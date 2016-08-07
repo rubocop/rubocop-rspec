@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::MultipleDescribes do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'finds multiple top level describes with class and method' do
     expect_violation(<<-RUBY)
       describe MyClass, '.do_something' do; end

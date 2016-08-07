@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   it 'finds a `double` instead of an `instance_double`' do
     expect_violation(<<-RUBY)
       it do

@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::Focus do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   # rubocop:disable RSpec/ExampleLength
   it 'flags all rspec example blocks with that include `focus: true`' do
     expect_violation(<<-RUBY)

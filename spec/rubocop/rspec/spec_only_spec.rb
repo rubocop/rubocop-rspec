@@ -3,6 +3,8 @@
 RSpec.describe RuboCop::RSpec::SpecOnly do
   subject(:cop) { fake_cop.new(config) }
 
+  include_examples 'an rspec only cop'
+
   let(:config) do
     rubocop_config =
       {

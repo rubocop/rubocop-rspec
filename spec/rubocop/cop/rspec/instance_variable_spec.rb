@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'finds an instance variable inside a describe' do
     expect_violation(<<-RUBY)
       describe MyClass do

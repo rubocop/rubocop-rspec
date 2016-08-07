@@ -26,7 +26,8 @@ module RuboCop
       #     expect(Widget.count).to eq(1)
       #   end
       class LetSetup < Cop
-        include RuboCop::RSpec::TopLevelDescribe,
+        include RuboCop::RSpec::SpecOnly,
+                RuboCop::RSpec::TopLevelDescribe,
                 RuboCop::RSpec::Language,
                 RuboCop::RSpec::Language::NodePattern
 

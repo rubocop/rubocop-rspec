@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::DescribeMethod do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'ignores describes with only a class' do
     expect_no_violations('describe Some::Class do; end')
   end

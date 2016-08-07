@@ -21,7 +21,8 @@ module RuboCop
       #     end
       #   end
       class MultipleDescribes < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::SpecOnly,
+                RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Do not use multiple top level describes - ' \
               'try to nest them.'.freeze

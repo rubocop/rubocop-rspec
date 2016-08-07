@@ -3,6 +3,8 @@
 describe RuboCop::Cop::RSpec::ExpectActual do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'flags numeric literal values within expect(...)' do
     expect_violation(<<-RUBY)
       describe Foo do

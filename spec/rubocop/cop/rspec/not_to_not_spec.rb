@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::NotToNot, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   context 'when EnforcedStyle is `not_to`' do
     let(:cop_config) { { 'EnforcedStyle' => 'not_to' } }
 
@@ -18,7 +20,12 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
     end
 
     it 'auto-corrects `to_not` to `not_to`' do
-      corrected = autocorrect_source(cop, ['it { expect(0).to_not equal 1 }'])
+      corrected =
+        autocorrect_source(
+          cop,
+          ['it { expect(0).to_not equal 1 }'],
+          'spec/foo_spec.rb'
+        )
       expect(corrected).to eq 'it { expect(0).not_to equal 1 }'
     end
   end
@@ -40,7 +47,12 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
     end
 
     it 'auto-corrects `not_to` to `to_not`' do
-      corrected = autocorrect_source(cop, ['it { expect(0).not_to equal 1 }'])
+      corrected =
+        autocorrect_source(
+          cop,
+          ['it { expect(0).not_to equal 1 }'],
+          'spec/foo_spec.rb'
+        )
       expect(corrected).to eq 'it { expect(0).to_not equal 1 }'
     end
   end
