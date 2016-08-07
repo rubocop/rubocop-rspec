@@ -1,5 +1,9 @@
+require 'pathname'
+require 'yaml'
+
 require 'rubocop'
 
+require 'rubocop/rspec'
 require 'rubocop/rspec/version'
 require 'rubocop/rspec/inject'
 require 'rubocop/rspec/top_level_describe'
