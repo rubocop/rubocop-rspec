@@ -13,6 +13,7 @@
 * Add `MultipleExpectations` cop for detecting multiple `expect(...)` calls within one example. ([@backus][])
 * Add `Max` configuration option for `MultipleExpectations`. ([@backus][])
 * Add `SubjectStub` cop for testing stubbed test subjects. ([@backus][])
+* Add `LetSetup` cop for detecting cases where `let!` is used for test setup. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 

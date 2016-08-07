@@ -51,6 +51,9 @@ RSpec/InstanceVariable:
   Description: 'Checks for the usage of instance variables.'
   Enabled: true
 
+RSpec/LetSetup:
+  Description: 'Checks for `let!` being used for test setup.'
+
 RSpec/FilePath:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true
