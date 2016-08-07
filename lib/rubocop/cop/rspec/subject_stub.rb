@@ -89,7 +89,7 @@ module RuboCop
 
         # Find a subject message expectation
         #
-        # @param context [RuboCop::Node]
+        # @param node [RuboCop::Node]
         # @param subject_name [Symbol] name of subject
         #
         # @yield [RuboCop::Node] message expectation
@@ -100,7 +100,7 @@ module RuboCop
           # Yield the current node if it is a message expectation.
           yield(node) if message_expectation?(node, subject_name)
 
-          # Recurse through node's children looking for a messag expectation.
+          # Recurse through node's children looking for a message expectation.
           node.each_child_node do |child|
             find_subject_expectation(child, subject_name, &block)
           end

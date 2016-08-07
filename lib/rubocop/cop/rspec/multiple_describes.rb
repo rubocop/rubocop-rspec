@@ -4,20 +4,20 @@ module RuboCop
   module Cop
     module RSpec
       # Checks for multiple top level describes. They should be nested if it is
-      # for the same class or module or seperated into different files.
+      # for the same class or module or separated into different files.
       #
       # @example
       #   # bad
-      #   describe MyClass, '.do_someting' do
+      #   describe MyClass, '.do_something' do
       #   end
-      #   describe MyClass, '.do_someting_else' do
+      #   describe MyClass, '.do_something_else' do
       #   end
       #
       #   #good
       #   describe MyClass
-      #     describe '.do_someting' do
+      #     describe '.do_something' do
       #     end
-      #     describe '.do_someting_else' do
+      #     describe '.do_something_else' do
       #     end
       #   end
       class MultipleDescribes < Cop
