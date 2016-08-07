@@ -38,6 +38,8 @@ module RuboCop
     #   integrations for users of rubocop-rspec
     #
     module SpecOnly
+      DEFAULT_CONFIGURATION = CONFIG.fetch('AllCops').fetch('RSpec')
+
       def relevant_file?(file)
         rspec_pattern =~ file && super
       end
@@ -49,7 +51,10 @@ module RuboCop
       end
 
       def rspec_pattern_config
-        config.for_all_cops.fetch('RSpec').fetch('Patterns')
+        config
+          .for_all_cops
+          .fetch('RSpec', DEFAULT_CONFIGURATION)
+          .fetch('Patterns')
       end
     end
   end
