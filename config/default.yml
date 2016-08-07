@@ -1,3 +1,11 @@
+AllCops:
+  RSpec:
+    Patterns:
+    # Match any file that contains `_spec.rb` so that FilePath can also flag
+    # and correct files with odd extensions like `spec/foo_spec.rb.html`
+    - '_spec.rb'
+    - '(?:^|/)spec/'
+
 RSpec/AnyInstance:
   Description: 'Check that instances are not being stubbed globally'
   Enabled: true

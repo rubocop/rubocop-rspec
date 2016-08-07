@@ -46,7 +46,9 @@ module RuboCop
       #   end
       #
       class MultipleExpectations < Cop
-        include RuboCop::RSpec::Language, ConfigurableMax
+        include RuboCop::RSpec::SpecOnly,
+                RuboCop::RSpec::Language,
+                ConfigurableMax
 
         MSG = 'Too many expectations.'.freeze
 

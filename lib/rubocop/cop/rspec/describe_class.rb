@@ -18,7 +18,7 @@ module RuboCop
       #   describe "A feature example", type: :feature do
       #   end
       class DescribeClass < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'The first argument to describe should be '\
               'the class or module being tested.'.freeze

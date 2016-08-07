@@ -3,6 +3,8 @@
 describe RuboCop::Cop::RSpec::SubjectStub do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'complains when subject is stubbed' do
     expect_violation(<<-RUBY)
       describe Foo do

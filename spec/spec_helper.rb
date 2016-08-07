@@ -11,7 +11,8 @@ module SpecHelper
   ROOT = Pathname.new(__dir__).parent.freeze
 end
 
-Dir.glob(File.expand_path('support/*.rb', __dir__)).map(&method(:require))
+spec_helper_glob = File.expand_path('{support,shared}/*.rb', __dir__)
+Dir.glob(spec_helper_glob).map(&method(:require))
 
 RSpec.configure do |config|
   config.order = :random

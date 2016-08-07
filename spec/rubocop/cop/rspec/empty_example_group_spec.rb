@@ -3,6 +3,8 @@
 describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   it 'flags an empty context' do
     expect_violation(<<-RUBY)
       describe Foo do

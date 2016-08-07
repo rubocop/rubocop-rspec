@@ -14,6 +14,8 @@
 * Add `Max` configuration option for `MultipleExpectations`. ([@backus][])
 * Add `SubjectStub` cop for testing stubbed test subjects. ([@backus][])
 * Add `LetSetup` cop for detecting cases where `let!` is used for test setup. ([@backus][])
+* Change all cops to only inspect files with names following rspec convention (`*/spec/*` and/or `_spec.rb`). ([@backus][])
+* Add `AllCops/RSpec` configuration option for specifying custom spec file patterns. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 

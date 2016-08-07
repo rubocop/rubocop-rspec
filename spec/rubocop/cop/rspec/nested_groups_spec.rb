@@ -3,6 +3,8 @@
 describe RuboCop::Cop::RSpec::NestedGroups, :config do
   subject(:cop) { described_class.new(config) }
 
+  include_examples 'an rspec only cop'
+
   it 'flags nested contexts' do
     expect_violation(<<-RUBY)
       describe MyClass do

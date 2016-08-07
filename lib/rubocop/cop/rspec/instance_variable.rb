@@ -19,6 +19,8 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       class InstanceVariable < Cop
+        include RuboCop::RSpec::SpecOnly
+
         MESSAGE = 'Use `let` instead of an instance variable'.freeze
 
         EXAMPLE_GROUP_METHODS =

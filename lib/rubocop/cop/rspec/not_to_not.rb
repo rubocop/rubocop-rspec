@@ -15,7 +15,8 @@ module RuboCop
       #     expect(false).not_to be_true
       #   end
       class NotToNot < Cop
-        include RuboCop::Cop::ConfigurableEnforcedStyle
+        include RuboCop::RSpec::SpecOnly,
+                RuboCop::Cop::ConfigurableEnforcedStyle
 
         MSG = 'Prefer `%s` over `%s`'.freeze
 

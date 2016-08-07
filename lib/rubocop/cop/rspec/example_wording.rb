@@ -18,6 +18,8 @@ module RuboCop
       #   it 'finds nothing' do
       #   end
       class ExampleWording < Cop
+        include RuboCop::RSpec::SpecOnly
+
         MSG = 'Do not use should when describing your tests.'.freeze
 
         def on_block(node) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/LineLength

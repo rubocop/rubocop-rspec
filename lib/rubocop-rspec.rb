@@ -1,5 +1,9 @@
+require 'pathname'
+require 'yaml'
+
 require 'rubocop'
 
+require 'rubocop/rspec'
 require 'rubocop/rspec/version'
 require 'rubocop/rspec/inject'
 require 'rubocop/rspec/top_level_describe'
@@ -7,6 +11,7 @@ require 'rubocop/rspec/wording'
 require 'rubocop/rspec/util'
 require 'rubocop/rspec/language'
 require 'rubocop/rspec/language/node_pattern'
+require 'rubocop/rspec/spec_only'
 
 RuboCop::RSpec::Inject.defaults!
 

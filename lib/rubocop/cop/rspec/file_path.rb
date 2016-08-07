@@ -15,7 +15,7 @@ module RuboCop
       #   my_class_method_spec.rb  # describe MyClass, '#method'
       #   my_class_spec.rb         # describe MyClass
       class FilePath < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'.freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/

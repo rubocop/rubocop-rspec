@@ -18,7 +18,9 @@ module RuboCop
       #   describe MyClass, '.my_class_method' do
       #   end
       class DescribeMethod < Cop
-        include RuboCop::RSpec::TopLevelDescribe, RuboCop::RSpec::Util
+        include RuboCop::RSpec::SpecOnly,
+                RuboCop::RSpec::TopLevelDescribe,
+                RuboCop::RSpec::Util
 
         MESSAGE = 'The second argument to describe should be the method ' \
                   "being tested. '#instance' or '.class'".freeze

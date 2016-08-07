@@ -18,7 +18,7 @@ module RuboCop
       #     subject { described_class.do_something }
       #   end
       class DescribedClass < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
 
         DESCRIBED_CLASS = 'described_class'.freeze
         MSG             = "Use `#{DESCRIBED_CLASS}` instead of `%s`".freeze

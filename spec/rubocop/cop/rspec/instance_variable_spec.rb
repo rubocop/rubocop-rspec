@@ -1,6 +1,8 @@
 describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
+  include_examples 'an rspec only cop'
+
   it 'finds an instance variable inside a describe' do
     expect_violation(<<-RUBY)
       describe MyClass do
@@ -33,6 +35,17 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
     expect_no_violations(<<-RUBY)
       @foo = []
       @foo.empty?
+    RUBY
+  end
+
+  # Regression test for nevir/rubocop-rspec#115
+  it 'ignores instance variables outside of specs' do
+    expect_no_violations(<<-RUBY, filename: 'lib/source_code.rb')
+      feature do
+        @foo = bar
+
+        @foo
+      end
     RUBY
   end
 end
