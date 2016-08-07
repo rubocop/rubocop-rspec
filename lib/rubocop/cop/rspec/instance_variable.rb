@@ -23,6 +23,8 @@ module RuboCop
 
         MESSAGE = 'Use `let` instead of an instance variable'.freeze
 
+        include RuboCop::RSpec::SpecOnly
+
         EXAMPLE_GROUP_METHODS =
           RuboCop::RSpec::Language::ExampleGroups::ALL +
           RuboCop::RSpec::Language::SharedGroups::ALL
