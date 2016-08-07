@@ -1,3 +1,9 @@
+AllCops:
+  RSpec:
+    Patterns:
+    - '_spec.rb$'
+    - '(?:^|/)spec/'
+
 RSpec/AnyInstance:
   Description: 'Check that instances are not being stubbed globally'
   Enabled: true

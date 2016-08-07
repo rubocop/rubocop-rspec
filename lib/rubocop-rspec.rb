@@ -7,6 +7,7 @@ require 'rubocop/rspec/wording'
 require 'rubocop/rspec/util'
 require 'rubocop/rspec/language'
 require 'rubocop/rspec/language/node_pattern'
+require 'rubocop/rspec/spec_only'
 
 RuboCop::RSpec::Inject.defaults!
 

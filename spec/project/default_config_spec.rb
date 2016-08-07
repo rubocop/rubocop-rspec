@@ -10,12 +10,16 @@ describe 'config/default.yml' do
     end
   end
 
+  let(:config_keys) do
+    cop_names + %w(AllCops)
+  end
+
   subject(:default_config) do
     RuboCop::ConfigLoader.load_file('config/default.yml')
   end
 
   it 'has configuration for all cops' do
-    expect(default_config.keys.sort).to eq(cop_names.sort)
+    expect(default_config.keys.sort).to eq(config_keys.sort)
   end
 
   it 'has a nicely formatted description for all cops' do
