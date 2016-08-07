@@ -12,6 +12,7 @@
 * Add `ExpectActual` cop for detecting literal values within `expect(...)`. ([@backus][])
 * Add `MultipleExpectations` cop for detecting multiple `expect(...)` calls within one example. ([@backus][])
 * Add `Max` configuration option for `MultipleExpectations`. ([@backus][])
+* Add `SubjectStub` cop for testing stubbed test subjects. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 
