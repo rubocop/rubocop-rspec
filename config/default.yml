@@ -57,6 +57,7 @@ RSpec/NestedGroups:
 
 RSpec/InstanceVariable:
   Description: 'Checks for the usage of instance variables.'
+  AssignmentOnly: false
   Enabled: true
 
 RSpec/LetSetup:

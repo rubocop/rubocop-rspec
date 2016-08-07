@@ -48,4 +48,30 @@ describe RuboCop::Cop::RSpec::InstanceVariable do
       end
     RUBY
   end
+
+  context 'when configured with AssignmentOnly', :config do
+    subject(:cop) { described_class.new(config) }
+
+    let(:cop_config) do
+      { 'AssignmentOnly' => true }
+    end
+
+    it 'flags an instance variable when it is also assigned' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          before { @foo = [] }
+          it { expect(@foo).to be_empty }
+                      ^^^^ Use `let` instead of an instance variable
+        end
+      RUBY
+    end
+
+    it 'ignores an instance variable when it is not assigned' do
+      expect_no_violations(<<-RUBY)
+        describe MyClass do
+          it { expect(@foo).to be_empty }
+        end
+      RUBY
+    end
+  end
 end

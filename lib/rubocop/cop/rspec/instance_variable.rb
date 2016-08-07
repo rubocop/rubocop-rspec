@@ -6,6 +6,11 @@ module RuboCop
       # When you have to assign a variable instead of using an instance
       # variable, use let.
       #
+      # This cop can be configured with the option `AssignmentOnly` which
+      # will configure the cop to only register offenses on instance
+      # variable usage if the instance variable is also assigned within
+      # the spec
+      #
       # @example
       #   # bad
       #   describe MyClass do
@@ -18,6 +23,30 @@ module RuboCop
       #     let(:foo) { [] }
       #     it { expect(foo).to be_empty }
       #   end
+      #
+      # @example with AssignmentOnly configuration
+      #
+      #   # rubocop.yml
+      #   RSpec/InstanceVariable:
+      #     AssignmentOnly: false
+      #
+      #   # bad
+      #   describe MyClass do
+      #     before { @foo = [] }
+      #     it { expect(@foo).to be_empty }
+      #   end
+      #
+      #   # allowed
+      #   describe MyClass do
+      #     it { expect(@foo).to be_empty }
+      #   end
+      #
+      #   # good
+      #   describe MyClass do
+      #     let(:foo) { [] }
+      #     it { expect(foo).to be_empty }
+      #   end
+      #
       class InstanceVariable < Cop
         include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::Language
 
@@ -31,12 +60,22 @@ module RuboCop
 
         def_node_search :ivar_usage, '$(ivar $_)'
 
+        def_node_search :ivar_assigned?, '(ivasgn % ...)'
+
         def on_block(node)
           return unless spec_group?(node)
 
-          ivar_usage(node) do |ivar, _|
+          ivar_usage(node) do |ivar, name|
+            return if assignment_only? && !ivar_assigned?(node, name)
+
             add_offense(ivar, :expression, MESSAGE)
           end
+        end
+
+        private
+
+        def assignment_only?
+          cop_config['AssignmentOnly']
         end
       end
     end
