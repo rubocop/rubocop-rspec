@@ -1,10 +1,10 @@
 # RuboCop RSpec
 
-[![Gem Version](https://badge.fury.io/rb/rubocop-rspec.png)](https://rubygems.org/gems/rubocop-rspec)
-[![Dependency Status](https://gemnasium.com/nevir/rubocop-rspec.png)](https://gemnasium.com/nevir/rubocop-rspec)
-[![Build Status](https://secure.travis-ci.org/nevir/rubocop-rspec.png?branch=master)](http://travis-ci.org/nevir/rubocop-rspec)
-[![Coverage Status](https://coveralls.io/repos/nevir/rubocop-rspec/badge.png?branch=master)](https://coveralls.io/r/nevir/rubocop-rspec)
-[![Code Climate](https://codeclimate.com/github/nevir/rubocop-rspec.png)](https://codeclimate.com/github/nevir/rubocop-rspec)
+[![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
+[![Dependency Status](https://gemnasium.com/nevir/rubocop-rspec.svg)](https://gemnasium.com/nevir/rubocop-rspec)
+[![Build Status](https://secure.travis-ci.org/nevir/rubocop-rspec.svg?branch=master)](http://travis-ci.org/nevir/rubocop-rspec)
+[![Coverage Status](https://codeclimate.com/github/nevir/rubocop-rspec/badges/coverage.svg)](https://codeclimate.com/github/nevir/rubocop-rspec/coverage)
+[![Code Climate](https://codeclimate.com/github/nevir/rubocop-rspec.svg)](https://codeclimate.com/github/nevir/rubocop-rspec)
 
 RSpec-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/bbatsov/rubocop).
@@ -32,13 +32,13 @@ ways to do this:
 
 ### RuboCop configuration file
 
-Put this into you `.rubocop.yml`.
+Put this into your `.rubocop.yml`.
 
 ```
 require: rubocop-rspec
 ```
 
-Now you can run `rubocop` and it will automaticly load the RuboCop RSpec
+Now you can run `rubocop` and it will automatically load the RuboCop RSpec
 cops together with the standard cops.
 
 ### Command line
@@ -59,7 +59,7 @@ end
 ## The Cops
 
 All cops are located under
-[`lib/rubocop/cop/spec`](lib/rubocop/cop/rspec), and contain
+[`lib/rubocop/cop/rspec`](lib/rubocop/cop/rspec), and contain
 examples/documentation.
 
 In your `.rubocop.yml`, you may treat the RSpec cops just like any other
@@ -71,6 +71,14 @@ RSpec/FilePath:
     - spec/my_poorly_named_spec_file.rb
 ```
 
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ## License
 

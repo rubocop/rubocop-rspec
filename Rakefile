@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'bundler'
 require 'bundler/gem_tasks'
 begin
@@ -26,7 +24,7 @@ task :internal_investigation do
   require 'rubocop-rspec'
 
   result = RuboCop::CLI.new.run
-  abort('RuboCop failed!') unless result == 0
+  abort('RuboCop failed!') unless result.zero?
 end
 
 task default: [:spec, :internal_investigation]

@@ -1,16 +1,18 @@
-# encoding: utf-8
-
 module RuboCop
   module RSpec
     # Helper methods for top level describe cops
     module TopLevelDescribe
+      extend NodePattern::Macros
+
+      def_node_matcher :described_constant, <<-PATTERN
+        (block $(send _ :describe $(const ...)) (args) $_)
+      PATTERN
+
       def on_send(node)
         return unless respond_to?(:on_top_level_describe)
         return unless top_level_describe?(node)
 
         _receiver, _method_name, *args = *node
-        # Ignore non-string args (RSpec metadata)
-        args = [args.first] + args[1..-1].select { |a| a.type == :str }
 
         on_top_level_describe(node, args)
       end
@@ -28,7 +30,7 @@ module RuboCop
         nodes = describe_statement_children(root_node)
         # If we have no top level describe statements, we need to check any
         # blocks on the top level (e.g. after a require).
-        if nodes.size == 0
+        if nodes.empty?
           nodes = node_children(root_node).map do |child|
             describe_statement_children(child) if child.type == :block
           end.flatten.compact

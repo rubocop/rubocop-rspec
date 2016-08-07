@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -6,8 +6,8 @@ module RuboCop
       # Checks the path of the spec file and enforces that it reflects the
       # described class/module and its optionally called out method.
       #
-      # With the configuration option `CustomTransform` modules or clases can be
-      # specified that should not as usual be transformed from CamelCase to
+      # With the configuration option `CustomTransform` modules or classes can
+      # be specified that should not as usual be transformed from CamelCase to
       # snake_case (e.g. 'RuboCop' => 'rubocop' ).
       #
       # @example
@@ -17,15 +17,18 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Spec path should end with `%s`'
+        MESSAGE = 'Spec path should end with `%s`'.freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
+        ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         def on_top_level_describe(node, args)
+          return if routing_spec?(args)
+
           return unless single_top_level_describe?
-          object = const_name(args.first)
+          object = args.first.const_name
           return unless object
 
-          path_matcher = matcher(object, args[1])
+          path_matcher = matcher(object, args.at(1))
           return if source_filename =~ regexp_from_glob(path_matcher)
 
           add_offense(node, :expression, format(MESSAGE, path_matcher))
@@ -33,9 +36,17 @@ module RuboCop
 
         private
 
+        def routing_spec?(args)
+          args.any? do |arg|
+            arg.children.include?(ROUTING_PAIR)
+          end
+        end
+
         def matcher(object, method)
           path = File.join(parts(object))
-          path += '*' + method.children.first.gsub(/\W+/, '') if method
+          if method && method.type.equal?(:str)
+            path += '*' + method.str_content.gsub(/\W+/, '')
+          end
 
           "#{path}*_spec.rb"
         end
@@ -51,19 +62,18 @@ module RuboCop
         end
 
         def camel_to_underscore(string)
-          string.dup.tap do |result|
-            result.gsub!(/([^A-Z])([A-Z]+)/,          '\\1_\\2')
-            result.gsub!(/([A-Z])([A-Z][^A-Z]+)/, '\\1_\\2')
-            result.downcase!
-          end
+          string
+            .gsub(/([^A-Z])([A-Z]+)/, '\\1_\\2')
+            .gsub(/([A-Z])([A-Z\d][^A-Z\d]+)/, '\\1_\\2')
+            .downcase
         end
 
         def regexp_from_glob(glob)
-          Regexp.new(glob.gsub('.', '\\.').gsub('*', '.*') + '$')
+          Regexp.new(glob.sub('.', '\\.').gsub('*', '.*') + '$')
         end
 
         def custom_transform
-          cop_config['CustomTransform'] || []
+          cop_config['CustomTransform'] || {}
         end
       end
     end

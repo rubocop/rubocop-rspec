@@ -1,6 +1,76 @@
 # Change log
 
-# master
+## Master (unreleased)
+
+* Add support for checking all example groups with `ExampleLength`. ([@backus][])
+* Add support for checking shared example groups for `DescribedClass`. ([@backus][])
+* Add support for checking `its` from [rspec-its](https://github.com/rspec/rspec-its). ([@backus][])
+* Add `EmptyExampleGroup` cop for detecting `describe`s and `context`s without any tests inside. ([@backus][])
+* Add `CustomIncludeMethods` configuration option for `EmptyExampleGroup`. ([@backus][])
+* Add `NestedGroups` cop for detecting excessive example group nesting. ([@backus][])
+* Add `MaxNesting` configuration option for `NestedGroups` cop. ([@backus][])
+* Add `ExpectActual` cop for detecting literal values within `expect(...)`. ([@backus][])
+* Add `MultipleExpectations` cop for detecting multiple `expect(...)` calls within one example. ([@backus][])
+* Add `Max` configuration option for `MultipleExpectations`. ([@backus][])
+* Add `SubjectStub` cop for testing stubbed test subjects. ([@backus][])
+* Add `LetSetup` cop for detecting cases where `let!` is used for test setup. ([@backus][])
+
+## 1.6.0 (2016-08-03)
+
+* Add `SkipBlocks` option for `DescribedClass` cop. ([@backus][])
+
+## 1.5.3 (2016-08-02)
+
+* Add `RSpec/NamedSubject` cop. ([@backus][])
+
+## 1.5.2 (2016-08-01)
+
+* Drop support for ruby `2.0.0` and `2.1.0`. ([@backus][])
+* Internal refactorings and improved test coverage. ([@backus][])
+
+## 1.5.1 (2016-07-20)
+
+* Fix `unrecognized parameter RSpec/VerifiedDoubles:IgnoreSymbolicNames` warning. ([@jeffreyc][])
+* Update to rubocop 0.41.2. ([@backus][])
+
+## 1.5.0 (2016-05-17)
+
+* Expand `VerifiedDoubles` cop to check for `spy` as well as `double`. ([@andyw8][])
+* Enable `VerifiedDoubles` cop by default. ([@andyw8][])
+* Add `IgnoreSymbolicNames` option for `VerifiedDoubles` cop. ([@andyw8][])
+* Add `RSpec::ExampleLength` cop. ([@andyw8][])
+* Handle alphanumeric class names in `FilePath` cop. ([@andyw8][])
+* Skip `DescribeClass` cop for view specs. ([@andyw8][])
+* Skip `FilePath` cop for Rails routing specs. ([@andyw8][])
+* Add cop to check for focused specs. ([@renanborgescampos][], [@jaredmoody][])
+* Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal][])
+* Update to rubocop 0.40.0. ([@nijikon][])
+
+## 1.4.1 (2016-04-03)
+
+* Ignore routing specs for DescribeClass cop. ([@nijikon][])
+* Move rubocop dependency to runtime. ([@nijikon][])
+* Update to rubocop 0.39.0. ([@nijikon][])
+
+## 1.4.0 (2016-02-15)
+
+* Update to rubocop 0.37.2. ([@nijikon][])
+* Update ruby versions we test against. ([@nijikon][])
+* Add `RSpec::NotToNot` cop. ([@miguelfteixeira][])
+* Add `Rspec/AnyInstance` cop. ([@mlarraz][])
+
+## 1.3.1
+
+* Fix auto correction issue - syntax had changed in RuboCop v0.31. ([@bquorning][])
+* Add RuboCop clone to vendor folder - see #39 for details. ([@bquorning][])
+
+## 1.3.0
+
+* Ignore non string arguments for FilePathCop - thanks to @deivid-rodriguez. ([@geniou][])
+* Skip DescribeMethod cop for tagged specs. ([@deivid-rodriguez][])
+* Skip DescribeClass cop for feature/request specs. ([@deivid-rodriguez][])
+
+## 1.2.2
 
 * Make `RSpec::ExampleWording` case insensitive. ([@geniou][])
 
@@ -48,6 +118,17 @@
 <!-- Contributors -->
 
 [@andyw8]: https://github.com/andyw8
+[@backus]: https://github.com/backus
+[@bquorning]: https://github.com/bquorning
+[@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
+[@jawshooah]: https://github.com/jawshooah
 [@nevir]: https://github.com/nevir
+[@nijikon]: https://github.com/nijikon
 [@pstengel]: https://github.com/pstengel
+[@miguelfteixeira]: https://github.com/miguelfteixeira
+[@mlarraz]: https://github.com/mlarraz
+[@renanborgescampos]: https://github.com/renanborgescampos
+[@jaredmoody]: https://github.com/jaredmoody
+[@baberthal]: https://github.com/baberthal
+[@jeffreyc]: https://github.com/jeffreyc

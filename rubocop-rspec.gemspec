@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 1.9.3'
+  spec.required_ruby_version = '>= 2.2.0'
 
   spec.require_paths = ['lib']
   spec.files = Dir[
@@ -27,11 +27,15 @@ Gem::Specification.new do |spec|
     'Gemfile',
     'Rakefile'
   ]
-  spec.test_files = spec.files.grep(/^spec\//)
+  spec.test_files = spec.files.grep(%r{^spec/})
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
-  spec.add_development_dependency('rubocop', '~> 0.24')
-  spec.add_development_dependency('rake', '~> 10.1')
-  spec.add_development_dependency('rspec', '~> 3.0')
-  spec.add_development_dependency('simplecov', '~> 0.8')
+  spec.add_runtime_dependency 'rubocop', '>= 0.42.0'
+
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec', '>= 3.4'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'anima'
+  spec.add_development_dependency 'concord'
+  spec.add_development_dependency 'adamantium'
 end

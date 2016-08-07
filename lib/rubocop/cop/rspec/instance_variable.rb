@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -19,12 +19,11 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       class InstanceVariable < Cop
-        MESSAGE = 'Use `let` instead of an instance variable'
-        EXAMPLE_GROUP_METHODS = [
-          :example_group, :describe, :context, :xdescribe, :xcontext,
-          :fdescribe, :fcontext, :shared_examples, :shared_context,
-          :share_examples_for, :shared_examples_for, :feature
-        ]
+        MESSAGE = 'Use `let` instead of an instance variable'.freeze
+
+        EXAMPLE_GROUP_METHODS =
+          RuboCop::RSpec::Language::ExampleGroups::ALL +
+          RuboCop::RSpec::Language::SharedGroups::ALL
 
         def on_block(node)
           method, _args, _body = *node

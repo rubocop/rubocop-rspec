@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -20,43 +20,61 @@ module RuboCop
       class DescribedClass < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Use `described_class` instead of `%s`'
+        DESCRIBED_CLASS = 'described_class'.freeze
+        MSG             = "Use `#{DESCRIBED_CLASS}` instead of `%s`".freeze
+
+        RSPEC_BLOCK_METHODS = RuboCop::RSpec::Language::ALL.to_node_pattern
+
+        def_node_matcher :common_instance_exec_closure?, <<-PATTERN
+          (block (send (const nil {:Class :Module}) :new ...) ...)
+        PATTERN
+
+        def_node_matcher :rspec_block?, <<-PATTERN
+          (block (send nil {#{RSPEC_BLOCK_METHODS}} ...) ...)
+        PATTERN
+
+        def_node_matcher :scope_changing_syntax?, '{def class module}'
 
         def on_block(node)
-          method, _args, body = *node
-          return unless top_level_describe?(method)
+          describe, described_class, body = described_constant(node)
+          return unless top_level_describe?(describe)
 
-          _receiver, method_name, object = *method
-          return unless method_name == :describe
-          return unless object && object.type == :const
-
-          inspect_children(body, object)
+          find_constant_usage(body, described_class) do |match|
+            add_offense(match, :expression, format(MSG, match.const_name))
+          end
         end
 
         def autocorrect(node)
-          @corrections << lambda do |corrector|
-            corrector.replace(node.loc.expression, 'described_class')
+          lambda do |corrector|
+            corrector.replace(node.loc.expression, DESCRIBED_CLASS)
           end
         end
 
         private
 
-        def inspect_children(node, object)
-          return unless node.is_a? Parser::AST::Node
-          return if scope_change?(node) || node.type == :const
+        def find_constant_usage(node, described_class, &block)
+          yield(node) if node.eql?(described_class)
+
+          return unless node.instance_of?(Node)
+          return if scope_change?(node) || node.const_type?
 
           node.children.each do |child|
-            if child == object
-              name =  object.loc.expression.source
-              add_offense(child, :expression, format(MESSAGE, name))
-              break
-            end
-            inspect_children(child, object)
+            find_constant_usage(child, described_class, &block)
           end
         end
 
         def scope_change?(node)
-          [:def, :class, :module].include?(node.type)
+          scope_changing_syntax?(node)          ||
+            common_instance_exec_closure?(node) ||
+            skippable_block?(node)
+        end
+
+        def skippable_block?(node)
+          node.block_type? && !rspec_block?(node) && skip_blocks?
+        end
+
+        def skip_blocks?
+          cop_config['SkipBlocks'].equal?(true)
         end
       end
     end

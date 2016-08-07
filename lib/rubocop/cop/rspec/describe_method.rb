@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module RuboCop
   module Cop
@@ -18,16 +18,15 @@ module RuboCop
       #   describe MyClass, '.my_class_method' do
       #   end
       class DescribeMethod < Cop
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe, RuboCop::RSpec::Util
 
         MESSAGE = 'The second argument to describe should be the method ' \
-                  "being tested. '#instance' or '.class'"
+                  "being tested. '#instance' or '.class'".freeze
         METHOD_STRING_MATCHER = /^[\#\.].+/
 
-        def on_top_level_describe(_node, args)
-          second_arg = args[1]
-          return unless second_arg
-          return if METHOD_STRING_MATCHER =~ second_arg.children.first
+        def on_top_level_describe(_node, (_, second_arg))
+          return unless second_arg && second_arg.type.equal?(:str)
+          return if METHOD_STRING_MATCHER =~ one(second_arg.children)
 
           add_offense(second_arg, :expression, MESSAGE)
         end

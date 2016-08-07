@@ -1,9 +1,17 @@
-# encoding: utf-8
-
 require 'rubocop'
 
-rubocop_gem_path = Gem::Specification.find_by_name('rubocop').gem_dir
-Dir["#{rubocop_gem_path}/spec/support/**/*.rb"].each { |f| require f }
+require 'rubocop/rspec/support'
+
+if ENV['CI']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
+module SpecHelper
+  ROOT = Pathname.new(__dir__).parent.freeze
+end
+
+Dir.glob(File.expand_path('support/*.rb', __dir__)).map(&method(:require))
 
 RSpec.configure do |config|
   config.order = :random
@@ -15,8 +23,11 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = :expect # Disable `should_receive` and `stub`
   end
+
+  config.include(ExpectViolation)
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require 'rubocop-rspec'

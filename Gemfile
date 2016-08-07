@@ -1,11 +1,9 @@
-# encoding: utf-8
-
 source 'https://rubygems.org'
 
 gemspec
 
 group :test do
-  gem 'coveralls', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 local_gemfile = 'Gemfile.local'

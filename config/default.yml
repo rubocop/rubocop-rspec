@@ -1,9 +1,14 @@
+RSpec/AnyInstance:
+  Description: 'Check that instances are not being stubbed globally'
+  Enabled: true
+
 RSpec/DescribeClass:
   Description: 'Check that the first argument to the top level describe is the tested class or module.'
   Enabled: true
 
 RSpec/DescribedClass:
   Description: 'Use `described_class` for tested class / module'
+  SkipBlocks: false
   Enabled: true
 
 RSpec/DescribeMethod:
@@ -19,14 +24,35 @@ RSpec/ExampleWording:
     not: does not
   IgnoredWords: []
 
+RSpec/EmptyExampleGroup:
+  Description: 'Checks for `describe` and `context` groups without tests.'
+  Enabled: true
+  CustomIncludeMethods: []
+
+RSpec/ExpectActual:
+  Description: 'Checks for `expect(...)` with literal values'
+  Enabled: true
 
 RSpec/MultipleDescribes:
   Description: 'Checks for multiple top level describes.'
   Enabled: true
 
+RSpec/MultipleExpectations:
+  Description: 'Checks for multiple `expect(...)` calls in one example.'
+  Enabled: true
+  Max: 1
+
+RSpec/NestedGroups:
+  Description: 'Checks for multiple levels of context nesting.'
+  Enabled: true
+  MaxNesting: 2
+
 RSpec/InstanceVariable:
   Description: 'Checks for the usage of instance variables.'
   Enabled: true
+
+RSpec/LetSetup:
+  Description: 'Checks for `let!` being used for test setup.'
 
 RSpec/FilePath:
   Description: 'Checks the file and folder naming of the spec file.'
@@ -37,4 +63,30 @@ RSpec/FilePath:
 
 RSpec/VerifiedDoubles:
   Description: 'Prefer using verifying doubles over normal doubles.'
-  Enabled: false
+  Enabled: true
+  IgnoreSymbolicNames: false
+
+RSpec/NotToNot:
+  Description: 'Enforces the usage of the same method on all negative message expectations.'
+  EnforcedStyle: not_to
+  SupportedStyles:
+    - not_to
+    - to_not
+  Enabled: true
+
+RSpec/Focus:
+  Description: 'Checks if there are focused specs.'
+  Enabled: true
+
+RSpec/ExampleLength:
+  Description: 'Checks for long example'
+  Enabled: true
+  Max: 5
+
+RSpec/NamedSubject:
+  Description: 'Name your RSpec subject if you reference it explicitly'
+  Enabled: true
+
+RSpec/SubjectStub:
+  Description: 'Checks for stubbed test subjects'
+  Enabled: true

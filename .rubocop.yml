@@ -1,6 +1,24 @@
+require: rubocop-rspec
+
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.2
+
 Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Style/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+RSpec/ExampleLength:
+  Max: 19
+
+RSpec/DescribeClass:
+  Exclude:
+  - spec/project/**/*.rb

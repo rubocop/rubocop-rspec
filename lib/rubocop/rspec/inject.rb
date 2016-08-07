@@ -1,7 +1,3 @@
-# encoding: utf-8
-
-require 'yaml'
-
 module RuboCop
   module RSpec
     # Because RuboCop doesn't yet support plugins, we have to monkey patch in a
@@ -12,10 +8,11 @@ module RuboCop
       )
 
       def self.defaults!
-        hash = YAML.load_file(DEFAULT_FILE)
+        path = File.absolute_path(DEFAULT_FILE)
+        hash = ConfigLoader.send(:load_yaml_configuration, path)
+        config = Config.new(hash, path)
         puts "configuration from #{DEFAULT_FILE}" if ConfigLoader.debug?
-        config = ConfigLoader.merge_with_default(hash, DEFAULT_FILE)
-
+        config = ConfigLoader.merge_with_default(config, path)
         ConfigLoader.instance_variable_set(:@default_configuration, config)
       end
     end
