@@ -55,6 +55,25 @@ RuboCop::RakeTask.new do |task|
 end
 ```
 
+## Inspecting files that don't end with `_spec.rb`
+
+By default, `rubocop-rspec` only inspects code within paths ending in `_spec.rb` or including `spec/`. You can override this setting in your config file by specifying one or more patterns:
+
+```yaml
+# Inspect all files
+AllCops:
+  RSpec:
+    Patterns:
+    - '.+'
+```
+
+```yaml
+# Inspect only files ending with `_test.rb`
+AllCops:
+  RSpec:
+    Patterns:
+    - '_test.rb$'
+```
 
 ## The Cops
 
