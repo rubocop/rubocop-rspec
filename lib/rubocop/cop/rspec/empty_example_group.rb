@@ -58,15 +58,9 @@ module RuboCop
       #   end
       #
       class EmptyExampleGroup < Cop
-        include RuboCop::RSpec::Language
+        include RuboCop::RSpec::Language, RuboCop::RSpec::Language::NodePattern
 
         MSG = 'Empty example group detected.'.freeze
-
-        def_node_matcher :example_group?, <<-PATTERN
-          (block
-            (send _ {#{ExampleGroups::ALL.to_node_pattern}} ...)
-            ...)
-        PATTERN
 
         def_node_search :contains_example?, <<-PATTERN
           {

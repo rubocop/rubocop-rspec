@@ -18,7 +18,9 @@ module RuboCop
       #   end
       #
       class SubjectStub < Cop
-        include RuboCop::RSpec::TopLevelDescribe, RuboCop::RSpec::Language
+        include RuboCop::RSpec::TopLevelDescribe,
+                RuboCop::RSpec::Language,
+                RuboCop::RSpec::Language::NodePattern
 
         MSG = 'Do not stub your test subject.'.freeze
 
@@ -63,10 +65,6 @@ module RuboCop
         PATTERN
 
         def_node_search :receive_message?, '(send nil :receive ...)'
-
-        def_node_matcher :example_group?, <<-PATTERN
-          (block (send _ {#{ExampleGroups::ALL.to_node_pattern}} ...) ...)
-        PATTERN
 
         def on_block(node)
           return unless example_group?(node)
