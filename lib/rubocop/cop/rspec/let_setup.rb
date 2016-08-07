@@ -26,17 +26,15 @@ module RuboCop
       #     expect(Widget.count).to eq(1)
       #   end
       class LetSetup < Cop
-        include RuboCop::RSpec::TopLevelDescribe, RuboCop::RSpec::Language
+        include RuboCop::RSpec::TopLevelDescribe,
+                RuboCop::RSpec::Language,
+                RuboCop::RSpec::Language::NodePattern
 
         MSG = 'Do not use `let!` for test setup.'.freeze
 
         def_node_search :let_bang, '(block $(send nil :let! (sym $_)) args ...)'
 
         def_node_search :method_called?, '(send nil %)'
-
-        def_node_matcher :example_group?, <<-PATTERN
-          (block (send _ {#{ExampleGroups::ALL.to_node_pattern}} ...) ...)
-        PATTERN
 
         def on_block(node)
           return unless example_group?(node)
