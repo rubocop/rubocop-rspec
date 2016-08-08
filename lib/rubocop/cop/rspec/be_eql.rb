@@ -46,6 +46,12 @@ module RuboCop
             add_offense(eql, :selector, MSG)
           end
         end
+
+        def autocorrect(node)
+          lambda do |corrector|
+            corrector.replace(node.loc.selector, 'be')
+          end
+        end
       end
     end
   end
