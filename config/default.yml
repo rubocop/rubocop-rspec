@@ -10,6 +10,10 @@ RSpec/AnyInstance:
   Description: 'Check that instances are not being stubbed globally'
   Enabled: true
 
+RSpec/BeEql:
+  Description: 'Check for expectations where `be(...)` can be used instead of `eql(...)`'
+  Enabled: true
+
 RSpec/DescribeClass:
   Description: 'Check that the first argument to the top level describe is the tested class or module.'
   Enabled: true
