@@ -42,7 +42,7 @@ RSpec/EmptyExampleGroup:
   CustomIncludeMethods: []
 
 RSpec/ExpectActual:
-  Description: 'Checks for `expect(...)` with literal values'
+  Description: 'Checks for `expect(...)` calls containing literal values'
   Enabled: true
 
 RSpec/MultipleDescribes:
