@@ -100,6 +100,14 @@ RSpec/ExampleLength:
   Enabled: true
   Max: 5
 
+RSpec/MessageExpectation:
+  Description: 'Checks for consistent message expectation style.'
+  Enabled: true
+  EnforcedStyle: allow
+  SupportedStyles:
+  - allow
+  - expect
+
 RSpec/NamedSubject:
   Description: 'Name your RSpec subject if you reference it explicitly'
   Enabled: true
