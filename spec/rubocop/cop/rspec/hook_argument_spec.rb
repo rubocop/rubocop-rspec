@@ -3,47 +3,55 @@
 describe RuboCop::Cop::RSpec::HookArgument do
   subject(:cop) { described_class.new }
 
-  it 'checks `before` hooks' do
-    inspect_source(cop, 'before(:each) { true }')
-
-    expect(cop.offenses.size).to eq(1)
+  it 'detects :each for hooks' do
+    expect_violation(<<-RUBY)
+      before(:each) { true }
+             ^^^^^ Omit the default `:each` argument for RSpec hooks.
+      after(:each)  { true }
+            ^^^^^ Omit the default `:each` argument for RSpec hooks.
+      around(:each) { true }
+             ^^^^^ Omit the default `:each` argument for RSpec hooks.
+    RUBY
   end
 
-  it 'checks `after` hooks' do
-    inspect_source(cop, 'after(:each) { true }')
-
-    expect(cop.offenses.size).to eq(1)
+  it 'detects :example for hooks' do
+    expect_violation(<<-RUBY)
+      before(:example) { true }
+             ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+      after(:example)  { true }
+            ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+      around(:example) { true }
+             ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+    RUBY
   end
 
-  it 'checks `around` hooks' do
-    inspect_source(cop, 'around(:each) { |ex| true }')
-
-    expect(cop.offenses.size).to eq(1)
+  it 'ignores :context and :suite' do
+    expect_no_violations(<<-RUBY)
+      before(:suite) { true }
+      after(:suite) { true }
+      before(:context) { true }
+      after(:context) { true }
+    RUBY
   end
 
-  it 'detects `:each`' do
-    inspect_source(cop, 'before(:each) { true }')
-
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.highlights).to eq([':each'])
+  it 'ignores hooks with more than one argument' do
+    expect_no_violations(<<-RUBY)
+      before(:each, :something_custom) { true }
+    RUBY
   end
 
-  it 'detects `:example`' do
-    inspect_source(cop, 'before(:example) { true }')
-
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.highlights).to eq([':example'])
+  it 'ignores non-rspec hooks' do
+    expect_no_violations(<<-RUBY)
+      setup(:each) { true }
+    RUBY
   end
 
-  it 'ignores `:context`' do
-    inspect_source(cop, 'before(:context) { true }')
-
-    expect(cop.offenses).to be_empty
-  end
-
-  it 'ignores `:suite`' do
-    inspect_source(cop, 'before(:suite) { true }')
-
-    expect(cop.offenses).to be_empty
+  it 'does not flag hooks without default scopes' do
+    expect_no_violations(<<-RUBY)
+      before { true }
+      after { true }
+      before { true }
+      after { true }
+    RUBY
   end
 end
