@@ -15,7 +15,7 @@ module RuboCop
       #   before do
       #     ...
       #   end
-      class DefaultHookArgument < RuboCop::Cop::Cop
+      class HookArgument < RuboCop::Cop::Cop
         MSG = 'Omit the default `:%s` argument for RSpec hooks.'.freeze
 
         HOOK_METHODS = [:after, :around, :before].freeze

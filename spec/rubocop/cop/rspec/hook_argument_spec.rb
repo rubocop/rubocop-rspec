@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe RuboCop::Cop::RSpec::DefaultHookArgument do
+describe RuboCop::Cop::RSpec::HookArgument do
   subject(:cop) { described_class.new }
 
   it 'checks `before` hooks' do
