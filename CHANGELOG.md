@@ -17,6 +17,8 @@
 * Change all cops to only inspect files with names following rspec convention (`*/spec/*` and/or `_spec.rb`). ([@backus][])
 * Add `AllCops/RSpec` configuration option for specifying custom spec file patterns. ([@backus][])
 * Add `AssignmentOnly` configuration option for `RSpec/InstanceVariable` cop. ([@backus][])
+* Add `BeEql` cop which looks for expectations that can use `be(...)` instead of `eql(...)`. ([@backus][])
+* Add autocorrect support for `BeEql` cop. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 
