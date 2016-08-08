@@ -67,6 +67,10 @@ RSpec/InstanceVariable:
 RSpec/LetSetup:
   Description: 'Checks for `let!` being used for test setup.'
 
+RSpec/LeadingSubject:
+  Description: 'Checks for `subject` definitions that come after `let` defintions.'
+  Enabled: true
+
 RSpec/FilePath:
   Description: 'Checks the file and folder naming of the spec file.'
   Enabled: true

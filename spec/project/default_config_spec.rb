@@ -1,4 +1,8 @@
 describe 'config/default.yml' do
+  subject(:default_config) do
+    RuboCop::ConfigLoader.load_file('config/default.yml')
+  end
+
   let(:cop_names) do
     glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec', '*.rb')
 
@@ -12,10 +16,6 @@ describe 'config/default.yml' do
 
   let(:config_keys) do
     cop_names + %w(AllCops)
-  end
-
-  subject(:default_config) do
-    RuboCop::ConfigLoader.load_file('config/default.yml')
   end
 
   it 'has configuration for all cops' do
