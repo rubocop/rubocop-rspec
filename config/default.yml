@@ -66,6 +66,7 @@ RSpec/InstanceVariable:
 
 RSpec/LetSetup:
   Description: 'Checks for `let!` being used for test setup.'
+  Enabled: true
 
 RSpec/LeadingSubject:
   Description: 'Checks for `subject` definitions that come after `let` definitions.'
