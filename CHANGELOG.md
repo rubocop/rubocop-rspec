@@ -16,6 +16,7 @@
 * Add `LetSetup` cop for detecting cases where `let!` is used for test setup. ([@backus][])
 * Change all cops to only inspect files with names following rspec convention (`*/spec/*` and/or `_spec.rb`). ([@backus][])
 * Add `AllCops/RSpec` configuration option for specifying custom spec file patterns. ([@backus][])
+* Add `AssignmentOnly` configuration option for `RSpec/InstanceVariable` cop. ([@backus][])
 
 ## 1.6.0 (2016-08-03)
 
