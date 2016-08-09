@@ -15,7 +15,7 @@ RSpec/BeEql:
   Enabled: true
 
 RSpec/HookArgument:
-  Description: 'Omit the default `:each` argument for RSpec hooks.'
+  Description: 'Check the arguments passed to `before`, `around`, and `after`.'
   Enabled: true
   EnforcedStyle: implicit
   SupportedStyles:
