@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'anima'
   spec.add_development_dependency 'concord'
   spec.add_development_dependency 'adamantium'
+  spec.add_development_dependency 'yard'
 end
