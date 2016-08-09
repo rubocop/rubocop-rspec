@@ -17,6 +17,11 @@ RSpec/BeEql:
 RSpec/HookArgument:
   Description: 'Omit the default `:each` argument for RSpec hooks.'
   Enabled: true
+  EnforcedStyle: implicit
+  SupportedStyles:
+  - implicit
+  - each
+  - example
 
 RSpec/DescribeClass:
   Description: 'Check that the first argument to the top level describe is the tested class or module.'
