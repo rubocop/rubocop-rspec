@@ -61,31 +61,37 @@ module RuboCop
 
         HOOKS = "{#{Hooks::ALL.to_node_pattern}}".freeze
 
-        EXPLICIT_STYLES = %i(each example).freeze
-
         def_node_matcher :scoped_hook, <<-PATTERN
-        (block (send nil #{HOOKS} $(sym ${:each :example})) ...)
+        (block $(send nil #{HOOKS} (sym ${:each :example})) ...)
         PATTERN
 
-        def_node_matcher :unscoped_hook, "(block (send nil #{HOOKS}) ...)"
+        def_node_matcher :unscoped_hook, "(block $(send nil #{HOOKS}) ...)"
 
         def on_block(node)
-          hook(node) do |scope, scope_name|
+          hook(node) do |method_send, scope_name|
             return correct_style_detected if scope_name.equal?(style)
-            return check_implicit(node) unless scope
+            return check_implicit(method_send) unless scope_name
 
             style_detected(scope_name)
-            add_offense(scope, :expression, explicit_message(scope_name))
+            add_offense(method_send, :expression, explicit_message(scope_name))
+          end
+        end
+
+        def autocorrect(node)
+          scope = "(#{style.inspect})" unless implicit_style?
+          hook  = "#{node.method_name}#{scope}"
+
+          lambda do |corrector|
+            corrector.replace(node.loc.expression, hook)
           end
         end
 
         private
 
-        def check_implicit(node)
+        def check_implicit(method_send)
           style_detected(:implicit)
           return if implicit_style?
 
-          method_send, = *node
           add_offense(method_send, :selector, format(EXPLICIT_MSG, style))
         end
 

@@ -39,6 +39,29 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     end
   end
 
+  shared_examples 'hook autocorrect' do |output|
+    it 'autocorrects :each to EnforcedStyle' do
+      corrected =
+        autocorrect_source(cop, 'before(:each) { }', 'spec/foo_spec.rb')
+
+      expect(corrected).to eql(output)
+    end
+
+    it 'autocorrects :example to EnforcedStyle' do
+      corrected =
+        autocorrect_source(cop, 'before(:example) { }', 'spec/foo_spec.rb')
+
+      expect(corrected).to eql(output)
+    end
+
+    it 'autocorrects :implicit to EnforcedStyle' do
+      corrected =
+        autocorrect_source(cop, 'before { }', 'spec/foo_spec.rb')
+
+      expect(corrected).to eql(output)
+    end
+  end
+
   shared_examples 'an example hook' do
     include_examples 'ignored hooks'
     include_examples 'generated config', 'before(:each) { foo }', 'each'
@@ -52,22 +75,22 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     it 'detects :each for hooks' do
       expect_violation(<<-RUBY)
         before(:each) { true }
-               ^^^^^ Omit the default `:each` argument for RSpec hooks.
+        ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
         after(:each)  { true }
-              ^^^^^ Omit the default `:each` argument for RSpec hooks.
+        ^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
         around(:each) { true }
-               ^^^^^ Omit the default `:each` argument for RSpec hooks.
+        ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
       RUBY
     end
 
     it 'detects :example for hooks' do
       expect_violation(<<-RUBY)
         before(:example) { true }
-               ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+        ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
         after(:example)  { true }
-              ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+        ^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
         around(:example) { true }
-               ^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+        ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
       RUBY
     end
 
@@ -81,6 +104,7 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     end
 
     include_examples 'an example hook'
+    include_examples 'hook autocorrect', 'before { }'
   end
 
   context 'when EnforcedStyle is :each' do
@@ -97,11 +121,11 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     it 'detects :example for hooks' do
       expect_violation(<<-RUBY)
         before(:example) { true }
-               ^^^^^^^^ Use `:each` for RSpec hooks.
+        ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
         after(:example)  { true }
-              ^^^^^^^^ Use `:each` for RSpec hooks.
+        ^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
         around(:example) { true }
-               ^^^^^^^^ Use `:each` for RSpec hooks.
+        ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
       RUBY
     end
 
@@ -119,6 +143,7 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     end
 
     include_examples 'an example hook'
+    include_examples 'hook autocorrect', 'before(:each) { }'
   end
 
   context 'when EnforcedStyle is :example' do
@@ -135,11 +160,11 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     it 'detects :each for hooks' do
       expect_violation(<<-RUBY)
         before(:each) { true }
-               ^^^^^ Use `:example` for RSpec hooks.
+        ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
         after(:each)  { true }
-              ^^^^^ Use `:example` for RSpec hooks.
+        ^^^^^^^^^^^^ Use `:example` for RSpec hooks.
         around(:each) { true }
-               ^^^^^ Use `:example` for RSpec hooks.
+        ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
       RUBY
     end
 
@@ -157,5 +182,6 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     end
 
     include_examples 'an example hook'
+    include_examples 'hook autocorrect', 'before(:example) { }'
   end
 end
