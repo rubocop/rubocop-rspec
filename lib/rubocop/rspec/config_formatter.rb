@@ -1,3 +1,5 @@
+require 'yaml'
+
 module RuboCop
   module RSpec
     # Builds a YAML config file from two config hashes
@@ -17,7 +19,7 @@ module RuboCop
 
       def unified_config
         cops.each_with_object(config.dup) do |cop, unified|
-          unified[cop] = descriptions.fetch(cop).merge(config.fetch(cop))
+          unified[cop] = config.fetch(cop).merge(descriptions.fetch(cop))
         end
       end
 

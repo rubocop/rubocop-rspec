@@ -36,13 +36,13 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
     |  Setting: fourty two
     |
     |RSpec/Foo:
-    |  Description: Blah
     |  Config: 2
     |  Enabled: true
+    |  Description: Blah
     |
     |RSpec/Bar:
-    |  Description: Wow
     |  Enabled: true
+    |  Description: Wow
     YAML
   end
 end

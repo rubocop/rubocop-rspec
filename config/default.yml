@@ -73,7 +73,7 @@ RSpec/InstanceVariable:
   Enabled: true
 
 RSpec/LetSetup:
-  Description: Checks for `let!` being used for test setup.
+  Description: Checks unreferenced `let!` calls being used for test setup.
   Enabled: true
 
 RSpec/LeadingSubject:

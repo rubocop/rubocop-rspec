@@ -3,13 +3,12 @@
 $LOAD_PATH.unshift(File.join(__dir__, '..', 'lib'))
 
 require 'yard'
-require 'yaml'
 
 require 'rubocop/rspec/description_extractor'
 require 'rubocop/rspec/config_formatter'
 
 glob = File.join(__dir__, '..', 'lib', 'rubocop', 'cop', 'rspec', '*.rb')
-YARD.parse(glob, [])
+YARD.parse(Dir[glob], [])
 
 descriptions = RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all).to_h
 current_config = YAML.load_file('config/default.yml')
