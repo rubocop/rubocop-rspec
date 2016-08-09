@@ -3,7 +3,10 @@
 module RuboCop
   module Cop
     module RSpec
-      # Omit the default :each argument for RSpec hooks.
+      # This cop checks for consistent style when specifying RSpec
+      # hooks which run for each example. There are three supported
+      # styles: "implicit", "each", and "example." All styles have
+      # the same behavior.
       #
       # @example when configuration is `EnforcedStyle: implicit`
       #   # bad
