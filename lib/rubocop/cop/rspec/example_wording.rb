@@ -3,8 +3,9 @@
 module RuboCop
   module Cop
     module RSpec
-      # Do not use should when describing your tests.
-      # see: http://betterspecs.org/#should
+      # Checks that example descriptions do not start with "should"
+      #
+      # @see http://betterspecs.org/#should
       #
       # The autocorrect is experimental - use with care! It can be configured
       # with CustomTransform (e.g. have => has) and IgnoredWords (e.g. only).

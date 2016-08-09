@@ -3,8 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # When you have to assign a variable instead of using an instance
-      # variable, use let.
+      # Checks for instance variable usage in specs
       #
       # This cop can be configured with the option `AssignmentOnly` which
       # will configure the cop to only register offenses on instance

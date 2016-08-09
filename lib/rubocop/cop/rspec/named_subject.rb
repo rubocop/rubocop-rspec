@@ -3,7 +3,14 @@
 module RuboCop
   module Cop
     module RSpec
-      # Give `subject` a descriptive name if you reference it directly
+      # Checks for explicitly referenced test subjects
+      #
+      # RSpec lets you declare an "implicit subject" using `subject { ... }`
+      # which allows for tests like `it { should be_valid }`. If you need to
+      # reference your test subject you should explicitly name it using
+      # `subject(:your_subject_name) { ... }`. Your test subjects should be
+      # the most important object in your tests so they deserve a descriptive
+      # name.
       #
       # @example
       #   # bad

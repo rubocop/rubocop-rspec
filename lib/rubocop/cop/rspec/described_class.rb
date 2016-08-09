@@ -3,6 +3,8 @@
 module RuboCop
   module Cop
     module RSpec
+      # Checks that tests use `described_class`
+      #
       # If the first argument of describe is a class, the class is exposed to
       # each example via described_class - this should be used instead of
       # repeating the class.

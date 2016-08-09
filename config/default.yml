@@ -15,7 +15,7 @@ RSpec/BeEql:
   Enabled: true
 
 RSpec/HookArgument:
-  Description: 'Check the arguments passed to `before`, `around`, and `after`.'
+  Description: 'Checks the arguments passed to `before`, `around`, and `after`.'
   Enabled: true
   EnforcedStyle: implicit
   SupportedStyles:
@@ -24,20 +24,20 @@ RSpec/HookArgument:
   - example
 
 RSpec/DescribeClass:
-  Description: 'Check that the first argument to the top level describe is the tested class or module.'
+  Description: 'Check that the first argument to the top level describe is a constant'
   Enabled: true
 
 RSpec/DescribedClass:
-  Description: 'Use `described_class` for tested class / module'
+  Description: 'Checks that tests use `described_class`'
   SkipBlocks: false
   Enabled: true
 
 RSpec/DescribeMethod:
-  Description: 'Checks that the second argument to top level describe is the tested method name.'
+  Description: 'Checks that the second argument to `describe` specifies a method'
   Enabled: true
 
 RSpec/ExampleWording:
-  Description: 'Do not use should when describing your tests.'
+  Description: 'Checks that example descriptions do not start with "should"'
   Enabled: true
   CustomTransform:
     be: is
@@ -46,7 +46,7 @@ RSpec/ExampleWording:
   IgnoredWords: []
 
 RSpec/EmptyExampleGroup:
-  Description: 'Checks for `describe` and `context` groups without tests.'
+  Description: 'Checks if an example group does not include any tests'
   Enabled: true
   CustomIncludeMethods: []
 
@@ -55,21 +55,21 @@ RSpec/ExpectActual:
   Enabled: true
 
 RSpec/MultipleDescribes:
-  Description: 'Checks for multiple top level describes.'
+  Description: 'Checks for multiple top level describes'
   Enabled: true
 
 RSpec/MultipleExpectations:
-  Description: 'Checks for multiple `expect(...)` calls in one example.'
+  Description: 'Checks if examples contain too many `expect` calls'
   Enabled: true
   Max: 1
 
 RSpec/NestedGroups:
-  Description: 'Checks for multiple levels of context nesting.'
+  Description: 'Checks for nested example groups'
   Enabled: true
   MaxNesting: 2
 
 RSpec/InstanceVariable:
-  Description: 'Checks for the usage of instance variables.'
+  Description: 'Checks for instance variable usage in specs'
   AssignmentOnly: false
   Enabled: true
 
@@ -78,11 +78,11 @@ RSpec/LetSetup:
   Enabled: true
 
 RSpec/LeadingSubject:
-  Description: 'Checks for `subject` definitions that come after `let` definitions.'
+  Description: 'Checks for `subject` definitions that come after `let` definitions'
   Enabled: true
 
 RSpec/FilePath:
-  Description: 'Checks the file and folder naming of the spec file.'
+  Description: 'Checks that spec file paths are consistent with the test subject'
   Enabled: true
   CustomTransform:
     RuboCop: rubocop
@@ -94,7 +94,7 @@ RSpec/VerifiedDoubles:
   IgnoreSymbolicNames: false
 
 RSpec/NotToNot:
-  Description: 'Enforces the usage of the same method on all negative message expectations.'
+  Description: 'Checks for consistent method usage for negating expectations'
   EnforcedStyle: not_to
   SupportedStyles:
     - not_to
@@ -102,16 +102,16 @@ RSpec/NotToNot:
   Enabled: true
 
 RSpec/Focus:
-  Description: 'Checks if there are focused specs.'
+  Description: 'Checks if examples are focused.'
   Enabled: true
 
 RSpec/ExampleLength:
-  Description: 'Checks for long example'
+  Description: 'Checks for long examples'
   Enabled: true
   Max: 5
 
 RSpec/MessageExpectation:
-  Description: 'Checks for consistent message expectation style.'
+  Description: 'Checks for consistent message expectation style'
   Enabled: true
   EnforcedStyle: allow
   SupportedStyles:
@@ -119,7 +119,7 @@ RSpec/MessageExpectation:
   - expect
 
 RSpec/NamedSubject:
-  Description: 'Name your RSpec subject if you reference it explicitly'
+  Description: 'Checks for explicitly referenced test subjects'
   Enabled: true
 
 RSpec/SubjectStub:

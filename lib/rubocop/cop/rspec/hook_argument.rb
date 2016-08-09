@@ -3,6 +3,8 @@
 module RuboCop
   module Cop
     module RSpec
+      # Checks the arguments passed to `before`, `around`, and `after`.
+      #
       # This cop checks for consistent style when specifying RSpec
       # hooks which run for each example. There are three supported
       # styles: "implicit", "each", and "example." All styles have
