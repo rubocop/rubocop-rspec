@@ -18,15 +18,31 @@ describe 'config/default.yml' do
     cop_names + %w(AllCops)
   end
 
+  def cop_configuration(config_key)
+    cop_names.map do |cop_name|
+      cop_config = default_config.fetch(cop_name)
+
+      cop_config.fetch(config_key) do
+        raise "Expected #{cop_name} to have #{config_key} configuration key"
+      end
+    end
+  end
+
   it 'has configuration for all cops' do
     expect(default_config.keys.sort).to eq(config_keys.sort)
   end
 
-  it 'has a nicely formatted description for all cops' do
-    cop_names.each do |name|
-      description = default_config.fetch(name).fetch('Description')
-      expect(description).not_to be_nil
-      expect(description).not_to include("\n")
+  it 'has descriptions for all cops' do
+    expect(cop_configuration('Description')).to all(be_a(String))
+  end
+
+  it 'does not have newlines in cop descriptions' do
+    cop_configuration('Description').each do |value|
+      expect(value).not_to include("\n")
     end
+  end
+
+  it 'includes Enabled: true for every cop' do
+    expect(cop_configuration('Enabled')).to all(be(true))
   end
 end

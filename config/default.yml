@@ -42,7 +42,7 @@ RSpec/EmptyExampleGroup:
   CustomIncludeMethods: []
 
 RSpec/ExpectActual:
-  Description: 'Checks for `expect(...)` with literal values'
+  Description: 'Checks for `expect(...)` calls containing literal values'
   Enabled: true
 
 RSpec/MultipleDescribes:
@@ -66,9 +66,10 @@ RSpec/InstanceVariable:
 
 RSpec/LetSetup:
   Description: 'Checks for `let!` being used for test setup.'
+  Enabled: true
 
 RSpec/LeadingSubject:
-  Description: 'Checks for `subject` definitions that come after `let` defintions.'
+  Description: 'Checks for `subject` definitions that come after `let` definitions.'
   Enabled: true
 
 RSpec/FilePath:
