@@ -16,23 +16,28 @@ module RuboCop
       #     ...
       #   end
       class HookArgument < RuboCop::Cop::Cop
-        include RuboCop::RSpec::Util
+        MSG = 'Omit the default `%p` argument for RSpec hooks.'.freeze
 
-        MSG = 'Omit the default `:%s` argument for RSpec hooks.'.freeze
+        HOOKS = '{:before :after :around}'.freeze
 
-        HOOK_METHODS = [:after, :around, :before].freeze
-        DEFAULT_ARGS = [:each, :example].freeze
+        def_node_matcher :scoped_hook, <<-PATTERN
+        (block (send nil #{HOOKS} $(sym {:each :example})) ...)
+        PATTERN
 
-        def on_send(node)
-          return unless HOOK_METHODS.include?(node.method_name) &&
-              node.children.drop(2).one?
+        def_node_matcher :unscoped_hook, "(block (send nil #{HOOKS}) ...)"
 
-          arg_node = one(node.method_args)
-          arg, = *arg_node
+        def on_block(node)
+          hook(node) do |scope|
+            return unless scope
 
-          return unless DEFAULT_ARGS.include?(arg)
+            add_offense(scope, :expression, format(MSG, *scope))
+          end
+        end
 
-          add_offense(arg_node, :expression, format(MSG, arg))
+        private
+
+        def hook(node, &block)
+          scoped_hook(node, &block) || unscoped_hook(node, &block)
         end
       end
     end
