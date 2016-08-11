@@ -55,6 +55,10 @@ RuboCop::RakeTask.new do |task|
 end
 ```
 
+### Code Climate
+
+rubocop-rspec is available on Code Climate as part of the rubocop engine. [Learn More](https://codeclimate.com/changelog/55a433bbe30ba00852000fac).
+
 ## Inspecting files that don't end with `_spec.rb`
 
 By default, `rubocop-rspec` only inspects code within paths ending in `_spec.rb` or including `spec/`. You can override this setting in your config file by specifying one or more patterns:
