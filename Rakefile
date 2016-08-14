@@ -45,4 +45,4 @@ task confirm_config: :build_config do
   end
 end
 
-task default: [:spec, :internal_investigation, :confirm_config]
+task default: [:build_config, :spec, :internal_investigation, :confirm_config]
