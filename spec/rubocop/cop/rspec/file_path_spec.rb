@@ -1,71 +1,60 @@
 describe RuboCop::Cop::RSpec::FilePath, :config do
   subject(:cop) { described_class.new(config) }
 
-  it 'checks the path' do
-    inspect_source(
-      cop,
-      "describe MyClass, 'foo' do; end",
-      'wrong_path_foo_spec.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.messages)
-      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
+  shared_examples 'invalid spec path' do |source, expected:, actual:|
+    context "when `#{source}` is defined in #{actual}" do
+      before do
+        inspect_source(cop, source, actual)
+      end
+
+      it 'flags an offense' do
+        expect(cop.offenses.size).to eq(1)
+      end
+
+      it 'registers the offense on line 1' do
+        expect(cop.offenses.map(&:line)).to eq([1])
+      end
+
+      it 'adds a message saying what the path should end with' do
+        expect(cop.messages).to eql(["Spec path should end with `#{expected}`"])
+      end
+    end
   end
 
-  it 'checks the path' do
-    inspect_source(
-      cop,
-      "describe MyClass, '#foo' do; end",
-      'wrong_class_foo_spec.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.messages)
-      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
-  end
+  include_examples 'invalid spec path',
+                   "describe MyClass, 'foo' do; end",
+                   expected: 'my_class*foo*_spec.rb',
+                   actual:   'wrong_path_foo_spec.rb'
 
-  it 'flags foo_spec.rb.rb' do
-    inspect_source(
-      cop,
-      "describe MyClass, '#foo' do; end",
-      'my_class/foo_spec.rb.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-  end
+  include_examples 'invalid spec path',
+                   "describe MyClass, '#foo' do; end",
+                   expected: 'my_class*foo*_spec.rb',
+                   actual: 'wrong_class_foo_spec.rb'
 
-  it 'flags foo_specorb' do
-    inspect_source(
-      cop,
-      "describe MyClass, '#foo' do; end",
-      'my_class/foo_specorb'
-    )
-    expect(cop.offenses.size).to eq(1)
-  end
+  include_examples 'invalid spec path',
+                   "describe MyClass, '#foo' do; end",
+                   expected: 'my_class*foo*_spec.rb',
+                   actual: 'my_class/foo_spec.rb.rb'
 
-  it 'checks path even when metadata is included' do
-    inspect_source(
-      cop,
-      "describe MyClass, '#foo', blah: :blah do; end",
-      'wrong_class_foo_spec.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.messages)
-      .to eq(['Spec path should end with `my_class*foo*_spec.rb`'])
-  end
+  include_examples 'invalid spec path',
+                   "describe MyClass, '#foo' do; end",
+                   expected: 'my_class*foo*_spec.rb',
+                   actual: 'my_class/foo_specorb'
 
-  it 'checks class spec paths' do
-    inspect_source(
-      cop,
-      'describe MyClass do; end',
-      'wrong_class_spec.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.messages)
-      .to eq(['Spec path should end with `my_class*_spec.rb`'])
-  end
+  include_examples 'invalid spec path',
+                   "describe MyClass, '#foo', blah: :blah do; end",
+                   expected: 'my_class*foo*_spec.rb',
+                   actual: 'wrong_class_foo_spec.rb'
+
+  include_examples 'invalid spec path',
+                   'describe MyClass do; end',
+                   expected: 'my_class*_spec.rb',
+                   actual: 'wrong_class_spec.rb'
+
+  include_examples 'invalid spec path',
+                   'describe MyClass, :foo do; end',
+                   expected: 'my_class*_spec.rb',
+                   actual: 'wrong_class_spec.rb'
 
   it 'skips specs that do not describe a class / method' do
     inspect_source(
@@ -86,18 +75,6 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
       'some/class/spec.rb'
     )
     expect(cop.offenses).to be_empty
-  end
-
-  it 'ignores second argument if is not a string' do
-    inspect_source(
-      cop,
-      'describe MyClass, :foo do; end',
-      'wrong_class_spec.rb'
-    )
-    expect(cop.offenses.size).to eq(1)
-    expect(cop.offenses.map(&:line).sort).to eq([1])
-    expect(cop.messages)
-      .to eq(['Spec path should end with `my_class*_spec.rb`'])
   end
 
   it 'checks class specs' do
