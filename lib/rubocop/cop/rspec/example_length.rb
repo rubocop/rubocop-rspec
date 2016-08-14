@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for long examples
+      # Checks for long examples.
       #
       # A long example is usually more difficult to understand. Consider
       # extracting out some behaviour, e.g. with a `let` block, or a helper

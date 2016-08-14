@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that the second argument to `describe` specifies a method
+      # Checks that the second argument to `describe` specifies a method.
       #
       # @example
       #   # bad

@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for multiple top level describes
+      # Checks for multiple top level describes.
       #
       # Multiple descriptions for the same class or module should either
       # be nested or separated into different test files.

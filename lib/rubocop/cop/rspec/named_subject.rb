@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for explicitly referenced test subjects
+      # Checks for explicitly referenced test subjects.
       #
       # RSpec lets you declare an "implicit subject" using `subject { ... }`
       # which allows for tests like `it { should be_valid }`. If you need to

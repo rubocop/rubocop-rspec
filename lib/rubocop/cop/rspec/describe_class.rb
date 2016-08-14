@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that the first argument to the top level describe is a constant
+      # Check that the first argument to the top level describe is a constant.
       #
       # @example
       #   # bad

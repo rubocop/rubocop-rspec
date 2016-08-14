@@ -1,7 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check for expectations where `be(...)` can be used instead of `eql(...)`
+      # Check for expectations where `be(...)` can replace `eql(...)`.
       #
       # The `be` matcher compares by identity while the `eql` matcher
       # compares using `eql?`. Integers, floats, booleans, and symbols

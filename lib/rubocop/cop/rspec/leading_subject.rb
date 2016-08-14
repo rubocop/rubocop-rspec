@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for `subject` definitions that come after `let` definitions
+      # Checks for `subject` definitions that come after `let` definitions.
       #
       # @example
       #   # bad

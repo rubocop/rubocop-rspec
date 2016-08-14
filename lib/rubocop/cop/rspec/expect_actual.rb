@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for `expect(...)` calls containing literal values
+      # Checks for `expect(...)` calls containing literal values.
       #
       # @example
       #   # bad

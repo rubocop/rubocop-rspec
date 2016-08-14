@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if examples contain too many `expect` calls
+      # Checks if examples contain too many `expect` calls.
       #
       # @see http://betterspecs.org/#single Single expectation test
       #

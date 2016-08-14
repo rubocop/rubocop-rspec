@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that example descriptions do not start with "should"
+      # Checks that example descriptions do not start with "should".
       #
       # @see http://betterspecs.org/#should
       #

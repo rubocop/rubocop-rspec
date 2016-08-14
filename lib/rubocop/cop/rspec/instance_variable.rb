@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for instance variable usage in specs
+      # Checks for instance variable usage in specs.
       #
       # This cop can be configured with the option `AssignmentOnly` which
       # will configure the cop to only register offenses on instance

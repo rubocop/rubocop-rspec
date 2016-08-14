@@ -1,7 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for consistent method usage for negating expectations
+      # Checks for consistent method usage for negating expectations.
       #
       # @example
       #   # bad
