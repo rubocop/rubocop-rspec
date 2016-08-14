@@ -1,8 +1,6 @@
 describe RuboCop::Cop::RSpec::FilePath, :config do
   subject(:cop) { described_class.new(config) }
 
-  include_examples 'an rspec only cop'
-
   it 'checks the path' do
     inspect_source(
       cop,

@@ -1,8 +1,6 @@
 describe RuboCop::Cop::RSpec::ExampleWording, :config do
   subject(:cop) { described_class.new(config) }
 
-  include_examples 'an rspec only cop'
-
   context 'with configuration' do
     let(:cop_config) do
       {

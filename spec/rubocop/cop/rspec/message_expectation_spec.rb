@@ -30,8 +30,6 @@ describe RuboCop::Cop::RSpec::MessageExpectation, :config do
 
       expect(cop.config_to_allow_offenses).to eq('EnforcedStyle' => 'expect')
     end
-
-    include_examples 'an rspec only cop'
   end
 
   context 'when EnforcedStyle is expect' do
@@ -61,7 +59,5 @@ describe RuboCop::Cop::RSpec::MessageExpectation, :config do
 
       expect(cop.config_to_allow_offenses).to eq('EnforcedStyle' => 'allow')
     end
-
-    include_examples 'an rspec only cop'
   end
 end

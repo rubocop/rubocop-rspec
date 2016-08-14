@@ -3,8 +3,6 @@
 describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
   subject(:cop) { described_class.new(config) }
 
-  include_examples 'an rspec only cop'
-
   context 'without configuration' do
     let(:cop_config) { Hash.new }
 
