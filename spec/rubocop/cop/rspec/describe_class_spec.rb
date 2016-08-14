@@ -1,8 +1,6 @@
 describe RuboCop::Cop::RSpec::DescribeClass do
   subject(:cop) { described_class.new }
 
-  include_examples 'an rspec only cop'
-
   it 'checks first-line describe statements' do
     expect_violation(<<-RUBY)
       describe "bad describe" do

@@ -3,8 +3,6 @@
 RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   subject(:cop) { described_class.new }
 
-  include_examples 'an rspec only cop'
-
   it 'checks `it` and `specify` for explicit subject usage' do
     expect_violation(<<-RUBY)
       RSpec.describe User do

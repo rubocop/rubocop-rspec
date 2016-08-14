@@ -3,8 +3,6 @@
 describe RuboCop::Cop::RSpec::LetSetup do
   subject(:cop) { described_class.new }
 
-  include_examples 'an rspec only cop'
-
   it 'complains when let! is used and not referenced' do
     expect_violation(<<-RUBY)
       describe Foo do

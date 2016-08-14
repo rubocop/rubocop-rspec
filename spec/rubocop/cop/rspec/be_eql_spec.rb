@@ -1,8 +1,6 @@
 describe RuboCop::Cop::RSpec::BeEql do
   subject(:cop) { described_class.new }
 
-  include_examples 'an rspec only cop'
-
   it 'registers an offense for `eql` when argument is a boolean' do
     expect_violation(<<-RUBY)
       it { expect(foo).to eql(true) }

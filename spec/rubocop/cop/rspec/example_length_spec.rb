@@ -1,7 +1,6 @@
 describe RuboCop::Cop::RSpec::ExampleLength, :config do
   subject(:cop) { described_class.new(config) }
 
-  include_examples 'an rspec only cop'
   let(:cop_config) { { 'Max' => 3 } }
 
   it 'ignores non-spec blocks' do
@@ -14,7 +13,8 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
         '  line 3',
         '  line 4',
         'end'
-      ]
+      ],
+      'foo_spec.rb'
     )
 
     expect(cop.offenses).to be_empty
@@ -26,7 +26,8 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
       [
         'it do',
         'end'
-      ]
+      ],
+      'foo_spec.rb'
     )
     expect(cop.offenses).to be_empty
   end
@@ -81,7 +82,9 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
   end
 
   context 'with CountComments enabled' do
-    before { cop_config['CountComments'] = true }
+    let(:cop_config) do
+      { 'Max' => 3, 'CountComments' => true }
+    end
 
     it 'counts comments' do
       inspect_source(
