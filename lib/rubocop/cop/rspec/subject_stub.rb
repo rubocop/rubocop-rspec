@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for stubs on test subjects
+      # Checks for stubbed test subjects.
       #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
       #

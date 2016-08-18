@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if an example group does not include any tests
+      # Checks if an example group does not include any tests.
       #
       # This cop is configurable using the `CustomIncludeMethods` option
       #

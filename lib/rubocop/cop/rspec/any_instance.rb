@@ -1,6 +1,8 @@
 module RuboCop
   module Cop
     module RSpec
+      # Check that instances are not being stubbed globally.
+      #
       # Prefer instance doubles over stubbing any instance of a class
       #
       # @example

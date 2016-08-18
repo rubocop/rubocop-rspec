@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for nested example groups
+      # Checks for nested example groups.
       #
       # This cop is configurable using the `MaxNesting` option
       #

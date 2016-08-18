@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Declare test subject before let declarations
+      # Checks for `subject` definitions that come after `let` definitions.
       #
       # @example
       #   # bad

@@ -1,8 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Enforces the usage of the same method on all negative message
-      # expectations.
+      # Checks for consistent method usage for negating expectations.
       #
       # @example
       #   # bad

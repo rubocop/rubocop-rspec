@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if test is focused.
+      # Checks if examples are focused.
       #
       # @example
       #   # bad

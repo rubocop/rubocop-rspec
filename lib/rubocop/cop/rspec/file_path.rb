@@ -3,6 +3,8 @@
 module RuboCop
   module Cop
     module RSpec
+      # Checks that spec file paths are consistent with the test subject.
+      #
       # Checks the path of the spec file and enforces that it reflects the
       # described class/module and its optionally called out method.
       #

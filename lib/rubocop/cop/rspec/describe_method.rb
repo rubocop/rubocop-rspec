@@ -3,8 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that the second argument to the top level describe is the tested
-      # method name.
+      # Checks that the second argument to `describe` specifies a method.
       #
       # @example
       #   # bad

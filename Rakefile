@@ -1,5 +1,8 @@
+require 'open3'
+
 require 'bundler'
 require 'bundler/gem_tasks'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -27,4 +30,19 @@ task :internal_investigation do
   abort('RuboCop failed!') unless result.zero?
 end
 
-task default: [:spec, :internal_investigation]
+desc 'Build config/default.yml'
+task :build_config do
+  sh('bin/build_config')
+end
+
+desc 'Confirm config/default.yml is up to date'
+task confirm_config: :build_config do
+  _, stdout, _, process =
+    Open3.popen3('git diff --exit-code config/default.yml')
+
+  unless process.value.success?
+    raise "default.yml is out of sync:\n\n#{stdout.read}\nRun bin/build_config"
+  end
+end
+
+task default: [:build_config, :spec, :internal_investigation, :confirm_config]

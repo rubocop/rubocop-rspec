@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks specs for consistent message expectation style
+      # Checks for consistent message expectation style.
       #
       # This cop can be configured in your configuration using the
       # `EnforcedStyle` option and supports `--auto-gen-config`.

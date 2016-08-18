@@ -42,6 +42,10 @@ describe 'config/default.yml' do
     end
   end
 
+  it 'ends every description with a period' do
+    expect(cop_configuration('Description')).to all(end_with('.'))
+  end
+
   it 'includes Enabled: true for every cop' do
     expect(cop_configuration('Enabled')).to all(be(true))
   end
