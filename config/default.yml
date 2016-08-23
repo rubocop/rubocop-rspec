@@ -53,6 +53,10 @@ RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
 
+RSpec/MessageChain:
+  Description: Check that chains of messages are not being stubbed.
+  Enabled: true
+
 RSpec/MultipleDescribes:
   Description: Checks for multiple top level describes.
   Enabled: true
