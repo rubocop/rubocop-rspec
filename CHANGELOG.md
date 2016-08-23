@@ -20,6 +20,7 @@
 * Add `BeEql` cop which looks for expectations that can use `be(...)` instead of `eql(...)`. ([@backus][])
 * Add autocorrect support for `BeEql` cop. ([@backus][])
 * Add `MessageExpectation` cop for enforcing consistent style of either `expect(...).to receive` or `allow(...).to receive`. ([@backus][])
+* Add `RSpec::Predicate` cop. ([@haeky][])
 
 ## 1.6.0 (2016-08-03)
 
@@ -138,3 +139,4 @@
 [@jaredmoody]: https://github.com/jaredmoody
 [@baberthal]: https://github.com/baberthal
 [@jeffreyc]: https://github.com/jeffreyc
+[@haeky]: https://github.com/haeky

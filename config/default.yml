@@ -124,3 +124,12 @@ RSpec/NamedSubject:
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true
+
+RSpec/Predicate:
+  Description: 'Prefer using predicate matcher instead of truthiness'
+  Enabled: true
+  EnforcedStyle: predicate
+  SupportedStyles:
+    - predicate
+    - truthiness
+    - equality
