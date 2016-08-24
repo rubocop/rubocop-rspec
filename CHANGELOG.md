@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.7.0 (2016-08-24)
+
 * Add support for checking all example groups with `ExampleLength`. ([@backus][])
 * Add support for checking shared example groups for `DescribedClass`. ([@backus][])
 * Add support for checking `its` from [rspec-its](https://github.com/rspec/rspec-its). ([@backus][])
