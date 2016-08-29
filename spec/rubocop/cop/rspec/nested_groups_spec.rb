@@ -35,7 +35,7 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
     RUBY
   end
 
-  context 'when MaxNesting is configured as 2' do
+  context 'when MaxNesting is configured as 3' do
     let(:cop_config) { { 'MaxNesting' => '3' } }
 
     it 'only flags third level of nesting' do
