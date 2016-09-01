@@ -3,6 +3,7 @@
 ## Master (unreleased)
 
 * Optinally ignore method names in the `describe` argument when running the `FilePath` cop. ([@bquorning][])
+* Fix regression in how `FilePath` converts alphanumeric class names into paths. ([@bquorning][])
 
 ## 1.7.0 (2016-08-24)
 
