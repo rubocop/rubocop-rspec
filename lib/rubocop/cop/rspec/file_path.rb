@@ -89,8 +89,8 @@ module RuboCop
 
         def camel_to_underscore(string)
           string
-            .gsub(/([^A-Z])([A-Z]+)/, '\\1_\\2')
-            .gsub(/([A-Z])([A-Z\d][^A-Z\d]+)/, '\\1_\\2')
+            .gsub(/([^A-Z])([A-Z]+)/, '\1_\2')
+            .gsub(/([A-Z])([A-Z\d][^A-Z\d]+)/, '\1_\2')
             .downcase
         end
 
