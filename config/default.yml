@@ -90,6 +90,7 @@ RSpec/FilePath:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
+  IgnoreMethods: false
 
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
