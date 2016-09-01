@@ -212,7 +212,7 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
     expect(cop.offenses).to be_empty
   end
 
-  context 'when configured' do
+  context 'when configured with CustomTransform' do
     let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
     it 'respects custom module name transformation' do
@@ -229,6 +229,19 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
         cop,
         'describe MyController, "#foo", type: :routing do; end',
         'foofoo/some/class/bar_spec.rb'
+      )
+      expect(cop.offenses).to be_empty
+    end
+  end
+
+  context 'when configured with IgnoreMethods' do
+    let(:cop_config) { { 'IgnoreMethods' => true } }
+
+    it 'does not care about the described method' do
+      inspect_source(
+        cop,
+        "describe MyClass, '#look_here_a_method' do; end",
+        'my_class_spec.rb'
       )
       expect(cop.offenses).to be_empty
     end

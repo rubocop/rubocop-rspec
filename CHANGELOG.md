@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Optinally ignore method names in the `describe` argument when running the `FilePath` cop. ([@bquorning][])
+
 ## 1.7.0 (2016-08-24)
 
 * Add support for checking all example groups with `ExampleLength`. ([@backus][])
