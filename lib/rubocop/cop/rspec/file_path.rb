@@ -20,7 +20,6 @@ module RuboCop
         include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'.freeze
-        METHOD_STRING_MATCHER = /^[\#\.].+/
         ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         def on_top_level_describe(node, args)
