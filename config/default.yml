@@ -114,6 +114,14 @@ RSpec/ExampleLength:
   Enabled: true
   Max: 5
 
+RSpec/ImplicitExpect:
+  Description: Check that a consistent implict expectation style is used.
+  Enabled: true
+  EnforcedStyle: is_expected
+  SupportedStyles:
+  - is_expected
+  - should
+
 RSpec/MessageExpectation:
   Description: Checks for consistent message expectation style.
   Enabled: true
