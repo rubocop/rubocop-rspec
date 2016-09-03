@@ -195,25 +195,15 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
     RUBY
   end
 
-  it 'autocorrects an offenses' do
-    new_source = autocorrect_source(
-      cop,
-      [
-        'describe MyClass do',
-        '  include MyClass',
-        '  subject { MyClass.do_something }',
-        '  before { MyClass.do_something }',
-        'end'
-      ], 'spec/foo_spec.rb'
-    )
-    expect(new_source).to eq(
-      [
-        'describe MyClass do',
-        '  include described_class',
-        '  subject { described_class.do_something }',
-        '  before { described_class.do_something }',
-        'end'
-      ].join("\n")
-    )
-  end
+  include_examples 'autocorrect',
+                   'describe(Foo) { include Foo }',
+                   'describe(Foo) { include described_class }'
+
+  include_examples 'autocorrect',
+                   'describe(Foo) { subject { Foo.do_something } }',
+                   'describe(Foo) { subject { described_class.do_something } }'
+
+  include_examples 'autocorrect',
+                   'describe(Foo) { before { Foo.do_something } }',
+                   'describe(Foo) { before { described_class.do_something } }'
 end

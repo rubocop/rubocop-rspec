@@ -17,15 +17,9 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
       RUBY
     end
 
-    it 'auto-corrects `to_not` to `not_to`' do
-      corrected =
-        autocorrect_source(
-          cop,
-          ['it { expect(0).to_not equal 1 }'],
-          'spec/foo_spec.rb'
-        )
-      expect(corrected).to eq 'it { expect(0).not_to equal 1 }'
-    end
+    include_examples 'autocorrect',
+                     'it { expect(0).to_not equal 1 }',
+                     'it { expect(0).not_to equal 1 }'
   end
 
   context 'when AcceptedMethod is `to_not`' do
@@ -44,14 +38,8 @@ describe RuboCop::Cop::RSpec::NotToNot, :config do
       RUBY
     end
 
-    it 'auto-corrects `not_to` to `to_not`' do
-      corrected =
-        autocorrect_source(
-          cop,
-          ['it { expect(0).not_to equal 1 }'],
-          'spec/foo_spec.rb'
-        )
-      expect(corrected).to eq 'it { expect(0).to_not equal 1 }'
-    end
+    include_examples 'autocorrect',
+                     'it { expect(0).not_to equal 1 }',
+                     'it { expect(0).to_not equal 1 }'
   end
 end

@@ -47,13 +47,7 @@ describe RuboCop::Cop::RSpec::BeEql do
     RUBY
   end
 
-  it 'autocorrects offense to use `be`' do
-    corrected =
-      autocorrect_source(
-        cop,
-        ['it { expect(foo).to eql(1) }'],
-        'spec/foo_spec.rb'
-      )
-    expect(corrected).to eq 'it { expect(foo).to be(1) }'
-  end
+  include_examples 'autocorrect',
+                   'it { expect(foo).to eql(1) }',
+                   'it { expect(foo).to be(1) }'
 end

@@ -44,39 +44,18 @@ describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
-    it 'corrects `it "should only have"` to it "only has"' do
-      corrected =
-        autocorrect_source(
-          cop,
-          'it "should only have trait" do end',
-          'spec/foo_spec.rb'
-        )
-
-      expect(corrected).to eql('it "only has trait" do end')
-    end
+    include_examples 'autocorrect',
+                     'it "should only have trait" do end',
+                     'it "only has trait" do end'
   end
 
   context 'when configuration is empty' do
-    it 'only does not correct "have"' do
-      corrected =
-        autocorrect_source(
-          cop,
-          'it "should have trait" do end',
-          'spec/foo_spec.rb'
-        )
+    include_examples 'autocorrect',
+                     'it "should have trait" do end',
+                     'it "haves trait" do end'
 
-      expect(corrected).to eql('it "haves trait" do end')
-    end
-
-    it 'only does not make an exception for the word "only"' do
-      corrected =
-        autocorrect_source(
-          cop,
-          'it "should only fail" do end',
-          'spec/foo_spec.rb'
-        )
-
-      expect(corrected).to eql('it "onlies fail" do end')
-    end
+    include_examples 'autocorrect',
+                     'it "should only fail" do end',
+                     'it "onlies fail" do end'
   end
 end
