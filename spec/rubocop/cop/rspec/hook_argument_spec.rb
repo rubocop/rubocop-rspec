@@ -33,26 +33,9 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
   end
 
   shared_examples 'hook autocorrect' do |output|
-    it 'autocorrects :each to EnforcedStyle' do
-      corrected =
-        autocorrect_source(cop, 'before(:each) { }', 'spec/foo_spec.rb')
-
-      expect(corrected).to eql(output)
-    end
-
-    it 'autocorrects :example to EnforcedStyle' do
-      corrected =
-        autocorrect_source(cop, 'before(:example) { }', 'spec/foo_spec.rb')
-
-      expect(corrected).to eql(output)
-    end
-
-    it 'autocorrects :implicit to EnforcedStyle' do
-      corrected =
-        autocorrect_source(cop, 'before { }', 'spec/foo_spec.rb')
-
-      expect(corrected).to eql(output)
-    end
+    include_examples 'autocorrect', 'before(:each) { }', output
+    include_examples 'autocorrect', 'before(:example) { }', output
+    include_examples 'autocorrect', 'before { }', output
   end
 
   shared_examples 'an example hook' do
