@@ -8,19 +8,43 @@ module RuboCop
       # Checks the path of the spec file and enforces that it reflects the
       # described class/module and its optionally called out method.
       #
+      # With the configuration option `IgnoreMethods` the called out method will
+      # be ignored when determining the enforced path.
+      #
       # With the configuration option `CustomTransform` modules or classes can
       # be specified that should not as usual be transformed from CamelCase to
       # snake_case (e.g. 'RuboCop' => 'rubocop' ).
       #
       # @example
-      #   my_class/method_spec.rb  # describe MyClass, '#method'
-      #   my_class_method_spec.rb  # describe MyClass, '#method'
+      #   # bad
+      #   whatever_spec.rb         # describe MyClass
+      #
+      #   # bad
+      #   my_class_spec.rb         # describe MyClass, '#method'
+      #
+      #   # good
       #   my_class_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_method_spec.rb  # describe MyClass, '#method'
+      #
+      #   # good
+      #   my_class/method_spec.rb  # describe MyClass, '#method'
+      #
+      # @example when configuration is `IgnoreMethods: true`
+      #   # bad
+      #   whatever_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_spec.rb         # describe MyClass, '#method'
+      #
       class FilePath < Cop
         include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'.freeze
-        METHOD_STRING_MATCHER = /^[\#\.].+/
         ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         def on_top_level_describe(node, args)
@@ -46,7 +70,7 @@ module RuboCop
 
         def matcher(object, method)
           path = File.join(parts(object))
-          if method && method.type.equal?(:str)
+          if method && method.type.equal?(:str) && !ignore_methods?
             path += '*' + method.str_content.gsub(/\W+/, '')
           end
 
@@ -72,6 +96,10 @@ module RuboCop
 
         def regexp_from_glob(glob)
           Regexp.new(glob.sub('.', '\\.').gsub('*', '.*') + '$')
+        end
+
+        def ignore_methods?
+          cop_config['IgnoreMethods']
         end
 
         def custom_transform
