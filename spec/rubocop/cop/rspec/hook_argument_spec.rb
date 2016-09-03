@@ -32,15 +32,6 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
     end
   end
 
-  shared_examples 'generated config' do |source, detected_style|
-    it 'generates a todo based on the detected style' do
-      inspect_source(cop, source, 'foo_spec.rb')
-
-      expect(cop.config_to_allow_offenses)
-        .to eq('EnforcedStyle' => detected_style)
-    end
-  end
-
   shared_examples 'hook autocorrect' do |output|
     it 'autocorrects :each to EnforcedStyle' do
       corrected =
@@ -66,9 +57,9 @@ describe RuboCop::Cop::RSpec::HookArgument, :config do
 
   shared_examples 'an example hook' do
     include_examples 'ignored hooks'
-    include_examples 'generated config', 'before(:each) { foo }', 'each'
-    include_examples 'generated config', 'before(:example) { foo }', 'example'
-    include_examples 'generated config', 'before { foo }', 'implicit'
+    include_examples 'detects style', 'before(:each) { foo }', 'each'
+    include_examples 'detects style', 'before(:example) { foo }', 'example'
+    include_examples 'detects style', 'before { foo }', 'implicit'
   end
 
   context 'when EnforcedStyle is :implicit' do
