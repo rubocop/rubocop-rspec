@@ -58,6 +58,15 @@ module RuboCop
           end
         end
 
+        def autocorrect(node)
+          lambda do |corrector|
+            offense     = offending_expect(node)
+            replacement = replacement_source(offense.source)
+
+            corrector.replace(offense, replacement)
+          end
+        end
+
         private
 
         def offending_expect(node)
@@ -72,16 +81,20 @@ module RuboCop
         def is_expected_range(source_map) # rubocop:disable PredicateName
           Parser::Source::Range.new(
             source_map.expression.source_buffer,
-            source_map.column,
-            source_map.selector.last_column
+            source_map.expression.begin_pos,
+            source_map.selector.end_pos
           )
         end
 
         def offense_message(offending_source)
           MSG % {
-            good: ENFORCED_REPLACEMENTS.fetch(offending_source),
+            good: replacement_source(offending_source),
             bad:  offending_source
           }
+        end
+
+        def replacement_source(offending_source)
+          ENFORCED_REPLACEMENTS.fetch(offending_source)
         end
       end
     end
