@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build --tag backus/rubocop-rspec . --file build/Dockerfile

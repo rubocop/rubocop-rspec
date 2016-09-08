@@ -24,10 +24,7 @@ end
 
 desc 'Run RuboCop over this gem'
 task :internal_investigation do
-  require 'rubocop-rspec'
-
-  result = RuboCop::CLI.new.run
-  abort('RuboCop failed!') unless result.zero?
+  sh('bundle exec rubocop --require rubocop-rspec')
 end
 
 desc 'Build config/default.yml'
