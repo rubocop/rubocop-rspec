@@ -79,7 +79,7 @@ done
 adduser -DS -s /bin/bash ci
 
 # Create our separate bundle config directory which ci is allowed to write to
-mkdir "$BUNDLE_APP_CONFIG" && chown 'ci:' "$BUNDLE_APP_CONFIG"
+mkdir "$BUNDLE_APP_CONFIG" && chown ci: "$BUNDLE_APP_CONFIG"
 
 # Create a source directory which files are copied to so writes don't impact the host
-chown 'ci:' --recursive /src
+chown ci: --recursive /src

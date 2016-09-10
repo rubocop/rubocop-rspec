@@ -1,6 +1,8 @@
 FROM alpine:3.4
 MAINTAINER John Backus <johncbackus@gmail.com>
 
+VOLUME /app
+
 # URLs for ruby-install and chruby which help install and manage our ruby matrix
 ARG RUBY_INSTALL_URL=https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
 ARG CHRUBY_URL=https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
@@ -37,9 +39,9 @@ RUN apk add --update-cache \
       # ruby needs access to things like linux/random.h
       linux-headers=4.4.6-r1 \
       # required to compile ruby
-      openssl-dev=1.0.2h-r1  \
+      openssl-dev=1.0.2h-r2  \
       # required for ruby-versions to download ruby binaries
-      openssl=1.0.2h-r1      \
+      openssl=1.0.2h-r2      \
   # Create ruby managers directory for downloads
   && mkdir "$RUBY_MANAGERS_DIR"
 
@@ -52,8 +54,6 @@ ADD $CHRUBY_URL "$RUBY_MANAGERS_DIR"
 RUN mkdir -p /src/app
 
 WORKDIR /src/app
-
-VOLUME /app
 
 COPY build/docker-exec build/docker-exec
 
