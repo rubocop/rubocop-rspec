@@ -95,6 +95,10 @@ module RuboCop
           (block (send nil {#{ExampleGroups::ALL.to_node_pattern}} ...) (args) ...)
         PATTERN
 
+        def_node_matcher :valid_describe?, <<-PATTERN
+          (block (send nil {:describe :xdescribe :fdescribe} ...) (args) ...)
+        PATTERN
+
         def on_block(node)
           describe, = described_constant(node)
           return unless describe
@@ -108,10 +112,11 @@ module RuboCop
 
         def find_nested_contexts(node, nesting: 1, &block)
           find_contexts(node) do |nested_context|
-            yield(nested_context) if nesting > max_nesting
+            context_nesting = valid_describe?(nested_context) ? 1 : nesting
+            yield(nested_context) if context_nesting > max_nesting
 
             nested_context.each_child_node do |child|
-              find_nested_contexts(child, nesting: nesting + 1, &block)
+              find_nested_contexts(child, nesting: context_nesting + 1, &block)
             end
           end
         end

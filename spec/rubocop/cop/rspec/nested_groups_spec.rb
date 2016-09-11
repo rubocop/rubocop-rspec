@@ -6,6 +6,14 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
   it 'flags nested contexts' do
     expect_violation(<<-RUBY)
       describe MyClass do
+        describe '#foobar' do
+          context 'when boop' do
+            context 'when bap' do
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
+            end
+          end
+        end
+
         context 'when foo' do
           context 'when bar' do
           ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
