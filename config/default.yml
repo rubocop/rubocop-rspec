@@ -13,15 +13,6 @@ RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
 
-RSpec/HookArgument:
-  Description: Checks the arguments passed to `before`, `around`, and `after`.
-  Enabled: true
-  EnforcedStyle: implicit
-  SupportedStyles:
-  - implicit
-  - each
-  - example
-
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
   Enabled: true
@@ -35,6 +26,16 @@ RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.
   Enabled: true
 
+RSpec/EmptyExampleGroup:
+  Description: Checks if an example group does not include any tests.
+  Enabled: true
+  CustomIncludeMethods: []
+
+RSpec/ExampleLength:
+  Description: Checks for long examples.
+  Enabled: true
+  Max: 5
+
 RSpec/ExampleWording:
   Description: Checks that example descriptions do not start with "should".
   Enabled: true
@@ -44,44 +45,8 @@ RSpec/ExampleWording:
     not: does not
   IgnoredWords: []
 
-RSpec/EmptyExampleGroup:
-  Description: Checks if an example group does not include any tests.
-  Enabled: true
-  CustomIncludeMethods: []
-
 RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
-  Enabled: true
-
-RSpec/MessageChain:
-  Description: Check that chains of messages are not being stubbed.
-  Enabled: true
-
-RSpec/MultipleDescribes:
-  Description: Checks for multiple top level describes.
-  Enabled: true
-
-RSpec/MultipleExpectations:
-  Description: Checks if examples contain too many `expect` calls.
-  Enabled: true
-  Max: 1
-
-RSpec/NestedGroups:
-  Description: Checks for nested example groups.
-  Enabled: true
-  MaxNesting: 2
-
-RSpec/InstanceVariable:
-  Description: Checks for instance variable usage in specs.
-  AssignmentOnly: false
-  Enabled: true
-
-RSpec/LetSetup:
-  Description: Checks unreferenced `let!` calls being used for test setup.
-  Enabled: true
-
-RSpec/LeadingSubject:
-  Description: Checks for `subject` definitions that come after `let` definitions.
   Enabled: true
 
 RSpec/FilePath:
@@ -92,27 +57,18 @@ RSpec/FilePath:
     RSpec: rspec
   IgnoreMethods: false
 
-RSpec/VerifiedDoubles:
-  Description: Prefer using verifying doubles over normal doubles.
-  Enabled: true
-  IgnoreSymbolicNames: false
-
-RSpec/NotToNot:
-  Description: Checks for consistent method usage for negating expectations.
-  EnforcedStyle: not_to
-  SupportedStyles:
-  - not_to
-  - to_not
-  Enabled: true
-
 RSpec/Focus:
   Description: Checks if examples are focused.
   Enabled: true
 
-RSpec/ExampleLength:
-  Description: Checks for long examples.
+RSpec/HookArgument:
+  Description: Checks the arguments passed to `before`, `around`, and `after`.
   Enabled: true
-  Max: 5
+  EnforcedStyle: implicit
+  SupportedStyles:
+  - implicit
+  - each
+  - example
 
 RSpec/ImplicitExpect:
   Description: Check that a consistent implict expectation style is used.
@@ -122,6 +78,23 @@ RSpec/ImplicitExpect:
   - is_expected
   - should
 
+RSpec/InstanceVariable:
+  Description: Checks for instance variable usage in specs.
+  AssignmentOnly: false
+  Enabled: true
+
+RSpec/LeadingSubject:
+  Description: Checks for `subject` definitions that come after `let` definitions.
+  Enabled: true
+
+RSpec/LetSetup:
+  Description: Checks unreferenced `let!` calls being used for test setup.
+  Enabled: true
+
+RSpec/MessageChain:
+  Description: Check that chains of messages are not being stubbed.
+  Enabled: true
+
 RSpec/MessageExpectation:
   Description: Checks for consistent message expectation style.
   Enabled: true
@@ -130,10 +103,37 @@ RSpec/MessageExpectation:
   - allow
   - expect
 
+RSpec/MultipleDescribes:
+  Description: Checks for multiple top level describes.
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Description: Checks if examples contain too many `expect` calls.
+  Enabled: true
+  Max: 1
+
 RSpec/NamedSubject:
   Description: Checks for explicitly referenced test subjects.
+  Enabled: true
+
+RSpec/NestedGroups:
+  Description: Checks for nested example groups.
+  Enabled: true
+  MaxNesting: 2
+
+RSpec/NotToNot:
+  Description: Checks for consistent method usage for negating expectations.
+  EnforcedStyle: not_to
+  SupportedStyles:
+  - not_to
+  - to_not
   Enabled: true
 
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true
+
+RSpec/VerifiedDoubles:
+  Description: Prefer using verifying doubles over normal doubles.
+  Enabled: true
+  IgnoreSymbolicNames: false
