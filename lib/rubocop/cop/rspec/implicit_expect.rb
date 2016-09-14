@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that a consistent implict expectation style is used.
+      # Check that a consistent implicit expectation style is used.
       #
       # This cop can be configured using the `EnforcedStyle` option
       # and supports the `--auto-gen-config` flag.

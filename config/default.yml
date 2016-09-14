@@ -71,7 +71,7 @@ RSpec/HookArgument:
   - example
 
 RSpec/ImplicitExpect:
-  Description: Check that a consistent implict expectation style is used.
+  Description: Check that a consistent implicit expectation style is used.
   Enabled: true
   EnforcedStyle: is_expected
   SupportedStyles:
