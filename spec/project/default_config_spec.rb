@@ -20,7 +20,7 @@ describe 'config/default.yml' do
 
   def cop_configuration(config_key)
     cop_names.map do |cop_name|
-      cop_config = default_config.fetch(cop_name)
+      cop_config = default_config[cop_name]
 
       cop_config.fetch(config_key) do
         raise "Expected #{cop_name} to have #{config_key} configuration key"
