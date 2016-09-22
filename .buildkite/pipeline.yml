@@ -1,4 +1,9 @@
 steps:
+  - command: "build/run 2.1.10 spec"
+    label: ":rspec: RSpec (2.1)"
+    agents:
+      - queue=elastic
+
   - command: "build/run 2.2.5 spec"
     label: ":rspec: RSpec (2.2)"
     agents:
@@ -6,6 +11,11 @@ steps:
 
   - command: "build/run 2.3.1 spec"
     label: ":rspec: RSpec (2.3)"
+    agents:
+      - queue=elastic
+
+  - command: "build/run 2.1.10 internal_investigation"
+    label: ":rubocop: RuboCop (2.1)"
     agents:
       - queue=elastic
 
