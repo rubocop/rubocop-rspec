@@ -39,9 +39,9 @@ RUN apk add --update-cache \
       # ruby needs access to things like linux/random.h
       linux-headers=4.4.6-r1 \
       # required to compile ruby
-      openssl-dev=1.0.2h-r2  \
+      openssl-dev=1.0.2h-r4  \
       # required for ruby-versions to download ruby binaries
-      openssl=1.0.2h-r2      \
+      openssl=1.0.2h-r4      \
   # Create ruby managers directory for downloads
   && mkdir "$RUBY_MANAGERS_DIR"
 
