@@ -10,9 +10,13 @@ Gem::Specification.new do |spec|
     Code style checking for RSpec files.
     A plugin for the RuboCop code style enforcing & linting tool.
   end_description
-  spec.homepage = 'http://github.com/nevir/rubocop-rspec'
-  spec.authors = ['Ian MacLeod', 'Nils Gemeinhardt']
-  spec.email = ['ian@nevir.net', 'git@nilsgemeinhardt.de']
+  spec.homepage = 'http://github.com/backus/rubocop-rspec'
+  spec.authors = ['John Backus', 'Ian MacLeod', 'Nils Gemeinhardt']
+  spec.email = [
+    'johncbackus@gmail.com',
+    'ian@nevir.net',
+    'git@nilsgemeinhardt.de'
+  ]
   spec.licenses = ['MIT']
 
   spec.version = RuboCop::RSpec::Version::STRING
