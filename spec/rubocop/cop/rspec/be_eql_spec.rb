@@ -35,6 +35,13 @@ describe RuboCop::Cop::RSpec::BeEql do
     RUBY
   end
 
+  it 'registers an offense for `eql` when argument is nil' do
+    expect_violation(<<-RUBY)
+      it { expect(foo).to eql(nil) }
+                          ^^^ Prefer `be` over `eql`
+    RUBY
+  end
+
   it 'does not register an offense for `eql` when argument is a string' do
     expect_no_violations(<<-RUBY)
       it { expect(foo).to eql('foo') }
