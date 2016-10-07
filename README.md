@@ -1,5 +1,7 @@
 # RuboCop RSpec
 
+[![Join the chat at https://gitter.im/rubocop-rspec/Lobby](https://badges.gitter.im/rubocop-rspec/Lobby.svg)](https://gitter.im/rubocop-rspec/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
 [![Dependency Status](https://gemnasium.com/backus/rubocop-rspec.svg)](https://gemnasium.com/backus/rubocop-rspec)
 [![Build Status](https://secure.travis-ci.org/backus/rubocop-rspec.svg?branch=master)](http://travis-ci.org/backus/rubocop-rspec)
