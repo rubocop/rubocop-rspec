@@ -380,6 +380,11 @@ RSpec/MissingExampleGroupArgument:
   VersionAdded: '1.28'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
 
+RSpec/MockNotStub:
+  Description: Checks that stubs aren't added to mocks.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub
+
 RSpec/MultipleDescribes:
   Description: Checks for multiple top-level example groups.
   Enabled: true

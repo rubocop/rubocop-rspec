@@ -2027,6 +2027,33 @@ end
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument)
 
+## RSpec/MockNotStub
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Checks that stubs aren't added to mocks.
+
+### Examples
+
+```ruby
+# bad
+expect(foo).to receive(:bar).with(42).and_return("hello world")
+
+# good (without spies)
+allow(foo).to receive(:bar).with(42).and_return("hello world")
+expect(foo).to receive(:bar).with(42)
+
+# good (with spies)
+allow(foo).to receive(:bar).with(42).and_return("hello world")
+expect(foo).to have_received(:bar).with(42)
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub)
+
 ## RSpec/MultipleDescribes
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
