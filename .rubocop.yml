@@ -4,6 +4,13 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.2
 
+Metrics/BlockLength:
+  Exclude:
+    - rubocop-rspec.gemspec
+    - Rakefile
+    - '**/*.rake'
+    - spec/**/*.rb
+
 Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
@@ -19,4 +26,4 @@ RSpec/ExampleLength:
 
 RSpec/DescribeClass:
   Exclude:
-  - spec/project/**/*.rb
+    - spec/project/**/*.rb
