@@ -97,7 +97,7 @@ RSpec/MessageChain:
 
 RSpec/MessageExpectation:
   Description: Checks for consistent message expectation style.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: allow
   SupportedStyles:
   - allow

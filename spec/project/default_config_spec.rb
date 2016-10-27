@@ -47,6 +47,6 @@ describe 'config/default.yml' do
   end
 
   it 'includes Enabled: true for every cop' do
-    expect(cop_configuration('Enabled')).to all(be(true))
+    expect(cop_configuration('Enabled')).to all(be(true).or(be(false)))
   end
 end
