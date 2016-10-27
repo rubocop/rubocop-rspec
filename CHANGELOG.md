@@ -2,7 +2,9 @@
 
 ## Master (unreleased)
 
-* Optinally ignore method names in the `describe` argument when running the `FilePath` cop. ([@bquorning][])
+## 1.8.0 (2016-10-27)
+
+* Optionally ignore method names in the `describe` argument when running the `FilePath` cop. ([@bquorning][])
 * Fix regression in how `FilePath` converts alphanumeric class names into paths. ([@bquorning][])
 * Add `ImplicitExpect` cop for enforcing `should` vs. `is_expected.to`. ([@backus][])
 * Disable `MessageExpectation` cop in the default configuration. ([@bquorning][])
