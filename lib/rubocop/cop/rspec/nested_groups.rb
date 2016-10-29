@@ -85,9 +85,7 @@ module RuboCop
       #   end
       #
       class NestedGroups < Cop
-        include RuboCop::RSpec::SpecOnly,
-                RuboCop::RSpec::TopLevelDescribe,
-                RuboCop::RSpec::Language
+        include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Maximum example group nesting exceeded'.freeze
 

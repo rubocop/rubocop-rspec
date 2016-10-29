@@ -42,7 +42,7 @@ module RuboCop
       #   my_class_spec.rb         # describe MyClass, '#method'
       #
       class FilePath < Cop
-        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelDescribe
 
         MESSAGE = 'Spec path should end with `%s`'.freeze
         ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))

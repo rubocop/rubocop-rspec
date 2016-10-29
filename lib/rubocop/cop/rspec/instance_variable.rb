@@ -47,8 +47,6 @@ module RuboCop
       #   end
       #
       class InstanceVariable < Cop
-        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::Language
-
         MESSAGE = 'Use `let` instead of an instance variable'.freeze
 
         EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL

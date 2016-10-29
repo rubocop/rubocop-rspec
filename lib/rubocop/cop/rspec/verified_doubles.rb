@@ -18,8 +18,6 @@ module RuboCop
       #     widget = instance_double("Widget")
       #   end
       class VerifiedDoubles < Cop
-        include RuboCop::RSpec::SpecOnly
-
         MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
 
         def_node_matcher :unverified_double, <<-PATTERN

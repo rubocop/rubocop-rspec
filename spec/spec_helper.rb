@@ -17,13 +17,6 @@ Dir.glob(spec_helper_glob).map(&method(:require))
 RSpec.configure do |config|
   config.order = :random
 
-  # Define spec metadata for all rspec cop spec files
-  cop_specs = 'spec/rubocop/cop/rspec/'
-  config.define_derived_metadata(file_path: /\b#{cop_specs}/) do |metadata|
-    # Attach metadata that signals the specified code is for an RSpec only cop
-    metadata[:rspec_cop] = true
-  end
-
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect # Disable `should`
   end

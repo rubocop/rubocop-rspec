@@ -21,8 +21,6 @@ module RuboCop
       #     end
       #   end
       class AnyInstance < Cop
-        include RuboCop::RSpec::SpecOnly
-
         MESSAGE = 'Avoid stubbing using `%{method}`'.freeze
 
         ANY_INSTANCE_METHODS = [

@@ -26,10 +26,7 @@ module RuboCop
       #     expect(Widget.count).to eq(1)
       #   end
       class LetSetup < Cop
-        include RuboCop::RSpec::SpecOnly,
-                RuboCop::RSpec::TopLevelDescribe,
-                RuboCop::RSpec::Language,
-                RuboCop::RSpec::Language::NodePattern
+        include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Do not use `let!` for test setup.'.freeze
 

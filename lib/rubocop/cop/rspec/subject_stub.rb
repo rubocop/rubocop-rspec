@@ -18,10 +18,7 @@ module RuboCop
       #   end
       #
       class SubjectStub < Cop
-        include RuboCop::RSpec::SpecOnly,
-                RuboCop::RSpec::TopLevelDescribe,
-                RuboCop::RSpec::Language,
-                RuboCop::RSpec::Language::NodePattern
+        include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Do not stub your test subject.'.freeze
 

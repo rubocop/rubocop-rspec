@@ -25,7 +25,7 @@ module RuboCop
       #   it { should be_truthy }
       #
       class ImplicitExpect < Cop
-        include RuboCop::RSpec::SpecOnly, ConfigurableEnforcedStyle
+        include ConfigurableEnforcedStyle
 
         MSG = 'Prefer `%<good>s` over `%<bad>s`.'.freeze
 

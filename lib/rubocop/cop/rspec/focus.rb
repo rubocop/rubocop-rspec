@@ -20,8 +20,6 @@ module RuboCop
       #   describe MyClass do
       #   end
       class Focus < Cop
-        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::Language
-
         MSG = 'Focused spec found.'.freeze
 
         focusable =

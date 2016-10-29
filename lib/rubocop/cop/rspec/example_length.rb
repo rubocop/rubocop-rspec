@@ -26,7 +26,7 @@ module RuboCop
       #     expect(result).to be(true)
       #   end
       class ExampleLength < Cop
-        include RuboCop::RSpec::SpecOnly, CodeLength
+        include CodeLength
 
         EXAMPLE_BLOCKS = RuboCop::RSpec::Language::Examples::ALL
 

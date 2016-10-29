@@ -38,8 +38,6 @@ module RuboCop
       #     it { should be_valid }
       #   end
       class NamedSubject < Cop
-        include RuboCop::RSpec::SpecOnly
-
         MSG = 'Name your test subject if '\
               'you need to reference it explicitly.'.freeze
 
