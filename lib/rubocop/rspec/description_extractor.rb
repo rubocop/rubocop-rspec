@@ -2,36 +2,71 @@ module RuboCop
   module RSpec
     # Extracts cop descriptions from YARD docstrings
     class DescriptionExtractor
-      COP_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
-      COP_FORMAT    = 'RSpec/%s'.freeze
-
       def initialize(yardocs)
-        @yardocs = yardocs
+        @code_objects = yardocs.map(&CodeObject.public_method(:new))
       end
 
       def to_h
-        cop_documentation.each_with_object({}) do |(name, docstring), config|
-          config[format(COP_FORMAT, name)] = {
-            'Description' => docstring.split("\n\n").first.to_s
-          }
-        end
+        code_objects
+          .select(&:rspec_cop?)
+          .map(&:configuration)
+          .reduce(:merge)
       end
 
       private
 
-      def cop_documentation
-        yardocs
-          .select(&method(:cop?))
-          .map { |doc| [doc.name, doc.docstring] }
-      end
+      attr_reader :code_objects
 
-      def cop?(doc)
-        doc.type.equal?(:class)               &&
-          doc.to_s.start_with?(COP_NAMESPACE) &&
-          doc.tags.none? { |tag| tag.tag_name == 'abstract' }
-      end
+      # Decorator of a YARD code object for working with documented rspec cops
+      class CodeObject
+        COP_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
 
-      attr_reader :yardocs
+        def initialize(yardoc)
+          @yardoc = yardoc
+        end
+
+        # Test if the YARD code object documents a concrete rspec cop class
+        #
+        # @return [Boolean]
+        def rspec_cop?
+          class_documentation? && rspec_cop_namespace? && !abstract?
+        end
+
+        # Configuration for the documented cop that would live in default.yml
+        #
+        # @return [Hash]
+        def configuration
+          { cop_name => { 'Description' => description } }
+        end
+
+        private
+
+        def cop_name
+          Object.const_get(documented_constant).cop_name
+        end
+
+        def description
+          yardoc.docstring.split("\n\n").first.to_s
+        end
+
+        def class_documentation?
+          yardoc.type.equal?(:class)
+        end
+
+        def rspec_cop_namespace?
+          documented_constant.start_with?(COP_NAMESPACE)
+        end
+
+        def documented_constant
+          yardoc.to_s
+        end
+
+        def abstract?
+          yardoc.tags.any? { |tag| tag.tag_name.eql?('abstract') }
+        end
+
+        attr_reader :yardoc
+      end
     end
   end
 end
