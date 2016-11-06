@@ -3,8 +3,8 @@ require 'rubocop'
 require 'rubocop/rspec/support'
 
 if ENV['CI']
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
+  require 'simplecov'
+  SimpleCov.start
 end
 
 module SpecHelper
