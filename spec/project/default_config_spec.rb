@@ -6,12 +6,15 @@ describe 'config/default.yml' do
   let(:cop_names) do
     glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec', '*.rb')
 
-    Pathname.glob(glob).map do |file|
-      file_name = file.basename('.rb').to_s
-      cop_name  = file_name.gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
+    cop_names =
+      Pathname.glob(glob).map do |file|
+        file_name = file.basename('.rb').to_s
+        cop_name  = file_name.gsub(/(^|_)(.)/) { Regexp.last_match(2).upcase }
 
-      "RSpec/#{cop_name}"
-    end
+        "RSpec/#{cop_name}"
+      end
+
+    cop_names - %w(RSpec/Cop)
   end
 
   let(:config_keys) do

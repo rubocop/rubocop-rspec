@@ -27,8 +27,6 @@ module RuboCop
       #     end
       #   end
       class LeadingSubject < Cop
-        include RuboCop::RSpec::SpecOnly, RuboCop::RSpec::Language
-
         MSG = 'Declare `subject` above any other `let` declarations'.freeze
 
         def_node_matcher :subject?, '(block $(send nil :subject ...) args ...)'

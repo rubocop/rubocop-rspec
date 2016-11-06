@@ -12,8 +12,6 @@ module RuboCop
       #   allow(foo).to receive(bar: thing)
       #
       class MessageChain < Cop
-        include RuboCop::RSpec::SpecOnly
-
         MESSAGE = 'Avoid stubbing using `%<method>s`'.freeze
 
         MESSAGE_CHAIN_METHODS = [

@@ -26,7 +26,9 @@ module RuboCop
       end
 
       def cop?(doc)
-        doc.type.equal?(:class) && doc.to_s.start_with?(COP_NAMESPACE)
+        doc.type.equal?(:class)               &&
+          doc.to_s.start_with?(COP_NAMESPACE) &&
+          doc.tags.none? { |tag| tag.tag_name == 'abstract' }
       end
 
       attr_reader :yardocs

@@ -17,8 +17,6 @@ module RuboCop
       #   expect(name).to eq("John")
       #
       class ExpectActual < Cop
-        include RuboCop::RSpec::SpecOnly
-
         MSG = 'Provide the actual you are testing to `expect(...)`'.freeze
 
         SIMPLE_LITERALS = %i(

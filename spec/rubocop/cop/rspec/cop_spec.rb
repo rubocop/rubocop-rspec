@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::RSpec::SpecOnly do
+RSpec.describe RuboCop::Cop::RSpec::Cop do
   subject(:cop) { fake_cop.new(config) }
 
   let(:config) do
@@ -20,9 +20,7 @@ RSpec.describe RuboCop::RSpec::SpecOnly do
   end
 
   let(:fake_cop) do
-    Class.new(RuboCop::Cop::Cop) do
-      include RuboCop::RSpec::SpecOnly
-
+    Class.new(described_class) do
       def self.name
         'RuboCop::RSpec::FakeCop'
       end

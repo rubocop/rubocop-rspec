@@ -57,10 +57,8 @@ module RuboCop
       #   before(:example) do
       #     ...
       #   end
-      class HookArgument < RuboCop::Cop::Cop
-        include RuboCop::RSpec::Language,
-                RuboCop::RSpec::SpecOnly,
-                ConfigurableEnforcedStyle
+      class HookArgument < Cop
+        include ConfigurableEnforcedStyle
 
         IMPLICIT_MSG = 'Omit the default `%p` argument for RSpec hooks.'.freeze
         EXPLICIT_MSG = 'Use `%p` for RSpec hooks.'.freeze
