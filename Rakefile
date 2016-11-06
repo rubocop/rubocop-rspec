@@ -20,6 +20,8 @@ desc 'Run RSpec with code coverage'
 task :coverage do
   ENV['COVERAGE'] = 'true'
   Rake::Task['spec'].execute
+
+  sh('codeclimate-test-reporter') if ENV['CI']
 end
 
 desc 'Run RuboCop over this gem'
@@ -42,4 +44,4 @@ task confirm_config: :build_config do
   end
 end
 
-task default: [:build_config, :spec, :internal_investigation, :confirm_config]
+task default: %i(build_config coverage internal_investigation confirm_config)
