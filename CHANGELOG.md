@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Add `MessageSpies` cop for enforcing consistent style of either `expect(...).to have_received` or `expect(...).to receive`, intended as a replacement for the `MessageExpectation` cop. ([@bquorning][])
+
 ## 1.8.0 (2016-10-27)
 
 * Optionally ignore method names in the `describe` argument when running the `FilePath` cop. ([@bquorning][])

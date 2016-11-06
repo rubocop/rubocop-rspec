@@ -103,6 +103,14 @@ RSpec/MessageExpectation:
   - allow
   - expect
 
+RSpec/MessageSpies:
+  Description: Checks that message expectations are set using spies.
+  Enabled: true
+  EnforcedStyle: have_received
+  SupportedStyles:
+  - have_received
+  - receive
+
 RSpec/MultipleDescribes:
   Description: Checks for multiple top level describes.
   Enabled: true
