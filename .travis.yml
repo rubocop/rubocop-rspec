@@ -15,7 +15,7 @@ matrix:
 
 addons:
   code_climate:
-    repo_token: 40adf93a016e2779eef43dce8f16ca10098ed9f498522e87c8bc94cf14f3e977
+    repo_token: ee08f267b6e437b1e68aeb024266ebaa8bf4ed474490e145ce8ad113e117d9b1
 
 before_install: gem update --remote bundler
 script: bundle exec rake
