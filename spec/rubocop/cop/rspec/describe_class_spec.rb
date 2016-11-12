@@ -110,4 +110,16 @@ describe RuboCop::Cop::RSpec::DescribeClass do
   it "doesn't blow up on single-line describes" do
     expect_no_violations('describe Some::Class')
   end
+
+  it "doesn't flag top level describe in a shared example" do
+    expect_no_violations(<<-RUBY)
+      RSpec.shared_examples 'Common::Interface' do
+        describe '#public_interface' do
+          it 'conforms to interface' do
+            # ...
+          end
+        end
+      end
+    RUBY
+  end
 end
