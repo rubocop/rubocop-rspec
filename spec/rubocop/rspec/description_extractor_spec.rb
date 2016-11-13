@@ -4,43 +4,54 @@ require 'rubocop/rspec/description_extractor'
 
 RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   let(:yardocs) do
-    [
-      instance_double(
-        YARD::CodeObjects::MethodObject,
-        docstring: "Checks foo\n\nLong description",
-        to_s: 'RuboCop::Cop::RSpec::Cop',
-        type: :class,
-        name: 'Foo',
-        tags: [instance_double(YARD::Tags::Tag, tag_name: 'abstract')]
-      ),
-      instance_double(
-        YARD::CodeObjects::MethodObject,
-        docstring: "Checks foo\n\nLong description",
-        to_s: 'RuboCop::Cop::RSpec::Foo',
-        type: :class,
-        name: 'Foo',
-        tags: []
-      ),
-      instance_double(
-        YARD::CodeObjects::MethodObject,
-        docstring: 'Hi',
-        to_s: 'RuboCop::Cop::RSpec::Foo#bar',
-        type: :method,
-        name: 'Foo#bar',
-        tags: []
-      ),
-      instance_double(
-        YARD::CodeObjects::MethodObject,
-        docstring: 'This is not a cop',
-        to_s: 'RuboCop::Cop::Mixin::Sneaky',
-        type: :class,
-        tags: []
-      )
-    ]
+    YARD.parse_string(<<-RUBY)
+    # This is not a cop
+    class RuboCop::Cop::Mixin::Sneaky
+    end
+
+    # This is not a concrete cop
+    #
+    # @abstract
+    class RuboCop::Cop::RSpec::Cop
+    end
+
+    # Checks foo
+    #
+    # Some description
+    #
+    # @note only works with foo
+    class RuboCop::Cop::RSpec::Foo
+      # Hello
+      def bar
+      end
+    end
+
+    class RuboCop::Cop::RSpec::Undocumented
+      # Hello
+      def bar
+      end
+    end
+    RUBY
+
+    YARD::Registry.all
+  end
+
+  def stub_cop_const(name)
+    stub_const(
+      "RuboCop::Cop::RSpec::#{name}",
+      Class.new(RuboCop::Cop::Cop)
+    )
+  end
+
+  before do
+    stub_cop_const('Foo')
+    stub_cop_const('Undocumented')
   end
 
   it 'builds a hash of descriptions' do
-    expect(described_class.new(yardocs).to_h)
-      .to eql('RSpec/Foo' => { 'Description' => 'Checks foo' })
+    expect(described_class.new(yardocs).to_h).to eql(
+      'RSpec/Foo'          => { 'Description' => 'Checks foo' },
+      'RSpec/Undocumented' => { 'Description' => ''           }
+    )
   end
 end

@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(File.join(__dir__, '..', 'lib'))
 
 require 'yard'
 
+require 'rubocop-rspec'
 require 'rubocop/rspec/description_extractor'
 require 'rubocop/rspec/config_formatter'
 
