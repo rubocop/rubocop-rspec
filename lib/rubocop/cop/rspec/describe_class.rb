@@ -39,12 +39,12 @@ module RuboCop
           (sym {:request :feature :routing :view}))
         PATTERN
 
-        def_node_matcher :shared_examples?, <<-PATTERN
-          (block (send (const nil :RSpec) :shared_examples ...) ...)
+        def_node_matcher :shared_group?, <<-PATTERN
+          (block (send {(const nil :RSpec) nil} {#{SharedGroups::ALL.to_node_pattern}} ...) ...)
         PATTERN
 
         def on_top_level_describe(node, args)
-          return if shared_examples?(root_node)
+          return if shared_group?(root_node)
           return if valid_describe?(node)
 
           describe_with_metadata(node) do |pairs|
