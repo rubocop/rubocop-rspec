@@ -62,13 +62,7 @@ module RuboCop
 
         def_node_search :contains_example?, <<-PATTERN
           {
-            (send _ {
-              #{Examples::ALL.node_pattern}
-              :it_behaves_like
-              :it_should_behave_like
-              :include_context
-              :include_examples
-            } ...)
+            (send _ #{(Examples::ALL + Includes::ALL).node_pattern_union} ...)
             (send _ #custom_include? ...)
           }
         PATTERN

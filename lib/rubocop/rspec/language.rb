@@ -53,6 +53,17 @@ module RuboCop
         )
       end
 
+      module Includes
+        ALL = SelectorSet.new(
+          %i(
+            it_behaves_like
+            it_should_behave_like
+            include_context
+            include_examples
+          )
+        )
+      end
+
       module Examples
         EXAMPLES = SelectorSet.new(%i(it specify example scenario its))
         FOCUSED  = SelectorSet.new(%i(fit fspecify fexample fscenario focus))
