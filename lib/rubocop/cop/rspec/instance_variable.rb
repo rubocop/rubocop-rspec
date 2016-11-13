@@ -52,7 +52,7 @@ module RuboCop
         EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
 
         def_node_matcher :spec_group?, <<-PATTERN
-          (block (send _ {#{EXAMPLE_GROUP_METHODS.to_node_pattern}} ...) ...)
+          (block (send _ #{EXAMPLE_GROUP_METHODS.node_pattern_union} ...) ...)
         PATTERN
 
         def_node_search :ivar_usage, '$(ivar $_)'

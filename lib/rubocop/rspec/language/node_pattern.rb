@@ -8,7 +8,7 @@ module RuboCop
         extend RuboCop::NodePattern::Macros
 
         def_node_matcher :example_group?, <<-PATTERN
-          (block (send _ {#{ExampleGroups::ALL.to_node_pattern}} ...) ...)
+          (block (send _ #{ExampleGroups::ALL.node_pattern_union} ...) ...)
         PATTERN
       end
     end

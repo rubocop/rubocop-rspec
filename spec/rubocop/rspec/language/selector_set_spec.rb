@@ -21,9 +21,15 @@ describe RuboCop::RSpec::Language::SelectorSet do
     end
   end
 
-  context '#to_node_pattern' do
+  context '#node_pattern' do
     it 'builds a node pattern' do
-      expect(selector_set.to_node_pattern).to eql(':foo :bar')
+      expect(selector_set.node_pattern).to eql(':foo :bar')
+    end
+  end
+
+  context '#node_pattern_union' do
+    it 'builds a node pattern union' do
+      expect(selector_set.node_pattern_union).to eql('{:foo :bar}')
     end
   end
 end

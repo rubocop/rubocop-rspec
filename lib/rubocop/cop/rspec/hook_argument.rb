@@ -63,7 +63,7 @@ module RuboCop
         IMPLICIT_MSG = 'Omit the default `%p` argument for RSpec hooks.'.freeze
         EXPLICIT_MSG = 'Use `%p` for RSpec hooks.'.freeze
 
-        HOOKS = "{#{Hooks::ALL.to_node_pattern}}".freeze
+        HOOKS = Hooks::ALL.node_pattern_union.freeze
 
         def_node_matcher :scoped_hook, <<-PATTERN
         (block $(send nil #{HOOKS} (sym ${:each :example})) ...)

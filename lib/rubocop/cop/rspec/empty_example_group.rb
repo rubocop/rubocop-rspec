@@ -63,7 +63,7 @@ module RuboCop
         def_node_search :contains_example?, <<-PATTERN
           {
             (send _ {
-              #{Examples::ALL.to_node_pattern}
+              #{Examples::ALL.node_pattern}
               :it_behaves_like
               :it_should_behave_like
               :include_context

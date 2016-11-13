@@ -51,7 +51,7 @@ module RuboCop
         MSG = 'Too many expectations.'.freeze
 
         def_node_matcher :example?, <<-PATTERN
-          (block (send _ {#{Examples::ALL.to_node_pattern}} ...) ...)
+          (block (send _ #{Examples::ALL.node_pattern_union} ...) ...)
         PATTERN
 
         def_node_search :expect, '(send _ :expect ...)'
