@@ -31,6 +31,10 @@ module RuboCop
         attr_reader :selectors
       end
 
+      module Matchers
+        MESSAGE_CHAIN = SelectorSet.new(%i(receive_message_chain stub_chain))
+      end
+
       module ExampleGroups
         GROUPS  = SelectorSet.new(%i(describe context feature example_group))
         SKIPPED = SelectorSet.new(%i(xdescribe xcontext xfeature))
