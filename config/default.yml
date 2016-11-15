@@ -137,6 +137,10 @@ RSpec/NotToNot:
   - to_not
   Enabled: true
 
+RSpec/SingleArgumentMessageChain:
+  Description: Checks that chains of messages contain more than one element.
+  Enabled: true
+
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true

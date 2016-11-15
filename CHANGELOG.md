@@ -3,6 +3,7 @@
 ## Master (unreleased)
 
 * Add `MessageSpies` cop for enforcing consistent style of either `expect(...).to have_received` or `expect(...).to receive`, intended as a replacement for the `MessageExpectation` cop. ([@bquorning][])
+* Add `SingleArgumentMessageChain` cop for recommending use of `receive` instead of `receive_message_chain` where possible. ([@bquorning][])
 
 ## 1.8.0 (2016-10-27)
 
