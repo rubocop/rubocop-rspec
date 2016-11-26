@@ -208,6 +208,11 @@ RSpec/ContextMethod:
   StyleGuide: https://rspec.rubystyle.guide/#example-group-naming
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
 
+RSpec/ContainExactly:
+  Description: Prefer `match_array` when matching array values.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
+
 RSpec/ContextWording:
   Description: Checks that `context` docstring starts with an allowed prefix.
   Enabled: true
@@ -555,6 +560,11 @@ RSpec/LetSetup:
   Enabled: true
   VersionAdded: '1.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
+
+RSpec/MatchArray:
+  Description: Prefer `contain_exactly` when matching an array literal.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
