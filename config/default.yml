@@ -37,6 +37,10 @@ RSpec/BeforeAfterAll:
   - spec/rails_helper.rb
   - spec/support/**/*.rb
 
+RSpec/ContainExactly:
+  Description: Prefer `match_array` when matching array values.
+  Enabled: true
+
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
   Enabled: true
@@ -156,6 +160,10 @@ RSpec/LetBeforeExamples:
 
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.
+  Enabled: true
+
+RSpec/MatchArray:
+  Description: Prefer `contain_exactly` when matching an array literal.
   Enabled: true
 
 RSpec/MessageChain:
