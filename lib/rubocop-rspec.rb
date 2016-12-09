@@ -18,6 +18,7 @@ RuboCop::RSpec::Inject.defaults!
 # cops
 require 'rubocop/cop/rspec/any_instance'
 require 'rubocop/cop/rspec/be_eql'
+require 'rubocop/cop/rspec/before_after_all'
 require 'rubocop/cop/rspec/describe_class'
 require 'rubocop/cop/rspec/describe_method'
 require 'rubocop/cop/rspec/described_class'
@@ -42,4 +43,3 @@ require 'rubocop/cop/rspec/nested_groups'
 require 'rubocop/cop/rspec/not_to_not'
 require 'rubocop/cop/rspec/subject_stub'
 require 'rubocop/cop/rspec/verified_doubles'
-require 'rubocop/cop/rspec/before_after_all'
