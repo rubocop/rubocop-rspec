@@ -33,6 +33,7 @@ module RuboCop
         ALL_PAIR = s(:sym, :all)
 
         def on_send(node)
+          raise "x" # <--- why isn't this being hit?
           _receiver, method_name, *args = *node
           return unless BEFORE_AFTER_METHODS.include?(method_name)
           return unless args.include?(ALL_PAIR)
