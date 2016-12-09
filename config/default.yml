@@ -13,6 +13,10 @@ RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
 
+RSpec/BeforeAfterAll:
+  Description: 'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples.'
+  Enabled: false
+
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
   Enabled: true
@@ -48,10 +52,6 @@ RSpec/ExampleWording:
 RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
-
-RSpec/BeforeAfterAll:
-  Description: 'Avoid the use of before/after(:all) as they are not rolled back and may lead to database state leaking between examples.'
-  Enabled: false
 
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent with the test subject.
