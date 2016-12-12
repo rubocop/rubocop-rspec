@@ -14,7 +14,8 @@ RSpec/BeEql:
   Enabled: true
 
 RSpec/BeforeAfterAll:
-  Description: Avoid the use of `before/after(:all)` as they are not rolled back and may lead to database state leaking between examples.
+  Description: Beware of using `before/after(:all)` as it may cause state to leak between tests. If you are using
+  rspec-rails, and `use_transactional_fixtures` is enabled, then records created in `before(:all)` are not rolled back.
   Enabled: true
 
 RSpec/DescribeClass:
