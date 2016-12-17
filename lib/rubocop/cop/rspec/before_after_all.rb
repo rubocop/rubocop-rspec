@@ -4,7 +4,6 @@ module RuboCop
   module Cop
     module RSpec
       # Check that before/after(:all) isn't being used.
-      # See https://relishapp.com/rspec/rspec-rails/docs/transactions
       #
       # @example
       #   # bad

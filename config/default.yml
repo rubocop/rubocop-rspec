@@ -14,9 +14,7 @@ RSpec/BeEql:
   Enabled: true
 
 RSpec/BeforeAfterAll:
-  Description: |-
-    Check that before/after(:all) isn't being used.
-    See https://relishapp.com/rspec/rspec-rails/docs/transactions
+  Description: Check that before/after(:all) isn't being used.
   Enabled: true
 
 RSpec/DescribeClass:
