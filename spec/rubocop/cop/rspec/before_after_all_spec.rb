@@ -14,9 +14,10 @@ describe RuboCop::Cop::RSpec::BeforeAfterAll do
     end
 
     let(:expected_error) do
-      'Avoid the use of before/after(:all) '\
-        'as they are not rolled back '\
-        'and may lead to database state leaking between examples'
+      'Beware of using `before/after(:all)` as it may cause state to leak '\
+        'between tests. If you are using rspec-rails, and '\
+        '`use_transactional_fixtures` is enabled, then records created in '\
+        '`before(:all)` are not rolled back.'
     end
 
     it 'reports 2 offenses' do

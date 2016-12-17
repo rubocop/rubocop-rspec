@@ -4,8 +4,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that before/after(:all) isn't being used
-      # as they are not rolled back.
+      # Check that before/after(:all) isn't being used.
       # See https://relishapp.com/rspec/rspec-rails/docs/transactions
       #
       # @example
@@ -21,9 +20,10 @@ module RuboCop
       #     after(:each) { do_something_else }
       #   end
       class BeforeAfterAll < Cop
-        MESSAGE = 'Avoid the use of before/after(:all) '\
-          'as they are not rolled back and may lead to database state '\
-          'leaking between examples'.freeze
+        MESSAGE = 'Beware of using `before/after(:all)` as it may cause state '\
+          'to leak between tests. If you are using rspec-rails, and '\
+          '`use_transactional_fixtures` is enabled, then records created in '\
+          '`before(:all)` are not rolled back.'
 
         BEFORE_AFTER_METHODS = [
           :before,
