@@ -8,15 +8,21 @@ module RuboCop
       #
       # @example
       #   # bad
+      #   #
+      #   # Faster but risk of state leaking between examples
+      #   #
       #   describe MyClass do
-      #     before(:all) { do_something }
-      #     after(:all) { do_something_else }
+      #     before(:all) { Widget.create }
+      #     after(:all) { Widget.delete_all }
       #   end
       #
       #   # good
+      #   #
+      #   # Slower but examples are properly isolated
+      #   #
       #   describe MyClass do
-      #     before(:each) { do_something }
-      #     after(:each) { do_something_else }
+      #     before(:each) { Widget.create }
+      #     after(:each) { Widget.delete_all }
       #   end
       class BeforeAfterAll < Cop
         MESSAGE = 'Beware of using `before/after(:all)` as it may cause state '\
