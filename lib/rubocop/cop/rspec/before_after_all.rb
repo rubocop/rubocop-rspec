@@ -28,7 +28,7 @@ module RuboCop
         MESSAGE = 'Beware of using `before/after(:all)` as it may cause state '\
           'to leak between tests. If you are using rspec-rails, and '\
           '`use_transactional_fixtures` is enabled, then records created in '\
-          '`before(:all)` are not rolled back.'
+          '`before(:all)` are not rolled back.'.freeze
 
         BEFORE_AFTER_METHODS = [
           :before,
