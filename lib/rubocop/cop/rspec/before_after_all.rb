@@ -40,7 +40,7 @@ module RuboCop
         def on_send(node)
           _receiver, method_name, *args = *node
           return unless BEFORE_AFTER_METHODS.include?(method_name)
-          return unless args.include?(ALL_PAIR) or args.include?(CONTEXT_PAIR)
+          return unless args.include?(ALL_PAIR) || args.include?(CONTEXT_PAIR)
 
           add_offense(node, :expression, MESSAGE)
         end
