@@ -34,13 +34,41 @@ describe RuboCop::Cop::RSpec::BeforeAfterAll do
     end
   end
 
-  it 'does not complain for before/after each' do
+  it 'complains for :context' do
+    inspect_source(
+      cop,
+      [
+        'describe MyClass do',
+        '  before(:context) { do_something }',
+        '  after(:context) { do_something_else }',
+        'end'
+      ],
+      'foo_spec.rb'
+    )
+    expect(cop.offenses.size).to eq(2)
+  end
+
+  it 'does not complain for before/after :each' do
     inspect_source(
       cop,
       [
         'describe MyClass do',
         '  before(:each) { do_something }',
         '  after(:each) { do_something_else }',
+        'end'
+      ],
+      'foo_spec.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'does not complain for before/after :example' do
+    inspect_source(
+      cop,
+      [
+        'describe MyClass do',
+        '  before(:example) { do_something }',
+        '  after(:example) { do_something_else }',
         'end'
       ],
       'foo_spec.rb'
