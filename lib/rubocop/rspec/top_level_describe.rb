@@ -31,9 +31,9 @@ module RuboCop
         # If we have no top level describe statements, we need to check any
         # blocks on the top level (e.g. after a require).
         if nodes.empty?
-          nodes = node_children(root_node).map do |child|
-            describe_statement_children(child) if child.type == :block
-          end.flatten.compact
+          nodes = root_node.each_child_node(:block).flat_map do |child|
+            describe_statement_children(child)
+          end
         end
 
         nodes
@@ -44,17 +44,13 @@ module RuboCop
       end
 
       def single_top_level_describe?
-        top_level_nodes.count == 1
+        top_level_nodes.one?
       end
 
       def describe_statement_children(node)
-        node_children(node).select do |element|
-          element.type == :send && element.children[1] == :describe
+        node.each_child_node(:send).select do |element|
+          element.children[1] == :describe
         end
-      end
-
-      def node_children(node)
-        node.children.select { |e| e.is_a? Parser::AST::Node }
       end
     end
   end
