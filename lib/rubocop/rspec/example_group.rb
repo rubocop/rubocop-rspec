@@ -18,6 +18,13 @@ module RuboCop
       def_node_matcher :scope_change?,
                        (ExampleGroups::ALL + SharedGroups::ALL).block_pattern
 
+      # @!method hook(node)
+      #
+      #   Detect if node is `before`, `after`, `around`
+      def_node_matcher :hook, <<-PATTERN
+      (block {$(send nil #{Hooks::ALL.node_pattern_union} ...)} ...)
+      PATTERN
+
       def initialize(node)
         @node = node
       end
@@ -26,13 +33,33 @@ module RuboCop
         examples_in_scope(node).map(&Example.public_method(:new))
       end
 
+      def hooks
+        hooks_in_scope(node).map(&Hook.public_method(:new))
+      end
+
       private
 
       attr_reader :node
 
-      def examples_in_scope(node)
+      def hooks_in_scope(node)
         node.each_child_node.flat_map do |child|
-          find_examples(child)
+          find_hooks(child)
+        end
+      end
+
+      def find_hooks(node)
+        return [] if scope_change?(node) || example?(node)
+
+        if hook(node)
+          [node]
+        else
+          hooks_in_scope(node)
+        end
+      end
+
+      def examples_in_scope(node, &blk)
+        node.each_child_node.flat_map do |child|
+          find_examples(child, &blk)
         end
       end
 
