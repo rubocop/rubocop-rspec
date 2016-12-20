@@ -32,4 +32,18 @@ describe RuboCop::RSpec::Language::SelectorSet do
       expect(selector_set.node_pattern_union).to eql('{:foo :bar}')
     end
   end
+
+  context '#send_pattern' do
+    it 'builds a send matching pattern' do
+      expect(selector_set.send_pattern).to eql('(send _ {:foo :bar} ...)')
+    end
+  end
+
+  context '#block_pattern' do
+    it 'builds a block matching pattern' do
+      expect(selector_set.block_pattern).to eql(
+        '(block (send _ {:foo :bar} ...) ...)'
+      )
+    end
+  end
 end

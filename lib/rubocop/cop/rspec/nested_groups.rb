@@ -89,9 +89,7 @@ module RuboCop
 
         MSG = 'Maximum example group nesting exceeded'.freeze
 
-        def_node_search :find_contexts, <<-PATTERN
-          (block (send nil #{ExampleGroups::ALL.node_pattern_union} ...) (args) ...)
-        PATTERN
+        def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 
         def on_block(node)
           describe, = described_constant(node)

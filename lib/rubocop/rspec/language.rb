@@ -22,12 +22,20 @@ module RuboCop
           selectors.include?(selector)
         end
 
-        def node_pattern
-          selectors.map(&:inspect).join(' ')
+        def block_pattern
+          "(block #{send_pattern} ...)"
+        end
+
+        def send_pattern
+          "(send _ #{node_pattern_union} ...)"
         end
 
         def node_pattern_union
           "{#{node_pattern}}"
+        end
+
+        def node_pattern
+          selectors.map(&:inspect).join(' ')
         end
 
         protected
