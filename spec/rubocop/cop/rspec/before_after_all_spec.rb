@@ -1,5 +1,5 @@
-describe RuboCop::Cop::RSpec::BeforeAfterAll do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
+  subject(:cop) { described_class.new(config) }
 
   context 'when offenses detected' do
     let(:code) do
@@ -86,6 +86,46 @@ describe RuboCop::Cop::RSpec::BeforeAfterAll do
         'end'
       ],
       'foo_spec.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'ignores hooks within `spec_helper.rb`' do
+    inspect_source(
+      cop,
+      [
+        'describe MyClass do',
+        '  before(:all) { do_something}',
+        'end'
+      ],
+      'spec/spec_helper.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'ignores hooks within `rails_helper.rb`' do
+    inspect_source(
+      cop,
+      [
+        'describe MyClass do',
+        '  before(:all) { do_something}',
+        'end'
+      ],
+      'spec/rails_helper.rb'
+    )
+    expect(cop.offenses).to be_empty
+  end
+
+  it 'ignores hooks within `spec/support`' do
+    require 'pry'; binding.pry
+    inspect_source(
+      cop,
+      [
+        'describe MyClass do',
+        '  before(:all) { do_something}',
+        'end'
+      ],
+      'spec/suppport/hooks.rb'
     )
     expect(cop.offenses).to be_empty
   end
