@@ -40,7 +40,7 @@ module RuboCop
         PATTERN
 
         def_node_matcher :shared_group?, <<-PATTERN
-          (block (send {(const nil :RSpec) nil} {#{SharedGroups::ALL.to_node_pattern}} ...) ...)
+          (block (send {(const nil :RSpec) nil} #{SharedGroups::ALL.node_pattern_union} ...) ...)
         PATTERN
 
         def on_top_level_describe(node, args)

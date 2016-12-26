@@ -51,9 +51,7 @@ module RuboCop
 
         EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
 
-        def_node_matcher :spec_group?, <<-PATTERN
-          (block (send _ {#{EXAMPLE_GROUP_METHODS.to_node_pattern}} ...) ...)
-        PATTERN
+        def_node_matcher :spec_group?, EXAMPLE_GROUP_METHODS.block_pattern
 
         def_node_search :ivar_usage, '$(ivar $_)'
 

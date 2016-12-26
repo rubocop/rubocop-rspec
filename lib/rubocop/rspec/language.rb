@@ -22,7 +22,19 @@ module RuboCop
           selectors.include?(selector)
         end
 
-        def to_node_pattern
+        def block_pattern
+          "(block #{send_pattern} ...)"
+        end
+
+        def send_pattern
+          "(send _ #{node_pattern_union} ...)"
+        end
+
+        def node_pattern_union
+          "{#{node_pattern}}"
+        end
+
+        def node_pattern
           selectors.map(&:inspect).join(' ')
         end
 
@@ -46,6 +58,17 @@ module RuboCop
       module SharedGroups
         ALL = SelectorSet.new(
           %i(shared_examples shared_context shared_examples_for)
+        )
+      end
+
+      module Includes
+        ALL = SelectorSet.new(
+          %i(
+            it_behaves_like
+            it_should_behave_like
+            include_context
+            include_examples
+          )
         )
       end
 

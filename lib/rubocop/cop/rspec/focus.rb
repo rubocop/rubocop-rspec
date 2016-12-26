@@ -30,20 +30,17 @@ module RuboCop
 
         focused = ExampleGroups::FOCUSED + Examples::FOCUSED
 
-        FOCUSABLE_SELECTORS = focusable.to_node_pattern
-        FOCUSING_SELECTORS  = focused.to_node_pattern
+        FOCUSABLE_SELECTORS = focusable.node_pattern_union
 
         FOCUS_SYMBOL = s(:sym, :focus)
         FOCUS_TRUE   = s(:pair, FOCUS_SYMBOL, s(:true))
 
         def_node_matcher :metadata, <<-PATTERN
-          {(send nil {#{FOCUSABLE_SELECTORS}} ... (hash $...))
-           (send nil {#{FOCUSABLE_SELECTORS}} $...)}
+          {(send nil #{FOCUSABLE_SELECTORS} ... (hash $...))
+           (send nil #{FOCUSABLE_SELECTORS} $...)}
         PATTERN
 
-        def_node_matcher :focused_block?, <<-PATTERN
-          (send nil {#{FOCUSING_SELECTORS}} ...)
-        PATTERN
+        def_node_matcher :focused_block?, focused.send_pattern
 
         def on_send(node)
           focus_metadata(node) do |focus|
