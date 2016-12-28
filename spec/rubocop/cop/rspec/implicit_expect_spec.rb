@@ -30,7 +30,7 @@ describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
       expect_no_violations('it { is_expected.to_not be_truthy }')
     end
 
-    it 'approves of is_expected.to_not' do
+    it 'approves of is_expected.not_to' do
       expect_no_violations('it { is_expected.not_to be_truthy }')
     end
 

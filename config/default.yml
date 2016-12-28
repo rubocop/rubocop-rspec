@@ -137,6 +137,10 @@ RSpec/NotToNot:
   - to_not
   Enabled: true
 
+RSpec/RepeatedDescription:
+  Enabled: true
+  Description: Check for repeated description strings in example groups.
+
 RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true

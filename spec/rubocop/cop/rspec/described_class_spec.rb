@@ -160,7 +160,7 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
     RUBY
   end
 
-  it 'does not flag violations within a scope change' do
+  it 'does not flag violations within a class scope change' do
     expect_no_violations(<<-RUBY)
       describe MyNamespace::MyClass do
         before do
@@ -172,7 +172,7 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
     RUBY
   end
 
-  it 'does not flag violations within a scope change' do
+  it 'does not flag violations within a hook scope change' do
     expect_no_violations(<<-RUBY)
       describe do
         before do
