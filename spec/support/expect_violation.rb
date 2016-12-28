@@ -29,10 +29,12 @@ module ExpectViolation
   private
 
   def to_assertion(offense)
+    highlight = offense.highlighted_area
+
     Expectation::Assertion.new(
       message:      offense.message,
-      line_number:  offense.location.line,
-      column_range: offense.location.column_range
+      line_number:  offense.location.first_line,
+      column_range: highlight.begin_pos...highlight.end_pos
     )
   end
 
