@@ -4,63 +4,42 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
   let(:cop_config) { { 'Max' => 3 } }
 
   it 'ignores non-spec blocks' do
-    inspect_source(
-      cop,
-      [
-        'foo do',
-        '  line 1',
-        '  line 2',
-        '  line 3',
-        '  line 4',
-        'end'
-      ],
-      'foo_spec.rb'
-    )
-
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      foo do
+        line 1
+        line 2
+        line 3
+        line 4
+      end
+    RUBY
   end
 
   it 'allows an empty example' do
-    inspect_source(
-      cop,
-      [
-        'it do',
-        'end'
-      ],
-      'foo_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      it do
+      end
+    RUBY
   end
 
   it 'allows a short example' do
-    inspect_source(
-      cop,
-      [
-        'it do',
-        '  line 1',
-        '  line 2',
-        '  line 3',
-        'end'
-      ],
-      'spec/foo_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      it do
+        line 1
+        line 2
+        line 3
+      end
+    RUBY
   end
 
   it 'ignores comments' do
-    inspect_source(
-      cop,
-      [
-        'it do',
-        '  line 1',
-        '  line 2',
-        '  # comment',
-        '  line 3',
-        'end'
-      ],
-      'spec/foo_spec.rb'
-    )
-    expect(cop.offenses).to be_empty
+    expect_no_violations(<<-RUBY)
+      it do
+        line 1
+        line 2
+        # comment
+        line 3
+      end
+    RUBY
   end
 
   shared_examples 'large example violation' do
@@ -82,18 +61,17 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
   end
 
   context 'when inspecting large examples' do
-    let(:source) do
-      [
-        'it do',
-        '  line 1',
-        '  line 2',
-        '  line 3',
-        '  line 4',
-        'end'
-      ]
+    it 'flags the example' do
+      expect_violation(<<-RUBY)
+        it do
+        ^^^^^ Example has too many lines. [4/3]
+          line 1
+          line 2
+          line 3
+          line 4
+        end
+      RUBY
     end
-
-    include_examples 'large example violation'
   end
 
   context 'with CountComments enabled' do
@@ -112,6 +90,16 @@ describe RuboCop::Cop::RSpec::ExampleLength, :config do
       ]
     end
 
-    include_examples 'large example violation'
+    it 'flags the example' do
+      expect_violation(<<-RUBY)
+        it do
+        ^^^^^ Example has too many lines. [4/3]
+          line 1
+          line 2
+          # comment
+          line 3
+        end
+      RUBY
+    end
   end
 end
