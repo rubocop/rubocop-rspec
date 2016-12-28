@@ -141,6 +141,10 @@ RSpec/RepeatedDescription:
   Enabled: true
   Description: Check for repeated description strings in example groups.
 
+RSpec/RepeatedExample:
+  Enabled: true
+  Description: Check for repeated examples within example groups.
+
 RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true
