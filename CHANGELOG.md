@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.9.0 (2016-12-29)
+
 * Add `MessageSpies` cop for enforcing consistent style of either `expect(...).to have_received` or `expect(...).to receive`, intended as a replacement for the `MessageExpectation` cop. ([@bquorning][])
 * Fix `DescribeClass` to not flag `describe` at the top of a block of shared examples. ([@clupprich][])
 * Add `SingleArgumentMessageChain` cop for recommending use of `receive` instead of `receive_message_chain` where possible. ([@bquorning][])
