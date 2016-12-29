@@ -3,6 +3,7 @@
 ## Master (unreleased)
 
 * Fix internal dependencies on RuboCop to be compatible with 0.47 release. ([@backus][])
+* Add autocorrect support for `SingleArgumentMessageChain` cop. ([@bquorning][])
 
 ## 1.9.1 (2017-01-02)
 
