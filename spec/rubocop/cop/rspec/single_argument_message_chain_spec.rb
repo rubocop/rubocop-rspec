@@ -58,8 +58,8 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     it 'reports single-argument string calls' do
       expect_violation(<<-RUBY)
         before do
-          allow(foo).to stub_chain("one") { :two }
-                        ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
+          foo.stub_chain("one") { :two }
+              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
         end
       RUBY
     end
@@ -67,7 +67,7 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     it 'accepts multi-argument string calls' do
       expect_no_violations(<<-RUBY)
         before do
-          allow(foo).to stub_chain("one.two") { :three }
+          foo.stub_chain("one.two") { :three }
         end
       RUBY
     end
