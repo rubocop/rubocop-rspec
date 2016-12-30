@@ -77,7 +77,7 @@ module RuboCop
         end
 
         def max_expectations
-          Integer(cop_config.fetch(parameter_name, 1))
+          Integer(cop_config.fetch('Max', 1))
         end
       end
     end
