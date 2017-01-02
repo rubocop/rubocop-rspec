@@ -31,6 +31,10 @@ RSpec/EmptyExampleGroup:
   Enabled: true
   CustomIncludeMethods: []
 
+RSpec/EmptyLineBetweenExamples:
+  Description: Check that examples are separated by empty lines.
+  Enabled: true
+
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
