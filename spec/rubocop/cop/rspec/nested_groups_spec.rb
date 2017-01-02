@@ -8,7 +8,6 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
       describe MyClass do
         context 'when foo' do
           context 'when bar' do
-          ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
             context 'when baz' do
             ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
             end
@@ -17,7 +16,6 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
 
         context 'when qux' do
           context 'when norf' do
-          ^^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
           end
         end
       end
@@ -35,14 +33,15 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
     RUBY
   end
 
-  context 'when MaxNesting is configured as 3' do
-    let(:cop_config) { { 'MaxNesting' => '3' } }
+  context 'when MaxNesting is configured as 2' do
+    let(:cop_config) { { 'MaxNesting' => '2' } }
 
-    it 'only flags third level of nesting' do
+    it 'flags two levels of nesting' do
       expect_violation(<<-RUBY)
         describe MyClass do
           context 'when foo' do
             context 'when bar' do
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
               context 'when baz' do
               ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
               end
