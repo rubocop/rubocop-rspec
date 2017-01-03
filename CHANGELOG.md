@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.9.1 (2017-01-02)
+
 * Fix unintentional regression change in `NestedGroups` reported in #270. ([@backus][])
 * Change `MaxNesting` for `NestedGroups` from 2 to 3. ([@backus][])
 
