@@ -2,6 +2,9 @@
 
 ## Master (unreleased)
 
+* Fix unintentional regression change in `NestedGroups` reported in #270. ([@backus][])
+* Change `MaxNesting` for `NestedGroups` from 2 to 3. ([@backus][])
+
 ## 1.9.0 (2016-12-29)
 
 * Add `MessageSpies` cop for enforcing consistent style of either `expect(...).to have_received` or `expect(...).to receive`, intended as a replacement for the `MessageExpectation` cop. ([@bquorning][])

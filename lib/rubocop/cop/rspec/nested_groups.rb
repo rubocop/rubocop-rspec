@@ -91,11 +91,8 @@ module RuboCop
 
         def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 
-        def on_block(node)
-          describe, = described_constant(node)
-          return unless describe
-
-          find_nested_contexts(node) do |context|
+        def on_top_level_describe(node, _)
+          find_nested_contexts(node.parent) do |context|
             add_offense(context.children.first, :expression)
           end
         end
@@ -113,7 +110,7 @@ module RuboCop
         end
 
         def max_nesting
-          Integer(cop_config.fetch('MaxNesting', 2))
+          Integer(cop_config.fetch('MaxNesting', 3))
         end
       end
     end
