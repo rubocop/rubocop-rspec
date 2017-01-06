@@ -54,7 +54,7 @@ module RuboCop
         def find_constant_usage(node, described_class, &block)
           yield(node) if node.eql?(described_class)
 
-          return unless node.instance_of?(Node)
+          return unless node.is_a?(Parser::AST::Node)
           return if scope_change?(node) || node.const_type?
 
           node.children.each do |child|

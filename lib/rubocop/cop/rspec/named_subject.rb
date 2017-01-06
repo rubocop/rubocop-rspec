@@ -60,7 +60,7 @@ module RuboCop
         private
 
         def subject_usage(node, &block)
-          return unless node.instance_of?(Node)
+          return unless node.is_a?(Parser::AST::Node)
 
           unnamed_subject(node, &block)
 

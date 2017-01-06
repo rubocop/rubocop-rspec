@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Fix internal dependencies on RuboCop to be compatible with 0.47 release. ([@backus][])
+
 ## 1.9.1 (2017-01-02)
 
 * Fix unintentional regression change in `NestedGroups` reported in #270. ([@backus][])
