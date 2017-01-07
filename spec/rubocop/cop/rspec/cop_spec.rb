@@ -20,7 +20,9 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
   end
 
   let(:fake_cop) do
-    Class.new(described_class) do
+    stub_const('RuboCop::RSpec', Module.new)
+    # rubocop:disable ClassAndModuleChildren
+    class RuboCop::RSpec::FakeCop < described_class
       def self.name
         'RuboCop::RSpec::FakeCop'
       end
@@ -29,6 +31,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
         add_offense(node, :expression, 'I flag everything')
       end
     end
+    RuboCop::RSpec::FakeCop
   end
 
   let(:rspec_patterns) { ['_spec.rb$', '(?:^|/)spec/'] }
