@@ -23,7 +23,7 @@ RSpec.describe RuboCop::RSpec::Example do
 
   it 'extracts keywords' do
     expect(example("it('foo', :bar, baz: :qux) { a }").metadata)
-      .to eql([s(:sym, :bar), s(:hash, s(:pair, s(:sym, :baz), s(:sym, :qux)))])
+      .to eq([s(:sym, :bar), s(:hash, s(:pair, s(:sym, :baz), s(:sym, :qux)))])
   end
 
   it 'extracts implementation' do

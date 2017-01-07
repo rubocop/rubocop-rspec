@@ -39,7 +39,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   def stub_cop_const(name)
     stub_const(
       "RuboCop::Cop::RSpec::#{name}",
-      Class.new(RuboCop::Cop::Cop)
+      Class.new(RuboCop::Cop.const_get(:WorkaroundCop))
     )
   end
 
