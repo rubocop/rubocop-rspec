@@ -10,7 +10,7 @@ describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
       expect_violation(<<-RUBY)
         describe Foo do
           it 'uses expect twice' do
-          ^^^^^^^^^^^^^^^^^^^^^^ Too many expectations.
+          ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1]
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
           end
@@ -53,7 +53,7 @@ describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
       expect_violation(<<-RUBY)
         describe Foo do
           it 'uses expect three times' do
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Too many expectations.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [3/2]
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
             expect(qux).to eq(bar)
