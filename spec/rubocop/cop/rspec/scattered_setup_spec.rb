@@ -12,6 +12,19 @@ describe RuboCop::Cop::RSpec::ScatteredSetup do
     RUBY
   end
 
+  it 'flags multiple hooks of the same scope with different symbols' do
+    expect_violation(<<-RUBY)
+      describe Foo do
+        before { bar }
+        ^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
+        before(:each) { baz }
+        ^^^^^^^^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
+        before(:example) { baz }
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
+      end
+    RUBY
+  end
+
   it 'flags multiple before(:all) hooks in the same example group' do
     expect_violation(<<-RUBY)
       describe Foo do
@@ -77,15 +90,6 @@ describe RuboCop::Cop::RSpec::ScatteredSetup do
         it 'uses an instance method called before' do
           expect(before { tricky }).to_not confuse_rubocop_rspec
         end
-      end
-    RUBY
-  end
-
-  it 'does not break if a hook is not given a symbol literal' do
-    expect_no_violations(<<-RUBY)
-      describe Foo do
-        scope = :each
-        before(scope) { example_setup }
       end
     RUBY
   end

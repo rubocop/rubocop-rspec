@@ -150,7 +150,7 @@ RSpec/SingleArgumentMessageChain:
   Enabled: true
 
 RSpec/ScatteredSetup:
-  Description: Checks for separated hooks in the same example group.
+  Description: Checks for setup scattered across multiple hooks in an example group.
   Enabled: true
 
 RSpec/SubjectStub:

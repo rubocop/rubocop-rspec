@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for separated hooks in the same example group.
+      # Checks for setup scattered across multiple hooks in an example group.
       #
       # Unify `before`, `after`, and `around` hooks when possible.
       #
@@ -23,8 +23,6 @@ module RuboCop
       #   end
       #
       class ScatteredSetup < Cop
-        include RuboCop::RSpec::TopLevelDescribe
-
         MSG = 'Do not define multiple hooks in the same example group.'.freeze
 
         def on_block(node)
@@ -38,7 +36,7 @@ module RuboCop
         def analyzable_hooks(node)
           RuboCop::RSpec::ExampleGroup.new(node)
             .hooks
-            .reject(&:unknown_scope?)
+            .select { |hook| hook.knowable_scope? && hook.valid_scope? }
             .group_by { |hook| [hook.name, hook.scope] }
             .values
             .reject(&:one?)

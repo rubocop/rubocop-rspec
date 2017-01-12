@@ -3,10 +3,7 @@
 module RuboCop
   module RSpec
     # Wrapper for RSpec example groups
-    class ExampleGroup
-      include Language
-      extend NodePattern::Macros
-
+    class ExampleGroup < Concept
       def_node_matcher :example?, Examples::ALL.block_pattern
 
       # @!method scope_change?(node)
@@ -25,10 +22,6 @@ module RuboCop
       (block {$(send nil #{Hooks::ALL.node_pattern_union} ...)} ...)
       PATTERN
 
-      def initialize(node)
-        @node = node
-      end
-
       def examples
         examples_in_scope(node).map(&Example.public_method(:new))
       end
@@ -38,8 +31,6 @@ module RuboCop
       end
 
       private
-
-      attr_reader :node
 
       def hooks_in_scope(node)
         node.each_child_node.flat_map do |child|
