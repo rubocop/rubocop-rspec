@@ -4,6 +4,7 @@
 
 * Fix internal dependencies on RuboCop to be compatible with 0.47 release. ([@backus][])
 * Add autocorrect support for `SingleArgumentMessageChain` cop. ([@bquorning][])
+* Rename `NestedGroups`' configuration key from `MaxNesting` to `Max` in order to be consistent with other cop configuration. ([@backus][])
 
 ## 1.9.1 (2017-01-02)
 

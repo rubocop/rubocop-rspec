@@ -89,6 +89,12 @@ module RuboCop
 
         MSG = 'Maximum example group nesting exceeded'.freeze
 
+        DEPRECATED_MAX_KEY = 'MaxNesting'.freeze
+
+        DEPRECATION_WARNING =
+          "Configuration key `#{DEPRECATED_MAX_KEY}` for #{cop_name} is " \
+          'deprecated in favor of `Max`. Please use that instead.'.freeze
+
         def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 
         def on_top_level_describe(node, _)
@@ -110,7 +116,16 @@ module RuboCop
         end
 
         def max_nesting
-          Integer(cop_config.fetch('MaxNesting', 3))
+          @max_nesting ||= Integer(max_nesting_config)
+        end
+
+        def max_nesting_config
+          if cop_config.key?(DEPRECATED_MAX_KEY)
+            warn DEPRECATION_WARNING
+            cop_config.fetch(DEPRECATED_MAX_KEY)
+          else
+            cop_config.fetch('Max', 3)
+          end
         end
       end
     end
