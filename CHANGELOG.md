@@ -2,6 +2,7 @@
 
 ## Master (unreleased)
 
+* Fix false negative for `RSpec/MessageSpies` cop. ([@onk][])
 * Fix internal dependencies on RuboCop to be compatible with 0.47 release. ([@backus][])
 * Add autocorrect support for `SingleArgumentMessageChain` cop. ([@bquorning][])
 * Rename `NestedGroups`' configuration key from `MaxNesting` to `Max` in order to be consistent with other cop configuration. ([@backus][])
@@ -166,3 +167,4 @@
 [@baberthal]: https://github.com/baberthal
 [@jeffreyc]: https://github.com/jeffreyc
 [@clupprich]: https://github.com/clupprich
+[@onk]: https://github.com/onk

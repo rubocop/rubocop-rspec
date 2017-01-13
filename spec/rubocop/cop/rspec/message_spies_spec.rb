@@ -8,10 +8,46 @@ describe RuboCop::Cop::RSpec::MessageSpies, :config do
       { 'EnforcedStyle' => 'have_received' }
     end
 
-    it 'flags expect(...).to receive' do
+    it 'flags expect(send).to receive' do
       expect_violation(<<-RUBY)
         expect(foo).to receive(:bar)
                        ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `foo` as a spy using `allow` or `instance_spy`.
+      RUBY
+    end
+
+    it 'flags expect(lvar).to receive' do
+      expect_violation(<<-RUBY)
+        foo = baz
+        expect(foo).to receive(:bar)
+                       ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `foo` as a spy using `allow` or `instance_spy`.
+      RUBY
+    end
+
+    it 'flags expect(ivar).to receive' do
+      expect_violation(<<-RUBY)
+        expect(@foo).to receive(:bar)
+                        ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `@foo` as a spy using `allow` or `instance_spy`.
+      RUBY
+    end
+
+    it 'flags expect(const).to receive' do
+      expect_violation(<<-RUBY)
+        expect(Foo).to receive(:bar)
+                       ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `Foo` as a spy using `allow` or `instance_spy`.
+      RUBY
+    end
+
+    it 'flags expect(...).not_to receive' do
+      expect_violation(<<-RUBY)
+        expect(foo).not_to receive(:bar)
+                           ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `foo` as a spy using `allow` or `instance_spy`.
+      RUBY
+    end
+
+    it 'flags expect(...).to_not receive' do
+      expect_violation(<<-RUBY)
+        expect(foo).to_not receive(:bar)
+                           ^^^^^^^ Prefer `have_received` for setting message expectations. Setup `foo` as a spy using `allow` or `instance_spy`.
       RUBY
     end
 
@@ -52,10 +88,46 @@ describe RuboCop::Cop::RSpec::MessageSpies, :config do
       { 'EnforcedStyle' => 'receive' }
     end
 
-    it 'flags expect(...).to have_received' do
+    it 'flags expect(send).to have_received' do
       expect_violation(<<-RUBY)
         expect(foo).to have_received(:bar)
                        ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
+      RUBY
+    end
+
+    it 'flags expect(lvar).to have_received' do
+      expect_violation(<<-RUBY)
+        foo = baz
+        expect(foo).to have_received(:bar)
+                       ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
+      RUBY
+    end
+
+    it 'flags expect(ivar).to have_received' do
+      expect_violation(<<-RUBY)
+        expect(@foo).to have_received(:bar)
+                        ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
+      RUBY
+    end
+
+    it 'flags expect(const).to have_received' do
+      expect_violation(<<-RUBY)
+        expect(Foo).to have_received(:bar)
+                       ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
+      RUBY
+    end
+
+    it 'flags expect(...).not_to have_received' do
+      expect_violation(<<-RUBY)
+        expect(foo).not_to have_received(:bar)
+                           ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
+      RUBY
+    end
+
+    it 'flags expect(...).to_not have_received' do
+      expect_violation(<<-RUBY)
+        expect(foo).to_not have_received(:bar)
+                           ^^^^^^^^^^^^^ Prefer `receive` for setting message expectations.
       RUBY
     end
 
