@@ -33,8 +33,8 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
     RUBY
   end
 
-  context 'when MaxNesting is configured as 2' do
-    let(:cop_config) { { 'MaxNesting' => '2' } }
+  context 'when Max is configured as 2' do
+    let(:cop_config) { { 'Max' => '2' } }
 
     it 'flags two levels of nesting' do
       expect_violation(<<-RUBY)
@@ -49,6 +49,18 @@ describe RuboCop::Cop::RSpec::NestedGroups, :config do
           end
         end
       RUBY
+    end
+  end
+
+  context 'when configured with MaxNesting' do
+    let(:cop_config) { { 'MaxNesting' => '1' } }
+
+    it 'emits a deprecation warning' do
+      expect { inspect_source(cop, 'describe(Foo) { }', 'foo_spec.rb') }
+        .to output(
+          'Configuration key `MaxNesting` for RSpec/NestedGroups is ' \
+          "deprecated in favor of `Max`. Please use that instead.\n"
+        ).to_stderr
     end
   end
 end

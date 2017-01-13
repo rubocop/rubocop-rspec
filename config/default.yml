@@ -127,7 +127,7 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
-  MaxNesting: 3
+  Max: 3
 
 RSpec/NotToNot:
   Description: Checks for consistent method usage for negating expectations.
