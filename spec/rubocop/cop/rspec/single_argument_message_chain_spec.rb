@@ -11,6 +11,12 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       RUBY
     end
 
+    include_examples(
+      'autocorrect',
+      'before { allow(foo).to receive_message_chain(:one) { :two } }',
+      'before { allow(foo).to receive(:one) { :two } }'
+    )
+
     it 'accepts multi-argument calls' do
       expect_no_violations(<<-RUBY)
         before do
@@ -27,6 +33,12 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
         end
       RUBY
     end
+
+    include_examples(
+      'autocorrect',
+      'before { allow(foo).to receive_message_chain("one") { :two } }',
+      'before { allow(foo).to receive("one") { :two } }'
+    )
 
     it 'accepts multi-argument string calls' do
       expect_no_violations(<<-RUBY)
@@ -47,6 +59,12 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       RUBY
     end
 
+    include_examples(
+      'autocorrect',
+      'before { foo.stub_chain(:one) { :two } }',
+      'before { foo.stub(:one) { :two } }'
+    )
+
     it 'accepts multi-argument calls' do
       expect_no_violations(<<-RUBY)
         before do
@@ -58,16 +76,22 @@ describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     it 'reports single-argument string calls' do
       expect_violation(<<-RUBY)
         before do
-          allow(foo).to stub_chain("one") { :two }
-                        ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
+          foo.stub_chain("one") { :two }
+              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
         end
       RUBY
     end
 
+    include_examples(
+      'autocorrect',
+      'before { foo.stub_chain("one") { :two } }',
+      'before { foo.stub("one") { :two } }'
+    )
+
     it 'accepts multi-argument string calls' do
       expect_no_violations(<<-RUBY)
         before do
-          allow(foo).to stub_chain("one.two") { :three }
+          foo.stub_chain("one.two") { :three }
         end
       RUBY
     end

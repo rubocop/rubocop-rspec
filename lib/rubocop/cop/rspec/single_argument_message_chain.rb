@@ -27,6 +27,16 @@ module RuboCop
           add_offense(node, :selector, message(method_name))
         end
 
+        def autocorrect(node)
+          _receiver, method_name, *_args = *node
+          lambda do |corrector|
+            corrector.replace(
+              node.loc.selector,
+              method_name.equal?(:receive_message_chain) ? 'receive' : 'stub'
+            )
+          end
+        end
+
         private
 
         def multi_argument_string?(args)
