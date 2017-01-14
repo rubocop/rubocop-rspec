@@ -72,7 +72,7 @@ module RuboCop
           add_offense(
             method,
             :expression,
-            MSG % { total: expectation_count, max: max_expectations }
+            format(MSG, total: expectation_count, max: max_expectations)
           )
         end
 

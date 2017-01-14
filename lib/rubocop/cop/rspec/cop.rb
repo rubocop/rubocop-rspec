@@ -7,8 +7,7 @@ module RuboCop
     class WorkaroundCop
       # Overwrite the cop inherited method to be a noop. Our RSpec::Cop
       # class will invoke the inherited hook instead
-      def self.inherited(*)
-      end
+      def self.inherited(*); end
 
       # Special case `Module#<` so that the rspec support rubocop exports
       # is compatible with our subclass
