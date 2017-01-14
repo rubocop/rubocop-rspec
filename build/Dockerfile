@@ -27,7 +27,7 @@ ENV BASH_ENV=/usr/local/sbin/strict-mode.sh
 ENV BUNDLE_APP_CONFIG /bundle
 
 RUN apk add --update-cache \
-      bash=4.3.42-r3         \
+      bash=4.3.42-r4         \
       # provides tools like make
       build-base=0.4-r1      \
       # install clang to reduce the final binary size for our rubies
@@ -39,9 +39,9 @@ RUN apk add --update-cache \
       # ruby needs access to things like linux/random.h
       linux-headers=4.4.6-r1 \
       # required to compile ruby
-      openssl-dev=1.0.2h-r4  \
+      openssl-dev=1.0.2j-r0  \
       # required for ruby-versions to download ruby binaries
-      openssl=1.0.2h-r4      \
+      openssl=1.0.2j-r0      \
   # Create ruby managers directory for downloads
   && mkdir "$RUBY_MANAGERS_DIR"
 
