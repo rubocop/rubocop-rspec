@@ -18,7 +18,7 @@ module RuboCop
           _receiver, method_name, *_args = *node
           return unless Matchers::MESSAGE_CHAIN.include?(method_name)
 
-          add_offense(node, :selector, MESSAGE % { method: method_name })
+          add_offense(node, :selector, format(MESSAGE, method: method_name))
         end
       end
     end

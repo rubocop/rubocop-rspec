@@ -46,11 +46,13 @@ module RuboCop
         end
 
         def message(method)
-          if method == :receive_message_chain
-            MESSAGE % { recommended_method: :receive, called_method: method }
-          else
-            MESSAGE % { recommended_method: :stub, called_method: method }
-          end
+          recommendation = method == :receive_message_chain ? :receive : :stub
+
+          format(
+            MESSAGE,
+            recommended_method: recommendation,
+            called_method: method
+          )
         end
       end
     end

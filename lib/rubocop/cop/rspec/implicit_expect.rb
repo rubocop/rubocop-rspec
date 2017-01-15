@@ -87,10 +87,11 @@ module RuboCop
         end
 
         def offense_message(offending_source)
-          MSG % {
+          format(
+            MSG,
             good: replacement_source(offending_source),
             bad:  offending_source
-          }
+          )
         end
 
         def replacement_source(offending_source)
