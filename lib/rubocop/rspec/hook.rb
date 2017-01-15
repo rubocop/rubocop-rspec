@@ -21,6 +21,10 @@ module RuboCop
         STANDARDIZED_SCOPES.include?(scope)
       end
 
+      def example?
+        scope.equal?(:each)
+      end
+
       def scope
         case scope_name
         when nil, :each, :example then :each

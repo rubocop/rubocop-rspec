@@ -32,6 +32,10 @@ RSpec.describe RuboCop::RSpec::Hook do
     expect(hook('before(:each) { example_setup }').valid_scope?).to be(true)
   end
 
+  it 'classifies :each as an example hook' do
+    expect(hook('before(:each) { }').example?).to be(true)
+  end
+
   shared_examples 'standardizes scope' do |source, scope|
     it "interprets #{source} as having scope #{scope}" do
       expect(hook(source).scope).to equal(scope)
