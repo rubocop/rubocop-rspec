@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::RSpec::ExampleGroup do
-  include RuboCop::Sexp
+  include RuboCop::AST::Sexp
 
   subject(:group) { described_class.new(parse_source(source).ast) }
 
