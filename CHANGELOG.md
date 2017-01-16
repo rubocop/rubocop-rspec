@@ -8,6 +8,7 @@
 * Rename `NestedGroups`' configuration key from `MaxNesting` to `Max` in order to be consistent with other cop configuration. ([@backus][])
 * Add `RepeatedExample` cop for detecting repeated examples within example groups. ([@backus][])
 * Add `ScatteredSetup` cop for enforcing that only one `before`, `around`, and `after` hook are used per example group scope. ([@backus][])
+* Add `ExpectOutput` cop for recommending `expect { ... }.to output(...).to_stdout`. ([@backus][])
 
 ## 1.9.1 (2017-01-02)
 
