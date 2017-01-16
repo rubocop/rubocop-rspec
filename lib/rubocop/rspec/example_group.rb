@@ -4,8 +4,6 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec example groups
     class ExampleGroup < Concept
-      def_node_matcher :example?, Examples::ALL.block_pattern
-
       # @!method scope_change?(node)
       #
       #   Detect if the node is an example group or shared example
