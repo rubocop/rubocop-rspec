@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::RSpec::Example do
-  include RuboCop::Sexp
+  include RuboCop::AST::Sexp
 
   def example(source)
     described_class.new(parse_source(source).ast)
