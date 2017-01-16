@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.10.0 (2017-01-15)
+
 * Fix false negative for `RSpec/MessageSpies` cop. ([@onk][])
 * Fix internal dependencies on RuboCop to be compatible with 0.47 release. ([@backus][])
 * Add autocorrect support for `SingleArgumentMessageChain` cop. ([@bquorning][])
