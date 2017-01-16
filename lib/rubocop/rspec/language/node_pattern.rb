@@ -8,6 +8,7 @@ module RuboCop
         extend RuboCop::NodePattern::Macros
 
         def_node_matcher :example_group?, ExampleGroups::ALL.block_pattern
+        def_node_matcher :example?, Examples::ALL.block_pattern
       end
     end
   end

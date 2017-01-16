@@ -50,8 +50,6 @@ module RuboCop
 
         MSG = 'Example has too many expectations [%{total}/%{max}]'.freeze
 
-        def_node_matcher :example?, Examples::ALL.block_pattern
-
         def_node_search :expect, '(send _ :expect ...)'
 
         def on_block(node)
