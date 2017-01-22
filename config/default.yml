@@ -21,6 +21,10 @@ RSpec/DescribedClass:
   Description: Checks that tests use `described_class`.
   SkipBlocks: false
   Enabled: true
+  EnforcedStyle: described_class
+  SupportedStyles:
+  - described_class
+  - explicit
 
 RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.

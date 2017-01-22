@@ -1,6 +1,10 @@
 describe RuboCop::Cop::RSpec::DescribedClass, :config do
   subject(:cop) { described_class.new(config) }
 
+  let(:cop_config) do
+    { 'EnforcedStyle' => enforced_style }
+  end
+
   shared_examples 'SkipBlocks enabled' do
     it 'does not flag violations within non-rspec blocks' do
       expect_violation(<<-RUBY)
@@ -69,141 +73,225 @@ describe RuboCop::Cop::RSpec::DescribedClass, :config do
     include_examples 'SkipBlocks disabled'
   end
 
-  it 'checks for the use of the described class' do
-    expect_violation(<<-RUBY)
-      describe MyClass do
-        include MyClass
-                ^^^^^^^ Use `described_class` instead of `MyClass`
+  context 'when EnforcedStyle is :described_class' do
+    let(:enforced_style) { :described_class }
 
-        subject { MyClass.do_something }
+    it 'checks for the use of the described class' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          include MyClass
                   ^^^^^^^ Use `described_class` instead of `MyClass`
 
-        before { MyClass.do_something }
-                 ^^^^^^^ Use `described_class` instead of `MyClass`
-      end
-    RUBY
-  end
+          subject { MyClass.do_something }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`
 
-  it 'ignores described class as string' do
-    expect_no_violations(<<-RUBY)
-      describe MyClass do
-        subject { "MyClass" }
-      end
-    RUBY
-  end
-
-  it 'ignores describe that do not reference to a class' do
-    expect_no_violations(<<-RUBY)
-      describe "MyClass" do
-        subject { "MyClass" }
-      end
-    RUBY
-  end
-
-  it 'ignores class if the scope is changing' do
-    expect_no_violations(<<-RUBY)
-      describe MyClass do
-        Class.new  { foo = MyClass }
-        Module.new { bar = MyClass }
-
-        def method
-          include MyClass
+          before { MyClass.do_something }
+                   ^^^^^^^ Use `described_class` instead of `MyClass`
         end
+      RUBY
+    end
 
-        class OtherClass
-          include MyClass
+    it 'ignores described class as string' do
+      expect_no_violations(<<-RUBY)
+        describe MyClass do
+          subject { "MyClass" }
         end
+      RUBY
+    end
 
-        module MyModle
-          include MyClass
+    it 'ignores describe that do not reference to a class' do
+      expect_no_violations(<<-RUBY)
+        describe "MyClass" do
+          subject { "MyClass" }
         end
-      end
-    RUBY
-  end
+      RUBY
+    end
 
-  it 'only takes class from top level describes' do
-    expect_violation(<<-RUBY)
-      describe MyClass do
-        describe MyClass::Foo do
-          subject { MyClass::Foo }
+    it 'ignores class if the scope is changing' do
+      expect_no_violations(<<-RUBY)
+        describe MyClass do
+          Class.new  { foo = MyClass }
+          Module.new { bar = MyClass }
 
-          let(:foo) { MyClass }
-                      ^^^^^^^ Use `described_class` instead of `MyClass`
-        end
-      end
-    RUBY
-  end
+          def method
+            include MyClass
+          end
 
-  it 'ignores subclasses' do
-    expect_no_violations(<<-RUBY)
-      describe MyClass do
-        subject { MyClass::SubClass }
-      end
-    RUBY
-  end
+          class OtherClass
+            include MyClass
+          end
 
-  it 'ignores if namespace is not matching' do
-    expect_no_violations(<<-RUBY)
-      describe MyNamespace::MyClass do
-        subject { ::MyClass }
-        let(:foo) { MyClass }
-      end
-    RUBY
-  end
-
-  it 'checks for the use of described class with namespace' do
-    expect_violation(<<-RUBY)
-      describe MyNamespace::MyClass do
-        subject { MyNamespace::MyClass }
-                  ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
-      end
-    RUBY
-  end
-
-  it 'does not flag violations within a class scope change' do
-    expect_no_violations(<<-RUBY)
-      describe MyNamespace::MyClass do
-        before do
-          class Foo
-            thing = MyNamespace::MyClass.new
+          module MyModle
+            include MyClass
           end
         end
-      end
-    RUBY
-  end
+      RUBY
+    end
 
-  it 'does not flag violations within a hook scope change' do
-    expect_no_violations(<<-RUBY)
-      describe do
-        before do
-          MyNamespace::MyClass.new
-        end
-      end
-    RUBY
-  end
-
-  it 'checks for the use of described class with module' do
-    skip
-
-    expect_violation(<<-RUBY)
-      module MyNamespace
+    it 'only takes class from top level describes' do
+      expect_violation(<<-RUBY)
         describe MyClass do
+          describe MyClass::Foo do
+            subject { MyClass::Foo }
+
+            let(:foo) { MyClass }
+                        ^^^^^^^ Use `described_class` instead of `MyClass`
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores subclasses' do
+      expect_no_violations(<<-RUBY)
+        describe MyClass do
+          subject { MyClass::SubClass }
+        end
+      RUBY
+    end
+
+    it 'ignores if namespace is not matching' do
+      expect_no_violations(<<-RUBY)
+        describe MyNamespace::MyClass do
+          subject { ::MyClass }
+          let(:foo) { MyClass }
+        end
+      RUBY
+    end
+
+    it 'checks for the use of described class with namespace' do
+      expect_violation(<<-RUBY)
+        describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
                     ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
         end
-      end
-    RUBY
+      RUBY
+    end
+
+    it 'does not flag violations within a class scope change' do
+      expect_no_violations(<<-RUBY)
+        describe MyNamespace::MyClass do
+          before do
+            class Foo
+              thing = MyNamespace::MyClass.new
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'does not flag violations within a hook scope change' do
+      expect_no_violations(<<-RUBY)
+        describe do
+          before do
+            MyNamespace::MyClass.new
+          end
+        end
+      RUBY
+    end
+
+    it 'checks for the use of described class with module' do
+      skip
+
+      expect_violation(<<-RUBY)
+        module MyNamespace
+          describe MyClass do
+            subject { MyNamespace::MyClass }
+                      ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+          end
+        end
+      RUBY
+    end
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { include Foo }',
+                     'describe(Foo) { include described_class }'
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { subject { Foo.do_action } }',
+                     'describe(Foo) { subject { described_class.do_action } }'
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { before { Foo.do_action } }',
+                     'describe(Foo) { before { described_class.do_action } }'
   end
 
-  include_examples 'autocorrect',
-                   'describe(Foo) { include Foo }',
-                   'describe(Foo) { include described_class }'
+  context 'when EnforcedStyle is :explicit' do
+    let(:enforced_style) { :explicit }
 
-  include_examples 'autocorrect',
-                   'describe(Foo) { subject { Foo.do_something } }',
-                   'describe(Foo) { subject { described_class.do_something } }'
+    it 'checks for the use of the described_class' do
+      expect_violation(<<-RUBY)
+        describe MyClass do
+          include described_class
+                  ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
 
-  include_examples 'autocorrect',
-                   'describe(Foo) { before { Foo.do_something } }',
-                   'describe(Foo) { before { described_class.do_something } }'
+          subject { described_class.do_something }
+                    ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
+
+          before { described_class.do_something }
+                   ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
+        end
+      RUBY
+    end
+
+    it 'ignores described_class as string' do
+      expect_no_violations(<<-RUBY)
+        describe MyClass do
+          subject { "described_class" }
+        end
+      RUBY
+    end
+
+    it 'ignores describe that do not reference to a class' do
+      expect_no_violations(<<-RUBY)
+        describe "MyClass" do
+          subject { described_class }
+        end
+      RUBY
+    end
+
+    it 'does not flag violations within a class scope change' do
+      expect_no_violations(<<-RUBY)
+        describe MyNamespace::MyClass do
+          before do
+            class Foo
+              thing = described_class.new
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'does not flag violations within a hook scope change' do
+      expect_no_violations(<<-RUBY)
+        describe do
+          before do
+            described_class.new
+          end
+        end
+      RUBY
+    end
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { include described_class }',
+                     'describe(Foo) { include Foo }'
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { subject { described_class.do_action } }',
+                     'describe(Foo) { subject { Foo.do_action } }'
+
+    include_examples 'autocorrect',
+                     'describe(Foo) { before { described_class.do_action } }',
+                     'describe(Foo) { before { Foo.do_action } }'
+
+    original = <<-RUBY
+      describe(Foo) { include described_class }
+      describe(Bar) { include described_class }
+    RUBY
+    corrected = <<-RUBY
+      describe(Foo) { include Foo }
+      describe(Bar) { include Bar }
+    RUBY
+
+    include_examples 'autocorrect', original, corrected
+  end
 end
