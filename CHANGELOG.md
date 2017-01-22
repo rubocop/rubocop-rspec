@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Add `EnforcedStyle` configuration for `RSpec/DescribedClass` cop. ([@Darhazer][])
+
 ## 1.10.0 (2017-01-15)
 
 * Fix false negative for `RSpec/MessageSpies` cop. ([@onk][])
@@ -172,3 +174,4 @@
 [@jeffreyc]: https://github.com/jeffreyc
 [@clupprich]: https://github.com/clupprich
 [@onk]: https://github.com/onk
+[@Darhazer]: https://github.com/Darhazer
