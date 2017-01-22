@@ -34,8 +34,6 @@ module RuboCop
       # coerce objects for comparison.
       #
       class BeEql < Cop
-        include RuboCop::Cop::ConfigurableEnforcedStyle
-
         MSG = 'Prefer `be` over `eql`'.freeze
 
         def_node_matcher :eql_type_with_identity, <<-PATTERN
