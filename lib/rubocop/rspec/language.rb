@@ -66,6 +66,7 @@ module RuboCop
           %i(
             it_behaves_like
             it_should_behave_like
+            it_has_behavior
             include_context
             include_examples
           )
