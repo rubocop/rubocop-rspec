@@ -21,6 +21,7 @@ RuboCop::RSpec::Inject.defaults!
 
 # cops
 require 'rubocop/cop/rspec/any_instance'
+require 'rubocop/cop/rspec/around_block'
 require 'rubocop/cop/rspec/be_eql'
 require 'rubocop/cop/rspec/describe_class'
 require 'rubocop/cop/rspec/describe_method'
