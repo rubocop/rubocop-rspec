@@ -47,6 +47,15 @@ describe RuboCop::Cop::RSpec::RepeatedExample do
     RUBY
   end
 
+  it 'does not flag examples when different its arguments are used' do
+    expect_no_violations(<<-RUBY)
+      describe 'doing x' do
+        its(:x) { is_expected.to be_present }
+        its(:y) { is_expected.to be_present }
+      end
+    RUBY
+  end
+
   it 'does not flag repeated examples in different scopes' do
     expect_no_violations(<<-RUBY)
       describe 'doing x' do
