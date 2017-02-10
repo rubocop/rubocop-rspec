@@ -3,6 +3,7 @@
 ## Master (unreleased)
 
 * Add `EnforcedStyle` configuration for `RSpec/DescribedClass` cop. ([@Darhazer][])
+* Fix false positive for `RSpec/RepeatedExample` cop. ([@redross][])
 
 ## 1.10.0 (2017-01-15)
 
@@ -175,3 +176,4 @@
 [@clupprich]: https://github.com/clupprich
 [@onk]: https://github.com/onk
 [@Darhazer]: https://github.com/Darhazer
+[@redross]: https://github.com/redross

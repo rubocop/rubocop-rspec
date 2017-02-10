@@ -29,11 +29,21 @@ module RuboCop
         def repeated_examples(node)
           RuboCop::RSpec::ExampleGroup.new(node)
             .examples
-            .group_by { |example| [example.metadata, example.implementation] }
+            .group_by { |example| example_signature(example) }
             .values
             .reject(&:one?)
             .flatten
             .map(&:to_node)
+        end
+
+        def example_signature(example)
+          key_parts = [example.metadata, example.implementation]
+
+          if example.definition.method_name == :its
+            key_parts << example.definition.method_args
+          end
+
+          key_parts
         end
       end
     end
