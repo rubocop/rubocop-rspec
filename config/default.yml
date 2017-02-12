@@ -90,6 +90,10 @@ RSpec/ImplicitExpect:
   - is_expected
   - should
 
+RSpec/InstanceSpy:
+  Description: Checks for `instance_double` used with `have_received`.
+  Enabled: true
+
 RSpec/InstanceVariable:
   Description: Checks for instance variable usage in specs.
   AssignmentOnly: false
