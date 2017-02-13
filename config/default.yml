@@ -9,6 +9,10 @@ RSpec/AnyInstance:
   Description: Check that instances are not being stubbed globally.
   Enabled: true
 
+RSpec/AroundBlock:
+  Description: Checks that around blocks actually run the test.
+  Enabled: true
+
 RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
