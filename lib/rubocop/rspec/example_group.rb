@@ -20,6 +20,10 @@ module RuboCop
         (block {$(send nil #{Hooks::ALL.node_pattern_union} ...)} ...)
       PATTERN
 
+      def example_groups
+        example_groups_in_scope(node).map(&ExampleGroup.public_method(:new))
+      end
+
       def examples
         examples_in_scope(node).map(&Example.public_method(:new))
       end
@@ -28,7 +32,23 @@ module RuboCop
         hooks_in_scope(node).map(&Hook.public_method(:new))
       end
 
+      def describe?
+        node.block_type? && node.method_name == :describe
+      end
+
       private
+
+      def example_groups_in_scope(node)
+        if node.block_type?
+          [node]
+        elsif node.begin_type?
+          node.each_child_node
+        else
+          []
+        end.select do |child|
+          example_group?(child)
+        end
+      end
 
       def hooks_in_scope(node)
         node.each_child_node.flat_map do |child|

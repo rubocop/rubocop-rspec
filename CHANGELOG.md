@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix false positive in `RSpec/SingleArgumentMessageChain` cop when the single argument is a hash. ([@Darhazer][])
+* Extend functionality of `DescribeMethod` cop. ([@redross][])
 
 ## 1.15.0 (2017-05-24)
 
