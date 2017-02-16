@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+## 1.11.0 (2017-02-16)
+
 * Add `AroundBlock` cop. ([@Darhazer][])
 * Add `EnforcedStyle` configuration for `RSpec/DescribedClass` cop. ([@Darhazer][])
 * Fix false positive for `RSpec/RepeatedExample` cop. ([@redross][])
