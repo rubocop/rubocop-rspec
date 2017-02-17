@@ -23,6 +23,7 @@ RuboCop::RSpec::Inject.defaults!
 require 'rubocop/cop/rspec/any_instance'
 require 'rubocop/cop/rspec/around_block'
 require 'rubocop/cop/rspec/be_eql'
+require 'rubocop/cop/rspec/before_after_all'
 require 'rubocop/cop/rspec/describe_class'
 require 'rubocop/cop/rspec/describe_method'
 require 'rubocop/cop/rspec/described_class'
