@@ -2,6 +2,8 @@
 
 ## Master (unreleased)
 
+* Add `RSpec/InstanceSpy` cop. ([@Darhazer][])
+
 ## 1.11.0 (2017-02-16)
 
 * Add `AroundBlock` cop. ([@Darhazer][])
