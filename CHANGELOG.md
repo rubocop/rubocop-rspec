@@ -3,6 +3,7 @@
 ## Master (unreleased)
 
 * Add `RSpec/InstanceSpy` cop. ([@Darhazer][])
+* Add `RSpec/BeforeAfterAll` for avoiding leaky global test setup. ([@cfabianski][])
 
 ## 1.11.0 (2017-02-16)
 
@@ -182,3 +183,4 @@
 [@onk]: https://github.com/onk
 [@Darhazer]: https://github.com/Darhazer
 [@redross]: https://github.com/redross
+[@cfabianski]: https://github.com/cfabianski
