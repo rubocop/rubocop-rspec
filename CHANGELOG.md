@@ -1,6 +1,8 @@
 # Change log
 
-## Master (unreleased)
+## Master (Unreleased)
+
+## 1.12.0 (2017-02-21)
 
 * Add `RSpec/InstanceSpy` cop. ([@Darhazer][])
 * Add `RSpec/BeforeAfterAll` for avoiding leaky global test setup. ([@cfabianski][])
