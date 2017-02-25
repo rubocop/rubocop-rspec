@@ -56,20 +56,23 @@ module RuboCop
       end
 
       module SharedGroups
-        ALL = SelectorSet.new(
-          %i(shared_examples shared_context shared_examples_for)
-        )
+        EXAMPLES = SelectorSet.new(%i(shared_examples shared_examples_for))
+        CONTEXT = SelectorSet.new(%i(shared_context))
+
+        ALL = EXAMPLES + CONTEXT
       end
 
       module Includes
-        ALL = SelectorSet.new(
+        EXAMPLES = SelectorSet.new(
           %i(
             it_behaves_like
             it_should_behave_like
-            include_context
             include_examples
           )
         )
+        CONTEXT = SelectorSet.new(%i(include_context))
+
+        ALL = EXAMPLES + CONTEXT
       end
 
       module Examples
@@ -89,12 +92,17 @@ module RuboCop
         ALL = SelectorSet.new(%i(let let!))
       end
 
+      module Subject
+        ALL = SelectorSet.new(%i(subject))
+      end
+
       ALL =
         ExampleGroups::ALL +
         SharedGroups::ALL  +
         Examples::ALL      +
         Hooks::ALL         +
-        Helpers::ALL
+        Helpers::ALL       +
+        Subject::ALL
     end
   end
 end
