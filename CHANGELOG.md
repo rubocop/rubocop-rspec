@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/SharedContext` cop. ([@Darhazer][])
+* `Rspec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
 
 ## 1.12.0 (2017-02-21)
 
