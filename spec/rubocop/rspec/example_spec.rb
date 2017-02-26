@@ -37,7 +37,7 @@ RSpec.describe RuboCop::RSpec::Example do
   end
 
   context 'value object semantics' do
-    it 'compares by value' do # rubocop:disable RSpec/MultipleExpectations
+    it 'compares by value' do
       aggregate_failures 'equality semantics' do
         expect(example('it("foo")')).to eq(example('it("foo")'))
         expect(example('it("foo")')).not_to eq(example('it("bar")'))

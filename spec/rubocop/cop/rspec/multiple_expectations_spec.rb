@@ -31,6 +31,33 @@ describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
         end
       RUBY
     end
+
+    it 'counts aggregate_failures as one expectation' do
+      expect_no_violations(<<-RUBY)
+        describe Foo do
+          it 'aggregates failures' do
+            aggregate_failures do
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'counts every aggregate_failures as an expectation' do
+      expect_violation(<<-RUBY)
+        describe Foo do
+          it 'has multiple aggregate_failures calls' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1]
+            aggregate_failures do
+            end
+            aggregate_failures do
+            end
+          end
+        end
+      RUBY
+    end
   end
 
   context 'with configuration' do
