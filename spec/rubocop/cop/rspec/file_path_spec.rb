@@ -56,6 +56,11 @@ describe RuboCop::Cop::RSpec::FilePath, :config do
                    expected: 'my_class*_spec.rb',
                    actual: 'wrong_class_spec.rb'
 
+  include_examples 'invalid spec path',
+                   'describe User do; end',
+                   expected: 'user*_spec.rb',
+                   actual: 'user.rb'
+
   it 'skips specs that do not describe a class / method' do
     inspect_source(
       cop,
