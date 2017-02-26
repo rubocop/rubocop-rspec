@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/SharedContext` cop. ([@Darhazer][])
+
 ## 1.12.0 (2017-02-21)
 
 * Add `RSpec/InstanceSpy` cop. ([@Darhazer][])
