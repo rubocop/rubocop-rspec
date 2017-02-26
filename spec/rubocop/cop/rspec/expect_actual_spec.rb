@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::ExpectActual do
-  subject(:cop) { described_class.new }
+describe RuboCop::Cop::RSpec::ExpectActual, :config do
+  subject(:cop) { described_class.new(config) }
 
   it 'flags numeric literal values within expect(...)' do
     expect_violation(<<-RUBY)
@@ -132,5 +132,19 @@ describe RuboCop::Cop::RSpec::ExpectActual do
         end
       end
     RUBY
+  end
+
+  context 'when inspecting rspec-rails routing specs' do
+    let(:cop_config) { {} }
+
+    it 'it ignores rspec-rails routing specs' do
+      inspect_source(
+        cop,
+        'expect(get: "/foo").to be_routeable',
+        'spec/routing/foo_spec.rb'
+      )
+
+      expect(cop.offenses).to be_empty
+    end
   end
 end
