@@ -5,6 +5,7 @@
 * Add `RSpec/SharedContext` cop. ([@Darhazer][])
 * `Rspec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
 * Fix `ExpectActual` cop flagging `rspec-rails` routing specs. ([@backus][])
+* Fix `FilePath` cop not registering offenses for files like `spec/blog/user.rb` when it should be `spec/blog/user_spec.rb`. ([@backus][])
 
 ## 1.12.0 (2017-02-21)
 

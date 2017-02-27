@@ -44,10 +44,14 @@ module RuboCop
         end
 
         def relevant_file?(file)
-          rspec_pattern =~ file && super
+          relevant_rubocop_rspec_file?(file) && super
         end
 
         private
+
+        def relevant_rubocop_rspec_file?(file)
+          rspec_pattern =~ file
+        end
 
         def rspec_pattern
           Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))

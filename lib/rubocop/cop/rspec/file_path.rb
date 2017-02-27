@@ -62,6 +62,10 @@ module RuboCop
 
         private
 
+        def relevant_rubocop_rspec_file?(_)
+          true
+        end
+
         def routing_spec?(args)
           args.any? do |arg|
             arg.children.include?(ROUTING_PAIR)
