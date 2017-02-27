@@ -64,6 +64,8 @@ RSpec/ExampleWording:
 RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
+  Exclude:
+  - spec/routing/**/*
 
 RSpec/ExpectOutput:
   Description: Checks for opportunities to use `expect { ... }.to output`.
