@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::ExampleLength, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExampleLength, :config do
   subject(:cop) { described_class.new(config) }
 
   let(:cop_config) { { 'Max' => 3 } }

@@ -1,4 +1,4 @@
-describe 'CHANGELOG.md' do
+RSpec.describe 'CHANGELOG.md' do
   subject(:changelog) { SpecHelper::ROOT.join('CHANGELOG.md').read }
 
   it 'has link definitions for all implicit links' do

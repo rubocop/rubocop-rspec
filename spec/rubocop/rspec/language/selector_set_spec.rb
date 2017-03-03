@@ -1,4 +1,4 @@
-describe RuboCop::RSpec::Language::SelectorSet do
+RSpec.describe RuboCop::RSpec::Language::SelectorSet do
   subject(:selector_set) { described_class.new(%i(foo bar)) }
 
   it 'composes sets' do

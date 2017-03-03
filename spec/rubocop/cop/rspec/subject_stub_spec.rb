@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::SubjectStub do
+RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   subject(:cop) { described_class.new }
 
   it 'complains when subject is stubbed' do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::ExpectActual, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   subject(:cop) { described_class.new(config) }
 
   it 'flags numeric literal values within expect(...)' do

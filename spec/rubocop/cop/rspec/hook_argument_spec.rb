@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe RuboCop::Cop::RSpec::HookArgument, :config do
+RSpec.describe RuboCop::Cop::RSpec::HookArgument, :config do
   subject(:cop) { described_class.new(config) }
 
   let(:cop_config) do

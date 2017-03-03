@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::Focus do
+RSpec.describe RuboCop::Cop::RSpec::Focus do
   subject(:cop) { described_class.new }
 
   # rubocop:disable RSpec/ExampleLength

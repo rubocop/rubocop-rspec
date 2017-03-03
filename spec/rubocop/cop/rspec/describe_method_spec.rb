@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::DescribeMethod do
+RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   subject(:cop) { described_class.new }
 
   it 'ignores describes with only a class' do

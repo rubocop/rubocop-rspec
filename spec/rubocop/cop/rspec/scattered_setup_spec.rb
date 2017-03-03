@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::ScatteredSetup do
+RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   subject(:cop) { described_class.new }
 
   it 'flags multiple hooks in the same example group' do

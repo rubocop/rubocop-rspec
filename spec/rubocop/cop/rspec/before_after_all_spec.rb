@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
+RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
   subject(:cop) { described_class.new(config) }
 
   context 'when offenses detected' do

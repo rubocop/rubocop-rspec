@@ -1,4 +1,4 @@
-describe RuboCop::RSpec::Wording do
+RSpec.describe RuboCop::RSpec::Wording do
   let(:replacements) do
     { 'have' => 'has', 'not' => 'does not' }
   end

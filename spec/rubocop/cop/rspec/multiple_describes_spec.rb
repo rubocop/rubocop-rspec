@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::MultipleDescribes do
+RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
   subject(:cop) { described_class.new }
 
   it 'finds multiple top level describes with class and method' do

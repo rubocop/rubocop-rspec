@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
+RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
   subject(:cop) { described_class.new(config) }
 
   it 'finds a `double` instead of an `instance_double`' do
