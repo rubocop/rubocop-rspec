@@ -109,6 +109,14 @@ RSpec/InstanceVariable:
   AssignmentOnly: false
   Enabled: true
 
+RSpec/ItBehavesLike:
+  Description: Checks that only one `it_behaves_like` style is used.
+  Enabled: true
+  EnforcedStyle: it_behaves_like
+  SupportedStyles:
+  - it_behaves_like
+  - it_should_behave_like
+
 RSpec/LeadingSubject:
   Description: Checks for `subject` definitions that come after `let` definitions.
   Enabled: true

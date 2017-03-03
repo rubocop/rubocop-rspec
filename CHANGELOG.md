@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/ItBehavesLike` cop. ([@dgollahon][])
 * Add `RSpec/SharedContext` cop. ([@Darhazer][])
 * `Rspec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
 * Fix `ExpectActual` cop flagging `rspec-rails` routing specs. ([@backus][])
@@ -191,3 +192,4 @@
 [@Darhazer]: https://github.com/Darhazer
 [@redross]: https://github.com/redross
 [@cfabianski]: https://github.com/cfabianski
+[@dgollahon]: https://github.com/dgollahon
