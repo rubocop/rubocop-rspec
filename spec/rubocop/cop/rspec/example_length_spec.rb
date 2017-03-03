@@ -79,17 +79,6 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength, :config do
       { 'Max' => 3, 'CountComments' => true }
     end
 
-    let(:source) do
-      [
-        'it do',
-        '  line 1',
-        '  line 2',
-        '  # comment',
-        '  line 3',
-        'end'
-      ]
-    end
-
     it 'flags the example' do
       expect_violation(<<-RUBY)
         it do

@@ -7,8 +7,6 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument, :config do
     { 'EnforcedStyle' => enforced_style }
   end
 
-  let(:enforced_style) { :implicit }
-
   shared_examples 'ignored hooks' do
     it 'ignores :context and :suite' do
       expect_no_violations(<<-RUBY)
