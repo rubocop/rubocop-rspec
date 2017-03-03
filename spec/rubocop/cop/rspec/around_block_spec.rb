@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::AroundBlock do
+RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
   subject(:cop) { described_class.new }
 
   it 'finds `around` block without block arguments' do

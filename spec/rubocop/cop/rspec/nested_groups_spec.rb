@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::NestedGroups, :config do
+RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
   subject(:cop) { described_class.new(config) }
 
   it 'flags nested contexts' do

@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::SharedContext do
+RSpec.describe RuboCop::Cop::RSpec::SharedContext do
   subject(:cop) { described_class.new }
 
   context 'shared_context' do

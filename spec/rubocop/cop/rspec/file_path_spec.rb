@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::FilePath, :config do
+RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
   subject(:cop) { described_class.new(config) }
 
   shared_examples 'invalid spec path' do |source, expected:, actual:|

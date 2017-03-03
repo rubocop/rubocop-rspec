@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::NotToNot, :config do
+RSpec.describe RuboCop::Cop::RSpec::NotToNot, :config do
   subject(:cop) { described_class.new(config) }
 
   context 'when EnforcedStyle is `not_to`' do

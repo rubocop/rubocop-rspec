@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::InstanceSpy do
+RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
   subject(:cop) { described_class.new }
 
   context 'when used with `have_received`' do

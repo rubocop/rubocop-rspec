@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::ExampleWording, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
   subject(:cop) { described_class.new(config) }
 
   context 'with configuration' do

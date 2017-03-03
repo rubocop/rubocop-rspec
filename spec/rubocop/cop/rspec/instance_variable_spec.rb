@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::InstanceVariable do
+RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
   it 'finds an instance variable inside a describe' do

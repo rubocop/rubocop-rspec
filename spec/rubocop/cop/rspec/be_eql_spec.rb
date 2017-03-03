@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::BeEql do
+RSpec.describe RuboCop::Cop::RSpec::BeEql do
   subject(:cop) { described_class.new }
 
   it 'registers an offense for `eql` when argument is a boolean' do

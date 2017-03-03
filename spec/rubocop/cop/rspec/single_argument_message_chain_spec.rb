@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
+RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
   subject(:cop) { described_class.new }
 
   describe 'receive_message_chain' do

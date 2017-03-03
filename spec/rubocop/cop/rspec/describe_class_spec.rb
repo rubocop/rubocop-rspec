@@ -1,4 +1,4 @@
-describe RuboCop::Cop::RSpec::DescribeClass do
+RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
   subject(:cop) { described_class.new }
 
   it 'checks first-line describe statements' do

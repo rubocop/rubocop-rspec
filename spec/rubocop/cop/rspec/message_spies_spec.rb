@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::MessageSpies, :config do
+RSpec.describe RuboCop::Cop::RSpec::MessageSpies, :config do
   subject(:cop) { described_class.new(config) }
 
   context 'when EnforcedStyle is have_received' do

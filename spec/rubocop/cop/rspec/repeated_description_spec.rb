@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::RepeatedDescription do
+RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   subject(:cop) { described_class.new }
 
   it 'registers an offense for repeated descriptions' do

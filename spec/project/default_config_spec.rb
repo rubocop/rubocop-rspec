@@ -1,4 +1,4 @@
-describe 'config/default.yml' do
+RSpec.describe 'config/default.yml' do
   subject(:default_config) do
     RuboCop::ConfigLoader.load_file('config/default.yml')
   end

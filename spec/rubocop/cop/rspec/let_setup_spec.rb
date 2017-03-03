@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe RuboCop::Cop::RSpec::LetSetup do
+RSpec.describe RuboCop::Cop::RSpec::LetSetup do
   subject(:cop) { described_class.new }
 
   it 'complains when let! is used and not referenced' do

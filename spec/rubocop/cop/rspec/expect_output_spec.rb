@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe RuboCop::Cop::RSpec::ExpectOutput do
+RSpec.describe RuboCop::Cop::RSpec::ExpectOutput do
   subject(:cop) { described_class.new }
 
   it 'registers an offense for overwriting $stdout within an example' do
