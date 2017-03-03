@@ -34,7 +34,7 @@ module RuboCop
       #
       class DescribedClass < Cop
         include RuboCop::RSpec::TopLevelDescribe
-        include RuboCop::Cop::ConfigurableEnforcedStyle
+        include ConfigurableEnforcedStyle
 
         DESCRIBED_CLASS = 'described_class'.freeze
         MSG             = 'Use `%s` instead of `%s`'.freeze
