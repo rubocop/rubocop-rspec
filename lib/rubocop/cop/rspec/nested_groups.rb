@@ -5,7 +5,7 @@ module RuboCop
     module RSpec
       # Checks for nested example groups.
       #
-      # This cop is configurable using the `MaxNesting` option
+      # This cop is configurable using the `Max` option
       #
       # @example
       #   # bad
@@ -56,7 +56,7 @@ module RuboCop
       #
       #   # .rubocop.yml
       #   RSpec/NestedGroups:
-      #     MaxNesting: 2
+      #     Max: 2
       #
       #   context 'when using some feature' do
       #     let(:some)    { :various }
