@@ -10,6 +10,7 @@ RSpec.describe 'CHANGELOG.md' do
 
   describe 'entry' do
     subject(:entries) { lines.grep(/^\*/).map(&:chomp) }
+
     let(:lines) { changelog.each_line }
 
     it 'has a whitespace between the * and the body' do

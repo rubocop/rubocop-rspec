@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/EmptyLineAfterSubject` cop. ([@Darhazer][])
+
 ## 1.13.0 (2017-03-07)
 
 * Add repeated 'it' detection to `RSpec/ExampleWording` cop. ([@dgollahon][])
