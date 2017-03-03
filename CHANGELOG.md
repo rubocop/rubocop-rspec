@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/EmptyLineAfterSubject` cop. ([@Darhazer][])
+* Add `RSpec/EmptyLineAfterFinalLet` cop. ([@Darhazer][])
 
 ## 1.13.0 (2017-03-07)
 
