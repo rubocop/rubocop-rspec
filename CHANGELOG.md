@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/IteratedExpectation` cop. ([@Darhazer][])
 * Add `RSpec/EmptyLineAfterSubject` cop. ([@Darhazer][])
 * Add `RSpec/EmptyLineAfterFinalLet` cop. ([@Darhazer][])
 
