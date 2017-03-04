@@ -21,22 +21,17 @@ module RuboCop
       class ExampleWording < Cop
         MSG = 'Do not use should when describing your tests.'.freeze
 
-        def on_block(node) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/LineLength
-          method, = *node
-          _, method_name, *args = *method
+        def_node_matcher(
+          :it_description,
+          '(block (send _ :it $(str $_) ...) ...)'
+        )
 
-          return unless method_name.equal?(:it)
+        def on_block(node)
+          it_description(node) do |description_node, message|
+            return unless message.downcase.start_with?('should')
 
-          arguments = args.first.to_a
-          message = arguments.first.to_s
-          return unless message.downcase.start_with?('should')
-
-          arg1 = args.first.loc.expression
-          message = Parser::Source::Range.new(arg1.source_buffer,
-                                              arg1.begin_pos + 1,
-                                              arg1.end_pos - 1)
-
-          add_offense(message, message)
+            add_wording_offense(description_node)
+          end
         end
 
         def autocorrect(range)
@@ -45,7 +40,7 @@ module RuboCop
               range,
               RuboCop::RSpec::Wording.new(
                 range.source,
-                ignore: ignored_words,
+                ignore:  ignored_words,
                 replace: custom_transform
               ).rewrite
             )
@@ -53,6 +48,19 @@ module RuboCop
         end
 
         private
+
+        def add_wording_offense(node)
+          expr = node.loc.expression
+
+          message =
+            Parser::Source::Range.new(
+              expr.source_buffer,
+              expr.begin_pos + 1,
+              expr.end_pos - 1
+            )
+
+          add_offense(message, message)
+        end
 
         def custom_transform
           cop_config.fetch('CustomTransform', {})
