@@ -15,44 +15,37 @@ module RuboCop
       #   allow(foo).to receive("bar.baz")
       #
       class SingleArgumentMessageChain < Cop
-        MESSAGE = 'Use `%<recommended_method>s` instead of calling ' \
-          '`%<called_method>s` with a single argument'.freeze
+        MESSAGE = 'Use `%<recommended>s` instead of calling '\
+                  '`%<called>s` with a single argument'.freeze
+
+        def_node_matcher :message_chain, <<-PATTERN
+          (send _ #{Matchers::MESSAGE_CHAIN.node_pattern_union} $...)
+        PATTERN
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless Matchers::MESSAGE_CHAIN.include?(method_name)
-          return if args.size > 1
-          return if multi_argument_string?(args)
+          message_chain(node) do |(first, *remaining)|
+            return if first.to_s.include?('.') || remaining.any?
 
-          add_offense(node, :selector, message(method_name))
+            add_offense(node, :selector)
+          end
         end
 
         def autocorrect(node)
-          _receiver, method_name, *_args = *node
           lambda do |corrector|
-            corrector.replace(
-              node.loc.selector,
-              method_name.equal?(:receive_message_chain) ? 'receive' : 'stub'
-            )
+            corrector.replace(node.loc.selector, replacement(node.method_name))
           end
         end
 
         private
 
-        def multi_argument_string?(args)
-          args.size == 1 &&
-            args.first.type == :str &&
-            args.first.children.first.include?('.')
+        def replacement(method)
+          method.equal?(:receive_message_chain) ? 'receive' : 'stub'
         end
 
-        def message(method)
-          recommendation = method == :receive_message_chain ? :receive : :stub
+        def message(node)
+          method = node.method_name
 
-          format(
-            MESSAGE,
-            recommended_method: recommendation,
-            called_method: method
-          )
+          format(MESSAGE, recommended: replacement(method), called: method)
         end
       end
     end
