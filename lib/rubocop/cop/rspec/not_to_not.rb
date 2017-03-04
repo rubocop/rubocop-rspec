@@ -18,33 +18,22 @@ module RuboCop
 
         MSG = 'Prefer `%s` over `%s`'.freeze
 
-        METHOD_NAMES = [:not_to, :to_not].freeze
+        def_node_matcher :not_to_not_offense, '(send _ % ...)'
 
         def on_send(node)
-          _receiver, method_name, *_args = *node
-
-          return unless METHOD_NAMES.include?(method_name)
-
-          return if style.equal?(method_name)
-          add_offense(node, :expression)
-        end
-
-        def message(node)
-          _receiver, method_name, *_args = *node
-
-          if method_name.equal?(:not_to)
-            format(MSG, 'to_not', 'not_to')
-          else
-            format(MSG, 'not_to', 'to_not')
+          not_to_not_offense(node, alternative_style) do
+            add_offense(node, :expression)
           end
         end
 
         def autocorrect(node)
-          _receiver, method_name, *_args = *node
-          lambda do |corrector|
-            corrector.replace(node.loc.selector,
-                              method_name.equal?(:not_to) ? 'to_not' : 'not_to')
-          end
+          ->(corrector) { corrector.replace(node.loc.selector, style.to_s) }
+        end
+
+        private
+
+        def message(_node)
+          format(MSG, style, alternative_style)
         end
       end
     end
