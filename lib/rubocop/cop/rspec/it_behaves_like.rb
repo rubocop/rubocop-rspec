@@ -24,10 +24,12 @@ module RuboCop
         MESSAGE = 'Prefer `%s` over `%s` when including examples in '\
                   'a nested context.'.freeze
 
-        def on_send(node)
-          return unless example_inclusion_offense?(node)
+        def_node_matcher :example_inclusion_offense, '(send _ % ...)'
 
-          add_offense(node, :expression, message)
+        def on_send(node)
+          example_inclusion_offense(node, alternative_style) do
+            add_offense(node, :expression)
+          end
         end
 
         def autocorrect(node)
@@ -36,12 +38,7 @@ module RuboCop
 
         private
 
-        def example_inclusion_offense?(node)
-          supported_styles.include?(node.method_name) &&
-            !node.method_name.equal?(style)
-        end
-
-        def message
+        def message(_node)
           format(MESSAGE, style, alternative_style)
         end
 
