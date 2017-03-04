@@ -14,11 +14,14 @@ module RuboCop
       class MessageChain < Cop
         MESSAGE = 'Avoid stubbing using `%<method>s`'.freeze
 
-        def on_send(node)
-          _receiver, method_name, *_args = *node
-          return unless Matchers::MESSAGE_CHAIN.include?(method_name)
+        def_node_matcher :message_chain, Matchers::MESSAGE_CHAIN.send_pattern
 
-          add_offense(node, :selector, format(MESSAGE, method: method_name))
+        def on_send(node)
+          message_chain(node) { add_offense(node, :selector) }
+        end
+
+        def message(node)
+          format(MESSAGE, method: node.method_name)
         end
       end
     end
