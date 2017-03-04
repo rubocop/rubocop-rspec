@@ -56,19 +56,22 @@ module RuboCop
         MESSAGE_CONTEXT = "Use `shared_context` when you don't define examples"
           .freeze
 
-        EXAMPLES = (Examples::ALL + Includes::EXAMPLES)
-        def_node_search :examples?, EXAMPLES.send_pattern
+        examples = (Examples::ALL + Includes::EXAMPLES)
+        def_node_search :examples?, examples.send_pattern
 
-        CONTEXT = (Hooks::ALL + Helpers::ALL + Includes::CONTEXT + Subject::ALL)
-        def_node_search :context?, CONTEXT.send_pattern
+        context = (Hooks::ALL + Helpers::ALL + Includes::CONTEXT + Subject::ALL)
+        def_node_search :context?, context.send_pattern
+
+        def_node_matcher :shared_context, SharedGroups::CONTEXT.block_pattern
+        def_node_matcher :shared_example, SharedGroups::EXAMPLES.block_pattern
 
         def on_block(node)
           context_with_only_examples(node) do
-            add_offense(node.children.first, :expression, MESSAGE_EXAMPLES)
+            add_shared_item_offense(node, MESSAGE_EXAMPLES)
           end
 
           examples_with_only_context(node) do
-            add_offense(node.children.first, :expression, MESSAGE_CONTEXT)
+            add_shared_item_offense(node, MESSAGE_CONTEXT)
           end
         end
 
@@ -77,6 +80,7 @@ module RuboCop
             context_with_only_examples(node.parent) do
               corrector.replace(node.loc.selector, 'shared_examples')
             end
+
             examples_with_only_context(node.parent) do
               corrector.replace(node.loc.selector, 'shared_context')
             end
@@ -86,17 +90,15 @@ module RuboCop
         private
 
         def context_with_only_examples(node)
-          _receiver, method, _args = *node.children.first
-          return unless SharedGroups::CONTEXT.include?(method)
-
-          yield if examples?(node) && !context?(node)
+          shared_context(node) { yield if examples?(node) && !context?(node) }
         end
 
         def examples_with_only_context(node)
-          _receiver, method, _args = *node.children.first
-          return unless SharedGroups::EXAMPLES.include?(method)
+          shared_example(node) { yield if context?(node) && !examples?(node) }
+        end
 
-          yield if context?(node) && !examples?(node)
+        def add_shared_item_offense(node, message)
+          add_offense(node.children.first, :expression, message)
         end
       end
     end
