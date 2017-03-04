@@ -29,7 +29,7 @@ module RuboCop
                          'or `%<arg>s.run`'.freeze
 
         def_node_matcher :hook, <<-PATTERN
-          (block {(send nil :around) (send nil :around {sym str})} (args $...) ...)
+          (block {(send nil :around) (send nil :around sym)} (args $...) ...)
         PATTERN
 
         def_node_search :find_arg_usage, <<-PATTERN

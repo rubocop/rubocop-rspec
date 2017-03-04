@@ -23,17 +23,6 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     end
   end
 
-  context 'when the hook is scoped with a string' do
-    it 'registers an offense' do
-      expect_violation(<<-RUBY)
-        around('each') do
-        ^^^^^^^^^^^^^^^^^ Test object should be passed to around block
-          do_something
-        end
-      RUBY
-    end
-  end
-
   context 'when the yielded value is unused' do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
