@@ -41,15 +41,11 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          eql_type_with_identity(node) do |eql|
-            add_offense(eql, :selector, MSG)
-          end
+          eql_type_with_identity(node) { |eql| add_offense(eql, :selector) }
         end
 
         def autocorrect(node)
-          lambda do |corrector|
-            corrector.replace(node.loc.selector, 'be')
-          end
+          ->(corrector) { corrector.replace(node.loc.selector, 'be') }
         end
       end
     end
