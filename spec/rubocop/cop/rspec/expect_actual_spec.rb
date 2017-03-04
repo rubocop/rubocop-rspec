@@ -123,6 +123,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
     expect_no_violations(<<-'RUBY')
       describe Foo do
         it 'uses expect incorrectly' do
+          expect.to eq(bar)
           expect([foo]).to eq(bar)
           expect([[foo]]).to eq(bar)
           expect(foo: 1, bar: foo).to eq(bar)
