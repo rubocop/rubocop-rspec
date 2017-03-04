@@ -24,25 +24,20 @@ module RuboCop
       #     after(:each) { Widget.delete_all }
       #   end
       class BeforeAfterAll < Cop
-        MESSAGE = 'Beware of using `before/after(:all)` as it may cause state '\
-          'to leak between tests. If you are using rspec-rails, and '\
-          '`use_transactional_fixtures` is enabled, then records created in '\
-          '`before(:all)` are not rolled back.'.freeze
+        MESSAGE = 'Beware of using `%<hook>s` as it may cause state to leak '\
+                  'between tests. If you are using `rspec-rails`, and '\
+                  '`use_transactional_fixtures` is enabled, then records '\
+                  'created in `%<hook>s` are not automatically rolled '\
+                  'back.'.freeze
 
-        BEFORE_AFTER_METHODS = [
-          :before,
-          :after
-        ].freeze
-
-        ALL_PAIR = s(:sym, :all)
-        CONTEXT_PAIR = s(:sym, :context)
+        def_node_matcher :before_or_after_all, <<-PATTERN
+          $(send _ {:before :after} (sym {:all :context}))
+        PATTERN
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless BEFORE_AFTER_METHODS.include?(method_name)
-          return unless args.include?(ALL_PAIR) || args.include?(CONTEXT_PAIR)
-
-          add_offense(node, :expression, MESSAGE)
+          before_or_after_all(node) do |hook|
+            add_offense(node, :expression, format(MESSAGE, hook: hook.source))
+          end
         end
       end
     end
