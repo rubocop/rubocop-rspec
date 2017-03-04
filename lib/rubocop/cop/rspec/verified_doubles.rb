@@ -25,10 +25,11 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless (name = unverified_double(node))
-          return if name.type.equal?(:sym) && cop_config['IgnoreSymbolicNames']
+          unverified_double(node) do |name|
+            return if name.sym_type? && cop_config['IgnoreSymbolicNames']
 
-          add_offense(node, :expression)
+            add_offense(node, :expression)
+          end
         end
       end
     end

@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
   end
 
   context 'when configuration does not specify IgnoreSymbolicNames' do
-    let(:cop_config) { Hash.new }
+    let(:cop_config) { {} }
 
     it 'find doubles whose name is a symbol' do
       expect_violation(<<-RUBY)
