@@ -9,7 +9,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
         context 'when foo' do
           context 'when bar' do
             context 'when baz' do
-            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
             end
           end
         end
@@ -41,9 +41,9 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
         describe MyClass do
           context 'when foo' do
             context 'when bar' do
-            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [3/2].
               context 'when baz' do
-              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded
+              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/2].
               end
             end
           end
