@@ -138,7 +138,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   context 'when inspecting rspec-rails routing specs' do
     let(:cop_config) { {} }
 
-    it 'it ignores rspec-rails routing specs' do
+    it 'ignores rspec-rails routing specs' do
       inspect_source(
         cop,
         'expect(get: "/foo").to be_routeable',
