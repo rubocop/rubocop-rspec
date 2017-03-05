@@ -76,6 +76,12 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  it 'allows different parent directories' do
+    expect_no_violations(<<-RUBY, filename: 'parent_dir/some/class_spec.rb')
+      describe Some::Class do; end
+    RUBY
+  end
+
   it 'handles CamelCaps class names' do
     expect_no_violations(<<-RUBY, filename: 'my_class_spec.rb')
       describe MyClass do; end

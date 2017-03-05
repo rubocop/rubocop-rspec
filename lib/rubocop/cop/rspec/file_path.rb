@@ -44,70 +44,67 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG          = 'Spec path should end with `%s`.'.freeze
-        ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
+        MSG = 'Spec path should end with `%s`.'.freeze
+
+        def_node_search :const_described?,  '(send _ :describe (const ...) ...)'
+        def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
 
         def on_top_level_describe(node, args)
+          return unless const_described?(node) && single_top_level_describe?
           return if routing_spec?(args)
 
-          return unless single_top_level_describe?
-          object = args.first.const_name
-          return unless object
+          glob = glob_for(args)
 
-          path_matcher = matcher(object, args.at(1))
-          return if source_filename =~ regexp_from_glob(path_matcher)
+          return if filename_ends_with?(glob)
 
-          add_offense(node, :expression, format(MSG, path_matcher))
+          add_offense(node, :expression, format(MSG, glob))
         end
 
         private
 
-        def relevant_rubocop_rspec_file?(_)
-          true
-        end
-
         def routing_spec?(args)
-          args.any? do |arg|
-            arg.children.include?(ROUTING_PAIR)
-          end
+          args.any?(&method(:routing_metadata?))
         end
 
-        def matcher(object, method)
-          path = File.join(parts(object))
-          if method && method.type.equal?(:str) && !ignore_methods?
-            path += '*' + method.str_content.gsub(/\W+/, '')
-          end
-
-          "#{path}*_spec.rb"
+        def glob_for((described_class, method_name))
+          "#{expected_path(described_class)}#{name_glob(method_name)}*_spec.rb"
         end
 
-        def parts(object)
-          object.split('::').map do |p|
-            custom_transform[p] || camel_to_underscore(p)
-          end
+        def name_glob(name)
+          return unless name && name.str_type?
+
+          "*#{name.str_content.gsub(/\W/, '')}" unless ignore_methods?
         end
 
-        def source_filename
-          processed_source.buffer.name
+        def expected_path(constant)
+          File.join(
+            constant.const_name.split('::').map do |name|
+              custom_transform.fetch(name) { camel_to_snake_case(name) }
+            end
+          )
         end
 
-        def camel_to_underscore(string)
+        def camel_to_snake_case(string)
           string
             .gsub(/([^A-Z])([A-Z]+)/, '\1_\2')
             .gsub(/([A-Z])([A-Z][^A-Z\d]+)/, '\1_\2')
             .downcase
         end
 
-        def regexp_from_glob(glob)
-          Regexp.new(glob.sub('.', '\\.').gsub('*', '.*') + '$')
+        def custom_transform
+          cop_config.fetch('CustomTransform', {})
         end
 
         def ignore_methods?
           cop_config['IgnoreMethods']
         end
 
-        def custom_transform
-          cop_config['CustomTransform'] || {}
+        def filename_ends_with?(glob)
+          File.fnmatch?("*#{glob}", processed_source.buffer.name)
+        end
+
+        def relevant_rubocop_rspec_file?(_)
+          true
         end
       end
     end
