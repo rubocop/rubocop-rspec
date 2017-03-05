@@ -5,7 +5,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageChain do
     expect_violation(<<-RUBY)
       before do
         allow(foo).to receive_message_chain(:one, :two) { :three }
-                      ^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `receive_message_chain`
+                      ^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `receive_message_chain`.
       end
     RUBY
   end
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageChain do
     expect_violation(<<-RUBY)
       before do
         foo.stub_chain(:one, :two).and_return(:three)
-            ^^^^^^^^^^ Avoid stubbing using `stub_chain`
+            ^^^^^^^^^^ Avoid stubbing using `stub_chain`.
       end
     RUBY
   end

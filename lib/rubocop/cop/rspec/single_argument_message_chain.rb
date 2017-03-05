@@ -15,8 +15,8 @@ module RuboCop
       #   allow(foo).to receive("bar.baz")
       #
       class SingleArgumentMessageChain < Cop
-        MESSAGE = 'Use `%<recommended>s` instead of calling '\
-                  '`%<called>s` with a single argument'.freeze
+        MSG = 'Use `%<recommended>s` instead of calling '\
+              '`%<called>s` with a single argument.'.freeze
 
         def_node_matcher :message_chain, <<-PATTERN
           (send _ #{Matchers::MESSAGE_CHAIN.node_pattern_union} $...)
@@ -45,7 +45,7 @@ module RuboCop
         def message(node)
           method = node.method_name
 
-          format(MESSAGE, recommended: replacement(method), called: method)
+          format(MSG, recommended: replacement(method), called: method)
         end
       end
     end

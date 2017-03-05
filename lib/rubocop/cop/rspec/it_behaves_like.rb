@@ -21,8 +21,8 @@ module RuboCop
       class ItBehavesLike < Cop
         include ConfigurableEnforcedStyle
 
-        MESSAGE = 'Prefer `%s` over `%s` when including examples in '\
-                  'a nested context.'.freeze
+        MSG = 'Prefer `%s` over `%s` when including examples in '\
+              'a nested context.'.freeze
 
         def_node_matcher :example_inclusion_offense, '(send _ % ...)'
 
@@ -39,7 +39,7 @@ module RuboCop
         private
 
         def message(_node)
-          format(MESSAGE, style, alternative_style)
+          format(MSG, style, alternative_style)
         end
 
         private_constant(*constants(false))

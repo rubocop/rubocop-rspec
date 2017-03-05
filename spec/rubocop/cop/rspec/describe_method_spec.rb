@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   it 'enforces non-method names' do
     expect_violation(<<-RUBY)
       describe Some::Class, 'nope', '.incorrect_usage' do
-                            ^^^^^^ The second argument to describe should be the method being tested. '#instance' or '.class'
+                            ^^^^^^ The second argument to describe should be the method being tested. '#instance' or '.class'.
       end
     RUBY
   end

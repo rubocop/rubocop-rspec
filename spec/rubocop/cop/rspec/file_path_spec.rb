@@ -16,7 +16,8 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
       end
 
       it 'adds a message saying what the path should end with' do
-        expect(cop.messages).to eql(["Spec path should end with `#{expected}`"])
+        expect(cop.messages)
+          .to eql(["Spec path should end with `#{expected}`."])
       end
     end
   end

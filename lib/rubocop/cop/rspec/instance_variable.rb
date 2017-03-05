@@ -47,7 +47,7 @@ module RuboCop
       #   end
       #
       class InstanceVariable < Cop
-        MESSAGE = 'Use `let` instead of an instance variable'.freeze
+        MSG = 'Use `let` instead of an instance variable.'.freeze
 
         EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
 
@@ -63,7 +63,7 @@ module RuboCop
           ivar_usage(node) do |ivar, name|
             return if assignment_only? && !ivar_assigned?(node, name)
 
-            add_offense(ivar, :expression, MESSAGE)
+            add_offense(ivar, :expression)
           end
         end
 

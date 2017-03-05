@@ -44,7 +44,7 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MESSAGE = 'Spec path should end with `%s`'.freeze
+        MSG          = 'Spec path should end with `%s`.'.freeze
         ROUTING_PAIR = s(:pair, s(:sym, :type), s(:sym, :routing))
 
         def on_top_level_describe(node, args)
@@ -57,7 +57,7 @@ module RuboCop
           path_matcher = matcher(object, args.at(1))
           return if source_filename =~ regexp_from_glob(path_matcher)
 
-          add_offense(node, :expression, format(MESSAGE, path_matcher))
+          add_offense(node, :expression, format(MSG, path_matcher))
         end
 
         private

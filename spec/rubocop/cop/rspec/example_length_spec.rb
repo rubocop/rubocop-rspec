@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength, :config do
     it 'flags the example' do
       expect_violation(<<-RUBY)
         it do
-        ^^^^^ Example has too many lines. [4/3]
+        ^^^^^ Example has too many lines [4/3].
           line 1
           line 2
           line 3
@@ -64,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength, :config do
     it 'flags the example' do
       expect_violation(<<-RUBY)
         it do
-        ^^^^^ Example has too many lines. [4/3]
+        ^^^^^ Example has too many lines [4/3].
           line 1
           line 2
           # comment

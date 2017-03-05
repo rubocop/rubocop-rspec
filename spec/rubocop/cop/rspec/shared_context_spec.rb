@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
     it 'registers an offense for shared_context with only examples' do
       expect_violation(<<-RUBY)
         shared_context 'foo' do
-        ^^^^^^^^^^^^^^^^^^^^ Use `shared_examples` when you don't define context
+        ^^^^^^^^^^^^^^^^^^^^ Use `shared_examples` when you don't define context.
           it 'performs actions' do
           end
         end
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
     it 'registers an offense for shared_examples with only let' do
       expect_violation(<<-RUBY)
         shared_examples 'foo' do
-        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples
+        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples.
           let(:foo) { :bar }
         end
       RUBY
@@ -75,7 +75,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
     it 'registers an offense for shared_examples with only subject' do
       expect_violation(<<-RUBY)
         shared_examples 'foo' do
-        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples
+        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples.
           subject(:foo) { :bar }
         end
       RUBY
@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
     it 'registers an offense for shared_examples with only hooks' do
       expect_violation(<<-RUBY)
         shared_examples 'foo' do
-        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples
+        ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples.
           before do
             foo
           end

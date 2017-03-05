@@ -24,9 +24,9 @@ module RuboCop
       #     test.run
       #   end
       class AroundBlock < Cop
-        MSG_NO_ARG     = 'Test object should be passed to around block'.freeze
-        MSG_UNUSED_ARG = 'You should call `%<arg>s.call` ' \
-                         'or `%<arg>s.run`'.freeze
+        MSG_NO_ARG     = 'Test object should be passed to around block.'.freeze
+        MSG_UNUSED_ARG = 'You should call `%<arg>s.call` '\
+                         'or `%<arg>s.run`.'.freeze
 
         def_node_matcher :hook, <<-PATTERN
           (block {(send nil :around) (send nil :around sym)} (args $...) ...)

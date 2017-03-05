@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::NotToNot, :config do
     it 'detects the `to_not` offense' do
       expect_violation(<<-RUBY)
         it { expect(false).to_not be_true }
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_to` over `to_not`
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_to` over `to_not`.
       RUBY
     end
 
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::NotToNot, :config do
     it 'detects the `not_to` offense' do
       expect_violation(<<-RUBY)
         it { expect(false).not_to be_true }
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `to_not` over `not_to`
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `to_not` over `not_to`.
       RUBY
     end
 

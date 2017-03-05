@@ -27,11 +27,12 @@ module RuboCop
       class MessageSpies < Cop
         include ConfigurableEnforcedStyle
 
-        MSG_RECEIVE = 'Prefer `receive` for setting message ' \
-          'expectations.'.freeze
-        MSG_HAVE_RECEIVED = 'Prefer `have_received` for setting message ' \
-          'expectations. Setup `%s` as a spy using `allow` or `instance_spy`.'
-          .freeze
+        MSG_RECEIVE = 'Prefer `receive` for setting message '\
+                      'expectations.'.freeze
+
+        MSG_HAVE_RECEIVED = 'Prefer `have_received` for setting message '\
+                            'expectations. Setup `%s` as a spy using `allow`'\
+                            ' or `instance_spy`.'.freeze
 
         SUPPORTED_STYLES = %w(have_received receive).freeze
 

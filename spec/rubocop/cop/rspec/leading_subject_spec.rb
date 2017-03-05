@@ -9,7 +9,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
         let(:params) { foo }
 
         subject { described_class.new }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
       end
     RUBY
   end

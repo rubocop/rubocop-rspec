@@ -12,7 +12,7 @@ module RuboCop
       #   allow(foo).to receive(bar: thing)
       #
       class MessageChain < Cop
-        MESSAGE = 'Avoid stubbing using `%<method>s`'.freeze
+        MSG = 'Avoid stubbing using `%<method>s`.'.freeze
 
         def_node_matcher :message_chain, Matchers::MESSAGE_CHAIN.send_pattern
 
@@ -21,7 +21,7 @@ module RuboCop
         end
 
         def message(node)
-          format(MESSAGE, method: node.method_name)
+          format(MSG, method: node.method_name)
         end
       end
     end
