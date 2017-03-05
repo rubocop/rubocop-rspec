@@ -5,7 +5,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
         around do
-        ^^^^^^^^^ Test object should be passed to around block
+        ^^^^^^^^^ Test object should be passed to around block.
           do_something
         end
       RUBY
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
         around(:each) do
-        ^^^^^^^^^^^^^^^^ Test object should be passed to around block
+        ^^^^^^^^^^^^^^^^ Test object should be passed to around block.
           do_something
         end
       RUBY
@@ -27,7 +27,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
         around do |test|
-                   ^^^^ You should call `test.call` or `test.run`
+                   ^^^^ You should call `test.call` or `test.run`.
           do_something
         end
       RUBY
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense for the first argument' do
       expect_violation(<<-RUBY)
         around do |test, unused|
-                   ^^^^ You should call `test.call` or `test.run`
+                   ^^^^ You should call `test.call` or `test.run`.
           unused.run
         end
       RUBY
@@ -49,7 +49,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
         around do |test|
-                   ^^^^ You should call `test.call` or `test.run`
+                   ^^^^ You should call `test.call` or `test.run`.
           test
         end
       RUBY
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
     it 'registers an offense' do
       expect_violation(<<-RUBY)
         around do |test|
-                   ^^^^ You should call `test.call` or `test.run`
+                   ^^^^ You should call `test.call` or `test.run`.
           test.inspect
         end
       RUBY

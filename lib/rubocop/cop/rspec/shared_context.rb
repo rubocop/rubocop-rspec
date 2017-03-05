@@ -51,10 +51,11 @@ module RuboCop
       #   end
       #
       class SharedContext < Cop
-        MESSAGE_EXAMPLES = "Use `shared_examples` when you don't define context"
-          .freeze
-        MESSAGE_CONTEXT = "Use `shared_context` when you don't define examples"
-          .freeze
+        MSG_EXAMPLES = "Use `shared_examples` when you don't "\
+                       'define context.'.freeze
+
+        MSG_CONTEXT  = "Use `shared_context` when you don't "\
+                       'define examples.'.freeze
 
         examples = (Examples::ALL + Includes::EXAMPLES)
         def_node_search :examples?, examples.send_pattern
@@ -67,11 +68,11 @@ module RuboCop
 
         def on_block(node)
           context_with_only_examples(node) do
-            add_shared_item_offense(node, MESSAGE_EXAMPLES)
+            add_shared_item_offense(node, MSG_EXAMPLES)
           end
 
           examples_with_only_context(node) do
-            add_shared_item_offense(node, MESSAGE_CONTEXT)
+            add_shared_item_offense(node, MSG_CONTEXT)
           end
         end
 

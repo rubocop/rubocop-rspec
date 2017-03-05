@@ -9,7 +9,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectOutput do
     expect_violation(<<-RUBY)
       specify do
         $stdout = StringIO.new
-        ^^^^^^^ Use `expect { ... }.to output(...).to_stdout` instead of mutating $stdout
+        ^^^^^^^ Use `expect { ... }.to output(...).to_stdout` instead of mutating $stdout.
       end
     RUBY
   end
@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectOutput do
     expect_violation(<<-RUBY)
       before(:each) do
         $stderr = StringIO.new
-        ^^^^^^^ Use `expect { ... }.to output(...).to_stderr` instead of mutating $stderr
+        ^^^^^^^ Use `expect { ... }.to output(...).to_stderr` instead of mutating $stderr.
       end
     RUBY
   end

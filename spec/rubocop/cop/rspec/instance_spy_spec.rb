@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
       expect_violation(<<-RUBY)
         it do
           foo = instance_double(Foo).as_null_object
-                ^^^^^^^^^^^^^^^^^^^^ Use `instance_spy` when you check your double with `have_received`
+                ^^^^^^^^^^^^^^^^^^^^ Use `instance_spy` when you check your double with `have_received`.
           expect(foo).to have_received(:bar)
         end
       RUBY
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
       expect_violation(<<-RUBY)
         it do
           foo = instance_double(Foo, :name).as_null_object
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `instance_spy` when you check your double with `have_received`
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `instance_spy` when you check your double with `have_received`.
           expect(foo).to have_received(:bar)
         end
       RUBY

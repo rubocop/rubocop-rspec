@@ -37,7 +37,7 @@ module RuboCop
         include ConfigurableEnforcedStyle
 
         DESCRIBED_CLASS = 'described_class'.freeze
-        MSG             = 'Use `%s` instead of `%s`'.freeze
+        MSG             = 'Use `%s` instead of `%s`.'.freeze
 
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
           (block (send (const nil {:Class :Module}) :new ...) ...)

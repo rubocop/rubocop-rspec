@@ -19,8 +19,8 @@ module RuboCop
       #   end
       #
       class InstanceSpy < Cop
-        MSG = 'Use `instance_spy` when you check your double ' \
-              'with `have_received`'.freeze
+        MSG = 'Use `instance_spy` when you check your double '\
+              'with `have_received`.'.freeze
 
         EXAMPLES = Examples::ALL.node_pattern_union.freeze
 
@@ -47,7 +47,7 @@ module RuboCop
 
           null_double(node) do |var, receiver|
             have_received_usage(node) do |expected|
-              add_offense(receiver, :expression, MSG) if expected == var
+              add_offense(receiver, :expression) if expected == var
             end
           end
         end

@@ -15,8 +15,8 @@ module RuboCop
       #   # good
       #   expect { my_app.print_report }.to output('Hello World').to_stdout
       class ExpectOutput < Cop
-        MSG = 'Use `expect { ... }.to output(...).to_%<name>s` ' \
-              'instead of mutating $%<name>s'.freeze
+        MSG = 'Use `expect { ... }.to output(...).to_%<name>s` '\
+              'instead of mutating $%<name>s.'.freeze
 
         def_node_matcher :hook?, Hooks::ALL.block_pattern
 

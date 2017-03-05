@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
 
           before do
             MyClass
-            ^^^^^^^ Use `described_class` instead of `MyClass`
+            ^^^^^^^ Use `described_class` instead of `MyClass`.
 
             Foo.custom_block do
               MyClass
@@ -32,16 +32,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         describe MyClass do
           controller(ApplicationController) do
             bar = MyClass
-                  ^^^^^^^ Use `described_class` instead of `MyClass`
+                  ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
 
           before(:each) do
             MyClass
-            ^^^^^^^ Use `described_class` instead of `MyClass`
+            ^^^^^^^ Use `described_class` instead of `MyClass`.
 
             Foo.custom_block do
               MyClass
-              ^^^^^^^ Use `described_class` instead of `MyClass`
+              ^^^^^^^ Use `described_class` instead of `MyClass`.
             end
           end
         end
@@ -80,13 +80,13 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       expect_violation(<<-RUBY)
         describe MyClass do
           include MyClass
-                  ^^^^^^^ Use `described_class` instead of `MyClass`
+                  ^^^^^^^ Use `described_class` instead of `MyClass`.
 
           subject { MyClass.do_something }
-                    ^^^^^^^ Use `described_class` instead of `MyClass`
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
 
           before { MyClass.do_something }
-                   ^^^^^^^ Use `described_class` instead of `MyClass`
+                   ^^^^^^^ Use `described_class` instead of `MyClass`.
         end
       RUBY
     end
@@ -135,7 +135,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
             subject { MyClass::Foo }
 
             let(:foo) { MyClass }
-                        ^^^^^^^ Use `described_class` instead of `MyClass`
+                        ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
         end
       RUBY
@@ -162,7 +162,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       expect_violation(<<-RUBY)
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
-                    ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+                    ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
         end
       RUBY
     end
@@ -222,13 +222,13 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       expect_violation(<<-RUBY)
         describe MyClass do
           include described_class
-                  ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
+                  ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
 
           subject { described_class.do_something }
-                    ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
+                    ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
 
           before { described_class.do_something }
-                   ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`
+                   ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
         end
       RUBY
     end

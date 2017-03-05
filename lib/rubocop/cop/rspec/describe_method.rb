@@ -20,15 +20,16 @@ module RuboCop
         include RuboCop::RSpec::TopLevelDescribe,
                 RuboCop::RSpec::Util
 
-        MESSAGE = 'The second argument to describe should be the method ' \
-                  "being tested. '#instance' or '.class'".freeze
+        MSG = 'The second argument to describe should be the method '\
+              "being tested. '#instance' or '.class'.".freeze
+
         METHOD_STRING_MATCHER = /\A[\#\.].+/
 
         def on_top_level_describe(_node, (_, second_arg))
           return unless second_arg && second_arg.str_type?
           return if METHOD_STRING_MATCHER =~ one(second_arg.children)
 
-          add_offense(second_arg, :expression, MESSAGE)
+          add_offense(second_arg, :expression)
         end
       end
     end

@@ -34,7 +34,7 @@ module RuboCop
       # coerce objects for comparison.
       #
       class BeEql < Cop
-        MSG = 'Prefer `be` over `eql`'.freeze
+        MSG = 'Prefer `be` over `eql`.'.freeze
 
         def_node_matcher :eql_type_with_identity, <<-PATTERN
           (send _ :to $(send nil :eql {true false int float sym nil_type?}))

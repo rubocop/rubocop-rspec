@@ -17,7 +17,7 @@ module RuboCop
       #   expect(name).to eq("John")
       #
       class ExpectActual < Cop
-        MSG = 'Provide the actual you are testing to `expect(...)`'.freeze
+        MSG = 'Provide the actual you are testing to `expect(...)`.'.freeze
 
         SIMPLE_LITERALS = %i(
           true

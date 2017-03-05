@@ -5,7 +5,7 @@ RSpec.describe RuboCop::Cop::RSpec::AnyInstance do
     expect_violation(<<-RUBY)
       before do
         allow_any_instance_of(Object).to receive(:foo)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `allow_any_instance_of`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `allow_any_instance_of`.
       end
     RUBY
   end
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::AnyInstance do
     expect_violation(<<-RUBY)
       before do
         expect_any_instance_of(Object).to receive(:foo)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `expect_any_instance_of`
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `expect_any_instance_of`.
       end
     RUBY
   end
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::AnyInstance do
     expect_violation(<<-RUBY)
       before do
         Object.any_instance.should_receive(:foo)
-        ^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `any_instance`
+        ^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `any_instance`.
       end
     RUBY
   end

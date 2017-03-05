@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       expect_violation(<<-RUBY)
         before do
           allow(foo).to receive_message_chain(:one) { :two }
-                        ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument
+                        ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
         end
       RUBY
     end
@@ -29,7 +29,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       expect_violation(<<-RUBY)
         before do
           allow(foo).to receive_message_chain("one") { :two }
-                        ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument
+                        ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
         end
       RUBY
     end
@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       expect_violation(<<-RUBY)
         before do
           foo.stub_chain(:one) { :two }
-              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
+              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
         end
       RUBY
     end
@@ -77,7 +77,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       expect_violation(<<-RUBY)
         before do
           foo.stub_chain("one") { :two }
-              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument
+              ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
         end
       RUBY
     end
