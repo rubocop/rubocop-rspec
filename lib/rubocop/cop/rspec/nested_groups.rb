@@ -87,7 +87,7 @@ module RuboCop
       class NestedGroups < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Maximum example group nesting exceeded'.freeze
+        MSG = 'Maximum example group nesting exceeded [%d/%d].'.freeze
 
         DEPRECATED_MAX_KEY = 'MaxNesting'.freeze
 
@@ -98,8 +98,8 @@ module RuboCop
         def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 
         def on_top_level_describe(node, _)
-          find_nested_contexts(node.parent) do |context|
-            add_offense(context.children.first, :expression)
+          find_nested_contexts(node.parent) do |context, nesting|
+            add_offense(context.children.first, :expression, message(nesting))
           end
         end
 
@@ -107,12 +107,16 @@ module RuboCop
 
         def find_nested_contexts(node, nesting: 1, &block)
           find_contexts(node) do |nested_context|
-            yield(nested_context) if nesting > max_nesting
+            yield(nested_context, nesting) if nesting > max_nesting
 
             nested_context.each_child_node do |child|
               find_nested_contexts(child, nesting: nesting + 1, &block)
             end
           end
+        end
+
+        def message(nesting)
+          format(MSG, nesting, max_nesting)
         end
 
         def max_nesting
