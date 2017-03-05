@@ -41,8 +41,6 @@ module RuboCop
         def message(_node)
           format(MSG, style, alternative_style)
         end
-
-        private_constant(*constants(false))
       end
     end
   end
