@@ -85,7 +85,17 @@ module RuboCop
       end
 
       module Hooks
-        ALL = SelectorSet.new(%i(after around before))
+        ALL = SelectorSet.new(
+          %i(
+            prepend_before
+            before
+            append_before
+            around
+            prepend_after
+            after
+            append_after
+          )
+        )
       end
 
       module Helpers
