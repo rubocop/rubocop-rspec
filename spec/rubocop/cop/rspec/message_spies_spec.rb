@@ -69,18 +69,11 @@ RSpec.describe RuboCop::Cop::RSpec::MessageSpies, :config do
       expect_no_violations('expect(foo).to have_received(:bar)')
     end
 
-    it 'generates a todo based on the usage of the correct style' do
-      inspect_source(cop, 'expect(foo).to have_received(:bar)', 'foo_spec.rb')
+    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'receive'
 
-      expect(cop.config_to_allow_offenses)
-        .to eq('EnforcedStyle' => 'have_received')
-    end
-
-    it 'generates a todo based on the usage of the alternate style' do
-      inspect_source(cop, 'expect(foo).to receive(:bar)', 'foo_spec.rb')
-
-      expect(cop.config_to_allow_offenses).to eq('EnforcedStyle' => 'receive')
-    end
+    include_examples 'detects style',
+                     'expect(foo).to have_received(:bar)',
+                     'have_received'
   end
 
   context 'when EnforcedStyle is receive' do
@@ -149,17 +142,10 @@ RSpec.describe RuboCop::Cop::RSpec::MessageSpies, :config do
       expect_no_violations('expect(foo).to receive(:bar)')
     end
 
-    it 'generates a todo based on the usage of the correct style' do
-      inspect_source(cop, 'expect(foo).to receive(:bar)', 'foo_spec.rb')
+    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'receive'
 
-      expect(cop.config_to_allow_offenses).to eq('EnforcedStyle' => 'receive')
-    end
-
-    it 'generates a todo based on the usage of the alternate style' do
-      inspect_source(cop, 'expect(foo).to have_received(:bar)', 'foo_spec.rb')
-
-      expect(cop.config_to_allow_offenses)
-        .to eq('EnforcedStyle' => 'have_received')
-    end
+    include_examples 'detects style',
+                     'expect(foo).to have_received(:bar)',
+                     'have_received'
   end
 end
