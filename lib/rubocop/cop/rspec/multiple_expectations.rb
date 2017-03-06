@@ -51,12 +51,12 @@ module RuboCop
         MSG = 'Example has too many expectations [%{total}/%{max}].'.freeze
 
         def_node_search :example_with_aggregated_failures?, <<-PATTERN
-        (pair (sym :aggregate_failures) (true))
+          (pair (sym :aggregate_failures) (true))
         PATTERN
 
         def_node_matcher :expect?, '(send _ :expect ...)'
         def_node_matcher :aggregate_failures?, <<-PATTERN
-        (block (send _ :aggregate_failures ...) ...)
+          (block (send _ :aggregate_failures ...) ...)
         PATTERN
 
         def on_block(node)

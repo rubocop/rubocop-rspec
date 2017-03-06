@@ -5,32 +5,32 @@ require 'rubocop/rspec/description_extractor'
 RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   let(:yardocs) do
     YARD.parse_string(<<-RUBY)
-    # This is not a cop
-    class RuboCop::Cop::Mixin::Sneaky
-    end
-
-    # This is not a concrete cop
-    #
-    # @abstract
-    class RuboCop::Cop::RSpec::Cop
-    end
-
-    # Checks foo
-    #
-    # Some description
-    #
-    # @note only works with foo
-    class RuboCop::Cop::RSpec::Foo
-      # Hello
-      def bar
+      # This is not a cop
+      class RuboCop::Cop::Mixin::Sneaky
       end
-    end
 
-    class RuboCop::Cop::RSpec::Undocumented
-      # Hello
-      def bar
+      # This is not a concrete cop
+      #
+      # @abstract
+      class RuboCop::Cop::RSpec::Cop
       end
-    end
+
+      # Checks foo
+      #
+      # Some description
+      #
+      # @note only works with foo
+      class RuboCop::Cop::RSpec::Foo
+        # Hello
+        def bar
+        end
+      end
+
+      class RuboCop::Cop::RSpec::Undocumented
+        # Hello
+        def bar
+        end
+      end
     RUBY
 
     YARD::Registry.all

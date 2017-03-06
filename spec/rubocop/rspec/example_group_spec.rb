@@ -7,21 +7,21 @@ RSpec.describe RuboCop::RSpec::ExampleGroup do
 
   let(:source) do
     <<-RUBY
-    RSpec.describe Foo do
-      it 'does x' do
-        x
-      end
+      RSpec.describe Foo do
+        it 'does x' do
+          x
+        end
 
-      it 'does y' do
-        y
-      end
+        it 'does y' do
+          y
+        end
 
-      context 'nested' do
-        it 'does z' do
-          z
+        context 'nested' do
+          it 'does z' do
+            z
+          end
         end
       end
-    end
     RUBY
   end
 

@@ -94,15 +94,15 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
 
     it 'does not register an offense for `shared_examples` with it' do
       expect_no_violations(<<-RUBY)
-      shared_examples 'foo' do
-        subject(:foo) { 'foo' }
-        let(:bar) { :baz }
-        before { initialize }
+        shared_examples 'foo' do
+          subject(:foo) { 'foo' }
+          let(:bar) { :baz }
+          before { initialize }
 
-        it 'works' do
+          it 'works' do
+          end
         end
-      end
-    RUBY
+      RUBY
     end
   end
 

@@ -66,7 +66,7 @@ module RuboCop
         HOOKS = Hooks::ALL.node_pattern_union.freeze
 
         def_node_matcher :scoped_hook, <<-PATTERN
-        (block $(send nil #{HOOKS} (sym ${:each :example})) ...)
+          (block $(send nil #{HOOKS} (sym ${:each :example})) ...)
         PATTERN
 
         def_node_matcher :unscoped_hook, "(block $(send nil #{HOOKS}) ...)"

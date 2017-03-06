@@ -27,19 +27,19 @@ module RuboCop
         def_node_matcher :example?, "(block $(send nil #{EXAMPLES}) ...)"
 
         def_node_search :null_double, <<-PATTERN
-        (lvasgn $_
-          (send
-            $(send nil :instance_double
-              ...) :as_null_object))
+          (lvasgn $_
+            (send
+              $(send nil :instance_double
+                ...) :as_null_object))
         PATTERN
 
         def_node_search :have_received_usage, <<-PATTERN
-        (send
-          (send nil :expect
-          (lvar $_)) :to
-          (send nil :have_received
+          (send
+            (send nil :expect
+            (lvar $_)) :to
+            (send nil :have_received
+            ...)
           ...)
-        ...)
         PATTERN
 
         def on_block(node)
