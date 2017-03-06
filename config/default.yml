@@ -53,7 +53,7 @@ RSpec/ExampleLength:
   Max: 5
 
 RSpec/ExampleWording:
-  Description: Checks that example descriptions do not start with "should".
+  Description: Checks for common mistakes in example descriptions.
   Enabled: true
   CustomTransform:
     be: is

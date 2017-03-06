@@ -37,6 +37,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
+    it 'finds leading its' do
+      expect_violation(<<-RUBY)
+        it "it does something" do
+            ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
+        end
+      RUBY
+    end
+
+    it "skips words beginning with 'it'" do
+      expect_no_violations(<<-RUBY)
+        it 'itemizes items' do
+        end
+      RUBY
+    end
+
     it 'skips descriptions without `should` at the beginning' do
       expect_no_violations(<<-RUBY)
         it 'finds no should here' do
@@ -47,6 +62,10 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     include_examples 'autocorrect',
                      'it "should only have trait" do end',
                      'it "only has trait" do end'
+
+    include_examples 'autocorrect',
+                     'it "it does something" do end',
+                     'it "does something" do end'
   end
 
   context 'when configuration is empty' do

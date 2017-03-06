@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
   end
 
   context 'shared_examples' do
-    it 'it does not register an offense for empty examples' do
+    it 'does not register an offense for empty examples' do
       expect_no_violations(<<-RUBY)
         shared_examples 'empty' do
         end

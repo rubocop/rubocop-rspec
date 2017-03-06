@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add repeated 'it' detection to `RSpec/ExampleWording` cop. ([@dgollahon][])
 * Add `RSpec/ItBehavesLike` cop. ([@dgollahon][])
 * Add `RSpec/SharedContext` cop. ([@Darhazer][])
 * `Rspec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
