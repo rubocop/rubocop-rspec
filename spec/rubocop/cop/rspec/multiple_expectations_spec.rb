@@ -60,27 +60,40 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
   end
 
-  it 'ignores examples with `aggregate_failures: true` meta data' do
-    expect_no_violations(<<-RUBY)
-      describe Foo do
-        it 'uses expect twice', aggregate_failures: true do
-          expect(foo).to eq(bar)
-          expect(baz).to eq(bar)
+  context 'with meta data' do
+    it 'ignores examples with `:aggregate_failures`' do
+      expect_no_violations(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', :aggregate_failures do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
         end
-      end
-    RUBY
-  end
+      RUBY
+    end
 
-  it 'ignores `aggregate_failures: false` meta data' do
-    expect_violation(<<-RUBY)
-      describe Foo do
-        it 'uses expect twice', aggregate_failures: false do
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
-          expect(foo).to eq(bar)
-          expect(baz).to eq(bar)
+    it 'ignores examples with `aggregate_failures: true`' do
+      expect_no_violations(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', aggregate_failures: true do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
         end
-      end
-    RUBY
+      RUBY
+    end
+
+    it 'checks examples with `aggregate_failures: false`' do
+      expect_violation(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', aggregate_failures: false do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+    end
   end
 
   context 'with configuration' do
