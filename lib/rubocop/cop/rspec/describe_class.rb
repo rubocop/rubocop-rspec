@@ -23,20 +23,20 @@ module RuboCop
               'the class or module being tested.'.freeze
 
         def_node_matcher :valid_describe?, <<-PATTERN
-        {(send {(const nil :RSpec) nil} :describe const ...) (send nil :describe)}
+          {(send {(const nil :RSpec) nil} :describe const ...) (send nil :describe)}
         PATTERN
 
         def_node_matcher :describe_with_metadata, <<-PATTERN
-        (send {(const nil :RSpec) nil} :describe
-          !const
-          ...
-          (hash $...))
+          (send {(const nil :RSpec) nil} :describe
+            !const
+            ...
+            (hash $...))
         PATTERN
 
         def_node_matcher :rails_metadata?, <<-PATTERN
-        (pair
-          (sym :type)
-          (sym {:request :feature :routing :view}))
+          (pair
+            (sym :type)
+            (sym {:request :feature :routing :view}))
         PATTERN
 
         def_node_matcher :shared_group?, <<-PATTERN

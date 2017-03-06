@@ -31,18 +31,18 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
     formatter = described_class.new(config, descriptions)
 
     expect(formatter.dump).to eql(<<-YAML.gsub(/^\s+\|/, ''))
-    |---
-    |AllCops:
-    |  Setting: fourty two
-    |
-    |RSpec/Foo:
-    |  Config: 2
-    |  Enabled: true
-    |  Description: Blah
-    |
-    |RSpec/Bar:
-    |  Enabled: true
-    |  Description: Wow
+      |---
+      |AllCops:
+      |  Setting: fourty two
+      |
+      |RSpec/Foo:
+      |  Config: 2
+      |  Enabled: true
+      |  Description: Blah
+      |
+      |RSpec/Bar:
+      |  Enabled: true
+      |  Description: Wow
     YAML
   end
 end

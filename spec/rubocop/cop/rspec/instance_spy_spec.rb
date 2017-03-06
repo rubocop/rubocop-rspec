@@ -44,16 +44,16 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
   end
 
   original = <<-RUBY
-  it do
-    foo = instance_double(Foo, :name).as_null_object
-    expect(foo).to have_received(:bar)
-  end
+    it do
+      foo = instance_double(Foo, :name).as_null_object
+      expect(foo).to have_received(:bar)
+    end
   RUBY
   corrected = <<-RUBY
-  it do
-    foo = instance_spy(Foo, :name)
-    expect(foo).to have_received(:bar)
-  end
+    it do
+      foo = instance_spy(Foo, :name)
+      expect(foo).to have_received(:bar)
+    end
   RUBY
 
   include_examples 'autocorrect', original, corrected

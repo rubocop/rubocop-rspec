@@ -6,9 +6,9 @@ RSpec.describe ExpectViolation::Expectation do
   context 'when given a single assertion on class end' do
     let(:string) do
       <<-SRC
-      class Foo
-      end
-      ^^^ The end of `Foo` should be annotated.
+        class Foo
+        end
+        ^^^ The end of `Foo` should be annotated.
       SRC
     end
 
@@ -23,7 +23,7 @@ RSpec.describe ExpectViolation::Expectation do
     end
 
     it 'has an assertion on column range 1-3' do
-      expect(assertion.column_range).to eql(6...9)
+      expect(assertion.column_range).to eql(8...11)
     end
 
     it 'has an assertion with correct violation message' do
@@ -32,8 +32,8 @@ RSpec.describe ExpectViolation::Expectation do
 
     it 'recreates source' do
       expect(expectation.source).to eql(<<-RUBY)
-      class Foo
-      end
+        class Foo
+        end
       RUBY
     end
   end
@@ -41,13 +41,13 @@ RSpec.describe ExpectViolation::Expectation do
   context 'when given many assertions on two lines' do
     let(:string) do
       <<-SRC
-      foo bar
-          ^ Charlie
-         ^^ Charlie
-          ^^ Bronco
-          ^^ Alpha
-      baz
-      ^ Delta
+        foo bar
+            ^ Charlie
+           ^^ Charlie
+            ^^ Bronco
+            ^^ Alpha
+        baz
+        ^ Delta
       SRC
     end
 
@@ -65,7 +65,7 @@ RSpec.describe ExpectViolation::Expectation do
 
     it 'has assertions on column range 1-3' do
       expect(assertions.map(&:column_range)).to eql(
-        [9...11, 10...11, 10...12, 10...12, 6...7]
+        [11...13, 12...13, 12...14, 12...14, 8...9]
       )
     end
 
@@ -77,8 +77,8 @@ RSpec.describe ExpectViolation::Expectation do
 
     it 'recreates source' do
       expect(expectation.source).to eql(<<-RUBY)
-      foo bar
-      baz
+        foo bar
+        baz
       RUBY
     end
   end
