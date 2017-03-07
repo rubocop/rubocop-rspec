@@ -183,6 +183,10 @@ RSpec/NotToNot:
   - to_not
   Enabled: true
 
+RSpec/OverwritingSetup:
+  Enabled: true
+  Description: Checks if there is a let/subject that overwrites an existing one.
+
 RSpec/RepeatedDescription:
   Enabled: true
   Description: Check for repeated description strings in example groups.
