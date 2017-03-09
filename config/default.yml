@@ -47,6 +47,14 @@ RSpec/EmptyExampleGroup:
   Enabled: true
   CustomIncludeMethods: []
 
+RSpec/EmptyLineAfterFinalLet:
+  Description: Checks if there is an empty line after the last let block.
+  Enabled: true
+
+RSpec/EmptyLineAfterSubject:
+  Description: Checks if there is an empty line after subject block.
+  Enabled: true
+
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
