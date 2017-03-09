@@ -42,6 +42,10 @@ RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.
   Enabled: true
 
+RSpec/DescribeSymbol:
+  Description: Avoid passing a Symbol as the first argument to `describe`.
+  Enabled: true
+
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
