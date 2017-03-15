@@ -42,6 +42,10 @@ RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.
   Enabled: true
 
+RSpec/IteratedExpectation:
+  Description: Check that `all` matcher is used instead of iterating over an array.
+  Enabled: true
+
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
