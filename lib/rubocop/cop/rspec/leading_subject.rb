@@ -37,7 +37,7 @@ module RuboCop
           node.parent.each_child_node do |sibling|
             break if sibling.equal?(node)
 
-            if sibling.method_name.equal?(:let)
+            if [:let, :let!].include?(sibling.method_name)
               break add_offense(node, :expression)
             end
           end
