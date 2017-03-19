@@ -199,6 +199,10 @@ RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true
 
+RSpec/ScatteredLet:
+  Description: Checks for let scattered across the example group.
+  Enabled: true
+
 RSpec/ScatteredSetup:
   Description: Checks for setup scattered across multiple hooks in an example group.
   Enabled: true
