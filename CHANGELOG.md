@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positive in `RSpec/SingleArgumentMessageChain` cop when the single argument is a hash. ([@Darhazer][])
+
 ## 1.15.0 (2017-05-24)
 
 * Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
