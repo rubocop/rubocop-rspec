@@ -14,6 +14,17 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
+  it 'checks subject below let!' do
+    expect_violation(<<-RUBY)
+      RSpec.describe User do
+        let!(:params) { foo }
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+  end
+
   it 'approves of subject above let' do
     expect_no_violations(<<-RUBY)
       RSpec.describe User do
@@ -51,4 +62,50 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       end
     RUBY
   end
+
+  bad_code = <<-RUBY
+    RSpec.describe User do
+      let(:params) { foo }
+      let(:bar) { baz }
+
+      subject { described_class.new }
+      it { is_expected.to do_something }
+    end
+  RUBY
+
+  good_code = <<-RUBY
+    RSpec.describe User do
+      subject { described_class.new }
+      let(:params) { foo }
+      let(:bar) { baz }
+
+      it { is_expected.to do_something }
+    end
+  RUBY
+
+  include_examples 'autocorrect', bad_code, good_code
+
+  bad_code = <<-RUBY
+    RSpec.describe User do
+      let(:params) { foo }
+      let(:bar) { baz }
+      subject do
+        described_class.new
+      end
+      it { is_expected.to do_something }
+    end
+  RUBY
+
+  good_code = <<-RUBY
+    RSpec.describe User do
+      subject do
+        described_class.new
+      end
+      let(:params) { foo }
+      let(:bar) { baz }
+      it { is_expected.to do_something }
+    end
+  RUBY
+
+  include_examples 'autocorrect', bad_code, good_code
 end

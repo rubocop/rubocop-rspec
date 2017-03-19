@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add autocorrect support for `RSpec/LeadingSubject` cop. ([@Darhazer][])
 * Add `RSpec/IteratedExpectation` cop. ([@Darhazer][])
 * Add `RSpec/EmptyLineAfterSubject` cop. ([@Darhazer][])
 * Add `RSpec/EmptyLineAfterFinalLet` cop. ([@Darhazer][])

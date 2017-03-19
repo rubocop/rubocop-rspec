@@ -37,13 +37,36 @@ module RuboCop
           node.parent.each_child_node do |sibling|
             break if sibling.equal?(node)
 
-            if sibling.method_name.equal?(:let)
-              break add_offense(node, :expression)
-            end
+            break add_offense(node, :expression) if let?(sibling)
+          end
+        end
+
+        def autocorrect(node)
+          lambda do |corrector|
+            first_let = find_first_let(node)
+            first_let_position = first_let.loc.expression
+            indent = "\n" + ' ' * first_let.loc.column
+            corrector.insert_before(first_let_position, node.source + indent)
+            corrector.remove(node_range(node))
           end
         end
 
         private
+
+        def let?(node)
+          [:let, :let!].include?(node.method_name)
+        end
+
+        def find_first_let(node)
+          node.parent.children.find { |sibling| let?(sibling) }
+        end
+
+        def node_range(node)
+          range = node.source_range
+          range = range_with_surrounding_space(range, :left, false)
+          range = range_with_surrounding_space(range, :right, true)
+          range
+        end
 
         def in_spec_block?(node)
           node.each_ancestor(:block).any? do |ancestor|
