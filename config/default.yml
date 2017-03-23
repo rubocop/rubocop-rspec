@@ -138,7 +138,8 @@ RSpec/LeadingSubject:
   Enabled: true
 
 RSpec/LeakedConst:
-  Description: Checks for named classes that pollute the global namespace.
+  Description: Check that constants are not being defined in a way that pollutes the
+    global namespace.
   Enabled: true
 
 RSpec/LetSetup:
