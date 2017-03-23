@@ -141,6 +141,8 @@ RSpec/LeakedConst:
   Description: Check that constants are not being defined in a way that pollutes the
     global namespace.
   Enabled: true
+  Exclude:
+  - spec/support/**/*.rb
 
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.

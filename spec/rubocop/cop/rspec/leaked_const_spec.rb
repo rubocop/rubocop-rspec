@@ -39,9 +39,24 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
     RUBY
   end
 
-  it 'finds a new unnamed class using stub_const' do
+  it 'finds a new class already marked for stub_const' do
     expect_no_violations(<<-RUBY)
-      stub_const('Foo', Class.new)
+      before do
+        stub_const('Foo', Class.new)
+        class Foo
+        end
+      end
+    RUBY
+  end
+
+  it 'finds a new class marked for stub_const after opening the class' do
+    expect_violation(<<-RUBY)
+      before do
+        class Foo
+        ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
+        end
+        stub_const('Foo', Class.new)
+      end
     RUBY
   end
 end
