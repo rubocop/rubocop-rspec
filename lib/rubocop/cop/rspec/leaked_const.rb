@@ -22,20 +22,37 @@ module RuboCop
       class LeakedConst < Cop
         MSG = 'Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.'.freeze
 
-        def_node_matcher :stubbed_constant, <<-PATTERN
+        def_node_matcher :stub_const, <<-PATTERN
           (begin (send nil :stub_const $_ ...) ...)
         PATTERN
 
-        def on_class(node)
-          const_node, _superclass, body = *node
-          _const, const_symbol = *const_node
+        def_node_search :module_name, <<-PATTERN
+          (module (const nil $_) ...)
+        PATTERN
 
-          stubbed_constant(node.parent) do |const_name|
-            const_name = *const_name
-            return if const_name.include?(const_symbol.to_s)
+        def on_class(node)
+          namespace = class_name(node)
+
+          node.each_ancestor(:begin).each do |block_ancestor|
+            stub_const(block_ancestor) do |stubbed_const_name|
+              _const_type, stubbed_const_name = *stubbed_const_name
+              return if namespace.include?(stubbed_const_name.to_s)
+            end
           end
 
           add_offense(node, :expression, MSG)
+        end
+
+        private
+
+        def class_name(node)
+          class_node, _body = *node
+          _class, class_name = *class_node
+
+          module_names = node.each_ancestor(:module).flat_map do |parent_module|
+            module_name(parent_module)
+          end + [class_name]
+          module_names.compact.join('::')
         end
       end
     end

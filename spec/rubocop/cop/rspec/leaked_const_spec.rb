@@ -39,11 +39,40 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
     RUBY
   end
 
-  it 'finds a new class already marked for stub_const' do
+  it 'finds a new class already marked with stub_const' do
     expect_no_violations(<<-RUBY)
       before do
         stub_const('Foo', Class.new)
         class Foo
+        end
+      end
+    RUBY
+  end
+
+  it 'finds a new class in a module that is already marked with stub_const' do
+    expect_no_violations(<<-RUBY)
+      before do
+        stub_const('Namespace', Module.new)
+        module Namespace
+          class Foo
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'finds two new classes in a module that is already marked with stub_const' do
+    expect_no_violations(<<-RUBY)
+      before do
+        stub_const('Namespace::SecondNamespace', Module.new)
+        module Namespace
+          module SecondNamespace
+            class Foo
+            end
+
+            class Bar
+            end
+          end
         end
       end
     RUBY
@@ -56,6 +85,15 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
         ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
         end
         stub_const('Foo', Class.new)
+      end
+    RUBY
+  end
+
+  it 'finds a basic test set-up using modules to open the describe block' do
+    expect_no_violations(<<-RUBY)
+      module TestedNamespace
+        describe Subject do
+        end
       end
     RUBY
   end
