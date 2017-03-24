@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
+
 ## 1.14.0 (2017-03-24)
 
 * Add `RSpec/OverwritingSetup` cop. ([@Darhazer][])
@@ -206,3 +208,4 @@
 [@redross]: https://github.com/redross
 [@cfabianski]: https://github.com/cfabianski
 [@dgollahon]: https://github.com/dgollahon
+[@tsigo]: https://github.com/tsigo
