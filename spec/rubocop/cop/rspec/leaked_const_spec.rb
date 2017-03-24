@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
     RUBY
   end
 
-  it 'finds two new classes in a module that is already marked with stub_const' do
+  it 'finds two new classes in a module already marked with stub_const' do
     expect_no_violations(<<-RUBY)
       before do
         stub_const('Namespace::SecondNamespace', Module.new)

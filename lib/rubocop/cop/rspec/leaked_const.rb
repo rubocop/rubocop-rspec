@@ -1,7 +1,8 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that constants are not being defined in a way that pollutes the global namespace.
+      # Check that constants are not being defined in
+      # a way that pollutes the global namespace.
       #
       # Prefer stub_const and anonymous classes.
       #
@@ -20,7 +21,8 @@ module RuboCop
       #     end
       #   end
       class LeakedConst < Cop
-        MSG = 'Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.'.freeze
+        MSG = 'Opening a class to define methods can pollute your tests. '\
+              'Instead, try using `stub_const` with an anonymized class.'.freeze
 
         def_node_matcher :stub_const, <<-PATTERN
           (begin (send nil :stub_const $_ ...) ...)
@@ -33,14 +35,14 @@ module RuboCop
         def on_class(node)
           namespace = class_name(node)
 
-          node.each_ancestor(:begin).each do |block_ancestor|
+          stubbed_const = node.each_ancestor(:begin).any? do |block_ancestor|
             stub_const(block_ancestor) do |stubbed_const_name|
               _const_type, stubbed_const_name = *stubbed_const_name
-              return if namespace.include?(stubbed_const_name.to_s)
+              namespace.include?(stubbed_const_name.to_s)
             end
           end
 
-          add_offense(node, :expression, MSG)
+          add_offense(node, :expression, MSG) unless stubbed_const
         end
 
         private
