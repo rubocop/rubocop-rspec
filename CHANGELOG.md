@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/OverwritingSetup` cop. ([@Darhazer][])
 * Add autocorrect support for `RSpec/LeadingSubject` cop. ([@Darhazer][])
 * Add `RSpec/ScatteredLet` cop. ([@Darhazer][])
 * Add `RSpec/IteratedExpectation` cop. ([@Darhazer][])
