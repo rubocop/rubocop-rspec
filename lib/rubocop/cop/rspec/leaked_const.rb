@@ -1,8 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that constants are not being defined in
-      # a way that pollutes the global namespace.
+      # Check that constants are not created in tests without cleanup.
       #
       # Prefer stub_const and anonymous classes.
       #

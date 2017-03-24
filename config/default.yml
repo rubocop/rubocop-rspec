@@ -138,8 +138,7 @@ RSpec/LeadingSubject:
   Enabled: true
 
 RSpec/LeakedConst:
-  Description: Check that constants are not being defined in a way that pollutes the
-    global namespace.
+  Description: Check that constants are not created in tests without cleanup.
   Enabled: true
   Exclude:
   - spec/support/**/*.rb
