@@ -23,4 +23,9 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
   end
+
+  it 'does not encounter an error when handling an empty describe' do
+    expect { inspect_source(cop, 'RSpec.describe(User) do end', 'a_spec.rb') }
+      .not_to raise_error
+  end
 end

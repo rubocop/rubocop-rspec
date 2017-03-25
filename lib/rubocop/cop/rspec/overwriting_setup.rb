@@ -29,7 +29,7 @@ module RuboCop
         PATTERN
 
         def on_block(node)
-          return unless example_group?(node)
+          return unless example_group_with_body?(node)
 
           _describe, _args, body = *node
 
