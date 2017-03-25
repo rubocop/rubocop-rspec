@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.15.0 (2017-05-24)
+
 * Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
 * Fix error when `RSpec/OverwritingSetup` and `RSpec/ScatteredLet` analyzed empty example groups. ([@backus][])
 
