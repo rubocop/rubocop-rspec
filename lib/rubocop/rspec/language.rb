@@ -103,7 +103,7 @@ module RuboCop
       end
 
       module Subject
-        ALL = SelectorSet.new(%i(subject))
+        ALL = SelectorSet.new(%i(subject subject!))
       end
 
       ALL =
