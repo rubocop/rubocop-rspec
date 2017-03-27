@@ -54,7 +54,7 @@ module RuboCop
         private
 
         def let?(node)
-          [:let, :let!].include?(node.method_name)
+          %i(let let!).include?(node.method_name)
         end
 
         def find_first_let(node)

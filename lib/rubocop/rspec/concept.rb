@@ -4,7 +4,8 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec DSL methods
     class Concept
-      include Language, Language::NodePattern
+      include Language
+      include Language::NodePattern
       extend NodePattern::Macros
 
       def initialize(node)
@@ -12,7 +13,7 @@ module RuboCop
       end
 
       def eql?(other)
-        node.eql?(other.node)
+        node == other.node
       end
 
       alias == eql?

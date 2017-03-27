@@ -62,7 +62,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   end
 
   context 'when SkipBlocks is not set' do
-    let(:cop_config) { Hash.new }
+    let(:cop_config) { {} }
 
     include_examples 'SkipBlocks disabled'
   end

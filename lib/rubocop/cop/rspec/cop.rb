@@ -33,10 +33,11 @@ module RuboCop
       #       - '_test.rb$'
       #       - '(?:^|/)test/'
       class Cop < WorkaroundCop
+        include RuboCop::RSpec::Language
+        include RuboCop::RSpec::Language::NodePattern
+
         DEFAULT_CONFIGURATION =
           RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
-
-        include RuboCop::RSpec::Language, RuboCop::RSpec::Language::NodePattern
 
         # Invoke the original inherited hook so our cops are recognized
         def self.inherited(subclass)

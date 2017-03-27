@@ -28,7 +28,7 @@ RSpec.describe RuboCop::RSpec::Example do
 
   it 'extracts implementation' do
     expect(example('it("foo") { bar; baz }').implementation)
-      .to eql(s(:begin, s(:send, nil, :bar), s(:send, nil, :baz)))
+      .to eq(s(:begin, s(:send, nil, :bar), s(:send, nil, :baz)))
   end
 
   it 'returns node' do

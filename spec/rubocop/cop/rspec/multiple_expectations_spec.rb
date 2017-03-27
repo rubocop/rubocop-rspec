@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
   subject(:cop) { described_class.new(config) }
 
   context 'without configuration' do
-    let(:cop_config) { Hash.new }
+    let(:cop_config) { {} }
 
     it 'flags multiple expectations' do
       expect_violation(<<-RUBY)
