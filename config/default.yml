@@ -150,6 +150,10 @@ RSpec/LeadingSubject:
   Description: Checks for `subject` definitions that come after `let` definitions.
   Enabled: true
 
+RSpec/LetBeforeExamples:
+  Description: Checks for `let` definitions that come after an example.
+  Enabled: true
+
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.
   Enabled: true
