@@ -1,14 +1,14 @@
 RSpec.describe RuboCop::RSpec::Language::SelectorSet do
-  subject(:selector_set) { described_class.new(%i(foo bar)) }
+  subject(:selector_set) { described_class.new(%i[foo bar]) }
 
   it 'composes sets' do
-    combined = selector_set + described_class.new(%i(baz))
+    combined = selector_set + described_class.new(%i[baz])
 
-    expect(combined).to eq(described_class.new(%i(foo bar baz)))
+    expect(combined).to eq(described_class.new(%i[foo bar baz]))
   end
 
   it 'compares by value' do
-    expect(selector_set).not_to eq(described_class.new(%i(foo bar baz)))
+    expect(selector_set).not_to eq(described_class.new(%i[foo bar baz]))
   end
 
   context '#include?' do

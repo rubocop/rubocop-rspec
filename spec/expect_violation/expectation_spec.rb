@@ -71,7 +71,7 @@ RSpec.describe ExpectViolation::Expectation do
 
     it 'has an assertion with correct violation message' do
       expect(assertions.map(&:message)).to eql(
-        %w(Charlie Charlie Alpha Bronco Delta)
+        %w[Charlie Charlie Alpha Bronco Delta]
       )
     end
 

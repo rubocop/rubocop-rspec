@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
           }
         },
         'RSpec/FakeCop' => {
-          'Exclude' => %w(bar_spec.rb)
+          'Exclude' => %w[bar_spec.rb]
         }
       }
 

@@ -19,7 +19,7 @@ module RuboCop
       class ExpectActual < Cop
         MSG = 'Provide the actual you are testing to `expect(...)`.'.freeze
 
-        SIMPLE_LITERALS = %i(
+        SIMPLE_LITERALS = %i[
           true
           false
           nil
@@ -30,16 +30,16 @@ module RuboCop
           complex
           rational
           regopt
-        ).freeze
+        ].freeze
 
-        COMPLEX_LITERALS = %i(
+        COMPLEX_LITERALS = %i[
           array
           hash
           pair
           irange
           erange
           regexp
-        ).freeze
+        ].freeze
 
         def_node_matcher :expect_literal, '(send _ :expect $#literal?)'
 

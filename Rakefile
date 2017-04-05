@@ -44,4 +44,4 @@ task confirm_config: :build_config do
   end
 end
 
-task default: %i(build_config coverage internal_investigation confirm_config)
+task default: %i[build_config coverage internal_investigation confirm_config]

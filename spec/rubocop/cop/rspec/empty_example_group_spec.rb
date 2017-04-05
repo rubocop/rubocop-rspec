@@ -63,7 +63,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
 
   context 'when a custom include method is specified' do
     let(:cop_config) do
-      { 'CustomIncludeMethods' => %w(it_has_special_behavior) }
+      { 'CustomIncludeMethods' => %w[it_has_special_behavior] }
     end
 
     it 'does not flag an otherwise empty example group' do
