@@ -34,7 +34,7 @@ module RuboCop
                             'expectations. Setup `%s` as a spy using `allow`'\
                             ' or `instance_spy`.'.freeze
 
-        SUPPORTED_STYLES = %w(have_received receive).freeze
+        SUPPORTED_STYLES = %w[have_received receive].freeze
 
         def_node_matcher :message_expectation, %(
           (send (send nil :expect $_) {:to :to_not :not_to} ...)

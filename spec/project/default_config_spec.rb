@@ -14,11 +14,11 @@ RSpec.describe 'config/default.yml' do
         "RSpec/#{cop_name}"
       end
 
-    cop_names - %w(RSpec/Cop)
+    cop_names - %w[RSpec/Cop]
   end
 
   let(:config_keys) do
-    cop_names + %w(AllCops)
+    cop_names + %w[AllCops]
   end
 
   def cop_configuration(config_key)

@@ -44,49 +44,49 @@ module RuboCop
       end
 
       module Matchers
-        MESSAGE_CHAIN = SelectorSet.new(%i(receive_message_chain stub_chain))
+        MESSAGE_CHAIN = SelectorSet.new(%i[receive_message_chain stub_chain])
       end
 
       module ExampleGroups
-        GROUPS  = SelectorSet.new(%i(describe context feature example_group))
-        SKIPPED = SelectorSet.new(%i(xdescribe xcontext xfeature))
-        FOCUSED = SelectorSet.new(%i(fdescribe fcontext ffeature))
+        GROUPS  = SelectorSet.new(%i[describe context feature example_group])
+        SKIPPED = SelectorSet.new(%i[xdescribe xcontext xfeature])
+        FOCUSED = SelectorSet.new(%i[fdescribe fcontext ffeature])
 
         ALL = GROUPS + SKIPPED + FOCUSED
       end
 
       module SharedGroups
-        EXAMPLES = SelectorSet.new(%i(shared_examples shared_examples_for))
-        CONTEXT = SelectorSet.new(%i(shared_context))
+        EXAMPLES = SelectorSet.new(%i[shared_examples shared_examples_for])
+        CONTEXT = SelectorSet.new(%i[shared_context])
 
         ALL = EXAMPLES + CONTEXT
       end
 
       module Includes
         EXAMPLES = SelectorSet.new(
-          %i(
+          %i[
             it_behaves_like
             it_should_behave_like
             include_examples
-          )
+          ]
         )
-        CONTEXT = SelectorSet.new(%i(include_context))
+        CONTEXT = SelectorSet.new(%i[include_context])
 
         ALL = EXAMPLES + CONTEXT
       end
 
       module Examples
-        EXAMPLES = SelectorSet.new(%i(it specify example scenario its))
-        FOCUSED  = SelectorSet.new(%i(fit fspecify fexample fscenario focus))
-        SKIPPED  = SelectorSet.new(%i(xit xspecify xexample xscenario skip))
-        PENDING  = SelectorSet.new(%i(pending))
+        EXAMPLES = SelectorSet.new(%i[it specify example scenario its])
+        FOCUSED  = SelectorSet.new(%i[fit fspecify fexample fscenario focus])
+        SKIPPED  = SelectorSet.new(%i[xit xspecify xexample xscenario skip])
+        PENDING  = SelectorSet.new(%i[pending])
 
         ALL = EXAMPLES + FOCUSED + SKIPPED + PENDING
       end
 
       module Hooks
         ALL = SelectorSet.new(
-          %i(
+          %i[
             prepend_before
             before
             append_before
@@ -94,16 +94,16 @@ module RuboCop
             prepend_after
             after
             append_after
-          )
+          ]
         )
       end
 
       module Helpers
-        ALL = SelectorSet.new(%i(let let!))
+        ALL = SelectorSet.new(%i[let let!])
       end
 
       module Subject
-        ALL = SelectorSet.new(%i(subject subject!))
+        ALL = SelectorSet.new(%i[subject subject!])
       end
 
       ALL =

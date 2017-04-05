@@ -5,7 +5,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     let(:cop_config) do
       {
         'CustomTransform' => { 'have' => 'has', 'not' => 'does not' },
-        'IgnoredWords'    => %w(only really)
+        'IgnoredWords'    => %w[only really]
       }
     end
 

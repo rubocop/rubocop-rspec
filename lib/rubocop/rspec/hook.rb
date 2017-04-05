@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec hook
     class Hook < Concept
-      STANDARDIZED_SCOPES = %i(each context suite).freeze
+      STANDARDIZED_SCOPES = %i[each context suite].freeze
       private_constant(:STANDARDIZED_SCOPES)
 
       def name

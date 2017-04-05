@@ -29,7 +29,7 @@ module RuboCop
 
         MSG = 'Prefer `%s` for setting message expectations.'.freeze
 
-        SUPPORTED_STYLES = %w(allow expect).freeze
+        SUPPORTED_STYLES = %w[allow expect].freeze
 
         def_node_matcher :message_expectation, <<-PATTERN
           (send $(send nil {:expect :allow} ...) :to #receive_message?)

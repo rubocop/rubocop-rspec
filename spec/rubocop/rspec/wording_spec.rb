@@ -4,7 +4,7 @@ RSpec.describe RuboCop::RSpec::Wording do
   end
 
   let(:ignores) do
-    %w(only really)
+    %w[only really]
   end
 
   expected_rewrites =
