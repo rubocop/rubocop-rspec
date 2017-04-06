@@ -47,6 +47,45 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
         end
       RUBY
     end
+
+    context 'with single-key hash argument' do
+      it 'reports an offence' do
+        expect_violation(<<-RUBY)
+          before do
+            allow(foo).to receive_message_chain(bar: 42)
+                          ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
+          end
+        RUBY
+      end
+
+      include_examples(
+        'autocorrect',
+        'before { allow(foo).to receive_message_chain(bar: 42) }',
+        'before { allow(foo).to receive(:bar).and_return(42) }'
+      )
+
+      include_examples(
+        'autocorrect',
+        'before { allow(foo).to receive_message_chain("bar" => 42) }',
+        'before { allow(foo).to receive("bar").and_return(42) }'
+      )
+
+      include_examples(
+        'autocorrect',
+        'before { allow(foo).to receive_message_chain(:"#{foo}" => 42) }',
+        'before { allow(foo).to receive(:"#{foo}").and_return(42) }'
+      )
+    end
+
+    context 'with multiple keys hash argument' do
+      it "doesn't report an offence" do
+        expect_no_violations(<<-RUBY)
+          before do
+            allow(foo).to receive_message_chain(bar: 42, baz: 42)
+          end
+        RUBY
+      end
+    end
   end
 
   describe 'stub_chain' do

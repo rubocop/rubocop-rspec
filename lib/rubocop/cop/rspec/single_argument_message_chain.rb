@@ -19,12 +19,16 @@ module RuboCop
               '`%<called>s` with a single argument.'.freeze
 
         def_node_matcher :message_chain, <<-PATTERN
-          (send _ #{Matchers::MESSAGE_CHAIN.node_pattern_union} $...)
+          (send _ #{Matchers::MESSAGE_CHAIN.node_pattern_union} $_)
         PATTERN
 
+        def_node_matcher :single_key_hash?, '(hash pair)'
+
         def on_send(node)
-          message_chain(node) do |(first, *remaining)|
-            return if first.to_s.include?('.') || remaining.any?
+          message_chain(node) do |arg|
+            return if arg.to_s.include?('.')
+
+            return if arg.hash_type? && !single_key_hash?(arg)
 
             add_offense(node, :selector)
           end
@@ -33,10 +37,26 @@ module RuboCop
         def autocorrect(node)
           lambda do |corrector|
             corrector.replace(node.loc.selector, replacement(node.method_name))
+            message_chain(node) do |arg|
+              autocorrect_hash_arg(corrector, arg) if single_key_hash?(arg)
+            end
           end
         end
 
         private
+
+        def autocorrect_hash_arg(corrector, arg)
+          key, value = *arg.children.first
+
+          corrector.replace(arg.loc.expression, key_to_arg(key))
+          corrector.insert_after(arg.parent.loc.end,
+                                 ".and_return(#{value.source})")
+        end
+
+        def key_to_arg(node)
+          key, = *node
+          node.sym_type? ? ":#{key}" : node.source
+        end
 
         def replacement(method)
           method.equal?(:receive_message_chain) ? 'receive' : 'stub'
