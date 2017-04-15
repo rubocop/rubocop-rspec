@@ -3,7 +3,7 @@ module RuboCop
     module RSpec
       # Check that constants are not created in tests without cleanup.
       #
-      # Prefer stub_const and anonymous classes.
+      # Prefer `Class.new` and/or `stub_const`.
       #
       # @example
       #   # bad
@@ -20,8 +20,7 @@ module RuboCop
       #     end
       #   end
       class LeakedConst < Cop
-        MSG = 'Opening a class to define methods can pollute your tests. '\
-              'Instead, try using `stub_const` with an anonymized class.'.freeze
+        MSG = 'Ensure that new constants are cleaned up between specs'.freeze
 
         def_node_matcher :stub_const, <<-PATTERN
           (begin (send nil :stub_const $_ ...) ...)

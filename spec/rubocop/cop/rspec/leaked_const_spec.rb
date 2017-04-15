@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
   it 'finds a new named class defined in-line' do
     expect_violation(<<-RUBY)
       class Foo
-      ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
+      ^^^^^^^^^ Ensure that new constants are cleaned up between specs
       end
     RUBY
   end
@@ -13,7 +13,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
     expect_violation(<<-RUBY)
       let(:fake_class) do
         class Foo
-        ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
+        ^^^^^^^^^ Ensure that new constants are cleaned up between specs
         end
       end
     RUBY
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
   it 'finds a new named class assigned to a variable' do
     expect_violation(<<-RUBY)
       fake_class = class Foo
-                   ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
+                   ^^^^^^^^^ Ensure that new constants are cleaned up between specs
       end
     RUBY
   end
@@ -82,7 +82,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakedConst do
     expect_violation(<<-RUBY)
       before do
         class Foo
-        ^^^^^^^^^ Opening a class to define methods can pollute your tests. Instead, try using `stub_const` with an anonymized class.
+        ^^^^^^^^^ Ensure that new constants are cleaned up between specs
         end
         stub_const('Foo', Class.new)
       end
