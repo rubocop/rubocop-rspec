@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Fix the handling of various edge cases in the `RSpec/ExampleWording` cop, including one that would cause autocorrect to crash. ([@dgollahon][])
 * Fix false positive in `RSpec/SingleArgumentMessageChain` cop when the single argument is a hash. ([@Darhazer][])
 
 ## 1.15.0 (2017-05-24)

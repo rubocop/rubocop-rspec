@@ -1,11 +1,6 @@
 RSpec.describe RuboCop::RSpec::Wording do
-  let(:replacements) do
-    { 'have' => 'has', 'not' => 'does not' }
-  end
-
-  let(:ignores) do
-    %w[only really]
-  end
+  let(:replacements) { { 'have' => 'has' } }
+  let(:ignores)      { %w[only really]     }
 
   expected_rewrites =
     {
@@ -26,7 +21,18 @@ RSpec.describe RuboCop::RSpec::Wording do
       'should search the internet'         => 'searches the internet',
       'should wish me luck'                => 'wishes me luck',
       'should really only return one item' => 'really only returns one item',
-      "shouldn't return something"         => 'does not return something'
+      "shouldn't return something"         => 'does not return something',
+      'SHOULD RETAIN UPPERCASE'            => 'RETAINS UPPERCASE',
+      "shouldn't be true"                  => 'is not true',
+      "SHOULDN'T BE true"                  => 'IS NOT true',
+      "SHOULDN'T NOT RETAIN UPPERCASE"     => 'DOES NOT NOT RETAIN UPPERCASE',
+      'should WORRY'                       => 'WORRIES',
+      'should WISH me luck'                => 'WISHES me luck',
+      ''                                   => '',
+      'should'                             => '',
+      "shouldn't"                          => 'does not',
+      'should not'                         => 'does not',
+      'should fizz'                        => 'fizzes'
     }
 
   expected_rewrites.each do |old, new|
