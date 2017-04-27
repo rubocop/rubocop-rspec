@@ -59,6 +59,14 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
     RUBY
   end
 
+  it 'ignores assignments in the iteration' do
+    expect_no_violations(<<-RUBY)
+      it 'validates users' do
+        [user1, user2, user3].each { |user| array = array.concat(user) }
+      end
+    RUBY
+  end
+
   it 'ignores `each` when there is a negative expectation' do
     expect_no_violations(<<-RUBY)
       it 'validates users' do
