@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
   context 'with configuration' do
     let(:cop_config) do
       {
-        'CustomTransform' => { 'have' => 'has', 'not' => 'does not' },
+        'CustomTransform' => { 'have' => 'has' },
         'IgnoredWords'    => %w[only really]
       }
     end
@@ -37,6 +37,22 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
+    it 'flags a lone should' do
+      expect_violation(<<-RUBY)
+        it 'should' do
+            ^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+    end
+
+    it 'flags a lone should not' do
+      expect_violation(<<-RUBY)
+        it 'should not' do
+            ^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+    end
+
     it 'finds leading its' do
       expect_violation(<<-RUBY)
         it "it does something" do
@@ -59,13 +75,36 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
+    it 'skips descriptions starting with words that begin with `should`' do
+      expect_no_violations(<<-RUBY)
+        it 'shoulders the burden' do
+        end
+      RUBY
+    end
+
     include_examples 'autocorrect',
                      'it "should only have trait" do end',
                      'it "only has trait" do end'
 
     include_examples 'autocorrect',
+                     'it "SHOULDN\'T only have trait" do end',
+                     'it "DOES NOT only have trait" do end'
+
+    include_examples 'autocorrect',
                      'it "it does something" do end',
                      'it "does something" do end'
+
+    include_examples 'autocorrect',
+                     'it "It does something" do end',
+                     'it "does something" do end'
+
+    include_examples 'autocorrect',
+                     'it "should" do end',
+                     'it "" do end'
+
+    include_examples 'autocorrect',
+                     'it "should not" do end',
+                     'it "does not" do end'
   end
 
   context 'when configuration is empty' do

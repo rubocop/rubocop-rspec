@@ -33,8 +33,8 @@ module RuboCop
         MSG_SHOULD = 'Do not use should when describing your tests.'.freeze
         MSG_IT     = "Do not repeat 'it' when describing your tests.".freeze
 
-        SHOULD_PREFIX = 'should'.freeze
-        IT_PREFIX     = 'it '.freeze
+        SHOULD_PREFIX = /\Ashould(?:n't)?\b/i
+        IT_PREFIX     = /\Ait /i
 
         def_node_matcher(
           :it_description,
@@ -43,20 +43,16 @@ module RuboCop
 
         def on_block(node)
           it_description(node) do |description_node, message|
-            text = message.downcase
-
-            if text.start_with?(SHOULD_PREFIX)
+            if message =~ SHOULD_PREFIX
               add_wording_offense(description_node, MSG_SHOULD)
-            elsif text.start_with?(IT_PREFIX)
+            elsif message =~ IT_PREFIX
               add_wording_offense(description_node, MSG_IT)
             end
           end
         end
 
         def autocorrect(range)
-          lambda do |corrector|
-            corrector.replace(range, replacement_text(range))
-          end
+          ->(corrector) { corrector.replace(range, replacement_text(range)) }
         end
 
         private
@@ -77,13 +73,13 @@ module RuboCop
         def replacement_text(range)
           text = range.source
 
-          if text.start_with?('should')
+          if text =~ SHOULD_PREFIX
             RuboCop::RSpec::Wording.new(
               text,
               ignore:  ignored_words,
               replace: custom_transform
             ).rewrite
-          elsif text.start_with?(IT_PREFIX)
+          else
             text.sub(IT_PREFIX, '')
           end
         end

@@ -73,8 +73,9 @@ RSpec/ExampleWording:
   Enabled: true
   CustomTransform:
     be: is
+    BE: IS
     have: has
-    not: does not
+    HAVE: HAS
   IgnoredWords: []
 
 RSpec/ExpectActual:
