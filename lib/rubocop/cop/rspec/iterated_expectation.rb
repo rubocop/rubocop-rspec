@@ -44,7 +44,7 @@ module RuboCop
         end
 
         def only_expectations?(body, arg)
-          body.children.all? { |child| expectation?(child, arg) }
+          body.each_child_node.all? { |child| expectation?(child, arg) }
         end
       end
     end
