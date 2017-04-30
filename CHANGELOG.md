@@ -2,11 +2,13 @@
 
 ## Master (Unreleased)
 
+## 1.15.1 (2017-04-30)
+
 * Fix the handling of various edge cases in the `RSpec/ExampleWording` cop, including one that would cause autocorrect to crash. ([@dgollahon][])
 * Fix `RSpec/IteratedExpectation` crashing when there is an assignment in the iteration. ([@Darhazer][])
 * Fix false positive in `RSpec/SingleArgumentMessageChain` cop when the single argument is a hash. ([@Darhazer][])
 
-## 1.15.0 (2017-05-24)
+## 1.15.0 (2017-03-26)
 
 * Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
 * Fix error when `RSpec/OverwritingSetup` and `RSpec/ScatteredLet` analyzed empty example groups. ([@backus][])
