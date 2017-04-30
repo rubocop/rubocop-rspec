@@ -39,7 +39,7 @@ RSpec/DescribedClass:
   - explicit
 
 RSpec/DescribeMethod:
-  Description: Checks that the second argument to `describe` specifies a method.
+  Description: Checks that describes specify methods.
   Enabled: true
 
 RSpec/DescribeSymbol:

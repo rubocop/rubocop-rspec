@@ -1,7 +1,7 @@
 RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
   subject(:cop) { described_class.new }
 
-  describe 'receive_message_chain' do
+  context 'when receive_message_chain is used' do
     it 'reports single-argument calls' do
       expect_violation(<<-RUBY)
         before do
@@ -88,7 +88,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     end
   end
 
-  describe 'stub_chain' do
+  context 'when stub_chain is used' do
     it 'reports single-argument calls' do
       expect_violation(<<-RUBY)
         before do
