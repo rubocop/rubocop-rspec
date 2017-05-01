@@ -9,14 +9,14 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation, :config do
     end
 
     it 'flags expect(...).to receive' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         expect(foo).to receive(:bar)
         ^^^^^^ Prefer `allow` for setting message expectations.
       RUBY
     end
 
     it 'approves of allow(...).to receive' do
-      expect_no_violations('allow(foo).to receive(:bar)')
+      expect_no_offenses('allow(foo).to receive(:bar)')
     end
 
     include_examples 'detects style', 'allow(foo).to receive(:bar)',  'allow'
@@ -29,14 +29,14 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation, :config do
     end
 
     it 'flags allow(...).to receive' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         allow(foo).to receive(:bar)
         ^^^^^ Prefer `expect` for setting message expectations.
       RUBY
     end
 
     it 'approves of expect(...).to receive' do
-      expect_no_violations('expect(foo).to receive(:bar)')
+      expect_no_offenses('expect(foo).to receive(:bar)')
     end
 
     include_examples 'detects style', 'expect(foo).to receive(:bar)', 'expect'

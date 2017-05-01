@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   subject(:cop) { described_class.new }
 
   it 'complains when subject is stubbed' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'complains when subject is mocked' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'ignores stub within context where subject name changed' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when nested subject uses same name' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -81,7 +81,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'ignores nested stubs when nested subject is anonymous' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -101,7 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when example group does not define subject' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -120,7 +120,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -142,7 +142,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when adjacent context redefines' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -159,7 +159,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags deeply nested subject stubs' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 

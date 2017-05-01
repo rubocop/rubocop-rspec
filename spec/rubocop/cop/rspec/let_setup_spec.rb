@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
   subject(:cop) { described_class.new }
 
   it 'complains when let! is used and not referenced' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         let!(:foo) { bar }
         ^^^^^^^^^^ Do not use `let!` for test setup.
@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
   end
 
   it 'ignores let! when used in `before`' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         let!(:foo) { bar }
 
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
   end
 
   it 'ignores let! when used in example' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         let!(:foo) { bar }
 
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
   end
 
   it 'complains when let! is used and not referenced within nested group' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         context 'when something special happens' do
           let!(:foo) { bar }

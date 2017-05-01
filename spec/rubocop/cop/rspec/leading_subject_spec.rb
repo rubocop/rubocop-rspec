@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   subject(:cop) { described_class.new }
 
   it 'checks subject below let' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:params) { foo }
 
@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   end
 
   it 'checks subject below let!' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let!(:params) { foo }
 
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   end
 
   it 'approves of subject above let' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         context 'blah' do
         end
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   end
 
   it 'handles subjects in contexts' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:params) { foo }
 
@@ -51,7 +51,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   end
 
   it 'handles subjects in tests' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
         # want to avoid false positives

@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   subject(:cop) { described_class.new }
 
   it 'checks for empty line after subject' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add empty line after `subject`.
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'approves empty line after subject' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'handles subjects in tests' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
         # want to avoid false positives
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'handles multiline subject block' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject do
           described_class.new
@@ -49,7 +49,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'handles let being the latest node' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_user }
       end

@@ -2,7 +2,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageChain do
   subject(:cop) { described_class.new }
 
   it 'finds `receive_message_chain`' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       before do
         allow(foo).to receive_message_chain(:one, :two) { :three }
                       ^^^^^^^^^^^^^^^^^^^^^ Avoid stubbing using `receive_message_chain`.
@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageChain do
   end
 
   it 'finds old `stub_chain` syntax' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       before do
         foo.stub_chain(:one, :two).and_return(:three)
             ^^^^^^^^^^ Avoid stubbing using `stub_chain`.

@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     let(:cop_config) { {} }
 
     it 'flags multiple expectations' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe Foo do
           it 'uses expect twice' do
           ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'approves of one expectation per example' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe Foo do
           it 'does something neat' do
             expect(neat).to be(true)
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'counts aggregate_failures as one expectation' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe Foo do
           it 'aggregates failures' do
             aggregate_failures do
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'counts every aggregate_failures as an expectation' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe Foo do
           it 'has multiple aggregate_failures calls' do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
@@ -62,7 +62,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
 
   context 'with meta data' do
     it 'ignores examples with `:aggregate_failures`' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe Foo do
           it 'uses expect twice', :aggregate_failures do
             expect(foo).to eq(bar)
@@ -73,7 +73,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'ignores examples with `aggregate_failures: true`' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe Foo do
           it 'uses expect twice', aggregate_failures: true do
             expect(foo).to eq(bar)
@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'checks examples with `aggregate_failures: false`' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe Foo do
           it 'uses expect twice', aggregate_failures: false do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
@@ -102,7 +102,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'permits two expectations' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe Foo do
           it 'uses expect twice' do
             expect(foo).to eq(bar)
@@ -113,7 +113,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
 
     it 'flags three expectations' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe Foo do
           it 'uses expect three times' do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [3/2].
