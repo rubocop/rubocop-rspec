@@ -16,6 +16,7 @@ require 'rubocop/rspec/example_group'
 require 'rubocop/rspec/example'
 require 'rubocop/rspec/hook'
 require 'rubocop/cop/rspec/cop'
+require 'rubocop/rspec/factory_girl'
 
 RuboCop::RSpec::Inject.defaults!
 
@@ -35,6 +36,7 @@ require 'rubocop/cop/rspec/example_length'
 require 'rubocop/cop/rspec/example_wording'
 require 'rubocop/cop/rspec/expect_actual'
 require 'rubocop/cop/rspec/expect_output'
+require 'rubocop/cop/rspec/factory_girl/dynamic_attribute_defined_statically'
 require 'rubocop/cop/rspec/file_path'
 require 'rubocop/cop/rspec/focus'
 require 'rubocop/cop/rspec/hook_argument'

@@ -19,7 +19,7 @@ module RuboCop
 
       # Decorator of a YARD code object for working with documented rspec cops
       class CodeObject
-        COP_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
+        RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
 
         def initialize(yardoc)
           @yardoc = yardoc
@@ -54,7 +54,7 @@ module RuboCop
         end
 
         def rspec_cop_namespace?
-          documented_constant.start_with?(COP_NAMESPACE)
+          documented_constant.start_with?(RSPEC_NAMESPACE)
         end
 
         def documented_constant

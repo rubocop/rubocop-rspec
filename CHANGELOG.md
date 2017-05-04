@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/FactoryGirl` namespace including the first cop for factories: `FactoryGirl/DynamicAttributeDefinedStatically`. ([@jonatas][])
+
 ## 1.15.1 (2017-04-30)
 
 * Fix the handling of various edge cases in the `RSpec/ExampleWording` cop, including one that would cause autocorrect to crash. ([@dgollahon][])
@@ -218,3 +220,4 @@
 [@cfabianski]: https://github.com/cfabianski
 [@dgollahon]: https://github.com/dgollahon
 [@tsigo]: https://github.com/tsigo
+[@jonatas]: https://github.com/jonatas

@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
-      NAMESPACE = 'RSpec'.freeze
+      NAMESPACES = /^(#{Regexp.union('RSpec', 'FactoryGirl')})/
 
       def initialize(config, descriptions)
         @config       = config
@@ -12,7 +12,7 @@ module RuboCop
       end
 
       def dump
-        YAML.dump(unified_config).gsub(/^#{NAMESPACE}/, "\n#{NAMESPACE}")
+        YAML.dump(unified_config).gsub(NAMESPACES, "\n\\1")
       end
 
       private
@@ -24,7 +24,7 @@ module RuboCop
       end
 
       def cops
-        (descriptions.keys + config.keys).uniq.grep(/\A#{NAMESPACE}/)
+        (descriptions.keys | config.keys).grep(NAMESPACES)
       end
 
       attr_reader :config, :descriptions
