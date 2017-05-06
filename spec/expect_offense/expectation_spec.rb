@@ -1,85 +1,81 @@
-# frozen_string_literal: true
+RSpec.describe ExpectOffense do
+  let(:cop) do
+    stub_const('RuboCop::Cop::Test', Module.new)
 
-RSpec.describe ExpectOffense::Expectation do
-  subject(:expectation) { described_class.new(string) }
+    module RuboCop
+      module Cop
+        module Test
+          class OffendedBySend < RuboCop::Cop::Cop
+            MSG = 'This is offensive'.freeze
 
-  context 'when given a single assertion on class end' do
-    let(:string) do
-      <<-SRC
-        class Foo
+            def on_send(node)
+              add_offense(node, :expression)
+            end
+          end
         end
-        ^^^ The end of `Foo` should be annotated.
-      SRC
+      end
     end
 
-    let(:assertion) { expectation.assertions.first }
-
-    it 'has one assertion' do
-      expect(expectation.assertions.size).to be(1)
-    end
-
-    it 'has an assertion on line 2' do
-      expect(assertion.line_number).to be(2)
-    end
-
-    it 'has an assertion on column range 1-3' do
-      expect(assertion.column_range).to eql(8...11)
-    end
-
-    it 'has an assertion with correct violation message' do
-      expect(assertion.message).to eql('The end of `Foo` should be annotated.')
-    end
-
-    it 'recreates source' do
-      expect(expectation.source).to eql(<<-RUBY)
-        class Foo
-        end
-      RUBY
-    end
+    RuboCop::Cop::Test::OffendedBySend.new
   end
 
-  context 'when given many assertions on two lines' do
-    let(:string) do
-      <<-SRC
-        foo bar
-            ^ Charlie
-           ^^ Charlie
-            ^^ Bronco
-            ^^ Alpha
-        baz
-        ^ Delta
-      SRC
-    end
-
-    let(:assertions) { expectation.assertions.sort }
-
-    it 'has two assertions' do
-      expect(expectation.assertions.size).to be(5)
-    end
-
-    it 'has assertions on lines 1 and 2' do
-      expect(assertions.map(&:line_number)).to eql(
-        [1, 1, 1, 1, 2]
-      )
-    end
-
-    it 'has assertions on column range 1-3' do
-      expect(assertions.map(&:column_range)).to eql(
-        [11...13, 12...13, 12...14, 12...14, 8...9]
-      )
-    end
-
-    it 'has an assertion with correct violation message' do
-      expect(assertions.map(&:message)).to eql(
-        %w[Charlie Charlie Alpha Bronco Delta]
-      )
-    end
-
-    it 'recreates source' do
-      expect(expectation.source).to eql(<<-RUBY)
-        foo bar
-        baz
+  it 'rejects offenses which annotate the wrong parts of the source' do
+    expect do
+      expect_offense(<<-RUBY)
+        a=b
+        ^ This is offensive
       RUBY
-    end
+    end.to raise_error(RSpec::Expectations::ExpectationNotMetError)
   end
+
+  it 'accepts multiple annotations per line' do
+    expect_offense(<<-RUBY)
+    a = b(c)
+        ^^^^ This is offensive
+          ^ This is offensive
+    a
+    d
+    ^ This is offensive
+    RUBY
+  end
+
+  it 'allows lines with multiple annotations to have any order' do
+    expect_offense(<<-RUBY)
+    a = b(c)
+          ^ This is offensive
+        ^^^^ This is offensive
+    a
+    d
+    ^ This is offensive
+    RUBY
+  end
+
+  # rubocop:disable RSpec/ExampleLength
+  it 'reconstructs annotated source to have deterministic ordering' do
+    source1 = <<-SOURCE
+    foo
+    ^ First column
+    ^^ First column longer highlight
+    ^^ Same column different message
+    line_without_annotations
+    another_line
+    ^^^^^^^^^^^^ Separate annotation
+    SOURCE
+
+    source2 = <<-SOURCE
+    foo
+    ^^ First column longer highlight
+    ^^ Same column different message
+    ^ First column
+    line_without_annotations
+    another_line
+    ^^^^^^^^^^^^ Separate annotation
+    SOURCE
+
+    standardized1 = described_class::AnnotatedSource.parse(source1).to_s
+    standardized2 = described_class::AnnotatedSource.parse(source2).to_s
+
+    expect(standardized2).to eql(standardized1).and eql(source1)
+  end
+  # rubocop:enable RSpec/ExampleLength
 end
