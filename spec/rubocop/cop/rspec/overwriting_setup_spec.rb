@@ -2,7 +2,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   subject(:cop) { described_class.new }
 
   it 'finds overwriten `let`' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:a) { b }
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'finds overwriten `subject`' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         subject(:a) { a }
 
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'finds `let!` overwriting `let`' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { b }
         let!(:a) { b }
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'ignores overwriting in different context' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
 

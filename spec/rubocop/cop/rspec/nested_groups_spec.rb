@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
   subject(:cop) { described_class.new(config) }
 
   it 'flags nested contexts' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe MyClass do
         context 'when foo' do
           context 'when bar' do
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
   end
 
   it 'ignores non-spec context methods' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       class MyThingy
         context 'this is not rspec' do
           context 'but it uses contexts' do
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
     let(:cop_config) { { 'Max' => '2' } }
 
     it 'flags two levels of nesting' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe MyClass do
           context 'when foo' do
             context 'when bar' do

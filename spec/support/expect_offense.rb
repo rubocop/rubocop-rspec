@@ -1,26 +1,22 @@
 # frozen_string_literal: true
 
-require 'adamantium'
-require 'concord'
-require 'anima'
-
-module ExpectViolation
+module ExpectOffense
   DEFAULT_FILENAME = 'example_spec.rb'.freeze
 
   # rubocop:disable Metrics/AbcSize
-  def expect_violation(source, filename: DEFAULT_FILENAME)
+  def expect_offense(source, filename: DEFAULT_FILENAME)
     expectation = Expectation.new(source)
     inspect_source(cop, expectation.source, filename)
     offenses = cop.offenses.map(&method(:to_assertion)).sort
 
     if expectation.assertions.empty?
-      raise 'Use expect_no_violations to assert no violations'
+      raise 'Use expect_no_offenses to assert no violations'
     end
 
     expect(offenses).to eq(expectation.assertions.sort)
   end
 
-  def expect_no_violations(source, filename: DEFAULT_FILENAME)
+  def expect_no_offenses(source, filename: DEFAULT_FILENAME)
     inspect_source(cop, source, filename)
 
     expect(cop.offenses.empty?).to be(true)
@@ -39,8 +35,9 @@ module ExpectViolation
   end
 
   class Expectation
-    include Adamantium
-    include Concord.new(:string)
+    def initialize(string)
+      @string = string
+    end
 
     VIOLATION_LINE_PATTERN = /\A *\^/
 
@@ -57,12 +54,14 @@ module ExpectViolation
 
     private
 
+    attr_reader :string
+
     def source_map
-      tokens.reduce(Source::BLANK) do |source, (type, tokens)|
-        tokens.reduce(source, :"add_#{type}")
-      end
+      @source_map ||=
+        tokens.reduce(Source::BLANK) do |source, (type, tokens)|
+          tokens.reduce(source, :"add_#{type}")
+        end
     end
-    memoize :source_map
 
     def tokens
       string.each_line.chunk do |line|
@@ -73,7 +72,9 @@ module ExpectViolation
     end
 
     class Source
-      include Concord.new(:lines)
+      def initialize(lines)
+        @lines = lines
+      end
 
       BLANK = new([].freeze)
 
@@ -93,17 +94,29 @@ module ExpectViolation
         lines.flat_map(&:assertions)
       end
 
+      private
+
+      attr_reader :lines
+
       class Line
         DEFAULTS = { violations: [] }.freeze
 
-        include Anima.new(:text, :number, :violations)
+        attr_reader :text, :number, :violations
 
         def initialize(options)
-          super(DEFAULTS.merge(options))
+          options = DEFAULTS.merge(options)
+
+          @text       = options.fetch(:text)
+          @number     = options.fetch(:number)
+          @violations = options.fetch(:violations)
         end
 
         def add_violation(violation)
-          with(violations: violations + [violation])
+          self.class.new(
+            text:       text,
+            number:     number,
+            violations: violations + [violation]
+          )
         end
 
         def assertions
@@ -118,9 +131,15 @@ module ExpectViolation
     end
 
     class Assertion
-      include Adamantium
-      include Anima.new(:message, :column_range, :line_number)
       include Comparable
+
+      attr_reader :message, :column_range, :line_number
+
+      def initialize(options)
+        @message      = options.fetch(:message)
+        @column_range = options.fetch(:column_range)
+        @line_number  = options.fetch(:line_number)
+      end
 
       def self.parse(text:, line_number:)
         parser = Parser.new(text)
@@ -136,15 +155,14 @@ module ExpectViolation
         to_a <=> other.to_a
       end
 
-      protected
-
       def to_a
         [line_number, column_range.first, column_range.last, message]
       end
 
       class Parser
-        include Adamantium
-        include Concord.new(:text)
+        def initialize(text)
+          @text = text
+        end
 
         COLUMN_PATTERN = /^ *(?<carets>\^\^*) (?<message>.+)$/
 
@@ -158,10 +176,11 @@ module ExpectViolation
 
         private
 
+        attr_reader :text
+
         def match
-          text.match(COLUMN_PATTERN)
+          @match ||= text.match(COLUMN_PATTERN)
         end
-        memoize :match
       end
 
       private_constant(*constants(false))

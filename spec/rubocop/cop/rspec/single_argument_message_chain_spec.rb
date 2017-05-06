@@ -3,7 +3,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
 
   describe 'receive_message_chain' do
     it 'reports single-argument calls' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         before do
           allow(foo).to receive_message_chain(:one) { :two }
                         ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
@@ -18,7 +18,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     )
 
     it 'accepts multi-argument calls' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         before do
           allow(foo).to receive_message_chain(:one, :two) { :three }
         end
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     end
 
     it 'reports single-argument string calls' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         before do
           allow(foo).to receive_message_chain("one") { :two }
                         ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
@@ -41,7 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     )
 
     it 'accepts multi-argument string calls' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         before do
           allow(foo).to receive_message_chain("one.two") { :three }
         end
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
 
     context 'with single-key hash argument' do
       it 'reports an offence' do
-        expect_violation(<<-RUBY)
+        expect_offense(<<-RUBY)
           before do
             allow(foo).to receive_message_chain(bar: 42)
                           ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
 
     context 'with multiple keys hash argument' do
       it "doesn't report an offence" do
-        expect_no_violations(<<-RUBY)
+        expect_no_offenses(<<-RUBY)
           before do
             allow(foo).to receive_message_chain(bar: 42, baz: 42)
           end
@@ -90,7 +90,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
 
   describe 'stub_chain' do
     it 'reports single-argument calls' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         before do
           foo.stub_chain(:one) { :two }
               ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     )
 
     it 'accepts multi-argument calls' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         before do
           foo.stub_chain(:one, :two) { :three }
         end
@@ -113,7 +113,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     end
 
     it 'reports single-argument string calls' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         before do
           foo.stub_chain("one") { :two }
               ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
@@ -128,7 +128,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     )
 
     it 'accepts multi-argument string calls' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         before do
           foo.stub_chain("one.two") { :three }
         end

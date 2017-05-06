@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ExpectViolation::Expectation do
+RSpec.describe ExpectOffense::Expectation do
   subject(:expectation) { described_class.new(string) }
 
   context 'when given a single assertion on class end' do

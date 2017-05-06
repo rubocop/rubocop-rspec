@@ -35,7 +35,7 @@ RSpec.configure do |config|
   # We should take their advice!
   config.raise_on_warning = true
 
-  config.include(ExpectViolation)
+  config.include(ExpectOffense)
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

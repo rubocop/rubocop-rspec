@@ -2,7 +2,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   subject(:cop) { described_class.new }
 
   it 'flags multiple hooks in the same example group' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         before { bar }
         ^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
@@ -13,7 +13,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'flags multiple hooks of the same scope with different symbols' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         before { bar }
         ^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'flags multiple before(:all) hooks in the same example group' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         before(:all) { bar }
         ^^^^^^^^^^^^^^^^^^^^ Do not define multiple hooks in the same example group.
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'does not flag different hooks' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         before { bar }
         after { baz }
@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'does not flag different hook types' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         before { bar }
         before(:all) { baz }
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'does not flag hooks in different example groups' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         before { bar }
 
@@ -69,7 +69,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'does not flag hooks in different shared contexts' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         shared_context 'one' do
           before { bar }
@@ -83,7 +83,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'does not flag similar method names inside of examples' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe Foo do
         before { bar }
 

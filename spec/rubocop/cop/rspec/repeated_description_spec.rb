@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   subject(:cop) { described_class.new }
 
   it 'registers an offense for repeated descriptions' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe 'doing x' do
         it "does x" do
         ^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -18,7 +18,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense for repeated descriptions separated by a context' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe 'doing x' do
         it "does x" do
         ^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'ignores descriptions repeated in a shared context' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe 'doing x' do
         it "does x" do
         end
@@ -52,7 +52,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'ignores repeated descriptions in a nested context' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe 'doing x' do
         it "does x" do
         end
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag tests which do not contain description strings' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       describe 'doing x' do
         it { foo }
         it { bar }

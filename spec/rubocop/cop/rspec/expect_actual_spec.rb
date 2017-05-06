@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   subject(:cop) { described_class.new(config) }
 
   it 'flags numeric literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(123).to eq(bar)
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags boolean literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(true).to eq(bar)
@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags string and symbol literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect("foo").to eq(bar)
@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags literal nil value within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(nil).to eq(bar)
@@ -58,7 +58,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'does not flag dynamic values within expect(...)' do
-    expect_no_violations(<<-'RUBY')
+    expect_no_offenses(<<-'RUBY')
       describe Foo do
         it 'uses expect correctly' do
           expect(foo).to eq(bar)
@@ -70,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags arrays containing only literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect([123]).to eq(bar)
@@ -83,7 +83,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags hashes containing only literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(foo: 1, bar: 2).to eq(bar)
@@ -96,7 +96,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags ranges containing only literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(1..2).to eq(bar)
@@ -109,7 +109,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'flags regexps containing only literal values within expect(...)' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
           expect(/foo|bar/).to eq(bar)
@@ -120,7 +120,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
   end
 
   it 'does not flag complex values with dynamic parts within expect(...)' do
-    expect_no_violations(<<-'RUBY')
+    expect_no_offenses(<<-'RUBY')
       describe Foo do
         it 'uses expect incorrectly' do
           expect.to eq(bar)

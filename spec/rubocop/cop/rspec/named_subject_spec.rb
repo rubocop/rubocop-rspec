@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   subject(:cop) { described_class.new }
 
   it 'checks `it` and `specify` for explicit subject usage' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   end
 
   it 'checks before and after for explicit subject usage' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   end
 
   it 'checks around(:each) for explicit subject usage' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   end
 
   it 'ignores subject when not wrapped inside a test' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       def foo
         it(subject)
       end

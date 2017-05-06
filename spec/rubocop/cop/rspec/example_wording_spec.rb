@@ -10,11 +10,11 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'ignores non-example blocks' do
-      expect_no_violations('foo "should do something" do; end')
+      expect_no_offenses('foo "should do something" do; end')
     end
 
     it 'finds description with `should` at the beginning' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it 'should do something' do
             ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
         end
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'finds description with `Should` at the beginning' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it 'Should do something' do
             ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
         end
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'finds description with `shouldn\'t` at the beginning' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it "shouldn't do something" do
             ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
         end
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'flags a lone should' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it 'should' do
             ^^^^^^ Do not use should when describing your tests.
         end
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'flags a lone should not' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it 'should not' do
             ^^^^^^^^^^ Do not use should when describing your tests.
         end
@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it 'finds leading its' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         it "it does something" do
             ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
         end
@@ -62,21 +62,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     end
 
     it "skips words beginning with 'it'" do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         it 'itemizes items' do
         end
       RUBY
     end
 
     it 'skips descriptions without `should` at the beginning' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         it 'finds no should here' do
         end
       RUBY
     end
 
     it 'skips descriptions starting with words that begin with `should`' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         it 'shoulders the burden' do
         end
       RUBY

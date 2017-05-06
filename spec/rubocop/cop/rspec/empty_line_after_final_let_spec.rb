@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   subject(:cop) { described_class.new }
 
   it 'checks for empty line after last let' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'check for empty line after the last `let!`' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let!(:b) do
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'approves empty line after let' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
     RSpec.describe User do
       let(:a) { a }
       let(:b) { b }
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'ignores empty lines between the lets' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
 
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'handles let in tests' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
         # want to avoid false positives
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'handles multiline let block' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) do
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'handles let being the latest node' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
@@ -88,7 +88,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'handles HEREDOC for let' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:foo) do
           <<-BAR
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   end
 
   it 'handles silly HEREDOC syntax for let' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe 'silly heredoc syntax' do
         let(:foo) { <<-BAR }
         hello

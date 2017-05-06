@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
 
   context 'when using before all' do
     it 'registers an offense' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         before(:all) { do_something }
         ^^^^^^^^^^^^ #{message('before(:all)')}
         before(:context) { do_something }
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
 
   context 'when using after all' do
     it 'registers an offense' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         after(:all) { do_something }
         ^^^^^^^^^^^ #{message('after(:all)')}
         after(:context) { do_something }
@@ -32,7 +32,7 @@ RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
 
   context 'when using before each' do
     it 'does not register an offense' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         before(:each) { do_something }
         before(:example) { do_something }
       RUBY
@@ -41,7 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
 
   context 'when using after each' do
     it 'does not register an offense' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         after(:each) { do_something }
         after(:example) { do_something }
       RUBY

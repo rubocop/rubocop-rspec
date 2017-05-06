@@ -2,7 +2,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
   it 'finds an instance variable inside a describe' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores non-spec blocks' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       not_rspec do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'finds an instance variable inside a shared example' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       shared_examples 'shared example' do
         it { expect(@foo).to be_empty }
                     ^^^^ Use `let` instead of an instance variable.
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores an instance variable without describe' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       @foo = []
       @foo.empty?
     RUBY
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
 
   # Regression test for nevir/rubocop-rspec#115
   it 'ignores instance variables outside of specs' do
-    expect_no_violations(<<-RUBY, filename: 'lib/source_code.rb')
+    expect_no_offenses(<<-RUBY, filename: 'lib/source_code.rb')
       feature do
         @foo = bar
 
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     end
 
     it 'flags an instance variable when it is also assigned' do
-      expect_violation(<<-RUBY)
+      expect_offense(<<-RUBY)
         describe MyClass do
           before { @foo = [] }
           it { expect(@foo).to be_empty }
@@ -65,7 +65,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     end
 
     it 'ignores an instance variable when it is not assigned' do
-      expect_no_violations(<<-RUBY)
+      expect_no_offenses(<<-RUBY)
         describe MyClass do
           it { expect(@foo).to be_empty }
         end

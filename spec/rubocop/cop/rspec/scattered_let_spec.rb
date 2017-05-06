@@ -2,7 +2,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   subject(:cop) { described_class.new }
 
   it 'flags `let` after the first different node ' do
-    expect_violation(<<-RUBY)
+    expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         subject { User }
@@ -13,7 +13,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'doesnt flag `let!` in the middle of multiple `let`s' do
-    expect_no_violations(<<-RUBY)
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { User }
 
