@@ -1,189 +1,168 @@
 # frozen_string_literal: true
 
+# Mixin for `expect_offense` and `expect_no_offenses`
+#
+# This mixin makes it easier to specify strict offense expectations
+# and a declarative and visual fashion. Just type out the code that
+# should generate a offense, annotate code by writing '^'s
+# underneath each character that should be highlighted, and follow
+# the carets with a string (separated by a space) that is the
+# message of the offense. You can include multiple offenses in
+# one code snippet.
+#
+# @example Usage
+#
+#     expect_offense(<<-RUBY.strip_indent)
+#       a do
+#         b
+#       end.c
+#       ^^^^^ Avoid chaining a method call on a do...end block.
+#     RUBY
+#
+# @example Equivalent assertion without `expect_offense`
+#
+#     inspect_source(cop, <<-RUBY.strip_indent)
+#       a do
+#         b
+#       end.c
+#     RUBY
+#
+#     expect(cop.offenses.size).to be(1)
+#
+#     offense = cop.offenses.first
+#     expect(offense.line).to be(3)
+#     expect(offense.column_range).to be(0...5)
+#     expect(offense.message).to eql(
+#       'Avoid chaining a method call on a do...end block.'
+#     )
+#
+# If you do not want to specify an offense then use the
+# companion method `expect_no_offenses`. This method is a much
+# simpler assertion since it just inspects the source and checks
+# that there were no offenses. The `expect_offenses` method has
+# to do more work by parsing out lines that contain carets.
 module ExpectOffense
   DEFAULT_FILENAME = 'example_spec.rb'.freeze
 
-  # rubocop:disable Metrics/AbcSize
-  def expect_offense(source, filename: DEFAULT_FILENAME)
-    expectation = Expectation.new(source)
-    inspect_source(cop, expectation.source, filename)
-    offenses = cop.offenses.map(&method(:to_assertion)).sort
+  def expect_offense(source, filename = DEFAULT_FILENAME)
+    expected_annotations = AnnotatedSource.parse(source)
 
-    if expectation.assertions.empty?
-      raise 'Use expect_no_offenses to assert no violations'
+    unless expected_annotations.annotations?
+      raise 'Use expect_no_offenses to assert that no offenses are found'
     end
 
-    expect(offenses).to eq(expectation.assertions.sort)
+    inspect_source(cop, expected_annotations.plain_source, filename)
+    actual_annotations =
+      expected_annotations.with_offense_annotations(cop.offenses)
+    expect(expected_annotations.to_s).to eq(actual_annotations.to_s)
   end
 
-  def expect_no_offenses(source, filename: DEFAULT_FILENAME)
+  def expect_no_offenses(source, filename = DEFAULT_FILENAME)
     inspect_source(cop, source, filename)
 
-    expect(cop.offenses.empty?).to be(true)
+    expect(cop.offenses).to be_empty
   end
 
-  private
+  # Parsed representation of code annotated with the `^^^ Message` style
+  class AnnotatedSource
+    ANNOTATION_PATTERN = /\A\s*\^+ /
 
-  def to_assertion(offense)
-    highlight = offense.highlighted_area
+    # @param annotated_source [String] string passed to the matchers
+    #
+    # Separates annotation lines from source lines. Tracks the real
+    # source line number that each annotation corresponds to.
+    #
+    # @return [AnnotatedSource]
+    def self.parse(annotated_source)
+      source      = []
+      annotations = []
 
-    Expectation::Assertion.new(
-      message:      offense.message,
-      line_number:  offense.location.first_line,
-      column_range: highlight.begin_pos...highlight.end_pos
-    )
-  end
+      annotated_source.each_line do |source_line|
+        if source_line =~ ANNOTATION_PATTERN
+          annotations << [source.size, source_line]
+        else
+          source << source_line
+        end
+      end
 
-  class Expectation
-    def initialize(string)
-      @string = string
+      new(source, annotations)
     end
 
-    VIOLATION_LINE_PATTERN = /\A *\^/
-
-    VIOLATION = :violation
-    SOURCE    = :line
-
-    def source
-      source_map.to_s
+    # @param lines [Array<String>]
+    # @param annotations [Array<(Integer, String)>]
+    #   each entry is the annotated line number and the annotation text
+    #
+    # @note annotations are sorted so that reconstructing the annotation
+    #   text via {#to_s} is deterministic
+    def initialize(lines, annotations)
+      @lines       = lines.freeze
+      @annotations = annotations.sort.freeze
     end
 
-    def assertions
-      source_map.assertions
+    # Construct annotated source string (like what we parse)
+    #
+    # Reconstruct a deterministic annotated source string. This is
+    # useful for eliminating semantically irrelevant annotation
+    # ordering differences.
+    #
+    # @example standardization
+    #
+    #     source1 = AnnotatedSource.parse(<<-RUBY)
+    #     line1
+    #     ^ Annotation 1
+    #      ^^ Annotation 2
+    #     RUBY
+    #
+    #     source2 = AnnotatedSource.parse(<<-RUBY)
+    #     line1
+    #      ^^ Annotation 2
+    #     ^ Annotation 1
+    #     RUBY
+    #
+    #     source1.to_s == source2.to_s # => true
+    #
+    # @return [String]
+    def to_s
+      reconstructed = lines.dup
+
+      annotations.reverse_each do |line_number, annotation|
+        reconstructed.insert(line_number, annotation)
+      end
+
+      reconstructed.join
+    end
+
+    # Check if annotations were provided
+    def annotations?
+      annotations.any?
+    end
+
+    # Return the plain source code without annotations
+    #
+    # @return [String]
+    def plain_source
+      lines.join
+    end
+
+    # Annotate the source code with the RuboCop offenses provided
+    #
+    # @param offenses [Array<RuboCop::Cop::Offense>]
+    #
+    # @return [self]
+    def with_offense_annotations(offenses)
+      offense_annotations =
+        offenses.map do |offense|
+          indent     = ' ' * offense.column
+          carets     = '^' * offense.column_length
+
+          [offense.line, "#{indent}#{carets} #{offense.message}\n"]
+        end
+
+      self.class.new(lines, offense_annotations)
     end
 
     private
 
-    attr_reader :string
-
-    def source_map
-      @source_map ||=
-        tokens.reduce(Source::BLANK) do |source, (type, tokens)|
-          tokens.reduce(source, :"add_#{type}")
-        end
-    end
-
-    def tokens
-      string.each_line.chunk do |line|
-        next SOURCE unless line =~ VIOLATION_LINE_PATTERN
-
-        VIOLATION
-      end
-    end
-
-    class Source
-      def initialize(lines)
-        @lines = lines
-      end
-
-      BLANK = new([].freeze)
-
-      def add_line(line)
-        self.class.new(lines + [Line.new(text: line, number: lines.size + 1)])
-      end
-
-      def add_violation(violation)
-        self.class.new([*lines[0...-1], lines.last.add_violation(violation)])
-      end
-
-      def to_s
-        lines.map(&:text).join
-      end
-
-      def assertions
-        lines.flat_map(&:assertions)
-      end
-
-      private
-
-      attr_reader :lines
-
-      class Line
-        DEFAULTS = { violations: [] }.freeze
-
-        attr_reader :text, :number, :violations
-
-        def initialize(options)
-          options = DEFAULTS.merge(options)
-
-          @text       = options.fetch(:text)
-          @number     = options.fetch(:number)
-          @violations = options.fetch(:violations)
-        end
-
-        def add_violation(violation)
-          self.class.new(
-            text:       text,
-            number:     number,
-            violations: violations + [violation]
-          )
-        end
-
-        def assertions
-          violations.map do |violation|
-            Assertion.parse(
-              text:        violation,
-              line_number: number
-            )
-          end
-        end
-      end
-    end
-
-    class Assertion
-      include Comparable
-
-      attr_reader :message, :column_range, :line_number
-
-      def initialize(options)
-        @message      = options.fetch(:message)
-        @column_range = options.fetch(:column_range)
-        @line_number  = options.fetch(:line_number)
-      end
-
-      def self.parse(text:, line_number:)
-        parser = Parser.new(text)
-
-        new(
-          message:      parser.message,
-          column_range: parser.column_range,
-          line_number:  line_number
-        )
-      end
-
-      def <=>(other)
-        to_a <=> other.to_a
-      end
-
-      def to_a
-        [line_number, column_range.first, column_range.last, message]
-      end
-
-      class Parser
-        def initialize(text)
-          @text = text
-        end
-
-        COLUMN_PATTERN = /^ *(?<carets>\^\^*) (?<message>.+)$/
-
-        def column_range
-          Range.new(*match.offset(:carets), true)
-        end
-
-        def message
-          match[:message]
-        end
-
-        private
-
-        attr_reader :text
-
-        def match
-          @match ||= text.match(COLUMN_PATTERN)
-        end
-      end
-
-      private_constant(*constants(false))
-    end
+    attr_reader :lines, :annotations
   end
 end

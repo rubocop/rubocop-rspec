@@ -38,14 +38,14 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
 
   context 'when the source path ends with `_spec.rb`' do
     it 'registers an offense' do
-      expect_offense(<<-RUBY, filename: 'foo_spec.rb')
+      expect_offense(<<-RUBY, 'foo_spec.rb')
         foo(1)
         ^^^^^^ I flag everything
       RUBY
     end
 
     it 'ignores the file if it is ignored' do
-      expect_no_offenses(<<-RUBY, filename: 'bar_spec.rb')
+      expect_no_offenses(<<-RUBY, 'bar_spec.rb')
         foo(1)
       RUBY
     end
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
 
   context 'when the source path contains `/spec/`' do
     it 'registers an offense' do
-      expect_offense(<<-RUBY, filename: '/spec/support/thing.rb')
+      expect_offense(<<-RUBY, '/spec/support/thing.rb')
         foo(1)
         ^^^^^^ I flag everything
       RUBY
@@ -62,7 +62,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
 
   context 'when the source path starts with `spec/`' do
     it 'registers an offense' do
-      expect_offense(<<-RUBY, filename: 'spec/support/thing.rb')
+      expect_offense(<<-RUBY, 'spec/support/thing.rb')
         foo(1)
         ^^^^^^ I flag everything
       RUBY
@@ -71,13 +71,13 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
 
   context 'when the file is a source file without "spec" in the name' do
     it 'ignores the source when the path is not a spec file' do
-      expect_no_offenses(<<-RUBY, filename: 'foo.rb')
+      expect_no_offenses(<<-RUBY, 'foo.rb')
         foo(1)
       RUBY
     end
 
     it 'ignores the source when the path is not a specified pattern' do
-      expect_no_offenses(<<-RUBY, filename: 'foo_test.rb')
+      expect_no_offenses(<<-RUBY, 'foo_test.rb')
         foo(1)
       RUBY
     end
@@ -89,7 +89,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
     end
 
     it 'registers offenses when the path matches a custom specified pattern' do
-      expect_offense(<<-RUBY, filename: 'foo_test.rb')
+      expect_offense(<<-RUBY, 'foo_test.rb')
         foo(1)
         ^^^^^^ I flag everything
       RUBY

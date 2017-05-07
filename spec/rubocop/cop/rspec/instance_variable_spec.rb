@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
 
   # Regression test for nevir/rubocop-rspec#115
   it 'ignores instance variables outside of specs' do
-    expect_no_offenses(<<-RUBY, filename: 'lib/source_code.rb')
+    expect_no_offenses(<<-RUBY, 'lib/source_code.rb')
       feature do
         @foo = bar
 
