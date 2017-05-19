@@ -21,3 +21,6 @@ pkg
 
 .ruby-gemset
 .ruby-version
+
+# mac os
+.DS_Store
