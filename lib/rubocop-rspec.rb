@@ -16,11 +16,14 @@ require 'rubocop/rspec/example_group'
 require 'rubocop/rspec/example'
 require 'rubocop/rspec/hook'
 require 'rubocop/cop/rspec/cop'
+require 'rubocop/rspec/align_let_brace'
 require 'rubocop/rspec/factory_girl'
 
 RuboCop::RSpec::Inject.defaults!
 
 # cops
+require 'rubocop/cop/rspec/align_left_let_brace'
+require 'rubocop/cop/rspec/align_right_let_brace'
 require 'rubocop/cop/rspec/any_instance'
 require 'rubocop/cop/rspec/around_block'
 require 'rubocop/cop/rspec/be_eql'
@@ -64,3 +67,18 @@ require 'rubocop/cop/rspec/shared_context'
 require 'rubocop/cop/rspec/single_argument_message_chain'
 require 'rubocop/cop/rspec/subject_stub'
 require 'rubocop/cop/rspec/verified_doubles'
+
+# We have to register our autocorrect incompatibilies in RuboCop's cops as well
+# so we do not hit infinite loops
+
+module RuboCop
+  module Cop
+    module Layout
+      class ExtraSpacing # rubocop:disable Style/Documentation
+        def self.autocorrect_incompatible_with
+          [RSpec::AlignLeftLetBrace, RSpec::AlignRightLetBrace]
+        end
+      end
+    end
+  end
+end
