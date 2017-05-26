@@ -21,7 +21,7 @@ module RuboCop
       #     end
       #   end
       class AnyInstance < Cop
-        MSG = 'Avoid stubbing using `%{method}`.'.freeze
+        MSG = 'Avoid stubbing using `%<method>s`.'.freeze
 
         def_node_matcher :disallowed_stub, <<-PATTERN
           (send _ ${:any_instance :allow_any_instance_of :expect_any_instance_of} ...)
