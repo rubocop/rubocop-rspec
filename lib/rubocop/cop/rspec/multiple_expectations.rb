@@ -48,7 +48,7 @@ module RuboCop
       class MultipleExpectations < Cop
         include ConfigurableMax
 
-        MSG = 'Example has too many expectations [%{total}/%{max}].'.freeze
+        MSG = 'Example has too many expectations [%<total>d/%<max>d].'.freeze
 
         def_node_search :with_aggregated_failures?, '(sym :aggregate_failures)'
         def_node_search :disabled_aggregated_failures?, <<-PATTERN
