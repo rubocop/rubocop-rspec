@@ -17,6 +17,14 @@ RSpec/AroundBlock:
   Description: Checks that around blocks actually run the test.
   Enabled: true
 
+RSpec/AlignLeftLetBrace:
+  Description: Checks that left braces for adjacent single line lets are aligned.
+  Enabled: false
+
+RSpec/AlignRightLetBrace:
+  Description: Checks that right braces for adjacent single line lets are aligned.
+  Enabled: false
+
 RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
