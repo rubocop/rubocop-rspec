@@ -15,10 +15,10 @@ Style/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
 RSpec/ExampleLength:
