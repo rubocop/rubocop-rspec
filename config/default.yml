@@ -150,6 +150,12 @@ RSpec/LeadingSubject:
   Description: Checks for `subject` definitions that come after `let` definitions.
   Enabled: true
 
+RSpec/LeakedConst:
+  Description: Check that constants are not created in tests without cleanup.
+  Enabled: true
+  Exclude:
+  - spec/support/**/*.rb
+
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.
   Enabled: true
