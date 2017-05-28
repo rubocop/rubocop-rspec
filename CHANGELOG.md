@@ -5,6 +5,7 @@
 * Add `RSpec/FactoryGirl` namespace including the first cop for factories: `FactoryGirl/DynamicAttributeDefinedStatically`. ([@jonatas][])
 * Add disabled by default `RSpec/AlignLeftLetBrace`. ([@backus][])
 * Add disabled by default `RSpec/AlignRightLetBrace`. ([@backus][])
+* Add `RSpec/LetBeforeExamples` cop. ([@Darhazer][])
 
 ## 1.15.1 (2017-04-30)
 
@@ -12,7 +13,7 @@
 * Fix `RSpec/IteratedExpectation` crashing when there is an assignment in the iteration. ([@Darhazer][])
 * Fix false positive in `RSpec/SingleArgumentMessageChain` cop when the single argument is a hash. ([@Darhazer][])
 
-## 1.15.0 (2017-03-26)
+## 1.15.0 (2017-03-24)
 
 * Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
 * Fix error when `RSpec/OverwritingSetup` and `RSpec/ScatteredLet` analyzed empty example groups. ([@backus][])
