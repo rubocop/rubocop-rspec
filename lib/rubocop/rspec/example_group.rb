@@ -20,6 +20,12 @@ module RuboCop
         (block {$(send nil #{Hooks::ALL.node_pattern_union} ...)} ...)
       PATTERN
 
+      def_node_matcher :subject, Subject::ALL.block_pattern
+
+      def subjects
+        subjects_in_scope(node)
+      end
+
       def examples
         examples_in_scope(node).map(&Example.public_method(:new))
       end
@@ -29,6 +35,22 @@ module RuboCop
       end
 
       private
+
+      def subjects_in_scope(node)
+        node.each_child_node.flat_map do |child|
+          find_subjects(child)
+        end
+      end
+
+      def find_subjects(node)
+        return [] if scope_change?(node)
+
+        if subject(node)
+          [node]
+        else
+          subjects_in_scope(node)
+        end
+      end
 
       def hooks_in_scope(node)
         node.each_child_node.flat_map do |child|
