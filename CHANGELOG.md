@@ -6,6 +6,7 @@
 * Add disabled by default `RSpec/AlignLeftLetBrace`. ([@backus][])
 * Add disabled by default `RSpec/AlignRightLetBrace`. ([@backus][])
 * Add `RSpec/LetBeforeExamples` cop. ([@Darhazer][])
+* Add `RSpec/MultipleSubjects` cop. ([@backus][])
 
 ## 1.15.1 (2017-04-30)
 

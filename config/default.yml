@@ -187,6 +187,10 @@ RSpec/MultipleExpectations:
   Enabled: true
   Max: 1
 
+RSpec/MultipleSubjects:
+  Description: Checks if an example group defines `subject` multiple times.
+  Enabled: true
+
 RSpec/NamedSubject:
   Description: Checks for explicitly referenced test subjects.
   Enabled: true
