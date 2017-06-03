@@ -43,3 +43,13 @@ steps:
     label: ":scroll: Configuration"
     agents:
       - queue=elastic
+
+  - wait # Wait so we don't write this Gemfile.lock before specs run
+
+  - command: >
+      echo "gem 'rubocop', git: 'https://github.com/bbatsov/rubocop.git'" > Gemfile.local;
+      build/run 2.3.1 internal_investigation
+
+    label: ":rubocop: RuboCop (master)"
+    agents:
+      - queue=elastic
