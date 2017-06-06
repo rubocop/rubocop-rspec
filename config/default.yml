@@ -220,6 +220,14 @@ RSpec/RepeatedExample:
   Enabled: true
   Description: Check for repeated examples within example groups.
 
+RSpec/ReturnFromStub:
+  Enabled: true
+  Description: Checks for consistent style of stub's return setting.
+  EnforcedStyle: and_return
+  SupportedStyles:
+  - and_return
+  - block
+
 RSpec/SharedContext:
   Description: Checks for proper shared_context and shared_examples usage.
   Enabled: true
