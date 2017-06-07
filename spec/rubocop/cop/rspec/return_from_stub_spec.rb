@@ -52,6 +52,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         end
       RUBY
     end
+
+    include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar) { 42 }',
+                     'allow(Foo).to receive(:bar).and_return(42)'
   end
 
   context 'with EnforcedStyle `block`' do
@@ -81,5 +85,9 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         end
       RUBY
     end
+
+    include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar).and_return(42)',
+                     'allow(Foo).to receive(:bar) { 42 }'
   end
 end
