@@ -12,22 +12,27 @@ AllCops:
 RSpec/AnyInstance:
   Description: Check that instances are not being stubbed globally.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
 
 RSpec/AroundBlock:
   Description: Checks that around blocks actually run the test.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
   Enabled: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace
 
 RSpec/AlignRightLetBrace:
   Description: Checks that right braces for adjacent single line lets are aligned.
   Enabled: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace
 
 RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
 RSpec/BeforeAfterAll:
   Description: Check that before/after(:all) isn't being used.
@@ -36,10 +41,12 @@ RSpec/BeforeAfterAll:
   - spec/spec_helper.rb
   - spec/rails_helper.rb
   - spec/support/**/*.rb
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
 RSpec/DescribedClass:
   Description: Checks that tests use `described_class`.
@@ -49,36 +56,44 @@ RSpec/DescribedClass:
   SupportedStyles:
   - described_class
   - explicit
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
 RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod
 
 RSpec/DescribeSymbol:
   Description: Avoid describing symbols.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
 
 RSpec/IteratedExpectation:
   Description: Check that `all` matcher is used instead of iterating over an array.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
 
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
   CustomIncludeMethods: []
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
 RSpec/EmptyLineAfterFinalLet:
   Description: Checks if there is an empty line after the last let block.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet
 
 RSpec/EmptyLineAfterSubject:
   Description: Checks if there is an empty line after subject block.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
   Max: 5
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength
 
 RSpec/ExampleWording:
   Description: Checks for common mistakes in example descriptions.
@@ -89,16 +104,19 @@ RSpec/ExampleWording:
     have: has
     HAVE: HAS
   IgnoredWords: []
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
 
 RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
   Exclude:
   - spec/routing/**/*
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
 RSpec/ExpectOutput:
   Description: Checks for opportunities to use `expect { ... }.to output`.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent with the test subject.
@@ -107,10 +125,12 @@ RSpec/FilePath:
     RuboCop: rubocop
     RSpec: rspec
   IgnoreMethods: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:
   Description: Checks if examples are focused.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
 RSpec/HookArgument:
   Description: Checks the arguments passed to `before`, `around`, and `after`.
@@ -120,6 +140,7 @@ RSpec/HookArgument:
   - implicit
   - each
   - example
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
 RSpec/ImplicitExpect:
   Description: Check that a consistent implicit expectation style is used.
@@ -128,15 +149,18 @@ RSpec/ImplicitExpect:
   SupportedStyles:
   - is_expected
   - should
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
 RSpec/InstanceSpy:
   Description: Checks for `instance_double` used with `have_received`.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy
 
 RSpec/InstanceVariable:
   Description: Checks for instance variable usage in specs.
   AssignmentOnly: false
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
 RSpec/ItBehavesLike:
   Description: Checks that only one `it_behaves_like` style is used.
@@ -145,22 +169,27 @@ RSpec/ItBehavesLike:
   SupportedStyles:
   - it_behaves_like
   - it_should_behave_like
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
 
 RSpec/LeadingSubject:
   Description: Checks for `subject` definitions that come after `let` definitions.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
 RSpec/LetBeforeExamples:
   Description: Checks for `let` definitions that come after an example.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples
 
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain
 
 RSpec/MessageExpectation:
   Description: Checks for consistent message expectation style.
@@ -169,6 +198,7 @@ RSpec/MessageExpectation:
   SupportedStyles:
   - allow
   - expect
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation
 
 RSpec/MessageSpies:
   Description: Checks that message expectations are set using spies.
@@ -177,28 +207,34 @@ RSpec/MessageSpies:
   SupportedStyles:
   - have_received
   - receive
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
 
 RSpec/MultipleDescribes:
   Description: Checks for multiple top level describes.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes
 
 RSpec/MultipleExpectations:
   Description: Checks if examples contain too many `expect` calls.
   Enabled: true
   Max: 1
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 
 RSpec/MultipleSubjects:
   Description: Checks if an example group defines `subject` multiple times.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects
 
 RSpec/NamedSubject:
   Description: Checks for explicitly referenced test subjects.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
   Max: 3
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
 
 RSpec/NotToNot:
   Description: Checks for consistent method usage for negating expectations.
@@ -207,18 +243,22 @@ RSpec/NotToNot:
   - not_to
   - to_not
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
 RSpec/OverwritingSetup:
   Enabled: true
   Description: Checks if there is a let/subject that overwrites an existing one.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup
 
 RSpec/RepeatedDescription:
   Enabled: true
   Description: Check for repeated description strings in example groups.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription
 
 RSpec/RepeatedExample:
   Enabled: true
   Description: Check for repeated examples within example groups.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
 RSpec/ReturnFromStub:
   Enabled: true
@@ -227,32 +267,40 @@ RSpec/ReturnFromStub:
   SupportedStyles:
   - and_return
   - block
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
 
 RSpec/SharedContext:
   Description: Checks for proper shared_context and shared_examples usage.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
 RSpec/ScatteredLet:
   Description: Checks for let scattered across the example group.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
 
 RSpec/ScatteredSetup:
   Description: Checks for setup scattered across multiple hooks in an example group.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
   IgnoreSymbolicNames: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 
 FactoryGirl/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryGirl/DynamicAttributeDefinedStatically

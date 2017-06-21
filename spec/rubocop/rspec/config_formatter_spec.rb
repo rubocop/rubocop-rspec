@@ -39,10 +39,12 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       |  Config: 2
       |  Enabled: true
       |  Description: Blah
+      |  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
       |
       |RSpec/Bar:
       |  Enabled: true
       |  Description: Wow
+      |  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
     YAML
   end
 end
