@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
     let(:cop_config) { { 'MaxNesting' => '1' } }
 
     it 'emits a deprecation warning' do
-      expect { inspect_source(cop, 'describe(Foo) { }', 'foo_spec.rb') }
+      expect { inspect_source('describe(Foo) { }', 'foo_spec.rb') }
         .to output(
           'Configuration key `MaxNesting` for RSpec/NestedGroups is ' \
           "deprecated in favor of `Max`. Please use that instead.\n"

@@ -140,7 +140,6 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
 
     it 'ignores rspec-rails routing specs' do
       inspect_source(
-        cop,
         'expect(get: "/foo").to be_routeable',
         'spec/routing/foo_spec.rb'
       )
