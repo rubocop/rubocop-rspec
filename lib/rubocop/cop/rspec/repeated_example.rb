@@ -40,7 +40,7 @@ module RuboCop
           key_parts = [example.metadata, example.implementation]
 
           if example.definition.method_name == :its
-            key_parts << example.definition.method_args
+            key_parts << example.definition.arguments
           end
 
           key_parts
