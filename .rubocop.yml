@@ -11,7 +11,7 @@ Metrics/BlockLength:
     - '**/*.rake'
     - spec/**/*.rb
 
-Style/FileName:
+Naming/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
@@ -20,6 +20,15 @@ Layout/MultilineMethodCallIndentation:
 
 Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
+
+Lint/BooleanSymbol:
+  Exclude:
+    - lib/rubocop/cop/rspec/expect_actual.rb
+    - lib/rubocop/cop/rspec/focus.rb
+
+Lint/InterpolationCheck:
+  Exclude:
+    - spec/**/*.rb
 
 RSpec/ExampleLength:
   Max: 19

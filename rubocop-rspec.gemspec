@@ -1,15 +1,13 @@
-# encoding: utf-8
-
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require 'rubocop/rspec/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'rubocop-rspec'
   spec.summary = 'Code style checking for RSpec files'
-  spec.description = <<-end_description
+  spec.description = <<-DESCRIPTION
     Code style checking for RSpec files.
     A plugin for the RuboCop code style enforcing & linting tool.
-  end_description
+  DESCRIPTION
   spec.homepage = 'http://github.com/backus/rubocop-rspec'
   spec.authors = ['John Backus', 'Ian MacLeod', 'Nils Gemeinhardt']
   spec.email = [
