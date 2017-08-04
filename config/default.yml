@@ -123,6 +123,11 @@ RSpec/ExpectOutput:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
+RSpec/FeatureMethods:
+  Description: Checks for consistent method usage in feature specs.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FeatureMethods
+
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent with the test subject.
   Enabled: true

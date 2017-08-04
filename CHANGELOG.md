@@ -17,6 +17,7 @@
 * Add `RSpec/ExpectInHook` cop. ([@pocke][])
 * `RSpec/MultipleExpectations` now detects usage of expect_any_instance_of. ([@Darhazer][])
 * `RSpec/MultipleExpectations` now detects usage of is_expected. ([@bmorrall][])
+* Add `RSpec/FeatureMethods` cop. ([@tsigo][])
 
 ## 1.15.1 (2017-04-30)
 
