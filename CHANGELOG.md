@@ -9,6 +9,7 @@
 * Add `RSpec/MultipleSubjects` cop. ([@backus][])
 * Add `RSpec/ReturnFromStub` cop. ([@Darhazer][])
 * Add `RSpec/VoidExpect` cop. ([@pocke][])
+* Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
 
 ## 1.15.1 (2017-04-30)
 
