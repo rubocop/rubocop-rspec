@@ -8,6 +8,7 @@
 * Add `RSpec/LetBeforeExamples` cop. ([@Darhazer][])
 * Add `RSpec/MultipleSubjects` cop. ([@backus][])
 * Add `RSpec/ReturnFromStub` cop. ([@Darhazer][])
+* Add `RSpec/VoidExpect` cop. ([@pocke][])
 
 ## 1.15.1 (2017-04-30)
 
@@ -226,3 +227,4 @@
 [@dgollahon]: https://github.com/dgollahon
 [@tsigo]: https://github.com/tsigo
 [@jonatas]: https://github.com/jonatas
+[@pocke]: https://github.com/pocke

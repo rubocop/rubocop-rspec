@@ -70,6 +70,7 @@ require 'rubocop/cop/rspec/shared_context'
 require 'rubocop/cop/rspec/single_argument_message_chain'
 require 'rubocop/cop/rspec/subject_stub'
 require 'rubocop/cop/rspec/verified_doubles'
+require 'rubocop/cop/rspec/void_expect'
 
 # We have to register our autocorrect incompatibilies in RuboCop's cops as well
 # so we do not hit infinite loops
