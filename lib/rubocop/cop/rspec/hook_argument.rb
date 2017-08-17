@@ -66,10 +66,10 @@ module RuboCop
         HOOKS = Hooks::ALL.node_pattern_union.freeze
 
         def_node_matcher :scoped_hook, <<-PATTERN
-          (block $(send nil #{HOOKS} (sym ${:each :example})) ...)
+          (block $(send _ #{HOOKS} (sym ${:each :example})) ...)
         PATTERN
 
-        def_node_matcher :unscoped_hook, "(block $(send nil #{HOOKS}) ...)"
+        def_node_matcher :unscoped_hook, "(block $(send _ #{HOOKS}) ...)"
 
         def on_block(node)
           hook(node) do |method_send, scope_name|
@@ -82,11 +82,10 @@ module RuboCop
         end
 
         def autocorrect(node)
-          scope = "(#{style.inspect})" unless implicit_style?
-          hook  = "#{node.method_name}#{scope}"
+          scope = implicit_style? ? '' : "(#{style.inspect})"
 
           lambda do |corrector|
-            corrector.replace(node.loc.expression, hook)
+            corrector.replace(argument_range(node), scope)
           end
         end
 
@@ -113,6 +112,13 @@ module RuboCop
 
         def hook(node, &block)
           scoped_hook(node, &block) || unscoped_hook(node, &block)
+        end
+
+        def argument_range(send_node)
+          range_between(
+            send_node.loc.selector.end_pos,
+            send_node.loc.expression.end_pos
+          )
         end
       end
     end
