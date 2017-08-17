@@ -12,6 +12,7 @@
 * Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
 * Change HookArgument cop to detect when hook has a receiver. ([@pocke][])
 * Add `RSpec/PredicateMatcher` cop. ([@pocke][])
+* Add `RSpec/ExpectInHook` cop. ([@pocke][])
 
 ## 1.15.1 (2017-04-30)
 

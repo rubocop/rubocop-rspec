@@ -113,6 +113,11 @@ RSpec/ExpectActual:
   - spec/routing/**/*
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
+RSpec/ExpectInHook:
+  Enabled: true
+  Description: Do not use `expect` in hooks such as `before`.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook
+
 RSpec/ExpectOutput:
   Description: Checks for opportunities to use `expect { ... }.to output`.
   Enabled: true
