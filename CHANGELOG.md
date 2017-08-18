@@ -9,6 +9,7 @@
 * Add `RSpec/MultipleSubjects` cop. ([@backus][])
 * Add `RSpec/ReturnFromStub` cop. ([@Darhazer][])
 * Add `RSpec/VoidExpect` cop. ([@pocke][])
+* Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
 * Change HookArgument cop to detect when hook has a receiver. ([@pocke][])
 * Add `RSpec/PredicateMatcher` cop. ([@pocke][])
 
