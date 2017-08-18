@@ -154,7 +154,7 @@ module RuboCop
         def_node_matcher :predicate_matcher_block?, <<-PATTERN
           (block
             (send
-              (send nil :expect, $!nil)
+              (send nil :expect $!nil)
               {:to :not_to :to_not}
               $(send nil #predicate_matcher_name?))
             ...)
