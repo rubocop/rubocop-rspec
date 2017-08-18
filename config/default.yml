@@ -294,6 +294,16 @@ RSpec/SubjectStub:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 
+RSpec/PredicateMatcher:
+  Description: Prefer using predicate matcher over using predicate method directly.
+  Enabled: true
+  Strict: true
+  EnforcedStyle: inflected
+  SupportedStyles:
+  - inflected
+  - explicit
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
+
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
