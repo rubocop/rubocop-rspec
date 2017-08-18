@@ -10,6 +10,8 @@
 * Add `RSpec/ReturnFromStub` cop. ([@Darhazer][])
 * Add `RSpec/VoidExpect` cop. ([@pocke][])
 * Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
+* Change HookArgument cop to detect when hook has a receiver. ([@pocke][])
+* Add `RSpec/PredicateMatcher` cop. ([@pocke][])
 
 ## 1.15.1 (2017-04-30)
 
