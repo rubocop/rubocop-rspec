@@ -116,7 +116,8 @@ module RuboCop
         Examples::ALL      +
         Hooks::ALL         +
         Helpers::ALL       +
-        Subject::ALL
+        Subject::ALL       +
+        Expectations::ALL
     end
   end
 end
