@@ -12,6 +12,7 @@
 * Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
 * Change HookArgument cop to detect when hook has a receiver. ([@pocke][])
 * Add `RSpec/PredicateMatcher` cop. ([@pocke][])
+* `RSpec/MultipleExpectations` now detects usage of expect_any_instance_of. ([@Darhazer][])
 
 ## 1.15.1 (2017-04-30)
 

@@ -55,7 +55,7 @@ module RuboCop
           (pair (sym :aggregate_failures) (false))
         PATTERN
 
-        def_node_matcher :expect?, '(send _ :expect ...)'
+        def_node_matcher :expect?, Expectations::ALL.send_pattern
         def_node_matcher :aggregate_failures?, <<-PATTERN
           (block (send _ :aggregate_failures ...) ...)
         PATTERN
@@ -84,14 +84,12 @@ module RuboCop
         end
 
         def find_expectation(node, &block)
-          return unless node.is_a?(Parser::AST::Node)
-
           yield if expect?(node) || aggregate_failures?(node)
 
           # do not search inside of aggregate_failures block
           return if aggregate_failures?(node)
 
-          node.children.each do |child|
+          node.each_child_node do |child|
             find_expectation(child, &block)
           end
         end
