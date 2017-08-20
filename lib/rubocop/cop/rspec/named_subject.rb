@@ -42,9 +42,10 @@ module RuboCop
               'to reference it explicitly.'.freeze
 
         def_node_matcher :rspec_block?, <<-PATTERN
-          (block
-            (send nil {:it :specify :before :after :around} ...)
-            ...)
+          {
+            #{Examples::ALL.block_pattern}
+            #{Hooks::ALL.block_pattern}
+          }
         PATTERN
 
         def_node_matcher :unnamed_subject, '$(send nil :subject)'
@@ -60,11 +61,9 @@ module RuboCop
         private
 
         def subject_usage(node, &block)
-          return unless node.is_a?(Parser::AST::Node)
-
           unnamed_subject(node, &block)
 
-          node.children.each do |child|
+          node.each_child_node do |child|
             subject_usage(child, &block)
           end
         end
