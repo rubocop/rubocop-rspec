@@ -44,6 +44,18 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
       RUBY
     end
 
+    it 'flags multiple is_expected' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'uses expect_any_instance_of twice' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            is_expected.to receive(:bar)
+            is_expected.to receive(:baz)
+          end
+        end
+      RUBY
+    end
+
     it 'flags multiple expects with blocks' do
       expect_offense(<<-RUBY)
         describe Foo do

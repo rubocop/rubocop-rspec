@@ -8,6 +8,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
       before do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `before` hook
+        is_expected.to eq('foo')
+        ^^^^^^^^^^^ Do not use `is_expected` in `before` hook
         expect_any_instance_of(Something).to receive(:foo)
         ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `before` hook
       end
@@ -19,6 +21,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
       after do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `after` hook
+        is_expected.to eq('foo')
+        ^^^^^^^^^^^ Do not use `is_expected` in `after` hook
         expect_any_instance_of(Something).to receive(:foo)
         ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `after` hook
       end
@@ -30,6 +34,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
       around do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `around` hook
+        is_expected(something).to eq('foo')
+        ^^^^^^^^^^^ Do not use `is_expected` in `around` hook
         expect_any_instance_of(Something).to receive(:foo)
         ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `around` hook
       end
@@ -65,6 +71,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
     expect_no_offenses(<<-RUBY)
       it do
         expect(something).to eq('foo')
+        is_expected.to eq('foo')
         expect_any_instance_of(something).to receive(:foo)
       end
     RUBY

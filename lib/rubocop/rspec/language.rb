@@ -107,7 +107,7 @@ module RuboCop
       end
 
       module Expectations
-        ALL = SelectorSet.new(%i[expect expect_any_instance_of])
+        ALL = SelectorSet.new(%i[expect is_expected expect_any_instance_of])
       end
 
       ALL =
