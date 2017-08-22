@@ -1,4 +1,4 @@
-RSpec.describe RuboCop::Cop::RSpec::FeatureMethods do
+RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
   subject(:cop) { described_class.new }
 
   it 'flags violations for `background`' do
