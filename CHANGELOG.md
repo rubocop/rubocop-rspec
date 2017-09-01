@@ -7,6 +7,14 @@
 * Add disabled by default `RSpec/AlignRightLetBrace`. ([@backus][])
 * Add `RSpec/LetBeforeExamples` cop. ([@Darhazer][])
 * Add `RSpec/MultipleSubjects` cop. ([@backus][])
+* Add `RSpec/ReturnFromStub` cop. ([@Darhazer][])
+* Add `RSpec/VoidExpect` cop. ([@pocke][])
+* Add `RSpec/InvalidPredicateMatcher` cop. ([@pocke][])
+* Change HookArgument cop to detect when hook has a receiver. ([@pocke][])
+* Add `RSpec/PredicateMatcher` cop. ([@pocke][])
+* Add `RSpec/ExpectInHook` cop. ([@pocke][])
+* `RSpec/MultipleExpectations` now detects usage of expect_any_instance_of. ([@Darhazer][])
+* `RSpec/MultipleExpectations` now detects usage of is_expected. ([@bmorrall][])
 
 ## 1.15.1 (2017-04-30)
 
@@ -225,3 +233,5 @@
 [@dgollahon]: https://github.com/dgollahon
 [@tsigo]: https://github.com/tsigo
 [@jonatas]: https://github.com/jonatas
+[@pocke]: https://github.com/pocke
+[@bmorrall]: https:/github.com/bmorrall

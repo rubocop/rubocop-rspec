@@ -5,9 +5,11 @@ module RuboCop
     # Clone of the the normal RuboCop::Cop::Cop class so we can rewrite
     # the inherited method without breaking functionality
     class WorkaroundCop
-      # Overwrite the cop inherited method to be a noop. Our RSpec::Cop
+      # Remove the cop inherited method to be a noop. Our RSpec::Cop
       # class will invoke the inherited hook instead
-      def self.inherited(*); end
+      class << self
+        remove_method :inherited
+      end
 
       # Special case `Module#<` so that the rspec support rubocop exports
       # is compatible with our subclass

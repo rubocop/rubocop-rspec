@@ -10,8 +10,9 @@ module RuboCop
       #
       #   Selectors which indicate that we should stop searching
       #
-      def_node_matcher :scope_change?,
-                       (ExampleGroups::ALL + SharedGroups::ALL).block_pattern
+      def_node_matcher :scope_change?, (
+        ExampleGroups::ALL + SharedGroups::ALL + Includes::ALL
+      ).block_pattern
 
       # @!method hook(node)
       #

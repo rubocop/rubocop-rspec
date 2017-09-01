@@ -106,13 +106,18 @@ module RuboCop
         ALL = SelectorSet.new(%i[subject subject!])
       end
 
+      module Expectations
+        ALL = SelectorSet.new(%i[expect is_expected expect_any_instance_of])
+      end
+
       ALL =
         ExampleGroups::ALL +
         SharedGroups::ALL  +
         Examples::ALL      +
         Hooks::ALL         +
         Helpers::ALL       +
-        Subject::ALL
+        Subject::ALL       +
+        Expectations::ALL
     end
   end
 end

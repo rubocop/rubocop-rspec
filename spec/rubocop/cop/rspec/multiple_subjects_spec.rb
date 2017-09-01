@@ -32,6 +32,24 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
     expect(autocorrect_source(cop, source, 'example_spec.rb')).to eql(source)
   end
 
+  it 'does not flag shared example groups' do
+    expect_no_offenses(<<-RUBY)
+      describe Foo do
+        it_behaves_like 'user' do
+          subject { described_class.new(user, described_class) }
+
+          it { expect(subject).not_to be_accessible }
+        end
+
+        it_behaves_like 'admin' do
+          subject { described_class.new(user, described_class) }
+
+          it { expect(subject).to be_accessible }
+        end
+      end
+    RUBY
+  end
+
   include_examples(
     'autocorrect',
     <<-RUBY,

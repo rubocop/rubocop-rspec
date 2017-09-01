@@ -35,7 +35,7 @@ module RuboCop
           PATTERN
 
           def_node_search :factory_attributes, <<-PATTERN
-          (block (send nil {:factory, :trait} ...) _ { (begin $...) $(send ...) } )
+          (block (send nil {:factory :trait} ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
           def on_block(node)
