@@ -380,6 +380,15 @@ Capybara/FeatureMethods:
   EnabledMethods: []
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+FactoryBot/CreateList:
+  Description: Checks for create_list usage.
+  Enabled: true
+  EnforcedStyle: create_list
+  SupportedStyles:
+  - create_list
+  - n_times
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
+
 FactoryBot/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true

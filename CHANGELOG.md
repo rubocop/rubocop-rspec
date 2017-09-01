@@ -9,6 +9,7 @@
 * Fix `RSpec/NestedGroups` cop support --auto-gen-config. ([@walf443][])
 * Fix false positives in `Capybara/FeatureMethods` when feature methods are used as property names in a factory. ([@Darhazer][])
 * Allow configuring enabled methods in `Capybara/FeatureMethods`. ([@Darhazer][])
+* Add `FactoryBot/CreateList` cop. ([@Darhazer][])
 
 ## 1.24.0 (2018-03-06)
 
