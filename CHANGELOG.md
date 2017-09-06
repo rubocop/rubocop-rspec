@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.16.0 (2017-09-06)
+
 * Add `RSpec/FactoryGirl` namespace including the first cop for factories: `FactoryGirl/DynamicAttributeDefinedStatically`. ([@jonatas][])
 * Add disabled by default `RSpec/AlignLeftLetBrace`. ([@backus][])
 * Add disabled by default `RSpec/AlignRightLetBrace`. ([@backus][])
