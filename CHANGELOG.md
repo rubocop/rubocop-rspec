@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/Capybara` namespace including the first cop for feature specs: `Capybara/FeatureMethods`. ([@rspeicher][])
+
 ## 1.16.0 (2017-09-06)
 
 * Add `RSpec/FactoryGirl` namespace including the first cop for factories: `FactoryGirl/DynamicAttributeDefinedStatically`. ([@jonatas][])
@@ -26,7 +28,7 @@
 
 ## 1.15.0 (2017-03-24)
 
-* Add `RSpec/DescribeSymbol` cop. ([@tsigo][])
+* Add `RSpec/DescribeSymbol` cop. ([@rspeicher][])
 * Fix error when `RSpec/OverwritingSetup` and `RSpec/ScatteredLet` analyzed empty example groups. ([@backus][])
 
 ## 1.14.0 (2017-03-24)
@@ -233,7 +235,7 @@
 [@redross]: https://github.com/redross
 [@cfabianski]: https://github.com/cfabianski
 [@dgollahon]: https://github.com/dgollahon
-[@tsigo]: https://github.com/tsigo
+[@rspeicher]: https://github.com/rspeicher
 [@jonatas]: https://github.com/jonatas
 [@pocke]: https://github.com/pocke
 [@bmorrall]: https:/github.com/bmorrall

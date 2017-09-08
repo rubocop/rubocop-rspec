@@ -325,7 +325,12 @@ RSpec/VoidExpect:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
 
+Capybara/FeatureMethods:
+  Description: Checks for consistent method usage in feature specs.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
+
 FactoryGirl/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryGirl/DynamicAttributeDefinedStatically
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryGirl/DynamicAttributeDefinedStatically
