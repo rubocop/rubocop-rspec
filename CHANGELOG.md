@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Improved `RSpec/ReturnFromStub` to handle string interpolation, hashes and do..end blocks. ([@Darhazer][])
+
 ## 1.17.0 (2017-09-14)
 
 * Add `RSpec/Capybara` namespace including the first cop for feature specs: `Capybara/FeatureMethods`. ([@rspeicher][])
