@@ -2,7 +2,10 @@
 
 ## Master (Unreleased)
 
+## 1.17.0 (2017-09-14)
+
 * Add `RSpec/Capybara` namespace including the first cop for feature specs: `Capybara/FeatureMethods`. ([@rspeicher][])
+* Update to RuboCop 0.50.0. ([@bquorning][])
 
 ## 1.16.0 (2017-09-06)
 
