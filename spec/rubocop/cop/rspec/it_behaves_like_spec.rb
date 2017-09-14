@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe RuboCop::Cop::RSpec::ItBehavesLike, :config do
   subject(:cop) { described_class.new(config) }
 

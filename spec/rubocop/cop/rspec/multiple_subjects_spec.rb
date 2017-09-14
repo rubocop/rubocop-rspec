@@ -29,7 +29,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       end
     RUBY
 
-    expect(autocorrect_source(cop, source, 'example_spec.rb')).to eql(source)
+    expect(autocorrect_source(source, 'example_spec.rb')).to eql(source)
   end
 
   it 'does not flag shared example groups' do

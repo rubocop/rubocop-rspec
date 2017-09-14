@@ -42,7 +42,7 @@ module RuboCop
       end
 
       def scope_argument
-        node.method_args.first
+        node.send_node.first_argument
       end
     end
   end
