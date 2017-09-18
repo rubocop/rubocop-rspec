@@ -90,6 +90,22 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         end
       RUBY
     end
+
+    it 'ignores stubs without return value' do
+      expect_no_offenses(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar)
+        end
+      RUBY
+    end
+
+    it 'handles stubs in a method' do
+      expect_no_offenses(<<-RUBY)
+        def stub_foo
+          allow(Foo).to receive(:bar)
+        end
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `block`' do
