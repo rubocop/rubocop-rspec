@@ -39,43 +39,35 @@ module RuboCop
         MSG_AND_RETURN = 'Use `and_return` for static values.'.freeze
         MSG_BLOCK = 'Use block for static values.'.freeze
 
-        def_node_matcher :receive_with_block, <<-PATTERN
-          (block
-            (send nil :receive ...)
-            (args)
-            $(...)
-          )
-        PATTERN
-
         def_node_matcher :and_return_value, <<-PATTERN
             (send
               (send nil :receive (...)) :and_return $(...)
             )
         PATTERN
 
-        def on_block(node)
-          return unless style == :and_return
-          receive_with_block(node) do |args|
-            add_offense(node, :expression, MSG_AND_RETURN) unless dynamic?(args)
-          end
-        end
-
         def on_send(node)
-          return unless style == :block
-
-          and_return_value(node) do |args|
-            add_offense(node, :expression, MSG_BLOCK) unless dynamic?(args)
+          if style == :block
+            check_and_return_call(node)
+          elsif node.method_name == :receive
+            check_block_body(node)
           end
         end
 
         private
 
-        def dynamic?(node)
-          if node.array_type?
-            return node.each_child_node.any? { |child| dynamic?(child) }
+        def check_and_return_call(node)
+          and_return_value(node) do |args|
+            add_offense(node, :expression, MSG_BLOCK) unless dynamic?(args)
           end
+        end
 
-          !node.literal?
+        def check_block_body(node)
+          _receiver, _args, body = *node.each_ancestor(:block).first
+          add_offense(node, :expression, MSG_AND_RETURN) unless dynamic?(body)
+        end
+
+        def dynamic?(node)
+          !node.recursive_literal?
         end
       end
     end
