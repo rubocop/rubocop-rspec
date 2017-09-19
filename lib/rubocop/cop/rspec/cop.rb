@@ -8,7 +8,7 @@ module RuboCop
       # Remove the cop inherited method to be a noop. Our RSpec::Cop
       # class will invoke the inherited hook instead
       class << self
-        remove_method :inherited
+        remove_method :inherited if instance_methods(false).include?(:inherited)
       end
 
       # Special case `Module#<` so that the rspec support rubocop exports
