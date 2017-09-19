@@ -62,7 +62,10 @@ module RuboCop
         end
 
         def check_block_body(node)
-          _receiver, _args, body = *node.each_ancestor(:block).first
+          block = node.each_ancestor(:block).first
+          return unless block
+
+          _receiver, _args, body = *block
           add_offense(node, :expression, MSG_AND_RETURN) unless dynamic?(body)
         end
 
