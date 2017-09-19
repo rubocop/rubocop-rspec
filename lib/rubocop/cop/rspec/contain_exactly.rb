@@ -16,20 +16,17 @@ module RuboCop
         MSG = 'Prefer `match_array` when matching array values.'.freeze
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless method_name == :contain_exactly
+          return unless node.method_name == :contain_exactly
+          return unless node.each_child_node.all?(&:splat_type?)
 
-          return unless args.all? do |child_node|
-            child_node.is_a?(Parser::AST::Node) && child_node.type == :splat
-          end
-          add_offense node, :expression
+          add_offense(node)
         end
 
         def autocorrect(node)
-          _receiver, _method_name, *args = *node
-
           lambda do |corrector|
-            arrays = args.map { |splat_node| splat_node.children.first }
+            arrays = node.arguments.map do |splat_node|
+              splat_node.children.first
+            end
             corrector.replace(
               node.source_range,
               "match_array(#{arrays.map(&:source).join(' + ')})"

@@ -16,20 +16,15 @@ module RuboCop
         MSG = 'Prefer `contain_exactly` when matching an array literal.'.freeze
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless method_name == :match_array
+          return unless node.method_name == :match_array
+          return unless node.first_argument.array_type?
 
-          return unless args.all? do |child_node|
-            child_node.is_a?(Parser::AST::Node) && child_node.type == :array
-          end
-          add_offense node, :expression
+          add_offense(node)
         end
 
         def autocorrect(node)
-          _receiver, _method_name, *args = *node
-
           lambda do |corrector|
-            array_contents = args.flat_map(&:to_a)
+            array_contents = node.arguments.flat_map(&:to_a)
             corrector.replace(
               node.source_range,
               "contain_exactly(#{array_contents.map(&:source).join(', ')})"
