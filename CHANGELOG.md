@@ -2,7 +2,10 @@
 
 ## Master (Unreleased)
 
+## 1.17.1 (2017-09-20)
+
 * Improved `RSpec/ReturnFromStub` to handle string interpolation, hashes and do..end blocks. ([@Darhazer][])
+* Fixed compatibility with JRuby. ([@zverok][])
 
 ## 1.17.0 (2017-09-14)
 
@@ -244,3 +247,4 @@
 [@jonatas]: https://github.com/jonatas
 [@pocke]: https://github.com/pocke
 [@bmorrall]: https:/github.com/bmorrall
+[@zverok]: https:/github.com/zverok
