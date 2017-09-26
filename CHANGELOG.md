@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
+
 ## 1.17.1 (2017-09-20)
 
 * Improved `RSpec/ReturnFromStub` to handle string interpolation, hashes and do..end blocks. ([@Darhazer][])
