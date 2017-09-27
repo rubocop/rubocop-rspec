@@ -4,6 +4,7 @@
 
 * Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
 * Add `RSpec/Capybara/CurrentPathExpectation` cop for feature specs, disallowing setting expectations on `current_path`. ([@timrogers][])
+* Fix false positive in `RSpec/LetBeforeExamples` cop when example group contains single let. ([@Darhazer][])
 
 ## 1.17.1 (2017-09-20)
 

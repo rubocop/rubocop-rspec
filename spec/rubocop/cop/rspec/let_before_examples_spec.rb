@@ -76,6 +76,16 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
     RUBY
   end
 
+  it 'ignores single-line example blocks' do
+    expect_no_offenses(<<-RUBY)
+      RSpec.describe User do
+        include_examples 'special user' do
+          let(:foo) { bar }
+        end
+      end
+    RUBY
+  end
+
   it 'does not encounter an error when handling an empty describe' do
     expect { inspect_source('RSpec.describe(User) do end', 'a_spec.rb') }
       .not_to raise_error
