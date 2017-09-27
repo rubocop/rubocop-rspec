@@ -45,13 +45,15 @@ module RuboCop
             feature:    :describe
           }.freeze
 
-          def_node_matcher :feature_method?, <<-PATTERN
-            (send {(const nil :RSpec) nil} ${:#{MAP.keys.join(' :')}} ...)
+          def_node_matcher :feature_method, <<-PATTERN
+            (block
+              $(send {(const nil :RSpec) nil} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
+            ...)
           PATTERN
 
-          def on_send(node)
-            feature_method?(node) do |match|
-              add_offense(node, :selector, format(MSG, MAP[match], match))
+          def on_block(node)
+            feature_method(node) do |send_node, match|
+              add_offense(send_node, :selector, format(MSG, MAP[match], match))
             end
           end
 

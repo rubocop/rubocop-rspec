@@ -43,6 +43,16 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
+  it 'ignores variables inside examples' do
+    expect_no_offenses(<<-RUBY)
+      it 'is valid code' do
+        given(feature)
+        assign(background)
+        run scenario
+      end
+    RUBY
+  end
+
   include_examples 'autocorrect', 'background { }',    'before { }'
   include_examples 'autocorrect', 'scenario { }',      'it { }'
   include_examples 'autocorrect', 'xscenario { }',     'xit { }'
