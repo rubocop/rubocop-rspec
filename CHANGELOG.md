@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
+* Add `RSpec/Capybara/CurrentPathExpectation` cop for feature specs, disallowing setting expectations on `current_path`. ([@timrogers][])
 
 ## 1.17.1 (2017-09-20)
 
@@ -250,3 +251,4 @@
 [@pocke]: https://github.com/pocke
 [@bmorrall]: https:/github.com/bmorrall
 [@zverok]: https:/github.com/zverok
+[@timrogers]: https://github.com/timrogers
