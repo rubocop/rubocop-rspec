@@ -44,9 +44,13 @@ module RuboCop
         def on_block(node)
           return unless example_group_with_body?(node)
 
-          _describe, _args, body = *node
+          check_let_declarations(node.body) if multiline_block?(node.body)
+        end
 
-          check_let_declarations(body)
+        private
+
+        def multiline_block?(block)
+          block.begin_type?
         end
 
         def check_let_declarations(node)
