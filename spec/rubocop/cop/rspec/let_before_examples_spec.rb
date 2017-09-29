@@ -90,4 +90,52 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
     expect { inspect_source('RSpec.describe(User) do end', 'a_spec.rb') }
       .not_to raise_error
   end
+
+  bad_code = <<-RUBY
+    RSpec.describe User do
+      include_examples('should be after let')
+      context 'another one' do
+        let(:foo) { baz }
+        include_examples('should be ok')
+      end
+
+      let(:foo) { bar }
+    end
+  RUBY
+
+  good_code = <<-RUBY
+    RSpec.describe User do
+      let(:foo) { bar }
+      include_examples('should be after let')
+      context 'another one' do
+        let(:foo) { baz }
+        include_examples('should be ok')
+      end
+
+    end
+  RUBY
+
+  include_examples 'autocorrect', bad_code, good_code
+
+  bad_code = <<-RUBY
+    RSpec.describe User do
+      include_examples('should be after let')
+
+      let(:foo) { (<<-SOURCE) }
+      some long text here
+      SOURCE
+    end
+  RUBY
+
+  good_code = <<-RUBY
+    RSpec.describe User do
+      let(:foo) { (<<-SOURCE) }
+      some long text here
+      SOURCE
+      include_examples('should be after let')
+
+    end
+  RUBY
+
+  include_examples 'autocorrect', bad_code, good_code
 end
