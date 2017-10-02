@@ -18,19 +18,19 @@ module RuboCop
 
         def_node_matcher :predicate_in_actual?, <<-PATTERN
           (send
-            (send nil :expect {
-              (block $(send !nil #predicate? ...) ...)
-              $(send !nil #predicate? ...)})
+            (send nil? :expect {
+              (block $(send !nil? #predicate? ...) ...)
+              $(send !nil? #predicate? ...)})
             ${:to :not_to :to_not}
             $#boolean_matcher?)
         PATTERN
 
         def_node_matcher :be_bool?, <<-PATTERN
-          (send nil {:be :eq :eql :equal} {true false})
+          (send nil? {:be :eq :eql :equal} {true false})
         PATTERN
 
         def_node_matcher :be_boolthy?, <<-PATTERN
-          (send nil {:be_truthy :be_falsey :be_falsy :a_truthy_value :a_falsey_value :a_falsy_value})
+          (send nil? {:be_truthy :be_falsey :be_falsy :a_truthy_value :a_falsey_value :a_falsy_value})
         PATTERN
 
         def boolean_matcher?(node)
@@ -145,18 +145,18 @@ module RuboCop
 
         def_node_matcher :predicate_matcher?, <<-PATTERN
           (send
-            (send nil :expect $!nil)
+            (send nil? :expect $!nil?)
             {:to :not_to :to_not}
-            {$(send nil #predicate_matcher_name? ...)
-              (block $(send nil #predicate_matcher_name? ...) ...)})
+            {$(send nil? #predicate_matcher_name? ...)
+              (block $(send nil? #predicate_matcher_name? ...) ...)})
         PATTERN
 
         def_node_matcher :predicate_matcher_block?, <<-PATTERN
           (block
             (send
-              (send nil :expect $!nil)
+              (send nil? :expect $!nil?)
               {:to :not_to :to_not}
-              $(send nil #predicate_matcher_name?))
+              $(send nil? #predicate_matcher_name?))
             ...)
         PATTERN
 

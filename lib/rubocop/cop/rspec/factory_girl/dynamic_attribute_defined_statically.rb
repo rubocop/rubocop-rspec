@@ -31,11 +31,11 @@ module RuboCop
           MSG = 'Use a block to set a dynamic value to an attribute.'.freeze
 
           def_node_matcher :dynamic_defined_statically?, <<-PATTERN
-          (send nil _ (send ... ))
+          (send nil? _ (send ... ))
           PATTERN
 
           def_node_search :factory_attributes, <<-PATTERN
-          (block (send nil {:factory :trait} ...) _ { (begin $...) $(send ...) } )
+          (block (send nil? {:factory :trait} ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
           def on_block(node)

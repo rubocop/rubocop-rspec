@@ -29,7 +29,7 @@ module RuboCop
       class ScatteredLet < Cop
         MSG = 'Group all let/let! blocks in the example group together.'.freeze
 
-        def_node_matcher :let?, '(block (send nil {:let :let!} ...) ...)'
+        def_node_matcher :let?, '(block (send nil? {:let :let!} ...) ...)'
 
         def on_block(node)
           return unless example_group_with_body?(node)

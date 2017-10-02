@@ -21,7 +21,7 @@ module RuboCop
         MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
 
         def_node_matcher :unverified_double, <<-PATTERN
-          {(send nil {:double :spy} $_ ...) }
+          {(send nil? {:double :spy} $_ ...) }
         PATTERN
 
         def on_send(node)

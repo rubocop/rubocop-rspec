@@ -18,7 +18,7 @@ module RuboCop
       #
       #   Detect if node is `before`, `after`, `around`
       def_node_matcher :hook, <<-PATTERN
-        (block {$(send nil #{Hooks::ALL.node_pattern_union} ...)} ...)
+        (block {$(send nil? #{Hooks::ALL.node_pattern_union} ...)} ...)
       PATTERN
 
       def_node_matcher :subject, Subject::ALL.block_pattern

@@ -40,8 +40,8 @@ module RuboCop
         #   @yield [Symbol] subject name
         def_node_matcher :subject, <<-PATTERN
           {
-            (block (send nil :subject (sym $_)) args ...)
-            (block (send nil $:subject) args ...)
+            (block (send nil? :subject (sym $_)) args ...)
+            (block (send nil? $:subject) args ...)
           }
         PATTERN
 
@@ -57,12 +57,12 @@ module RuboCop
         #     expect(foo).to receive(:bar).with(1).and_return(2)
         def_node_matcher :message_expectation?, <<-PATTERN
           {
-            (send nil :allow (send nil %))
-            (send (send nil :expect (send nil %)) :to #receive_message?)
+            (send nil? :allow (send nil? %))
+            (send (send nil? :expect (send nil? %)) :to #receive_message?)
           }
         PATTERN
 
-        def_node_search :receive_message?, '(send nil :receive ...)'
+        def_node_search :receive_message?, '(send nil? :receive ...)'
 
         def on_block(node)
           return unless example_group?(node)

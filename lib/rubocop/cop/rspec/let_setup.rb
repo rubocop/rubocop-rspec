@@ -30,9 +30,11 @@ module RuboCop
 
         MSG = 'Do not use `let!` for test setup.'.freeze
 
-        def_node_search :let_bang, '(block $(send nil :let! (sym $_)) args ...)'
+        def_node_search :let_bang, <<-PATTERN
+          (block $(send nil? :let! (sym $_)) args ...)
+        PATTERN
 
-        def_node_search :method_called?, '(send nil %)'
+        def_node_search :method_called?, '(send nil? %)'
 
         def on_block(node)
           return unless example_group?(node)

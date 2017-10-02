@@ -29,7 +29,7 @@ module RuboCop
       class LeadingSubject < Cop
         MSG = 'Declare `subject` above any other `let` declarations.'.freeze
 
-        def_node_matcher :subject?, '(block $(send nil :subject ...) args ...)'
+        def_node_matcher :subject?, '(block $(send nil? :subject ...) args ...)'
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)

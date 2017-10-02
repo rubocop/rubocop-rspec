@@ -24,20 +24,20 @@ module RuboCop
 
         EXAMPLES = Examples::ALL.node_pattern_union.freeze
 
-        def_node_matcher :example?, "(block $(send nil #{EXAMPLES}) ...)"
+        def_node_matcher :example?, "(block $(send nil? #{EXAMPLES}) ...)"
 
         def_node_search :null_double, <<-PATTERN
           (lvasgn $_
             (send
-              $(send nil :instance_double
+              $(send nil? :instance_double
                 ...) :as_null_object))
         PATTERN
 
         def_node_search :have_received_usage, <<-PATTERN
           (send
-            (send nil :expect
+            (send nil? :expect
             (lvar $_)) :to
-            (send nil :have_received
+            (send nil? :have_received
             ...)
           ...)
         PATTERN

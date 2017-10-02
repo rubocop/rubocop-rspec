@@ -26,7 +26,7 @@ module RuboCop
         PATTERN
 
         def_node_matcher :expectation?, <<-PATTERN
-          (send (send nil :expect (lvar %)) :to ...)
+          (send (send nil? :expect (lvar %)) :to ...)
         PATTERN
 
         def on_block(node)
