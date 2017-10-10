@@ -40,9 +40,9 @@ module RuboCop
            (send nil #{FOCUSABLE_SELECTORS} $...)}
         PATTERN
 
-        def_node_matcher :focused_block?, focused.send_pattern
+        def_node_matcher :focused_block?, focused.block_pattern
 
-        def on_send(node)
+        def on_block(node)
           focus_metadata(node) do |focus|
             add_offense(focus, :expression)
           end
@@ -51,9 +51,10 @@ module RuboCop
         private
 
         def focus_metadata(node, &block)
-          yield(node) if focused_block?(node)
+          example_node, = *node
+          yield(example_node) if focused_block?(node)
 
-          metadata(node) do |matches|
+          metadata(example_node) do |matches|
             matches.grep(FOCUS_SYMBOL, &block)
             matches.grep(FOCUS_TRUE, &block)
           end

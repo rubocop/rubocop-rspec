@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positive in `RSpec/Focus` cop. ([@Darhazer][])
+
 ## 1.18.0 (2017-09-29)
 
 * Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
