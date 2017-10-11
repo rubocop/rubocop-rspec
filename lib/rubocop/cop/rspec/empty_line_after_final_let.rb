@@ -26,14 +26,12 @@ module RuboCop
         def_node_matcher :let?, '(block $(send nil {:let :let!} ...) args ...)'
 
         def on_block(node)
-          return unless let?(node) && !in_spec_block?(node)
+          return unless example_group_with_body?(node)
 
-          latest_let = node
-          node.parent.each_child_node do |sibling|
-            latest_let = sibling if let?(sibling)
-          end
+          latest_let = node.body.child_nodes.select { |child| let?(child) }.last
 
-          return if latest_let.equal?(node.parent.children.last)
+          return if latest_let.nil?
+          return if latest_let.equal?(node.body.children.last)
 
           no_new_line_after(latest_let) do
             add_offense(latest_let, :expression)
@@ -67,12 +65,6 @@ module RuboCop
           yield node.loc.heredoc_end if node.loc.respond_to?(:heredoc_end)
 
           node.each_child_node { |child| heredoc_line(child, &block) }
-        end
-
-        def in_spec_block?(node)
-          node.each_ancestor(:block).any? do |ancestor|
-            Examples::ALL.include?(ancestor.method_name)
-          end
         end
       end
     end
