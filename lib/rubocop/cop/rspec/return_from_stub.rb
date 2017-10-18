@@ -11,7 +11,7 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option
       #
-      # @example `EncorcedStyle: block`
+      # @example `EnforcedStyle: block`
       #   # bad
       #   allow(Foo).to receive(:bar).and_return("baz")
       #   expect(Foo).to receive(:bar).and_return("baz")
@@ -22,7 +22,7 @@ module RuboCop
       #   # also good as the returned value is dynamic
       #   allow(Foo).to receive(:bar).and_return(bar.baz)
       #
-      # @example `EncorcedStyle: and_return`
+      # @example `EnforcedStyle: and_return`
       #   # bad
       #   allow(Foo).to receive(:bar) { "baz" }
       #   expect(Foo).to receive(:bar) { "baz" }
