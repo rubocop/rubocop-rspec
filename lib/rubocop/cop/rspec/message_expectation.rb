@@ -41,7 +41,7 @@ module RuboCop
           message_expectation(node) do |match|
             return correct_style_detected if preferred_style?(match)
 
-            add_offense(match, :selector, MSG % style) do
+            add_offense(match, location: :selector, message: MSG % style) do
               opposite_style_detected
             end
           end

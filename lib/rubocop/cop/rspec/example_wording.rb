@@ -67,7 +67,7 @@ module RuboCop
               expr.end_pos - 1
             )
 
-          add_offense(docstring, docstring, message)
+          add_offense(docstring, location: docstring, message: message)
         end
 
         def replacement_text(range)

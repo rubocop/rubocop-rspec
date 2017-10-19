@@ -34,7 +34,7 @@ module RuboCop
           return if latest_let.equal?(node.body.children.last)
 
           no_new_line_after(latest_let) do
-            add_offense(latest_let, :expression)
+            add_offense(latest_let, location: :expression)
           end
         end
 

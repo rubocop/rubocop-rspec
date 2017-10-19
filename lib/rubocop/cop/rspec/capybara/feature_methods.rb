@@ -53,7 +53,11 @@ module RuboCop
 
           def on_block(node)
             feature_method(node) do |send_node, match|
-              add_offense(send_node, :selector, format(MSG, MAP[match], match))
+              add_offense(
+                send_node,
+                location: :selector,
+                message: format(MSG, MAP[match], match)
+              )
             end
           end
 

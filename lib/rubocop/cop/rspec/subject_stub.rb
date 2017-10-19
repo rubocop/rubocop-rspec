@@ -67,7 +67,9 @@ module RuboCop
         def on_block(node)
           return unless example_group?(node)
 
-          find_subject_stub(node) { |stub| add_offense(stub, :expression) }
+          find_subject_stub(node) do |stub|
+            add_offense(stub, location: :expression)
+          end
         end
 
         private

@@ -34,7 +34,7 @@ module RuboCop
           return unless example_group?(node)
 
           repeated_descriptions(node).each do |repeated_description|
-            add_offense(repeated_description, :expression)
+            add_offense(repeated_description, location: :expression)
           end
         end
 

@@ -37,7 +37,7 @@ module RuboCop
 
           return unless length > max_length
 
-          add_offense(node, :expression, message(length))
+          add_offense(node, location: :expression, message: message(length))
         end
 
         private

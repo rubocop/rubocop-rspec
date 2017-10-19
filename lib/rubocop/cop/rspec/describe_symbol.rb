@@ -25,7 +25,9 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          describe_symbol?(node) { |match| add_offense(match, :expression) }
+          describe_symbol?(node) do |match|
+            add_offense(match, location: :expression)
+          end
         end
       end
     end

@@ -26,7 +26,7 @@ module RuboCop
 
         def investigate(_)
           token_aligner.offending_tokens.each do |let|
-            add_offense(let, :begin)
+            add_offense(let, location: :begin)
           end
         end
 

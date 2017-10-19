@@ -77,7 +77,11 @@ module RuboCop
             return check_implicit(method_send) unless scope_name
 
             style_detected(scope_name)
-            add_offense(method_send, :expression, explicit_message(scope_name))
+            add_offense(
+              method_send,
+              location: :expression,
+              message: explicit_message(scope_name)
+            )
           end
         end
 
@@ -95,7 +99,11 @@ module RuboCop
           style_detected(:implicit)
           return if implicit_style?
 
-          add_offense(method_send, :selector, format(EXPLICIT_MSG, style))
+          add_offense(
+            method_send,
+            location: :selector,
+            message: format(EXPLICIT_MSG, style)
+          )
         end
 
         def explicit_message(scope)

@@ -45,7 +45,7 @@ module RuboCop
 
           node.each_child_node do |child|
             if let?(child)
-              add_offense(child, :expression) if mix_found
+              add_offense(child, location: :expression) if mix_found
               let_found = true
             elsif let_found
               mix_found = true

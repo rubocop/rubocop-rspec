@@ -57,7 +57,11 @@ module RuboCop
           @described_class = described_class
 
           find_usage(body) do |match|
-            add_offense(match, :expression, message(match.const_name))
+            add_offense(
+              match,
+              location: :expression,
+              message: message(match.const_name)
+            )
           end
         end
 

@@ -27,7 +27,7 @@ module RuboCop
           name = variable_name[1..-1]
           return unless name.eql?('stdout') || name.eql?('stderr')
 
-          add_offense(node, :name, format(MSG, name: name))
+          add_offense(node, location: :name, message: format(MSG, name: name))
         end
 
         private

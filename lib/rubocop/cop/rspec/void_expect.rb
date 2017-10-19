@@ -37,7 +37,7 @@ module RuboCop
 
         def check_expect(node)
           return unless void?(node)
-          add_offense(node, :expression)
+          add_offense(node, location: :expression)
         end
 
         def void?(expect)

@@ -39,8 +39,8 @@ module RuboCop
           hook(node) do |hook_name, body|
             expect(body) do |expect|
               method = send_node(expect)
-              add_offense(method, :selector,
-                          message(method, hook_name))
+              add_offense(method, location: :selector,
+                                  message: message(method, hook_name))
             end
           end
         end

@@ -54,7 +54,7 @@ module RuboCop
           return unless rspec_block?(node)
 
           subject_usage(node) do |subject_node|
-            add_offense(subject_node, :selector)
+            add_offense(subject_node, location: :selector)
           end
         end
 

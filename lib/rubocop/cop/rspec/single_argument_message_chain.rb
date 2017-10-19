@@ -30,7 +30,7 @@ module RuboCop
 
             return if arg.hash_type? && !single_key_hash?(arg)
 
-            add_offense(node, :selector)
+            add_offense(node, location: :selector)
           end
         end
 

@@ -29,7 +29,7 @@ module RuboCop
           return unless second_arg && second_arg.str_type?
           return if METHOD_STRING_MATCHER =~ one(second_arg.children)
 
-          add_offense(second_arg, :expression)
+          add_offense(second_arg, location: :expression)
         end
       end
     end
