@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+## 1.19.0 (2017-10-18)
+
+Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
+
 ## 1.18.0 (2017-09-29)
 
 * Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
