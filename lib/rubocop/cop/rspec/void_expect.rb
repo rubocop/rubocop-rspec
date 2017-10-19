@@ -16,7 +16,7 @@ module RuboCop
               'Chain the methods or remove it.'.freeze
 
         def_node_matcher :expect?, <<-PATTERN
-          (send nil :expect ...)
+          (send nil? :expect ...)
         PATTERN
 
         def_node_matcher :expect_block?, <<-PATTERN

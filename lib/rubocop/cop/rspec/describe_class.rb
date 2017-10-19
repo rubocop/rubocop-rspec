@@ -23,11 +23,11 @@ module RuboCop
               'the class or module being tested.'.freeze
 
         def_node_matcher :valid_describe?, <<-PATTERN
-          {(send {(const nil :RSpec) nil} :describe const ...) (send nil :describe)}
+          {(send {(const nil? :RSpec) nil?} :describe const ...) (send nil? :describe)}
         PATTERN
 
         def_node_matcher :describe_with_metadata, <<-PATTERN
-          (send {(const nil :RSpec) nil} :describe
+          (send {(const nil? :RSpec) nil?} :describe
             !const
             ...
             (hash $...))
@@ -40,7 +40,7 @@ module RuboCop
         PATTERN
 
         def_node_matcher :shared_group?, <<-PATTERN
-          (block (send {(const nil :RSpec) nil} #{SharedGroups::ALL.node_pattern_union} ...) ...)
+          (block (send {(const nil? :RSpec) nil?} #{SharedGroups::ALL.node_pattern_union} ...) ...)
         PATTERN
 
         def on_top_level_describe(node, args)

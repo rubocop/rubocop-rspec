@@ -47,7 +47,7 @@ module RuboCop
 
           def_node_matcher :feature_method, <<-PATTERN
             (block
-              $(send {(const nil :RSpec) nil} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
+              $(send {(const nil? :RSpec) nil?} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
             ...)
           PATTERN
 

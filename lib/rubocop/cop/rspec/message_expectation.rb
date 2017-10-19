@@ -32,10 +32,10 @@ module RuboCop
         SUPPORTED_STYLES = %w[allow expect].freeze
 
         def_node_matcher :message_expectation, <<-PATTERN
-          (send $(send nil {:expect :allow} ...) :to #receive_message?)
+          (send $(send nil? {:expect :allow} ...) :to #receive_message?)
         PATTERN
 
-        def_node_search :receive_message?, '(send nil :receive ...)'
+        def_node_search :receive_message?, '(send nil? :receive ...)'
 
         def on_send(node)
           message_expectation(node) do |match|

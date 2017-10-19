@@ -23,7 +23,7 @@ module RuboCop
       class EmptyLineAfterFinalLet < Cop
         MSG = 'Add an empty line after the last `let` block.'.freeze
 
-        def_node_matcher :let?, '(block $(send nil {:let :let!} ...) args ...)'
+        def_node_matcher :let?, '(block $(send nil? {:let :let!} ...) args ...)'
 
         def on_block(node)
           return unless example_group_with_body?(node)

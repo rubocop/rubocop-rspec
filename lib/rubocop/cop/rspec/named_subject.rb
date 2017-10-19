@@ -48,7 +48,7 @@ module RuboCop
           }
         PATTERN
 
-        def_node_matcher :unnamed_subject, '$(send nil :subject)'
+        def_node_matcher :unnamed_subject, '$(send nil? :subject)'
 
         def on_block(node)
           return unless rspec_block?(node)

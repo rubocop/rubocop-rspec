@@ -27,7 +27,7 @@ module RuboCop
                 '`have_current_path` matcher on `page`'.freeze
 
           def_node_matcher :expectation_set_on_current_path, <<-PATTERN
-            (send nil :expect (send {(send nil :page) nil} :current_path))
+            (send nil? :expect (send {(send nil? :page) nil?} :current_path))
           PATTERN
 
           def on_send(node)

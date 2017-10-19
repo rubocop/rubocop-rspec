@@ -25,7 +25,7 @@ module RuboCop
         MSG = '`%<name>s` is already defined.'.freeze
 
         def_node_matcher :setup?, <<-PATTERN
-          (block (send nil {:let :let! :subject} (sym $_)) ...)
+          (block (send nil? {:let :let! :subject} (sym $_)) ...)
         PATTERN
 
         def on_block(node)

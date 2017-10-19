@@ -41,7 +41,7 @@ module RuboCop
 
         def_node_matcher :and_return_value, <<-PATTERN
             (send
-              (send nil :receive (...)) :and_return $(...)
+              (send nil? :receive (...)) :and_return $(...)
             )
         PATTERN
 

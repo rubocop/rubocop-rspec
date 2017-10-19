@@ -25,7 +25,7 @@ module RuboCop
         HOOKS = Hooks::ALL.node_pattern_union.freeze
 
         def_node_matcher :hook, <<-PATTERN
-          (block (send _ $#{HOOKS} ...) _ $!nil)
+          (block (send _ $#{HOOKS} ...) _ $!nil?)
         PATTERN
 
         def_node_search :expect, <<-PATTERN

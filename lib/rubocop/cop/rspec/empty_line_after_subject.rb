@@ -17,7 +17,7 @@ module RuboCop
       class EmptyLineAfterSubject < Cop
         MSG = 'Add empty line after `subject`.'.freeze
 
-        def_node_matcher :subject?, '(block $(send nil :subject ...) args ...)'
+        def_node_matcher :subject?, '(block $(send nil? :subject ...) args ...)'
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)

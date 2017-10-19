@@ -37,7 +37,7 @@ module RuboCop
         MSG = 'Do not set more than one subject per example group'.freeze
 
         def_node_matcher :named_subject?, <<-PATTERN
-          (block (send nil :subject $sym) args ...)
+          (block (send nil? :subject $sym) args ...)
         PATTERN
 
         def on_block(node)
