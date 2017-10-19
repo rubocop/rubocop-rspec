@@ -63,7 +63,7 @@ module RuboCop
           ivar_usage(node) do |ivar, name|
             return if assignment_only? && !ivar_assigned?(node, name)
 
-            add_offense(ivar, :expression)
+            add_offense(ivar, location: :expression)
           end
         end
 

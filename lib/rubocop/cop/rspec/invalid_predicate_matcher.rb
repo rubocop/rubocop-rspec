@@ -22,7 +22,7 @@ module RuboCop
 
         def on_send(node)
           invalid_predicate_matcher?(node) do |predicate|
-            add_offense(predicate, :expression)
+            add_offense(predicate, location: :expression)
           end
         end
 

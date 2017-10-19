@@ -29,7 +29,11 @@ module RuboCop
 
         def on_send(node)
           disallowed_stub(node) do |method|
-            add_offense(node, :expression, format(MSG, method: method))
+            add_offense(
+              node,
+              location: :expression,
+              message: format(MSG, method: method)
+            )
           end
         end
       end

@@ -22,7 +22,7 @@ module RuboCop
 
         def on_send(node)
           not_to_not_offense(node, alternative_style) do
-            add_offense(node, :expression)
+            add_offense(node, location: :expression)
           end
         end
 

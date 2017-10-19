@@ -27,7 +27,7 @@ module RuboCop
           next_line = processed_source[send_line]
           return if next_line.blank?
 
-          add_offense(node, :expression, MSG)
+          add_offense(node, location: :expression, message: MSG)
         end
 
         def autocorrect(node)

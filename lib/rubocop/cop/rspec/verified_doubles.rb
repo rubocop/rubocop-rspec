@@ -28,7 +28,7 @@ module RuboCop
           unverified_double(node) do |name|
             return if name.sym_type? && cop_config['IgnoreSymbolicNames']
 
-            add_offense(node, :expression)
+            add_offense(node, location: :expression)
           end
         end
       end

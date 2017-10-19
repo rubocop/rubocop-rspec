@@ -57,7 +57,13 @@ module RuboCop
 
         def check_and_return_call(node)
           and_return_value(node) do |args|
-            add_offense(node, :expression, MSG_BLOCK) unless dynamic?(args)
+            unless dynamic?(args)
+              add_offense(
+                node,
+                location: :expression,
+                message: MSG_BLOCK
+              )
+            end
           end
         end
 
@@ -66,7 +72,13 @@ module RuboCop
           return unless block
 
           _receiver, _args, body = *block
-          add_offense(node, :expression, MSG_AND_RETURN) unless dynamic?(body)
+          unless dynamic?(body) # rubocop:disable Style/GuardClause
+            add_offense(
+              node,
+              location: :expression,
+              message: MSG_AND_RETURN
+            )
+          end
         end
 
         def dynamic?(node)

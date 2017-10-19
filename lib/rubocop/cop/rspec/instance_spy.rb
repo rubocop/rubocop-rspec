@@ -47,7 +47,7 @@ module RuboCop
 
           null_double(node) do |var, receiver|
             have_received_usage(node) do |expected|
-              add_offense(receiver, :expression) if expected == var
+              add_offense(receiver, location: :expression) if expected == var
             end
           end
         end

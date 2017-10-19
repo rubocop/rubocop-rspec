@@ -44,7 +44,7 @@ module RuboCop
 
         ENFORCED_REPLACEMENTS = alternatives.merge(alternatives.invert).freeze
 
-        def on_send(node)
+        def on_send(node) # rubocop:disable Metrics/MethodLength
           return unless (source_range = offending_expect(node))
 
           expectation_source = source_range.source
@@ -54,7 +54,11 @@ module RuboCop
           else
             opposite_style_detected
 
-            add_offense(node, source_range, offense_message(expectation_source))
+            add_offense(
+              node,
+              location: source_range,
+              message: offense_message(expectation_source)
+            )
           end
         end
 

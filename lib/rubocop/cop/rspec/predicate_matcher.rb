@@ -12,7 +12,11 @@ module RuboCop
 
         def check_inflected(node)
           predicate_in_actual?(node) do |predicate|
-            add_offense(node, node.loc.expression, message_inflected(predicate))
+            add_offense(
+              node,
+              location: :expression,
+              message: message_inflected(predicate)
+            )
           end
         end
 
@@ -130,16 +134,24 @@ module RuboCop
 
         private
 
-        def check_explicit(node)
+        def check_explicit(node) # rubocop:disable Metrics/MethodLength
           predicate_matcher_block?(node) do |_actual, matcher|
-            add_offense(node, :expression, message_explicit(matcher))
+            add_offense(
+              node,
+              location: :expression,
+              message: message_explicit(matcher)
+            )
             ignore_node(node.children.first)
             return
           end
 
           return if part_of_ignored_node?(node)
           predicate_matcher?(node) do |_actual, matcher|
-            add_offense(node, :expression, message_explicit(matcher))
+            add_offense(
+              node,
+              location: :expression,
+              message: message_explicit(matcher)
+            )
           end
         end
 

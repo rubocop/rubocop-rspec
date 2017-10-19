@@ -40,7 +40,7 @@ module RuboCop
           return unless example_group?(node)
 
           unused_let_bang(node) do |let|
-            add_offense(let, :expression)
+            add_offense(let, location: :expression)
           end
         end
 

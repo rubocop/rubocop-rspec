@@ -28,7 +28,7 @@ module RuboCop
 
         def on_send(node)
           example_inclusion_offense(node, alternative_style) do
-            add_offense(node, :expression)
+            add_offense(node, location: :expression)
           end
         end
 

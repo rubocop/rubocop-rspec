@@ -17,7 +17,7 @@ module RuboCop
         def_node_matcher :message_chain, Matchers::MESSAGE_CHAIN.send_pattern
 
         def on_send(node)
-          message_chain(node) { add_offense(node, :selector) }
+          message_chain(node) { add_offense(node, location: :selector) }
         end
 
         def message(node)

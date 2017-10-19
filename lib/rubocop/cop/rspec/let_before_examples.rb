@@ -58,7 +58,7 @@ module RuboCop
 
           node.each_child_node do |child|
             if let?(child)
-              add_offense(child, :expression) if example_found
+              add_offense(child, location: :expression) if example_found
             elsif example_or_group?(child)
               example_found = true
             end

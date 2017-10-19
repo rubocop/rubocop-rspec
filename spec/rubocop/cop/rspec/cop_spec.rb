@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
       end
 
       def on_send(node)
-        add_offense(node, :expression, 'I flag everything')
+        add_offense(node, location: :expression, message: 'I flag everything')
       end
     end
     RuboCop::RSpec::FakeCop

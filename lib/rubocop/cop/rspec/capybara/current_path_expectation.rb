@@ -32,7 +32,7 @@ module RuboCop
 
           def on_send(node)
             expectation_set_on_current_path(node) do
-              add_offense(node, :selector)
+              add_offense(node, location: :selector)
             end
           end
         end

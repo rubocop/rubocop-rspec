@@ -99,7 +99,11 @@ module RuboCop
 
         def on_top_level_describe(node, _)
           find_nested_contexts(node.parent) do |context, nesting|
-            add_offense(context.children.first, :expression, message(nesting))
+            add_offense(
+              context.children.first,
+              location: :expression,
+              message: message(nesting)
+            )
           end
         end
 

@@ -41,7 +41,9 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          eql_type_with_identity(node) { |eql| add_offense(eql, :selector) }
+          eql_type_with_identity(node) do |eql|
+            add_offense(eql, location: :selector)
+          end
         end
 
         def autocorrect(node)

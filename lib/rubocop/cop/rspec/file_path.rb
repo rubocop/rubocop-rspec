@@ -57,7 +57,7 @@ module RuboCop
 
           return if filename_ends_with?(glob)
 
-          add_offense(node, :expression, format(MSG, glob))
+          add_offense(node, location: :expression, message: format(MSG, glob))
         end
 
         private

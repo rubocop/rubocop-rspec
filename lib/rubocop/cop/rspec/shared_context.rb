@@ -99,7 +99,11 @@ module RuboCop
         end
 
         def add_shared_item_offense(node, message)
-          add_offense(node.children.first, :expression, message)
+          add_offense(
+            node.children.first,
+            location: :expression,
+            message: message
+          )
         end
       end
     end

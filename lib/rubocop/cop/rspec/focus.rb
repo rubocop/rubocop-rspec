@@ -44,7 +44,7 @@ module RuboCop
 
         def on_send(node)
           focus_metadata(node) do |focus|
-            add_offense(focus, :expression)
+            add_offense(focus, location: :expression)
           end
         end
 

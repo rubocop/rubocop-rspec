@@ -51,7 +51,7 @@ module RuboCop
             return if pairs.any?(&method(:rails_metadata?))
           end
 
-          add_offense(args.first, :expression)
+          add_offense(args.first, location: :expression)
         end
       end
     end

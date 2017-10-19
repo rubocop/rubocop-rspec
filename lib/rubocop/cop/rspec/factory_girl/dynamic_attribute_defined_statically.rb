@@ -42,7 +42,7 @@ module RuboCop
             return if node.method_name == :trait
             factory_attributes(node).to_a.flatten.each do |attribute|
               if dynamic_defined_statically?(attribute)
-                add_offense(attribute, :expression)
+                add_offense(attribute, location: :expression)
               end
             end
           end
