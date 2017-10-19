@@ -107,6 +107,17 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
+  it 'ignores variables with look like focuesed method' do
+    expect_no_offenses(<<-RUBY)
+      describe 'fit' do
+        let(:fit_attributes) { fit.id }
+        it 'is not focused' do
+          expect(fit.bar).to eq baz
+        end
+      end
+    RUBY
+  end
+
   it 'flags focused block types' do
     expect_offense(<<-RUBY)
       fdescribe 'test' do; end
