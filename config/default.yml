@@ -294,6 +294,11 @@ RSpec/OverwritingSetup:
   Description: Checks if there is a let/subject that overwrites an existing one.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup
 
+RSpec/Pending:
+  Enabled: false
+  Description: Checks for any pending or skipped examples.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
+
 RSpec/RepeatedDescription:
   Enabled: true
   Description: Check for repeated description strings in example groups.
