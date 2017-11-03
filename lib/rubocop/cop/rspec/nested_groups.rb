@@ -6,6 +6,7 @@ module RuboCop
       # Checks for nested example groups.
       #
       # This cop is configurable using the `Max` option
+      # and supports `--auto-gen-config
       #
       # @example
       #   # bad
@@ -85,6 +86,7 @@ module RuboCop
       #   end
       #
       class NestedGroups < Cop
+        include ConfigurableMax
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Maximum example group nesting exceeded ' \
@@ -100,6 +102,7 @@ module RuboCop
 
         def on_top_level_describe(node, _args)
           find_nested_contexts(node.parent) do |context, nesting|
+            self.max = nesting
             add_offense(
               context.children.first,
               location: :expression,

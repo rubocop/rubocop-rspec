@@ -22,6 +22,21 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
     RUBY
   end
 
+  it 'support --auto-gen-config' do
+    inspect_source(<<-RUBY, 'spec/foo_spec.rb')
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            context 'when baz' do
+            end
+          end
+        end
+      end
+    RUBY
+
+    expect(cop.config_to_allow_offenses).to eq('Max' => 4)
+  end
+
   it 'ignores non-spec context methods' do
     expect_no_offenses(<<-RUBY)
       class MyThingy
