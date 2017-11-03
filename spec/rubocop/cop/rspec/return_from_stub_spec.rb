@@ -17,6 +17,15 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       RUBY
     end
 
+    it 'finds empty values returned from block' do
+      expect_offense(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar) {}
+                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+        end
+      RUBY
+    end
+
     it 'finds array with only static values returned from block' do
       expect_offense(<<-RUBY)
         it do

@@ -72,7 +72,7 @@ module RuboCop
           return unless block
 
           _receiver, _args, body = *block
-          unless dynamic?(body) # rubocop:disable Style/GuardClause
+          unless body && dynamic?(body) # rubocop:disable Style/GuardClause
             add_offense(
               node,
               location: :expression,

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
+
 ## 1.19.0 (2017-10-18)
 
 Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
@@ -259,3 +261,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@bmorrall]: https:/github.com/bmorrall
 [@zverok]: https:/github.com/zverok
 [@timrogers]: https://github.com/timrogers
+[@yevhene]: https://github.com/yevhene
