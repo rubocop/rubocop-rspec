@@ -55,14 +55,25 @@ module RuboCop
         #     expect(foo).to receive(:bar)
         #     expect(foo).to receive(:bar).with(1)
         #     expect(foo).to receive(:bar).with(1).and_return(2)
+        #
+        #   @example source that not matches
+        #     expect(foo).to all(receive(:bar))
+        #
         def_node_matcher :message_expectation?, <<-PATTERN
           {
             (send nil? :allow (send nil? %))
-            (send (send nil? :expect (send nil? %)) :to #receive_message?)
+            (send (send nil? :expect (send nil? %)) :to #expectation?)
           }
         PATTERN
 
+        def_node_matcher :all_matcher?, '(send nil? :all ...)'
+
         def_node_search :receive_message?, '(send nil? :receive ...)'
+
+        def expectation?(node)
+          return if all_matcher?(node)
+          receive_message?(node)
+        end
 
         def on_block(node)
           return unless example_group?(node)
