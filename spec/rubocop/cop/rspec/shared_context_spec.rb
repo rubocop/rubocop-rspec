@@ -1,7 +1,7 @@
 RSpec.describe RuboCop::Cop::RSpec::SharedContext do
   subject(:cop) { described_class.new }
 
-  context 'shared_context' do
+  describe 'shared_context' do
     it 'does not register an offense for empty contexts' do
       expect_no_offenses(<<-RUBY)
         shared_context 'empty' do
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
     end
   end
 
-  context 'shared_examples' do
+  describe 'shared_examples' do
     it 'does not register an offense for empty examples' do
       expect_no_offenses(<<-RUBY)
         shared_examples 'empty' do

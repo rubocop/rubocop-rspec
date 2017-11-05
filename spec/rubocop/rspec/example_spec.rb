@@ -36,7 +36,7 @@ RSpec.describe RuboCop::RSpec::Example do
     expect(described_class.new(node).to_node).to be(node)
   end
 
-  context 'value object semantics' do
+  describe 'value object semantics' do
     it 'compares by value' do
       aggregate_failures 'equality semantics' do
         expect(example('it("foo")')).to eq(example('it("foo")'))
