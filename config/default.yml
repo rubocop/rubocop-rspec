@@ -335,6 +335,11 @@ Capybara/FeatureMethods:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+FactoryBot/DynamicAssociationDeclaration:
+  Description: Prefer declaring associations using the `#association` method.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/DynamicAssociationDeclaration
+
 FactoryBot/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true

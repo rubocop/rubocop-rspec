@@ -4,6 +4,7 @@
 
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
 * Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
+* Add `FactoryGirl/DynamicAssociationDeclaration` cop. ([@drenmi][])
 
 ## 1.19.0 (2017-10-18)
 
@@ -264,3 +265,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@timrogers]: https://github.com/timrogers
 [@yevhene]: https://github.com/yevhene
 [@walf443]: https://github.com/walf443
+[@drenmi]: https://github.com/drenmi
