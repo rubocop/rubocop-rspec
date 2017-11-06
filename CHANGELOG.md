@@ -4,6 +4,7 @@
 
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
 * Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
+* Fix `RSpec/NestedGroups` cop support --auto-gen-config. ([@walf443][])
 
 ## 1.19.0 (2017-10-18)
 

@@ -22,6 +22,22 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
     RUBY
   end
 
+  it 'support --auto-gen-config' do
+    expect_offense(<<-RUBY)
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            context 'when baz' do
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+            end
+          end
+        end
+      end
+    RUBY
+
+    expect(cop.config_to_allow_offenses['Max']).to eq(4)
+  end
+
   it 'ignores non-spec context methods' do
     expect_no_offenses(<<-RUBY)
       class MyThingy
