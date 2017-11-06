@@ -4,7 +4,7 @@ AllCops:
     Patterns:
     - _spec.rb
     - "(?:^|/)spec/"
-  RSpec/FactoryGirl:
+  RSpec/FactoryBot:
     Patterns:
     - spec/factories/**/*.rb
     - features/support/factories/**/*.rb
@@ -335,7 +335,7 @@ Capybara/FeatureMethods:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
-FactoryGirl/DynamicAttributeDefinedStatically:
+FactoryBot/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryGirl/DynamicAttributeDefinedStatically
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/DynamicAttributeDefinedStatically

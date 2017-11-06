@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      module FactoryGirl
+      module FactoryBot
         # Prefer declaring dynamic attribute values in a block.
         #
         # @example
