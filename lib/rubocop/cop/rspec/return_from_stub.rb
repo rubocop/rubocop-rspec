@@ -53,6 +53,14 @@ module RuboCop
           end
         end
 
+        def autocorrect(node)
+          if style == :block
+            AndReturnCallCorrector.new(node)
+          else
+            BlockBodyCorrector.new(node)
+          end
+        end
+
         private
 
         def check_and_return_call(node)
@@ -83,6 +91,83 @@ module RuboCop
 
         def dynamic?(node)
           !node.recursive_literal?
+        end
+
+        # :nodoc:
+        class AndReturnCallCorrector
+          def initialize(node)
+            @node = node
+            @receiver, _method_name, @args = *node
+          end
+
+          def call(corrector)
+            # Heredoc autocorrection is not yet implemented.
+            return if heredoc?
+
+            corrector.replace(range, " { #{replacement} }")
+          end
+
+          private
+
+          attr_reader :node, :receiver, :args
+
+          def heredoc?
+            args.loc.is_a?(Parser::Source::Map::Heredoc)
+          end
+
+          def range
+            Parser::Source::Range.new(
+              node.source_range.source_buffer,
+              receiver.source_range.end_pos,
+              node.source_range.end_pos
+            )
+          end
+
+          def replacement
+            if hash_without_braces?
+              "{ #{args.source} }"
+            else
+              args.source
+            end
+          end
+
+          def hash_without_braces?
+            args.hash_type? && !args.braces?
+          end
+        end
+
+        # :nodoc:
+        class BlockBodyCorrector
+          def initialize(node)
+            @block = node.each_ancestor(:block).first
+            @node = node
+            @body = block.body || NULL_BLOCK_BODY
+          end
+
+          def call(corrector)
+            # Heredoc autocorrection is not yet implemented.
+            return if heredoc?
+
+            corrector.replace(range, ".and_return(#{body.source})")
+          end
+
+          private
+
+          attr_reader :node, :block, :body
+
+          def range
+            Parser::Source::Range.new(
+              block.source_range.source_buffer,
+              node.source_range.end_pos,
+              block.source_range.end_pos
+            )
+          end
+
+          def heredoc?
+            body.loc.is_a?(Parser::Source::Map::Heredoc)
+          end
+
+          NULL_BLOCK_BODY = Struct.new(:loc, :source).new(nil, 'nil')
         end
       end
     end
