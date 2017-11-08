@@ -5,6 +5,7 @@
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
 * Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
 * Add `RSpec/ContextWording` cop. ([@pirj][], [@telmofcosta][])
+* Fix `RSpec/SubjectStub` cop matches receive message inside all matcher. ([@walf443][])
 
 ## 1.19.0 (2017-10-18)
 
