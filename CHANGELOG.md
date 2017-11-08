@@ -4,6 +4,7 @@
 
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
 * Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
+* Add `RSpec/ContextWording` cop. ([@pirj][], [@telmofcosta][])
 * Fix `RSpec/SubjectStub` cop matches receive message inside all matcher. ([@walf443][])
 
 ## 1.19.0 (2017-10-18)
@@ -265,3 +266,5 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@timrogers]: https://github.com/timrogers
 [@yevhene]: https://github.com/yevhene
 [@walf443]: https://github.com/walf443
+[@pirj]: https://github.com/pirj
+[@telmofcosta]: https://github.com/telmofcosta
