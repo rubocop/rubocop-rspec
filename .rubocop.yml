@@ -30,6 +30,13 @@ Lint/InterpolationCheck:
   Exclude:
     - spec/**/*.rb
 
+RSpec/ContextWording:
+  Enabled: true
+  Prefixes:
+    - when
+    - with
+    - without
+
 RSpec/ExampleLength:
   Max: 19
 

@@ -43,6 +43,14 @@ RSpec/BeforeAfterAll:
   - spec/support/**/*.rb
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
+RSpec/ContextWording:
+  Description: "`context` block descriptions should start with 'when', or 'with'."
+  Enabled: true
+  Prefixes:
+  - when
+  - with
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
+
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
   Enabled: true
