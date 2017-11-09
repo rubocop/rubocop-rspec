@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.20.0 (2017-11-09)
+
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
 * Fix exception in `RSpec/ReturnFromStub` on empty block. ([@yevhene][])
 * Add `RSpec/ContextWording` cop. ([@pirj][], [@telmofcosta][])
