@@ -20,13 +20,17 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
       # Some description
       #
       # @note only works with foo
-      class RuboCop::Cop::RSpec::Foo
+      class RuboCop::Cop::RSpec::Foo < RuboCop::Cop::RSpec::Cop
         # Hello
         def bar
         end
+
+        # :nodoc:
+        class HelperClassForFoo
+        end
       end
 
-      class RuboCop::Cop::RSpec::Undocumented
+      class RuboCop::Cop::RSpec::Undocumented < RuboCop::Cop::RSpec::Cop
         # Hello
         def bar
         end
