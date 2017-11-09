@@ -59,6 +59,17 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
+  it 'ignores stub when inside all matcher' do
+    expect_no_offenses(<<-RUBY)
+      describe Foo do
+        subject(:foo) { [Object.new] }
+        it 'tries to trick rubocop-rspec' do
+          expect(foo).to all(receive(:baz))
+        end
+      end
+    RUBY
+  end
+
   it 'flags nested subject stubs when nested subject uses same name' do
     expect_offense(<<-RUBY)
       describe Foo do
