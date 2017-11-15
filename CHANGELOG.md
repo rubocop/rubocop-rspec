@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.20.1 (2017-11-15)
+
 * Add "without" to list of default allowed prefixes for `RSpec/ContextWording`. ([@bquorning][])
 
 ## 1.20.0 (2017-11-09)
