@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add "without" to list of default allowed prefixes for `RSpec/ContextWording`. ([@bquorning][])
+
 ## 1.20.0 (2017-11-09)
 
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
