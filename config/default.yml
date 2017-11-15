@@ -49,6 +49,7 @@ RSpec/ContextWording:
   Prefixes:
   - when
   - with
+  - without
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 
 RSpec/DescribeClass:
