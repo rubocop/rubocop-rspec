@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Improve performance when user does not override default RSpec Pattern config. ([@walf443][])
+
 ## 1.20.1 (2017-11-15)
 
 * Add "without" to list of default allowed prefixes for `RSpec/ContextWording`. ([@bquorning][])
