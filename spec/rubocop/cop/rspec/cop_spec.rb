@@ -31,6 +31,7 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
         add_offense(node, location: :expression, message: 'I flag everything')
       end
     end
+    # rubocop:enable ClassAndModuleChildren
     RuboCop::RSpec::FakeCop
   end
 
