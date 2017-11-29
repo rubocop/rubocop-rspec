@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop # rubocop:disable Style/Documentation
     WorkaroundCop = Cop.dup
@@ -42,6 +44,11 @@ module RuboCop
         DEFAULT_CONFIGURATION =
           RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
 
+        DEFAULT_PATTERN_RE = Regexp.union(
+          DEFAULT_CONFIGURATION.fetch('Patterns')
+                               .map(&Regexp.public_method(:new))
+        )
+
         # Invoke the original inherited hook so our cops are recognized
         def self.inherited(subclass)
           RuboCop::Cop::Cop.inherited(subclass)
@@ -58,12 +65,25 @@ module RuboCop
         end
 
         def rspec_pattern
-          Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))
+          if rspec_pattern_config?
+            Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))
+          else
+            DEFAULT_PATTERN_RE
+          end
+        end
+
+        def all_cops_config
+          config
+            .for_all_cops
+        end
+
+        def rspec_pattern_config?
+          return unless all_cops_config.key?('RSpec')
+          all_cops_config.fetch('RSpec').key?('Patterns')
         end
 
         def rspec_pattern_config
-          config
-            .for_all_cops
+          all_cops_config
             .fetch('RSpec', DEFAULT_CONFIGURATION)
             .fetch('Patterns')
         end
