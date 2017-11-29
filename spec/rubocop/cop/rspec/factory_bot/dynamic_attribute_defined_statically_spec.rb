@@ -2,6 +2,8 @@
 
 # rubocop:disable Metrics/LineLength
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStatically do
+  # rubocop:enable Metrics/LineLength
+
   subject(:cop) { described_class.new(config) }
 
   let(:config) { RuboCop::Config.new }

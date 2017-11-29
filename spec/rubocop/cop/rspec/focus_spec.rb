@@ -71,6 +71,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                  ^^^^^^ Focused spec found.
     RUBY
   end
+  # rubocop:enable RSpec/ExampleLength
 
   it 'does not flag unfocused specs' do
     expect_no_offenses(<<-RUBY)
