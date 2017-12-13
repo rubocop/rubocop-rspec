@@ -63,8 +63,12 @@ module RuboCop
 
         def node_range(node)
           range = node.source_range
-          range = range_with_surrounding_space(range, :left, false)
-          range = range_with_surrounding_space(range, :right, true)
+          range = range_with_surrounding_space(
+            range: range, side: :left, newlines: false
+          )
+          range = range_with_surrounding_space(
+            range: range, side: :right, newlines: true
+          )
           range
         end
 
