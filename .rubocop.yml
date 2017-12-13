@@ -36,3 +36,11 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
+
+# FIXME
+Style/FormatStringToken:
+  Enabled: false
+
+# Awaiting bugfix: https://github.com/bbatsov/rubocop/issues/5224
+Layout/EmptyLinesAroundArguments:
+  Enabled: false

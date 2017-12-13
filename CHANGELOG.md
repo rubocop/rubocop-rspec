@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Compatibility with RuboCop v0.52.0. ([@bquorning][])
 * Improve performance when user does not override default RSpec Pattern config. ([@walf443][])
 * Add `AggregateFailuresByDefault` configuration for `RSpec/MultipleExpectations` cop. ([@onk][])
 
