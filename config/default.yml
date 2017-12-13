@@ -237,6 +237,7 @@ RSpec/MultipleExpectations:
   Description: Checks if examples contain too many `expect` calls.
   Enabled: true
   Max: 1
+  AggregateFailuresByDefault: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 
 RSpec/MultipleSubjects:

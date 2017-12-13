@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Improve performance when user does not override default RSpec Pattern config. ([@walf443][])
+* Add `AggregateFailuresByDefault` configuration for `RSpec/MultipleExpectations` cop. ([@onk][])
 
 ## 1.20.1 (2017-11-15)
 

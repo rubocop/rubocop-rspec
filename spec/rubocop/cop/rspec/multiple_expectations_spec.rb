@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
     end
   end
 
-  context 'with configuration' do
+  context 'with Max configuration' do
     let(:cop_config) do
       { 'Max' => '2' }
     end
@@ -156,6 +156,57 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
             expect(qux).to eq(bar)
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'with AggregateFailuresByDefault configuration' do
+    let(:cop_config) do
+      { 'AggregateFailuresByDefault' => true }
+    end
+
+    it 'ignores examples without metadata' do
+      expect_no_offenses(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice' do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores examples with `:aggregate_failures`' do
+      expect_no_offenses(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', :aggregate_failures do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores examples with `aggregate_failures: true`' do
+      expect_no_offenses(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', aggregate_failures: true do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+    end
+
+    it 'checks examples with `aggregate_failures: false`' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'uses expect twice', aggregate_failures: false do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
           end
         end
       RUBY
