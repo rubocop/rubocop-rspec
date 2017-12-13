@@ -16,7 +16,7 @@ module RuboCop
       class NotToNot < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%s` over `%s`.'.freeze
+        MSG = 'Prefer `%<replacement>s` over `%<original>s`.'.freeze
 
         def_node_matcher :not_to_not_offense, '(send _ % ...)'
 
@@ -33,7 +33,7 @@ module RuboCop
         private
 
         def message(_node)
-          format(MSG, style, alternative_style)
+          format(MSG, replacement: style, original: alternative_style)
         end
       end
     end

@@ -9,12 +9,12 @@ RSpec.describe RuboCop::RSpec::Example do
 
   it 'extracts doc string' do
     expect(example("it('does x') { foo }").doc_string)
-      .to eql(s(:str, 'does x'))
+      .to eq(s(:str, 'does x'))
   end
 
   it 'extracts doc string for unimplemented examples' do
     expect(example("it('does x')").doc_string)
-      .to eql(s(:str, 'does x'))
+      .to eq(s(:str, 'does x'))
   end
 
   it 'returns nil for examples without doc strings' do

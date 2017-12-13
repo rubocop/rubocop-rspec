@@ -60,8 +60,9 @@ module RuboCop
       class HookArgument < Cop
         include ConfigurableEnforcedStyle
 
-        IMPLICIT_MSG = 'Omit the default `%p` argument for RSpec hooks.'.freeze
-        EXPLICIT_MSG = 'Use `%p` for RSpec hooks.'.freeze
+        IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
+                       'argument for RSpec hooks.'.freeze
+        EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'.freeze
 
         HOOKS = Hooks::ALL.node_pattern_union.freeze
 
@@ -102,15 +103,15 @@ module RuboCop
           add_offense(
             method_send,
             location: :selector,
-            message: format(EXPLICIT_MSG, style)
+            message: format(EXPLICIT_MSG, scope: style)
           )
         end
 
         def explicit_message(scope)
           if implicit_style?
-            format(IMPLICIT_MSG, scope)
+            format(IMPLICIT_MSG, scope: scope)
           else
-            format(EXPLICIT_MSG, style)
+            format(EXPLICIT_MSG, scope: style)
           end
         end
 

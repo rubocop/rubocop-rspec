@@ -36,3 +36,7 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
+
+# Awaiting bugfix: https://github.com/bbatsov/rubocop/issues/5224
+Layout/EmptyLinesAroundArguments:
+  Enabled: false

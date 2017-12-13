@@ -87,7 +87,8 @@ module RuboCop
       class NestedGroups < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Maximum example group nesting exceeded [%d/%d].'.freeze
+        MSG = 'Maximum example group nesting exceeded ' \
+              '[%<total>d/%<max>d].'.freeze
 
         DEPRECATED_MAX_KEY = 'MaxNesting'.freeze
 
@@ -120,7 +121,7 @@ module RuboCop
         end
 
         def message(nesting)
-          format(MSG, nesting, max_nesting)
+          format(MSG, total: nesting, max: max_nesting)
         end
 
         def max_nesting

@@ -27,7 +27,7 @@ module RuboCop
       class MessageExpectation < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%s` for setting message expectations.'.freeze
+        MSG = 'Prefer `%<style>s` for setting message expectations.'.freeze
 
         SUPPORTED_STYLES = %w[allow expect].freeze
 
@@ -41,7 +41,8 @@ module RuboCop
           message_expectation(node) do |match|
             return correct_style_detected if preferred_style?(match)
 
-            add_offense(match, location: :selector, message: MSG % style) do
+            message = format(MSG, style: style)
+            add_offense(match, location: :selector, message: message) do
               opposite_style_detected
             end
           end

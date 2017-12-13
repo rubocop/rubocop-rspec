@@ -31,8 +31,8 @@ module RuboCop
                       'expectations.'.freeze
 
         MSG_HAVE_RECEIVED = 'Prefer `have_received` for setting message '\
-                            'expectations. Setup `%s` as a spy using `allow`'\
-                            ' or `instance_spy`.'.freeze
+                            'expectations. Setup `%<source>s` as a spy using '\
+                            '`allow` or `instance_spy`.'.freeze
 
         SUPPORTED_STYLES = %w[have_received receive].freeze
 
@@ -73,7 +73,7 @@ module RuboCop
           when :receive
             MSG_RECEIVE
           when :have_received
-            MSG_HAVE_RECEIVED % receiver.source
+            format(MSG_HAVE_RECEIVED, source: receiver.source)
           end
         end
       end

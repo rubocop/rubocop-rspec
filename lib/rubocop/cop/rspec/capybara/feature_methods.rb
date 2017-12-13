@@ -33,7 +33,7 @@ module RuboCop
         #     end
         #   end
         class FeatureMethods < Cop
-          MSG = 'Use `%s` instead of `%s`.'.freeze
+          MSG = 'Use `%<replacement>s` instead of `%<method>s`.'.freeze
 
           # https://git.io/v7Kwr
           MAP = {
@@ -56,7 +56,7 @@ module RuboCop
               add_offense(
                 send_node,
                 location: :selector,
-                message: format(MSG, MAP[match], match)
+                message: format(MSG, method: match, replacement: MAP[match])
               )
             end
           end

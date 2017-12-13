@@ -37,7 +37,7 @@ module RuboCop
         include ConfigurableEnforcedStyle
 
         DESCRIBED_CLASS = 'described_class'.freeze
-        MSG             = 'Use `%s` instead of `%s`.'.freeze
+        MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'.freeze
 
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
           (block (send (const nil? {:Class :Module}) :new ...) ...)
@@ -91,9 +91,10 @@ module RuboCop
 
         def message(offense)
           if style == :described_class
-            format(MSG, DESCRIBED_CLASS, offense)
+            format(MSG, replacement: DESCRIBED_CLASS, src: offense)
           else
-            format(MSG, @described_class.const_name, DESCRIBED_CLASS)
+            format(MSG, replacement: @described_class.const_name,
+                        src: DESCRIBED_CLASS)
           end
         end
 
