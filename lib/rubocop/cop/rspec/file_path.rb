@@ -44,7 +44,7 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Spec path should end with `%s`.'.freeze
+        MSG = 'Spec path should end with `%<suffix>s`.'.freeze
 
         def_node_search :const_described?,  '(send _ :describe (const ...) ...)'
         def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
@@ -57,7 +57,11 @@ module RuboCop
 
           return if filename_ends_with?(glob)
 
-          add_offense(node, location: :expression, message: format(MSG, glob))
+          add_offense(
+            node,
+            location: :expression,
+            message: format(MSG, suffix: glob)
+          )
         end
 
         private
