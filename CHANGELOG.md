@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Updates `describe_class` to account for RSpecs `:system` wrapper of rails system tests. ([@EliseFitz15][])
+
 ## 1.21.0 (2017-12-13)
 
 * Compatibility with RuboCop v0.52.0. ([@bquorning][])
@@ -280,3 +282,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@walf443]: https://github.com/walf443
 [@pirj]: https://github.com/pirj
 [@telmofcosta]: https://github.com/telmofcosta
+[@EliseFitz15]: https://github.com/EliseFitz15

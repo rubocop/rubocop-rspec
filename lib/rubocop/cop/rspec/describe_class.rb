@@ -36,7 +36,7 @@ module RuboCop
         def_node_matcher :rails_metadata?, <<-PATTERN
           (pair
             (sym :type)
-            (sym {:request :feature :routing :view}))
+            (sym {:request :feature :system :routing :view}))
         PATTERN
 
         def_node_matcher :shared_group?, <<-PATTERN
