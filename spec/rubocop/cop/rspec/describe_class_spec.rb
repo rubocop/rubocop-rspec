@@ -56,6 +56,13 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
     RUBY
   end
 
+  it 'ignores system specs' do
+    expect_no_offenses(<<-RUBY)
+      describe 'my new system test', type: :system do
+      end
+    RUBY
+  end
+
   it 'ignores feature specs when RSpec.describe is used' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe 'my new feature', type: :feature do
