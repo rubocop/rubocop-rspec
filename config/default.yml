@@ -122,6 +122,15 @@ RSpec/ExpectActual:
   - spec/routing/**/*
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
+RSpec/ExpectChange:
+  Description: Checks for consistent style of change matcher.
+  Enabled: true
+  EnforcedStyle: method_call
+  SupportedStyles:
+  - method_call
+  - block
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
+
 RSpec/ExpectInHook:
   Enabled: true
   Description: Do not use `expect` in hooks such as `before`.
