@@ -47,6 +47,17 @@ module RuboCop
           check_let_declarations(node.body) if multiline_block?(node.body)
         end
 
+        def autocorrect(node)
+          lambda do |corrector|
+            first_example = find_first_example(node.parent)
+            first_example_pos = first_example.loc.expression
+            indent = "\n" + ' ' * first_example.loc.column
+
+            corrector.insert_before(first_example_pos, source(node) + indent)
+            corrector.remove(node_range_with_surrounding_space(node))
+          end
+        end
+
         private
 
         def multiline_block?(block)
@@ -54,15 +65,44 @@ module RuboCop
         end
 
         def check_let_declarations(node)
-          example_found = false
+          first_example = find_first_example(node)
+          return unless first_example
 
           node.each_child_node do |child|
-            if let?(child)
-              add_offense(child, location: :expression) if example_found
-            elsif example_or_group?(child)
-              example_found = true
-            end
+            next if child.sibling_index < first_example.sibling_index
+            add_offense(child, location: :expression) if let?(child)
           end
+        end
+
+        def find_first_example(node)
+          node.children.find { |sibling| example_or_group?(sibling) }
+        end
+
+        def node_range_with_surrounding_space(node)
+          range = node_range(node)
+          range_by_whole_lines(range, include_final_newline: true)
+        end
+
+        def source(node)
+          node_range(node).source
+        end
+
+        def node_range(node)
+          range_between(node.loc.expression.begin_pos, last_node_loc(node))
+        end
+
+        def last_node_loc(node)
+          heredoc = heredoc_lines(node).last
+
+          if heredoc
+            heredoc.loc.heredoc_end.end_pos
+          else
+            node.loc.end.end_pos
+          end
+        end
+
+        def heredoc_lines(node)
+          node.body.child_nodes.select { |n| n.loc.respond_to?(:heredoc_end) }
         end
       end
     end
