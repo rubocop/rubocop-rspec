@@ -62,14 +62,7 @@ module RuboCop
         end
 
         def node_range(node)
-          range = node.source_range
-          range = range_with_surrounding_space(
-            range: range, side: :left, newlines: false
-          )
-          range = range_with_surrounding_space(
-            range: range, side: :right, newlines: true
-          )
-          range
+          range_by_whole_lines(node.source_range, include_final_newline: true)
         end
 
         def in_spec_block?(node)
