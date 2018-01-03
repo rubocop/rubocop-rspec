@@ -53,6 +53,10 @@ module RuboCop
 
         def_node_matcher :spec_group?, EXAMPLE_GROUP_METHODS.block_pattern
 
+        def_node_matcher :dynamic_class?, <<-PATTERN
+          (block (send (const nil? :Class) :new ...) ...)
+        PATTERN
+
         def_node_search :ivar_usage, '$(ivar $_)'
 
         def_node_search :ivar_assigned?, '(ivasgn % ...)'
@@ -61,6 +65,7 @@ module RuboCop
           return unless spec_group?(node)
 
           ivar_usage(node) do |ivar, name|
+            return if inside_dynamic_class?(ivar)
             return if assignment_only? && !ivar_assigned?(node, name)
 
             add_offense(ivar, location: :expression)
@@ -68,6 +73,10 @@ module RuboCop
         end
 
         private
+
+        def inside_dynamic_class?(node)
+          node.each_ancestor(:block).any? { |block| dynamic_class?(block) }
+        end
 
         def assignment_only?
           cop_config['AssignmentOnly']
