@@ -36,6 +36,24 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     RUBY
   end
 
+  it 'ignores an instance variable inside a dynamic class' do
+    expect_no_offenses(<<-RUBY)
+      describe MyClass do
+        let(:object) do
+          Class.new(OtherClass) do
+            def initialize(resource)
+              @resource = resource
+            end
+
+            def serialize
+              @resource.to_json
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
   # Regression test for nevir/rubocop-rspec#115
   it 'ignores instance variables outside of specs' do
     expect_no_offenses(<<-RUBY, 'lib/source_code.rb')
