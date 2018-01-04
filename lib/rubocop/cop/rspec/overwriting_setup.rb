@@ -31,9 +31,7 @@ module RuboCop
         def on_block(node)
           return unless example_group_with_body?(node)
 
-          _describe, _args, body = *node
-
-          find_duplicates(body) do |duplicate, name|
+          find_duplicates(node.body) do |duplicate, name|
             add_offense(
               duplicate,
               location: :expression,

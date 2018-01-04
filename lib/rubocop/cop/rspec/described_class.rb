@@ -81,10 +81,9 @@ module RuboCop
         def find_usage(node, &block)
           yield(node) if offensive?(node)
 
-          return unless node.is_a?(Parser::AST::Node)
           return if scope_change?(node) || node.const_type?
 
-          node.children.each do |child|
+          node.each_child_node do |child|
             find_usage(child, &block)
           end
         end
@@ -116,8 +115,7 @@ module RuboCop
           if style == :described_class
             node.eql?(@described_class)
           else
-            _receiver, method_name, *_args = *node
-            method_name == :described_class
+            node.method_name == :described_class
           end
         end
       end

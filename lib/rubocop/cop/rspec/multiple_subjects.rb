@@ -64,8 +64,7 @@ module RuboCop
 
         def rename_autocorrect(node)
           lambda do |corrector|
-            send_node, _args, _body = *node
-            corrector.replace(send_node.loc.selector, 'let')
+            corrector.replace(node.send_node.loc.selector, 'let')
           end
         end
 
