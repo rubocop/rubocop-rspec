@@ -96,10 +96,8 @@ module RuboCop
         end
 
         def flag_example(node, expectation_count:)
-          method, = *node
-
           add_offense(
-            method,
+            node.send_node,
             location: :expression,
             message: format(
               MSG,

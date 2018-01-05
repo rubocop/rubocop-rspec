@@ -34,22 +34,18 @@ module RuboCop
         def on_block(node)
           return unless example_group_with_body?(node)
 
-          _describe, _args, body = *node
-
-          check_let_declarations(body)
+          check_let_declarations(node.body)
         end
 
-        def check_let_declarations(node)
-          let_found = false
-          mix_found = false
+        private
 
-          node.each_child_node do |child|
-            if let?(child)
-              add_offense(child, location: :expression) if mix_found
-              let_found = true
-            elsif let_found
-              mix_found = true
-            end
+        def check_let_declarations(body)
+          lets = body.each_child_node.select { |node| let?(node) }
+
+          first_let = lets.first
+          lets.each_with_index do |node, idx|
+            next if node.sibling_index == first_let.sibling_index + idx
+            add_offense(node, location: :expression)
           end
         end
       end
