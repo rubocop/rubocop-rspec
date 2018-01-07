@@ -19,6 +19,7 @@ module RuboCop
 
       # Decorator of a YARD code object for working with documented rspec cops
       class CodeObject
+        COP_CLASS_NAMES = %w[RuboCop::Cop RuboCop::Cop::RSpec::Cop].freeze
         RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
 
         def initialize(yardoc)
@@ -29,7 +30,10 @@ module RuboCop
         #
         # @return [Boolean]
         def rspec_cop?
-          class_documentation? && rspec_cop_namespace? && !abstract?
+          class_documentation? &&
+            rspec_cop_namespace? &&
+            cop_subclass? &&
+            !abstract?
         end
 
         # Configuration for the documented cop that would live in default.yml
@@ -59,6 +63,14 @@ module RuboCop
 
         def documented_constant
           yardoc.to_s
+        end
+
+        def cop_subclass?
+          # YARD superclass resolution is a bit flaky: All classes loaded before
+          # RuboCop::Cop::WorkaroundCop are shown as having RuboCop::Cop as
+          # superclass, while all the following classes are listed as having
+          # RuboCop::Cop::RSpec::Cop as their superclass.
+          COP_CLASS_NAMES.include?(yardoc.superclass.path)
         end
 
         def abstract?
