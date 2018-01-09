@@ -21,7 +21,7 @@ module RuboCop
       #       let(:user_attributes) do
       #         {
       #           name: 'John',
-      #           age:  22
+      #           age:  22,
       #           role: role
       #         }
       #       end
@@ -43,7 +43,7 @@ module RuboCop
       #     let(:user) do
       #       UserCreate.call(
       #         name: 'John',
-      #         age:  22
+      #         age:  22,
       #         role: 'admin'
       #       )
       #     end

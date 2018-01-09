@@ -19,12 +19,12 @@ module RuboCop
       # @example
       #   # bad
       #   context 'the display name not present' do
-      #     ...
+      #     # ...
       #   end
       #
       #   # good
       #   context 'when the display name is not present' do
-      #     ...
+      #     # ...
       #   end
       class ContextWording < Cop
         MSG = 'Start context description with %<prefixes>s.'.freeze

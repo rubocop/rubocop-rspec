@@ -7,19 +7,15 @@ module RuboCop
       #
       # @example
       #   # bad
-      #     let(:foo) { bar }
-      #     let(:something) { other }
-      #     it do
-      #       ...
-      #     end
+      #   let(:foo) { bar }
+      #   let(:something) { other }
+      #   it { does_something }
       #
       #   # good
-      #     let(:foo) { bar }
-      #     let(:something) { other }
+      #   let(:foo) { bar }
+      #   let(:something) { other }
       #
-      #     it do
-      #       ...
-      #     end
+      #   it { does_something }
       class EmptyLineAfterFinalLet < Cop
         MSG = 'Add an empty line after the last `let` block.'.freeze
 

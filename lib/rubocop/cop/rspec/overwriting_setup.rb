@@ -7,20 +7,20 @@ module RuboCop
       #
       # @example
       #   # bad
-      #     let(:foo) { bar }
-      #     let(:foo) { baz }
+      #   let(:foo) { bar }
+      #   let(:foo) { baz }
       #
-      #     subject(:foo) { bar }
-      #     let(:foo) { baz }
+      #   subject(:foo) { bar }
+      #   let(:foo) { baz }
       #
-      #     let(:foo) { bar }
-      #     let!(:foo) { baz }
+      #   let(:foo) { bar }
+      #   let!(:foo) { baz }
       #
       #   # good
-      #     subject(:test) { something }
-      #     let(:foo) { bar }
-      #     let(:baz) { baz }
-      #     let!(:other) { other }
+      #   subject(:test) { something }
+      #   let(:foo) { bar }
+      #   let(:baz) { baz }
+      #   let!(:other) { other }
       class OverwritingSetup < Cop
         MSG = '`%<name>s` is already defined.'.freeze
 
