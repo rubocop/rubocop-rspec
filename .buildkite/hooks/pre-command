@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker pull backus/rubocop-rspec
