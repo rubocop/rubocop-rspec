@@ -15,8 +15,8 @@ module RuboCop
       #   describe MyClass, '.do_something_else' do
       #   end
       #
-      #   #good
-      #   describe MyClass
+      #   # good
+      #   describe MyClass do
       #     describe '.do_something' do
       #     end
       #     describe '.do_something_else' do

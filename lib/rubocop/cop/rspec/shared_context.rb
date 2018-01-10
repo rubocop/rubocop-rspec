@@ -14,7 +14,7 @@ module RuboCop
       #     it 'does x' do
       #     end
       #
-      #     it 'does 'y' do
+      #     it 'does y' do
       #     end
       #   end
       #
@@ -23,7 +23,7 @@ module RuboCop
       #     it 'does x' do
       #     end
       #
-      #     it 'does 'y' do
+      #     it 'does y' do
       #     end
       #   end
       #

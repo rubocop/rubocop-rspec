@@ -7,13 +7,13 @@ module RuboCop
       #
       # @example
       #   # bad
-      #     subject(:obj) { described_class }
-      #     let(:foo) { bar }
+      #   subject(:obj) { described_class }
+      #   let(:foo) { bar }
       #
       #   # good
-      #     subject(:obj) { described_class }
+      #   subject(:obj) { described_class }
       #
-      #     let(:foo) { bar }
+      #   let(:foo) { bar }
       class EmptyLineAfterSubject < Cop
         MSG = 'Add empty line after `subject`.'.freeze
 

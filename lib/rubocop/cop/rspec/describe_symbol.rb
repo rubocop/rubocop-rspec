@@ -16,7 +16,7 @@ module RuboCop
       #     ...
       #   end
       #
-      # See https://github.com/rspec/rspec-core/issues/1610
+      # @see https://github.com/rspec/rspec-core/issues/1610
       class DescribeSymbol < Cop
         MSG = 'Avoid describing symbols.'.freeze
 

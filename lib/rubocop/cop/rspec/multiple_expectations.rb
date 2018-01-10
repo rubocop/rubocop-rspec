@@ -26,7 +26,7 @@ module RuboCop
       #       expect(user.name).to eq("John")
       #     end
       #
-      #     it 'sets the users age'
+      #     it 'sets the users age' do
       #       expect(user.age).to eq(22)
       #     end
       #   end
