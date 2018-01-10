@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.22.0 (2018-01-10)
+
 * Updates `describe_class` to account for RSpecs `:system` wrapper of rails system tests. ([@EliseFitz15][])
 * Add `RSpec/ExpectChange` cop to enforce consistent usage of the change matcher. ([@Darhazer][])
 * Add autocorrect support to `RSpec/LetBeforeExamples`. ([@Darhazer][])
