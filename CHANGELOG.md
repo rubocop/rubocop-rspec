@@ -7,6 +7,7 @@
 * Add autocorrect support to `RSpec/LetBeforeExamples`. ([@Darhazer][])
 * Fix `RSpec/InstanceVariable` flagging instance variables inside dynamically defined class. ([@Darhazer][])
 * Add autocorrect support for `RSpec/ReturnFromStub` cop. ([@bquorning][])
+* Add `RSpec/ExampleWithoutDescription` cop. ([@Darhazer][])
 
 ## 1.21.0 (2017-12-13)
 
