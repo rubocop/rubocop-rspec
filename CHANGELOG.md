@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/ReturnFromStub` cop for `with` method. ([@flyerhzm][])
+
 ## 1.22.0 (2018-01-10)
 
 * Updates `describe_class` to account for RSpecs `:system` wrapper of rails system tests. ([@EliseFitz15][])
@@ -290,3 +292,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@pirj]: https://github.com/pirj
 [@telmofcosta]: https://github.com/telmofcosta
 [@EliseFitz15]: https://github.com/EliseFitz15
+[@flyerhzm]: https://github.com/flyerhzm

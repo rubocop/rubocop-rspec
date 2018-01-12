@@ -45,10 +45,19 @@ module RuboCop
             )
         PATTERN
 
+        def_node_matcher :and_return_with_value, <<-PATTERN
+            (send
+              (send
+                (send nil? :receive (...)) :with (...)
+              ) :and_return $(...)
+            )
+        PATTERN
+
         def on_send(node)
           if style == :block
             check_and_return_call(node)
-          elsif node.method_name == :receive
+            check_and_return_with_call(node)
+          elsif %i[receive with].include?(node.method_name)
             check_block_body(node)
           end
         end
@@ -65,6 +74,18 @@ module RuboCop
 
         def check_and_return_call(node)
           and_return_value(node) do |args|
+            unless dynamic?(args)
+              add_offense(
+                node,
+                location: :expression,
+                message: MSG_BLOCK
+              )
+            end
+          end
+        end
+
+        def check_and_return_with_call(node)
+          and_return_with_value(node) do |args|
             unless dynamic?(args)
               add_offense(
                 node,
