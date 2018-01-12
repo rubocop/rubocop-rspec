@@ -128,6 +128,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                      'allow(Foo).to receive(:bar) {}',
                      'allow(Foo).to receive(:bar).and_return(nil)'
 
+    include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar).with(1) {}',
+                     'allow(Foo).to receive(:bar).with(1).and_return(nil)'
+
     original = <<-RUBY
       allow(Foo).to receive(:bar) do
         'You called ' \\
@@ -190,6 +194,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
     include_examples 'autocorrect',
                      'allow(Foo).to receive(:bar).and_return(foo: 42)',
                      'allow(Foo).to receive(:bar) { { foo: 42 } }'
+
+    include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar).with(1).and_return(foo: 42)',
+                     'allow(Foo).to receive(:bar).with(1) { { foo: 42 } }'
 
     original = <<-RUBY
       allow(Foo).to receive(:bar).and_return(
