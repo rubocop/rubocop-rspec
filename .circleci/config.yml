@@ -36,13 +36,6 @@ jobs:
       - checkout
       - run: bundle install
       - run: rake
-  ruby-latest:
-    docker:
-      - image: circleci/ruby:latest
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
   jruby:
     docker:
       - image: circleci/jruby:9.1
@@ -60,5 +53,4 @@ workflows:
       - ruby-2.3
       - ruby-2.4
       - ruby-2.5
-      - ruby-latest
       - jruby
