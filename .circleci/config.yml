@@ -1,5 +1,17 @@
 version: 2
 
+rspec: &rspec
+  steps:
+    - checkout
+    - run: bundle install
+    - run: rake spec
+
+rubocop: &rubocop
+  steps:
+    - checkout
+    - run: bundle install
+    - run: rake internal_investigation
+
 jobs:
   confirm_config:
     docker:
@@ -13,81 +25,51 @@ jobs:
   ruby-2.1-rspec:
     docker:
       - image: circleci/ruby:2.1
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake spec
+    <<: *rspec
   ruby-2.1-rubocop:
     docker:
       - image: circleci/ruby:2.1
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake internal_investigation
+    <<: *rubocop
 
   # Ruby 2.2
   ruby-2.2-rspec:
     docker:
       - image: circleci/ruby:2.2
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake spec
+    <<: *rspec
   ruby-2.2-rubocop:
     docker:
       - image: circleci/ruby:2.2
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake internal_investigation
+    <<: *rubocop
 
   # Ruby 2.3
   ruby-2.3-rspec:
     docker:
       - image: circleci/ruby:2.3
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake spec
+    <<: *rspec
   ruby-2.3-rubocop:
     docker:
       - image: circleci/ruby:2.3
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake internal_investigation
+    <<: *rubocop
 
   # Ruby 2.4
   ruby-2.4-rspec:
     docker:
       - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake spec
+    <<: *rspec
   ruby-2.4-rubocop:
     docker:
       - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake internal_investigation
+    <<: *rubocop
 
   # Ruby 2.5
   ruby-2.5-rspec:
     docker:
       - image: circleci/ruby:2.5
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake spec
+    <<: *rspec
   ruby-2.5-rubocop:
     docker:
       - image: circleci/ruby:2.5
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake internal_investigation
+    <<: *rubocop
 
   # JRuby
   jruby:
