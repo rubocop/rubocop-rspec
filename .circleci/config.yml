@@ -1,56 +1,116 @@
 version: 2
 
 jobs:
-  ruby-2.1:
-    docker:
-      - image: circleci/ruby:2.1
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.2:
-    docker:
-      - image: circleci/ruby:2.2
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.3:
-    docker:
-      - image: circleci/ruby:2.3
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.4:
-    docker:
-      - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.5:
+  confirm_config:
     docker:
       - image: circleci/ruby:2.5
     steps:
       - checkout
       - run: bundle install
-      - run: rake
+      - run: rake confirm_config
+
+  # Ruby 2.1
+  ruby-2.1-rspec:
+    docker:
+      - image: circleci/ruby:2.1
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+  ruby-2.1-rubocop:
+    docker:
+      - image: circleci/ruby:2.1
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
+
+  # Ruby 2.2
+  ruby-2.2-rspec:
+    docker:
+      - image: circleci/ruby:2.2
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+  ruby-2.2-rubocop:
+    docker:
+      - image: circleci/ruby:2.2
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
+
+  # Ruby 2.3
+  ruby-2.3-rspec:
+    docker:
+      - image: circleci/ruby:2.3
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+  ruby-2.3-rubocop:
+    docker:
+      - image: circleci/ruby:2.3
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
+
+  # Ruby 2.4
+  ruby-2.4-rspec:
+    docker:
+      - image: circleci/ruby:2.4
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+  ruby-2.4-rubocop:
+    docker:
+      - image: circleci/ruby:2.4
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
+
+  # Ruby 2.5
+  ruby-2.5-rspec:
+    docker:
+      - image: circleci/ruby:2.5
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
+  ruby-2.5-rubocop:
+    docker:
+      - image: circleci/ruby:2.5
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
+
+  # JRuby
   jruby:
     docker:
       - image: circleci/jruby:9.1
     steps:
       - checkout
       - run: bundle install
-      - run: rake
+      - run: rake internal_investigation spec
 
 workflows:
   version: 2
   build:
     jobs:
-      - ruby-2.1
-      - ruby-2.2
-      - ruby-2.3
-      - ruby-2.4
-      - ruby-2.5
+      - confirm_config
+      - ruby-2.1-rspec
+      - ruby-2.1-rubocop
+      - ruby-2.2-rspec
+      - ruby-2.2-rubocop
+      - ruby-2.3-rspec
+      - ruby-2.3-rubocop
+      - ruby-2.4-rspec
+      - ruby-2.4-rubocop
+      - ruby-2.5-rspec
+      - ruby-2.5-rubocop
       - jruby
