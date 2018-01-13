@@ -85,14 +85,26 @@ workflows:
   build:
     jobs:
       - confirm_config
-      - ruby-2.1-rspec
-      - ruby-2.1-rubocop
-      - ruby-2.2-rspec
-      - ruby-2.2-rubocop
-      - ruby-2.3-rspec
-      - ruby-2.3-rubocop
-      - ruby-2.4-rspec
-      - ruby-2.4-rubocop
-      - ruby-2.5-rspec
-      - ruby-2.5-rubocop
+
+      # Use `requires: [confirm_config]` to trick Circle CI into starting the slow jruby job early.
+      - ruby-2.1-rspec:
+          requires: [confirm_config]
+      - ruby-2.1-rubocop:
+          requires: [confirm_config]
+      - ruby-2.2-rspec:
+          requires: [confirm_config]
+      - ruby-2.2-rubocop:
+          requires: [confirm_config]
+      - ruby-2.3-rspec:
+          requires: [confirm_config]
+      - ruby-2.3-rubocop:
+          requires: [confirm_config]
+      - ruby-2.4-rspec:
+          requires: [confirm_config]
+      - ruby-2.4-rubocop:
+          requires: [confirm_config]
+      - ruby-2.5-rspec:
+          requires: [confirm_config]
+      - ruby-2.5-rubocop:
+          requires: [confirm_config]
       - jruby
