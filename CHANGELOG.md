@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positives in `RSpec/ReturnFromStub`. ([@Darhazer][])
+
 ## 1.22.0 (2018-01-10)
 
 * Updates `describe_class` to account for RSpecs `:system` wrapper of rails system tests. ([@EliseFitz15][])
