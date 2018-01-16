@@ -1,64 +1,119 @@
 version: 2
 
+rspec: &rspec
+  steps:
+    - checkout
+    - run: bundle install
+    - run: rake spec
+
+rubocop: &rubocop
+  steps:
+    - checkout
+    - run: bundle install
+    - run: rake internal_investigation
+
 jobs:
-  ruby-2.1:
-    docker:
-      - image: circleci/ruby:2.1
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.2:
-    docker:
-      - image: circleci/ruby:2.2
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.3:
-    docker:
-      - image: circleci/ruby:2.3
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.4:
-    docker:
-      - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
-  ruby-2.5:
+  confirm_config:
     docker:
       - image: circleci/ruby:2.5
     steps:
       - checkout
       - run: bundle install
-      - run: rake
-  ruby-latest:
+      - run: rake confirm_config
+
+  # Ruby 2.1
+  ruby-2.1-rspec:
     docker:
-      - image: circleci/ruby:latest
-    steps:
-      - checkout
-      - run: bundle install
-      - run: rake
+      - image: circleci/ruby:2.1
+    <<: *rspec
+  ruby-2.1-rubocop:
+    docker:
+      - image: circleci/ruby:2.1
+    <<: *rubocop
+
+  # Ruby 2.2
+  ruby-2.2-rspec:
+    docker:
+      - image: circleci/ruby:2.2
+    <<: *rspec
+  ruby-2.2-rubocop:
+    docker:
+      - image: circleci/ruby:2.2
+    <<: *rubocop
+
+  # Ruby 2.3
+  ruby-2.3-rspec:
+    docker:
+      - image: circleci/ruby:2.3
+    <<: *rspec
+  ruby-2.3-rubocop:
+    docker:
+      - image: circleci/ruby:2.3
+    <<: *rubocop
+
+  # Ruby 2.4
+  ruby-2.4-rspec:
+    docker:
+      - image: circleci/ruby:2.4
+    <<: *rspec
+  ruby-2.4-rubocop:
+    docker:
+      - image: circleci/ruby:2.4
+    <<: *rubocop
+
+  # Ruby 2.5
+  ruby-2.5-rspec:
+    docker:
+      - image: circleci/ruby:2.5
+    <<: *rspec
+  ruby-2.5-rubocop:
+    docker:
+      - image: circleci/ruby:2.5
+    <<: *rubocop
+
+  # JRuby
   jruby:
     docker:
       - image: circleci/jruby:9.1
     steps:
       - checkout
-      - run: bundle install
-      - run: rake
+      - run: bundle lock
+      - restore_cache:
+          keys:
+            - bundle-v1-{{ checksum "Gemfile.lock" }}
+            - bundle-v1-
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: rake internal_investigation spec
 
 workflows:
   version: 2
   build:
     jobs:
-      - ruby-2.1
-      - ruby-2.2
-      - ruby-2.3
-      - ruby-2.4
-      - ruby-2.5
-      - ruby-latest
+      - confirm_config
+
+      # Use `requires: [confirm_config]` to trick Circle CI into starting the slow jruby job early.
+      - ruby-2.1-rspec:
+          requires: [confirm_config]
+      - ruby-2.1-rubocop:
+          requires: [confirm_config]
+      - ruby-2.2-rspec:
+          requires: [confirm_config]
+      - ruby-2.2-rubocop:
+          requires: [confirm_config]
+      - ruby-2.3-rspec:
+          requires: [confirm_config]
+      - ruby-2.3-rubocop:
+          requires: [confirm_config]
+      - ruby-2.4-rspec:
+          requires: [confirm_config]
+      - ruby-2.4-rubocop:
+          requires: [confirm_config]
+      - ruby-2.5-rspec:
+          requires: [confirm_config]
+      - ruby-2.5-rubocop:
+          requires: [confirm_config]
       - jruby
