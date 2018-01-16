@@ -39,18 +39,23 @@ module RuboCop
         MSG_AND_RETURN = 'Use `and_return` for static values.'.freeze
         MSG_BLOCK = 'Use block for static values.'.freeze
 
-        def_node_matcher :and_return_value, <<-PATTERN
-            (send
-              (send nil? :receive (...)) :and_return $(...)
-            )
+        def_node_search :contains_stub?, '(send nil? :receive (...))'
+        def_node_search :and_return_value, <<-PATTERN
+          $(send _ :and_return $(...))
         PATTERN
 
         def on_send(node)
-          if style == :block
-            check_and_return_call(node)
-          elsif node.method_name == :receive
-            check_block_body(node)
-          end
+          return unless contains_stub?(node)
+          return unless style == :block
+
+          check_and_return_call(node)
+        end
+
+        def on_block(node)
+          return unless contains_stub?(node)
+          return unless style == :and_return
+
+          check_block_body(node)
         end
 
         def autocorrect(node)
@@ -64,26 +69,23 @@ module RuboCop
         private
 
         def check_and_return_call(node)
-          and_return_value(node) do |args|
+          and_return_value(node) do |and_return, args|
             unless dynamic?(args)
               add_offense(
-                node,
-                location: :expression,
+                and_return,
+                location: :selector,
                 message: MSG_BLOCK
               )
             end
           end
         end
 
-        def check_block_body(node)
-          block = node.each_ancestor(:block).first
-          return unless block
-
-          _receiver, _args, body = *block
+        def check_block_body(block)
+          body = block.body
           unless body && dynamic?(body) # rubocop:disable Style/GuardClause
             add_offense(
-              node,
-              location: :expression,
+              block,
+              location: :begin,
               message: MSG_AND_RETURN
             )
           end
@@ -138,9 +140,9 @@ module RuboCop
 
         # :nodoc:
         class BlockBodyCorrector
-          def initialize(node)
-            @block = node.each_ancestor(:block).first
-            @node = node
+          def initialize(block)
+            @block = block
+            @node = block.parent
             @body = block.body || NULL_BLOCK_BODY
           end
 
@@ -148,7 +150,10 @@ module RuboCop
             # Heredoc autocorrection is not yet implemented.
             return if heredoc?
 
-            corrector.replace(range, ".and_return(#{body.source})")
+            corrector.replace(
+              block.loc.expression,
+              "#{block.send_node.source}.and_return(#{body.source})"
+            )
           end
 
           private

@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) { 42 }
-                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+                                      ^ Use `and_return` for static values.
         end
       RUBY
     end
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) {}
-                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+                                      ^ Use `and_return` for static values.
         end
       RUBY
     end
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) { [42, 43] }
-                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+                                      ^ Use `and_return` for static values.
         end
       RUBY
     end
@@ -39,7 +39,16 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) { {a: 42, b: 43} }
-                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+                                      ^ Use `and_return` for static values.
+        end
+      RUBY
+    end
+
+    it 'finds static values in a block when there are chained methods' do
+      expect_offense(<<-RUBY)
+        it do
+          allow(Question).to receive(:meaning).with(:universe) { 42 }
+                                                               ^ Use `and_return` for static values.
         end
       RUBY
     end
@@ -92,7 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) do
-                        ^^^^^^^^^^^^^ Use `and_return` for static values.
+                                      ^^ Use `and_return` for static values.
             "You called" \
             "me"
           end
@@ -125,6 +134,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                      'allow(Foo).to receive(:bar).and_return({ foo: 42 })'
 
     include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar).with(1) { 42 }',
+                     'allow(Foo).to receive(:bar).with(1).and_return(42)'
+
+    include_examples 'autocorrect',
                      'allow(Foo).to receive(:bar) {}',
                      'allow(Foo).to receive(:bar).and_return(nil)'
 
@@ -149,7 +162,16 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar).and_return(42)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use block for static values.
+                                      ^^^^^^^^^^ Use block for static values.
+        end
+      RUBY
+    end
+
+    it 'finds static values returned from chained method' do
+      expect_offense(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).with(1).and_return(42)
+                                              ^^^^^^^^^^ Use block for static values.
         end
       RUBY
     end
@@ -182,6 +204,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
     include_examples 'autocorrect',
                      'allow(Foo).to receive(:bar).and_return(42)',
                      'allow(Foo).to receive(:bar) { 42 }'
+
+    include_examples 'autocorrect',
+                     'allow(Foo).to receive(:bar).with(1).and_return(foo: 42)',
+                     'allow(Foo).to receive(:bar).with(1) { { foo: 42 } }'
 
     include_examples 'autocorrect',
                      'allow(Foo).to receive(:bar).and_return({ foo: 42 })',
