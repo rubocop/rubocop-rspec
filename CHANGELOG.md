@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.22.1 (2018-01-17)
+
 * Fix false positives in `RSpec/ReturnFromStub`. ([@Darhazer][])
 
 ## 1.22.0 (2018-01-10)
