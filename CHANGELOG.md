@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix error in `RSpec/DescribedClass` when working on an empty `describe` block. ([@bquorning][])
+
 ## 1.22.1 (2018-01-17)
 
 * Fix false positives in `RSpec/ReturnFromStub`. ([@Darhazer][])

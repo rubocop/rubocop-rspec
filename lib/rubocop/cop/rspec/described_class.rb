@@ -50,6 +50,8 @@ module RuboCop
 
         def on_block(node)
           describe, described_class, body = described_constant(node)
+
+          return if body.nil?
           return unless top_level_describe?(describe)
 
           # in case we explicit style is used, this cop needs to remember what's
