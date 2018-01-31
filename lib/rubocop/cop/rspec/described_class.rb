@@ -49,12 +49,12 @@ module RuboCop
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 
         def on_block(node)
-          describe, described_class, body = described_constant(node)
-          return unless top_level_describe?(describe)
+          # In case the explicit style is used, we needs to remember what's
+          # being described. Thus, we use an ivar for @described_class.
+          describe, @described_class, body = described_constant(node)
 
-          # in case we explicit style is used, this cop needs to remember what's
-          # being described, so to replace described_class with the constant
-          @described_class = described_class
+          return if body.nil?
+          return unless top_level_describe?(describe)
 
           find_usage(body) do |match|
             add_offense(

@@ -202,6 +202,13 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
+    it 'accepts an empty block' do
+      expect_no_offenses(<<-RUBY)
+        describe MyClass do
+        end
+      RUBY
+    end
+
     include_examples 'autocorrect',
                      'describe(Foo) { include Foo }',
                      'describe(Foo) { include described_class }'
