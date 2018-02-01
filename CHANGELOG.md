@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.22.2 (2018-02-01)
+
 * Fix error in `RSpec/DescribedClass` when working on an empty `describe` block. ([@bquorning][])
 
 ## 1.22.1 (2018-01-17)
