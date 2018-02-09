@@ -9,8 +9,8 @@ RSpec.describe 'config/default.yml' do
       'capybara' => 'Capybara',
       'factory_bot' => 'FactoryBot'
     }
-    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop',
-                                 'rspec', '{capybara/,,factory_bot/}*.rb')
+    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec',
+                                 '{,capybara,factory_bot}', '*.rb')
     cop_names =
       Pathname.glob(glob).map do |file|
         file_name = file.basename('.rb').to_s
