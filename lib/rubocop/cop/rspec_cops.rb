@@ -3,6 +3,8 @@ require_relative 'rspec/capybara/feature_methods'
 
 require_relative 'rspec/factory_bot/dynamic_attribute_defined_statically'
 
+require_relative 'rspec/rails/http_status'
+
 require_relative 'rspec/align_left_let_brace'
 require_relative 'rspec/align_right_let_brace'
 require_relative 'rspec/any_instance'

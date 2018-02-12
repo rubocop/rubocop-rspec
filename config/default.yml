@@ -368,3 +368,12 @@ FactoryBot/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/DynamicAttributeDefinedStatically
+
+Rails/HttpStatus:
+  Description: Enforces use of symbolic or numeric value to describe HTTP status.
+  Enabled: true
+  EnforcedStyle: symbol
+  SupportedStyles:
+  - numeric
+  - symbol
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus

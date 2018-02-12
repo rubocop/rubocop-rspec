@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbol). ([@anthony-robin][], [@jojos003][])
+
 ## 1.22.2 (2018-02-01)
 
 * Fix error in `RSpec/DescribedClass` when working on an empty `describe` block. ([@bquorning][])
@@ -298,3 +300,5 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@pirj]: https://github.com/pirj
 [@telmofcosta]: https://github.com/telmofcosta
 [@EliseFitz15]: https://github.com/EliseFitz15
+[@anthony-robin]: https://github.com/anthony-robin
+[@jojos003]: https://github.com/jojos003
