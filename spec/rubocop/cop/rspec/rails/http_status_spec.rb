@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
     end
 
     context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::AUTOCORRECTS", false) }
+      before { stub_const("#{described_class}::RACK_LOADED", false) }
 
       it 'registers an offense when using numeric value' do
         expect_offense(<<-RUBY)
@@ -93,7 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
     end
 
     context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::AUTOCORRECTS", false) }
+      before { stub_const("#{described_class}::RACK_LOADED", false) }
 
       it 'registers an offense when using numeric value' do
         expect_offense(<<-RUBY)

@@ -31,9 +31,9 @@ module RuboCop
         class HttpStatus < Cop
           begin
             require 'rack/utils'
-            AUTOCORRECTS = true
+            RACK_LOADED = true
           rescue LoadError
-            AUTOCORRECTS = false
+            RACK_LOADED = false
           end
 
           include ConfigurableEnforcedStyle
@@ -61,20 +61,22 @@ module RuboCop
           end
 
           def message(node)
-            prefer, current = message_without_autocorrect unless AUTOCORRECTS
-            prefer, current = message_for_autocorrect(node) if AUTOCORRECTS
+            prefer, current = message_without_autocorrect unless RACK_LOADED
+            prefer, current = message_for_autocorrect(node) if RACK_LOADED
 
             format(MSG, prefer: prefer, current: current)
           end
 
-          if AUTOCORRECTS
-            def autocorrect(node)
-              replacement = new_value(node)
-              return if replacement.nil?
+          def support_autocorrect?
+            RACK_LOADED
+          end
 
-              lambda do |corrector|
-                corrector.replace(node.loc.expression, replacement.to_s)
-              end
+          def autocorrect(node)
+            replacement = new_value(node)
+            return if replacement.nil?
+
+            lambda do |corrector|
+              corrector.replace(node.loc.expression, replacement.to_s)
             end
           end
 
