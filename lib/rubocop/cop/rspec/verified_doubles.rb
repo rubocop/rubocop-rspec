@@ -9,13 +9,18 @@ module RuboCop
       #
       # @example
       #   # bad
-      #   it '...' do
-      #     widget = double("Widget")
+      #   let(:foo) do
+      #     double(method_name: 'returned value')
+      #   end
+      #
+      #   # bad
+      #   let(:foo) do
+      #     double("ClassName", method_name: 'returned value')
       #   end
       #
       #   # good
-      #   it '...' do
-      #     widget = instance_double("Widget")
+      #   let(:foo) do
+      #     instance_double("ClassName", method_name: 'returned value')
       #   end
       class VerifiedDoubles < Cop
         MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
