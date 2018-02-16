@@ -6,7 +6,7 @@ module RuboCop
       module Rails
         # Enforces use of symbolic or numeric value to describe HTTP status.
         #
-        # @example `EnforcedStyle: symbol` (default)
+        # @example `EnforcedStyle: symbolic` (default)
         #   # bad
         #   it { is_expected.to have_http_status 200 }
         #   it { is_expected.to have_http_status 404 }
@@ -54,7 +54,7 @@ module RuboCop
                     WHITELIST_STATUS.include?(ast_node.value)
               end
 
-              return if style == :symbol && ast_node.sym_type?
+              return if style == :symbolic && ast_node.sym_type?
 
               add_offense(ast_node)
             end
@@ -85,7 +85,7 @@ module RuboCop
             when :numeric
               numeric, = symbolic_to_numeric_value(node)
               numeric
-            when :symbol
+            when :symbolic
               symbol, = numeric_to_symbolic_value(node)
               symbol
             end
