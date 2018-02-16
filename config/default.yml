@@ -372,8 +372,8 @@ FactoryBot/DynamicAttributeDefinedStatically:
 Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
-  EnforcedStyle: symbol
+  EnforcedStyle: symbolic
   SupportedStyles:
   - numeric
-  - symbol
+  - symbolic
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
