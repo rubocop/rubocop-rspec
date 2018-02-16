@@ -57,6 +57,11 @@ RSpec/DescribeClass:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
+RSpec/DescribeWithoutExamples:
+  Description: Checks `describe` and `context` without `it`.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeWithoutExamples
+
 RSpec/DescribedClass:
   Description: Checks that tests use `described_class`.
   SkipBlocks: false
