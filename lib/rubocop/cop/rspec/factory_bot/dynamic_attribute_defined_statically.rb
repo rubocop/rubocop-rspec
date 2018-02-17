@@ -6,6 +6,8 @@ module RuboCop
       module FactoryBot
         # Prefer declaring dynamic attribute values in a block.
         #
+        # @see StaticAttributeDefinedDynamically
+        #
         # @example
         #   # bad
         #   kind [:active, :rejected].sample
@@ -18,15 +20,6 @@ module RuboCop
         #
         #   # good
         #   closed_at { 1.day.from_now }
-        #
-        #   # good
-        #   kind :static
-        #
-        #   # good
-        #   comments_count 0
-        #
-        #   # good
-        #   type User::MAGIC
         class DynamicAttributeDefinedStatically < Cop
           MSG = 'Use a block to set a dynamic value to an attribute.'.freeze
 
