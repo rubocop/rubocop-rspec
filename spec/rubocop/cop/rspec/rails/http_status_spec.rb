@@ -3,8 +3,8 @@
 RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
   subject(:cop) { described_class.new(config) }
 
-  context 'when EnforcedStyle is `symbol`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'symbol' } }
+  context 'when EnforcedStyle is `symbolic`' do
+    let(:cop_config) { { 'EnforcedStyle' => 'symbolic' } }
 
     it 'registers an offense when using numeric value' do
       expect_offense(<<-RUBY)
@@ -13,7 +13,7 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
       RUBY
     end
 
-    it 'does not register an offense when using symbol value' do
+    it 'does not register an offense when using symbolic value' do
       expect_no_offenses(<<-RUBY)
         it { is_expected.to have_http_status :ok }
       RUBY
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
     end
 
     context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::AUTOCORRECTS", false) }
+      before { stub_const("#{described_class}::RACK_LOADED", false) }
 
       it 'registers an offense when using numeric value' do
         expect_offense(<<-RUBY)
@@ -93,7 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
     end
 
     context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::AUTOCORRECTS", false) }
+      before { stub_const("#{described_class}::RACK_LOADED", false) }
 
       it 'registers an offense when using numeric value' do
         expect_offense(<<-RUBY)

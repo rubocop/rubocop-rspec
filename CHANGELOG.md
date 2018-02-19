@@ -2,7 +2,7 @@
 
 ## Master (Unreleased)
 
-* Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbol). ([@anthony-robin][], [@jojos003][])
+* Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbolic). ([@anthony-robin][], [@jojos003][])
 
 ## 1.22.2 (2018-02-01)
 
