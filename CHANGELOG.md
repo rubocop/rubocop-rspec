@@ -4,6 +4,7 @@
 
 * Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbolic). ([@anthony-robin][], [@jojos003][])
 * Fix false negative in `RSpec/ReturnFromStub` when a constant is being returned by the stub. ([@Darhazer][])
+* Fix `FactoryBot/DynamicAttributeDefinedStatically` to handle dynamic attributes inside arrays/hashes. ([@abrom][])
 
 ## 1.22.2 (2018-02-01)
 
@@ -303,3 +304,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@EliseFitz15]: https://github.com/EliseFitz15
 [@anthony-robin]: https://github.com/anthony-robin
 [@jojos003]: https://github.com/jojos003
+[@abrom]: https://github.com/abrom
