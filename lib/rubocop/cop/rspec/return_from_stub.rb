@@ -92,7 +92,7 @@ module RuboCop
         end
 
         def dynamic?(node)
-          !node.recursive_literal?
+          !node.recursive_literal? && !node.const_type?
         end
 
         # :nodoc:

@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbolic). ([@anthony-robin][], [@jojos003][])
+* Fix false negative in `RSpec/ReturnFromStub` when a constant is being returned by the stub. ([@Darhazer][])
 
 ## 1.22.2 (2018-02-01)
 
