@@ -2,6 +2,7 @@ require_relative 'rspec/capybara/current_path_expectation'
 require_relative 'rspec/capybara/feature_methods'
 
 require_relative 'rspec/factory_bot/dynamic_attribute_defined_statically'
+require_relative 'rspec/factory_bot/static_attribute_defined_dynamically'
 
 require_relative 'rspec/rails/http_status'
 
