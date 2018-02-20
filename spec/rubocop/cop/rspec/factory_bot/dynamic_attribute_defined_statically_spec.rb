@@ -20,6 +20,10 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to set a dynamic value to an attribute.
               created_at 1.day.ago
               ^^^^^^^^^^^^^^^^^^^^ Use a block to set a dynamic value to an attribute.
+              update_times [Time.current]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to set a dynamic value to an attribute.
+              meta_tags(foo: Time.current)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to set a dynamic value to an attribute.
             end
           end
         RUBY
@@ -39,7 +43,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
         RUBY
       end
 
-      it 'accepts' do
+      it 'accepts valid factory definitions' do
         expect_no_offenses(<<-RUBY)
           #{factory_bot}.define do
             factory :post do
@@ -52,6 +56,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
               title "Static"
               description { FFaker::Lorem.paragraph(10) }
               tag Tag::MAGIC
+              recent_statuses [:published, :draft]
+              meta_tags(like_count: 2)
+              other_tags({ foo: nil })
             end
           end
         RUBY
@@ -62,6 +69,8 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
           status [:draft, :published].sample
           published_at 1.day.from_now
           created_at 1.day.ago
+          update_times [Time.current]
+          meta_tags(foo: Time.current)
         RUBY
       end
 
@@ -72,6 +81,13 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
             published_at 1.day.from_now
             created_at(1.day.ago)
             updated_at Time.current
+            update_times [Time.current]
+            meta_tags(foo: Time.current)
+            other_tags({ foo: Time.current })
+
+            trait :old do
+              published_at 1.week.ago
+            end
           end
         end
       RUBY
@@ -83,6 +99,13 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
             published_at { 1.day.from_now }
             created_at { 1.day.ago }
             updated_at { Time.current }
+            update_times { [Time.current] }
+            meta_tags { { foo: Time.current } }
+            other_tags { { foo: Time.current } }
+
+            trait :old do
+              published_at { 1.week.ago }
+            end
           end
         end
       RUBY
