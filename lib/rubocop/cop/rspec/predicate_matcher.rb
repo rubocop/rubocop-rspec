@@ -297,6 +297,7 @@ module RuboCop
         include ConfigurableEnforcedStyle
         include InflectedHelper
         include ExplicitHelper
+        include RangeHelp
 
         def on_send(node)
           case style

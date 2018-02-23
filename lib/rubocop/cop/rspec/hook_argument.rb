@@ -59,6 +59,7 @@ module RuboCop
       #   end
       class HookArgument < Cop
         include ConfigurableEnforcedStyle
+        include RangeHelp
 
         IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
                        'argument for RSpec hooks.'.freeze
