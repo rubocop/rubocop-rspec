@@ -107,7 +107,7 @@ module RuboCop
           File.fnmatch?("*#{glob}", processed_source.buffer.name)
         end
 
-        def relevant_rubocop_rspec_file?(_)
+        def relevant_rubocop_rspec_file?(_file)
           true
         end
       end
