@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.23.0 (2018-02-23)
+
 * Add `RSpec/Rails/HttpStatus` cop to enforce consistent usage of the status format (numeric or symbolic). ([@anthony-robin][], [@jojos003][])
 * Fix false negative in `RSpec/ReturnFromStub` when a constant is being returned by the stub. ([@Darhazer][])
 * Fix `FactoryBot/DynamicAttributeDefinedStatically` to handle dynamic attributes inside arrays/hashes. ([@abrom][])
