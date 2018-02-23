@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rack/utils'
+
 module RuboCop
   module Cop
     module RSpec
@@ -29,13 +31,6 @@ module RuboCop
         #   it { is_expected.to have_http_status :error }
         #
         class HttpStatus < Cop
-          begin
-            require 'rack/utils'
-            RACK_LOADED = true
-          rescue LoadError
-            RACK_LOADED = false
-          end
-
           include ConfigurableEnforcedStyle
 
           def_node_matcher :http_status, <<-PATTERN
@@ -48,10 +43,6 @@ module RuboCop
               return unless checker.offensive?
               add_offense(checker.node, message: checker.message)
             end
-          end
-
-          def support_autocorrect?
-            RACK_LOADED
           end
 
           def autocorrect(node)
@@ -76,8 +67,6 @@ module RuboCop
           class SymbolicStyleChecker
             MSG = 'Prefer `%<prefer>s` over `%<current>s` ' \
                   'to describe HTTP status code.'.freeze
-            DEFAULT_MSG = 'Prefer `symbolic` over `numeric` ' \
-                  'to describe HTTP status code.'.freeze
 
             attr_reader :node
             def initialize(node)
@@ -89,11 +78,7 @@ module RuboCop
             end
 
             def message
-              if RACK_LOADED
-                format(MSG, prefer: preferred_style, current: number.to_s)
-              else
-                DEFAULT_MSG
-              end
+              format(MSG, prefer: preferred_style, current: number.to_s)
             end
 
             def preferred_style
@@ -115,8 +100,6 @@ module RuboCop
           class NumericStyleChecker
             MSG = 'Prefer `%<prefer>s` over `%<current>s` ' \
                   'to describe HTTP status code.'.freeze
-            DEFAULT_MSG = 'Prefer `numeric` over `symbolic` ' \
-                  'to describe HTTP status code.'.freeze
 
             WHITELIST_STATUS = %i[error success missing redirect].freeze
 
@@ -130,11 +113,7 @@ module RuboCop
             end
 
             def message
-              if RACK_LOADED
-                format(MSG, prefer: preferred_style, current: symbol.inspect)
-              else
-                DEFAULT_MSG
-              end
+              format(MSG, prefer: preferred_style, current: symbol.inspect)
             end
 
             def preferred_style

@@ -36,17 +36,6 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
                        'it { is_expected.to have_http_status(404) }',
                        'it { is_expected.to have_http_status(:not_found) }'
     end
-
-    context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::RACK_LOADED", false) }
-
-      it 'registers an offense when using numeric value' do
-        expect_offense(<<-RUBY)
-          it { is_expected.to have_http_status 200 }
-                                               ^^^ Prefer `symbolic` over `numeric` to describe HTTP status code.
-        RUBY
-      end
-    end
   end
 
   context 'when EnforcedStyle is `numeric`' do
@@ -90,17 +79,6 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
       include_examples 'autocorrect',
                        'it { is_expected.to have_http_status(:not_found) }',
                        'it { is_expected.to have_http_status(404) }'
-    end
-
-    context 'when rack is not loaded' do
-      before { stub_const("#{described_class}::RACK_LOADED", false) }
-
-      it 'registers an offense when using numeric value' do
-        expect_offense(<<-RUBY)
-          it { is_expected.to have_http_status :ok }
-                                               ^^^ Prefer `numeric` over `symbolic` to describe HTTP status code.
-        RUBY
-      end
     end
   end
 end
