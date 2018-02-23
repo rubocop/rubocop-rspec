@@ -74,7 +74,7 @@ module RuboCop
             end
 
             def offensive?
-              !node.sym_type?
+              !node.sym_type? && !custom_http_status_code?
             end
 
             def message
@@ -93,6 +93,11 @@ module RuboCop
 
             def number
               node.source.to_i
+            end
+
+            def custom_http_status_code?
+              node.int_type? &&
+                !::Rack::Utils::SYMBOL_TO_STATUS_CODE.value?(node.source.to_i)
             end
           end
 

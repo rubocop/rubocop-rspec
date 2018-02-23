@@ -19,6 +19,12 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus, :config do
       RUBY
     end
 
+    it 'does not register an offense when using custom HTTP code' do
+      expect_no_offenses(<<-RUBY)
+        it { is_expected.to have_http_status 550 }
+      RUBY
+    end
+
     include_examples 'autocorrect',
                      'it { is_expected.to have_http_status 200 }',
                      'it { is_expected.to have_http_status :ok }'
