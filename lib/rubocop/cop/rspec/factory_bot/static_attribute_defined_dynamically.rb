@@ -58,14 +58,20 @@ module RuboCop
           private
 
           def static?(node)
-            node.recursive_literal? || node.const_type?
+            node.nil? || node.recursive_literal? || node.const_type?
           end
 
           def autocorrected_source(node)
-            if node.body.hash_type?
-              "#{node.send_node.source}(#{node.body.source})"
+            "#{node.send_node.source}#{autocorrected_attribute(node.body)}"
+          end
+
+          def autocorrected_attribute(body)
+            if body.nil?
+              ' nil'
+            elsif body.hash_type?
+              "(#{body.source})"
             else
-              "#{node.send_node.source} #{node.body.source}"
+              ' ' + body.source
             end
           end
         end
