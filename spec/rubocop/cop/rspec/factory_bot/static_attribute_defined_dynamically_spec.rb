@@ -26,6 +26,8 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::StaticAttributeDefinedDynamicall
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use a block to set a static value to an attribute.
               meta_tags { { foo: 1 } }
               ^^^^^^^^^^^^^^^^^^^^^^^^ Do not use a block to set a static value to an attribute.
+              title {}
+              ^^^^^^^^ Do not use a block to set a static value to an attribute.
             end
           end
         RUBY
@@ -78,6 +80,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::StaticAttributeDefinedDynamicall
             comments_count { 0 }
             type { User::MAGIC }
             description { nil }
+            title {}
             recent_statuses { [:published, :draft] }
             meta_tags { { foo: 1 } }
           end
@@ -90,6 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::StaticAttributeDefinedDynamicall
             comments_count 0
             type User::MAGIC
             description nil
+            title nil
             recent_statuses [:published, :draft]
             meta_tags({ foo: 1 })
           end
