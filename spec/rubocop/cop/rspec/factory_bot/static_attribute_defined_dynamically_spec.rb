@@ -60,6 +60,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::StaticAttributeDefinedDynamicall
               tag Tag::MAGIC
               recent_updates { [Time.current] }
               meta_tags { { first_like: Time.current } }
+              before(:create) { 'foo' }
             end
           end
         RUBY

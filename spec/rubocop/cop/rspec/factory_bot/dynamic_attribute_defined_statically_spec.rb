@@ -59,6 +59,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
               recent_statuses [:published, :draft]
               meta_tags(like_count: 2)
               other_tags({ foo: nil })
+
+              before(:create, &:initialize_something)
+              after(:create, &:rebuild_cache)
             end
           end
         RUBY
