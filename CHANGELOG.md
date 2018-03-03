@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin][])
+
 ## 1.24.0 (2018-03-06)
 
 * Compatibility with RuboCop v0.53.0. ([@bquorning][])
