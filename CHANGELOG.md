@@ -1,5 +1,7 @@
 # Change log
 
+* Compatibility with RuboCop v0.53.0. ([@bquorning][])
+
 ## Master (Unreleased)
 
 * The `Rails/HttpStatus` cop is unavailable if the `rack` gem cannot be loaded. ([@bquorning][])

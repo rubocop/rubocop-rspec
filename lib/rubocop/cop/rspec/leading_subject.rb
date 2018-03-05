@@ -27,6 +27,8 @@ module RuboCop
       #     end
       #   end
       class LeadingSubject < Cop
+        include RangeHelp
+
         MSG = 'Declare `subject` above any other `let` declarations.'.freeze
 
         def_node_matcher :subject?, '(block $(send nil? :subject ...) args ...)'

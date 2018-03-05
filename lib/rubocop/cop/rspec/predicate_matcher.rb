@@ -105,7 +105,7 @@ module RuboCop
                             to_predicate_matcher(name) + args + block)
         end
 
-        def true?(to, matcher)
+        def true?(to_symbol, matcher)
           _recv, name, arg = *matcher
           result = case name
                    when :be, :eq
@@ -115,7 +115,7 @@ module RuboCop
                    when :be_falsey, :be_falsy, :a_falsey_value, :a_falsy_value
                      false
                    end
-          to == :to ? result : !result
+          to_symbol == :to ? result : !result
         end
       end
 
@@ -199,17 +199,17 @@ module RuboCop
 
         def autocorrect_explicit_block(node)
           predicate_matcher_block?(node) do |actual, matcher|
-            to, = *node
-            corrector_explicit(to, actual, matcher, to)
+            to_node, = *node
+            corrector_explicit(to_node, actual, matcher, to_node)
           end
         end
 
-        def corrector_explicit(to, actual, matcher, block_child)
+        def corrector_explicit(to_node, actual, matcher, block_child)
           lambda do |corrector|
-            replacement_matcher = replacement_matcher(to)
+            replacement_matcher = replacement_matcher(to_node)
             corrector.replace(matcher.loc.expression, replacement_matcher)
             move_predicate(corrector, actual, matcher, block_child)
-            corrector.replace(to.loc.selector, 'to')
+            corrector.replace(to_node.loc.selector, 'to')
           end
         end
 
@@ -297,6 +297,7 @@ module RuboCop
         include ConfigurableEnforcedStyle
         include InflectedHelper
         include ExplicitHelper
+        include RangeHelp
 
         def on_send(node)
           case style

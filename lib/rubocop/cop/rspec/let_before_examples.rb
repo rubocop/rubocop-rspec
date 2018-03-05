@@ -31,6 +31,8 @@ module RuboCop
       #     expect(some).to be
       #   end
       class LetBeforeExamples < Cop
+        include RangeHelp
+
         MSG = 'Move `let` before the examples in the group.'.freeze
 
         def_node_matcher :let?, '(block (send nil? {:let :let!} ...) ...)'

@@ -98,7 +98,7 @@ module RuboCop
 
         def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 
-        def on_top_level_describe(node, _)
+        def on_top_level_describe(node, _args)
           find_nested_contexts(node.parent) do |context, nesting|
             add_offense(
               context.children.first,

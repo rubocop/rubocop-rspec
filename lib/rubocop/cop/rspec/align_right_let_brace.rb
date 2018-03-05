@@ -24,7 +24,7 @@ module RuboCop
           [Layout::ExtraSpacing]
         end
 
-        def investigate(_)
+        def investigate(_processed_source)
           token_aligner.offending_tokens.each do |let|
             add_offense(let, location: :end)
           end
