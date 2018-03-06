@@ -1,9 +1,8 @@
 # Change log
 
-* Compatibility with RuboCop v0.53.0. ([@bquorning][])
-
 ## Master (Unreleased)
 
+* Compatibility with RuboCop v0.53.0. ([@bquorning][])
 * The `Rails/HttpStatus` cop is unavailable if the `rack` gem cannot be loaded. ([@bquorning][])
 * Fix `Rails/HttpStatus` not working with custom HTTP status codes. ([@bquorning][])
 * Fix `FactoryBot/StaticAttributeDefinedDynamically` to handle empty block. ([@abrom][])
