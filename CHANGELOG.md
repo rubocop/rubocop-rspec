@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.24.0 (2018-03-06)
+
 * Compatibility with RuboCop v0.53.0. ([@bquorning][])
 * The `Rails/HttpStatus` cop is unavailable if the `rack` gem cannot be loaded. ([@bquorning][])
 * Fix `Rails/HttpStatus` not working with custom HTTP status codes. ([@bquorning][])
