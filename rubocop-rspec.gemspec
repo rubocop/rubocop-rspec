@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
     Code style checking for RSpec files.
     A plugin for the RuboCop code style enforcing & linting tool.
   DESCRIPTION
-  spec.homepage = 'http://github.com/backus/rubocop-rspec'
+  spec.homepage = 'https://github.com/rubocop-rspec/rubocop-rspec'
   spec.authors = ['John Backus', 'Ian MacLeod', 'Nils Gemeinhardt']
   spec.email = [
     'johncbackus@gmail.com',
