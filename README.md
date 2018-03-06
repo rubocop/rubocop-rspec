@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/rubocop-rspec/Lobby](https://badges.gitter.im/rubocop-rspec/Lobby.svg)](https://gitter.im/rubocop-rspec/Lobby)
 [![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
-[![Build Status](https://secure.travis-ci.org/backus/rubocop-rspec.svg?branch=master)](http://travis-ci.org/backus/rubocop-rspec)
+[![CircleCI](https://circleci.com/gh/rubocop-rspec/rubocop-rspec.svg?style=svg)](https://circleci.com/gh/rubocop-rspec/rubocop-rspec)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f6254deb61671e357f30/test_coverage)](https://codeclimate.com/github/rubocop-rspec/rubocop-rspec/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f6254deb61671e357f30/maintainability)](https://codeclimate.com/github/rubocop-rspec/rubocop-rspec/maintainability)
 
