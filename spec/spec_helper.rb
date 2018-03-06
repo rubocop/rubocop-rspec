@@ -2,7 +2,7 @@ require 'rubocop'
 
 require 'rubocop/rspec/support'
 
-if ENV['CI']
+if ENV['COVERAGE'] == 'true'
   require 'simplecov'
   SimpleCov.start
 end

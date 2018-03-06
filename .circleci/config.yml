@@ -89,6 +89,24 @@ jobs:
             - vendor/bundle
       - run: rake internal_investigation spec
 
+  code-climate:
+    docker:
+      - image: circleci/ruby:2.5
+    steps:
+      - checkout
+      - run: bundle install
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Run specs
+          command: |
+            ./cc-test-reporter before-build
+            rake coverage
+            ./cc-test-reporter after-build --exit-code $?
+
 workflows:
   version: 2
   build:
@@ -117,3 +135,4 @@ workflows:
       - ruby-2.5-rubocop:
           requires: [confirm_config]
       - jruby
+      - code-climate
