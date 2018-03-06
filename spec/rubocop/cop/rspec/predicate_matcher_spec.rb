@@ -9,7 +9,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
   context 'when enforced style is `inflected`' do
     let(:enforced_style) { 'inflected' }
 
-    shared_examples :inflected_common do
+    shared_examples 'inflected common' do
       it 'registers an offense for a predicate method in actual' do
         expect_offense(<<-RUBY)
           expect(foo.empty?).to be_truthy
@@ -152,7 +152,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
     context 'when strict is true' do
       let(:strict) { true }
 
-      include_examples :inflected_common
+      include_examples 'inflected common'
 
       it 'accepts strict checking boolean matcher' do
         expect_no_offenses(<<-RUBY)
@@ -168,7 +168,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
     context 'when strict is false' do
       let(:strict) { false }
 
-      include_examples :inflected_common
+      include_examples 'inflected common'
 
       it 'registers an offense for a predicate method in actual' do
         expect_offense(<<-RUBY)
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
   context 'when enforced style is `explicit`' do
     let(:enforced_style) { 'explicit' }
 
-    shared_examples :explicit_common do
+    shared_examples 'explicit common' do
       it 'registers an offense for a predicate mather' do
         expect_offense(<<-RUBY)
           expect(foo).to be_empty
@@ -262,7 +262,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
       end
     end
 
-    shared_examples :explicit_autocorrect do |matcher_true, matcher_false|
+    shared_examples 'explicit autocorrect' do |matcher_true, matcher_false|
       include_examples 'autocorrect',
                        'expect(foo).to be_something',
                        "expect(foo.something?).to #{matcher_true}"
@@ -325,15 +325,15 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
     context 'when strict is true' do
       let(:strict) { true }
 
-      include_examples :explicit_common
-      include_examples :explicit_autocorrect, 'be(true)', 'be(false)'
+      include_examples 'explicit common'
+      include_examples 'explicit autocorrect', 'be(true)', 'be(false)'
     end
 
     context 'when strict is false' do
       let(:strict) { false }
 
-      include_examples :explicit_common
-      include_examples :explicit_autocorrect, 'be_truthy', 'be_falsey'
+      include_examples 'explicit common'
+      include_examples 'explicit autocorrect', 'be_truthy', 'be_falsey'
     end
   end
 end
