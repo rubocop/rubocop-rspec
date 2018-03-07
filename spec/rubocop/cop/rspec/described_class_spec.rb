@@ -190,7 +190,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
 
     it 'checks for the use of described class with module' do
-      skip
+      pending
 
       expect_offense(<<-RUBY)
         module MyNamespace
