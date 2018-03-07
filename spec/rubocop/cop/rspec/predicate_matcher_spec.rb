@@ -91,6 +91,10 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
                        'expect(foo).to be_a(Array)'
 
       include_examples 'autocorrect',
+                       'expect(foo.instance_of?(Array)).to be_truthy',
+                       'expect(foo).to be_an_instance_of(Array)'
+
+      include_examples 'autocorrect',
                        'expect(foo.has_something?).to be_truthy',
                        'expect(foo).to have_something'
       include_examples 'autocorrect',
