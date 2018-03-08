@@ -160,14 +160,6 @@ module RuboCop
 
           attr_reader :node, :block, :body
 
-          def range
-            Parser::Source::Range.new(
-              block.source_range.source_buffer,
-              node.source_range.end_pos,
-              block.source_range.end_pos
-            )
-          end
-
           def heredoc?
             body.loc.is_a?(Parser::Source::Map::Heredoc)
           end
