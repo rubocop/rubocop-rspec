@@ -313,6 +313,11 @@ RSpec/SharedContext:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
+RSpec/SharedExamples:
+  Description: Enforces use of string to titleize shared examples.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples
+
 RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true
