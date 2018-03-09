@@ -72,8 +72,7 @@ module RuboCop
         private
 
         def check_example_without_description(node)
-          _send, _method, arg = *node
-          return unless arg.nil?
+          return if node.arguments?
           return unless disallow_empty_description?(node)
 
           add_offense(node, message: MSG_ADD_DESCRIPTION)

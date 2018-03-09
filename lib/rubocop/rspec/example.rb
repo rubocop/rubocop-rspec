@@ -24,7 +24,7 @@ module RuboCop
         if node.send_type?
           node
         else
-          node.children.first
+          node.send_node
         end
       end
     end

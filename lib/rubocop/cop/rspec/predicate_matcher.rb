@@ -50,10 +50,9 @@ module RuboCop
         end
 
         def message_inflected(predicate)
-          _recv, predicate_name, = *predicate
           format(MSG_INFLECTED,
-                 predicate_name: predicate_name,
-                 matcher_name: to_predicate_matcher(predicate_name))
+                 predicate_name: predicate.method_name,
+                 matcher_name: to_predicate_matcher(predicate.method_name))
         end
 
         # rubocop:disable Metrics/MethodLength
@@ -99,17 +98,17 @@ module RuboCop
           args = args_loc(predicate).source
           block_loc = block_loc(predicate)
           block = block_loc ? block_loc.source : ''
-          _recv, name, = *predicate
 
-          corrector.replace(matcher.loc.expression,
-                            to_predicate_matcher(name) + args + block)
+          corrector.replace(
+            matcher.loc.expression,
+            to_predicate_matcher(predicate.method_name) + args + block
+          )
         end
 
         def true?(to_symbol, matcher)
-          _recv, name, arg = *matcher
-          result = case name
+          result = case matcher.method_name
                    when :be, :eq
-                     arg.true_type?
+                     matcher.first_argument.true_type?
                    when :be_truthy, :a_truthy_value
                      true
                    when :be_falsey, :be_falsy, :a_falsey_value, :a_falsy_value
@@ -180,10 +179,9 @@ module RuboCop
         end
 
         def message_explicit(matcher)
-          _recv, name, = *matcher
           format(MSG_EXPLICIT,
-                 predicate_name: to_predicate_method(name),
-                 matcher_name: name)
+                 predicate_name: to_predicate_method(matcher.method_name),
+                 matcher_name: matcher.method_name)
         end
 
         def autocorrect_explicit(node)
@@ -199,7 +197,7 @@ module RuboCop
 
         def autocorrect_explicit_block(node)
           predicate_matcher_block?(node) do |actual, matcher|
-            to_node, = *node
+            to_node = node.send_node
             corrector_explicit(to_node, actual, matcher, to_node)
           end
         end

@@ -99,7 +99,8 @@ module RuboCop
         class AndReturnCallCorrector
           def initialize(node)
             @node = node
-            @receiver, _method_name, @args = *node
+            @receiver = node.receiver
+            @arg = node.first_argument
           end
 
           def call(corrector)
@@ -111,10 +112,10 @@ module RuboCop
 
           private
 
-          attr_reader :node, :receiver, :args
+          attr_reader :node, :receiver, :arg
 
           def heredoc?
-            args.loc.is_a?(Parser::Source::Map::Heredoc)
+            arg.loc.is_a?(Parser::Source::Map::Heredoc)
           end
 
           def range
@@ -127,14 +128,14 @@ module RuboCop
 
           def replacement
             if hash_without_braces?
-              "{ #{args.source} }"
+              "{ #{arg.source} }"
             else
-              args.source
+              arg.source
             end
           end
 
           def hash_without_braces?
-            args.hash_type? && !args.braces?
+            arg.hash_type? && !arg.braces?
           end
         end
 

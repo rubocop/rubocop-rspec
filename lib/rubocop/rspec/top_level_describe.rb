@@ -12,16 +12,13 @@ module RuboCop
         return unless respond_to?(:on_top_level_describe)
         return unless top_level_describe?(node)
 
-        _receiver, _method_name, *args = *node
-
-        on_top_level_describe(node, args)
+        on_top_level_describe(node, node.arguments)
       end
 
       private
 
       def top_level_describe?(node)
-        _receiver, method_name, *_args = *node
-        return false unless method_name == :describe
+        return false unless node.method_name == :describe
 
         top_level_nodes.include?(node)
       end
@@ -49,7 +46,7 @@ module RuboCop
 
       def describe_statement_children(node)
         node.each_child_node(:send).select do |element|
-          element.children[1] == :describe
+          element.method_name == :describe
         end
       end
     end

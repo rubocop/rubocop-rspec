@@ -78,5 +78,13 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription, :config do
         ^^ Add a description.
       RUBY
     end
+
+    it 'ignores `it` with a description' do
+      expect_no_offenses(<<-RUBY)
+        it 'is good' do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
   end
 end
