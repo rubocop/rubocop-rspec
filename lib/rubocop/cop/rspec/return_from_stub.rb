@@ -92,7 +92,16 @@ module RuboCop
         end
 
         def dynamic?(node)
-          !node.recursive_literal? && !node.const_type?
+          !recursive_literal?(node)
+        end
+
+        def recursive_literal?(node)
+          case node.type
+          when :begin, :pair, *AST::Node::COMPOSITE_LITERALS
+            node.children.all? { |child| recursive_literal?(child) }
+          else
+            node.literal? || node.const_type?
+          end
         end
 
         # :nodoc:

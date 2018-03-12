@@ -57,7 +57,16 @@ module RuboCop
 
           def static?(attribute)
             value_matcher(attribute).to_a.all? do |node|
-              node.recursive_literal? || node.const_type?
+              recursive_literal?(node)
+            end
+          end
+
+          def recursive_literal?(node)
+            case node.type
+            when :begin, :pair, *AST::Node::COMPOSITE_LITERALS
+              node.children.all? { |child| recursive_literal?(child) }
+            else
+              node.literal? || node.const_type?
             end
           end
 

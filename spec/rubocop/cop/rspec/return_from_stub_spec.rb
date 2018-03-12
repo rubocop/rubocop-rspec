@@ -62,6 +62,15 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       RUBY
     end
 
+    it 'finds nested constants returned from block' do
+      expect_offense(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar) { {Life::MEANING => 42} }
+                                      ^ Use `and_return` for static values.
+        end
+      RUBY
+    end
+
     it 'ignores dynamic values returned from block' do
       expect_no_offenses(<<-RUBY)
         it do

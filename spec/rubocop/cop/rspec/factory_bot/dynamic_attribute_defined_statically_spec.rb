@@ -55,13 +55,23 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
               comments_count 0
               title "Static"
               description { FFaker::Lorem.paragraph(10) }
-              tag Tag::MAGIC
               recent_statuses [:published, :draft]
               meta_tags(like_count: 2)
               other_tags({ foo: nil })
 
               before(:create, &:initialize_something)
               after(:create, &:rebuild_cache)
+            end
+          end
+        RUBY
+      end
+
+      it 'accepts const as a static value' do
+        expect_no_offenses(<<-RUBY)
+          #{factory_bot}.define do
+            factory(:post, class: PrivatePost) do
+              tag Tag::MAGIC
+              options({priority: Priotity::HIGH})
             end
           end
         RUBY
