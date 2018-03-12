@@ -22,6 +22,9 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
                       ^^^^^^^^^^^^ Prefer 'foo bar baz' over `:foo_bar_baz` to titleize shared examples.
         # ...
       end
+
+      RSpec.shared_examples :foo_bar_baz
+                            ^^^^^^^^^^^^ Prefer 'foo bar baz' over `:foo_bar_baz` to titleize shared examples.
     RUBY
   end
 
