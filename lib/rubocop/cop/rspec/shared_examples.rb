@@ -22,7 +22,9 @@ module RuboCop
       #
       class SharedExamples < Cop
         def_node_matcher :shared_examples, <<-PATTERN
-          (send nil? {#{(SharedGroups::ALL + Includes::ALL).node_pattern}} $sym ...)
+          (send
+            {(const nil? :RSpec) nil?}
+            {#{(SharedGroups::ALL + Includes::ALL).node_pattern}} $sym ...)
         PATTERN
 
         def on_send(node)
