@@ -56,18 +56,7 @@ module RuboCop
           private
 
           def static?(attribute)
-            value_matcher(attribute).to_a.all? do |node|
-              recursive_literal?(node)
-            end
-          end
-
-          def recursive_literal?(node)
-            case node.type
-            when :begin, :pair, *AST::Node::COMPOSITE_LITERALS
-              node.children.all? { |child| recursive_literal?(child) }
-            else
-              node.literal? || node.const_type?
-            end
+            value_matcher(attribute).to_a.all?(&:recursive_literal_or_const?)
           end
 
           def value_hash_without_braces?(node)

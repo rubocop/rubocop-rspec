@@ -82,7 +82,7 @@ module RuboCop
 
         def check_block_body(block)
           body = block.body
-          unless body && dynamic?(body) # rubocop:disable Style/GuardClause
+          unless dynamic?(body) # rubocop:disable Style/GuardClause
             add_offense(
               block,
               location: :begin,
@@ -92,16 +92,7 @@ module RuboCop
         end
 
         def dynamic?(node)
-          !recursive_literal?(node)
-        end
-
-        def recursive_literal?(node)
-          case node.type
-          when :begin, :pair, *AST::Node::COMPOSITE_LITERALS
-            node.children.all? { |child| recursive_literal?(child) }
-          else
-            node.literal? || node.const_type?
-          end
+          node && !node.recursive_literal_or_const?
         end
 
         # :nodoc:
