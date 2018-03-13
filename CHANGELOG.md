@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin][])
+* Add `RSpec/Be` cop to enforce passing argument to the generic `be` matcher. ([@Darhazer][])
 
 ## 1.24.0 (2018-03-06)
 

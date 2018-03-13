@@ -29,6 +29,11 @@ RSpec/AlignRightLetBrace:
   Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace
 
+RSpec/Be:
+  Description: Check for expectations where `be` is used without argument.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
+
 RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
