@@ -41,7 +41,7 @@ module RuboCop
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
               values = block_value_matcher(attribute)
-              next if values.to_a.none? { |v| static?(v) }
+              next if values.to_a.all? { |v| dynamic?(v) }
               add_offense(attribute, location: :expression)
             end
           end
@@ -57,8 +57,8 @@ module RuboCop
 
           private
 
-          def static?(node)
-            node.nil? || node.recursive_literal? || node.const_type?
+          def dynamic?(node)
+            node && !node.recursive_literal_or_const?
           end
 
           def autocorrected_source(node)

@@ -56,9 +56,7 @@ module RuboCop
           private
 
           def static?(attribute)
-            value_matcher(attribute).to_a.all? do |node|
-              node.recursive_literal? || node.const_type?
-            end
+            value_matcher(attribute).to_a.all?(&:recursive_literal_or_const?)
           end
 
           def value_hash_without_braces?(node)

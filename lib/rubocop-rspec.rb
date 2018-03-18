@@ -6,6 +6,7 @@ require 'rubocop'
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/version'
 require_relative 'rubocop/rspec/inject'
+require_relative 'rubocop/rspec/node'
 require_relative 'rubocop/rspec/top_level_describe'
 require_relative 'rubocop/rspec/wording'
 require_relative 'rubocop/rspec/util'
@@ -38,3 +39,5 @@ module RuboCop
     end
   end
 end
+
+RuboCop::AST::Node.include(RuboCop::RSpec::Node)
