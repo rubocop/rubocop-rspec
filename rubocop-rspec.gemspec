@@ -33,7 +33,8 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/rubocop-rspec/rubocop-rspec/blob/master/CHANGELOG.md'
+    'changelog_uri' => 'https://github.com/rubocop-rspec/rubocop-rspec/blob/master/CHANGELOG.md',
+    'documentation_uri' => 'https://rubocop-rspec.readthedocs.io/'
   }
 
   spec.add_runtime_dependency 'rubocop', '>= 0.53.0'
