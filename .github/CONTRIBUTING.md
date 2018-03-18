@@ -31,6 +31,7 @@ There are some steps you have to follow when you add new cops:
 * Add an entry to `config/default.yml`. It's ordered list, make sure to follow the order.
 * The description of the cop in the code should match the one in config. `bin/build_config` copies the description from the cop to config.
 * The cop should include examples of good and bad code.
+* Generate documentation for the cop using `rake generate_cops_documentation`.
 * Add tests for as much use cases as you can think of. Always add tests for both code that should be reported and good code that should pass.
 * Some common pitfalls:
 ** If you are writing cop inspecting code outside of an example, check for false positive when similarly named variables are used inside of the example.
