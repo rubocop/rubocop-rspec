@@ -5,6 +5,7 @@
 * Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin][])
 * Add `RSpec/Be` cop to enforce passing argument to the generic `be` matcher. ([@Darhazer][])
 * Fix false positives in `StaticAttributeDefinedDynamically` and `ReturnFromStub` when a const is used in an array or hash. ([@Darhazer][])
+* Add `RSpec/Pending` cop to enforce no existing pending or skipped examples.  This is disabled by default. ([@patrickomatic][])
 
 ## 1.24.0 (2018-03-06)
 
@@ -320,3 +321,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@anthony-robin]: https://github.com/anthony-robin
 [@jojos003]: https://github.com/jojos003
 [@abrom]: https://github.com/abrom
+[@patrickomatic]: https://github.com/patrickomatic
