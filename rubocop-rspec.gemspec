@@ -32,6 +32,10 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^spec/})
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
+  spec.metadata = {
+    'changelog_uri' => 'https://github.com/rubocop-rspec/rubocop-rspec/blob/master/CHANGELOG.md'
+  }
+
   spec.add_runtime_dependency 'rubocop', '>= 0.53.0'
 
   spec.add_development_dependency 'rack'
