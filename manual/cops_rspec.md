@@ -344,12 +344,12 @@ Avoid describing symbols.
 ```ruby
 # bad
 describe :my_method do
-  ...
+  # ...
 end
 
 # good
 describe '#my_method' do
-  ...
+  # ...
 end
 ```
 
@@ -453,9 +453,9 @@ end
 
 ```ruby
 # .rubocop.yml
-RSpec/EmptyExampleGroup:
-  CustomIncludeMethods:
-  - include_tests
+# RSpec/EmptyExampleGroup:
+#   CustomIncludeMethods:
+#   - include_tests
 
 # spec_helper.rb
 RSpec.configure do |config|
@@ -1103,8 +1103,8 @@ end
 
 ```ruby
 # rubocop.yml
-RSpec/InstanceVariable:
-  AssignmentOnly: false
+# RSpec/InstanceVariable:
+#   AssignmentOnly: false
 
 # bad
 describe MyClass do
@@ -1515,8 +1515,8 @@ end
 
 ```ruby
 # .rubocop.yml
-RSpec/MultipleExpectations:
-  Max: 2
+# RSpec/MultipleExpectations:
+#   Max: 2
 
 # not flagged by rubocop
 describe UserCreator do
@@ -1691,8 +1691,8 @@ end
 
 ```ruby
 # .rubocop.yml
-RSpec/NestedGroups:
-  Max: 2
+# RSpec/NestedGroups:
+#   Max: 2
 
 context 'when using some feature' do
   let(:some)    { :various }
@@ -1706,7 +1706,7 @@ context 'when using some feature' do
     let(:user_attributes) do
       {
         name: 'John',
-        age:  22
+        age:  22,
         role: role
       }
     end

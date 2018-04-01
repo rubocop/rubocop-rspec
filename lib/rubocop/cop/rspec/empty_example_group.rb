@@ -36,9 +36,9 @@ module RuboCop
       # @example configuration
       #
       #   # .rubocop.yml
-      #   RSpec/EmptyExampleGroup:
-      #     CustomIncludeMethods:
-      #     - include_tests
+      #   # RSpec/EmptyExampleGroup:
+      #   #   CustomIncludeMethods:
+      #   #   - include_tests
       #
       #   # spec_helper.rb
       #   RSpec.configure do |config|
