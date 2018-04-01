@@ -45,6 +45,12 @@ module RuboCop
             feature:    :describe
           }.freeze
 
+          def_node_matcher :spec?, <<-PATTERN
+            (block
+              (send {(const nil? :RSpec) nil?} {:describe :feature} ...)
+            ...)
+          PATTERN
+
           def_node_matcher :feature_method, <<-PATTERN
             (block
               $(send {(const nil? :RSpec) nil?} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
@@ -52,6 +58,8 @@ module RuboCop
           PATTERN
 
           def on_block(node)
+            return unless spec?(root_node)
+
             feature_method(node) do |send_node, match|
               add_offense(
                 send_node,
@@ -65,6 +73,12 @@ module RuboCop
             lambda do |corrector|
               corrector.replace(node.loc.selector, MAP[node.method_name].to_s)
             end
+          end
+
+          private
+
+          def root_node
+            processed_source.ast
           end
         end
       end

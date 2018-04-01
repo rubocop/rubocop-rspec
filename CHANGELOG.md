@@ -7,6 +7,7 @@
 * Fix false positives in `StaticAttributeDefinedDynamically` and `ReturnFromStub` when a const is used in an array or hash. ([@Darhazer][])
 * Add `RSpec/Pending` cop to enforce no existing pending or skipped examples.  This is disabled by default. ([@patrickomatic][])
 * Fix `RSpec/NestedGroups` cop support --auto-gen-config. ([@walf443][])
+* Fix false positives in `Capybara/FeatureMethods` when feature methods are used as property names in a factory. ([@Darhazer][])
 
 ## 1.24.0 (2018-03-06)
 
