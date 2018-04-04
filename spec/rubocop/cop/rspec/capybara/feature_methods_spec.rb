@@ -3,36 +3,46 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
 
   it 'flags violations for `background`' do
     expect_offense(<<-RUBY)
-      background do; end
-      ^^^^^^^^^^ Use `before` instead of `background`.
+      describe 'some feature' do
+        background do; end
+        ^^^^^^^^^^ Use `before` instead of `background`.
+      end
     RUBY
   end
 
   it 'flags violations for `scenario`' do
     expect_offense(<<-RUBY)
-      scenario 'Foo' do; end
-      ^^^^^^^^ Use `it` instead of `scenario`.
+      RSpec.describe 'some feature' do
+        scenario 'Foo' do; end
+        ^^^^^^^^ Use `it` instead of `scenario`.
+      end
     RUBY
   end
 
   it 'flags violations for `xscenario`' do
     expect_offense(<<-RUBY)
-      RSpec.xscenario 'Foo' do; end
-            ^^^^^^^^^ Use `xit` instead of `xscenario`.
+      describe 'Foo' do
+        RSpec.xscenario 'Baz' do; end
+              ^^^^^^^^^ Use `xit` instead of `xscenario`.
+      end
     RUBY
   end
 
   it 'flags violations for `given`' do
     expect_offense(<<-RUBY)
-      given(:foo) { :foo }
-      ^^^^^ Use `let` instead of `given`.
+      RSpec.describe 'Foo' do
+        given(:foo) { :foo }
+        ^^^^^ Use `let` instead of `given`.
+      end
     RUBY
   end
 
   it 'flags violations for `given!`' do
     expect_offense(<<-RUBY)
-      given!(:foo) { :foo }
-      ^^^^^^ Use `let!` instead of `given!`.
+      describe 'Foo' do
+        given!(:foo) { :foo }
+        ^^^^^^ Use `let!` instead of `given!`.
+      end
     RUBY
   end
 
@@ -53,10 +63,36 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  include_examples 'autocorrect', 'background { }',    'before { }'
-  include_examples 'autocorrect', 'scenario { }',      'it { }'
-  include_examples 'autocorrect', 'xscenario { }',     'xit { }'
-  include_examples 'autocorrect', 'given(:foo) { }',   'let(:foo) { }'
-  include_examples 'autocorrect', 'given!(:foo) { }',  'let!(:foo) { }'
-  include_examples 'autocorrect', 'RSpec.feature { }', 'RSpec.describe { }'
+  it 'ignores feature calls outside spec' do
+    expect_no_offenses(<<-RUBY)
+      FactoryBot.define do
+        factory :company do
+          feature { "a company" }
+          background { Faker::Lorem.sentence }
+        end
+      end
+    RUBY
+  end
+
+  shared_examples 'autocorrect_spec' do |original, corrected|
+    original = <<-RUBY
+      describe Foo do
+        #{original}
+      end
+    RUBY
+    corrected = <<-RUBY
+      describe Foo do
+        #{corrected}
+      end
+    RUBY
+
+    include_examples 'autocorrect', original, corrected
+  end
+
+  include_examples 'autocorrect_spec', 'background { }',    'before { }'
+  include_examples 'autocorrect_spec', 'scenario { }',      'it { }'
+  include_examples 'autocorrect_spec', 'xscenario { }',     'xit { }'
+  include_examples 'autocorrect_spec', 'given(:foo) { }',   'let(:foo) { }'
+  include_examples 'autocorrect_spec', 'given!(:foo) { }',  'let!(:foo) { }'
+  include_examples 'autocorrect_spec', 'RSpec.feature { }', 'RSpec.describe { }'
 end
