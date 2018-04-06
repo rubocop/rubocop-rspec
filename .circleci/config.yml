@@ -13,13 +13,13 @@ rubocop: &rubocop
     - run: rake internal_investigation
 
 jobs:
-  confirm_config:
+  confirm_config_and_documentation:
     docker:
       - image: circleci/ruby:2.5
     steps:
       - checkout
       - run: bundle install
-      - run: rake confirm_config
+      - run: rake confirm_config documentation_syntax_check confirm_documentation
 
   # Ruby 2.1
   ruby-2.1-rspec:
@@ -111,28 +111,28 @@ workflows:
   version: 2
   build:
     jobs:
-      - confirm_config
+      - confirm_config_and_documentation
 
-      # Use `requires: [confirm_config]` to trick Circle CI into starting the slow jruby job early.
+      # Use `requires: [confirm_config_and_documentation]` to trick Circle CI into starting the slow jruby job early.
       - ruby-2.1-rspec:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.1-rubocop:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.2-rspec:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.2-rubocop:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.3-rspec:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.3-rubocop:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.4-rspec:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.4-rubocop:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.5-rspec:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - ruby-2.5-rubocop:
-          requires: [confirm_config]
+          requires: [confirm_config_and_documentation]
       - jruby
       - code-climate
