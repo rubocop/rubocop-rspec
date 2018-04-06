@@ -377,6 +377,7 @@ Capybara/CurrentPathExpectation:
 Capybara/FeatureMethods:
   Description: Checks for consistent method usage in feature specs.
   Enabled: true
+  EnabledMethods: []
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
 FactoryBot/DynamicAttributeDefinedStatically:

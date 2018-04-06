@@ -1,5 +1,7 @@
-RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
-  subject(:cop) { described_class.new }
+RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods, :config do
+  subject(:cop) { described_class.new(config) }
+
+  let(:cop_config) { { 'EnabledMethods' => [] } }
 
   it 'flags violations for `background`' do
     expect_offense(<<-RUBY)
@@ -72,6 +74,25 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
         end
       end
     RUBY
+  end
+
+  context 'with configured `EnabledMethods`' do
+    let(:cop_config) { { 'EnabledMethods' => %w[feature] } }
+
+    it 'ignores usage of the enabled method' do
+      expect_no_offenses(<<-RUBY)
+        RSpec.feature 'feature is enabled' do; end
+      RUBY
+    end
+
+    it 'flags other methods' do
+      expect_offense(<<-RUBY)
+        RSpec.feature 'feature is enabled' do
+          given(:foo) { :foo }
+          ^^^^^ Use `let` instead of `given`.
+        end
+      RUBY
+    end
   end
 
   shared_examples 'autocorrect_spec' do |original, corrected|

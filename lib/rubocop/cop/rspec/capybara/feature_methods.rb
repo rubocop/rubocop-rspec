@@ -6,6 +6,14 @@ module RuboCop
       module Capybara
         # Checks for consistent method usage in feature specs.
         #
+        # By default, the cop disables all Capybara-specific methods that have
+        # the same native RSpec method (e.g. are just aliases). Some teams
+        # however may prefer using some of the Capybara methods (like `feature`)
+        # to make it obvious that the test uses Capybara, while still disable
+        # the rest of the methods, like `given` (alias for `let`), `background`
+        # (alias for `before`), etc. You can configure which of the methods to
+        # be enabled by using the EnabledMethods configuration option.
+        #
         # @example
         #   # bad
         #   feature 'User logs in' do
@@ -61,6 +69,8 @@ module RuboCop
             return unless spec?(root_node)
 
             feature_method(node) do |send_node, match|
+              next if enabled?(match)
+
               add_offense(
                 send_node,
                 location: :selector,
@@ -79,6 +89,16 @@ module RuboCop
 
           def root_node
             processed_source.ast
+          end
+
+          def enabled?(method_name)
+            enabled_methods.include?(method_name)
+          end
+
+          def enabled_methods
+            cop_config
+              .fetch('EnabledMethods', [])
+              .map(&:to_sym)
           end
         end
       end
