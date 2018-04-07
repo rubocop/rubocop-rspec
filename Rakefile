@@ -12,6 +12,9 @@ rescue Bundler::BundlerError => e
 end
 
 require 'rspec/core/rake_task'
+
+Dir['tasks/**/*.rake'].each { |t| load t }
+
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
@@ -42,7 +45,21 @@ task confirm_config: :build_config do
   end
 end
 
-task default: %i[build_config coverage internal_investigation confirm_config]
+desc 'Confirm documentation is up to date'
+task confirm_documentation: :generate_cops_documentation do
+  _, _, _, process =
+    Open3.popen3('git diff --exit-code manual/')
+
+  unless process.value.success?
+    raise 'manual is out of sync, please add manual/ to the commit'
+  end
+end
+
+task default: %i[build_config coverage
+                 internal_investigation
+                 confirm_config
+                 documentation_syntax_check
+                 confirm_documentation]
 
 desc 'Generate a new cop template'
 task :new_cop, [:cop] do |_task, args|

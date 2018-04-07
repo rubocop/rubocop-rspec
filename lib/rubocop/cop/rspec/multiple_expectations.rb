@@ -34,8 +34,8 @@ module RuboCop
       # @example configuration
       #
       #   # .rubocop.yml
-      #   RSpec/MultipleExpectations:
-      #     Max: 2
+      #   # RSpec/MultipleExpectations:
+      #   #   Max: 2
       #
       #   # not flagged by rubocop
       #   describe UserCreator do

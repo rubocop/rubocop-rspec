@@ -8,12 +8,12 @@ module RuboCop
       # @example
       #   # bad
       #   describe :my_method do
-      #     ...
+      #     # ...
       #   end
       #
       #   # good
       #   describe '#my_method' do
-      #     ...
+      #     # ...
       #   end
       #
       # @see https://github.com/rspec/rspec-core/issues/1610

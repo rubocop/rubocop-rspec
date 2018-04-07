@@ -8,6 +8,7 @@ Before submitting the PR make sure the following are checked:
 * [ ] Feature branch is up-to-date with `master` (if not - rebase it).
 * [ ] Squashed related commits together.
 * [ ] Added tests.
+* [ ] Updated documentation (run `rake generate_cops_documentation`).
 * [ ] Added an entry to the [Changelog](../blob/master/CHANGELOG.md) if the new code introduces user-observable changes.
 * [ ] The build (`bundle exec rake`) is passing.
 

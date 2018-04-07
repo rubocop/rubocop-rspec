@@ -56,8 +56,8 @@ module RuboCop
       # @example configuration
       #
       #   # .rubocop.yml
-      #   RSpec/NestedGroups:
-      #     Max: 2
+      #   # RSpec/NestedGroups:
+      #   #   Max: 2
       #
       #   context 'when using some feature' do
       #     let(:some)    { :various }
@@ -71,7 +71,7 @@ module RuboCop
       #       let(:user_attributes) do
       #         {
       #           name: 'John',
-      #           age:  22
+      #           age:  22,
       #           role: role
       #         }
       #       end
