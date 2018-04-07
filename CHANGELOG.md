@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.25.0 (2018-04-07)
+
 * Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin][])
 * Add `RSpec/Be` cop to enforce passing argument to the generic `be` matcher. ([@Darhazer][])
 * Fix false positives in `StaticAttributeDefinedDynamically` and `ReturnFromStub` when a const is used in an array or hash. ([@Darhazer][])
