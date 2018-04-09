@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer][])
+* Fix `FactoryBot/DynamicAttributeDefinedStatically` false positive when using symbol proc argument for a sequence. ([@tdeo][])
 
 ## 1.25.0 (2018-04-07)
 
@@ -330,3 +331,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jojos003]: https://github.com/jojos003
 [@abrom]: https://github.com/abrom
 [@patrickomatic]: https://github.com/patrickomatic
+[@tdeo]: https://github.com/tdeo

@@ -31,13 +31,13 @@ module RuboCop
             (block (send nil? {:factory :trait} ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
-          def_node_matcher :callback_with_symbol_proc?, <<-PATTERN
-            (send nil? {:before :after} sym (block_pass sym))
+          def_node_matcher :callback_or_sequence_with_symbol_proc?, <<-PATTERN
+            (send nil? {:before :after :sequence} sym (block_pass sym))
           PATTERN
 
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
-              next if callback_with_symbol_proc?(attribute) ||
+              next if callback_or_sequence_with_symbol_proc?(attribute) ||
                   static?(attribute)
               add_offense(attribute, location: :expression)
             end

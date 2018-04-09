@@ -87,6 +87,16 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
         RUBY
       end
 
+      it 'accepts valid sequence definition' do
+        expect_no_offenses(<<-RUBY)
+          #{factory_bot}.define do
+            factory :post do
+              sequence :negative_numbers, &:-@
+            end
+          end
+        RUBY
+      end
+
       bad = <<-RUBY
         #{factory_bot}.define do
           factory :post do
