@@ -106,6 +106,14 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
+  it 'flags pending examples when receiver is explicit' do
+    expect_offense(<<-RUBY)
+      RSpec.xit 'test' do
+      ^^^^^^^^^^^^^^^^ Pending spec found.
+      end
+    RUBY
+  end
+
   it 'does not flag describe' do
     expect_no_offenses(<<-RUBY)
       describe 'test' do; end
@@ -157,6 +165,12 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
   it 'does not flag example_group' do
     expect_no_offenses(<<-RUBY)
       example_group 'test' do; end
+    RUBY
+  end
+
+  it 'does not flag method called pending' do
+    expect_no_offenses(<<-RUBY)
+      subject { Project.pending }
     RUBY
   end
 end

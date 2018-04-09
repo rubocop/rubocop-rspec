@@ -43,8 +43,12 @@ module RuboCop
 
         def_node_matcher :pending_block?, PENDING_EXAMPLES.send_pattern
 
+        def_node_matcher :rspec?, '(send {(const nil? :RSpec) nil?} ...)'
+
         def on_send(node)
           return unless pending_block?(node) || skipped_from_metadata?(node)
+          return unless rspec?(node)
+
           add_offense(node, location: :expression)
         end
 

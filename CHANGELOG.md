@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer][])
+
 ## 1.25.0 (2018-04-07)
 
 * Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin][])
