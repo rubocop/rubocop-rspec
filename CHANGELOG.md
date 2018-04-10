@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.25.1 (2018-04-10)
+
 * Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer][])
 * Fix `FactoryBot/DynamicAttributeDefinedStatically` false positive when using symbol proc argument for a sequence. ([@tdeo][])
 
