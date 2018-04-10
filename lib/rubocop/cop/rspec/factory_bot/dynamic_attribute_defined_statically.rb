@@ -31,14 +31,9 @@ module RuboCop
             (block (send nil? {:factory :trait} ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
-          def_node_matcher :callback_with_symbol_proc?, <<-PATTERN
-            (send nil? {:before :after} sym (block_pass sym))
-          PATTERN
-
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
-              next if callback_with_symbol_proc?(attribute) ||
-                  static?(attribute)
+              next if static_or_proc?(attribute)
               add_offense(attribute, location: :expression)
             end
           end
@@ -55,8 +50,10 @@ module RuboCop
 
           private
 
-          def static?(attribute)
-            value_matcher(attribute).to_a.all?(&:recursive_literal_or_const?)
+          def static_or_proc?(attribute)
+            value_matcher(attribute).to_a.all? do |value|
+              value.block_pass_type? || value.recursive_literal_or_const?
+            end
           end
 
           def value_hash_without_braces?(node)
