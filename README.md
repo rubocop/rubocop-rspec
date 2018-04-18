@@ -9,7 +9,6 @@
 RSpec-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/bbatsov/rubocop).
 
-
 ## Installation
 
 Just install the `rubocop-rspec` gem
@@ -23,7 +22,6 @@ or if you use bundler put this in your `Gemfile`
 ```
 gem 'rubocop-rspec'
 ```
-
 
 ## Usage
 
@@ -138,10 +136,9 @@ can be achieved using RSpec's `disable_monkey_patching!` method, which you can r
 
 Before disabling `should` you will need all your specs to use the `expect` syntax. You can use [Transpec](http://yujinakayama.me/transpec/), which will do the conversion for you.
 
-
 ## Contributing
 
-Checkout the [contribution guidelines](.github/CONTRIBUTING.md)
+Checkout the [contribution guidelines](.github/CONTRIBUTING.md).
 
 ## License
 
