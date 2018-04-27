@@ -331,6 +331,35 @@ end
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod)
 
+## RSpec/DescribeMethodFormat
+
+Enabled by default | Supports autocorrection
+--- | ---
+Disabled | No
+
+Check `describe` argument format.
+
+Make sure that `describe` argument starts with . for class methods or
+# for instance methods.
+
+### Examples
+
+```ruby
+# bad
+describe 'method_name' do
+  # ...
+end
+
+# good
+describe '#method_name' do
+  # ...
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethodFormat](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethodFormat)
+
 ## RSpec/DescribeSymbol
 
 Enabled by default | Supports autocorrection

@@ -22,6 +22,7 @@
 * [RSpec/ContextWording](cops_rspec.md#rspeccontextwording)
 * [RSpec/DescribeClass](cops_rspec.md#rspecdescribeclass)
 * [RSpec/DescribeMethod](cops_rspec.md#rspecdescribemethod)
+* [RSpec/DescribeMethodFormat](cops_rspec.md#rspecdescribemethodformat)
 * [RSpec/DescribeSymbol](cops_rspec.md#rspecdescribesymbol)
 * [RSpec/DescribedClass](cops_rspec.md#rspecdescribedclass)
 * [RSpec/EmptyExampleGroup](cops_rspec.md#rspecemptyexamplegroup)

@@ -77,6 +77,11 @@ RSpec/DescribeMethod:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod
 
+RSpec/DescribeMethodFormat:
+  Description: Check `describe` argument format.
+  Enabled: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethodFormat
+
 RSpec/DescribeSymbol:
   Description: Avoid describing symbols.
   Enabled: true
