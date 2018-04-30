@@ -1845,7 +1845,7 @@ predicate method directly.
 
 ### Examples
 
-#### Strict: true, EnforcedStyle: inflected (default)
+#### Strict: true, EnforcedStyle: inflected (default), UseEquality: false
 
 ```ruby
 # bad
@@ -1855,26 +1855,47 @@ expect(foo.something?).to be_truthy
 expect(foo).to be_something
 
 # also good - It checks "true" strictly.
-expect(foo).to be(true)
+expect(foo).to be true
+```
+#### Strict: true, EnforcedStyle: inflected (default), UseEquality: true
+
+```ruby
+# bad
+expect(foo.something?).to be_truthy
+
+# good
+expect(foo).to be_something
+
+# also good - It checks "true" strictly.
+expect(foo).to eq true
 ```
 #### Strict: false, EnforcedStyle: inflected
 
 ```ruby
 # bad
 expect(foo.something?).to be_truthy
-expect(foo).to be(true)
+expect(foo).to be true
 
 # good
 expect(foo).to be_something
 ```
-#### Strict: true, EnforcedStyle: explicit
+#### Strict: true, EnforcedStyle: explicit, UseEquality: false
 
 ```ruby
 # bad
 expect(foo).to be_something
 
 # good - the above code is rewritten to it by this cop
-expect(foo.something?).to be(true)
+expect(foo.something?).to be true
+```
+#### Strict: true, EnforcedStyle: explicit, UseEquality: true
+
+```ruby
+# bad
+expect(foo).to be_something
+
+# good - the above code is rewritten to it by this cop
+expect(foo.something?).to eq true
 ```
 #### Strict: false, EnforcedStyle: explicit
 
@@ -1891,6 +1912,7 @@ expect(foo.something?).to be_truthy
 Name | Default value | Configurable values
 --- | --- | ---
 Strict | `true` | Boolean
+UseEquality | `false` | Boolean
 EnforcedStyle | `inflected` | `inflected`, `explicit`
 
 ### References

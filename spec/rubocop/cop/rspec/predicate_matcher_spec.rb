@@ -3,8 +3,11 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
 
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style,
-      'Strict' => strict }
+      'Strict' => strict,
+      'UseEquality' => use_equality }
   end
+
+  let(:use_equality) { false }
 
   context 'when enforced style is `inflected`' do
     let(:enforced_style) { 'inflected' }
@@ -62,8 +65,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
 
       it 'accepts non-predicate method' do
         expect_no_offenses(<<-RUBY)
-          expect(foo.something).to be(true)
-          expect(foo.has_something).to be(true)
+          expect(foo.something).to be true
+          expect(foo.has_something).to be true
         RUBY
       end
 
@@ -149,16 +152,34 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
                        'expect(foo).to be_all do; end'
     end
 
-    context 'when strict is true' do
+    context 'when strict is true and use equality is false' do
       let(:strict) { true }
+      let(:use_equality) { false }
 
       include_examples 'inflected common'
 
       it 'accepts strict checking boolean matcher' do
         expect_no_offenses(<<-RUBY)
           expect(foo.empty?).to eq(true)
-          expect(foo.empty?).to be(true)
-          expect(foo.empty?).to be(false)
+          expect(foo.empty?).to be true
+          expect(foo.empty?).to be false
+          expect(foo.empty?).not_to be true
+          expect(foo.empty?).not_to be false
+        RUBY
+      end
+    end
+
+    context 'when strict is true and use equality is true' do
+      let(:strict) { true }
+      let(:use_equality) { true }
+
+      include_examples 'inflected common'
+
+      it 'accepts strict checking boolean matcher' do
+        expect_no_offenses(<<-RUBY)
+          expect(foo.empty?).to eq(true)
+          expect(foo.empty?).to be true
+          expect(foo.empty?).to be false
           expect(foo.empty?).not_to be true
           expect(foo.empty?).not_to be false
         RUBY
@@ -192,16 +213,16 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
                        'expect(foo.empty?).to eq(false)',
                        'expect(foo).not_to be_empty'
       include_examples 'autocorrect',
-                       'expect(foo.empty?).to be(true)',
+                       'expect(foo.empty?).to be true',
                        'expect(foo).to be_empty'
       include_examples 'autocorrect',
-                       'expect(foo.empty?).to be(false)',
+                       'expect(foo.empty?).to be false',
                        'expect(foo).not_to be_empty'
       include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be(true)',
+                       'expect(foo.empty?).not_to be true',
                        'expect(foo).not_to be_empty'
       include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be(false)',
+                       'expect(foo.empty?).not_to be false',
                        'expect(foo).to be_empty'
     end
   end
@@ -257,7 +278,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
 
       it 'accepts non-predicate matcher' do
         expect_no_offenses(<<-RUBY)
-          expect(foo).to be(true)
+          expect(foo).to be true
         RUBY
       end
     end
@@ -322,11 +343,20 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
                        "expect(foo.all? do; end).to #{matcher_true}"
     end
 
-    context 'when strict is true' do
+    context 'when strict is true and use equality is false' do
       let(:strict) { true }
+      let(:use_equality) { false }
 
       include_examples 'explicit common'
-      include_examples 'explicit autocorrect', 'be(true)', 'be(false)'
+      include_examples 'explicit autocorrect', 'be true', 'be false'
+    end
+
+    context 'when strict is true and use equality is true' do
+      let(:strict) { true }
+      let(:use_equality) { true }
+
+      include_examples 'explicit common'
+      include_examples 'explicit autocorrect', 'eq true', 'eq false'
     end
 
     context 'when strict is false' do

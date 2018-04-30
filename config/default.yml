@@ -352,6 +352,7 @@ RSpec/PredicateMatcher:
   Description: Prefer using predicate matcher over using predicate method directly.
   Enabled: true
   Strict: true
+  UseEquality: false
   EnforcedStyle: inflected
   SupportedStyles:
   - inflected
