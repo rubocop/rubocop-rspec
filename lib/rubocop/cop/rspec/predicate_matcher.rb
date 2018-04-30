@@ -242,17 +242,27 @@ module RuboCop
         def replacement_matcher(node)
           case [cop_config['Strict'], node.method_name == :to]
           when [true, true]
-            'be(true)'
+            explicit_matcher(true)
           when [true, false]
-            'be(false)'
+            explicit_matcher(false)
           when [false, true]
             'be_truthy'
           when [false, false]
             'be_falsey'
           end
         end
+
+        def explicit_matcher(boolean)
+          if cop_config['UseEquality']
+            "eq #{boolean}"
+          else
+            "be #{boolean}"
+          end
+        end
       end
       # rubocop:enable Metrics/ModuleLength
+
+      # rubocop:disable Metrics/LineLength
 
       # Prefer using predicate matcher over using predicate method directly.
       #
@@ -260,7 +270,7 @@ module RuboCop
       # This cop recommends to use the predicate matcher instead of using
       # predicate method directly.
       #
-      # @example Strict: true, EnforcedStyle: inflected (default)
+      # @example Strict: true, EnforcedStyle: inflected (default), UseEquality: false
       #   # bad
       #   expect(foo.something?).to be_truthy
       #
@@ -268,22 +278,39 @@ module RuboCop
       #   expect(foo).to be_something
       #
       #   # also good - It checks "true" strictly.
-      #   expect(foo).to be(true)
+      #   expect(foo).to be true
       #
-      # @example Strict: false, EnforcedStyle: inflected
+      # @example Strict: true, EnforcedStyle: inflected (default), UseEquality: true
       #   # bad
       #   expect(foo.something?).to be_truthy
-      #   expect(foo).to be(true)
       #
       #   # good
       #   expect(foo).to be_something
       #
-      # @example Strict: true, EnforcedStyle: explicit
+      #   # also good - It checks "true" strictly.
+      #   expect(foo).to eq true
+      #
+      # @example Strict: false, EnforcedStyle: inflected
+      #   # bad
+      #   expect(foo.something?).to be_truthy
+      #   expect(foo).to be true
+      #
+      #   # good
+      #   expect(foo).to be_something
+      #
+      # @example Strict: true, EnforcedStyle: explicit, UseEquality: false
       #   # bad
       #   expect(foo).to be_something
       #
       #   # good - the above code is rewritten to it by this cop
-      #   expect(foo.something?).to be(true)
+      #   expect(foo.something?).to be true
+      #
+      # @example Strict: true, EnforcedStyle: explicit, UseEquality: true
+      #   # bad
+      #   expect(foo).to be_something
+      #
+      #   # good - the above code is rewritten to it by this cop
+      #   expect(foo.something?).to eq true
       #
       # @example Strict: false, EnforcedStyle: explicit
       #   # bad
@@ -343,6 +370,7 @@ module RuboCop
           )
         end
       end
+      # rubocop:enable Metrics/LineLength
     end
   end
 end

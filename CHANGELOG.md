@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Update `RSpec/PredicateMatcher` cop to add auto correct option `eq boolean` instead of `be boolean`. ([@tiagotex][])
+
 ## 1.25.1 (2018-04-10)
 
 * Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer][])
@@ -334,3 +336,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@abrom]: https://github.com/abrom
 [@patrickomatic]: https://github.com/patrickomatic
 [@tdeo]: https://github.com/tdeo
+[@tiagotex]: https://github.com/tiagotex
