@@ -27,7 +27,7 @@ module RuboCop
         end
 
         def send_pattern
-          "(send _ #{node_pattern_union} ...)"
+          "(send {(const nil? :RSpec) nil?} #{node_pattern_union} ...)"
         end
 
         def node_pattern_union
@@ -41,10 +41,6 @@ module RuboCop
         protected
 
         attr_reader :selectors
-      end
-
-      module Matchers
-        MESSAGE_CHAIN = SelectorSet.new(%i[receive_message_chain stub_chain])
       end
 
       module ExampleGroups

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used.  ([@Darhazer][])
+
 ## 1.25.1 (2018-04-10)
 
 * Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer][])

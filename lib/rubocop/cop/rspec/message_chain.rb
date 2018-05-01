@@ -14,7 +14,9 @@ module RuboCop
       class MessageChain < Cop
         MSG = 'Avoid stubbing using `%<method>s`.'.freeze
 
-        def_node_matcher :message_chain, Matchers::MESSAGE_CHAIN.send_pattern
+        def_node_matcher :message_chain, <<-PATTERN
+          (send _ {:receive_message_chain :stub_chain} ...)
+        PATTERN
 
         def on_send(node)
           message_chain(node) { add_offense(node, location: :selector) }
