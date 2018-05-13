@@ -76,6 +76,15 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods, :config do
     RUBY
   end
 
+  it 'allows includes before the spec' do
+    expect_offense(<<-RUBY)
+      require 'rails_helper'
+
+      RSpec.feature 'Foo' do; end
+            ^^^^^^^ Use `describe` instead of `feature`.
+    RUBY
+  end
+
   context 'with configured `EnabledMethods`' do
     let(:cop_config) { { 'EnabledMethods' => %w[feature] } }
 

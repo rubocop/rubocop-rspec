@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used.  ([@Darhazer][])
+* Fix `Capybara/FeatureMethods` not working when there is require before the spec. ([@Darhazer][])
 
 ## 1.25.1 (2018-04-10)
 
