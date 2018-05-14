@@ -38,6 +38,30 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
+  it 'allows comment followed by an empty line after let' do
+    expect_no_offenses(<<-RUBY)
+    RSpec.describe User do
+      let(:a) { a }
+      let(:b) { b }
+      # end of setup
+
+      it { expect(a).to eq(b) }
+    end
+    RUBY
+  end
+
+  it 'flags missing empty line after the comment that comes after last let' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        # end of setup
+        ^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+  end
+
   it 'ignores empty lines between the lets' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
@@ -130,6 +154,31 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
   good_example = <<-RUBY
   RSpec.describe User do
     let(:params) { foo }
+
+    it 'has a new line' do
+    end
+  end
+  RUBY
+
+  include_examples 'autocorrect',
+                   bad_example,
+                   good_example
+
+  bad_example = <<-RUBY
+  RSpec.describe User do
+    let(:params) { foo }
+    # a multiline comment marking
+    # the end of setup
+    it 'has a new line' do
+    end
+  end
+  RUBY
+
+  good_example = <<-RUBY
+  RSpec.describe User do
+    let(:params) { foo }
+    # a multiline comment marking
+    # the end of setup
 
     it 'has a new line' do
     end

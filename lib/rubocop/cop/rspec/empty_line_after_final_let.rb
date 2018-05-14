@@ -17,9 +17,11 @@ module RuboCop
       #
       #   it { does_something }
       class EmptyLineAfterFinalLet < Cop
+        include RangeHelp
+
         MSG = 'Add an empty line after the last `let` block.'.freeze
 
-        def_node_matcher :let?, '(block $(send nil? {:let :let!} ...) args ...)'
+        def_node_matcher :let?, Helpers::ALL.block_pattern.freeze
 
         def on_block(node)
           return unless example_group_with_body?(node)
@@ -29,24 +31,28 @@ module RuboCop
           return if latest_let.nil?
           return if latest_let.equal?(node.body.children.last)
 
-          no_new_line_after(latest_let) do
-            add_offense(latest_let, location: :expression)
+          no_new_line_after(latest_let) do |location|
+            add_offense(latest_let, location: location)
           end
         end
 
         def autocorrect(node)
-          loc = last_node_loc(node)
-          ->(corrector) { corrector.insert_after(loc.end, "\n") }
+          lambda do |corrector|
+            no_new_line_after(node) do |location|
+              corrector.insert_after(location.end, "\n")
+            end
+          end
         end
 
         private
 
         def no_new_line_after(node)
           loc = last_node_loc(node)
+          line = loc.line
+          line += 1 while comment_line?(processed_source[line])
 
-          next_line = processed_source[loc.line]
-
-          yield unless next_line.blank?
+          return if processed_source[line].blank?
+          yield offending_loc(node, line)
         end
 
         def last_node_loc(node)
@@ -61,6 +67,17 @@ module RuboCop
           yield node.loc.heredoc_end if node.loc.respond_to?(:heredoc_end)
 
           node.each_child_node { |child| heredoc_line(child, &block) }
+        end
+
+        def offending_loc(node, last_line)
+          offending_line = processed_source[last_line - 1]
+          if comment_line?(offending_line)
+            start = offending_line.index('#')
+            length = offending_line.length - start
+            source_range(processed_source.buffer, last_line, start, length)
+          else
+            node.loc.expression
+          end
         end
       end
     end
