@@ -6,7 +6,7 @@ module RuboCop
     class AlignLetBrace
       extend NodePattern::Macros
 
-      def_node_matcher :let?, Language::Helpers::ALL.block_pattern.freeze
+      def_node_matcher :let?, Language::Helpers::ALL.block_pattern
 
       def initialize(root, token)
         @root  = root
