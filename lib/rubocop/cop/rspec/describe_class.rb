@@ -39,9 +39,7 @@ module RuboCop
             (sym {:request :feature :system :routing :view}))
         PATTERN
 
-        def_node_matcher :shared_group?, <<-PATTERN
-          (block (send {(const nil? :RSpec) nil?} #{SharedGroups::ALL.node_pattern_union} ...) ...)
-        PATTERN
+        def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
 
         def on_top_level_describe(node, args)
           return if shared_group?(root_node)

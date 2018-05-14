@@ -19,7 +19,7 @@ module RuboCop
               '`%<called>s` with a single argument.'.freeze
 
         def_node_matcher :message_chain, <<-PATTERN
-          (send _ #{Matchers::MESSAGE_CHAIN.node_pattern_union} $_)
+          (send _ {:receive_message_chain :stub_chain} $_)
         PATTERN
 
         def_node_matcher :single_key_hash?, '(hash pair)'

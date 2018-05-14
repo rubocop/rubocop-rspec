@@ -49,6 +49,20 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'does not flag methods matching example group names' do
+    expect_no_offenses(<<-RUBY)
+      describe Foo do
+        it 'yields a block when given' do
+          value = nil
+
+          helper.feature('whatevs') { value = 5 }
+
+          expect(value).to be 5
+        end
+      end
+    RUBY
+  end
+
   it 'does not recognize custom include methods by default' do
     expect_offense(<<-RUBY)
       describe Foo do
