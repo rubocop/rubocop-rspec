@@ -14,14 +14,12 @@ module RuboCop
         ExampleGroups::ALL + SharedGroups::ALL + Includes::ALL
       ).block_pattern
 
-      # @!method hook(node)
+      # @!method hook?(node)
       #
       #   Detect if node is `before`, `after`, `around`
-      def_node_matcher :hook, <<-PATTERN
-        (block {$(send nil? #{Hooks::ALL.node_pattern_union} ...)} ...)
-      PATTERN
+      def_node_matcher :hook?, Hooks::ALL.block_pattern
 
-      def_node_matcher :subject, Subject::ALL.block_pattern
+      def_node_matcher :subject?, Subject::ALL.block_pattern
 
       def subjects
         subjects_in_scope(node)
@@ -46,7 +44,7 @@ module RuboCop
       def find_subjects(node)
         return [] if scope_change?(node)
 
-        if subject(node)
+        if subject?(node)
           [node]
         else
           subjects_in_scope(node)
@@ -62,7 +60,7 @@ module RuboCop
       def find_hooks(node)
         return [] if scope_change?(node) || example?(node)
 
-        if hook(node)
+        if hook?(node)
           [node]
         else
           hooks_in_scope(node)

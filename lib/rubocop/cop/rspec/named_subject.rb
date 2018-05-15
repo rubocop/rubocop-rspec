@@ -48,23 +48,13 @@ module RuboCop
           }
         PATTERN
 
-        def_node_matcher :unnamed_subject, '$(send nil? :subject)'
+        def_node_search :subject_usage, '$(send nil? :subject)'
 
         def on_block(node)
           return unless rspec_block?(node)
 
           subject_usage(node) do |subject_node|
             add_offense(subject_node, location: :selector)
-          end
-        end
-
-        private
-
-        def subject_usage(node, &block)
-          unnamed_subject(node, &block)
-
-          node.each_child_node do |child|
-            subject_usage(child, &block)
           end
         end
       end

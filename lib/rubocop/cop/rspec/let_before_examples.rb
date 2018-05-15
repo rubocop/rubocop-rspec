@@ -35,7 +35,8 @@ module RuboCop
 
         MSG = 'Move `let` before the examples in the group.'.freeze
 
-        def_node_matcher :let?, '(block (send nil? {:let :let!} ...) ...)'
+        def_node_matcher :let?, Helpers::ALL.block_pattern
+
         def_node_matcher :example_or_group?, <<-PATTERN
           {
             #{(Examples::ALL + ExampleGroups::ALL).block_pattern}

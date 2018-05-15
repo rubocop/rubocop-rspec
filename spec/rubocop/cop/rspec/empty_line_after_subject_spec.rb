@@ -13,10 +13,30 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
+  it 'checks for empty line after subject!' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        subject! { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add empty line after `subject`.
+        let(:params) { foo }
+      end
+    RUBY
+  end
+
   it 'approves empty line after subject' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
+
+        let(:params) { foo }
+      end
+    RUBY
+  end
+
+  it 'approves empty line after subject!' do
+    expect_no_offenses(<<-RUBY)
+      RSpec.describe User do
+        subject! { described_class.new }
 
         let(:params) { foo }
       end
@@ -48,7 +68,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'handles let being the latest node' do
+  it 'handles subject being the latest node' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_user }
