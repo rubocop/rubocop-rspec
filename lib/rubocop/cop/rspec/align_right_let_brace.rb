@@ -25,6 +25,8 @@ module RuboCop
         end
 
         def investigate(_processed_source)
+          return if processed_source.blank?
+
           token_aligner.offending_tokens.each do |let|
             add_offense(let, location: :end)
           end

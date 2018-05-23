@@ -24,6 +24,10 @@ RSpec.describe RuboCop::Cop::RSpec::AlignRightLetBrace do
     RUBY
   end
 
+  it 'works with empty file' do
+    expect_no_offenses('')
+  end
+
   offensive_source = <<-RUBY
     let(:foo)      { a }
     let(:hi)       { ab }
