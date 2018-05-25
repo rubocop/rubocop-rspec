@@ -22,6 +22,17 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
+  it 'works with `subject!` and `let!`' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        subject!(:a) { a }
+
+        let!(:a) { b }
+        ^^^^^^^^^^^^^^ `a` is already defined.
+      end
+    RUBY
+  end
+
   it 'finds `let!` overwriting `let`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
@@ -40,6 +51,17 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
         context `different` do
           let(:a) { b }
         end
+      end
+    RUBY
+  end
+
+  it 'handles unnamed subjects' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        subject { a }
+
+        let(:subject) { b }
+        ^^^^^^^^^^^^^^^^^^^ `subject` is already defined.
       end
     RUBY
   end
