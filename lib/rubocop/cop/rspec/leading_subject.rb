@@ -3,64 +3,83 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for `subject` definitions that come after `let` definitions.
+      # Enforce that subject is the first definition in the test.
       #
       # @example
       #   # bad
-      #   RSpec.describe User do
       #     let(:params) { blah }
       #     subject { described_class.new(params) }
       #
-      #     it 'is valid' do
-      #       expect(subject.valid?).to be(true)
-      #     end
-      #   end
+      #     before { do_something }
+      #     subject { described_class.new(params) }
+      #
+      #     it { expect_something }
+      #     subject { described_class.new(params) }
+      #     it { expect_something_else }
+      #
       #
       #   # good
-      #   RSpec.describe User do
       #     subject { described_class.new(params) }
-      #
       #     let(:params) { blah }
       #
-      #     it 'is valid' do
-      #       expect(subject.valid?).to be(true)
-      #     end
-      #   end
+      #   # good
+      #     subject { described_class.new(params) }
+      #     before { do_something }
+      #
+      #   # good
+      #     subject { described_class.new(params) }
+      #     it { expect_something }
+      #     it { expect_something_else }
+      #
       class LeadingSubject < Cop
         include RangeHelp
 
-        MSG = 'Declare `subject` above any other `let` declarations.'.freeze
+        MSG = 'Declare `subject` above any other `%<offending>s` ' \
+          'declarations.'.freeze
 
         def_node_matcher :subject?, Subject::ALL.block_pattern
+        def_node_matcher :let?, Helpers::ALL.block_pattern
+        def_node_matcher :hook?, Hooks::ALL.block_pattern
+        def_node_matcher :example?, Examples::ALL.block_pattern
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
 
-          node.parent.each_child_node do |sibling|
-            break if sibling.equal?(node)
+          check_previous_nodes(node)
+        end
 
-            break add_offense(node, location: :expression) if let?(sibling)
+        def check_previous_nodes(node)
+          node.parent.each_child_node do |sibling|
+            if offending?(sibling)
+              add_offense(
+                node,
+                location: :expression,
+                message: format(MSG, offending: sibling.method_name)
+              )
+            end
+
+            break if offending?(sibling) || sibling.equal?(node)
           end
         end
 
         def autocorrect(node)
           lambda do |corrector|
-            first_let = find_first_let(node)
-            first_let_position = first_let.loc.expression
-            indent = "\n" + ' ' * first_let.loc.column
-            corrector.insert_before(first_let_position, node.source + indent)
+            first_node = find_first_offending_node(node)
+            first_node_position = first_node.loc.expression
+            indent = "\n" + ' ' * first_node.loc.column
+            corrector.insert_before(first_node_position, node.source + indent)
             corrector.remove(node_range(node))
           end
         end
 
         private
 
-        def let?(node)
-          %i[let let!].include?(node.method_name)
+        def offending?(node)
+          let?(node) || hook?(node) || example?(node)
         end
 
-        def find_first_let(node)
-          node.parent.children.find { |sibling| let?(sibling) }
+        def find_first_offending_node(node)
+          node.parent.children.find { |sibling| offending?(sibling) }
         end
 
         def node_range(node)

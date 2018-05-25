@@ -215,7 +215,7 @@ RSpec/ItBehavesLike:
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
 
 RSpec/LeadingSubject:
-  Description: Checks for `subject` definitions that come after `let` definitions.
+  Description: Enforce that subject is the first definition in the test.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
