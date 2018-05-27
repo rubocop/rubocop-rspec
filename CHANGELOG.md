@@ -5,6 +5,7 @@
 * Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used.  ([@Darhazer][])
 * Fix `Capybara/FeatureMethods` not working when there is require before the spec. ([@Darhazer][])
 * Fix `RSpec/EmptyLineAfterFinalLet`: allow a comment to be placed after latest let, requiring empty line after the comment. ([@Darhazer][])
+* Add `RSpec/ReceiveCounts` cop to enforce usage of :once and :twice matchers. ([@Darhazer][])
 
 ## 1.25.1 (2018-04-10)
 
