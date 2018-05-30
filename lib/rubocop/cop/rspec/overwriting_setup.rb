@@ -45,10 +45,15 @@ module RuboCop
         def find_duplicates(node)
           setup_expressions = Set.new
           node.each_child_node do |child|
-            setup?(child) do
-              name = one(child.send_node.arguments).value
-              yield child, name unless setup_expressions.add?(name)
-            end
+            next unless setup?(child)
+
+            name = if child.send_node.arguments?
+                     child.send_node.first_argument.value
+                   else
+                     :subject
+                   end
+
+            yield child, name unless setup_expressions.add?(name)
           end
         end
       end
