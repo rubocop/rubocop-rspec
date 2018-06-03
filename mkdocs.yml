@@ -1,5 +1,5 @@
 site_name: "RSpec-specific analysis for your projects, as an extension to RuboCop."
-repo_url: https://github.com/rubocop-rspec/rubocop-rspec
+repo_url: https://github.com/rubocop-hq/rubocop-rspec
 docs_dir: manual
 pages:
 - Home: index.md

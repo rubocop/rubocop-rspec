@@ -1,6 +1,6 @@
 # Contributing
 
-If you encounter problems or have ideas for improvements or new features, please report them to the [issue tracker](https://github.com/rubocop-rspec/rubocop-rspec/issues) or submit a pull request. Please, try to follow these guidelines when you do so.
+If you encounter problems or have ideas for improvements or new features, please report them to the [issue tracker](https://github.com/rubocop-hq/rubocop-rspec/issues) or submit a pull request. Please, try to follow these guidelines when you do so.
 
 ## Issue reporting
 
@@ -18,7 +18,7 @@ If you encounter problems or have ideas for improvements or new features, please
 2.  Create a feature branch.
 3.  Make sure to add tests.
 4.  Make sure the test suite passes (run `rake`).
-5.  Add a [changelog](https://github.com/rubocop-rspec/rubocop-rspec/blob/master/CHANGELOG.md) entry.
+5.  Add a [changelog](https://github.com/rubocop-hq/rubocop-rspec/blob/master/CHANGELOG.md) entry.
 6.  Commit your changes.
 7.  Push to the branch.
 8.  Create new Pull Request.

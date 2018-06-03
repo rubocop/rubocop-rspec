@@ -7,7 +7,7 @@ Before submitting the PR make sure the following are checked:
 * [ ] Feature branch is up-to-date with `master` (if not - rebase it).
 * [ ] Squashed related commits together.
 * [ ] Added tests.
-* [ ] Added an entry to the [changelog](https://github.com/rubocop-rspec/rubocop-rspec/blob/master/CHANGELOG.md) if the new code introduces user-observable changes.
+* [ ] Added an entry to the [changelog](https://github.com/rubocop-hq/rubocop-rspec/blob/master/CHANGELOG.md) if the new code introduces user-observable changes.
 * [ ] The build (`bundle exec rake`) passes (be sure to run this locally, since it may produce updated documentation that you will need to commit).
 
 If you have created a new cop:
