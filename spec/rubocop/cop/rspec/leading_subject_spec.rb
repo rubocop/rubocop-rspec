@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
         let!(:params) { foo }
 
         subject { described_class.new }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let!` declarations.
       end
     RUBY
   end
@@ -63,8 +63,31 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
+  it 'checks subject below hook' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        before { allow(Foo).to receive(:bar) }
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `before` declarations.
+      end
+    RUBY
+  end
+
+  it 'checks subject below example' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        it { is_expected.to be_present }
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it` declarations.
+      end
+    RUBY
+  end
+
   bad_code = <<-RUBY
     RSpec.describe User do
+      before { allow(Foo).to receive(:bar) }
       let(:params) { foo }
       let(:bar) { baz }
 
@@ -76,6 +99,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   good_code = <<-RUBY
     RSpec.describe User do
       subject { described_class.new }
+      before { allow(Foo).to receive(:bar) }
       let(:params) { foo }
       let(:bar) { baz }
 

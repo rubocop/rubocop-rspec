@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* `RSpec/LeadingSubject` now enforces subject to be before any examples, hooks or let declarations. ([@Darhazer][])
+
 ## 1.26.0 (2018-06-06)
 
 * Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used.  ([@Darhazer][])
