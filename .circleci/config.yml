@@ -77,14 +77,15 @@ jobs:
       - image: circleci/jruby:9.1
     steps:
       - checkout
+      - run: sudo apt-get install -y make
       - run: bundle lock
       - restore_cache:
           keys:
-            - bundle-v1-{{ checksum "Gemfile.lock" }}
-            - bundle-v1-
+            - bundle-v2-{{ checksum "Gemfile.lock" }}
+            - bundle-v2-
       - run: bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run: rake internal_investigation spec
