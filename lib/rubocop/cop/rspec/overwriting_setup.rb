@@ -46,7 +46,7 @@ module RuboCop
             next unless common_setup?(child)
 
             name = if child.send_node.arguments?
-                     child.send_node.first_argument.value
+                     child.send_node.first_argument.to_a.first.to_sym
                    else
                      :subject
                    end
