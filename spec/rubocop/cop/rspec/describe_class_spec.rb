@@ -95,6 +95,9 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
 
   it 'ignores an empty describe' do
     expect_no_offenses(<<-RUBY)
+      RSpec.describe do
+      end
+
       describe do
       end
     RUBY
