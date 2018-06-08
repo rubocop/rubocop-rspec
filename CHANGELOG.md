@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/ReceiveNever` cop enforcing usage of `not_to receive` instead of `never` matcher. ([@Darhazer][])
+
 ## 1.27.0 (2018-06-14)
 
 * `RSpec/LeadingSubject` now enforces subject to be before any examples, hooks or let declarations. ([@Darhazer][])

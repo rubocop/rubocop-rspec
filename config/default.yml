@@ -314,6 +314,11 @@ RSpec/ReceiveCounts:
   Description: Check for `once` and `twice` receive counts matchers usage.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
+RSpec/ReceiveNever:
+  Enabled: true
+  Description: Prefer `not_to receive(...)` over `receive(...).never`.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever
+
 RSpec/RepeatedDescription:
   Enabled: true
   Description: Check for repeated description strings in example groups.
