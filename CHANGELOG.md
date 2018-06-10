@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * `RSpec/LeadingSubject` now enforces subject to be before any examples, hooks or let declarations. ([@Darhazer][])
+* Fix `RSpec/NotToNot` to highlight only the selector (`not_to` or `to_not`), so it works also on `expect { ... }` blocks. ([@bquorning][])
 
 ## 1.26.0 (2018-06-06)
 
