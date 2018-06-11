@@ -98,6 +98,11 @@ RSpec/EmptyLineAfterFinalLet:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet
 
+RSpec/EmptyLineAfterHook:
+  Description: Checks if there is an empty line after hook blocks.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
+
 RSpec/EmptyLineAfterSubject:
   Description: Checks if there is an empty line after subject block.
   Enabled: true

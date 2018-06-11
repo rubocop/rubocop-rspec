@@ -512,6 +512,49 @@ it { does_something }
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet)
 
+## RSpec/EmptyLineAfterHook
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks if there is an empty line after hook blocks.
+
+### Examples
+
+```ruby
+# bad
+before { do_something }
+it { does_something }
+
+# bad
+after { do_something }
+it { does_something }
+
+# bad
+around { |test| test.run }
+it { does_something }
+
+# good
+before { do_something }
+
+it { does_something }
+
+# good
+after { do_something }
+
+it { does_something }
+
+# good
+around { |test| test.run }
+
+it { does_something }
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook)
+
 ## RSpec/EmptyLineAfterSubject
 
 Enabled by default | Supports autocorrection
