@@ -7,6 +7,7 @@
 * Add `RSpec/EmptyLineAfterHook` cop. ([@bquorning][])
 * Add `RSpec/EmptyLineAfterExampleGroup` cop to check that there is an empty line after example group blocks. ([@bquorning][])
 * Fix `RSpec/DescribeClass` crashing on `RSpec.describe` without arguments. ([@Darhazer][])
+* Bump RuboCop requirement to v0.56.0. ([@bquorning][])
 
 ## 1.26.0 (2018-06-06)
 
