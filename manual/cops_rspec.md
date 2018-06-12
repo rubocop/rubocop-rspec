@@ -485,6 +485,39 @@ CustomIncludeMethods | `[]` | Array
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup)
 
+## RSpec/EmptyLineAfterExampleGroup
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks if there is an empty line after example group blocks.
+
+### Examples
+
+```ruby
+# bad
+RSpec.describe Foo do
+  describe '#bar' do
+  end
+  describe '#baz' do
+  end
+end
+
+# good
+RSpec.describe Foo do
+  describe '#bar' do
+  end
+
+  describe '#baz' do
+  end
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup)
+
 ## RSpec/EmptyLineAfterFinalLet
 
 Enabled by default | Supports autocorrection
