@@ -26,6 +26,7 @@
 * [RSpec/DescribedClass](cops_rspec.md#rspecdescribedclass)
 * [RSpec/EmptyExampleGroup](cops_rspec.md#rspecemptyexamplegroup)
 * [RSpec/EmptyLineAfterFinalLet](cops_rspec.md#rspecemptylineafterfinallet)
+* [RSpec/EmptyLineAfterHook](cops_rspec.md#rspecemptylineafterhook)
 * [RSpec/EmptyLineAfterSubject](cops_rspec.md#rspecemptylineaftersubject)
 * [RSpec/ExampleLength](cops_rspec.md#rspecexamplelength)
 * [RSpec/ExampleWithoutDescription](cops_rspec.md#rspecexamplewithoutdescription)
