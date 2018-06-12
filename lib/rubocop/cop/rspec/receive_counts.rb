@@ -76,7 +76,7 @@ module RuboCop
 
         def range(node, offending_node)
           range_between(
-            offending_node.loc.selector.begin_pos - 1, # match the dot as well
+            offending_node.loc.dot.begin_pos,
             node.loc.expression.end_pos
           )
         end
