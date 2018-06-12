@@ -93,6 +93,11 @@ RSpec/EmptyExampleGroup:
   CustomIncludeMethods: []
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
+RSpec/EmptyLineAfterExampleGroup:
+  Description: Checks if there is an empty line after example group blocks.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup
+
 RSpec/EmptyLineAfterFinalLet:
   Description: Checks if there is an empty line after the last let block.
   Enabled: true
