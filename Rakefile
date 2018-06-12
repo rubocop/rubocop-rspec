@@ -51,7 +51,8 @@ task confirm_documentation: :generate_cops_documentation do
     Open3.popen3('git diff --exit-code manual/')
 
   unless process.value.success?
-    raise 'manual is out of sync, please add manual/ to the commit'
+    raise 'Please run `rake generate_cops_documentation` ' \
+          'and add manual/ to the commit.'
   end
 end
 
