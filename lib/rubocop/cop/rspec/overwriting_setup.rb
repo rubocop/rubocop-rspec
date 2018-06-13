@@ -22,11 +22,10 @@ module RuboCop
       #   let(:baz) { baz }
       #   let!(:other) { other }
       class OverwritingSetup < Cop
-        include RuboCop::RSpec::Util
-
         MSG = '`%<name>s` is already defined.'.freeze
 
         def_node_matcher :setup?, (Helpers::ALL + Subject::ALL).block_pattern
+        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
 
         def on_block(node)
           return unless example_group_with_body?(node)
@@ -44,17 +43,24 @@ module RuboCop
 
         def find_duplicates(node)
           setup_expressions = Set.new
-          node.each_child_node do |child|
-            next unless setup?(child)
+          node.each_child_node(:block) do |child|
+            next unless common_setup?(child)
 
             name = if child.send_node.arguments?
-                     child.send_node.first_argument.value
+                     first_argument_name(child.send_node).to_sym
                    else
                      :subject
                    end
 
             yield child, name unless setup_expressions.add?(name)
           end
+        end
+
+        def common_setup?(node)
+          return false unless setup?(node)
+          # Search only for setup with basic_literal arguments (e.g. :sym, :str)
+          # or no arguments at all.
+          node.send_node.arguments.all?(&:basic_literal?)
         end
       end
     end

@@ -8,6 +8,7 @@
 * Add `RSpec/EmptyLineAfterExampleGroup` cop to check that there is an empty line after example group blocks. ([@bquorning][])
 * Fix `RSpec/DescribeClass` crashing on `RSpec.describe` without arguments. ([@Darhazer][])
 * Bump RuboCop requirement to v0.56.0. ([@bquorning][])
+* Fix `RSpec/OverwritingSetup` crashing if a variable is used as an argument for `let`. ([@Darhazer][])
 
 ## 1.26.0 (2018-06-06)
 

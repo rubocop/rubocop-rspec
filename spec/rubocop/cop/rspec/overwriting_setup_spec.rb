@@ -66,6 +66,27 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
+  it 'handles dynamic names for `let`' do
+    expect_no_offenses(<<-RUBY)
+      RSpec.describe User do
+        subject(:name) { a }
+
+        let(name) { b }
+      end
+    RUBY
+  end
+
+  it 'handles string arguments' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        subject(:name) { a }
+
+        let("name") { b }
+        ^^^^^^^^^^^^^^^^^ `name` is already defined.
+      end
+    RUBY
+  end
+
   it 'does not encounter an error when handling an empty describe' do
     expect { inspect_source('RSpec.describe(User) do end', 'a_spec.rb') }
       .not_to raise_error
