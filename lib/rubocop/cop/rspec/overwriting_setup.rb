@@ -25,6 +25,7 @@ module RuboCop
         MSG = '`%<name>s` is already defined.'.freeze
 
         def_node_matcher :setup?, (Helpers::ALL + Subject::ALL).block_pattern
+        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
 
         def on_block(node)
           return unless example_group_with_body?(node)
@@ -46,7 +47,7 @@ module RuboCop
             next unless common_setup?(child)
 
             name = if child.send_node.arguments?
-                     child.send_node.first_argument.to_a.first.to_sym
+                     first_argument_name(child.send_node).to_sym
                    else
                      :subject
                    end
