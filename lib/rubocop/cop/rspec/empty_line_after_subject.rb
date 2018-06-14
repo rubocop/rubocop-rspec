@@ -15,6 +15,8 @@ module RuboCop
       #
       #   let(:foo) { bar }
       class EmptyLineAfterSubject < Cop
+        include RuboCop::RSpec::BlankLineSeparation
+
         MSG = 'Add empty line after `subject`.'.freeze
 
         def_node_matcher :subject?, Subject::ALL.block_pattern
@@ -23,15 +25,9 @@ module RuboCop
           return unless subject?(node) && !in_spec_block?(node)
           return if node.equal?(node.parent.children.last)
 
-          send_line = node.loc.end.line
-          next_line = processed_source[send_line]
-          return if next_line.blank?
-
-          add_offense(node, location: :expression, message: MSG)
-        end
-
-        def autocorrect(node)
-          ->(corrector) { corrector.insert_after(node.loc.end, "\n") }
+          missing_separating_line(node) do |location|
+            add_offense(node, location: location, message: MSG)
+          end
         end
 
         private

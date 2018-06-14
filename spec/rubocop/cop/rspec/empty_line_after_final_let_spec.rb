@@ -19,9 +19,9 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
       RSpec.describe User do
         let(:a) { a }
         let!(:b) do
-        ^^^^^^^^^^^ Add an empty line after the last `let` block.
           b
         end
+        ^^^ Add an empty line after the last `let` block.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -143,6 +143,21 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
+  it 'handles silly HEREDOC offense' do
+    expect_offense(<<-RUBY)
+      RSpec.describe 'silly heredoc syntax' do
+        let(:foo) { <<-BAR }
+        hello
+        world
+        BAR
+        ^^^ Add an empty line after the last `let` block.
+        it 'has tricky syntax' do
+          expect(foo).to eql("  hello\n  world\n")
+        end
+      end
+    RUBY
+  end
+
   bad_example = <<-RUBY
   RSpec.describe User do
     let(:params) { foo }
@@ -179,6 +194,31 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     let(:params) { foo }
     # a multiline comment marking
     # the end of setup
+
+    it 'has a new line' do
+    end
+  end
+  RUBY
+
+  include_examples 'autocorrect',
+                   bad_example,
+                   good_example
+
+  bad_example = <<-RUBY
+  RSpec.describe User do
+    let(:params) { <<-DOC }
+     I'm super annoying!
+    DOC
+    it 'has a new line' do
+    end
+  end
+  RUBY
+
+  good_example = <<-RUBY
+  RSpec.describe User do
+    let(:params) { <<-DOC }
+     I'm super annoying!
+    DOC
 
     it 'has a new line' do
     end
