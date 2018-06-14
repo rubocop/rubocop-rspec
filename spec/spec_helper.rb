@@ -15,6 +15,10 @@ spec_helper_glob = File.expand_path('{support,shared}/*.rb', __dir__)
 Dir.glob(spec_helper_glob).map(&method(:require))
 
 RSpec.configure do |config|
+  config.define_derived_metadata(file_path: %r{/spec/rubocop/cop/}) do |meta|
+    meta[:type] = :cop_spec
+  end
+
   config.order = :random
 
   config.expect_with :rspec do |expectations|

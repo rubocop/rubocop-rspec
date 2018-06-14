@@ -3,6 +3,11 @@ require: rubocop-rspec
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.1
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'spec/smoke_tests/**/*.rb'
 
 Metrics/BlockLength:
   Exclude:

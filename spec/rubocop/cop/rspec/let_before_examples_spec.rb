@@ -86,11 +86,6 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
     RUBY
   end
 
-  it 'does not encounter an error when handling an empty describe' do
-    expect { inspect_source('RSpec.describe(User) do end', 'a_spec.rb') }
-      .not_to raise_error
-  end
-
   bad_code = <<-RUBY
     RSpec.describe User do
       include_examples('should be after let')
