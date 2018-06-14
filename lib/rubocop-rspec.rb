@@ -20,6 +20,7 @@ require_relative 'rubocop/cop/rspec/cop'
 require_relative 'rubocop/rspec/align_let_brace'
 require_relative 'rubocop/rspec/capybara'
 require_relative 'rubocop/rspec/factory_bot'
+require_relative 'rubocop/rspec/final_end_location'
 
 RuboCop::RSpec::Inject.defaults!
 

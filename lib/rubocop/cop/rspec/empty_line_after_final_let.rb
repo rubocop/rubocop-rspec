@@ -18,6 +18,7 @@ module RuboCop
       #   it { does_something }
       class EmptyLineAfterFinalLet < Cop
         include RangeHelp
+        include RuboCop::RSpec::FinalEndLocation
 
         MSG = 'Add an empty line after the last `let` block.'.freeze
 
@@ -47,26 +48,11 @@ module RuboCop
         private
 
         def no_new_line_after(node)
-          loc = last_node_loc(node)
-          line = loc.line
+          line = final_end_location(node).line
           line += 1 while comment_line?(processed_source[line])
 
           return if processed_source[line].blank?
           yield offending_loc(node, line)
-        end
-
-        def last_node_loc(node)
-          last_line = node.loc.end.line
-          heredoc_line(node) do |loc|
-            return loc if loc.line > last_line
-          end
-          node.loc.end
-        end
-
-        def heredoc_line(node, &block)
-          yield node.loc.heredoc_end if node.loc.respond_to?(:heredoc_end)
-
-          node.each_child_node { |child| heredoc_line(child, &block) }
         end
 
         def offending_loc(node, last_line)
