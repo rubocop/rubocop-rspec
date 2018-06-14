@@ -32,6 +32,7 @@ module RuboCop
       #   end
       class LetBeforeExamples < Cop
         include RangeHelp
+        include RuboCop::RSpec::FinalEndLocation
 
         MSG = 'Move `let` before the examples in the group.'.freeze
 
@@ -91,21 +92,10 @@ module RuboCop
         end
 
         def node_range(node)
-          range_between(node.loc.expression.begin_pos, last_node_loc(node))
-        end
-
-        def last_node_loc(node)
-          heredoc = heredoc_lines(node).last
-
-          if heredoc
-            heredoc.loc.heredoc_end.end_pos
-          else
-            node.loc.end.end_pos
-          end
-        end
-
-        def heredoc_lines(node)
-          node.body.child_nodes.select { |n| n.loc.respond_to?(:heredoc_end) }
+          range_between(
+            node.loc.expression.begin_pos,
+            final_end_location(node).end_pos
+          )
         end
       end
     end

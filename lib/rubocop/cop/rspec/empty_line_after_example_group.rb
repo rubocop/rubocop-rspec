@@ -24,6 +24,8 @@ module RuboCop
       #   end
       #
       class EmptyLineAfterExampleGroup < Cop
+        include RuboCop::RSpec::BlankLineSeparation
+
         MSG = 'Add an empty line after `%<example_group>s`.'.freeze
 
         def_node_matcher :example_group, ExampleGroups::ALL.block_pattern
@@ -32,24 +34,13 @@ module RuboCop
           return unless example_group(node)
           return if node.parent && node.equal?(node.parent.children.last)
 
-          return if next_line(node).blank?
-
-          add_offense(
-            node,
-            location: node.loc.end,
-            message: format(MSG, example_group: node.method_name)
-          )
-        end
-
-        def autocorrect(node)
-          ->(corrector) { corrector.insert_after(node.loc.end, "\n") }
-        end
-
-        private
-
-        def next_line(node)
-          send_line = node.loc.end.line
-          processed_source[send_line]
+          missing_separating_line(node) do |location|
+            add_offense(
+              node,
+              location: location,
+              message: format(MSG, example_group: node.method_name)
+            )
+          end
         end
       end
     end

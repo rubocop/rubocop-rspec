@@ -15,6 +15,17 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
     RUBY
   end
 
+  it 'highlights single line formulations correctly' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        describe('#bar') { }
+        ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
+        describe '#baz' do
+        end
+      end
+    RUBY
+  end
+
   it 'checks for empty line after context' do
     expect_offense(<<-RUBY)
       RSpec.context 'foo' do
