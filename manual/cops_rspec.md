@@ -2008,6 +2008,28 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts)
 
+## RSpec/ReceiveNever
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Prefer `not_to receive(...)` over `receive(...).never`.
+
+### Examples
+
+```ruby
+# bad
+expect(foo).to receive(:bar).never
+
+# good
+expect(foo).not_to receive(:bar)
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever)
+
 ## RSpec/RepeatedDescription
 
 Enabled by default | Supports autocorrection

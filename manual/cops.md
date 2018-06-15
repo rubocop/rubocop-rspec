@@ -61,6 +61,7 @@
 * [RSpec/Pending](cops_rspec.md#rspecpending)
 * [RSpec/PredicateMatcher](cops_rspec.md#rspecpredicatematcher)
 * [RSpec/ReceiveCounts](cops_rspec.md#rspecreceivecounts)
+* [RSpec/ReceiveNever](cops_rspec.md#rspecreceivenever)
 * [RSpec/RepeatedDescription](cops_rspec.md#rspecrepeateddescription)
 * [RSpec/RepeatedExample](cops_rspec.md#rspecrepeatedexample)
 * [RSpec/ReturnFromStub](cops_rspec.md#rspecreturnfromstub)
