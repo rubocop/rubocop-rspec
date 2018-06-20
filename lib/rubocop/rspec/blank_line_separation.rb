@@ -25,6 +25,12 @@ module RuboCop
         source_range(processed_source.buffer, last_line, start, content_length)
       end
 
+      def last_child?(node)
+        return true unless node.parent && node.parent.begin_type?
+
+        node.equal?(node.parent.children.last)
+      end
+
       def autocorrect(node)
         lambda do |corrector|
           missing_separating_line(node) do |location|

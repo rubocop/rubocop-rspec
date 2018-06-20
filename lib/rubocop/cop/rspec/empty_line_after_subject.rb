@@ -23,7 +23,7 @@ module RuboCop
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
-          return if node.equal?(node.parent.children.last)
+          return if last_child?(node)
 
           missing_separating_line(node) do |location|
             add_offense(node, location: location, message: MSG)

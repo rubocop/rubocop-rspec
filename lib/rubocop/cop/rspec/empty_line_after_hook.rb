@@ -42,7 +42,7 @@ module RuboCop
 
         def on_block(node)
           return unless hook?(node)
-          return if node.equal?(node.parent.children.last)
+          return if last_child?(node)
 
           missing_separating_line(node) do |location|
             add_offense(
