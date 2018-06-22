@@ -22,11 +22,11 @@ module RuboCop
         MSG = 'The first argument to describe should be '\
               'the class or module being tested.'.freeze
 
-        def_node_matcher :valid_describe?, <<-PATTERN
-          {
-            (send {(const nil? :RSpec) nil?} :describe const ...)
-            (send {(const nil? :RSpec) nil?} :describe)
-          }
+        FIRST_ARGUMENT_REQUIRED_MSG =
+          'The first argument to describe is required.'.freeze
+
+        def_node_matcher :describe_with_const?, <<-PATTERN
+          (send {(const nil? :RSpec) nil?} :describe const ...)
         PATTERN
 
         def_node_matcher :describe_with_metadata, <<-PATTERN
@@ -48,11 +48,28 @@ module RuboCop
           return if shared_group?(root_node)
           return if valid_describe?(node)
 
+          unless node.arguments?
+            return add_offense(node, location: :expression,
+                                     message: FIRST_ARGUMENT_REQUIRED_MSG)
+          end
+
           describe_with_metadata(node) do |pairs|
             return if pairs.any?(&method(:rails_metadata?))
           end
 
           add_offense(args.first, location: :expression)
+        end
+
+        private
+
+        def valid_describe?(node)
+          return true unless node.arguments? || first_argument_required?
+
+          describe_with_const?(node)
+        end
+
+        def first_argument_required?
+          cop_config.fetch('FirstArgumentRequired', false)
         end
       end
     end

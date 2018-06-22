@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/ReceiveNever` cop enforcing usage of `not_to receive` instead of `never` matcher. ([@Darhazer][])
+* Add `FirstArgumentRequired` option to `RSpec/DescribeClass`. ([@geniou][])
 
 ## 1.27.0 (2018-06-14)
 

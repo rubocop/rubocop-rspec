@@ -1,5 +1,5 @@
-RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
-  subject(:cop) { described_class.new }
+RSpec.describe RuboCop::Cop::RSpec::DescribeClass, :config do
+  subject(:cop) { described_class.new(config) }
 
   it 'checks first-line describe statements' do
     expect_offense(<<-RUBY)
@@ -101,6 +101,26 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
       describe do
       end
     RUBY
+  end
+
+  context 'when first argument is required' do
+    let(:cop_config) { { 'FirstArgumentRequired' => true } }
+
+    it 'flags empty describe' do
+      expect_offense(<<-RUBY)
+        describe do
+        ^^^^^^^^ The first argument to describe is required.
+        end
+      RUBY
+    end
+
+    it 'flags empty RSpec.describe' do
+      expect_offense(<<-RUBY)
+        RSpec.describe do
+        ^^^^^^^^^^^^^^ The first argument to describe is required.
+        end
+      RUBY
+    end
   end
 
   it 'ignores routing specs' do
