@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
-RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStatically do
-  # rubocop:enable Metrics/LineLength
-
-  subject(:cop) { described_class.new(config) }
-
-  let(:config) { RuboCop::Config.new }
+RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStatically do # rubocop:disable Metrics/LineLength
+  subject(:cop) { described_class.new }
 
   %w[FactoryBot FactoryGirl].each do |factory_bot|
     context "when using #{factory_bot}" do

@@ -1,5 +1,5 @@
-RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll, :config do
-  subject(:cop) { described_class.new(config) }
+RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll do
+  subject(:cop) { described_class.new }
 
   def message(hook)
     "Beware of using `#{hook}` as it may cause state to leak between tests. "\
