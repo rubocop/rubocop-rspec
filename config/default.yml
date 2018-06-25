@@ -262,6 +262,11 @@ RSpec/MessageSpies:
   - receive
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
 
+RSpec/MissingExampleGroupArgument:
+  Description: Checks that the first argument to an example group is not empty.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
+
 RSpec/MultipleDescribes:
   Description: Checks for multiple top level describes.
   Enabled: true
