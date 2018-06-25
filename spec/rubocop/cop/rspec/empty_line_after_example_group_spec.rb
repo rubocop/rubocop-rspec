@@ -62,6 +62,21 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
     RUBY
   end
 
+  it 'handles describes in an if block' do
+    expect_offense(<<-RUBY)
+      if RUBY_VERSION < 2.3
+        describe 'skips checks under old ruby' do
+        end
+      else
+        describe 'first check' do
+        end
+        ^^^ Add an empty line after `describe`.
+        describe 'second check' do
+        end
+      end
+    RUBY
+  end
+
   bad_example = <<-RUBY
     RSpec.describe Foo do
       describe '#bar' do

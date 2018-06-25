@@ -29,7 +29,7 @@ module RuboCop
           latest_let = node.body.child_nodes.select { |child| let?(child) }.last
 
           return if latest_let.nil?
-          return if latest_let.equal?(node.body.children.last)
+          return if last_child?(latest_let)
 
           missing_separating_line(latest_let) do |location|
             add_offense(latest_let, location: location)
