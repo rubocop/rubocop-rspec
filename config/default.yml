@@ -190,6 +190,11 @@ RSpec/HookArgument:
   - example
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
+RSpec/HooksBeforeExamples:
+  Enabled: true
+  Description: Checks for before/around/after hooks that come after an example.
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
+
 RSpec/ImplicitExpect:
   Description: Check that a consistent implicit expectation style is used.
   Enabled: true
