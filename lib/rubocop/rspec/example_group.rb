@@ -14,13 +14,6 @@ module RuboCop
         ExampleGroups::ALL + SharedGroups::ALL + Includes::ALL
       ).block_pattern
 
-      # @!method hook?(node)
-      #
-      #   Detect if node is `before`, `after`, `around`
-      def_node_matcher :hook?, Hooks::ALL.block_pattern
-
-      def_node_matcher :subject?, Subject::ALL.block_pattern
-
       def subjects
         subjects_in_scope(node)
       end

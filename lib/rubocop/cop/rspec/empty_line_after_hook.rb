@@ -38,8 +38,6 @@ module RuboCop
 
         MSG = 'Add an empty line after `%<hook>s`.'.freeze
 
-        def_node_matcher :hook?, Hooks::ALL.block_pattern
-
         def on_block(node)
           return unless hook?(node)
           return if last_child?(node)

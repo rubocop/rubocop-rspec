@@ -18,8 +18,6 @@ module RuboCop
         MSG = 'Use `expect { ... }.to output(...).to_%<name>s` '\
               'instead of mutating $%<name>s.'.freeze
 
-        def_node_matcher :hook?, Hooks::ALL.block_pattern
-
         def on_gvasgn(node)
           return unless inside_example_scope?(node)
 

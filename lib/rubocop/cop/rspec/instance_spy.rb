@@ -22,8 +22,6 @@ module RuboCop
         MSG = 'Use `instance_spy` when you check your double '\
               'with `have_received`.'.freeze
 
-        def_node_matcher :example?, Examples::ALL.block_pattern
-
         def_node_search :null_double, <<-PATTERN
           (lvasgn $_
             (send
