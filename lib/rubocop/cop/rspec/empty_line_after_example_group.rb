@@ -28,11 +28,9 @@ module RuboCop
 
         MSG = 'Add an empty line after `%<example_group>s`.'.freeze
 
-        def_node_matcher :example_group, ExampleGroups::ALL.block_pattern
-
         def on_block(node)
-          return unless example_group(node)
-          return if node.parent && node.equal?(node.parent.children.last)
+          return unless example_group?(node)
+          return if last_child?(node)
 
           missing_separating_line(node) do |location|
             add_offense(

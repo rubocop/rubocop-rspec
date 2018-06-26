@@ -51,6 +51,7 @@
 * [RSpec/MessageChain](cops_rspec.md#rspecmessagechain)
 * [RSpec/MessageExpectation](cops_rspec.md#rspecmessageexpectation)
 * [RSpec/MessageSpies](cops_rspec.md#rspecmessagespies)
+* [RSpec/MissingExampleGroupArgument](cops_rspec.md#rspecmissingexamplegroupargument)
 * [RSpec/MultipleDescribes](cops_rspec.md#rspecmultipledescribes)
 * [RSpec/MultipleExpectations](cops_rspec.md#rspecmultipleexpectations)
 * [RSpec/MultipleSubjects](cops_rspec.md#rspecmultiplesubjects)

@@ -1524,6 +1524,36 @@ EnforcedStyle | `have_received` | `have_received`, `receive`
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies)
 
+## RSpec/MissingExampleGroupArgument
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Checks that the first argument to an example group is not empty.
+
+### Examples
+
+```ruby
+# bad
+describe do
+end
+
+RSpec.describe do
+end
+
+# good
+describe TestedClass do
+end
+
+describe "A feature example" do
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument)
+
 ## RSpec/MultipleDescribes
 
 Enabled by default | Supports autocorrection
