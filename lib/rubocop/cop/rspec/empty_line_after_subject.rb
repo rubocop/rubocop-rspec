@@ -19,8 +19,6 @@ module RuboCop
 
         MSG = 'Add empty line after `subject`.'.freeze
 
-        def_node_matcher :subject?, Subject::ALL.block_pattern
-
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
           return if last_child?(node)

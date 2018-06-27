@@ -22,38 +22,23 @@ module RuboCop
       #   end
       class ExpectInHook < Cop
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'.freeze
-        HOOKS = Hooks::ALL.node_pattern_union.freeze
 
-        def_node_matcher :hook, <<-PATTERN
-          (block (send _ $#{HOOKS} ...) _ $!nil?)
-        PATTERN
-
-        def_node_search :expect, <<-PATTERN
-          {
-            #{Expectations::ALL.send_pattern}
-            #{Expectations::ALL.block_pattern}
-          }
-        PATTERN
+        def_node_search :expectation, Expectations::ALL.send_pattern
 
         def on_block(node)
-          hook(node) do |hook_name, body|
-            expect(body) do |expect|
-              method = send_node(expect)
-              add_offense(method, location: :selector,
-                                  message: message(method, hook_name))
-            end
+          return unless hook?(node)
+          return if node.body.nil?
+
+          expectation(node.body) do |expect|
+            add_offense(expect, location: :selector,
+                                message: message(expect, node))
           end
         end
 
         private
 
         def message(expect, hook)
-          format(MSG, expect: expect.method_name, hook: hook)
-        end
-
-        def send_node(node)
-          return node if node.send_type?
-          node.children.first
+          format(MSG, expect: expect.method_name, hook: hook.method_name)
         end
       end
     end

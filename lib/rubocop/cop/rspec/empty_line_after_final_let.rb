@@ -21,8 +21,6 @@ module RuboCop
 
         MSG = 'Add an empty line after the last `let` block.'.freeze
 
-        def_node_matcher :let?, Helpers::ALL.block_pattern
-
         def on_block(node)
           return unless example_group_with_body?(node)
 

@@ -36,10 +36,6 @@ module RuboCop
       class MultipleSubjects < Cop
         MSG = 'Do not set more than one subject per example group'.freeze
 
-        def_node_matcher :named_subject?, <<-PATTERN
-          (block (send nil? :subject $sym) args ...)
-        PATTERN
-
         def on_block(node)
           return unless example_group?(node)
 
@@ -61,6 +57,10 @@ module RuboCop
         end
 
         private
+
+        def named_subject?(node)
+          node.send_node.arguments?
+        end
 
         def rename_autocorrect(node)
           lambda do |corrector|

@@ -37,11 +37,6 @@ module RuboCop
         MSG = 'Declare `subject` above any other `%<offending>s` ' \
           'declarations.'.freeze
 
-        def_node_matcher :subject?, Subject::ALL.block_pattern
-        def_node_matcher :let?, Helpers::ALL.block_pattern
-        def_node_matcher :hook?, Hooks::ALL.block_pattern
-        def_node_matcher :example?, Examples::ALL.block_pattern
-
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
 
@@ -88,7 +83,7 @@ module RuboCop
 
         def in_spec_block?(node)
           node.each_ancestor(:block).any? do |ancestor|
-            Examples::ALL.include?(ancestor.method_name)
+            example?(ancestor)
           end
         end
       end

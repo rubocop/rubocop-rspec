@@ -54,15 +54,14 @@ module RuboCop
                                'have auto-generated description.'.freeze
         MSG_ADD_DESCRIPTION  = 'Add a description.'.freeze
 
-        def_node_matcher :example?, Examples::ALL.send_pattern
         def_node_matcher :example_description, '(send nil? _ $(str $_))'
 
-        def on_send(node)
+        def on_block(node)
           return unless example?(node)
 
-          check_example_without_description(node)
+          check_example_without_description(node.send_node)
 
-          example_description(node) do |message_node, message|
+          example_description(node.send_node) do |message_node, message|
             return unless message.to_s.empty?
 
             add_offense(message_node, message: MSG_DEFAULT_ARGUMENT)
