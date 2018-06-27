@@ -77,7 +77,7 @@ module RuboCop
         private
 
         def example_with_aggregated_failures?(node)
-          example = node.children.first
+          example = node.send_node
 
           (aggregated_failures_by_default? ||
             with_aggregated_failures?(example)) &&
