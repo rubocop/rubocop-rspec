@@ -32,7 +32,7 @@ module RuboCop
         def on_block(node)
           each?(node) do |arg, body|
             if single_expectation?(body, arg) || only_expectations?(body, arg)
-              add_offense(node.children.first, location: :expression)
+              add_offense(node.send_node, location: :expression)
             end
           end
         end

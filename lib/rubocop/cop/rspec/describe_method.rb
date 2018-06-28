@@ -27,7 +27,7 @@ module RuboCop
 
         def on_top_level_describe(_node, (_, second_arg))
           return unless second_arg && second_arg.str_type?
-          return if METHOD_STRING_MATCHER =~ one(second_arg.children)
+          return if METHOD_STRING_MATCHER =~ second_arg.str_content
 
           add_offense(second_arg, location: :expression)
         end

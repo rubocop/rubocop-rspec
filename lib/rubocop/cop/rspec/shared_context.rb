@@ -68,11 +68,11 @@ module RuboCop
 
         def on_block(node)
           context_with_only_examples(node) do
-            add_shared_item_offense(node, MSG_EXAMPLES)
+            add_shared_item_offense(node.send_node, MSG_EXAMPLES)
           end
 
           examples_with_only_context(node) do
-            add_shared_item_offense(node, MSG_CONTEXT)
+            add_shared_item_offense(node.send_node, MSG_CONTEXT)
           end
         end
 
@@ -100,7 +100,7 @@ module RuboCop
 
         def add_shared_item_offense(node, message)
           add_offense(
-            node.children.first,
+            node,
             location: :expression,
             message: message
           )

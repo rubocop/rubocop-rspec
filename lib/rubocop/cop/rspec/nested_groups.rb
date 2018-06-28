@@ -104,7 +104,7 @@ module RuboCop
           find_nested_contexts(node.parent) do |context, nesting|
             self.max = nesting
             add_offense(
-              context.children.first,
+              context.send_node,
               location: :expression,
               message: message(nesting)
             )
