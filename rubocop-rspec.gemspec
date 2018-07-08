@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 2.1.0'
+  spec.required_ruby_version = '>= 2.2.0'
 
   spec.require_paths = ['lib']
   spec.files = Dir[
@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
     'documentation_uri' => 'https://rubocop-rspec.readthedocs.io/'
   }
 
-  spec.add_runtime_dependency 'rubocop', '>= 0.56.0'
+  spec.add_runtime_dependency 'rubocop', '>= 0.58.0'
 
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'
