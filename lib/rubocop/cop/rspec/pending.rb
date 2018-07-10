@@ -64,7 +64,7 @@ module RuboCop
         end
 
         def skip_symbol?(symbol_node)
-          symbol_node == SKIP_SYMBOL || symbol_node == PENDING_SYMBOL
+          [SKIP_SYMBOL, PENDING_SYMBOL].include?(symbol_node)
         end
       end
     end

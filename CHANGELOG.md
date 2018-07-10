@@ -5,6 +5,7 @@
 * Add `RSpec/ReceiveNever` cop enforcing usage of `not_to receive` instead of `never` matcher. ([@Darhazer][])
 * Fix false positive in `RSpec/EmptyLineAfterExampleGroup` cop when example is inside `if`. ([@Darhazer][])
 * Add `RSpec/MissingExampleGroupArgument` to enforce first argument for an example group. ([@geniou][])
+* Drop support for ruby `2.1`. ([@bquorning][])
 
 ## 1.27.0 (2018-06-14)
 
