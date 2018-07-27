@@ -1,5 +1,39 @@
 # FactoryBot
 
+## FactoryBot/AttributeDefinedStatically
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Always declare attribute values as blocks.
+
+### Examples
+
+```ruby
+# bad
+kind [:active, :rejected].sample
+
+# good
+kind { [:active, :rejected].sample }
+
+# bad
+closed_at 1.day.from_now
+
+# good
+closed_at { 1.day.from_now }
+
+# bad
+count 1
+
+# good
+count { 1 }
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically)
+
 ## FactoryBot/CreateList
 
 Enabled by default | Supports autocorrection
@@ -48,7 +82,7 @@ EnforcedStyle | `create_list` | `create_list`, `n_times`
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | Yes
+Disabled | Yes
 
 Prefer declaring dynamic attribute values in a block.
 
@@ -76,7 +110,7 @@ closed_at { 1.day.from_now }
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | Yes
+Disabled | Yes
 
 Prefer declaring static attribute values without a block.
 

@@ -6,6 +6,8 @@
 * Fix false positive in `RSpec/EmptyLineAfterExampleGroup` cop when example is inside `if`. ([@Darhazer][])
 * Add `RSpec/MissingExampleGroupArgument` to enforce first argument for an example group. ([@geniou][])
 * Drop support for ruby `2.1`. ([@bquorning][])
+* Add `FactoryBot/AttributeDefinedStatically` cop to help FactoryBot users with the deprecation of static attributes. ([@composerinteralia][], [@seanpdoyle][])
+* Remove `FactoryBot/DynamicAttributeDefinedStatically` and `FactoryBot/StaticAttributeDefinedDynamically` cops, since they are not compatible with `FactoryBot/AttributeDefinedStatically` ([@composerinteralia][])
 
 ## 1.27.0 (2018-06-14)
 
@@ -356,3 +358,5 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@abrom]: https://github.com/abrom
 [@patrickomatic]: https://github.com/patrickomatic
 [@tdeo]: https://github.com/tdeo
+[@composerinteralia]: https://github.com/composerinteralia
+[@seanpdoyle]: https://github.com/seanpdoyle

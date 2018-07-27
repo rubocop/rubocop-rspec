@@ -405,6 +405,11 @@ Capybara/FeatureMethods:
   EnabledMethods: []
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+FactoryBot/AttributeDefinedStatically:
+  Description: Always declare attribute values as blocks.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
+
 FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
@@ -416,12 +421,12 @@ FactoryBot/CreateList:
 
 FactoryBot/DynamicAttributeDefinedStatically:
   Description: Prefer declaring dynamic attribute values in a block.
-  Enabled: true
+  Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/DynamicAttributeDefinedStatically
 
 FactoryBot/StaticAttributeDefinedDynamically:
   Description: Prefer declaring static attribute values without a block.
-  Enabled: true
+  Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/StaticAttributeDefinedDynamically
 
 Rails/HttpStatus:
