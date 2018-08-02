@@ -30,10 +30,58 @@ module RuboCop
             (send nil? :expect (send {(send nil? :page) nil?} :current_path))
           PATTERN
 
+          # Supported matchers: eq(...) / match(/regexp/) / match('regexp')
+          def_node_matcher :as_is_matcher, <<-PATTERN
+            (send
+              #expectation_set_on_current_path ${:to :not_to :to_not}
+              ${(send nil? :eq ...) (send nil? :match (regexp ...))})
+          PATTERN
+
+          def_node_matcher :regexp_str_matcher, <<-PATTERN
+            (send
+              #expectation_set_on_current_path ${:to :not_to :to_not}
+              $(send nil? :match (str $_)))
+          PATTERN
+
           def on_send(node)
             expectation_set_on_current_path(node) do
               add_offense(node, location: :selector)
             end
+          end
+
+          def autocorrect(node)
+            lambda do |corrector|
+              return unless node.chained?
+
+              as_is_matcher(node.parent) do |to_sym, matcher_node|
+                rewrite_expectation(corrector, node, to_sym, matcher_node)
+              end
+
+              regexp_str_matcher(node.parent) do |to_sym, matcher_node, regexp|
+                rewrite_expectation(corrector, node, to_sym, matcher_node)
+                convert_regexp_str_to_literal(corrector, matcher_node, regexp)
+              end
+            end
+          end
+
+          private
+
+          def rewrite_expectation(corrector, node, to_symbol, matcher_node)
+            current_path_node = node.first_argument
+            corrector.replace(current_path_node.loc.expression, 'page')
+            corrector.replace(node.parent.loc.selector, 'to')
+            matcher_method = if to_symbol == :to
+                               'have_current_path'
+                             else
+                               'have_no_current_path'
+                             end
+            corrector.replace(matcher_node.loc.selector, matcher_method)
+          end
+
+          def convert_regexp_str_to_literal(corrector, matcher_node, regexp_str)
+            str_node = matcher_node.first_argument
+            regexp_expr = Regexp.new(regexp_str).inspect
+            corrector.replace(str_node.loc.expression, regexp_expr)
           end
         end
       end

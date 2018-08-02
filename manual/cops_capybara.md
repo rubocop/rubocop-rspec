@@ -4,7 +4,7 @@
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | No
+Enabled | Yes
 
 Checks that no expectations are set on Capybara's `current_path`.
 
