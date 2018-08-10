@@ -8,8 +8,6 @@
 
 * [FactoryBot/AttributeDefinedStatically](cops_factorybot.md#factorybotattributedefinedstatically)
 * [FactoryBot/CreateList](cops_factorybot.md#factorybotcreatelist)
-* [FactoryBot/DynamicAttributeDefinedStatically](cops_factorybot.md#factorybotdynamicattributedefinedstatically)
-* [FactoryBot/StaticAttributeDefinedDynamically](cops_factorybot.md#factorybotstaticattributedefineddynamically)
 
 #### Department [RSpec](cops_rspec.md)
 

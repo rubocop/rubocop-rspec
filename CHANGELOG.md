@@ -7,7 +7,7 @@
 * Add `RSpec/MissingExampleGroupArgument` to enforce first argument for an example group. ([@geniou][])
 * Drop support for ruby `2.1`. ([@bquorning][])
 * Add `FactoryBot/AttributeDefinedStatically` cop to help FactoryBot users with the deprecation of static attributes. ([@composerinteralia][], [@seanpdoyle][])
-* Remove `FactoryBot/DynamicAttributeDefinedStatically` and `FactoryBot/StaticAttributeDefinedDynamically` cops, since they are not compatible with `FactoryBot/AttributeDefinedStatically` ([@composerinteralia][])
+* Remove `FactoryBot/DynamicAttributeDefinedStatically` and `FactoryBot/StaticAttributeDefinedDynamically` cops. ([@composerinteralia][])
 
 ## 1.27.0 (2018-06-14)
 

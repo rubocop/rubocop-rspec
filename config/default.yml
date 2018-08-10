@@ -419,16 +419,6 @@ FactoryBot/CreateList:
   - n_times
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
-FactoryBot/DynamicAttributeDefinedStatically:
-  Description: Prefer declaring dynamic attribute values in a block.
-  Enabled: false
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/DynamicAttributeDefinedStatically
-
-FactoryBot/StaticAttributeDefinedDynamically:
-  Description: Prefer declaring static attribute values without a block.
-  Enabled: false
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/StaticAttributeDefinedDynamically
-
 Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true

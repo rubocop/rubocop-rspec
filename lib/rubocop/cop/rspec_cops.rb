@@ -3,8 +3,6 @@ require_relative 'rspec/capybara/feature_methods'
 
 require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/create_list'
-require_relative 'rspec/factory_bot/dynamic_attribute_defined_statically'
-require_relative 'rspec/factory_bot/static_attribute_defined_dynamically'
 
 begin
   require_relative 'rspec/rails/http_status'
