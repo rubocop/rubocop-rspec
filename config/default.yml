@@ -199,6 +199,15 @@ RSpec/ImplicitExpect:
   - should
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
+RSpec/ImplicitSubject:
+  Enabled: true
+  Description: Checks for usage of implicit subject (`is_expected` / `should`).
+  EnforcedStyle: single_line_only
+  SupportedStyles:
+  - single_line_only
+  - disallow
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
+
 RSpec/InstanceSpy:
   Description: Checks for `instance_double` used with `have_received`.
   Enabled: true

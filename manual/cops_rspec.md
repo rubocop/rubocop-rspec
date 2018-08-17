@@ -1119,6 +1119,52 @@ EnforcedStyle | `is_expected` | `is_expected`, `should`
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect)
 
+## RSpec/ImplicitSubject
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks for usage of implicit subject (`is_expected` / `should`).
+
+This cop can be configured using the `EnforcedStyle` option
+
+### Examples
+
+#### `EnforcedStyle: single_line_only`
+
+```ruby
+# bad
+it do
+  is_expected.to be_truthy
+end
+
+# good
+it { is_expected.to be_truthy }
+it do
+  expect(subject).to be_truthy
+end
+```
+#### `EnforcedStyle: disallow`
+
+```ruby
+# bad
+it { is_expected.to be_truthy }
+
+# good
+it { expect(subject).to be_truthy }
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+EnforcedStyle | `single_line_only` | `single_line_only`, `disallow`
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject)
+
 ## RSpec/InstanceSpy
 
 Enabled by default | Supports autocorrection

@@ -39,6 +39,7 @@
 * [RSpec/Focus](cops_rspec.md#rspecfocus)
 * [RSpec/HookArgument](cops_rspec.md#rspechookargument)
 * [RSpec/ImplicitExpect](cops_rspec.md#rspecimplicitexpect)
+* [RSpec/ImplicitSubject](cops_rspec.md#rspecimplicitsubject)
 * [RSpec/InstanceSpy](cops_rspec.md#rspecinstancespy)
 * [RSpec/InstanceVariable](cops_rspec.md#rspecinstancevariable)
 * [RSpec/InvalidPredicateMatcher](cops_rspec.md#rspecinvalidpredicatematcher)
