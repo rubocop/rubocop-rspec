@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* `RSpec/InstanceVariable` - Recommend local variables in addition to `let`. ([@jaredbeck][])
+
 ## 1.28.0 (2018-08-14)
 
 * Add `RSpec/ReceiveNever` cop enforcing usage of `not_to receive` instead of `never` matcher. ([@Darhazer][])
@@ -328,6 +330,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@bquorning]: https://github.com/bquorning
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
+[@jaredbeck]: https://github.com/jaredbeck
 [@jawshooah]: https://github.com/jawshooah
 [@nevir]: https://github.com/nevir
 [@nijikon]: https://github.com/nijikon
