@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
-                    ^^^^ Use `let` instead of an instance variable.
+                    ^^^^ Replace instance variable with local variable or `let`.
       end
     RUBY
   end
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     expect_offense(<<-RUBY)
       shared_examples 'shared example' do
         it { expect(@foo).to be_empty }
-                    ^^^^ Use `let` instead of an instance variable.
+                    ^^^^ Replace instance variable with local variable or `let`.
       end
     RUBY
   end
@@ -77,7 +77,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
         describe MyClass do
           before { @foo = [] }
           it { expect(@foo).to be_empty }
-                      ^^^^ Use `let` instead of an instance variable.
+                      ^^^^ Replace instance variable with local variable or `let`.
         end
       RUBY
     end
