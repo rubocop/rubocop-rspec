@@ -48,6 +48,15 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
       RUBY
     end
 
+    it 'detects usage of `is_expected` inside helper methods' do
+      expect_offense(<<-RUBY)
+        def permits(actions)
+          actions.each { |action| is_expected.to permit_action(action) }
+                                  ^^^^^^^^^^^ Don't use implicit subject.
+        end
+      RUBY
+    end
+
     bad_code = <<-RUBY
       it 'works' do
         is_expected.to be_truthy

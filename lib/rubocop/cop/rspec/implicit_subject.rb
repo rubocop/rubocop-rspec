@@ -56,8 +56,9 @@ module RuboCop
         private
 
         def valid_usage?(node)
-          style == :single_line_only &&
-            node.ancestors.find { |parent| example?(parent) }.single_line?
+          return false unless style == :single_line_only
+          example = node.ancestors.find { |parent| example?(parent) }
+          example && example.single_line?
         end
       end
     end
