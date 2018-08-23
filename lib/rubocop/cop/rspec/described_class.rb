@@ -115,7 +115,7 @@ module RuboCop
           if style == :described_class
             node.eql?(@described_class)
           else
-            node.method_name == :described_class
+            node.send_type? && node.method_name == :described_class
           end
         end
       end
