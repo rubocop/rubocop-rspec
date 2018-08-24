@@ -1077,6 +1077,39 @@ EnforcedStyle | `implicit` | `implicit`, `each`, `example`
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument)
 
+## RSpec/HooksBeforeExamples
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks for before/around/after hooks that come after an example.
+
+### Examples
+
+```ruby
+# Bad
+
+it 'checks what foo does' do
+  expect(foo).to be
+end
+
+before { prepare }
+after { clean_up }
+
+# Good
+before { prepare }
+after { clean_up }
+
+it 'checks what foo does' do
+  expect(foo).to be
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples)
+
 ## RSpec/ImplicitExpect
 
 Enabled by default | Supports autocorrection
