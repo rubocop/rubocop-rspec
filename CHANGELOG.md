@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.29.0 (2018-08-25)
+
 * `RSpec/InstanceVariable` - Recommend local variables in addition to `let`. ([@jaredbeck][])
 * Add `RSpec/ImplicitSubject` cop. ([@Darhazer][])
 * Add `RSpec/HooksBeforeExamples` cop. ([@Darhazer][])
