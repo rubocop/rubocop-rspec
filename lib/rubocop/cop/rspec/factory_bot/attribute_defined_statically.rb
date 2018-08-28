@@ -63,7 +63,7 @@ module RuboCop
             ATTRIBUTE_DEFINING_METHODS
 
           def_node_matcher :value_matcher, <<-PATTERN
-            (send nil? !#reserved_method? $...)
+            (send {self nil?} !#reserved_method? $...)
           PATTERN
 
           def_node_search :factory_attributes, <<-PATTERN

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix false negative in `FactoryBot/AttributeDefinedStatically` when attribute is defined on `self`. ([@Darhazer][])
+
 ## 1.29.0 (2018-08-25)
 
 * `RSpec/InstanceVariable` - Recommend local variables in addition to `let`. ([@jaredbeck][])
