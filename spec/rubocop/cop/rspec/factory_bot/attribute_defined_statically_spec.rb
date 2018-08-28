@@ -54,6 +54,18 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
     RUBY
   end
 
+  it 'registers an offense for an attribute defined on `self`' do
+    expect_offense(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          self.start { Date.today }
+          self.end Date.tomorrow
+          ^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+        end
+      end
+    RUBY
+  end
+
   it 'accepts valid factory definitions' do
     expect_no_offenses(<<-RUBY)
       FactoryBot.define do
@@ -121,6 +133,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
         meta_tags(foo: Time.current)
         other_tags({ foo: Time.current })
         options color: :blue
+        self.end Date.tomorrow
 
         trait :old do
           published_at 1.week.ago
@@ -144,6 +157,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
         meta_tags { { foo: Time.current } }
         other_tags { { foo: Time.current } }
         options { { color: :blue } }
+        self.end { Date.tomorrow }
 
         trait :old do
           published_at { 1.week.ago }
