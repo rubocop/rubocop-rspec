@@ -6,6 +6,7 @@ AllCops:
     - "(?:^|/)spec/"
   RSpec/FactoryBot:
     Patterns:
+    - spec/factories.rb
     - spec/factories/**/*.rb
     - features/support/factories/**/*.rb
 
