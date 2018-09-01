@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.29.1 (2018-09-01)
+
 * Fix false negative in `FactoryBot/AttributeDefinedStatically` when attribute is defined on `self`. ([@Darhazer][])
 * `RSpec/FactoryBot` cops will now also inspect the `spec/factories.rb` path by default. ([@bquorning][])
 
