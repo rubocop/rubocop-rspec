@@ -58,6 +58,7 @@ module RuboCop
 
         def common_setup?(node)
           return false unless setup?(node)
+
           # Search only for setup with basic_literal arguments (e.g. :sym, :str)
           # or no arguments at all.
           node.send_node.arguments.all?(&:basic_literal?)

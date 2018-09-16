@@ -73,6 +73,7 @@ module RuboCop
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
               next if proc?(attribute) || association?(attribute)
+
               add_offense(attribute, location: :expression)
             end
           end
