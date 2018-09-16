@@ -139,6 +139,7 @@ module RuboCop
 
           def format_receiver(receiver)
             return '' unless receiver
+
             "#{receiver.source}."
           end
         end

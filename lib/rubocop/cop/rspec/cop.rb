@@ -79,6 +79,7 @@ module RuboCop
 
         def rspec_pattern_config?
           return unless all_cops_config.key?('RSpec')
+
           all_cops_config.fetch('RSpec').key?('Patterns')
         end
 
