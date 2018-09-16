@@ -43,6 +43,7 @@ module RuboCop
           first_let = lets.first
           lets.each_with_index do |node, idx|
             next if node.sibling_index == first_let.sibling_index + idx
+
             add_offense(node, location: :expression)
           end
         end

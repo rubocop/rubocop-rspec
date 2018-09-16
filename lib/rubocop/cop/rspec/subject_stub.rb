@@ -72,6 +72,7 @@ module RuboCop
 
         def expectation?(node)
           return if all_matcher?(node)
+
           receive_message?(node)
         end
 
