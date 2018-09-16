@@ -156,6 +156,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       cop.to_s.start_with?('RuboCop::Cop::RSpec')
     end
     return if selected_cops.empty?
+
     content = "# #{department}\n".dup
     selected_cops.each do |cop|
       content << print_cop_with_doc(cop, config)
@@ -195,6 +196,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       cop.to_s.start_with?('RuboCop::Cop::RSpec')
     end
     return if selected_cops.empty?
+
     type_title = department[0].upcase + department[1..-1]
     filename = "cops_#{department.downcase}.md"
     content = "#### Department [#{type_title}](#{filename})\n\n".dup
@@ -259,8 +261,10 @@ task documentation_syntax_check: :yard_for_generate_documentation do
   cops = RuboCop::Cop::Cop.registry
   cops.each do |cop|
     next unless %i[RSpec Capybara FactoryBot].include?(cop.department)
+
     examples = YARD::Registry.all(:class).find do |code_object|
       next unless RuboCop::Cop::Badge.for(code_object.to_s) == cop.badge
+
       break code_object.tags('example')
     end
 

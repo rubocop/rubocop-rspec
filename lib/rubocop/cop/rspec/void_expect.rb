@@ -25,11 +25,13 @@ module RuboCop
 
         def on_send(node)
           return unless expect?(node)
+
           check_expect(node)
         end
 
         def on_block(node)
           return unless expect_block?(node)
+
           check_expect(node)
         end
 
@@ -37,6 +39,7 @@ module RuboCop
 
         def check_expect(node)
           return unless void?(node)
+
           add_offense(node, location: :expression)
         end
 
