@@ -145,6 +145,7 @@ module RuboCop
           end
 
           return if part_of_ignored_node?(node)
+
           predicate_matcher?(node) do |_actual, matcher|
             add_offense(
               node,
@@ -337,6 +338,7 @@ module RuboCop
         def block_loc(send_node)
           parent = send_node.parent
           return unless parent.block_type?
+
           range_between(
             send_node.loc.expression.end_pos,
             parent.loc.expression.end_pos

@@ -56,6 +56,7 @@ module RuboCop
         def joined_prefixes
           quoted = prefixes.map { |prefix| "'#{prefix}'" }
           return quoted.first if quoted.size == 1
+
           quoted << "or #{quoted.pop}"
           quoted.join(', ')
         end
