@@ -133,6 +133,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
         meta_tags(foo: Time.current)
         other_tags({ foo: Time.current })
         options color: :blue
+        other_options Tag::MAGIC => :magic
         self.end Date.tomorrow
 
         trait :old do
@@ -157,6 +158,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
         meta_tags { { foo: Time.current } }
         other_tags { { foo: Time.current } }
         options { { color: :blue } }
+        other_options { { Tag::MAGIC => :magic } }
         self.end { Date.tomorrow }
 
         trait :old do

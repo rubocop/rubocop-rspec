@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `FactoryBot/AttributeDefinedStatically` not working when there is a non-symbol key. ([@vzvu3k6k][])
+
 ## 1.29.1 (2018-09-01)
 
 * Fix false negative in `FactoryBot/AttributeDefinedStatically` when attribute is defined on `self`. ([@Darhazer][])
@@ -374,3 +376,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@tdeo]: https://github.com/tdeo
 [@composerinteralia]: https://github.com/composerinteralia
 [@seanpdoyle]: https://github.com/seanpdoyle
+[@vzvu3k6k]: https://github.com/vzvu3k6k

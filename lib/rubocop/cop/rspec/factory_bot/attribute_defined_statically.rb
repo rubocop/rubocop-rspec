@@ -98,7 +98,7 @@ module RuboCop
           end
 
           def factory_key?(hash_node)
-            hash_node.keys.any? { |key| key.value == :factory }
+            hash_node.keys.any? { |key| key.sym_type? && key.value == :factory }
           end
 
           def autocorrect_replacing_parens(node)
