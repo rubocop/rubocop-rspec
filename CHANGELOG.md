@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix `FactoryBot/AttributeDefinedStatically` not working when there is a non-symbol key. ([@vzvu3k6k][])
+* Fix false positive in `RSpec/ImplicitSubject` when `is_expected` is used inside `its()` block. ([@Darhazer][])
 
 ## 1.29.1 (2018-09-01)
 

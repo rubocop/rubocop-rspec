@@ -127,6 +127,12 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
       RUBY
     end
 
+    it 'allows `is_expected` inside `its` block' do
+      expect_no_offenses(<<-RUBY)
+        its(:quality) { is_expected.to be :high }
+      RUBY
+    end
+
     include_examples 'autocorrect',
                      'it { is_expected.to be_truthy }',
                      'it { expect(subject).to be_truthy }'
