@@ -92,6 +92,50 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
                      good_code
   end
 
+  context 'with EnforcedStyle `single_statement_only`' do
+    let(:enforced_style) { 'single_statement_only' }
+
+    it 'allows `is_expected` in multi-line example with single statement' do
+      expect_no_offenses(<<-RUBY)
+        it 'expect subject to be used' do
+          is_expected.to be_good
+        end
+      RUBY
+    end
+
+    it 'flags `is_expected` in multi-statement examples' do
+      expect_offense(<<-RUBY)
+        it 'expect subject to be used' do
+          subject.age = 18
+          is_expected.to be_valid
+          ^^^^^^^^^^^ Don't use implicit subject.
+        end
+      RUBY
+    end
+
+    bad_code = <<-RUBY
+      it 'is valid' do
+        subject.age = 18
+        is_expected.to be_valid
+      end
+    RUBY
+
+    good_code = <<-RUBY
+      it 'is valid' do
+        subject.age = 18
+        expect(subject).to be_valid
+      end
+    RUBY
+
+    include_examples 'autocorrect',
+                     bad_code,
+                     good_code
+
+    include_examples 'autocorrect',
+                     bad_code,
+                     good_code
+  end
+
   context 'with EnforcedStyle `disallow`' do
     let(:enforced_style) { 'disallow' }
 

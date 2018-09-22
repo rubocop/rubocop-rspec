@@ -59,10 +59,14 @@ module RuboCop
           example = node.ancestors.find { |parent| example?(parent) }
           return false if example.nil?
 
-          if example.method_name == :its
-            true
-          elsif style == :single_line_only
+          example.method_name == :its || allowed_by_style?(example)
+        end
+
+        def allowed_by_style?(example)
+          if style == :single_line_only
             example.single_line?
+          elsif style == :single_statement_only
+            !example.body.begin_type?
           else
             false
           end
