@@ -211,6 +211,7 @@ RSpec/ImplicitSubject:
   EnforcedStyle: single_line_only
   SupportedStyles:
   - single_line_only
+  - single_statement_only
   - disallow
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
 

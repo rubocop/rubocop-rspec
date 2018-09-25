@@ -56,10 +56,20 @@ module RuboCop
         private
 
         def valid_usage?(node)
-          return false unless style == :single_line_only
-
           example = node.ancestors.find { |parent| example?(parent) }
-          example && example.single_line?
+          return false if example.nil?
+
+          example.method_name == :its || allowed_by_style?(example)
+        end
+
+        def allowed_by_style?(example)
+          if style == :single_line_only
+            example.single_line?
+          elsif style == :single_statement_only
+            !example.body.begin_type?
+          else
+            false
+          end
         end
       end
     end

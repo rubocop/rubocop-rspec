@@ -1192,7 +1192,7 @@ it { expect(subject).to be_truthy }
 
 Name | Default value | Configurable values
 --- | --- | ---
-EnforcedStyle | `single_line_only` | `single_line_only`, `disallow`
+EnforcedStyle | `single_line_only` | `single_line_only`, `single_statement_only`, `disallow`
 
 ### References
 
