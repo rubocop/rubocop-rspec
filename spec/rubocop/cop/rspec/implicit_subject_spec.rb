@@ -17,6 +17,14 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
       RUBY
     end
 
+    it 'allows `is_expected` inside `its` block, in multi-line examples' do
+      expect_no_offenses(<<-RUBY)
+        its(:quality) do
+          is_expected.to be :high
+        end
+      RUBY
+    end
+
     it 'flags `should` in multi-line examples' do
       expect_offense(<<-RUBY)
         it 'expect subject to be used' do
