@@ -402,6 +402,7 @@ RSpec/PredicateMatcher:
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
+  IgnoreNameless: true
   IgnoreSymbolicNames: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 
