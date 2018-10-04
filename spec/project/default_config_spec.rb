@@ -3,13 +3,16 @@ RSpec.describe 'config/default.yml' do
     RuboCop::ConfigLoader.load_file('config/default.yml')
   end
 
-  let(:cop_names) do
-    namespaces = {
+  let(:namespaces) do
+    {
       'rspec' => 'RSpec',
       'capybara' => 'Capybara',
       'factory_bot' => 'FactoryBot',
       'rails' => 'Rails'
     }
+  end
+
+  let(:cop_names) do
     glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec',
                                  '{,capybara,factory_bot,rails}', '*.rb')
     cop_names =
@@ -38,7 +41,17 @@ RSpec.describe 'config/default.yml' do
   end
 
   it 'has configuration for all cops' do
-    expect(default_config.keys.sort).to eq(config_keys.sort)
+    expect(default_config.keys).to match_array(config_keys)
+  end
+
+  it 'sorts configuration keys alphabetically' do
+    namespaces.each do |_path, prefix|
+      expected = config_keys.select { |key| key.start_with?(prefix) }.sort
+      actual = default_config.keys.select { |key| key.start_with?(prefix) }
+      actual.each_with_index do |key, idx|
+        expect(key).to eq expected[idx]
+      end
+    end
   end
 
   it 'has descriptions for all cops' do
