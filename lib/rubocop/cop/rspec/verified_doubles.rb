@@ -26,15 +26,22 @@ module RuboCop
         MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
 
         def_node_matcher :unverified_double, <<-PATTERN
-          {(send nil? {:double :spy} $_ ...) }
+          {(send nil? {:double :spy} $...)}
         PATTERN
 
         def on_send(node)
-          unverified_double(node) do |name|
-            return if name.sym_type? && cop_config['IgnoreSymbolicNames']
+          unverified_double(node) do |name, *_args|
+            return if name.nil? && cop_config['IgnoreNameless']
+            return if symbol?(name) && cop_config['IgnoreSymbolicNames']
 
             add_offense(node, location: :expression)
           end
+        end
+
+        private
+
+        def symbol?(name)
+          name && name.sym_type?
         end
       end
     end

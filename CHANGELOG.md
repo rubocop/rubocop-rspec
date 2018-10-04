@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add config to `RSpec/VerifiedDoubles` to enforcement of verification on unnamed doubles. ([@BrentWheeldon][])
 * Fix `FactoryBot/AttributeDefinedStatically` not working when there is a non-symbol key. ([@vzvu3k6k][])
 * Fix false positive in `RSpec/ImplicitSubject` when `is_expected` is used inside `its()` block. ([@Darhazer][])
 * Add `single_statement_only` style to  `RSpec/ImplicitSubject` as a more relaxed alternative to `single_line_only`. ([@Darhazer][])
@@ -379,3 +380,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@composerinteralia]: https://github.com/composerinteralia
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@vzvu3k6k]: https://github.com/vzvu3k6k
+[@BrentWheeldon]: https://github.com/BrentWheeldon

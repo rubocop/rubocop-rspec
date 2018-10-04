@@ -2494,6 +2494,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
+IgnoreNameless | `true` | Boolean
 IgnoreSymbolicNames | `false` | Boolean
 
 ### References
