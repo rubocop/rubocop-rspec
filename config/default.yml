@@ -330,6 +330,16 @@ RSpec/Pending:
   Description: Checks for any pending or skipped examples.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
 
+RSpec/PredicateMatcher:
+  Description: Prefer using predicate matcher over using predicate method directly.
+  Enabled: true
+  Strict: true
+  EnforcedStyle: inflected
+  SupportedStyles:
+  - inflected
+  - explicit
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
+
 RSpec/ReceiveCounts:
   Enabled: true
   Description: Check for `once` and `twice` receive counts matchers usage.
@@ -388,16 +398,6 @@ RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
-
-RSpec/PredicateMatcher:
-  Description: Prefer using predicate matcher over using predicate method directly.
-  Enabled: true
-  Strict: true
-  EnforcedStyle: inflected
-  SupportedStyles:
-  - inflected
-  - explicit
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
