@@ -10,16 +10,6 @@ AllCops:
     - spec/factories/**/*.rb
     - features/support/factories/**/*.rb
 
-RSpec/AnyInstance:
-  Description: Check that instances are not being stubbed globally.
-  Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
-
-RSpec/AroundBlock:
-  Description: Checks that around blocks actually run the test.
-  Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock
-
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
   Enabled: false
@@ -29,6 +19,16 @@ RSpec/AlignRightLetBrace:
   Description: Checks that right braces for adjacent single line lets are aligned.
   Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace
+
+RSpec/AnyInstance:
+  Description: Check that instances are not being stubbed globally.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
+
+RSpec/AroundBlock:
+  Description: Checks that around blocks actually run the test.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock
 
 RSpec/Be:
   Description: Check for expectations where `be` is used without argument.
@@ -63,16 +63,6 @@ RSpec/DescribeClass:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
-RSpec/DescribedClass:
-  Description: Checks that tests use `described_class`.
-  SkipBlocks: false
-  Enabled: true
-  EnforcedStyle: described_class
-  SupportedStyles:
-  - described_class
-  - explicit
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
-
 RSpec/DescribeMethod:
   Description: Checks that the second argument to `describe` specifies a method.
   Enabled: true
@@ -83,10 +73,15 @@ RSpec/DescribeSymbol:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
 
-RSpec/IteratedExpectation:
-  Description: Check that `all` matcher is used instead of iterating over an array.
+RSpec/DescribedClass:
+  Description: Checks that tests use `described_class`.
+  SkipBlocks: false
   Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
+  EnforcedStyle: described_class
+  SupportedStyles:
+  - described_class
+  - explicit
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
@@ -240,6 +235,11 @@ RSpec/ItBehavesLike:
   - it_should_behave_like
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
 
+RSpec/IteratedExpectation:
+  Description: Check that `all` matcher is used instead of iterating over an array.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
+
 RSpec/LeadingSubject:
   Description: Enforce that subject is the first definition in the test.
   Enabled: true
@@ -369,6 +369,16 @@ RSpec/ReturnFromStub:
   - block
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
 
+RSpec/ScatteredLet:
+  Description: Checks for let scattered across the example group.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
+
+RSpec/ScatteredSetup:
+  Description: Checks for setup scattered across multiple hooks in an example group.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
+
 RSpec/SharedContext:
   Description: Checks for proper shared_context and shared_examples usage.
   Enabled: true
@@ -383,16 +393,6 @@ RSpec/SingleArgumentMessageChain:
   Description: Checks that chains of messages contain more than one element.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
-
-RSpec/ScatteredLet:
-  Description: Checks for let scattered across the example group.
-  Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
-
-RSpec/ScatteredSetup:
-  Description: Checks for setup scattered across multiple hooks in an example group.
-  Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
