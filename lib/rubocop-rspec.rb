@@ -18,7 +18,6 @@ require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/hook'
 require_relative 'rubocop/cop/rspec/cop'
 require_relative 'rubocop/rspec/align_let_brace'
-require_relative 'rubocop/rspec/factory_bot'
 require_relative 'rubocop/rspec/final_end_location'
 require_relative 'rubocop/rspec/blank_line_separation'
 
