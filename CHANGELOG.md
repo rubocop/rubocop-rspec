@@ -6,6 +6,7 @@
 * Fix `FactoryBot/AttributeDefinedStatically` not working when there is a non-symbol key. ([@vzvu3k6k][])
 * Fix false positive in `RSpec/ImplicitSubject` when `is_expected` is used inside `its()` block. ([@Darhazer][])
 * Add `single_statement_only` style to  `RSpec/ImplicitSubject` as a more relaxed alternative to `single_line_only`. ([@Darhazer][])
+* Add `RSpec/UnspecifiedException` as a non-default cop to encourage more-specific `expect{}.to raise_error(ExceptionType)`, or `raise_exception` style handling of exceptions. ([@daveworth][])
 
 ## 1.29.1 (2018-09-01)
 
@@ -381,3 +382,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@BrentWheeldon]: https://github.com/BrentWheeldon
+[@daveworth]: https://github.com/daveworth
