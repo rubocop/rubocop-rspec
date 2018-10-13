@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* `FactoryBot/CreateList` now ignores `times` blocks with an argument. ([@Darhazer][])
+
 ## 1.30.0 (2018-10-08)
 
 * Add config to `RSpec/VerifiedDoubles` to enforcement of verification on unnamed doubles. ([@BrentWheeldon][])

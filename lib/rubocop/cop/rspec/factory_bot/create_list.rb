@@ -30,9 +30,10 @@ module RuboCop
           MSG_CREATE_LIST = 'Prefer create_list.'.freeze
           MSG_N_TIMES = 'Prefer %<number>s.times.'.freeze
 
-          def_node_matcher :n_times_block?, <<-PATTERN
+          def_node_matcher :n_times_block_without_arg?, <<-PATTERN
             (block
               (send (int _) :times)
+              (args)
               ...
             )
           PATTERN
@@ -47,7 +48,7 @@ module RuboCop
 
           def on_block(node)
             return unless style == :create_list
-            return unless n_times_block?(node)
+            return unless n_times_block_without_arg?(node)
             return unless contains_only_factory?(node.body)
 
             add_offense(node.send_node,
