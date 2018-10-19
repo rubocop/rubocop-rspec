@@ -41,10 +41,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList, :config do
       RUBY
     end
 
-    it 'flags n.times with argument' do
-      expect_offense(<<-RUBY)
+    it 'ignores n.times with argument' do
+      expect_no_offenses(<<-RUBY)
         3.times { |n| create :user, created_at: n.days.ago }
-        ^^^^^^^ Prefer create_list.
       RUBY
     end
 
