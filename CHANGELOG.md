@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * `FactoryBot/CreateList` now ignores `times` blocks with an argument. ([@Darhazer][])
+* Add `AllowInSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
 
 ## 1.30.0 (2018-10-08)
 
@@ -387,3 +388,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@BrentWheeldon]: https://github.com/BrentWheeldon
 [@daveworth]: https://github.com/daveworth
+[@RST-J]: https://github.com/RST-J
