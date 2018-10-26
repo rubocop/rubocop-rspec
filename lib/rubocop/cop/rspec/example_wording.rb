@@ -33,8 +33,8 @@ module RuboCop
         MSG_SHOULD = 'Do not use should when describing your tests.'.freeze
         MSG_IT     = "Do not repeat 'it' when describing your tests.".freeze
 
-        SHOULD_PREFIX = /\Ashould(?:n't)?\b/i
-        IT_PREFIX     = /\Ait /i
+        SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
+        IT_PREFIX     = /\Ait /i.freeze
 
         def_node_matcher(
           :it_description,
