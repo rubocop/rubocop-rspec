@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
       end
     RUBY
 
-    expect(cop.config_to_allow_offenses).to eq('Max' => 4)
+    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 4)
   end
 
   it 'ignores non-spec context methods' do
