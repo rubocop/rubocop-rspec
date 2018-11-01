@@ -9,6 +9,10 @@ AllCops:
     - 'tmp/**/*'
     - 'spec/smoke_tests/**/*.rb'
 
+# See https://github.com/rubocop-hq/rubocop/issues/6410
+Layout/AlignHash:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - rubocop-rspec.gemspec

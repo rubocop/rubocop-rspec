@@ -229,6 +229,6 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
       end
     RUBY
 
-    expect(cop.config_to_allow_offenses).to eq('Max' => 3)
+    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 3)
   end
 end
