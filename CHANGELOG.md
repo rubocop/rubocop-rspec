@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.30.1 (2018-11-01)
+
 * `FactoryBot/CreateList` now ignores `times` blocks with an argument. ([@Darhazer][])
 
 ## 1.30.0 (2018-10-08)
