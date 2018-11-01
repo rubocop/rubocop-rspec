@@ -4,7 +4,7 @@
 
 Enabled by default | Supports autocorrection
 --- | ---
-Disabled | Yes
+Enabled | Yes
 
 Enforces use of symbolic or numeric value to describe HTTP status.
 

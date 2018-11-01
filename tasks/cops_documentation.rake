@@ -237,7 +237,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
 
   def main
     cops   = RuboCop::Cop::Cop.registry
-    config = RuboCop::ConfigLoader.default_configuration
+    config = RuboCop::ConfigLoader.load_file('config/default.yml')
 
     YARD::Registry.load!
     cops.departments.sort!.each do |department|
@@ -260,15 +260,13 @@ task documentation_syntax_check: :yard_for_generate_documentation do
   YARD::Registry.load!
   cops = RuboCop::Cop::Cop.registry
   cops.each do |cop|
-    next unless %i[RSpec Capybara FactoryBot].include?(cop.department)
-
     examples = YARD::Registry.all(:class).find do |code_object|
       next unless RuboCop::Cop::Badge.for(code_object.to_s) == cop.badge
 
       break code_object.tags('example')
     end
 
-    examples.each do |example|
+    examples.to_a.each do |example|
       begin
         buffer = Parser::Source::Buffer.new('<code>', 1)
         buffer.source = example.text
