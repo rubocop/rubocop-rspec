@@ -13,7 +13,7 @@ module RuboCop
       # name.
       #
       # This cop can be configured in your configuration using the
-      # `AllowInSharedExamples` which will not report offenses for implicit
+      # `IgnoreSharedExamples` which will not report offenses for implicit
       # subjects in shared example groups.
       #
       # @example
@@ -59,15 +59,15 @@ module RuboCop
         def_node_search :subject_usage, '$(send nil? :subject)'
 
         def on_block(node)
-          return if !rspec_block?(node) || allowed_shared_example?(node)
+          return if !rspec_block?(node) || ignored_shared_example?(node)
 
           subject_usage(node) do |subject_node|
             add_offense(subject_node, location: :selector)
           end
         end
 
-        def allowed_shared_example?(node)
-          cop_config['AllowInSharedExamples'] &&
+        def ignored_shared_example?(node)
+          cop_config['IgnoreSharedExamples'] &&
             node.each_ancestor(:block).any?(&method(:shared_example?))
         end
       end

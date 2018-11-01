@@ -1785,7 +1785,7 @@ the most important object in your tests so they deserve a descriptive
 name.
 
 This cop can be configured in your configuration using the
-`AllowInSharedExamples` which will not report offenses for implicit
+`IgnoreSharedExamples` which will not report offenses for implicit
 subjects in shared example groups.
 
 ### Examples
@@ -1821,7 +1821,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
-AllowInSharedExamples | `true` | Boolean
+IgnoreSharedExamples | `true` | Boolean
 
 ### References
 
