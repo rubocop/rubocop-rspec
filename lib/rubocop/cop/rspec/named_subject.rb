@@ -12,6 +12,10 @@ module RuboCop
       # the most important object in your tests so they deserve a descriptive
       # name.
       #
+      # This cop can be configured in your configuration using the
+      # `IgnoreSharedExamples` which will not report offenses for implicit
+      # subjects in shared example groups.
+      #
       # @example
       #   # bad
       #   RSpec.describe User do
@@ -48,14 +52,23 @@ module RuboCop
           }
         PATTERN
 
+        def_node_matcher :shared_example?, <<-PATTERN
+          #{SharedGroups::EXAMPLES.block_pattern}
+        PATTERN
+
         def_node_search :subject_usage, '$(send nil? :subject)'
 
         def on_block(node)
-          return unless rspec_block?(node)
+          return if !rspec_block?(node) || ignored_shared_example?(node)
 
           subject_usage(node) do |subject_node|
             add_offense(subject_node, location: :selector)
           end
+        end
+
+        def ignored_shared_example?(node)
+          cop_config['IgnoreSharedExamples'] &&
+            node.each_ancestor(:block).any?(&method(:shared_example?))
         end
       end
     end

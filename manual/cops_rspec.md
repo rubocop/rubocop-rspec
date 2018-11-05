@@ -1784,6 +1784,10 @@ reference your test subject you should explicitly name it using
 the most important object in your tests so they deserve a descriptive
 name.
 
+This cop can be configured in your configuration using the
+`IgnoreSharedExamples` which will not report offenses for implicit
+subjects in shared example groups.
+
 ### Examples
 
 ```ruby
@@ -1812,6 +1816,12 @@ RSpec.describe Foo do
   it { should be_valid }
 end
 ```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+IgnoreSharedExamples | `true` | Boolean
 
 ### References
 
