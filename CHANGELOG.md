@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `IgnoreSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
+* Add autocorrect support for `Capybara/CurrentPathExpectation` cop. ([@ypresto][])
 
 ## 1.30.1 (2018-11-01)
 
@@ -392,3 +393,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@BrentWheeldon]: https://github.com/BrentWheeldon
 [@daveworth]: https://github.com/daveworth
 [@RST-J]: https://github.com/RST-J
+[@ypresto]: https://github.com/ypresto
