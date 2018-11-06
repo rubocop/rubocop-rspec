@@ -21,14 +21,6 @@ RSpec.configure do |config|
 
   config.order = :random
 
-  config.expect_with :rspec do |expectations|
-    expectations.syntax = :expect # Disable `should`
-  end
-
-  config.mock_with :rspec do |mocks|
-    mocks.syntax = :expect # Disable `should_receive` and `stub`
-  end
-
   # Forbid RSpec from monkey patching any of our objects
   config.disable_monkey_patching!
 
