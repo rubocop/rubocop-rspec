@@ -64,6 +64,8 @@ module RuboCop
             'be_an_instance_of'
           when 'include?', 'respond_to?'
             name[0..-2]
+          when 'exist?', 'exists?'
+            'exist'
           when /^has_/
             name.sub('has_', 'have_')[0..-2]
           else
@@ -174,9 +176,10 @@ module RuboCop
 
         def predicate_matcher_name?(name)
           name = name.to_s
-          name.start_with?('be_', 'have_') &&
-            !BUILT_IN_MATCHERS.include?(name) &&
-            !name.end_with?('?')
+
+          return false if BUILT_IN_MATCHERS.include?(name)
+
+          name.start_with?('be_', 'have_') && !name.end_with?('?')
         end
 
         def message_explicit(matcher)

@@ -4,6 +4,7 @@
 
 * Add `IgnoreSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
 * Add autocorrect support for `Capybara/CurrentPathExpectation` cop. ([@ypresto][])
+* Add support for built-in `exists` matcher for `RSpec/PredicateMatcher` cop. ([@mkenyon][])
 
 ## 1.30.1 (2018-11-01)
 
@@ -394,3 +395,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@daveworth]: https://github.com/daveworth
 [@RST-J]: https://github.com/RST-J
 [@ypresto]: https://github.com/ypresto
+[@mkenyon]: https://github.com/mkenyon
