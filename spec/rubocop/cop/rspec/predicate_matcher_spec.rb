@@ -20,6 +20,15 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be_falsey
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+        RUBY
+      end
+
+      it 'registers an offense for a predicate method with built-in equiv' do
+        expect_offense(<<-RUBY)
+          expect(foo.exist?).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exist?`.
+          expect(foo.exists?).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exists?`.
           expect(foo.has_something?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_something` matcher over `has_something?`.
           expect(foo.include?(something)).to be_truthy
@@ -106,6 +115,9 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
       include_examples 'autocorrect',
                        'expect(foo.respond_to?(:bar)).to be_truthy',
                        'expect(foo).to respond_to(:bar)'
+      include_examples 'autocorrect',
+                       'expect(foo.exists?).to be_truthy',
+                       'expect(foo).to exist'
 
       include_examples 'autocorrect',
                        'expect(foo.something?()).to be_truthy',
@@ -252,6 +264,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
           expect(foo).to have_received(:foo)
           expect(foo).to be_between(1, 10)
           expect(foo).to be_within(0.1).of(10.0)
+          expect(foo).to exist
         RUBY
       end
 
