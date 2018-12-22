@@ -48,8 +48,52 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
       RUBY
     end
 
+    it 'accepts single-argument calls with variable' do
+      expect_no_offenses(<<-RUBY)
+        before do
+          foo = %i[:one :two]
+          allow(foo).to receive_message_chain(foo) { :many }
+        end
+      RUBY
+    end
+
+    it 'accepts single-argument calls with send node' do
+      expect_no_offenses(<<-RUBY)
+        before do
+          allow(foo).to receive_message_chain(foo) { :many }
+        end
+      RUBY
+    end
+
+    context 'with single-element array argument' do
+      it 'reports an offense' do
+        expect_offense(<<-RUBY)
+          before do
+            allow(foo).to receive_message_chain([:one]) { :two }
+                          ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
+          end
+        RUBY
+      end
+
+      include_examples(
+        'autocorrect',
+        'before { allow(foo).to receive_message_chain([:one]) { :two } }',
+        'before { allow(foo).to receive(:one) { :two } }'
+      )
+    end
+
+    context 'with multiple-element array argument' do
+      it "doesn't report an offense" do
+        expect_no_offenses(<<-RUBY)
+          before do
+            allow(foo).to receive_message_chain([:one, :two]) { :many }
+          end
+        RUBY
+      end
+    end
+
     context 'with single-key hash argument' do
-      it 'reports an offence' do
+      it 'reports an offense' do
         expect_offense(<<-RUBY)
           before do
             allow(foo).to receive_message_chain(bar: 42)
@@ -78,7 +122,7 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
     end
 
     context 'with multiple keys hash argument' do
-      it "doesn't report an offence" do
+      it "doesn't report an offense" do
         expect_no_offenses(<<-RUBY)
           before do
             allow(foo).to receive_message_chain(bar: 42, baz: 42)
