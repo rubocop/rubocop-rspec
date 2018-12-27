@@ -26,9 +26,7 @@ module RuboCop
 
         def on_send(node)
           message_chain(node) do |arg|
-            return if arg.to_s.include?('.')
-
-            return if arg.hash_type? && !single_key_hash?(arg)
+            return if valid_usage?(arg)
 
             add_offense(node, location: :selector)
           end
@@ -39,11 +37,26 @@ module RuboCop
             corrector.replace(node.loc.selector, replacement(node.method_name))
             message_chain(node) do |arg|
               autocorrect_hash_arg(corrector, arg) if single_key_hash?(arg)
+              autocorrect_array_arg(corrector, arg) if arg.array_type?
             end
           end
         end
 
         private
+
+        def valid_usage?(node)
+          return true unless node.literal? || node.array_type?
+
+          case node.type
+          when :hash then !single_key_hash?(node)
+          when :array then !single_element_array?(node)
+          else node.to_s.include?('.')
+          end
+        end
+
+        def single_element_array?(node)
+          node.child_nodes.one?
+        end
 
         def autocorrect_hash_arg(corrector, arg)
           key, value = *arg.children.first
@@ -51,6 +64,12 @@ module RuboCop
           corrector.replace(arg.loc.expression, key_to_arg(key))
           corrector.insert_after(arg.parent.loc.end,
                                  ".and_return(#{value.source})")
+        end
+
+        def autocorrect_array_arg(corrector, arg)
+          value = arg.children.first
+
+          corrector.replace(arg.loc.expression, value.source)
         end
 
         def key_to_arg(node)

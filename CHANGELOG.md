@@ -5,6 +5,7 @@
 * Add `IgnoreSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
 * Add autocorrect support for `Capybara/CurrentPathExpectation` cop. ([@ypresto][])
 * Add support for built-in `exists` matcher for `RSpec/PredicateMatcher` cop. ([@mkenyon][])
+* `SingleArgumentMessageChain` no longer reports an array as it's only argument as an offense. ([@Darhazer][])
 
 ## 1.30.1 (2018-11-01)
 
