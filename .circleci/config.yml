@@ -15,7 +15,7 @@ rubocop: &rubocop
 jobs:
   confirm_config_and_documentation:
     docker:
-      - image: circleci/ruby:2.5
+      - image: circleci/ruby
     steps:
       - checkout
       - run: bundle install
@@ -82,7 +82,7 @@ jobs:
 
   code-climate:
     docker:
-      - image: circleci/ruby:2.5
+      - image: circleci/ruby
     steps:
       - checkout
       - run: bundle install
