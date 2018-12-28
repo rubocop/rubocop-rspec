@@ -75,6 +75,8 @@ jobs:
   jruby:
     docker:
       - image: circleci/jruby:9
+    environment:
+      JRUBY_OPTS: "--dev"
     steps:
       - checkout
       - run: sudo apt-get install -y make
