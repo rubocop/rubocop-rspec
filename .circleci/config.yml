@@ -4,13 +4,13 @@ rspec: &rspec
   steps:
     - checkout
     - run: bundle install
-    - run: rake spec
+    - run: bundle exec rspec
 
 rubocop: &rubocop
   steps:
     - checkout
     - run: bundle install
-    - run: rake internal_investigation
+    - run: bundle exec rubocop
 
 jobs:
   confirm_config_and_documentation:
@@ -90,7 +90,8 @@ jobs:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - run: rake internal_investigation spec
+      - run: bundle exec rubocop
+      - run: bundle exec rspec
 
   code-climate:
     docker:
@@ -107,7 +108,7 @@ jobs:
           name: Run specs
           command: |
             ./cc-test-reporter before-build
-            rake coverage
+            COVERAGE=true bundle exec rspec
             ./cc-test-reporter after-build --exit-code $?
 
 workflows:
