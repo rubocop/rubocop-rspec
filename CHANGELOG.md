@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.31.0 (2019-01-02)
+
 * Add `IgnoreSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
 * Add autocorrect support for `Capybara/CurrentPathExpectation` cop. ([@ypresto][])
 * Add support for built-in `exists` matcher for `RSpec/PredicateMatcher` cop. ([@mkenyon][])
