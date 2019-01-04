@@ -76,6 +76,7 @@
 * [RSpec/UnspecifiedException](cops_rspec.md#rspecunspecifiedexception)
 * [RSpec/VerifiedDoubles](cops_rspec.md#rspecverifieddoubles)
 * [RSpec/VoidExpect](cops_rspec.md#rspecvoidexpect)
+* [RSpec/Yield](cops_rspec.md#rspecyield)
 
 #### Department [Rails](cops_rails.md)
 
