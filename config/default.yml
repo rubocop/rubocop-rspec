@@ -417,6 +417,11 @@ RSpec/VoidExpect:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
 
+RSpec/Yield:
+  Description: This cop checks for calling a block within a stub.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
+
 Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true

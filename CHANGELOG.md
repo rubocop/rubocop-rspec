@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/Yield` cop, suggesting using the `and_yield` method when stubbing a method, accepting a block. ([@Darhazer][])
+
 ## 1.31.0 (2019-01-02)
 
 * Add `IgnoreSharedExamples` option for `RSpec/NamedSubject`. ([@RST-J][])
