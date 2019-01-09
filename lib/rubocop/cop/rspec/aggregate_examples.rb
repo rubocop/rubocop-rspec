@@ -129,7 +129,7 @@ module RuboCop
 
         def_node_matcher :example_group_with_several_examples, <<-PATTERN
           (block
-            (send { nil? (const nil? :RSpec) } { :describe :context :feature :example_group } ...)
+            (send { nil? (const nil? :RSpec) } #{ExampleGroups::ALL.node_pattern_union} ...)
             _
             (begin $...)
           )
@@ -292,7 +292,7 @@ module RuboCop
 
         # Matches the expectation with matcher with side effects
         def_node_matcher :expectation_with_side_effects?, <<-PATTERN
-          (send #expectation? { :to :to_not :not_to } #matcher_with_side_effects?)
+          (send #expectation? #{Runners::ALL.node_pattern_union} #matcher_with_side_effects?)
         PATTERN
 
         # Matches the example with matcher with side effects
@@ -307,12 +307,12 @@ module RuboCop
         end
 
         def_node_matcher :single_expectation?, <<-PATTERN
-          (send #expectation? { :to :to_not :not_to } _)
+          (send #expectation? #{Runners::ALL.node_pattern_union} _)
         PATTERN
 
         # Matches example block
         def_node_matcher :example_block?, <<-PATTERN
-          (send nil? { :it :specify :example :scenario :its } ...)
+          (send nil? #{Examples::EXAMPLES.node_pattern_union} ...)
         PATTERN
 
         def_node_matcher :example_node?, <<-PATTERN
