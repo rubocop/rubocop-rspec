@@ -14,6 +14,14 @@ RSpec/AggregateExamples:
   Description: Checks if example groups contain more than one aggregateable example.
   Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples
+  MatchersWithSideEffects:
+  - allow_value
+  - allow_values
+  - validate_presence_of
+  - validate_absence_of
+  - validate_length_of
+  - validate_inclusion_of
+  - validates_exclusion_of
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.

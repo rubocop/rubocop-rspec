@@ -1,5 +1,11 @@
-RSpec.describe RuboCop::Cop::RSpec::AggregateExamples do
-  subject(:cop) { described_class.new }
+RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
+  subject(:cop) { described_class.new(config) }
+
+  let(:cop_config) do
+    {
+      'MatchersWithSideEffects' => %i[validate_presence_of validate_absence_of]
+    }
+  end
 
   shared_examples 'detects and autocorrects' do |offensive_source, good_source|
     it 'does not detect an offense in good_source code' do
@@ -322,10 +328,33 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples do
   end
 
   context 'with validation actions with side effects' do
+    context 'without configuration' do
+      let(:cop_config) { {} }
+
+      offensive_source = <<-RUBY
+        describe 'aggregations' do
+          it { is_expected.to validate_absence_of(:comment) }
+          it { is_expected.to validate_presence_of(:description) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        end
+      RUBY
+
+      good_source = <<-RUBY
+        describe 'aggregations' do
+          specify do
+            is_expected.to validate_absence_of(:comment)
+            is_expected.to validate_presence_of(:description)
+          end
+        end
+      RUBY
+
+      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    end
+
     context 'with `is_expected`' do
       offensive_source = <<-RUBY
         describe 'aggregations' do
-          it { is_expected.to validate_presence_of(:comment) }
+          it { is_expected.to validate_absence_of(:comment) }
           it { is_expected.to validate_presence_of(:description) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
@@ -337,7 +366,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples do
     context 'with `expect(something)`' do
       offensive_source = <<-RUBY
         describe 'aggregations' do
-          it { expect(something).to validate_presence_of(:comment) }
+          it { expect(something).to validate_absence_of(:comment) }
           it { expect(something).to validate_presence_of(:description) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
@@ -349,7 +378,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples do
     context 'with `not_to`' do
       offensive_source = <<-RUBY
         describe 'aggregations' do
-          it { is_expected.not_to validate_presence_of(:comment) }
+          it { is_expected.not_to validate_absence_of(:comment) }
           it { is_expected.to_not validate_presence_of(:description) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end

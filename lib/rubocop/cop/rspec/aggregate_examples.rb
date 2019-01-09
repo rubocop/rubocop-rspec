@@ -78,6 +78,21 @@ module RuboCop
       #   # 3. Aggregation of block syntax with non-block syntax should be in a
       #   # specific order.
       #
+      # @example configuration
+      #
+      #   # .rubocop.yml
+      #   # RSpec/AggregateExamples:
+      #   #   MatchersWithSideEffects:
+      #   #   - allow_value
+      #   #   - allow_values
+      #   #   - validate_presence_of
+      #
+      #   # not detected as aggregateable
+      #   describe do
+      #     it { is_expected.to validate_presence_of(:comment) }
+      #     it { is_expected.to be_valid }
+      #   end
+      #
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
         include RangeHelp
 
@@ -85,14 +100,6 @@ module RuboCop
         MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS =
           "#{MSG} IMPORTANT! Pay attention to the expectation order, some " \
           'of the matchers have side effects.'.freeze
-
-        MATCHERS_WITH_SIDE_EFFECTS = %w[
-          :validate_presence_of
-          :validate_absence_of
-          :validate_length_of
-          :validate_inclusion_of
-          :validates_exclusion_of
-        ].freeze
 
         def on_block(node)
           example_group_with_several_examples(node) do |all_examples|
@@ -270,9 +277,17 @@ module RuboCop
           }
         PATTERN
 
+        def matcher_with_side_effects_names
+          cop_config.fetch('MatchersWithSideEffects', [])
+        end
+
+        def matcher_with_side_effects_name?(matcher_name)
+          matcher_with_side_effects_names.include?(matcher_name)
+        end
+
         # Matches the matcher with side effects
         def_node_matcher :matcher_with_side_effects?, <<-PATTERN
-          (send nil? { #{MATCHERS_WITH_SIDE_EFFECTS.join(' ')} } ...)
+          (send nil? { #matcher_with_side_effects_name? } ...)
         PATTERN
 
         # Matches the expectation with matcher with side effects
