@@ -174,18 +174,16 @@ module RuboCop
         # it needs to be converted to `expect(subject.something).to ...`
         # Additionally indents the example code properly.
         def transform_body(node, base_indent)
-          method, _args, body = *node
-          _receiver, method_name, arguments = *method
-          new_body = if method_name == :its
-                       transform_its(body, arguments)
+          new_body = if node.method_name == :its
+                       transform_its(node.body, node.send_node.arguments)
                      else
-                       body.source
+                       node.body.source
                      end
           "#{base_indent}  #{new_body}"
         end
 
         def transform_its(body, arguments)
-          property = arguments.children.first
+          property = arguments.first.value
           body.source.gsub(/is_expected|are_expected/,
                            "expect(subject.#{property})")
         end
