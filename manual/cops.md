@@ -11,6 +11,7 @@
 
 #### Department [RSpec](cops_rspec.md)
 
+* [RSpec/AggregateExamples](cops_rspec.md#rspecaggregateexamples)
 * [RSpec/AlignLeftLetBrace](cops_rspec.md#rspecalignleftletbrace)
 * [RSpec/AlignRightLetBrace](cops_rspec.md#rspecalignrightletbrace)
 * [RSpec/AnyInstance](cops_rspec.md#rspecanyinstance)

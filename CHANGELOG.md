@@ -14,6 +14,7 @@
 * Fixed `RSpec/Focus` not flagging some cases of `RSpec.describe` with `focus: true`. ([@Darhazer][])
 * Fixed `RSpec/Pending` not flagging some cases of `RSpec.describe` with `:skip`. ([@Darhazer][])
 * Fix false positive in `RSpec/ReceiveCounts` when method name `exactly`, `at_least` or `at_most` is used along with `times`, without being an RSpec API. ([@Darhazer][])
+* Add `RSpec/AggregateExamples` cop. ([@pirj][], [@palkan][])
 
 ## 1.31.0 (2019-01-02)
 
@@ -414,3 +415,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mkenyon]: https://github.com/mkenyon
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@schmijos]: https://github.com/schmijos
+[@palkan]: https://github.com/palkan

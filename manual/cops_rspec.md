@@ -1,5 +1,77 @@
 # RSpec
 
+## RSpec/AggregateExamples
+
+Enabled by default | Supports autocorrection
+--- | ---
+Disabled | Yes
+
+Checks if example groups contain more than one aggregateable example.
+
+### Examples
+
+```ruby
+# bad
+describe do
+  specify do
+    expect(number).to be_positive
+    expect(number).to be_odd
+  end
+
+  it { is_expected.to be_prime }
+end
+
+# good
+describe do
+  specify do
+    expect(number).to be_positive
+    expect(number).to be_odd
+    is_expected.to be_prime
+  end
+end
+
+# fair - subject has side effects
+describe do
+  specify do
+    expect(multiply_by(2)).to be_multiple_of(2)
+  end
+
+  specify do
+    expect(multiply_by(3)).to be_multiple_of(3)
+  end
+end
+
+# The following example will fail if aggregated due to the side
+# effects of the `validate_presence_of` matcher as it leaves an empty
+# comment after itself on the subject making it invalid and the
+# subsequent expectation to fail.
+
+# bad, but should not be automatically correctable
+describe do
+  it { is_expected.to validate_presence_of(:comment) }
+  it { is_expected.to be_valid }
+end
+
+# Block expectation syntax is deliberately not supported due to:
+# 1. `subject { -> { ... } }` syntax being hard to detect
+# E.g.:
+it { is_expected.to do_something }
+# looks like an example with non-block syntax, but it might be
+# depending on how the subject is defined. If the subject is defined
+# in a `shared_context`, it's impossible to detect that at all.
+#
+# 2. Aggregation should use composition with an `.and`. Also,
+# aggregation of the `not_to` expectations is barely possible when a
+# matcher doesn't provide a negated variant.
+#
+# 3. Aggregation of block syntax with non-block syntax should be in a
+# specific order.
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples)
+
 ## RSpec/AlignLeftLetBrace
 
 Enabled by default | Supports autocorrection

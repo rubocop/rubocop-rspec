@@ -10,6 +10,11 @@ AllCops:
     - spec/factories/**/*.rb
     - features/support/factories/**/*.rb
 
+RSpec/AggregateExamples:
+  Description: Checks if example groups contain more than one aggregateable example.
+  Enabled: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples
+
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
   Enabled: false

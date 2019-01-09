@@ -10,6 +10,7 @@ rescue LoadError # rubocop:disable Lint/HandleExceptions
   # Rails/HttpStatus cannot be loaded if rack/utils is unavailable.
 end
 
+require_relative 'rspec/aggregate_examples'
 require_relative 'rspec/align_left_let_brace'
 require_relative 'rspec/align_right_let_brace'
 require_relative 'rspec/any_instance'
