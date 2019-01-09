@@ -5,6 +5,11 @@ module RuboCop
     module RSpec
       # Checks if example groups contain more than one aggregateable example.
       #
+      # @see https://github.com/rubocop-hq/rspec-style-guide#expectations-per-example
+      #
+      # This cop is primarily for reducing the cost of repeated expensive
+      # context initialization.
+      #
       # @example
       #
       #   # bad
