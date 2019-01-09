@@ -10,6 +10,16 @@ module RuboCop
       # This cop is primarily for reducing the cost of repeated expensive
       # context initialization.
       #
+      # Consider turning [`aggregate_failures`](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures)
+      # on in RSpec configuration to see all the failures at once, rather than
+      # it aborting on the first failure.
+      #
+      #   config.define_derived_metadata do |metadata|
+      #     unless metadata.key?(:aggregate_failures)
+      #       metadata[:aggregate_failures] = true
+      #     end
+      #   end
+      #
       # @example
       #
       #   # bad
