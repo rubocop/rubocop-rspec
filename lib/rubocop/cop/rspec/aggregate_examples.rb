@@ -258,10 +258,9 @@ module RuboCop
         # Searches for HEREDOC in examples. It can be tricky to aggregate,
         # especially when interleaved with parenthesis or curly braces.
         def contains_heredoc?(node)
-          return unless node.is_a? AST::Node
-          return true if (node.dstr_type? || node.str_type?) && node.heredoc?
+          return true if node.respond_to?(:heredoc) && node.heredoc?
 
-          node.children.compact.any? { |child| contains_heredoc?(child) }
+          node.each_child_node.any? { |child| contains_heredoc?(child) }
         end
 
         def_node_matcher :subject_with_no_args?, <<-PATTERN
