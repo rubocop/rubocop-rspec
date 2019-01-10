@@ -123,7 +123,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     it_behaves_like 'detects, but does not autocorrect', offensive_source
   end
 
-  context 'with multi-line examples' do
+  context 'with examples with non-expectation statements' do
     it 'does not detect offenses' do
       expect_no_offenses(<<-RUBY)
         describe 'aggregations' do
