@@ -103,25 +103,24 @@ module RuboCop
 
         def on_block(node)
           example_group_with_several_examples(node) do |all_examples|
-            examples = aggregateable_examples(all_examples)
-            next if examples.count < 2
-
-            message = message_for(examples)
-            add_offense(examples[1], location: :expression, message: message)
+            example_cluster(all_examples).each do |_, examples|
+              message = message_for(examples)
+              add_offense(examples[1], location: :expression, message: message)
+            end
           end
         end
 
         def autocorrect(example_node)
-          node = example_node.parent
-          examples = aggregateable_examples(node.each_child_node(:block))
-            .select { |child| examples_for_autocorrect?(child) }
-          return if examples.count < 2
+          examples_in_group = example_node.parent.each_child_node(:block)
+            .select { |example| example_for_autocorrect?(example) }
 
-          replacement = aggregated_example(examples)
           lambda do |corrector|
-            range = range_for_replace(examples)
-            corrector.replace(range, replacement)
-            examples[1..-1].each { |example| drop_example(corrector, example) }
+            example_cluster(examples_in_group).each do |metadata, examples|
+              range = range_for_replace(examples)
+              replacement = aggregated_example(examples, metadata)
+              corrector.replace(range, replacement)
+              examples[1..-1].map { |example| drop_example(corrector, example) }
+            end
           end
         end
 
@@ -135,10 +134,11 @@ module RuboCop
           )
         PATTERN
 
-        def aggregateable_examples(examples)
-          examples
-            .reject { |example| has_metadata?(example) }
-            .select { |example| example_with_expectations_solely?(example) }
+        def example_cluster(all_examples)
+          all_examples
+            .select { |example| example_with_expectations_only?(example) }
+            .group_by { |example| metadata_without_aggregate_failures(example) }
+            .reject { |_, examples| examples.count < 2 }
         end
 
         def range_for_replace(examples)
@@ -153,13 +153,22 @@ module RuboCop
           range.end_pos + 1 == another_range.begin_pos
         end
 
-        def aggregated_example(examples)
+        def aggregated_example(examples, metadata)
           base_indent = ' ' * examples.first.source_range.column
+          metadata = metadata_for_aggregated_example(metadata)
           [
-            "#{base_indent}specify do",
+            "#{base_indent}specify#{metadata} do",
             *examples.map { |example| transform_body(example, base_indent) },
             "#{base_indent}end\n"
           ].join("\n")
+        end
+
+        def metadata_for_aggregated_example(metadata)
+          if metadata.any?
+            "(#{metadata.compact.map(&:source).join(', ')})"
+          else
+            ''
+          end
         end
 
         def drop_example(corrector, example)
@@ -200,30 +209,46 @@ module RuboCop
           %i[it specify example scenario].include?(method_name)
         end
 
-        # Checks if the example:
-        # - exclusively contains expectation statements
-        # - has no metadata (e.g. `freeze: :today`)
-        def_node_matcher :example_without_metadata_and_expectations_solely?,
-                         <<-PATTERN
-          [#example_with_expectations_solely? !#has_metadata?]
-        PATTERN
-
-        def_node_matcher :example_with_expectations_solely?, <<-PATTERN
+        def_node_matcher :example_with_expectations_only?, <<-PATTERN
           (block #example_block? _
             { #single_expectation? #all_expectations? }
           )
         PATTERN
 
-        # Checks if an example has metadata (e.g. `freeze: :today`)
-        def_node_matcher :has_metadata?, <<-PATTERN
+        def metadata_without_aggregate_failures(example)
+          metadata = example_parameters(example) || []
+
+          symbols = metadata_symbols_without_aggregate_failures(metadata)
+          pairs = metadata_pairs_without_aggegate_failures(metadata)
+          symbols << Object.new if aggregate_failures_disabled(pairs)
+
+          [*symbols, pairs].flatten.compact
+        end
+
+        def_node_matcher :example_parameters, <<-PATTERN
           (block
-            {
-              (send nil? #example_method? str _ ...)
-              (send nil? #example_method? !str ...)
-            }
+            (send nil? #example_method? $...)
             ...
           )
         PATTERN
+
+        def metadata_symbols_without_aggregate_failures(metadata)
+          metadata
+            .select(&:sym_type?)
+            .reject { |item| item.value == :aggregate_failures }
+        end
+
+        def metadata_pairs_without_aggegate_failures(metadata)
+          map = metadata.find(&:hash_type?)
+          pairs = map && map.pairs || []
+          pairs.reject do |pair|
+            pair.key.value == :aggregate_failures && pair.value.true_type?
+          end
+        end
+
+        def aggregate_failures_disabled(pairs)
+          pairs.find { |pair| pair.key.value == :aggregate_failures }
+        end
 
         # Matchers examples with:
         # - expectation statements exclusively
@@ -233,9 +258,9 @@ module RuboCop
         #   e.g. the SUT can be an object (`expect(object.property)`)
         #   or a hash/array (`expect(hash['property'])`)
         # and also skips matchers with known side-effects
-        def_node_matcher :examples_for_autocorrect?, <<-PATTERN
+        def_node_matcher :example_for_autocorrect?, <<-PATTERN
           [
-            #example_without_metadata_and_expectations_solely?
+            #example_with_expectations_only?
             !#example_has_title?
             !#its_with_array_argument?
             !#contains_heredoc?

@@ -286,45 +286,118 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     it_behaves_like 'detects, but does not autocorrect', offensive_source
   end
 
-  context 'with example metadata' do
-    fair_source = <<-RUBY
+  context 'with hash metadata' do
+    offensive_source = <<-RUBY
       describe 'aggregations' do
         it { is_expected.to be_mild }
-        it(freeze: -30) { is_expected.to be_cool }
+        it(freeze: -30) { is_expected.to be_cold }
+        it(aggregate_failures: true) { is_expected.to be_warm }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it(freeze: -30, aggregate_failures: true) { is_expected.to be_chilly }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it(aggregate_failures: true, freeze: -30) { is_expected.to be_cool }
       end
     RUBY
 
-    it 'does not detect offenses' do
-      expect_no_offenses(fair_source)
-    end
+    good_source = <<-RUBY
+      describe 'aggregations' do
+        specify do
+          is_expected.to be_mild
+          is_expected.to be_warm
+        end
+        specify(freeze: -30) do
+          is_expected.to be_cold
+          is_expected.to be_chilly
+          is_expected.to be_cool
+        end
+      end
+    RUBY
+
+    it_behaves_like 'detects and autocorrects', offensive_source, good_source
   end
 
-  context 'with non-hash metadata' do
-    fair_source = <<-RUBY
+  context 'with symbol metadata' do
+    offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_ok }
-        it(:model) { is_expected.to be_ok }
-        it('is ok', :model) { is_expected.to be_ok }
+        it { is_expected.to be_so_so }
+        it(:awesome) { is_expected.to be_awesome }
+        it(:awesome, aggregate_failures: true) { is_expected.to be_cool }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it(:awesome, :aggregate_failures) { is_expected.to be_amazing }
       end
     RUBY
 
-    it 'does not detect offenses' do
-      expect_no_offenses(fair_source)
-    end
+    good_source = <<-RUBY
+      describe do
+        it { is_expected.to be_so_so }
+        specify(:awesome) do
+          is_expected.to be_awesome
+          is_expected.to be_cool
+          is_expected.to be_amazing
+        end
+      end
+    RUBY
+
+    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+  end
+
+  context 'with `aggregate_failures: false` in metadata' do
+    fair_source = <<-RUBY
+      describe do
+        it(:awesome) { is_expected.to be_awesome }
+        it(:awesome, aggregate_failures: false) { is_expected.to be_cool }
+        it(:awesome, aggregate_failures: false) { is_expected.to be_amazing }
+      end
+    RUBY
+
+    it { expect_no_offenses(fair_source) }
+  end
+
+  context 'with mixed aggregate_failures in metadata' do
+    fair_source = <<-RUBY
+      describe do
+        it(:awesome, aggregate_failures: true) { is_expected.to be_cool }
+        it(:awesome, aggregate_failures: false) { is_expected.to be_amazing }
+      end
+    RUBY
+
+    it { expect_no_offenses(fair_source) }
+  end
+
+  context 'with metadata and title' do
+    offensive_source = <<-RUBY
+      describe do
+        it { is_expected.to be_so_so }
+        it(:awesome) { is_expected.to be_awesome }
+        it('is ok', :awesome) { is_expected.to be_ok }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+      end
+    RUBY
+
+    it_behaves_like 'detects, but does not autocorrect', offensive_source
   end
 
   context 'with mixed metadata' do
-    fair_source = <<-RUBY
+    offensive_source = <<-RUBY
       describe do
         it { is_expected.to be_ok }
-        it(:model, isolation: :full) { is_expected.to be_ok }
-        it('is ok', :model, isolation: :full) { is_expected.to be_ok }
+        it(:model, isolation: :full) { is_expected.to be_isolated }
+        it(:model, isolation: :full) { is_expected.to be_save_model }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
-    it 'does not detect offenses' do
-      expect_no_offenses(fair_source)
-    end
+    good_source = <<-RUBY
+      describe do
+        it { is_expected.to be_ok }
+        specify(:model, isolation: :full) do
+          is_expected.to be_isolated
+          is_expected.to be_save_model
+        end
+      end
+    RUBY
+
+    it_behaves_like 'detects and autocorrects', offensive_source, good_source
   end
 
   context 'with validation actions with side effects' do
