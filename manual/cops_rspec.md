@@ -8,6 +8,19 @@ Disabled | Yes
 
 Checks if example groups contain more than one aggregateable example.
 
+This cop is primarily for reducing the cost of repeated expensive
+context initialization.
+
+Consider turning [`aggregate_failures`](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures)
+on in RSpec configuration to see all the failures at once, rather than
+it aborting on the first failure.
+
+  config.define_derived_metadata do |metadata|
+    unless metadata.key?(:aggregate_failures)
+      metadata[:aggregate_failures] = true
+    end
+  end
+
 ### Examples
 
 ```ruby
@@ -67,6 +80,28 @@ it { is_expected.to do_something }
 # 3. Aggregation of block syntax with non-block syntax should be in a
 # specific order.
 ```
+#### configuration
+
+```ruby
+# .rubocop.yml
+# RSpec/AggregateExamples:
+#   MatchersWithSideEffects:
+#   - allow_value
+#   - allow_values
+#   - validate_presence_of
+
+# not detected as aggregateable
+describe do
+  it { is_expected.to validate_presence_of(:comment) }
+  it { is_expected.to be_valid }
+end
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+MatchersWithSideEffects | `allow_value`, `allow_values`, `validate_presence_of`, `validate_absence_of`, `validate_length_of`, `validate_inclusion_of`, `validates_exclusion_of` | Array
 
 ### References
 
