@@ -11,15 +11,54 @@ Checks if example groups contain more than one aggregateable example.
 This cop is primarily for reducing the cost of repeated expensive
 context initialization.
 
-Consider turning [`aggregate_failures`](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures)
-on in RSpec configuration to see all the failures at once, rather than
-it aborting on the first failure.
+Block expectation syntax is deliberately not supported due to:
 
+1. `subject { -> { ... } }` syntax being hard to detect, e.g. the
+   following looks like an example with non-block syntax, but it might
+   be depending on how the subject is defined:
+
+     it { is_expected.to do_something }
+
+   If the subject is defined in a `shared_context`, it's impossible to
+   detect that at all.
+
+2. Aggregation should use composition with an `.and`. Also, aggregation
+   of the `not_to` expectations is barely possible when a matcher
+   doesn't provide a negated variant.
+
+3. Aggregation of block syntax with non-block syntax should be in a
+   specific order.
+
+
+The examples containing matchers that leave subject in modified state
+will fail when not supposed to or come with a risk of not failing when
+expected to fail if aggregated. One example is
+`validate_presence_of :comment` as it leaves an empty comment after
+itself on the subject making it invalid and the subsequent expectation
+to fail. Examples with those matchers are not supposed to be aggregated.
+
+RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
+not to fail the example on first unmet expectation that might come
+handy with aggregated examples.
+It can be [used in metadata form](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#use-%60:aggregate-failures%60-metadata):
+
+  specify(:aggregate_failures) do
+    ...
+  end
+
+or [enabled globally](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#enable-failure-aggregation-globally-using-%60define-derived-metadata%60):
+
+  # spec/spec_helper.rb
   config.define_derived_metadata do |metadata|
     unless metadata.key?(:aggregate_failures)
       metadata[:aggregate_failures] = true
     end
   end
+
+To match the style being used in the spec suite, AggregateExamples
+can be configured to add metadata to the example or not. The option
+not to add metadata can be also used when it's not desired to make
+expectations after previously failed ones commonly known as fail-fast.
 
 ### Examples
 
@@ -53,34 +92,8 @@ describe do
     expect(multiply_by(3)).to be_multiple_of(3)
   end
 end
-
-# The following example will fail if aggregated due to the side
-# effects of the `validate_presence_of` matcher as it leaves an empty
-# comment after itself on the subject making it invalid and the
-# subsequent expectation to fail.
-
-# bad, but should not be automatically correctable
-describe do
-  it { is_expected.to validate_presence_of(:comment) }
-  it { is_expected.to be_valid }
-end
-
-# Block expectation syntax is deliberately not supported due to:
-# 1. `subject { -> { ... } }` syntax being hard to detect
-# E.g.:
-it { is_expected.to do_something }
-# looks like an example with non-block syntax, but it might be
-# depending on how the subject is defined. If the subject is defined
-# in a `shared_context`, it's impossible to detect that at all.
-#
-# 2. Aggregation should use composition with an `.and`. Also,
-# aggregation of the `not_to` expectations is barely possible when a
-# matcher doesn't provide a negated variant.
-#
-# 3. Aggregation of block syntax with non-block syntax should be in a
-# specific order.
 ```
-#### configuration
+#### MatchersWithSideEffects
 
 ```ruby
 # .rubocop.yml
@@ -90,10 +103,28 @@ it { is_expected.to do_something }
 #   - allow_values
 #   - validate_presence_of
 
-# not detected as aggregateable
+# bad, but is not automatically correctable
 describe do
   it { is_expected.to validate_presence_of(:comment) }
   it { is_expected.to be_valid }
+end
+```
+#### EnforcedStyle: skip_aggregate_failures_metadata
+
+```ruby
+# aggregated to
+specify do
+  expect(number).to be_positive
+  expect(number).to be_odd
+end
+```
+#### EnforcedStyle: add_aggregate_failures_metadata
+
+```ruby
+# aggregated to
+specify(:aggregate_failures) do
+  expect(number).to be_positive
+  expect(number).to be_odd
 end
 ```
 
@@ -101,6 +132,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
+EnforcedStyle | `skip_aggregate_failures_metadata` | `skip_aggregate_failures_metadata`, `add_aggregate_failures_metadata`
 MatchersWithSideEffects | `allow_value`, `allow_values`, `validate_presence_of`, `validate_absence_of`, `validate_length_of`, `validate_inclusion_of`, `validates_exclusion_of` | Array
 
 ### References

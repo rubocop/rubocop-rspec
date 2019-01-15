@@ -61,19 +61,21 @@ module RuboCop
       #    specific order.
       #
       #
-      # The following example will fail if aggregated due to the side effects
-      # of the `validate_presence_of` matcher as it leaves an empty comment
-      # after itself on the subject making it invalid and the subsequent
-      # expectation to fail.
+      # The examples containing matchers that leave subject in modified state
+      # will fail when not supposed to or come with a risk of not failing when
+      # expected to fail if aggregated. One example is
+      # `validate_presence_of :comment` as it leaves an empty comment after
+      # itself on the subject making it invalid and the subsequent expectation
+      # to fail. Examples with those matchers are not supposed to be aggregated.
       #
-      # @example Configuration: matchers with side effects
+      # @example MatchersWithSideEffects
       #
       #   # .rubocop.yml
-      #   RSpec/AggregateExamples:
-      #     MatchersWithSideEffects:
-      #     - allow_value
-      #     - allow_values
-      #     - validate_presence_of
+      #   # RSpec/AggregateExamples:
+      #   #   MatchersWithSideEffects:
+      #   #   - allow_value
+      #   #   - allow_values
+      #   #   - validate_presence_of
       #
       #   # bad, but is not automatically correctable
       #   describe do
@@ -105,11 +107,7 @@ module RuboCop
       # not to add metadata can be also used when it's not desired to make
       # expectations after previously failed ones commonly known as fail-fast.
       #
-      # @example Configuration: failure aggregation
-      #
-      #   # .rubocop.yml - default
-      #   RSpec/AggregateExamples:
-      #     EnforcedStyle: skip_aggregate_failures_metadata
+      # @example EnforcedStyle: skip_aggregate_failures_metadata
       #
       #   # aggregated to
       #   specify do
@@ -117,9 +115,7 @@ module RuboCop
       #     expect(number).to be_odd
       #   end
       #
-      #   # .rubocop.yml - add `aggregate_failures` metadata to examples
-      #   RSpec/AggregateExamples:
-      #     EnforcedStyle: add_aggregate_failures_metadata
+      # @example EnforcedStyle: add_aggregate_failures_metadata
       #
       #   # aggregated to
       #   specify(:aggregate_failures) do
