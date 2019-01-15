@@ -17,7 +17,7 @@ Block expectation syntax is deliberately not supported due to:
    following looks like an example with non-block syntax, but it might
    be depending on how the subject is defined:
 
-     it { is_expected.to do_something }
+       it { is_expected.to do_something }
 
    If the subject is defined in a `shared_context`, it's impossible to
    detect that at all.
@@ -40,20 +40,8 @@ to fail. Examples with those matchers are not supposed to be aggregated.
 RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
 not to fail the example on first unmet expectation that might come
 handy with aggregated examples.
-It can be [used in metadata form](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#use-%60:aggregate-failures%60-metadata):
-
-  specify(:aggregate_failures) do
-    ...
-  end
-
-or [enabled globally](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#enable-failure-aggregation-globally-using-%60define-derived-metadata%60):
-
-  # spec/spec_helper.rb
-  config.define_derived_metadata do |metadata|
-    unless metadata.key?(:aggregate_failures)
-      metadata[:aggregate_failures] = true
-    end
-  end
+It can be [used in metadata form](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#use-%60:aggregate-failures%60-metadata),
+or [enabled globally](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#enable-failure-aggregation-globally-using-%60define-derived-metadata%60).
 
 To match the style being used in the spec suite, AggregateExamples
 can be configured to add metadata to the example or not. The option
@@ -109,10 +97,19 @@ describe do
   it { is_expected.to be_valid }
 end
 ```
+#### Globally enable `aggregate_failures`
+
+```ruby
+# spec/spec_helper.rb
+config.define_derived_metadata do |metadata|
+  unless metadata.key?(:aggregate_failures)
+    metadata[:aggregate_failures] = true
+  end
+end
+```
 #### EnforcedStyle: skip_aggregate_failures_metadata
 
 ```ruby
-# aggregated to
 specify do
   expect(number).to be_positive
   expect(number).to be_odd
@@ -121,7 +118,6 @@ end
 #### EnforcedStyle: add_aggregate_failures_metadata
 
 ```ruby
-# aggregated to
 specify(:aggregate_failures) do
   expect(number).to be_positive
   expect(number).to be_odd
