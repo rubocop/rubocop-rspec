@@ -3,7 +3,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   let(:cop_config) do
     {
-      'MatchersWithSideEffects' => %i[validate_presence_of validate_absence_of]
+      'MatchersWithSideEffects' => %w[validate_presence_of validate_absence_of]
     }
   end
 
@@ -402,7 +402,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   context 'with validation actions with side effects' do
     context 'without configuration' do
-      let(:cop_config) { {} }
+      let(:cop_config) do
+        { 'MatchersWithSideEffects' => [] }
+      end
 
       offensive_source = <<-RUBY
         describe 'aggregations' do

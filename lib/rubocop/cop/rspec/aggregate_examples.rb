@@ -301,6 +301,7 @@ module RuboCop
 
         def matcher_with_side_effects_names
           cop_config.fetch('MatchersWithSideEffects', [])
+            .map(&:to_sym)
         end
 
         def matcher_with_side_effects_name?(matcher_name)
