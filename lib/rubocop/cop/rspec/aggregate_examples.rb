@@ -10,16 +10,6 @@ module RuboCop
       # This cop is primarily for reducing the cost of repeated expensive
       # context initialization.
       #
-      # Consider turning [`aggregate_failures`](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures)
-      # on in RSpec configuration to see all the failures at once, rather than
-      # it aborting on the first failure.
-      #
-      #   config.define_derived_metadata do |metadata|
-      #     unless metadata.key?(:aggregate_failures)
-      #       metadata[:aggregate_failures] = true
-      #     end
-      #   end
-      #
       # @example
       #
       #   # bad
@@ -52,48 +42,93 @@ module RuboCop
       #     end
       #   end
       #
-      #   # The following example will fail if aggregated due to the side
-      #   # effects of the `validate_presence_of` matcher as it leaves an empty
-      #   # comment after itself on the subject making it invalid and the
-      #   # subsequent expectation to fail.
+      # Block expectation syntax is deliberately not supported due to:
       #
-      #   # bad, but should not be automatically correctable
+      # 1. `subject { -> { ... } }` syntax being hard to detect, e.g. the
+      #    following looks like an example with non-block syntax, but it might
+      #    be depending on how the subject is defined:
+      #
+      #      it { is_expected.to do_something }
+      #
+      #    If the subject is defined in a `shared_context`, it's impossible to
+      #    detect that at all.
+      #
+      # 2. Aggregation should use composition with an `.and`. Also, aggregation
+      #    of the `not_to` expectations is barely possible when a matcher
+      #    doesn't provide a negated variant.
+      #
+      # 3. Aggregation of block syntax with non-block syntax should be in a
+      #    specific order.
+      #
+      #
+      # The following example will fail if aggregated due to the side effects
+      # of the `validate_presence_of` matcher as it leaves an empty comment
+      # after itself on the subject making it invalid and the subsequent
+      # expectation to fail.
+      #
+      # @example Configuration: matchers with side effects
+      #
+      #   # .rubocop.yml
+      #   RSpec/AggregateExamples:
+      #     MatchersWithSideEffects:
+      #     - allow_value
+      #     - allow_values
+      #     - validate_presence_of
+      #
+      #   # bad, but is not automatically correctable
       #   describe do
       #     it { is_expected.to validate_presence_of(:comment) }
       #     it { is_expected.to be_valid }
       #   end
       #
-      #   # Block expectation syntax is deliberately not supported due to:
-      #   # 1. `subject { -> { ... } }` syntax being hard to detect
-      #   # E.g.:
-      #   it { is_expected.to do_something }
-      #   # looks like an example with non-block syntax, but it might be
-      #   # depending on how the subject is defined. If the subject is defined
-      #   # in a `shared_context`, it's impossible to detect that at all.
-      #   #
-      #   # 2. Aggregation should use composition with an `.and`. Also,
-      #   # aggregation of the `not_to` expectations is barely possible when a
-      #   # matcher doesn't provide a negated variant.
-      #   #
-      #   # 3. Aggregation of block syntax with non-block syntax should be in a
-      #   # specific order.
       #
-      # @example configuration
+      # RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
+      # not to fail the example on first unmet expectation that might come
+      # handy with aggregated examples.
+      # It can be [used in metadata form](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#use-%60:aggregate-failures%60-metadata):
       #
-      #   # .rubocop.yml
-      #   # RSpec/AggregateExamples:
-      #   #   MatchersWithSideEffects:
-      #   #   - allow_value
-      #   #   - allow_values
-      #   #   - validate_presence_of
+      #   specify(:aggregate_failures) do
+      #     ...
+      #   end
       #
-      #   # not detected as aggregateable
-      #   describe do
-      #     it { is_expected.to validate_presence_of(:comment) }
-      #     it { is_expected.to be_valid }
+      # or [enabled globally](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#enable-failure-aggregation-globally-using-%60define-derived-metadata%60):
+      #
+      #   # spec/spec_helper.rb
+      #   config.define_derived_metadata do |metadata|
+      #     unless metadata.key?(:aggregate_failures)
+      #       metadata[:aggregate_failures] = true
+      #     end
+      #   end
+      #
+      # To match the style being used in the spec suite, AggregateExamples
+      # can be configured to add metadata to the example or not. The option
+      # not to add metadata can be also used when it's not desired to make
+      # expectations after previously failed ones commonly known as fail-fast.
+      #
+      # @example Configuration: failure aggregation
+      #
+      #   # .rubocop.yml - default
+      #   RSpec/AggregateExamples:
+      #     EnforcedStyle: skip_aggregate_failures_metadata
+      #
+      #   # aggregated to
+      #   specify do
+      #     expect(number).to be_positive
+      #     expect(number).to be_odd
+      #   end
+      #
+      #   # .rubocop.yml - add `aggregate_failures` metadata to examples
+      #   RSpec/AggregateExamples:
+      #     EnforcedStyle: add_aggregate_failures_metadata
+      #
+      #   # aggregated to
+      #   specify(:aggregate_failures) do
+      #     expect(number).to be_positive
+      #     expect(number).to be_odd
       #   end
       #
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
+        include ConfigurableEnforcedStyle
         include RangeHelp
 
         MSG = 'Aggregate with the example above.'.freeze
@@ -164,8 +199,12 @@ module RuboCop
         end
 
         def metadata_for_aggregated_example(metadata)
-          if metadata.any?
-            "(#{metadata.compact.map(&:source).join(', ')})"
+          metadata_to_add = metadata.compact.map(&:source)
+          if style == :add_aggregate_failures_metadata
+            metadata_to_add.unshift(':aggregate_failures')
+          end
+          if metadata_to_add.any?
+            "(#{metadata_to_add.join(', ')})"
           else
             ''
           end

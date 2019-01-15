@@ -1,11 +1,7 @@
 RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   subject(:cop) { described_class.new(config) }
 
-  let(:cop_config) do
-    {
-      'MatchersWithSideEffects' => %w[validate_presence_of validate_absence_of]
-    }
-  end
+  let(:cop_config) { {} }
 
   shared_examples 'detects and autocorrects' do |offensive_source, good_source|
     it 'does not detect an offense in good_source code' do
@@ -700,5 +696,95 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it_behaves_like 'detects and autocorrects', offensive_source, good_source
+  end
+
+  context 'when EnforcedStyle is :add_aggregate_failures_metadata' do
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'add_aggregate_failures_metadata' }
+    end
+
+    context 'with no metadata on example' do
+      offensive_source = <<-RUBY
+        describe do
+          it { is_expected.to be_first }
+          it { is_expected.to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        end
+      RUBY
+
+      good_source = <<-RUBY
+        describe do
+          specify(:aggregate_failures) do
+            is_expected.to be_first
+            is_expected.to be_second
+          end
+        end
+      RUBY
+
+      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    end
+
+    context 'with hash metadata' do
+      offensive_source = <<-RUBY
+        describe do
+          it(allow: true) { is_expected.to be_first }
+          it(allow: true) { is_expected.to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        end
+      RUBY
+
+      good_source = <<-RUBY
+        describe do
+          specify(:aggregate_failures, allow: true) do
+            is_expected.to be_first
+            is_expected.to be_second
+          end
+        end
+      RUBY
+
+      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    end
+
+    context 'with symbol metadata' do
+      offensive_source = <<-RUBY
+        describe do
+          it(:allow) { is_expected.to be_first }
+          it(:allow) { is_expected.to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        end
+      RUBY
+
+      good_source = <<-RUBY
+        describe do
+          specify(:aggregate_failures, :allow) do
+            is_expected.to be_first
+            is_expected.to be_second
+          end
+        end
+      RUBY
+
+      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    end
+
+    context 'with mixed metadata' do
+      offensive_source = <<-RUBY
+        describe do
+          it(:follow, allow: true) { is_expected.to be_first }
+          it(:follow, allow: true) { is_expected.to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        end
+      RUBY
+
+      good_source = <<-RUBY
+        describe do
+          specify(:aggregate_failures, :follow, allow: true) do
+            is_expected.to be_first
+            is_expected.to be_second
+          end
+        end
+      RUBY
+
+      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    end
   end
 end

@@ -14,6 +14,10 @@ RSpec/AggregateExamples:
   Description: Checks if example groups contain more than one aggregateable example.
   Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples
+  EnforcedStyle: skip_aggregate_failures_metadata
+  SupportedStyles:
+  - skip_aggregate_failures_metadata
+  - add_aggregate_failures_metadata
   MatchersWithSideEffects:
   - allow_value
   - allow_values
