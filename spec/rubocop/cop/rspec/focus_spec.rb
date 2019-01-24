@@ -10,6 +10,8 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                               ^^^^^^^^^^^ Focused spec found.
       describe 'test', meta: true, focus: true do; end
                                    ^^^^^^^^^^^ Focused spec found.
+      RSpec.describe 'test', meta: true, focus: true do; end
+                                         ^^^^^^^^^^^ Focused spec found.
       it 'test', meta: true, focus: true do; end
                              ^^^^^^^^^^^ Focused spec found.
       xspecify 'test', meta: true, focus: true do; end
@@ -61,6 +63,8 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                        ^^^^^^ Focused spec found.
       describe 'test', :focus do; end
                        ^^^^^^ Focused spec found.
+      RSpec.describe 'test', :focus do; end
+                             ^^^^^^ Focused spec found.
       xit 'test', :focus do; end
                   ^^^^^^ Focused spec found.
       context 'test', :focus do; end
@@ -108,10 +112,13 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
+  # rubocop:disable RSpec/ExampleLength
   it 'flags focused block types' do
     expect_offense(<<-RUBY)
       fdescribe 'test' do; end
       ^^^^^^^^^^^^^^^^ Focused spec found.
+      RSpec.fdescribe 'test' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^ Focused spec found.
       ffeature 'test' do; end
       ^^^^^^^^^^^^^^^ Focused spec found.
       fcontext 'test' do; end
@@ -128,4 +135,5 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       ^^^^^^^^^^^^ Focused spec found.
     RUBY
   end
+  # rubocop:enable RSpec/ExampleLength
 end
