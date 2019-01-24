@@ -37,8 +37,8 @@ module RuboCop
         PENDING_SYMBOL = s(:sym, :pending)
 
         def_node_matcher :metadata, <<-PATTERN
-          {(send nil? #{SKIPPABLE_SELECTORS} ... (hash $...))
-           (send nil? #{SKIPPABLE_SELECTORS} $...)}
+          {(send {(const nil? :RSpec) nil?} #{SKIPPABLE_SELECTORS} ... (hash $...))
+           (send {(const nil? :RSpec) nil?} #{SKIPPABLE_SELECTORS} $...)}
         PATTERN
 
         def_node_matcher :pending_block?, PENDING_EXAMPLES.send_pattern

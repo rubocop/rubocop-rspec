@@ -82,6 +82,14 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
+  it 'flags describe with skip symbol metadata' do
+    expect_offense(<<-RUBY)
+      RSpec.describe 'test', :skip do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Pending spec found.
+      end
+    RUBY
+  end
+
   it 'flags blocks with pending symbol metadata' do
     expect_offense(<<-RUBY)
       it 'test', :pending do
