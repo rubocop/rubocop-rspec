@@ -88,6 +88,36 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList, :config do
     include_examples 'autocorrect',
                      '5.times { FactoryGirl.create :user }',
                      'FactoryGirl.create_list :user, 5'
+
+    bad_code = <<-RUBY
+      3.times do
+        create(:user, :trait) { |user| create :account, user: user }
+      end
+    RUBY
+
+    good_code = <<-RUBY
+      create_list(:user, 3, :trait) { |user| create :account, user: user }
+    RUBY
+
+    include_examples 'autocorrect', bad_code, good_code
+
+    bad_code = <<-RUBY
+      3.times do
+        create(:user, :trait) do |user|
+          create :account, user: user
+          create :profile, user: user
+        end
+      end
+    RUBY
+
+    good_code = <<-RUBY
+      create_list(:user, 3, :trait) do |user|
+          create :account, user: user
+          create :profile, user: user
+      end
+    RUBY
+
+    include_examples 'autocorrect', bad_code, good_code
   end
 
   context 'when EnforcedStyle is :n_times' do

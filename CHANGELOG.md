@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/Yield` cop, suggesting using the `and_yield` method when stubbing a method, accepting a block. ([@Darhazer][])
+* Fix `FactoryBot/CreateList` autocorrect crashing when the factory is called with a block=. ([@Darhazer][])
 
 ## 1.31.0 (2019-01-02)
 

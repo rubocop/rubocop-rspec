@@ -69,9 +69,9 @@ module RuboCop
 
           def autocorrect(node)
             if style == :create_list
-              autocorrect_n_times_to_create_list(node)
+              CreateListCorrector.new(node)
             else
-              autocorrect_create_list_to_n_times(node)
+              TimesCorrector.new(node)
             end
           end
 
@@ -85,63 +85,127 @@ module RuboCop
             end
           end
 
-          def autocorrect_n_times_to_create_list(node)
-            block = node.parent
-            count = block.receiver.source
-            replacement = factory_call_replacement(block.body, count)
+          # :nodoc
+          class Corrector
+            private
 
-            lambda do |corrector|
-              corrector.replace(block.loc.expression, replacement)
+            def build_options_string(options)
+              options.map(&:source).join(', ')
+            end
+
+            def format_method_call(node, method, arguments)
+              if node.block_type? || node.parenthesized?
+                "#{method}(#{arguments})"
+              else
+                "#{method} #{arguments}"
+              end
+            end
+
+            def format_receiver(receiver)
+              return '' unless receiver
+
+              "#{receiver.source}."
             end
           end
 
-          def autocorrect_create_list_to_n_times(node)
-            replacement = generate_n_times_block(node)
-            lambda do |corrector|
+          # :nodoc
+          class TimesCorrector < Corrector
+            def initialize(node)
+              @node = node
+            end
+
+            def call(corrector)
+              replacement = generate_n_times_block(node)
               corrector.replace(node.loc.expression, replacement)
             end
-          end
 
-          def generate_n_times_block(node)
-            receiver, factory, count, options = *factory_list_call(node)
+            private
 
-            arguments = ":#{factory}"
-            options = build_options_string(options)
-            arguments += ", #{options}" unless options.empty?
+            attr_reader :node
 
-            replacement = format_receiver(receiver)
-            replacement += format_method_call(node, 'create', arguments)
-            "#{count}.times { #{replacement} }"
-          end
+            def generate_n_times_block(node)
+              factory, count, *options = node.arguments
 
-          def factory_call_replacement(body, count)
-            receiver, factory, options = *factory_call(body)
+              arguments = factory.source
+              options = build_options_string(options)
+              arguments += ", #{options}" unless options.empty?
 
-            arguments = ":#{factory}, #{count}"
-            options = build_options_string(options)
-            arguments += ", #{options}" unless options.empty?
-
-            replacement = format_receiver(receiver)
-            replacement += format_method_call(body, 'create_list', arguments)
-            replacement
-          end
-
-          def build_options_string(options)
-            options.map(&:source).join(', ')
-          end
-
-          def format_method_call(node, method, arguments)
-            if node.parenthesized?
-              "#{method}(#{arguments})"
-            else
-              "#{method} #{arguments}"
+              replacement = format_receiver(node.receiver)
+              replacement += format_method_call(node, 'create', arguments)
+              "#{count.source}.times { #{replacement} }"
             end
           end
 
-          def format_receiver(receiver)
-            return '' unless receiver
+          # :nodoc:
+          class CreateListCorrector < Corrector
+            def initialize(node)
+              @node = node.parent
+            end
 
-            "#{receiver.source}."
+            def call(corrector)
+              replacement = if node.body.block_type?
+                              call_with_block_replacement(node)
+                            else
+                              call_replacement(node)
+                            end
+
+              corrector.replace(node.loc.expression, replacement)
+            end
+
+            private
+
+            attr_reader :node
+
+            def call_with_block_replacement(node)
+              block = node.body
+              arguments = build_arguments(block, node.receiver.source)
+              replacement = format_receiver(block.send_node.receiver)
+              replacement += format_method_call(block, 'create_list', arguments)
+              replacement += format_block(block)
+              replacement
+            end
+
+            def build_arguments(node, count)
+              factory, *options = *node.send_node.arguments
+
+              arguments = ":#{factory.value}, #{count}"
+              options = build_options_string(options)
+              arguments += ", #{options}" unless options.empty?
+              arguments
+            end
+
+            def call_replacement(node)
+              block = node.body
+              factory, *options = *block.arguments
+
+              arguments = "#{factory.source}, #{node.receiver.source}"
+              options = build_options_string(options)
+              arguments += ", #{options}" unless options.empty?
+
+              replacement = format_receiver(block.receiver)
+              replacement += format_method_call(block, 'create_list', arguments)
+              replacement
+            end
+
+            def format_block(node)
+              if node.body.begin_type?
+                format_multiline_block(node)
+              else
+                format_singeline_block(node)
+              end
+            end
+
+            def format_multiline_block(node)
+              indent = ' ' * node.body.loc.column
+              indent_end = ' ' * node.parent.loc.column
+              " do #{node.arguments.source}\n" \
+              "#{indent}#{node.body.source}\n" \
+              "#{indent_end}end"
+            end
+
+            def format_singeline_block(node)
+              " { #{node.arguments.source} #{node.body.source} }"
+            end
           end
         end
       end
