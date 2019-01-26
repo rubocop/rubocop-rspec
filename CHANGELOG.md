@@ -4,6 +4,8 @@
 
 * Add `RSpec/Yield` cop, suggesting using the `and_yield` method when stubbing a method, accepting a block. ([@Darhazer][])
 * Fix `FactoryBot/CreateList` autocorrect crashing when the factory is called with a block=. ([@Darhazer][])
+* Fixed `RSpec/Focus` not flagging some cases of `RSpec.describe` with `focus: true`. ([@Darhazer][])
+* Fixed `RSpec/Pending` not flagging some cases of `RSpec.describe` with `:skip`. ([@Darhazer][])
 
 ## 1.31.0 (2019-01-02)
 
