@@ -23,6 +23,7 @@
 * [RSpec/DescribeMethod](cops_rspec.md#rspecdescribemethod)
 * [RSpec/DescribeSymbol](cops_rspec.md#rspecdescribesymbol)
 * [RSpec/DescribedClass](cops_rspec.md#rspecdescribedclass)
+* [RSpec/Dialect](cops_rspec.md#rspecdialect)
 * [RSpec/EmptyExampleGroup](cops_rspec.md#rspecemptyexamplegroup)
 * [RSpec/EmptyLineAfterExampleGroup](cops_rspec.md#rspecemptylineafterexamplegroup)
 * [RSpec/EmptyLineAfterFinalLet](cops_rspec.md#rspecemptylineafterfinallet)

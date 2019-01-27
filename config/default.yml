@@ -83,6 +83,12 @@ RSpec/DescribedClass:
   - explicit
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
+RSpec/Dialect:
+  Description: This cop enforces custom RSpec dialects.
+  Enabled: false
+  PreferredMethods: {}
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
+
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
