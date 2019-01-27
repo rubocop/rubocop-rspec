@@ -6,6 +6,7 @@
 * Fix `FactoryBot/CreateList` autocorrect crashing when the factory is called with a block=. ([@Darhazer][])
 * Fixed `RSpec/Focus` not flagging some cases of `RSpec.describe` with `focus: true`. ([@Darhazer][])
 * Fixed `RSpec/Pending` not flagging some cases of `RSpec.describe` with `:skip`. ([@Darhazer][])
+* Fix false positive in `RSpec/ReceiveCounts` when method name `exactly`, `at_least` or `at_most` is used along with `times`, without being an RSpec API. ([@Darhazer][])
 
 ## 1.31.0 (2019-01-02)
 

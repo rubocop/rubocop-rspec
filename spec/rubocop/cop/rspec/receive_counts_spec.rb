@@ -78,6 +78,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
     RUBY
   end
 
+  it 'allows exactly(1).times when not called on `receive`' do
+    expect_no_offenses(<<-RUBY)
+      expect(action).to have_published_event.exactly(1).times
+    RUBY
+  end
+
   include_examples 'autocorrect',
                    'expect(foo).to receive(:bar).exactly(1).times { true }',
                    'expect(foo).to receive(:bar).once { true }'
@@ -85,4 +91,9 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
   include_examples 'autocorrect',
                    'expect(foo).to receive(:bar).at_least(2).times { true }',
                    'expect(foo).to receive(:bar).at_least(:twice) { true }'
+
+  # Does not auto-correct if not part of the RSpec API
+  include_examples 'autocorrect',
+                   'expect(foo).to have_published_event(:bar).exactly(2).times',
+                   'expect(foo).to have_published_event(:bar).exactly(2).times'
 end
