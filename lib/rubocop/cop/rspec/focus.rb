@@ -36,8 +36,8 @@ module RuboCop
         FOCUS_TRUE   = s(:pair, FOCUS_SYMBOL, s(:true))
 
         def_node_matcher :metadata, <<-PATTERN
-          {(send {(const nil? :RSpec) nil?} #{FOCUSABLE_SELECTORS} ... (hash $...))
-           (send {(const nil? :RSpec) nil?} #{FOCUSABLE_SELECTORS} $...)}
+          {(send #{RSPEC} #{FOCUSABLE_SELECTORS} ... (hash $...))
+           (send #{RSPEC} #{FOCUSABLE_SELECTORS} $...)}
         PATTERN
 
         def_node_matcher :focused_block?, focused.send_pattern

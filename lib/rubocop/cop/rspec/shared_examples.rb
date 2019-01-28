@@ -21,14 +21,14 @@ module RuboCop
       #   include_examples 'foo bar baz'
       #
       class SharedExamples < Cop
-        def_node_matcher :shared_examples, <<-PATTERN
-          (send
-            {(const nil? :RSpec) nil?}
-            {#{(SharedGroups::ALL + Includes::ALL).node_pattern}} $sym ...)
-        PATTERN
+        def_node_matcher :shared_examples,
+                         (SharedGroups::ALL + Includes::ALL).send_pattern
 
         def on_send(node)
-          shared_examples(node) do |ast_node|
+          shared_examples(node) do
+            ast_node = node.first_argument
+            next unless ast_node && ast_node.sym_type?
+
             checker = Checker.new(ast_node)
             add_offense(checker.node, message: checker.message)
           end
