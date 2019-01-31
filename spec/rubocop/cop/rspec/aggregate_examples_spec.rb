@@ -25,7 +25,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     it 'does not autorcorrect source code' do
       bad_code_without_message =
         offensive_source.lines.delete_if { |line| line =~ /\A\s*\^/ }.join
-      expect(autocorrect_source(bad_code_without_message))
+      expect(autocorrect_source(bad_code_without_message, 'spec/foo_spec.rb'))
         .to eq(bad_code_without_message)
     end
   end
