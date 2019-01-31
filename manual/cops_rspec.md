@@ -107,7 +107,7 @@ config.define_derived_metadata do |metadata|
   end
 end
 ```
-#### EnforcedStyle: skip_aggregate_failures_metadata
+#### AddAggregateFailuresMetadata: false (default)
 
 ```ruby
 specify do
@@ -115,7 +115,7 @@ specify do
   expect(number).to be_odd
 end
 ```
-#### EnforcedStyle: add_aggregate_failures_metadata
+#### AddAggregateFailuresMetadata: true
 
 ```ruby
 specify(:aggregate_failures) do
@@ -128,7 +128,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
-EnforcedStyle | `skip_aggregate_failures_metadata` | `skip_aggregate_failures_metadata`, `add_aggregate_failures_metadata`
+AddAggregateFailuresMetadata | `false` | Boolean
 MatchersWithSideEffects | `allow_value`, `allow_values`, `validate_presence_of`, `validate_absence_of`, `validate_length_of`, `validate_inclusion_of`, `validates_exclusion_of` | Array
 
 ### References

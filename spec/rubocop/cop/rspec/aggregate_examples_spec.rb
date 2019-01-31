@@ -698,9 +698,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     it_behaves_like 'detects and autocorrects', offensive_source, good_source
   end
 
-  context 'when EnforcedStyle is :add_aggregate_failures_metadata' do
+  context 'when AddAggregateFailuresMetadata is true' do
     let(:cop_config) do
-      { 'EnforcedStyle' => 'add_aggregate_failures_metadata' }
+      { 'AddAggregateFailuresMetadata' => true }
     end
 
     context 'with no metadata on example' do

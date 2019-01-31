@@ -104,14 +104,14 @@ module RuboCop
       # not to add metadata can be also used when it's not desired to make
       # expectations after previously failed ones commonly known as fail-fast.
       #
-      # @example EnforcedStyle: skip_aggregate_failures_metadata
+      # @example AddAggregateFailuresMetadata: false (default)
       #
       #   specify do
       #     expect(number).to be_positive
       #     expect(number).to be_odd
       #   end
       #
-      # @example EnforcedStyle: add_aggregate_failures_metadata
+      # @example AddAggregateFailuresMetadata: true
       #
       #   specify(:aggregate_failures) do
       #     expect(number).to be_positive
@@ -119,7 +119,6 @@ module RuboCop
       #   end
       #
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
-        include ConfigurableEnforcedStyle
         include RangeHelp
 
         MSG = 'Aggregate with the example above.'.freeze
@@ -191,7 +190,7 @@ module RuboCop
 
         def metadata_for_aggregated_example(metadata)
           metadata_to_add = metadata.compact.map(&:source)
-          if style == :add_aggregate_failures_metadata
+          if add_aggregate_failures_metadata?
             metadata_to_add.unshift(':aggregate_failures')
           end
           if metadata_to_add.any?
@@ -199,6 +198,10 @@ module RuboCop
           else
             ''
           end
+        end
+
+        def add_aggregate_failures_metadata?
+          cop_config.fetch('AddAggregateFailuresMetadata', false)
         end
 
         def drop_example(corrector, example)
