@@ -154,7 +154,7 @@ module RuboCop
 
         def_node_matcher :example_group_with_several_examples, <<-PATTERN
           (block
-            (send { nil? (const nil? :RSpec) } #{ExampleGroups::ALL.node_pattern_union} ...)
+            #{ExampleGroups::ALL.send_pattern}
             _
             (begin $...)
           )
