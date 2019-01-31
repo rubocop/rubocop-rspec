@@ -246,7 +246,10 @@ module RuboCop
         PATTERN
 
         def metadata_without_aggregate_failures(example)
-          metadata = example_parameters(example) || []
+          # Parameters to `its` are not metadata.
+          return [] if example.send_node.method_name == :its
+
+          metadata = example.send_node.arguments || []
 
           symbols = metadata_symbols_without_aggregate_failures(metadata)
           pairs = metadata_pairs_without_aggegate_failures(metadata)
@@ -254,13 +257,6 @@ module RuboCop
 
           [*symbols, pairs].flatten.compact
         end
-
-        def_node_matcher :example_parameters, <<-PATTERN
-          (block
-            (send nil? #example_method? $...)
-            ...
-          )
-        PATTERN
 
         def metadata_symbols_without_aggregate_failures(metadata)
           metadata
