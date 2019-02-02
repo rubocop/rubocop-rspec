@@ -4,6 +4,8 @@ module RuboCop
   module RSpec
     # RSpec public API methods that are commonly used in cops
     module Language
+      RSPEC = '{(const nil? :RSpec) nil?}'.freeze
+
       # Set of method selectors
       class SelectorSet
         def initialize(selectors)
@@ -27,7 +29,7 @@ module RuboCop
         end
 
         def send_pattern
-          "(send {(const nil? :RSpec) nil?} #{node_pattern_union} ...)"
+          "(send #{RSPEC} #{node_pattern_union} ...)"
         end
 
         def node_pattern_union

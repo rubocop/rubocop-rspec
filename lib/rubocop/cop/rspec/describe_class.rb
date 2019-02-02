@@ -24,13 +24,13 @@ module RuboCop
 
         def_node_matcher :valid_describe?, <<-PATTERN
           {
-            (send {(const nil? :RSpec) nil?} :describe const ...)
-            (send {(const nil? :RSpec) nil?} :describe)
+            (send #{RSPEC} :describe const ...)
+            (send #{RSPEC} :describe)
           }
         PATTERN
 
         def_node_matcher :describe_with_metadata, <<-PATTERN
-          (send {(const nil? :RSpec) nil?} :describe
+          (send #{RSPEC} :describe
             !const
             ...
             (hash $...))
