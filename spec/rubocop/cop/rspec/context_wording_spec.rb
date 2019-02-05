@@ -41,6 +41,36 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording, :config do
     RUBY
   end
 
+  context 'with metadata hash' do
+    it 'finds context without separate `when` at the beginning' do
+      expect_offense(<<-RUBY)
+        context 'whenever you do', legend: true do
+                ^^^^^^^^^^^^^^^^^ Start context description with 'when', or 'with'.
+        end
+      RUBY
+    end
+  end
+
+  context 'with symbol metadata' do
+    it 'finds context without separate `when` at the beginning' do
+      expect_offense(<<-RUBY)
+        context 'whenever you do', :legend do
+                ^^^^^^^^^^^^^^^^^ Start context description with 'when', or 'with'.
+        end
+      RUBY
+    end
+  end
+
+  context 'with mixed metadata' do
+    it 'finds context without separate `when` at the beginning' do
+      expect_offense(<<-RUBY)
+        context 'whenever you do', :legend, myth: true do
+                ^^^^^^^^^^^^^^^^^ Start context description with 'when', or 'with'.
+        end
+      RUBY
+    end
+  end
+
   context 'when configured' do
     let(:cop_config) { { 'Prefixes' => %w[if] } }
 
