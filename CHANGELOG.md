@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fixed `RSpec/ContextWording` missing `context`s with metadata. ([@pirj][])
+
 ## 1.32.0 (2019-01-27)
 
 * Add `RSpec/Yield` cop, suggesting using the `and_yield` method when stubbing a method, accepting a block. ([@Darhazer][])
