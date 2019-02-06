@@ -297,7 +297,7 @@ module RuboCop
           ]
         PATTERN
 
-        # Matchees the example with a title (e.g. `it('is valid')`)
+        # Matches the example with a title (e.g. `it('is valid')`)
         def_node_matcher :example_has_title?, <<-PATTERN
           (block
             (send nil? #example_method? str ...)
