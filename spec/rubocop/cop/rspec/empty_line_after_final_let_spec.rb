@@ -12,6 +12,15 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         it { expect(a).to eq(b) }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+
+        it { expect(a).to eq(b) }
+      end
+    RUBY
   end
 
   it 'check for empty line after the last `let!`' do
@@ -22,6 +31,17 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
           b
         end
         ^^^ Add an empty line after the last `let` block.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let!(:b) do
+          b
+        end
+
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -60,6 +80,40 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         it { expect(a).to eq(b) }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        # end of setup
+
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+  end
+
+  it 'flags missing empty line after a multiline comment after last let' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        # a multiline comment marking
+        # the end of setup
+        ^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        # a multiline comment marking
+        # the end of setup
+
+        it { expect(a).to eq(b) }
+      end
+    RUBY
   end
 
   it 'ignores empty lines between the lets' do
@@ -71,6 +125,18 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
 
         let!(:b) { b }
         ^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+
+        subject { described_class }
+
+        let!(:b) { b }
+
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -156,76 +222,18 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe 'silly heredoc syntax' do
+        let(:foo) { <<-BAR }
+        hello
+        world
+        BAR
+
+        it 'has tricky syntax' do
+          expect(foo).to eql("  hello\n  world\n")
+        end
+      end
+    RUBY
   end
-
-  bad_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { foo }
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  good_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { foo }
-
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
-
-  bad_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { foo }
-    # a multiline comment marking
-    # the end of setup
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  good_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { foo }
-    # a multiline comment marking
-    # the end of setup
-
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
-
-  bad_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { <<-DOC }
-     I'm super annoying!
-    DOC
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  good_example = <<-RUBY
-  RSpec.describe User do
-    let(:params) { <<-DOC }
-     I'm super annoying!
-    DOC
-
-    it 'has a new line' do
-    end
-  end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
 end

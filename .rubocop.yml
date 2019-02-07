@@ -40,7 +40,7 @@ Lint/InterpolationCheck:
     - spec/**/*.rb
 
 RSpec/ExampleLength:
-  Max: 19
+  Max: 30
 
 RSpec/DescribeClass:
   Exclude:

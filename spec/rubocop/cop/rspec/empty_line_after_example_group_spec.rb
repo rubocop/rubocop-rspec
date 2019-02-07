@@ -13,6 +13,16 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        describe '#bar' do
+        end
+
+        describe '#baz' do
+        end
+      end
+    RUBY
   end
 
   it 'highlights single line formulations correctly' do
@@ -20,6 +30,15 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       RSpec.describe Foo do
         describe('#bar') { }
         ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
+        describe '#baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        describe('#bar') { }
+
         describe '#baz' do
         end
       end
@@ -32,6 +51,16 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
         context 'bar' do
         end
         ^^^ Add an empty line after `context`.
+        context 'baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.context 'foo' do
+        context 'bar' do
+        end
+
         context 'baz' do
         end
       end
@@ -75,28 +104,18 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      if RUBY_VERSION < 2.3
+        describe 'skips checks under old ruby' do
+        end
+      else
+        describe 'first check' do
+        end
+
+        describe 'second check' do
+        end
+      end
+    RUBY
   end
-
-  bad_example = <<-RUBY
-    RSpec.describe Foo do
-      describe '#bar' do
-      end
-      describe '#baz' do
-      end
-    end
-  RUBY
-
-  good_example = <<-RUBY
-    RSpec.describe Foo do
-      describe '#bar' do
-      end
-
-      describe '#baz' do
-      end
-    end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
 end

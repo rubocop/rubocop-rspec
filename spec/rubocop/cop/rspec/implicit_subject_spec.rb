@@ -15,6 +15,12 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
           ^^^^^^^^^^^ Don't use implicit subject.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it 'expect subject to be used' do
+          expect(subject).to be_good
+        end
+      RUBY
     end
 
     it 'allows `is_expected` inside `its` block, in multi-line examples' do
@@ -30,6 +36,15 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
         it 'expect subject to be used' do
           should be_good
           ^^^^^^^^^^^^^^ Don't use implicit subject.
+          should_not be_bad
+          ^^^^^^^^^^^^^^^^^ Don't use implicit subject.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'expect subject to be used' do
+          expect(subject).to be_good
+          expect(subject).not_to be_bad
         end
       RUBY
     end
@@ -63,41 +78,13 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
                                   ^^^^^^^^^^^ Don't use implicit subject.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        def permits(actions)
+          actions.each { |action| expect(subject).to permit_action(action) }
+        end
+      RUBY
     end
-
-    bad_code = <<-RUBY
-      it 'works' do
-        is_expected.to be_truthy
-      end
-    RUBY
-
-    good_code = <<-RUBY
-      it 'works' do
-        expect(subject).to be_truthy
-      end
-    RUBY
-
-    include_examples 'autocorrect',
-                     bad_code,
-                     good_code
-
-    bad_code = <<-RUBY
-      it 'works' do
-        should be_truthy
-        should_not be_falsy
-      end
-    RUBY
-
-    good_code = <<-RUBY
-      it 'works' do
-        expect(subject).to be_truthy
-        expect(subject).not_to be_falsy
-      end
-    RUBY
-
-    include_examples 'autocorrect',
-                     bad_code,
-                     good_code
   end
 
   context 'with EnforcedStyle `single_statement_only`' do
@@ -119,29 +106,14 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
           ^^^^^^^^^^^ Don't use implicit subject.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it 'expect subject to be used' do
+          subject.age = 18
+          expect(subject).to be_valid
+        end
+      RUBY
     end
-
-    bad_code = <<-RUBY
-      it 'is valid' do
-        subject.age = 18
-        is_expected.to be_valid
-      end
-    RUBY
-
-    good_code = <<-RUBY
-      it 'is valid' do
-        subject.age = 18
-        expect(subject).to be_valid
-      end
-    RUBY
-
-    include_examples 'autocorrect',
-                     bad_code,
-                     good_code
-
-    include_examples 'autocorrect',
-                     bad_code,
-                     good_code
   end
 
   context 'with EnforcedStyle `disallow`' do
@@ -154,12 +126,22 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
           ^^^^^^^^^^^ Don't use implicit subject.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it 'expect subject to be used' do
+          expect(subject).to be_good
+        end
+      RUBY
     end
 
     it 'flags `is_expected` in single-line examples' do
       expect_offense(<<-RUBY)
         it { is_expected.to be_good }
              ^^^^^^^^^^^ Don't use implicit subject.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { expect(subject).to be_good }
       RUBY
     end
 
@@ -168,6 +150,15 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
         it 'expect subject to be used' do
           should be_good
           ^^^^^^^^^^^^^^ Don't use implicit subject.
+          should_not be_bad
+          ^^^^^^^^^^^^^^^^^ Don't use implicit subject.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'expect subject to be used' do
+          expect(subject).to be_good
+          expect(subject).not_to be_bad
         end
       RUBY
     end
@@ -176,6 +167,13 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
       expect_offense(<<-RUBY)
         it { should be_good }
              ^^^^^^^^^^^^^^ Don't use implicit subject.
+        it { should_not be_bad }
+             ^^^^^^^^^^^^^^^^^ Don't use implicit subject.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { expect(subject).to be_good }
+        it { expect(subject).not_to be_bad }
       RUBY
     end
 
@@ -184,17 +182,5 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject, :config do
         its(:quality) { is_expected.to be :high }
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'it { is_expected.to be_truthy }',
-                     'it { expect(subject).to be_truthy }'
-
-    include_examples 'autocorrect',
-                     'it { should be_truthy }',
-                     'it { expect(subject).to be_truthy }'
-
-    include_examples 'autocorrect',
-                     'it { should_not be_truthy }',
-                     'it { expect(subject).not_to be_truthy }'
   end
 end

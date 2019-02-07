@@ -8,12 +8,20 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(foo).to receive(:bar).exactly(1).times
                                   ^^^^^^^^^^^^^^^^^ Use `.once` instead of `.exactly(1).times`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).once
+    RUBY
   end
 
   it 'flags usage of `exactly(2).times`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).exactly(2).times
                                   ^^^^^^^^^^^^^^^^^ Use `.twice` instead of `.exactly(2).times`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).twice
     RUBY
   end
 
@@ -34,12 +42,20 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(foo).to receive(:bar).with(baz).exactly(1).times
                                             ^^^^^^^^^^^^^^^^^ Use `.once` instead of `.exactly(1).times`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).with(baz).once
+    RUBY
   end
 
   it 'flags usage of `exactly(1).times` with return value' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).exactly(1).times.and_return(true)
                                   ^^^^^^^^^^^^^^^^^ Use `.once` instead of `.exactly(1).times`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).once.and_return(true)
     RUBY
   end
 
@@ -48,12 +64,20 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(foo).to receive(:bar).exactly(1).times { true }
                                   ^^^^^^^^^^^^^^^^^ Use `.once` instead of `.exactly(1).times`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).once { true }
+    RUBY
   end
 
   it 'flags usage of `at_least(1).times`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).at_least(1).times
                                   ^^^^^^^^^^^^^^^^^^ Use `.at_least(:once)` instead of `.at_least(1).times`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).at_least(:once)
     RUBY
   end
 
@@ -62,12 +86,31 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(foo).to receive(:bar).at_least(2).times
                                   ^^^^^^^^^^^^^^^^^^ Use `.at_least(:twice)` instead of `.at_least(2).times`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).at_least(:twice)
+    RUBY
+  end
+
+  it 'flags usage of `at_least(2).times` with a block' do
+    expect_offense(<<-RUBY)
+      expect(foo).to receive(:bar).at_least(2).times { true }
+                                  ^^^^^^^^^^^^^^^^^^ Use `.at_least(:twice)` instead of `.at_least(2).times`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).at_least(:twice) { true }
+    RUBY
   end
 
   it 'flags usage of `at_most(1).times`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).at_most(1).times
                                   ^^^^^^^^^^^^^^^^^ Use `.at_most(:once)` instead of `.at_most(1).times`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).at_most(:once)
     RUBY
   end
 
@@ -76,6 +119,10 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(foo).to receive(:bar).at_most(2).times
                                   ^^^^^^^^^^^^^^^^^ Use `.at_most(:twice)` instead of `.at_most(2).times`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      expect(foo).to receive(:bar).at_most(:twice)
+    RUBY
   end
 
   it 'allows exactly(1).times when not called on `receive`' do
@@ -83,14 +130,6 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(action).to have_published_event.exactly(1).times
     RUBY
   end
-
-  include_examples 'autocorrect',
-                   'expect(foo).to receive(:bar).exactly(1).times { true }',
-                   'expect(foo).to receive(:bar).once { true }'
-
-  include_examples 'autocorrect',
-                   'expect(foo).to receive(:bar).at_least(2).times { true }',
-                   'expect(foo).to receive(:bar).at_least(:twice) { true }'
 
   # Does not auto-correct if not part of the RSpec API
   include_examples 'autocorrect',

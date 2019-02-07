@@ -11,6 +11,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
         let(:params) { foo }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+
+        let(:params) { foo }
+      end
+    RUBY
   end
 
   it 'checks for empty line after subject!' do
@@ -18,6 +26,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       RSpec.describe User do
         subject! { described_class.new }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add empty line after `subject`.
+        let(:params) { foo }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject! { described_class.new }
+
         let(:params) { foo }
       end
     RUBY
@@ -75,23 +91,4 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
   end
-
-  bad_example = <<-RUBY
-  RSpec.describe User do
-    subject { described_class.new }
-    let(:params) { foo }
-  end
-  RUBY
-
-  good_example = <<-RUBY
-  RSpec.describe User do
-    subject { described_class.new }
-
-    let(:params) { foo }
-  end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
 end

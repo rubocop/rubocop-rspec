@@ -9,13 +9,13 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
                         ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
         end
       RUBY
-    end
 
-    include_examples(
-      'autocorrect',
-      'before { allow(foo).to receive_message_chain(:one) { :two } }',
-      'before { allow(foo).to receive(:one) { :two } }'
-    )
+      expect_correction(<<-RUBY)
+        before do
+          allow(foo).to receive(:one) { :two }
+        end
+      RUBY
+    end
 
     it 'accepts multi-argument calls' do
       expect_no_offenses(<<-RUBY)
@@ -32,13 +32,13 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
                         ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
         end
       RUBY
-    end
 
-    include_examples(
-      'autocorrect',
-      'before { allow(foo).to receive_message_chain("one") { :two } }',
-      'before { allow(foo).to receive("one") { :two } }'
-    )
+      expect_correction(<<-RUBY)
+        before do
+          allow(foo).to receive("one") { :two }
+        end
+      RUBY
+    end
 
     it 'accepts multi-argument string calls' do
       expect_no_offenses(<<-RUBY)
@@ -73,13 +73,13 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
                           ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
           end
         RUBY
-      end
 
-      include_examples(
-        'autocorrect',
-        'before { allow(foo).to receive_message_chain([:one]) { :two } }',
-        'before { allow(foo).to receive(:one) { :two } }'
-      )
+        expect_correction(<<-RUBY)
+          before do
+            allow(foo).to receive(:one) { :two }
+          end
+        RUBY
+      end
     end
 
     context 'with multiple-element array argument' do
@@ -98,27 +98,21 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
           before do
             allow(foo).to receive_message_chain(bar: 42)
                           ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
+            allow(foo).to receive_message_chain("bar" => 42)
+                          ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
+            allow(foo).to receive_message_chain(:"\#{foo}" => 42)
+                          ^^^^^^^^^^^^^^^^^^^^^ Use `receive` instead of calling `receive_message_chain` with a single argument.
+          end
+        RUBY
+
+        expect_correction(<<-RUBY)
+          before do
+            allow(foo).to receive(:bar).and_return(42)
+            allow(foo).to receive("bar").and_return(42)
+            allow(foo).to receive(:"\#{foo}").and_return(42)
           end
         RUBY
       end
-
-      include_examples(
-        'autocorrect',
-        'before { allow(foo).to receive_message_chain(bar: 42) }',
-        'before { allow(foo).to receive(:bar).and_return(42) }'
-      )
-
-      include_examples(
-        'autocorrect',
-        'before { allow(foo).to receive_message_chain("bar" => 42) }',
-        'before { allow(foo).to receive("bar").and_return(42) }'
-      )
-
-      include_examples(
-        'autocorrect',
-        'before { allow(foo).to receive_message_chain(:"#{foo}" => 42) }',
-        'before { allow(foo).to receive(:"#{foo}").and_return(42) }'
-      )
     end
 
     context 'with multiple keys hash argument' do
@@ -140,13 +134,13 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
               ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
         end
       RUBY
-    end
 
-    include_examples(
-      'autocorrect',
-      'before { foo.stub_chain(:one) { :two } }',
-      'before { foo.stub(:one) { :two } }'
-    )
+      expect_correction(<<-RUBY)
+        before do
+          foo.stub(:one) { :two }
+        end
+      RUBY
+    end
 
     it 'accepts multi-argument calls' do
       expect_no_offenses(<<-RUBY)
@@ -163,13 +157,13 @@ RSpec.describe RuboCop::Cop::RSpec::SingleArgumentMessageChain do
               ^^^^^^^^^^ Use `stub` instead of calling `stub_chain` with a single argument.
         end
       RUBY
-    end
 
-    include_examples(
-      'autocorrect',
-      'before { foo.stub_chain("one") { :two } }',
-      'before { foo.stub("one") { :two } }'
-    )
+      expect_correction(<<-RUBY)
+        before do
+          foo.stub("one") { :two }
+        end
+      RUBY
+    end
 
     it 'accepts multi-argument string calls' do
       expect_no_offenses(<<-RUBY)

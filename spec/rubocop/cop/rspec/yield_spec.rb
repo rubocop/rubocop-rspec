@@ -6,6 +6,10 @@ RSpec.describe RuboCop::Cop::RSpec::Yield do
       allow(foo).to receive(:bar) { |&block| block.call }
                                   ^^^^^^^^^^^^^^^^^^^^^^^ Use `.and_yield`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      allow(foo).to receive(:bar).and_yield
+    RUBY
   end
 
   it 'flags multiple `block.call`' do
@@ -16,12 +20,20 @@ RSpec.describe RuboCop::Cop::RSpec::Yield do
         block.call
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      allow(foo).to receive(:bar).and_yield.and_yield
+    RUBY
   end
 
   it 'flags `block.call` with arguments' do
     expect_offense(<<-RUBY)
       allow(foo).to receive(:bar) { |&block| block.call(1, 2) }
                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.and_yield`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      allow(foo).to receive(:bar).and_yield(1, 2)
     RUBY
   end
 
@@ -33,12 +45,20 @@ RSpec.describe RuboCop::Cop::RSpec::Yield do
          block.call(2)
        end
     RUBY
+
+    expect_correction(<<-RUBY)
+      allow(foo).to receive(:bar).and_yield(1).and_yield(2)
+    RUBY
   end
 
   it 'flags `block.call` when `receive` is chained' do
     expect_offense(<<-RUBY)
       allow(foo).to receive(:bar).with(anything) { |&block| block.call }
                                                  ^^^^^^^^^^^^^^^^^^^^^^^ Use `.and_yield`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      allow(foo).to receive(:bar).with(anything).and_yield
     RUBY
   end
 
@@ -56,25 +76,4 @@ RSpec.describe RuboCop::Cop::RSpec::Yield do
       end
     RUBY
   end
-
-  include_examples 'autocorrect',
-                   'allow(foo).to receive(:bar) { |&block| block.call }',
-                   'allow(foo).to receive(:bar).and_yield'
-
-  include_examples 'autocorrect',
-                   'allow(foo).to receive(:bar) { |&block| block.call(1, 2) }',
-                   'allow(foo).to receive(:bar).and_yield(1, 2)'
-
-  bad_code = <<-RUBY
-    allow(foo).to receive(:bar) do |&block|
-      block.call(1)
-      block.call(2)
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    allow(foo).to receive(:bar).and_yield(1).and_yield(2)
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
 end
