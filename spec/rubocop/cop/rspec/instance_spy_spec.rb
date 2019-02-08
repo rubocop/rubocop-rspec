@@ -10,6 +10,13 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
           expect(foo).to have_received(:bar)
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          foo = instance_spy(Foo)
+          expect(foo).to have_received(:bar)
+        end
+      RUBY
     end
 
     it 'adds an offense for an instance_double with multiple arguments' do
@@ -17,6 +24,13 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
         it do
           foo = instance_double(Foo, :name).as_null_object
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `instance_spy` when you check your double with `have_received`.
+          expect(foo).to have_received(:bar)
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          foo = instance_spy(Foo, :name)
           expect(foo).to have_received(:bar)
         end
       RUBY
@@ -42,19 +56,4 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
       RUBY
     end
   end
-
-  original = <<-RUBY
-    it do
-      foo = instance_double(Foo, :name).as_null_object
-      expect(foo).to have_received(:bar)
-    end
-  RUBY
-  corrected = <<-RUBY
-    it do
-      foo = instance_spy(Foo, :name)
-      expect(foo).to have_received(:bar)
-    end
-  RUBY
-
-  include_examples 'autocorrect', original, corrected
 end

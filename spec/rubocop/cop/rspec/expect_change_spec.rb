@@ -11,8 +11,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
     it 'finds blocks that contain simple message sending' do
       expect_offense(<<-RUBY)
         it do
-          expect(run).to change { User.count }
+          expect(run).to change { User.count }.by(1)
                          ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect(run).to change(User, :count).by(1)
         end
       RUBY
     end
@@ -32,12 +38,6 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
         end
       RUBY
     end
-
-    include_examples(
-      'autocorrect',
-      'expect(run).to change { User.count }.by(1)',
-      'expect(run).to change(User, :count).by(1)'
-    )
   end
 
   context 'with EnforcedStyle `block`' do
@@ -46,8 +46,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
     it 'finds change matcher without block' do
       expect_offense(<<-RUBY)
         it do
-          expect(run).to change(User, :count)
+          expect(run).to change(User, :count).by(1)
                          ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect(run).to change { User.count }.by(1)
         end
       RUBY
     end
@@ -59,6 +65,12 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
                          ^^^^^^^^^^^^^^^^^^^^ Prefer `change { user.count }`.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect(run).to change { user.count }
+        end
+      RUBY
     end
 
     it 'ignores methods called change' do
@@ -68,11 +80,5 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
         end
       RUBY
     end
-
-    include_examples(
-      'autocorrect',
-      'expect(run).to change(User, :count).by(1)',
-      'expect(run).to change { User.count }.by(1)'
-    )
   end
 end

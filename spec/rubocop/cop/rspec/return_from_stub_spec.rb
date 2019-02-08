@@ -15,6 +15,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                                       ^ Use `and_return` for static values.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return(42)
+        end
+      RUBY
     end
 
     it 'finds empty values returned from block' do
@@ -22,6 +28,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         it do
           allow(Foo).to receive(:bar) {}
                                       ^ Use `and_return` for static values.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return(nil)
         end
       RUBY
     end
@@ -33,6 +45,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                                       ^ Use `and_return` for static values.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return([42, 43])
+        end
+      RUBY
     end
 
     it 'finds hash with only static values returned from block' do
@@ -40,6 +58,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         it do
           allow(Foo).to receive(:bar) { {a: 42, b: 43} }
                                       ^ Use `and_return` for static values.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return({a: 42, b: 43})
         end
       RUBY
     end
@@ -51,6 +75,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                                                                ^ Use `and_return` for static values.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Question).to receive(:meaning).with(:universe).and_return(42)
+        end
+      RUBY
     end
 
     it 'finds constants returned from block' do
@@ -60,6 +90,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
                                       ^ Use `and_return` for static values.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return(Life::MEANING)
+        end
+      RUBY
     end
 
     it 'finds nested constants returned from block' do
@@ -67,6 +103,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         it do
           allow(Foo).to receive(:bar) { {Life::MEANING => 42} }
                                       ^ Use `and_return` for static values.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return({Life::MEANING => 42})
         end
       RUBY
     end
@@ -125,6 +167,13 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
           end
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return("You called" \
+            "me")
+        end
+      RUBY
     end
 
     it 'ignores stubs without return value' do
@@ -142,35 +191,6 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         end
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar) { 42 }',
-                     'allow(Foo).to receive(:bar).and_return(42)'
-
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar) { { foo: 42 } }',
-                     'allow(Foo).to receive(:bar).and_return({ foo: 42 })'
-
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).with(1) { 42 }',
-                     'allow(Foo).to receive(:bar).with(1).and_return(42)'
-
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar) {}',
-                     'allow(Foo).to receive(:bar).and_return(nil)'
-
-    original = <<-RUBY
-      allow(Foo).to receive(:bar) do
-        'You called ' \\
-        'me'
-      end
-    RUBY
-    corrected = <<-RUBY
-      allow(Foo).to receive(:bar).and_return('You called ' \\
-        'me')
-    RUBY
-
-    include_examples 'autocorrect', original, corrected
   end
 
   context 'with EnforcedStyle `block`' do
@@ -219,48 +239,49 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       RUBY
     end
 
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).and_return(42)',
-                     'allow(Foo).to receive(:bar) { 42 }'
+    it 'finds hash with only static values returned from method' do
+      expect_offense(<<-RUBY)
+        allow(Foo).to receive(:bar).and_return({ foo: 42 })
+                                    ^^^^^^^^^^ Use block for static values.
+        allow(Foo).to receive(:bar).and_return(foo: 42)
+                                    ^^^^^^^^^^ Use block for static values.
+        allow(Foo).to receive(:bar).and_return(
+                                    ^^^^^^^^^^ Use block for static values.
+          a: 42,
+          b: 43
+        )
+      RUBY
 
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).with(1).and_return(foo: 42)',
-                     'allow(Foo).to receive(:bar).with(1) { { foo: 42 } }'
+      expect_correction(<<-RUBY) # Not perfect, but good enough.
+        allow(Foo).to receive(:bar) { { foo: 42 } }
+        allow(Foo).to receive(:bar) { { foo: 42 } }
+        allow(Foo).to receive(:bar) { { a: 42,
+          b: 43 } }
+      RUBY
+    end
 
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).and_return({ foo: 42 })',
-                     'allow(Foo).to receive(:bar) { { foo: 42 } }'
+    it 'finds nil returned from method' do
+      expect_offense(<<-RUBY)
+        allow(Foo).to receive(:bar).and_return(nil)
+                                    ^^^^^^^^^^ Use block for static values.
+      RUBY
 
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).and_return(foo: 42)',
-                     'allow(Foo).to receive(:bar) { { foo: 42 } }'
+      expect_correction(<<-RUBY)
+        allow(Foo).to receive(:bar) { nil }
+      RUBY
+    end
 
-    original = <<-RUBY
-      allow(Foo).to receive(:bar).and_return(
-        a: 42,
-        b: 43
-      )
-    RUBY
-    corrected = <<-RUBY # Not perfect, but good enough.
-      allow(Foo).to receive(:bar) { { a: 42,
-        b: 43 } }
-    RUBY
+    it 'finds concatenated strings with no variables' do
+      expect_offense(<<-RUBY)
+        allow(Foo).to receive(:bar).and_return('You called ' \\
+                                    ^^^^^^^^^^ Use block for static values.
+          'me')
+      RUBY
 
-    include_examples 'autocorrect', original, corrected
-
-    include_examples 'autocorrect',
-                     'allow(Foo).to receive(:bar).and_return(nil)',
-                     'allow(Foo).to receive(:bar) { nil }'
-
-    original = <<-RUBY
-      allow(Foo).to receive(:bar).and_return('You called ' \\
-        'me')
-    RUBY
-    corrected = <<-RUBY
-      allow(Foo).to receive(:bar) { 'You called ' \\
-        'me' }
-    RUBY
-
-    include_examples 'autocorrect', original, corrected
+      expect_correction(<<-RUBY)
+        allow(Foo).to receive(:bar) { 'You called ' \\
+          'me' }
+      RUBY
+    end
   end
 end

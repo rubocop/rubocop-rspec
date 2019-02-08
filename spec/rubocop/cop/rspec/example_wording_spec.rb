@@ -19,12 +19,22 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
             ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something' do
+        end
+      RUBY
     end
 
     it 'finds description with `Should` at the beginning' do
       expect_offense(<<-RUBY)
         it 'Should do something' do
             ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something' do
         end
       RUBY
     end
@@ -35,12 +45,35 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
             ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it "does not do something" do
+        end
+      RUBY
+    end
+
+    it 'finds description with `SHOULDN\'T` at the beginning' do
+      expect_offense(<<-RUBY)
+        it "SHOULDN'T do something" do
+            ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it "DOES NOT do something" do
+        end
+      RUBY
     end
 
     it 'flags a lone should' do
       expect_offense(<<-RUBY)
         it 'should' do
             ^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it '' do
         end
       RUBY
     end
@@ -51,12 +84,22 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
             ^^^^^^^^^^ Do not use should when describing your tests.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does not' do
+        end
+      RUBY
     end
 
     it 'finds leading its' do
       expect_offense(<<-RUBY)
         it "it does something" do
             ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it "does something" do
         end
       RUBY
     end
@@ -81,30 +124,6 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
         end
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'it "should only have trait" do end',
-                     'it "only has trait" do end'
-
-    include_examples 'autocorrect',
-                     'it "SHOULDN\'T only have trait" do end',
-                     'it "DOES NOT only have trait" do end'
-
-    include_examples 'autocorrect',
-                     'it "it does something" do end',
-                     'it "does something" do end'
-
-    include_examples 'autocorrect',
-                     'it "It does something" do end',
-                     'it "does something" do end'
-
-    include_examples 'autocorrect',
-                     'it "should" do end',
-                     'it "" do end'
-
-    include_examples 'autocorrect',
-                     'it "should not" do end',
-                     'it "does not" do end'
   end
 
   context 'when configuration is empty' do

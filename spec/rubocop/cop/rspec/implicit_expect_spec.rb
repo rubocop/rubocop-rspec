@@ -13,12 +13,20 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
         it { should be_truthy }
              ^^^^^^ Prefer `is_expected.to` over `should`.
       RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to be_truthy }
+      RUBY
     end
 
     it 'flags it { should_not }' do
       expect_offense(<<-RUBY)
         it { should_not be_truthy }
              ^^^^^^^^^^ Prefer `is_expected.to_not` over `should_not`.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to_not be_truthy }
       RUBY
     end
 
@@ -35,13 +43,6 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
     end
 
     include_examples 'detects style', 'it { should be_truthy }', 'should'
-    include_examples 'autocorrect',
-                     'it { should be_truthy }',
-                     'it { is_expected.to be_truthy }'
-
-    include_examples 'autocorrect',
-                     'it { should_not be_truthy }',
-                     'it { is_expected.to_not be_truthy }'
   end
 
   context 'when EnforcedStyle is should' do
@@ -54,6 +55,10 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
         it { is_expected.to be_truthy }
              ^^^^^^^^^^^^^^ Prefer `should` over `is_expected.to`.
       RUBY
+
+      expect_correction(<<-RUBY)
+        it { should be_truthy }
+      RUBY
     end
 
     it 'flags it { is_expected.to_not }' do
@@ -61,12 +66,20 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
         it { is_expected.to_not be_truthy }
              ^^^^^^^^^^^^^^^^^^ Prefer `should_not` over `is_expected.to_not`.
       RUBY
+
+      expect_correction(<<-RUBY)
+        it { should_not be_truthy }
+      RUBY
     end
 
     it 'flags it { is_expected.not_to }' do
       expect_offense(<<-RUBY)
         it { is_expected.not_to be_truthy }
              ^^^^^^^^^^^^^^^^^^ Prefer `should_not` over `is_expected.not_to`.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { should_not be_truthy }
       RUBY
     end
 
@@ -85,17 +98,5 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
     include_examples 'detects style',
                      'it { should be_truthy }',
                      'should'
-
-    include_examples 'autocorrect',
-                     'it { is_expected.to be_truthy }',
-                     'it { should be_truthy }'
-
-    include_examples 'autocorrect',
-                     'it { is_expected.to_not be_truthy }',
-                     'it { should_not be_truthy }'
-
-    include_examples 'autocorrect',
-                     'it { is_expected.not_to be_truthy }',
-                     'it { should_not be_truthy }'
   end
 end

@@ -1,6 +1,7 @@
 RSpec.describe RuboCop::Cop::RSpec::AlignRightLetBrace do
   subject(:cop) { described_class.new }
 
+  # rubocop:disable RSpec/ExampleLength
   it 'registers offense for unaligned braces' do
     expect_offense(<<-RUBY)
       let(:foo)      { a }
@@ -22,45 +23,27 @@ RSpec.describe RuboCop::Cop::RSpec::AlignRightLetBrace do
         let(:a)        { abc }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      let(:foo)      { a    }
+      let(:hi)       { ab   }
+      let(:blahblah) { abcd }
+
+      let(:thing) { ignore_this }
+      let(:other) {
+        ignore_this_too
+      }
+
+      describe 'blah' do
+        let(:blahblah) { a   }
+        let(:blah)     { bc  }
+        let(:a)        { abc }
+      end
+    RUBY
   end
+  # rubocop:enable RSpec/ExampleLength
 
   it 'works with empty file' do
     expect_no_offenses('')
   end
-
-  offensive_source = <<-RUBY
-    let(:foo)      { a }
-    let(:hi)       { ab }
-    let(:blahblah) { abcd }
-
-    let(:thing) { ignore_this }
-    let(:other) {
-      ignore_this_too
-    }
-
-    describe 'blah' do
-      let(:blahblah) { a }
-      let(:blah)     { bc }
-      let(:a)        { abc }
-    end
-  RUBY
-
-  corrected_source = <<-RUBY
-    let(:foo)      { a    }
-    let(:hi)       { ab   }
-    let(:blahblah) { abcd }
-
-    let(:thing) { ignore_this }
-    let(:other) {
-      ignore_this_too
-    }
-
-    describe 'blah' do
-      let(:blahblah) { a   }
-      let(:blah)     { bc  }
-      let(:a)        { abc }
-    end
-  RUBY
-
-  include_examples 'autocorrect', offensive_source, corrected_source
 end

@@ -17,6 +17,13 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
           end
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        shared_examples 'foo' do
+          it 'performs actions' do
+          end
+        end
+      RUBY
     end
 
     it 'does not register an offense for `shared_context` with let' do
@@ -70,6 +77,12 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
           let(:foo) { :bar }
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        shared_context 'foo' do
+          let(:foo) { :bar }
+        end
+      RUBY
     end
 
     it 'registers an offense for shared_examples with only subject' do
@@ -79,12 +92,26 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
           subject(:foo) { :bar }
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        shared_context 'foo' do
+          subject(:foo) { :bar }
+        end
+      RUBY
     end
 
     it 'registers an offense for shared_examples with only hooks' do
       expect_offense(<<-RUBY)
         shared_examples 'foo' do
         ^^^^^^^^^^^^^^^^^^^^^ Use `shared_context` when you don't define examples.
+          before do
+            foo
+          end
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        shared_context 'foo' do
           before do
             foo
           end
@@ -105,38 +132,4 @@ RSpec.describe RuboCop::Cop::RSpec::SharedContext do
       RUBY
     end
   end
-
-  bad_shared_context = <<-RUBY
-    shared_context 'foo' do
-      it 'performs actions' do
-      end
-    end
-  RUBY
-
-  good_shared_context = <<-RUBY
-    shared_examples 'foo' do
-      it 'performs actions' do
-      end
-    end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_shared_context,
-                   good_shared_context
-
-  bad_shared_examples = <<-RUBY
-    shared_examples 'foo' do
-      let(:foo) { :bar }
-    end
-  RUBY
-
-  good_shared_examples = <<-RUBY
-    shared_context 'foo' do
-      let(:foo) { :bar }
-    end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_shared_examples,
-                   good_shared_examples
 end

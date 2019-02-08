@@ -11,6 +11,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
         it { does_something }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        before { do_something }
+
+        it { does_something }
+      end
+    RUBY
   end
 
   it 'checks for empty line after `after` hook' do
@@ -21,6 +29,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
         it { does_something }
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        after { do_something }
+
+        it { does_something }
+      end
+    RUBY
   end
 
   it 'checks for empty line after `around` hook' do
@@ -28,6 +44,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
       RSpec.describe User do
         around { |test| test.run }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `around`.
+        it { does_something }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        around { |test| test.run }
+
         it { does_something }
       end
     RUBY
@@ -106,23 +130,4 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
       end
     RUBY
   end
-
-  bad_example = <<-RUBY
-    RSpec.describe User do
-      before { do_something }
-      it { does_something }
-    end
-  RUBY
-
-  good_example = <<-RUBY
-    RSpec.describe User do
-      before { do_something }
-
-      it { does_something }
-    end
-  RUBY
-
-  include_examples 'autocorrect',
-                   bad_example,
-                   good_example
 end

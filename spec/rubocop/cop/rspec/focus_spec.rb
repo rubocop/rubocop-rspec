@@ -112,7 +112,6 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
-  # rubocop:disable RSpec/ExampleLength
   it 'flags focused block types' do
     expect_offense(<<-RUBY)
       fdescribe 'test' do; end
@@ -135,5 +134,4 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       ^^^^^^^^^^^^ Focused spec found.
     RUBY
   end
-  # rubocop:enable RSpec/ExampleLength
 end

@@ -8,6 +8,11 @@ RSpec.describe RuboCop::Cop::RSpec::BeEql do
       it { expect(foo).to eql(false) }
                           ^^^ Prefer `be` over `eql`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      it { expect(foo).to be(true) }
+      it { expect(foo).to be(false) }
+    RUBY
   end
 
   it 'registers an offense for `eql` when argument is an integer' do
@@ -16,6 +21,11 @@ RSpec.describe RuboCop::Cop::RSpec::BeEql do
                           ^^^ Prefer `be` over `eql`.
       it { expect(foo).to eql(123) }
                           ^^^ Prefer `be` over `eql`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it { expect(foo).to be(0) }
+      it { expect(foo).to be(123) }
     RUBY
   end
 
@@ -26,6 +36,11 @@ RSpec.describe RuboCop::Cop::RSpec::BeEql do
       it { expect(foo).to eql(1.23) }
                           ^^^ Prefer `be` over `eql`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      it { expect(foo).to be(1.0) }
+      it { expect(foo).to be(1.23) }
+    RUBY
   end
 
   it 'registers an offense for `eql` when argument is a symbol' do
@@ -33,12 +48,20 @@ RSpec.describe RuboCop::Cop::RSpec::BeEql do
       it { expect(foo).to eql(:foo) }
                           ^^^ Prefer `be` over `eql`.
     RUBY
+
+    expect_correction(<<-RUBY)
+      it { expect(foo).to be(:foo) }
+    RUBY
   end
 
   it 'registers an offense for `eql` when argument is nil' do
     expect_offense(<<-RUBY)
       it { expect(foo).to eql(nil) }
                           ^^^ Prefer `be` over `eql`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it { expect(foo).to be(nil) }
     RUBY
   end
 
@@ -53,8 +76,4 @@ RSpec.describe RuboCop::Cop::RSpec::BeEql do
       it { expect(foo).to_not eql(1) }
     RUBY
   end
-
-  include_examples 'autocorrect',
-                   'it { expect(foo).to eql(1) }',
-                   'it { expect(foo).to be(1) }'
 end
