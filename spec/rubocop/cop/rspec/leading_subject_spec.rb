@@ -12,6 +12,14 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        let(:params) { foo }
+
+      end
+    RUBY
   end
 
   it 'checks subject below let!' do
@@ -21,6 +29,14 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
 
         subject { described_class.new }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let!` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        let!(:params) { foo }
+
       end
     RUBY
   end
@@ -72,6 +88,14 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `before` declarations.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        before { allow(Foo).to receive(:bar) }
+
+      end
+    RUBY
   end
 
   it 'checks subject below example' do
@@ -83,53 +107,13 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it` declarations.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        it { is_expected.to be_present }
+
+      end
+    RUBY
   end
-
-  bad_code = <<-RUBY
-    RSpec.describe User do
-      before { allow(Foo).to receive(:bar) }
-      let(:params) { foo }
-      let(:bar) { baz }
-
-      subject { described_class.new }
-      it { is_expected.to do_something }
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    RSpec.describe User do
-      subject { described_class.new }
-      before { allow(Foo).to receive(:bar) }
-      let(:params) { foo }
-      let(:bar) { baz }
-
-      it { is_expected.to do_something }
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
-
-  bad_code = <<-RUBY
-    RSpec.describe User do
-      let(:params) { foo }
-      let(:bar) { baz }
-      subject do
-        described_class.new
-      end
-      it { is_expected.to do_something }
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    RSpec.describe User do
-      subject do
-        described_class.new
-      end
-      let(:params) { foo }
-      let(:bar) { baz }
-      it { is_expected.to do_something }
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
 end

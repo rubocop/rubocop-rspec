@@ -9,6 +9,13 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        before { setup }
+        it { is_expected.to be_after_let }
+      end
+    RUBY
   end
 
   it 'flags `before` after `context`' do
@@ -22,6 +29,16 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        before { setup }
+        context 'a context' do
+          it { is_expected.to be_after_let }
+        end
+
+      end
+    RUBY
   end
 
   it 'flags `before` after `include_examples`' do
@@ -31,6 +48,14 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
 
         before { setup }
         ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        before { setup }
+        include_examples('should be after let')
+
       end
     RUBY
   end
@@ -43,6 +68,13 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         ^^^^^^^^^^^^^^^^^ Move `after` above the examples in the group.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        after { cleanup }
+        it { is_expected.to be_after_let }
+      end
+    RUBY
   end
 
   it 'flags scoped hook after an example' do
@@ -51,6 +83,13 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         it { is_expected.to be_after_let }
         before(:each) { cleanup }
         ^^^^^^^^^^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        before(:each) { cleanup }
+        it { is_expected.to be_after_let }
       end
     RUBY
   end
@@ -106,30 +145,4 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
   end
-
-  bad_code = <<-RUBY
-    RSpec.describe User do
-      include_examples('should be after hook')
-      context 'another one' do
-        before { another_setup }
-        include_examples('should be ok')
-      end
-
-      after { cleanup }
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    RSpec.describe User do
-      after { cleanup }
-      include_examples('should be after hook')
-      context 'another one' do
-        before { another_setup }
-        include_examples('should be ok')
-      end
-
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
 end

@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
   let(:cop) { described_class.new }
 
   it 'registers an offense for every overwritten subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<-RUBY.strip_indent)
       describe 'hello there' do
         subject(:foo) { 1 }
         ^^^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
@@ -19,6 +19,20 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
         end
       end
     RUBY
+
+    expect_correction [
+      "describe 'hello there' do",
+      '  let(:foo) { 1 }',
+      '  let(:bar) { 2 }',
+      '  ',
+      '  subject(:baz) { 4 }',
+      '',
+      "  describe 'baz' do",
+      '    subject(:norf) { 1 }',
+      '  end',
+      'end',
+      ''
+    ].join("\n")
   end
 
   it 'does not try to autocorrect subject!' do
@@ -49,32 +63,6 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       end
     RUBY
   end
-
-  include_examples(
-    'autocorrect',
-    <<-RUBY,
-      describe 'hello there' do
-        subject(:foo) { 1 }
-        subject(:bar) { 2 }
-        subject(:baz) { 3 }
-
-        describe 'baz' do
-          subject(:norf) { 1 }
-        end
-      end
-    RUBY
-    <<-RUBY
-      describe 'hello there' do
-        let(:foo) { 1 }
-        let(:bar) { 2 }
-        subject(:baz) { 3 }
-
-        describe 'baz' do
-          subject(:norf) { 1 }
-        end
-      end
-    RUBY
-  )
 
   include_examples(
     'autocorrect',
