@@ -9,6 +9,13 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
         ^^^^^^^^^^^^^^^^^ Move `let` before the examples in the group.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:foo) { bar }
+        it { is_expected.to be_after_let }
+      end
+    RUBY
   end
 
   it 'flags `let` after `context`' do
@@ -22,6 +29,16 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
         ^^^^^^^^^^^^^^^^^ Move `let` before the examples in the group.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:foo) { bar }
+        context 'a context' do
+          it { is_expected.to be_after_let }
+        end
+
+      end
+    RUBY
   end
 
   it 'flags `let` after `include_examples`' do
@@ -31,6 +48,14 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
 
         let(:foo) { bar }
         ^^^^^^^^^^^^^^^^^ Move `let` before the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:foo) { bar }
+        include_examples('should be after let')
+
       end
     RUBY
   end
@@ -85,32 +110,6 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
       end
     RUBY
   end
-
-  bad_code = <<-RUBY
-    RSpec.describe User do
-      include_examples('should be after let')
-      context 'another one' do
-        let(:foo) { baz }
-        include_examples('should be ok')
-      end
-
-      let(:foo) { bar }
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    RSpec.describe User do
-      let(:foo) { bar }
-      include_examples('should be after let')
-      context 'another one' do
-        let(:foo) { baz }
-        include_examples('should be ok')
-      end
-
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
 
   bad_code = <<-RUBY
     RSpec.describe User do
