@@ -86,10 +86,10 @@ module RuboCop
         end
 
         def remove_predicate(corrector, predicate)
-          range = range_between(
-            predicate.loc.dot.begin_pos,
-            predicate.loc.expression.end_pos
+          range = predicate.loc.dot.with(
+            end_pos: predicate.loc.expression.end_pos
           )
+
           corrector.remove(range)
 
           block_range = block_loc(predicate)
@@ -299,7 +299,6 @@ module RuboCop
         include ConfigurableEnforcedStyle
         include InflectedHelper
         include ExplicitHelper
-        include RangeHelp
 
         def on_send(node)
           case style
@@ -330,8 +329,9 @@ module RuboCop
         #   foo 1, 2
         #      ^^^^^
         def args_loc(send_node)
-          range_between(send_node.loc.selector.end_pos,
-                        send_node.loc.expression.end_pos)
+          send_node.loc.selector.end.with(
+            end_pos: send_node.loc.expression.end_pos
+          )
         end
 
         # returns block location with whitespace
@@ -342,9 +342,8 @@ module RuboCop
           parent = send_node.parent
           return unless parent.block_type?
 
-          range_between(
-            send_node.loc.expression.end_pos,
-            parent.loc.expression.end_pos
+          send_node.loc.expression.end.with(
+            end_pos: parent.loc.expression.end_pos
           )
         end
       end

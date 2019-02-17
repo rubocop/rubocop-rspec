@@ -52,9 +52,7 @@ module RuboCop
         end
 
         def block_range(node)
-          block_start = node.loc.begin.begin_pos
-          block_end = node.loc.end.end_pos
-          range_between(block_start, block_end)
+          node.loc.begin.with(end_pos: node.loc.end.end_pos)
         end
 
         def generate_replacement(node)

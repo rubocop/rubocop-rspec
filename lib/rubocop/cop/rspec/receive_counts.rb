@@ -22,8 +22,6 @@ module RuboCop
       #     expect(foo).to receive(:bar).at_most(:twice).times
       #
       class ReceiveCounts < Cop
-        include RangeHelp
-
         MSG = 'Use `%<alternative>s` instead of `%<original>s`.'.freeze
 
         def_node_matcher :receive_counts, <<-PATTERN
@@ -78,9 +76,8 @@ module RuboCop
         end
 
         def range(node, offending_node)
-          range_between(
-            offending_node.loc.dot.begin_pos,
-            node.loc.expression.end_pos
+          offending_node.loc.dot.with(
+            end_pos: node.loc.expression.end_pos
           )
         end
       end

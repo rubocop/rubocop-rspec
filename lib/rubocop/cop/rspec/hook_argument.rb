@@ -59,7 +59,6 @@ module RuboCop
       #   end
       class HookArgument < Cop
         include ConfigurableEnforcedStyle
-        include RangeHelp
 
         IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
                        'argument for RSpec hooks.'.freeze
@@ -125,9 +124,8 @@ module RuboCop
         end
 
         def argument_range(send_node)
-          range_between(
-            send_node.loc.selector.end_pos,
-            send_node.loc.expression.end_pos
+          send_node.loc.selector.end.with(
+            end_pos: send_node.loc.expression.end_pos
           )
         end
       end
