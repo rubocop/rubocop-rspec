@@ -12,8 +12,6 @@ module RuboCop
       #     expect(foo).not_to receive(:bar)
       #
       class ReceiveNever < Cop
-        include RangeHelp
-
         MSG = 'Use `not_to receive` instead of `never`.'.freeze
 
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
@@ -30,10 +28,7 @@ module RuboCop
         def autocorrect(node)
           lambda do |corrector|
             corrector.replace(node.parent.loc.selector, 'not_to')
-            range = range_between(
-              node.loc.dot.begin_pos,
-              node.loc.selector.end_pos
-            )
+            range = node.loc.dot.with(end_pos: node.loc.selector.end_pos)
             corrector.remove(range)
           end
         end
