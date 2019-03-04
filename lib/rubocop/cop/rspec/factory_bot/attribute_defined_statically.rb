@@ -27,51 +27,17 @@ module RuboCop
         class AttributeDefinedStatically < Cop
           MSG = 'Use a block to declare attribute values.'.freeze
 
-          ATTRIBUTE_DEFINING_METHODS = %i[factory trait transient ignore].freeze
-
-          UNPROXIED_METHODS = %i[
-            __send__
-            __id__
-            nil?
-            send
-            object_id
-            extend
-            instance_eval
-            initialize
-            block_given?
-            raise
-            caller
-            method
-          ].freeze
-
-          DEFINITION_PROXY_METHODS = %i[
-            add_attribute
-            after
-            association
-            before
-            callback
-            ignore
-            initialize_with
-            sequence
-            skip_create
-            to_create
-          ].freeze
-
-          RESERVED_METHODS =
-            DEFINITION_PROXY_METHODS +
-            UNPROXIED_METHODS +
-            ATTRIBUTE_DEFINING_METHODS
-
           def_node_matcher :value_matcher, <<-PATTERN
-            (send {self nil?} !#reserved_method? $...)
+            (send _ !#reserved_method? $...)
           PATTERN
 
           def_node_search :factory_attributes, <<-PATTERN
-            (block (send nil? #attribute_defining_method? ...) _ { (begin $...) $(send ...) } )
+            (block (send _ #attribute_defining_method? ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
+              next unless offensive_receiver?(attribute.receiver, node)
               next if proc?(attribute) || association?(attribute)
 
               add_offense(attribute, location: :expression)
@@ -87,6 +53,20 @@ module RuboCop
           end
 
           private
+
+          def offensive_receiver?(receiver, node)
+            receiver.nil? ||
+              receiver.self_type? ||
+              receiver_matches_first_block_argument?(receiver, node)
+          end
+
+          def receiver_matches_first_block_argument?(receiver, node)
+            first_block_argument = node.arguments.first
+
+            !first_block_argument.nil? &&
+              receiver.lvar_type? &&
+              receiver.node_parts == first_block_argument.node_parts
+          end
 
           def proc?(attribute)
             value_matcher(attribute).to_a.all?(&:block_pass_type?)
@@ -134,11 +114,12 @@ module RuboCop
           end
 
           def reserved_method?(method_name)
-            RESERVED_METHODS.include?(method_name)
+            RuboCop::RSpec::FactoryBot.reserved_methods.include?(method_name)
           end
 
           def attribute_defining_method?(method_name)
-            ATTRIBUTE_DEFINING_METHODS.include?(method_name)
+            RuboCop::RSpec::FactoryBot.attribute_defining_methods
+              .include?(method_name)
           end
         end
       end

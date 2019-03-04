@@ -66,6 +66,21 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
     RUBY
   end
 
+  it 'registers an offense for attributes defined on explicit receiver' do
+    expect_offense(<<-RUBY)
+      FactoryBot.define do
+        factory :post do |post_definition|
+          post_definition.end Date.tomorrow
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          post_definition.trait :published do |published_definition|
+            published_definition.published_at 1.day.from_now
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          end
+        end
+      end
+    RUBY
+  end
+
   it 'accepts valid factory definitions' do
     expect_no_offenses(<<-RUBY)
       FactoryBot.define do
@@ -95,6 +110,27 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # 
       created_at 1.day.ago
       update_times [Time.current]
       meta_tags(foo: Time.current)
+    RUBY
+  end
+
+  it 'does not add offense if method called on another object' do
+    expect_no_offenses(<<-RUBY)
+      FactoryBot.define do
+        factory :post do |post_definition|
+          Registrar.register :post_factory
+        end
+      end
+    RUBY
+  end
+
+  it 'does not add offense if method called on a local variable' do
+    expect_no_offenses(<<-RUBY)
+      FactoryBot.define do
+        factory :post do |post_definition|
+          local = Registrar
+          local.register :post_factory
+        end
+      end
     RUBY
   end
 
