@@ -3,6 +3,7 @@ module RuboCop
     module RSpec
       # A helper for `inflected` style
       module InflectedHelper
+        include RuboCop::RSpec::Language
         extend NodePattern::Macros
 
         MSG_INFLECTED = 'Prefer using `%<matcher_name>s` matcher over ' \
@@ -25,7 +26,7 @@ module RuboCop
             (send nil? :expect {
               (block $(send !nil? #predicate? ...) ...)
               $(send !nil? #predicate? ...)})
-            ${:to :not_to :to_not}
+            $#{Runners::ALL.node_pattern_union}
             $#boolean_matcher?)
         PATTERN
 
@@ -123,6 +124,7 @@ module RuboCop
       # A helper for `explicit` style
       # rubocop:disable Metrics/ModuleLength
       module ExplicitHelper
+        include RuboCop::RSpec::Language
         extend NodePattern::Macros
 
         MSG_EXPLICIT = 'Prefer using `%<predicate_name>s` over ' \
@@ -160,7 +162,7 @@ module RuboCop
         def_node_matcher :predicate_matcher?, <<-PATTERN
           (send
             (send nil? :expect $!nil?)
-            {:to :not_to :to_not}
+            #{Runners::ALL.node_pattern_union}
             {$(send nil? #predicate_matcher_name? ...)
               (block $(send nil? #predicate_matcher_name? ...) ...)})
         PATTERN
@@ -169,7 +171,7 @@ module RuboCop
           (block
             (send
               (send nil? :expect $!nil?)
-              {:to :not_to :to_not}
+              #{Runners::ALL.node_pattern_union}
               $(send nil? #predicate_matcher_name?))
             ...)
         PATTERN
