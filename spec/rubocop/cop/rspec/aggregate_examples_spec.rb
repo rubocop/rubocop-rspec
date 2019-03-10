@@ -17,19 +17,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     include_examples 'autocorrect', bad_code_without_message, good_source
   end
 
-  shared_examples 'detects, but does not autocorrect' do |offensive_source|
-    it 'detects an offense in offensive source code code' do
-      expect_offense(offensive_source)
-    end
-
-    it 'does not autorcorrect source code' do
-      bad_code_without_message =
-        offensive_source.lines.delete_if { |line| line =~ /\A\s*\^/ }.join
-      expect(autocorrect_source(bad_code_without_message, 'spec/foo_spec.rb'))
-        .to eq(bad_code_without_message)
-    end
-  end
-
   shared_examples 'detects and autocorrects in example group' do |group|
     context "with '#{group}'" do
       context 'with `is_expected`' do
@@ -116,7 +103,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'with examples with non-expectation statements' do
@@ -267,7 +257,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'when all examples have names' do
@@ -279,7 +272,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'with hash metadata' do
@@ -370,7 +366,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'with mixed metadata' do
@@ -431,7 +430,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects, but does not autocorrect', offensive_source
+      it 'detects an offense, but does not correct it' do
+        expect_offense(offensive_source)
+        expect_no_corrections
+      end
     end
 
     context 'with `expect(something)`' do
@@ -443,7 +445,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects, but does not autocorrect', offensive_source
+      it 'detects an offense, but does not correct it' do
+        expect_offense(offensive_source)
+        expect_no_corrections
+      end
     end
 
     context 'with `not_to`' do
@@ -455,7 +460,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects, but does not autocorrect', offensive_source
+      it 'detects an offense, but does not correct it' do
+        expect_offense(offensive_source)
+        expect_no_corrections
+      end
     end
   end
 
@@ -506,7 +514,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'with HEREDOC interleaved with parenthesis and curly brace' do
@@ -521,7 +532,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects, but does not autocorrect', offensive_source
+    it 'detects an offense, but does not correct it' do
+      expect_offense(offensive_source)
+      expect_no_corrections
+    end
   end
 
   context 'with block expectation syntax' do
