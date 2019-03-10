@@ -3,20 +3,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   let(:cop_config) { {} }
 
-  shared_examples 'detects and autocorrects' do |offensive_source, good_source|
-    it 'does not detect an offense in good_source code' do
-      expect_no_offenses(good_source)
-    end
-
-    it 'detects an offense in offensive source code' do
-      expect_offense(offensive_source)
-    end
-
-    bad_code_without_message =
-      offensive_source.lines.delete_if { |line| line =~ /\A\s*\^/ }.join
-    include_examples 'autocorrect', bad_code_without_message, good_source
-  end
-
   shared_examples 'detects and autocorrects in example group' do |group|
     context "with '#{group}'" do
       context 'with `is_expected`' do
@@ -37,8 +23,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           end
         RUBY
 
-        it_behaves_like 'detects and autocorrects',
-                        offensive_source, good_source
+        it 'detects and autocorrects' do
+          expect_no_offenses(good_source)
+          expect_offense(offensive_source)
+          expect_correction(good_source)
+        end
       end
 
       context 'with `expect(something)`' do
@@ -59,8 +48,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           end
         RUBY
 
-        it_behaves_like 'detects and autocorrects',
-                        offensive_source, good_source
+        it 'detects and autocorrects' do
+          expect_no_offenses(good_source)
+          expect_offense(offensive_source)
+          expect_correction(good_source)
+        end
       end
     end
   end
@@ -91,7 +83,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with `its` with array syntax' do
@@ -154,7 +150,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with a following single expectation example' do
@@ -179,7 +179,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with an expectation with chaining matchers' do
@@ -206,7 +210,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with scattered aggregateable examples' do
@@ -245,7 +253,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with example name' do
@@ -305,7 +317,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with symbol metadata' do
@@ -330,7 +346,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with `aggregate_failures: false` in metadata' do
@@ -392,7 +412,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with validation actions with side effects' do
@@ -418,7 +442,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
+      end
     end
 
     context 'with `is_expected`' do
@@ -574,7 +602,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with helper method as subject' do
@@ -641,7 +673,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'when in root context' do
@@ -662,7 +698,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with several examples separated by newlines' do
@@ -684,7 +724,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'with scattered examples separated by newlines' do
@@ -709,7 +753,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     RUBY
 
-    it_behaves_like 'detects and autocorrects', offensive_source, good_source
+    it 'detects and autocorrects' do
+      expect_no_offenses(good_source)
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
   end
 
   context 'when AddAggregateFailuresMetadata is true' do
@@ -735,7 +783,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
+      end
     end
 
     context 'with hash metadata' do
@@ -756,7 +808,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
+      end
     end
 
     context 'with symbol metadata' do
@@ -777,7 +833,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
+      end
     end
 
     context 'with mixed metadata' do
@@ -798,7 +858,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it_behaves_like 'detects and autocorrects', offensive_source, good_source
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
+      end
     end
   end
 end
