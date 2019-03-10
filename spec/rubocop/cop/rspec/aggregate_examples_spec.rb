@@ -9,8 +9,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         offensive_source = <<-RUBY
           #{group} 'aggregations' do
             it { is_expected.to be_awesome }
-            it { is_expected.to be_cool }
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+            it { expect(subject).to be_amazing }
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+            it { expect(article).to be_brilliant }
           end
         RUBY
 
@@ -18,32 +19,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           #{group} 'aggregations' do
             specify do
               is_expected.to be_awesome
-              is_expected.to be_cool
-            end
-          end
-        RUBY
-
-        it 'detects and autocorrects' do
-          expect_no_offenses(good_source)
-          expect_offense(offensive_source)
-          expect_correction(good_source)
-        end
-      end
-
-      context 'with `expect(something)`' do
-        offensive_source = <<-RUBY
-          #{group} 'aggregations' do
-            it { expect(something).to be_awesome }
-            it { expect(something).to be_cool }
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-          end
-        RUBY
-
-        good_source = <<-RUBY
-          #{group} 'aggregations' do
-            specify do
-              expect(something).to be_awesome
-              expect(something).to be_cool
+              expect(subject).to be_amazing
+              expect(article).to be_brilliant
             end
           end
         RUBY
