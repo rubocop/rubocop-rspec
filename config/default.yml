@@ -11,7 +11,7 @@ AllCops:
     - features/support/factories/**/*.rb
 
 RSpec/AggregateExamples:
-  Description: Checks if example groups contain more than one aggregateable example.
+  Description: Checks if example groups contain two or more aggregateable examples.
   Enabled: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AggregateExamples
   AddAggregateFailuresMetadata: false

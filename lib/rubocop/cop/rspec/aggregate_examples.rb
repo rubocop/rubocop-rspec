@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if example groups contain more than one aggregateable example.
+      # Checks if example groups contain two or more aggregateable examples.
       #
       # @see https://github.com/rubocop-hq/rspec-style-guide#expectations-per-example
       #
@@ -46,7 +46,7 @@ module RuboCop
       #
       # 1. `subject { -> { ... } }` syntax being hard to detect, e.g. the
       #    following looks like an example with non-block syntax, but it might
-      #    be depending on how the subject is defined:
+      #    be, depending on how the subject is defined:
       #
       #        it { is_expected.to do_something }
       #
@@ -102,7 +102,7 @@ module RuboCop
       # To match the style being used in the spec suite, AggregateExamples
       # can be configured to add metadata to the example or not. The option
       # not to add metadata can be also used when it's not desired to make
-      # expectations after previously failed ones commonly known as fail-fast.
+      # expectations after previously failed ones, commonly known as fail-fast.
       #
       # @example AddAggregateFailuresMetadata: false (default)
       #
