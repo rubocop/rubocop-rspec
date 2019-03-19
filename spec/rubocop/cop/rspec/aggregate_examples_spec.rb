@@ -431,7 +431,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     end
 
-    context 'with `is_expected`' do
+    context 'with the default configuration' do
       offensive_source = <<-RUBY
         describe 'aggregations' do
           it { expect(entry).to validate_absence_of(:comment) }
@@ -446,7 +446,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
     end
 
-    context 'with `expect(something)`' do
+    context 'with mixed matchers' do
       offensive_source = <<-RUBY
         describe 'with and without side effects' do
           it { expect(fruit).to be_good }
@@ -456,44 +456,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
-      it 'detects an offense, but does not correct it' do
+      it 'detects an offense in offensive_source code' do
         expect_offense(offensive_source)
-        expect_no_corrections
       end
-    end
-
-    context 'with `not_to`' do
-      offensive_source = <<-RUBY
-        describe 'aggregations' do
-          it { is_expected.not_to validate_absence_of(:comment) }
-          it { is_expected.to_not validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
-        end
-      RUBY
-
-      it 'detects an offense, but does not correct it' do
-        expect_offense(offensive_source)
-        expect_no_corrections
-      end
-    end
-  end
-
-  context 'with validation actions with side effects' do
-    offensive_source = <<-RUBY
-      describe do
-        describe 'without side effects' do
-          it { is_expected.to be_good }
-          it { is_expected.to be_cheap }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-          context 'with side effects' do
-            it { is_expected.to validate_presence_of(:comment) }
-          end
-        end
-      end
-    RUBY
-
-    it 'detects an offense in offensive_source code' do
-      expect_offense(offensive_source)
     end
   end
 
