@@ -452,8 +452,19 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         end
       RUBY
 
+      good_source = <<-RUBY
+        describe 'with and without side effects' do
+          specify do
+            expect(fruit).to be_good
+            expect(fruit).to be_cheap
+          end
+          it { expect(fruit).to validate_presence_of(:color) }
+        end
+      RUBY
+
       it 'detects an offense in offensive_source code' do
         expect_offense(offensive_source)
+        expect_correction(good_source)
       end
     end
   end
