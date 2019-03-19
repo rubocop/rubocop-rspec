@@ -9,8 +9,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         #{group} 'aggregations' do
           it { is_expected.to be_awesome }
           it { expect(subject).to be_amazing }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
           it { expect(article).to be_brilliant }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 
@@ -43,8 +44,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe 'aggregations' do
         its(:one) { is_expected.to be(true) }
         it { is_expected.to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         its(:another) { is_expected.to be(nil) }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -70,7 +72,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe 'aggregations' do
         its([:one]) { is_expected.to be(true) }
         it { is_expected.to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -114,7 +116,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe do
         it { expect(candidate).to be_positive }
         specify do
-        ^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^ Aggregate with the example at line 2.
           expect(subject).to be_enthusiastic
           is_expected.to be_skilled
         end
@@ -146,7 +148,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           is_expected.to be_skilled
         end
         it { expect(candidate).to be_positive }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -176,7 +178,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
             .and be_hard_working
         end
         it { is_expected.to be_positive }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -207,12 +209,13 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           expect(bar).to be_foo
         end
         it { expect(work).to be_second }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         specify do
           bar
           expect(foo).to be_bar
         end
         it { expect(other).to be_third }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -246,7 +249,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe 'aggregations' do
         it('is awesome') { expect(drink).to be_awesome }
         it { expect(drink).to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -261,7 +264,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe 'aggregations' do
         it('is awesome') { expect(drink).to be_awesome }
         it('is cool') { expect(drink).to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -277,10 +280,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         it { expect(ambient_temperature).to be_mild }
         it(freeze: -30) { expect(ambient_temperature).to be_cold }
         it(aggregate_failures: true) { expect(ambient_temperature).to be_warm }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         it(freeze: -30, aggregate_failures: true) { expect(ambient_temperature).to be_chilly }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
         it(aggregate_failures: true, freeze: -30) { expect(ambient_temperature).to be_cool }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
       end
     RUBY
 
@@ -312,8 +316,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         it { expect(fruit).to be_so_so }
         it(:peach) { expect(fruit).to be_awesome }
         it(:peach, aggregate_failures: true) { expect(fruit).to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
         it(:peach, :aggregate_failures) { expect(fruit).to be_amazing }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
       end
     RUBY
 
@@ -364,7 +369,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         it { expect(dragonfruit).to be_so_so }
         it(:awesome) { expect(dragonfruit).to be_awesome }
         it('is ok', :awesome) { expect(dragonfruit).to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
       end
     RUBY
 
@@ -380,7 +385,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         it { expect(data).to be_ok }
         it(:model, isolation: :full) { expect(data).to be_isolated }
         it(:model, isolation: :full) { expect(data).to be_saved }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
       end
     RUBY
 
@@ -411,7 +416,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe 'aggregations' do
           it { expect(entry).to validate_absence_of(:comment) }
           it { expect(entry).to validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 
@@ -436,7 +441,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe 'aggregations' do
           it { expect(entry).to validate_absence_of(:comment) }
           it { expect(entry).to validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
       RUBY
 
@@ -451,8 +456,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe 'with and without side effects' do
           it { expect(fruit).to be_good }
           it { expect(fruit).to be_cheap }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
           it { expect(fruit).to validate_presence_of(:color) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
       RUBY
 
@@ -486,7 +492,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           TEXT
         end
         it { expect(text).to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -504,7 +510,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           But it's real!
         TEXT
         it { expect(text).to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -537,7 +543,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe do
         it { expect(division.result).to eq(5) }
         it { expect(division.modulo).to eq(3) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -600,7 +606,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       describe do
         it { expect(pressure).to be_ok }
         it { expect(pressure).to be_alright }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
 
         context do
           it { expect(pressure).to be_awful }
@@ -633,7 +639,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RSpec.describe do
         it { expect(person).to be_positive }
         it { expect(person).to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -659,7 +665,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         it { expect(person).to be_positive }
 
         it { expect(person).to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -686,7 +692,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
         it { expect { something }.to do_something }
         it { expect(person).to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -718,7 +724,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe do
           it { expect(life).to be_first }
           it { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 
@@ -743,7 +749,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe do
           it(allow: true) { expect(life).to be_first }
           it(allow: true) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 
@@ -768,7 +774,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe do
           it(:allow) { expect(life).to be_first }
           it(:allow) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 
@@ -793,7 +799,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         describe do
           it(:follow, allow: true) { expect(life).to be_first }
           it(:follow, allow: true) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         end
       RUBY
 

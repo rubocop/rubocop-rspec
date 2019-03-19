@@ -121,7 +121,7 @@ module RuboCop
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
         include RangeHelp
 
-        MSG = 'Aggregate with the example above.'.freeze
+        MSG = 'Aggregate with the example at line %d.'.freeze
         MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS =
           "#{MSG} IMPORTANT! Pay attention to the expectation order, some " \
           'of the matchers have side effects.'.freeze
@@ -129,8 +129,9 @@ module RuboCop
         def on_block(node)
           example_group_with_several_examples(node) do |all_examples|
             example_cluster(all_examples).each do |_, examples|
-              message = message_for(examples)
-              add_offense(examples[1], location: :expression, message: message)
+              examples[1..-1].each do |example|
+                add_offense(example, location: :expression, message: message_for(example, examples[0]))
+              end
             end
           end
         end
@@ -230,12 +231,13 @@ module RuboCop
                            "expect(subject.#{property})")
         end
 
-        def message_for(examples)
-          if examples.any? { |example| example_with_side_effects?(example) }
+        def message_for(example, first_example)
+          message = if example_with_side_effects?(example)
             MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS
           else
             MSG
           end
+          message % first_example.loc.line
         end
 
         def example_method?(method_name)
