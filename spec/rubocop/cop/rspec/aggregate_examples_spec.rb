@@ -26,7 +26,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
@@ -61,7 +60,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -134,7 +132,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -163,7 +160,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -194,7 +190,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -238,7 +233,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -303,7 +297,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -334,7 +327,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -400,7 +392,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -430,7 +421,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
@@ -557,7 +547,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -628,7 +617,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -653,7 +641,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -679,7 +666,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -708,7 +694,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     it 'detects and autocorrects' do
-      expect_no_offenses(good_source)
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
@@ -738,7 +723,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
@@ -763,7 +747,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
@@ -788,7 +771,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
@@ -813,7 +795,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       it 'detects and autocorrects' do
-        expect_no_offenses(good_source)
         expect_offense(offensive_source)
         expect_correction(good_source)
       end
