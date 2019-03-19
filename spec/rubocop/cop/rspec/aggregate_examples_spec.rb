@@ -5,31 +5,29 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   shared_examples 'detects and autocorrects in example group' do |group|
     context "with '#{group}'" do
-      context 'with `is_expected`' do
-        offensive_source = <<-RUBY
-          #{group} 'aggregations' do
-            it { is_expected.to be_awesome }
-            it { expect(subject).to be_amazing }
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-            it { expect(article).to be_brilliant }
-          end
-        RUBY
-
-        good_source = <<-RUBY
-          #{group} 'aggregations' do
-            specify do
-              is_expected.to be_awesome
-              expect(subject).to be_amazing
-              expect(article).to be_brilliant
-            end
-          end
-        RUBY
-
-        it 'detects and autocorrects' do
-          expect_no_offenses(good_source)
-          expect_offense(offensive_source)
-          expect_correction(good_source)
+      offensive_source = <<-RUBY
+        #{group} 'aggregations' do
+          it { is_expected.to be_awesome }
+          it { expect(subject).to be_amazing }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it { expect(article).to be_brilliant }
         end
+      RUBY
+
+      good_source = <<-RUBY
+        #{group} 'aggregations' do
+          specify do
+            is_expected.to be_awesome
+            expect(subject).to be_amazing
+            expect(article).to be_brilliant
+          end
+        end
+      RUBY
+
+      it 'detects and autocorrects' do
+        expect_no_offenses(good_source)
+        expect_offense(offensive_source)
+        expect_correction(good_source)
       end
     end
   end
@@ -82,36 +80,42 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Non-expectation statements can have side effects, when e.g. being
+  # part of the setup of the example.
+  # Examples containing expectations wrapped in a method call, e.g.
+  # `expect_no_corrections` are not considered aggregatable.
   context 'with examples with non-expectation statements' do
     it 'does not detect offenses' do
       expect_no_offenses(<<-RUBY)
         describe 'aggregations' do
           specify do
             something
-            is_expected.to be_cool
+            expect(book).to be_cool
           end
-          it { is_expected.to be_awesome }
+          it { expect(book).to be_awesome }
         end
       RUBY
       expect_no_offenses(<<-RUBY)
         describe 'aggregations' do
-          it { is_expected.to be_awesome }
+          it { expect(book).to be_awesome }
           specify do
             something
-            is_expected.to be_cool
+            expect(book).to be_cool
           end
         end
       RUBY
     end
   end
 
+  # Both one-line examples and examples spanning multiple lines can be
+  # aggregated, in case they consist only of expectation statements.
   context 'with a leading single expectation example' do
     offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_positive }
+        it { expect(candidate).to be_positive }
         specify do
         ^^^^^^^^^^ Aggregate with the example above.
-          is_expected.to be_enthusiastic
+          expect(subject).to be_enthusiastic
           is_expected.to be_skilled
         end
       end
@@ -120,8 +124,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     good_source = <<-RUBY
       describe do
         specify do
-          is_expected.to be_positive
-          is_expected.to be_enthusiastic
+          expect(candidate).to be_positive
+          expect(subject).to be_enthusiastic
           is_expected.to be_skilled
         end
       end
@@ -138,20 +142,20 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     offensive_source = <<-RUBY
       describe do
         specify do
-          is_expected.to be_enthusiastic
+          expect(subject).to be_enthusiastic
           is_expected.to be_skilled
         end
-        it { is_expected.to be_positive }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(candidate).to be_positive }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
     good_source = <<-RUBY
       describe do
         specify do
-          is_expected.to be_enthusiastic
+          expect(subject).to be_enthusiastic
           is_expected.to be_skilled
-          is_expected.to be_positive
+          expect(candidate).to be_positive
         end
       end
     RUBY
@@ -167,7 +171,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     offensive_source = <<-RUBY
       describe do
         specify do
-          is_expected
+          expect(candidate)
             .to be_enthusiastic
             .and be_hard_working
         end
@@ -179,7 +183,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     good_source = <<-RUBY
       describe do
         specify do
-          is_expected
+          expect(candidate)
             .to be_enthusiastic
             .and be_hard_working
           is_expected.to be_positive
@@ -197,35 +201,35 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with scattered aggregateable examples' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
-        it { is_expected.to be_first }
+        it { expect(life).to be_first }
         specify do
           foo
-          is_expected.to be_foo
+          expect(bar).to be_foo
         end
-        it { is_expected.to be_second }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(work).to be_second }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         specify do
           bar
-          is_expected.to be_bar
+          expect(foo).to be_bar
         end
-        it { is_expected.to be_third }
+        it { expect(other).to be_third }
       end
     RUBY
 
     good_source = <<-RUBY
       describe 'aggregations' do
         specify do
-          is_expected.to be_first
-          is_expected.to be_second
-          is_expected.to be_third
+          expect(life).to be_first
+          expect(work).to be_second
+          expect(other).to be_third
         end
         specify do
           foo
-          is_expected.to be_foo
+          expect(bar).to be_foo
         end
         specify do
           bar
-          is_expected.to be_bar
+          expect(foo).to be_bar
         end
       end
     RUBY
@@ -240,9 +244,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with example name' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
-        it('is valid') { is_expected.to be_awesome }
-        it { is_expected.to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it('is awesome') { expect(drink).to be_awesome }
+        it { expect(drink).to be_cool }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
@@ -255,9 +259,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'when all examples have names' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
-        it('is valid') { is_expected.to be_awesome }
-        it('is cool') { is_expected.to be_cool }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it('is awesome') { expect(drink).to be_awesome }
+        it('is cool') { expect(drink).to be_cool }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
@@ -270,26 +274,26 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with hash metadata' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
-        it { is_expected.to be_mild }
-        it(freeze: -30) { is_expected.to be_cold }
-        it(aggregate_failures: true) { is_expected.to be_warm }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-        it(freeze: -30, aggregate_failures: true) { is_expected.to be_chilly }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-        it(aggregate_failures: true, freeze: -30) { is_expected.to be_cool }
+        it { expect(ambient_temperature).to be_mild }
+        it(freeze: -30) { expect(ambient_temperature).to be_cold }
+        it(aggregate_failures: true) { expect(ambient_temperature).to be_warm }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it(freeze: -30, aggregate_failures: true) { expect(ambient_temperature).to be_chilly }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it(aggregate_failures: true, freeze: -30) { expect(ambient_temperature).to be_cool }
       end
     RUBY
 
     good_source = <<-RUBY
       describe 'aggregations' do
         specify do
-          is_expected.to be_mild
-          is_expected.to be_warm
+          expect(ambient_temperature).to be_mild
+          expect(ambient_temperature).to be_warm
         end
         specify(freeze: -30) do
-          is_expected.to be_cold
-          is_expected.to be_chilly
-          is_expected.to be_cool
+          expect(ambient_temperature).to be_cold
+          expect(ambient_temperature).to be_chilly
+          expect(ambient_temperature).to be_cool
         end
       end
     RUBY
@@ -301,24 +305,25 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Same as above
   context 'with symbol metadata' do
     offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_so_so }
-        it(:awesome) { is_expected.to be_awesome }
-        it(:awesome, aggregate_failures: true) { is_expected.to be_cool }
+        it { expect(fruit).to be_so_so }
+        it(:peach) { expect(fruit).to be_awesome }
+        it(:peach, aggregate_failures: true) { expect(fruit).to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
-        it(:awesome, :aggregate_failures) { is_expected.to be_amazing }
+        it(:peach, :aggregate_failures) { expect(fruit).to be_amazing }
       end
     RUBY
 
     good_source = <<-RUBY
       describe do
-        it { is_expected.to be_so_so }
-        specify(:awesome) do
-          is_expected.to be_awesome
-          is_expected.to be_cool
-          is_expected.to be_amazing
+        it { expect(fruit).to be_so_so }
+        specify(:peach) do
+          expect(fruit).to be_awesome
+          expect(fruit).to be_cool
+          expect(fruit).to be_amazing
         end
       end
     RUBY
@@ -333,9 +338,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with `aggregate_failures: false` in metadata' do
     fair_source = <<-RUBY
       describe do
-        it(:awesome) { is_expected.to be_awesome }
-        it(:awesome, aggregate_failures: false) { is_expected.to be_cool }
-        it(:awesome, aggregate_failures: false) { is_expected.to be_amazing }
+        it(:awesome) { expect(fruit).to be_awesome }
+        it(:awesome, aggregate_failures: false) { expect(fruit).to be_cool }
+        it(:awesome, aggregate_failures: false) { expect(fruit).to be_amazing }
       end
     RUBY
 
@@ -345,8 +350,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with mixed aggregate_failures in metadata' do
     fair_source = <<-RUBY
       describe do
-        it(:awesome, aggregate_failures: true) { is_expected.to be_cool }
-        it(:awesome, aggregate_failures: false) { is_expected.to be_amazing }
+        it(:awesome, aggregate_failures: true) { expect(fruit).to be_cool }
+        it(:awesome, aggregate_failures: false) { expect(fruit).to be_amazing }
       end
     RUBY
 
@@ -356,10 +361,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with metadata and title' do
     offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_so_so }
-        it(:awesome) { is_expected.to be_awesome }
-        it('is ok', :awesome) { is_expected.to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(dragonfruit).to be_so_so }
+        it(:awesome) { expect(dragonfruit).to be_awesome }
+        it('is ok', :awesome) { expect(dragonfruit).to be_ok }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
@@ -372,19 +377,19 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with mixed metadata' do
     offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_ok }
-        it(:model, isolation: :full) { is_expected.to be_isolated }
-        it(:model, isolation: :full) { is_expected.to be_save_model }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(data).to be_ok }
+        it(:model, isolation: :full) { expect(data).to be_isolated }
+        it(:model, isolation: :full) { expect(data).to be_saved }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
     good_source = <<-RUBY
       describe do
-        it { is_expected.to be_ok }
+        it { expect(data).to be_ok }
         specify(:model, isolation: :full) do
-          is_expected.to be_isolated
-          is_expected.to be_save_model
+          expect(data).to be_isolated
+          expect(data).to be_saved
         end
       end
     RUBY
@@ -396,25 +401,25 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
-  context 'with validation actions with side effects' do
-    context 'without configuration' do
+  context 'with matchers with side effects' do
+    context 'without no side effect matchers defined in configuration' do
       let(:cop_config) do
         { 'MatchersWithSideEffects' => [] }
       end
 
       offensive_source = <<-RUBY
         describe 'aggregations' do
-          it { is_expected.to validate_absence_of(:comment) }
-          it { is_expected.to validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it { expect(entry).to validate_absence_of(:comment) }
+          it { expect(entry).to validate_presence_of(:description) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         end
       RUBY
 
       good_source = <<-RUBY
         describe 'aggregations' do
           specify do
-            is_expected.to validate_absence_of(:comment)
-            is_expected.to validate_presence_of(:description)
+            expect(entry).to validate_absence_of(:comment)
+            expect(entry).to validate_presence_of(:description)
           end
         end
       RUBY
@@ -429,9 +434,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     context 'with `is_expected`' do
       offensive_source = <<-RUBY
         describe 'aggregations' do
-          it { is_expected.to validate_absence_of(:comment) }
-          it { is_expected.to validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          it { expect(entry).to validate_absence_of(:comment) }
+          it { expect(entry).to validate_presence_of(:description) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
       RUBY
 
@@ -443,10 +448,11 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
     context 'with `expect(something)`' do
       offensive_source = <<-RUBY
-        describe 'aggregations' do
-          it { expect(something).to validate_absence_of(:comment) }
-          it { expect(something).to validate_presence_of(:description) }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+        describe 'with and without side effects' do
+          it { expect(fruit).to be_good }
+          it { expect(fruit).to be_cheap }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          it { expect(fruit).to validate_presence_of(:color) }
         end
       RUBY
 
@@ -495,7 +501,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     fair_source = <<-RUBY
       describe 'aggregations' do
         [1, 2, 3].each do
-          it { is_expected.to be_mild }
+          it { expect(weather).to be_mild }
         end
       end
     RUBY
@@ -509,13 +515,13 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     offensive_source = <<-RUBY
       describe 'aggregations' do
         specify do
-          is_expected.to span_couple_lines <<-TEXT
+          expect(text).to span_couple_lines <<-TEXT
             Multiline text.
             Second line.
           TEXT
         end
-        it { is_expected.to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(text).to be_ok }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
@@ -528,12 +534,12 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with HEREDOC interleaved with parenthesis and curly brace' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
-        it { is_expected.to span_couple_lines(<<-TEXT) }
+        it { expect(text).to span_couple_lines(<<-TEXT) }
           I would be quite surprised to see this in the code.
           But it's real!
         TEXT
-        it { is_expected.to be_ok }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(text).to be_ok }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
@@ -607,14 +613,14 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with nested example groups' do
     fair_source = <<-RUBY
       describe do
-        it { is_expected.to be_ok }
+        it { expect(syntax_check).to be_ok }
 
         context do
-          it { is_expected.to be_ok }
+          it { expect(syntax_check).to be_ok }
         end
 
         context do
-          it { is_expected.to be_ok }
+          it { expect(syntax_check).to be_ok }
         end
       end
     RUBY
@@ -624,15 +630,15 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
-  context 'with aggregateable examples and nested example groups' do
+  context 'with aggregatable examples and nested example groups' do
     offensive_source = <<-RUBY
       describe do
-        it { is_expected.to be_ok }
-        it { is_expected.to be_alright }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(pressure).to be_ok }
+        it { expect(pressure).to be_alright }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
 
         context do
-          it { is_expected.to be_awful }
+          it { expect(pressure).to be_awful }
         end
       end
     RUBY
@@ -640,12 +646,12 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     good_source = <<-RUBY
       describe do
         specify do
-          is_expected.to be_ok
-          is_expected.to be_alright
+          expect(pressure).to be_ok
+          expect(pressure).to be_alright
         end
 
         context do
-          it { is_expected.to be_awful }
+          it { expect(pressure).to be_awful }
         end
       end
     RUBY
@@ -660,17 +666,17 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'when in root context' do
     offensive_source = <<-RUBY
       RSpec.describe do
-        it { is_expected.to be_positive }
-        it { is_expected.to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(person).to be_positive }
+        it { expect(person).to be_enthusiastic }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
     good_source = <<-RUBY
       RSpec.describe do
         specify do
-          is_expected.to be_positive
-          is_expected.to be_enthusiastic
+          expect(person).to be_positive
+          expect(person).to be_enthusiastic
         end
       end
     RUBY
@@ -685,18 +691,18 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with several examples separated by newlines' do
     offensive_source = <<-RUBY
       RSpec.describe do
-        it { is_expected.to be_positive }
+        it { expect(person).to be_positive }
 
-        it { is_expected.to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(person).to be_enthusiastic }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
     good_source = <<-RUBY
       RSpec.describe do
         specify do
-          is_expected.to be_positive
-          is_expected.to be_enthusiastic
+          expect(person).to be_positive
+          expect(person).to be_enthusiastic
         end
       end
     RUBY
@@ -711,19 +717,19 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with scattered examples separated by newlines' do
     offensive_source = <<-RUBY
       RSpec.describe do
-        it { is_expected.to be_positive }
+        it { expect(person).to be_positive }
 
         it { expect { something }.to do_something }
-        it { is_expected.to be_enthusiastic }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+        it { expect(person).to be_enthusiastic }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
       end
     RUBY
 
     good_source = <<-RUBY
       RSpec.describe do
         specify do
-          is_expected.to be_positive
-          is_expected.to be_enthusiastic
+          expect(person).to be_positive
+          expect(person).to be_enthusiastic
         end
 
         it { expect { something }.to do_something }
@@ -745,17 +751,17 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     context 'with no metadata on example' do
       offensive_source = <<-RUBY
         describe do
-          it { is_expected.to be_first }
-          it { is_expected.to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it { expect(life).to be_first }
+          it { expect(work).to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         end
       RUBY
 
       good_source = <<-RUBY
         describe do
           specify(:aggregate_failures) do
-            is_expected.to be_first
-            is_expected.to be_second
+            expect(life).to be_first
+            expect(work).to be_second
           end
         end
       RUBY
@@ -770,17 +776,17 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     context 'with hash metadata' do
       offensive_source = <<-RUBY
         describe do
-          it(allow: true) { is_expected.to be_first }
-          it(allow: true) { is_expected.to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it(allow: true) { expect(life).to be_first }
+          it(allow: true) { expect(work).to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         end
       RUBY
 
       good_source = <<-RUBY
         describe do
           specify(:aggregate_failures, allow: true) do
-            is_expected.to be_first
-            is_expected.to be_second
+            expect(life).to be_first
+            expect(work).to be_second
           end
         end
       RUBY
@@ -795,17 +801,17 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     context 'with symbol metadata' do
       offensive_source = <<-RUBY
         describe do
-          it(:allow) { is_expected.to be_first }
-          it(:allow) { is_expected.to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it(:allow) { expect(life).to be_first }
+          it(:allow) { expect(work).to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         end
       RUBY
 
       good_source = <<-RUBY
         describe do
           specify(:aggregate_failures, :allow) do
-            is_expected.to be_first
-            is_expected.to be_second
+            expect(life).to be_first
+            expect(work).to be_second
           end
         end
       RUBY
@@ -820,17 +826,17 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     context 'with mixed metadata' do
       offensive_source = <<-RUBY
         describe do
-          it(:follow, allow: true) { is_expected.to be_first }
-          it(:follow, allow: true) { is_expected.to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
+          it(:follow, allow: true) { expect(life).to be_first }
+          it(:follow, allow: true) { expect(work).to be_second }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example above.
         end
       RUBY
 
       good_source = <<-RUBY
         describe do
           specify(:aggregate_failures, :follow, allow: true) do
-            is_expected.to be_first
-            is_expected.to be_second
+            expect(life).to be_first
+            expect(work).to be_second
           end
         end
       RUBY
