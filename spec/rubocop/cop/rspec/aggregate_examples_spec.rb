@@ -32,12 +32,14 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Detects aggregatable examples inside all aliases of example groups.
   it_behaves_like 'detects and autocorrects in example group', :context
   it_behaves_like 'detects and autocorrects in example group', :describe
   it_behaves_like 'detects and autocorrects in example group', :feature
   it_behaves_like 'detects and autocorrects in example group',
                   :example_group
 
+  # Regular `its` call with an attribute/method name.
   context 'with `its`' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
@@ -195,7 +197,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
-  context 'with scattered aggregateable examples' do
+  # Not just consecutive examples can be aggregated.
+  context 'with scattered aggregatable examples' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
         it { expect(life).to be_first }
@@ -238,7 +241,10 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
-  context 'with example name' do
+  # With examples have docstrings, it is incorrect to aggregate them, since
+  # either docstring is lost, either needs to be joined with the others,
+  # which is an error-prone transformation.
+  context 'with example docstring' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
         it('is awesome') { expect(drink).to be_awesome }
@@ -270,7 +276,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   # Breaks examples into groups with similar metadata.
   # `aggregate_failures: true` is considered a helper metadata, and is
-  # removed when grouping.
+  # removed during aggregation.
   context 'with hash metadata' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
@@ -339,7 +345,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
-  context 'with metadata and title' do
+  context 'with metadata and docstring' do
     offensive_source = <<-RUBY
       describe do
         it { expect(dragonfruit).to be_so_so }
@@ -355,6 +361,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Examples with similar metadata of mixed kind are aggregated.
   context 'with mixed metadata' do
     offensive_source = <<-RUBY
       describe do
@@ -547,6 +554,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Helper methods have a good chance of having side effects, and are
+  # not aggregated.
   context 'with helper method as subject' do
     fair_source = <<-RUBY
       describe do
@@ -565,6 +574,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Examples from different contexts (examples groups) are not aggregated.
   context 'with nested example groups' do
     fair_source = <<-RUBY
       describe do
