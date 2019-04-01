@@ -268,6 +268,9 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Breaks examples into groups with similar metadata.
+  # `aggregate_failures: true` is considered a helper metadata, and is
+  # removed when grouping.
   context 'with hash metadata' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
@@ -279,6 +282,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
         it(aggregate_failures: true, freeze: -30) { expect(ambient_temperature).to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
+        it(aggregate_failures: false) { expect(ambient_temperature).to be_tolerable }
       end
     RUBY
 
@@ -293,6 +297,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           expect(ambient_temperature).to be_chilly
           expect(ambient_temperature).to be_cool
         end
+        it(aggregate_failures: false) { expect(ambient_temperature).to be_tolerable }
       end
     RUBY
 
@@ -312,6 +317,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
         it(:peach, :aggregate_failures) { expect(fruit).to be_amazing }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 3.
+        it(aggregate_failures: false) { expect(ambient_temperature).to be_tolerable }
       end
     RUBY
 
@@ -323,6 +329,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           expect(fruit).to be_cool
           expect(fruit).to be_amazing
         end
+        it(aggregate_failures: false) { expect(ambient_temperature).to be_tolerable }
       end
     RUBY
 
@@ -330,29 +337,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       expect_offense(offensive_source)
       expect_correction(good_source)
     end
-  end
-
-  context 'with `aggregate_failures: false` in metadata' do
-    fair_source = <<-RUBY
-      describe do
-        it(:awesome) { expect(fruit).to be_awesome }
-        it(:awesome, aggregate_failures: false) { expect(fruit).to be_cool }
-        it(:awesome, aggregate_failures: false) { expect(fruit).to be_amazing }
-      end
-    RUBY
-
-    it { expect_no_offenses(fair_source) }
-  end
-
-  context 'with mixed aggregate_failures in metadata' do
-    fair_source = <<-RUBY
-      describe do
-        it(:awesome, aggregate_failures: true) { expect(fruit).to be_cool }
-        it(:awesome, aggregate_failures: false) { expect(fruit).to be_amazing }
-      end
-    RUBY
-
-    it { expect_no_offenses(fair_source) }
   end
 
   context 'with metadata and title' do

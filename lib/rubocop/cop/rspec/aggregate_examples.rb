@@ -100,9 +100,15 @@ module RuboCop
       #   end
       #
       # To match the style being used in the spec suite, AggregateExamples
-      # can be configured to add metadata to the example or not. The option
-      # not to add metadata can be also used when it's not desired to make
-      # expectations after previously failed ones, commonly known as fail-fast.
+      # can be configured to add `:aggregate_failures` metadata to the
+      # example or not. The option not to add metadata can be also used
+      # when it's not desired to make expectations after previously failed
+      # ones, commonly known as fail-fast.
+      #
+      # The terms "aggregate examples" and "aggregate failures" not to be
+      # confused. The former stands for putting several expectations to
+      # a single example. The latter means to run all the expectations in
+      # the example instead of aborting on the first one.
       #
       # @example AddAggregateFailuresMetadata: false (default)
       #
@@ -113,6 +119,7 @@ module RuboCop
       #
       # @example AddAggregateFailuresMetadata: true
       #
+      #   # Metadata set using a symbol
       #   specify(:aggregate_failures) do
       #     expect(number).to be_positive
       #     expect(number).to be_odd
@@ -130,7 +137,9 @@ module RuboCop
           example_group_with_several_examples(node) do |all_examples|
             example_cluster(all_examples).each do |_, examples|
               examples[1..-1].each do |example|
-                add_offense(example, location: :expression, message: message_for(example, examples[0]))
+                add_offense(example,
+                            location: :expression,
+                            message: message_for(example, examples[0]))
               end
             end
           end
@@ -233,10 +242,10 @@ module RuboCop
 
         def message_for(example, first_example)
           message = if example_with_side_effects?(example)
-            MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS
-          else
-            MSG
-          end
+                      MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS
+                    else
+                      MSG
+                    end
           message % first_example.loc.line
         end
 
@@ -258,7 +267,6 @@ module RuboCop
 
           symbols = metadata_symbols_without_aggregate_failures(metadata)
           pairs = metadata_pairs_without_aggegate_failures(metadata)
-          symbols << Object.new if aggregate_failures_disabled(pairs)
 
           [*symbols, pairs].flatten.compact
         end
@@ -275,10 +283,6 @@ module RuboCop
           pairs.reject do |pair|
             pair.key.value == :aggregate_failures && pair.value.true_type?
           end
-        end
-
-        def aggregate_failures_disabled(pairs)
-          pairs.find { |pair| pair.key.value == :aggregate_failures }
         end
 
         # Matchers examples with:
