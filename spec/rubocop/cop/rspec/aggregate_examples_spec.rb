@@ -699,100 +699,33 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       { 'AddAggregateFailuresMetadata' => true }
     end
 
-    context 'with no metadata on example' do
-      offensive_source = <<-RUBY
-        describe do
-          it { expect(life).to be_first }
-          it { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
-        end
-      RUBY
-
-      good_source = <<-RUBY
-        describe do
-          specify(:aggregate_failures) do
-            expect(life).to be_first
-            expect(work).to be_second
-          end
-        end
-      RUBY
-
-      it 'detects and autocorrects' do
-        expect_offense(offensive_source)
-        expect_correction(good_source)
+    offensive_source = <<-RUBY
+      describe do
+        it { expect(life).to be_first }
+        it { expect(work).to be_second }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
+        it(:follow, allow: true) { expect(life).to be_first }
+        it(:follow, allow: true) { expect(work).to be_second }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 4.
       end
-    end
+    RUBY
 
-    context 'with hash metadata' do
-      offensive_source = <<-RUBY
-        describe do
-          it(allow: true) { expect(life).to be_first }
-          it(allow: true) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
+    good_source = <<-RUBY
+      describe do
+        specify(:aggregate_failures) do
+          expect(life).to be_first
+          expect(work).to be_second
         end
-      RUBY
-
-      good_source = <<-RUBY
-        describe do
-          specify(:aggregate_failures, allow: true) do
-            expect(life).to be_first
-            expect(work).to be_second
-          end
+        specify(:aggregate_failures, :follow, allow: true) do
+          expect(life).to be_first
+          expect(work).to be_second
         end
-      RUBY
-
-      it 'detects and autocorrects' do
-        expect_offense(offensive_source)
-        expect_correction(good_source)
       end
-    end
+    RUBY
 
-    context 'with symbol metadata' do
-      offensive_source = <<-RUBY
-        describe do
-          it(:allow) { expect(life).to be_first }
-          it(:allow) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
-        end
-      RUBY
-
-      good_source = <<-RUBY
-        describe do
-          specify(:aggregate_failures, :allow) do
-            expect(life).to be_first
-            expect(work).to be_second
-          end
-        end
-      RUBY
-
-      it 'detects and autocorrects' do
-        expect_offense(offensive_source)
-        expect_correction(good_source)
-      end
-    end
-
-    context 'with mixed metadata' do
-      offensive_source = <<-RUBY
-        describe do
-          it(:follow, allow: true) { expect(life).to be_first }
-          it(:follow, allow: true) { expect(work).to be_second }
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
-        end
-      RUBY
-
-      good_source = <<-RUBY
-        describe do
-          specify(:aggregate_failures, :follow, allow: true) do
-            expect(life).to be_first
-            expect(work).to be_second
-          end
-        end
-      RUBY
-
-      it 'detects and autocorrects' do
-        expect_offense(offensive_source)
-        expect_correction(good_source)
-      end
+    it 'detects and autocorrects' do
+      expect_offense(offensive_source)
+      expect_correction(good_source)
     end
   end
 end
