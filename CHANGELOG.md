@@ -4,6 +4,7 @@
 
 * Fixed `RSpec/ContextWording` missing `context`s with metadata. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` not working with an explicit receiver. ([@composerinteralia][])
+* Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
 
 ## 1.32.0 (2019-01-27)
 
