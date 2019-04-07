@@ -106,15 +106,6 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           it { expect(book).to be_awesome }
         end
       RUBY
-      expect_no_offenses(<<-RUBY)
-        describe 'aggregations' do
-          it { expect(book).to be_awesome }
-          specify do
-            something
-            expect(book).to be_cool
-          end
-        end
-      RUBY
     end
   end
 
