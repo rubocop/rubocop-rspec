@@ -70,6 +70,12 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # `its` with array argument is ambiguous, and depends on the type of the
+  # subject, and depending on in and on argument passed
+  # - one element: `subject[element]`
+  # - several elements and a Hash: `hash[element1][element2]...`
+  # - several elements and arbitrary type: `hash[element1, element2, ...]`
+  # It is impossible to infer the type to propose a proper correction.
   context 'with `its` with array syntax' do
     offensive_source = <<-RUBY
       describe 'aggregations' do
