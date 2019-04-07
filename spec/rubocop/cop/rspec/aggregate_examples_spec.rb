@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   shared_examples 'detects and autocorrects in example group' do |group|
     context "with '#{group}'" do
       offensive_source = <<-RUBY
-        #{group} 'aggregations' do
+        #{group} 'some docstring' do
           it { is_expected.to be_awesome }
           it { expect(subject).to be_amazing }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       good_source = <<-RUBY
-        #{group} 'aggregations' do
+        #{group} 'some docstring' do
           specify do
             is_expected.to be_awesome
             expect(subject).to be_amazing
@@ -43,7 +43,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   # expressed as a string with dots.
   context 'with `its`' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         its(:one) { is_expected.to be(true) }
         it { is_expected.to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     good_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         specify do
           expect(subject.one).to be(true)
           is_expected.to be_cool
@@ -104,7 +104,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   # It is impossible to infer the type to propose a proper correction.
   context 'with `its` with multiple element array syntax' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         its([:one, :two]) { is_expected.to be(true) }
         it { is_expected.to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -151,7 +151,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   context 'with examples with non-expectation statements' do
     it 'does not detect offenses' do
       expect_no_offenses(<<-RUBY)
-        describe 'aggregations' do
+        describe do
           specify do
             something
             expect(book).to be_cool
@@ -253,7 +253,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   # Not just consecutive examples can be aggregated.
   context 'with scattered aggregatable examples' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         it { expect(life).to be_first }
         specify do
           foo
@@ -271,7 +271,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     good_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         specify do
           expect(life).to be_first
           expect(work).to be_second
@@ -299,7 +299,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   # which is an error-prone transformation.
   context 'with example docstring' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         it('is awesome') { expect(drink).to be_awesome }
         it { expect(drink).to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -314,7 +314,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   context 'when all examples have names' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         it('is awesome') { expect(drink).to be_awesome }
         it('is cool') { expect(drink).to be_cool }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -332,7 +332,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
   # removed during aggregation.
   context 'with hash metadata' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         it { expect(ambient_temperature).to be_mild }
         it(freeze: -30) { expect(ambient_temperature).to be_cold }
         it(aggregate_failures: true) { expect(ambient_temperature).to be_warm }
@@ -346,7 +346,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     RUBY
 
     good_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         specify do
           expect(ambient_temperature).to be_mild
           expect(ambient_temperature).to be_warm
@@ -448,7 +448,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       end
 
       offensive_source = <<-RUBY
-        describe 'aggregations' do
+        describe do
           it { expect(entry).to validate_absence_of(:comment) }
           it { expect(entry).to validate_presence_of(:description) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
@@ -456,7 +456,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
       RUBY
 
       good_source = <<-RUBY
-        describe 'aggregations' do
+        describe do
           specify do
             expect(entry).to validate_absence_of(:comment)
             expect(entry).to validate_presence_of(:description)
@@ -472,7 +472,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
     context 'with the default configuration' do
       offensive_source = <<-RUBY
-        describe 'aggregations' do
+        describe do
           it { expect(entry).to validate_absence_of(:comment) }
           it { expect(entry).to validate_presence_of(:description) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
@@ -515,7 +515,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   context 'with examples defined in the loop' do
     fair_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         [1, 2, 3].each do
           it { expect(weather).to be_mild }
         end
@@ -529,7 +529,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   context 'with HEREDOC' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         specify do
           expect(text).to span_couple_lines <<-TEXT
             Multiline text.
@@ -549,7 +549,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
 
   context 'with HEREDOC interleaved with parenthesis and curly brace' do
     offensive_source = <<-RUBY
-      describe 'aggregations' do
+      describe do
         it { expect(text).to span_couple_lines(<<-TEXT) }
           I would be quite surprised to see this in the code.
           But it's real!
