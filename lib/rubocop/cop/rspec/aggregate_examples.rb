@@ -177,7 +177,7 @@ module RuboCop
           all_examples
             .select { |example| example_with_expectations_only?(example) }
             .group_by { |example| metadata_without_aggregate_failures(example) }
-            .reject { |_, examples| examples.count < 2 }
+            .select { |_, examples| examples.count > 1 }
         end
 
         def range_for_replace(examples)
