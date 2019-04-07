@@ -281,9 +281,9 @@ module RuboCop
 
         # Matchers examples with:
         # - expectation statements exclusively
-        # - no metadata (e.g. `freeze: :today`)
         # - no title (e.g. `it('jumps over the lazy dog')`)
         # - no matchers known to have side-effects
+        # - no HEREDOC
         def_node_matcher :example_for_autocorrect?, <<-PATTERN
           [
             #example_with_expectations_only?
