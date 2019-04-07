@@ -128,6 +128,10 @@ module RuboCop
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
         include RangeHelp
 
+        require_relative 'support/aggregate_examples/its'
+
+        prepend Its
+
         MSG = 'Aggregate with the example at line %d.'.freeze
         MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS =
           "#{MSG} IMPORTANT! Pay attention to the expectation order, some " \
@@ -220,31 +224,13 @@ module RuboCop
           corrector.remove(aggregated_range)
         end
 
-        # Extracts and transforms the body.
-        # `its(:something) { is_expected.to ... }` is a special case, since
-        # it's impossible to aggregate its body as is,
-        # it needs to be converted to `expect(subject.something).to ...`
-        # Additionally indents the example code properly.
+        # Extracts and transforms the body, keeping proper indentation.
         def transform_body(node, base_indent)
-          new_body = if node.method_name == :its
-                       transform_its(node.body, node.send_node.arguments)
-                     else
-                       node.body.source
-                     end
-          "#{base_indent}  #{new_body}"
+          "#{base_indent}  #{new_body(node)}"
         end
 
-        def transform_its(body, arguments)
-          argument = arguments.first
-          replacement = case argument.type
-                        when :array
-                          key = argument.values.first
-                          "expect(subject[#{key.source}])"
-                        else
-                          property = argument.value
-                          "expect(subject.#{property})"
-                        end
-          body.source.gsub(/is_expected|are_expected/, replacement)
+        def new_body(node)
+          node.body.source
         end
 
         def message_for(example, first_example)
@@ -276,13 +262,7 @@ module RuboCop
         end
 
         def example_metadata(example)
-          arguments = example.send_node.arguments
-          if example.send_node.method_name == :its
-            # First parameter to `its` is not metadata.
-            arguments[1..-1]
-          else
-            arguments
-          end
+          example.send_node.arguments
         end
 
         def metadata_symbols_without_aggregate_failures(metadata)
@@ -304,16 +284,10 @@ module RuboCop
         # - no metadata (e.g. `freeze: :today`)
         # - no title (e.g. `it('jumps over the lazy dog')`)
         # - no matchers known to have side-effects
-        # - no `its` with an multiple-element array argument due to
-        #   an ambiguity, when SUT can be a hash, and result will be defined
-        #   by calling `[]` on SUT subsequently, e.g. `subject[one][two]`,
-        #   or any other type of object implementing `[]`, and then all the
-        #   array arguments are passed to `[]`, e.g. `subject[one, two]`.
         def_node_matcher :example_for_autocorrect?, <<-PATTERN
           [
             #example_with_expectations_only?
             !#example_has_title?
-            !#its_with_multiple_element_array_argument?
             !#contains_heredoc?
             !#example_with_side_effects?
           ]
@@ -325,10 +299,6 @@ module RuboCop
             (send nil? #example_method? str ...)
             ...
           )
-        PATTERN
-
-        def_node_matcher :its_with_multiple_element_array_argument?, <<-PATTERN
-          (block (send nil? :its (array _ _ ...)) ...)
         PATTERN
 
         # Searches for HEREDOC in examples. It can be tricky to aggregate,
