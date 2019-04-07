@@ -117,6 +117,33 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
     end
   end
 
+  # Supports `its` with metadata.
+  context 'with `its` with metadata' do
+    offensive_source = <<-RUBY
+      describe do
+        its([:one], night_mode: true) { is_expected.to be(true) }
+        its(['two']) { is_expected.to be(false) }
+        its(:three, night_mode: true) { is_expected.to be(true) }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
+      end
+    RUBY
+
+    good_source = <<-RUBY
+      describe do
+        specify(night_mode: true) do
+          expect(subject[:one]).to be(true)
+          expect(subject.three).to be(true)
+        end
+        its(['two']) { is_expected.to be(false) }
+      end
+    RUBY
+
+    it 'detects and autocorrects' do
+      expect_offense(offensive_source)
+      expect_correction(good_source)
+    end
+  end
+
   # Non-expectation statements can have side effects, when e.g. being
   # part of the setup of the example.
   # Examples containing expectations wrapped in a method call, e.g.

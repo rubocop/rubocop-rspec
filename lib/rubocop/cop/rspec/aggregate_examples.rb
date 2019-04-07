@@ -267,15 +267,22 @@ module RuboCop
         PATTERN
 
         def metadata_without_aggregate_failures(example)
-          # Parameters to `its` are not metadata.
-          return [] if example.send_node.method_name == :its
-
-          metadata = example.send_node.arguments || []
+          metadata = example_metadata(example) || []
 
           symbols = metadata_symbols_without_aggregate_failures(metadata)
           pairs = metadata_pairs_without_aggegate_failures(metadata)
 
           [*symbols, pairs].flatten.compact
+        end
+
+        def example_metadata(example)
+          arguments = example.send_node.arguments
+          if example.send_node.method_name == :its
+            # First parameter to `its` is not metadata.
+            arguments[1..-1]
+          else
+            arguments
+          end
         end
 
         def metadata_symbols_without_aggregate_failures(metadata)
