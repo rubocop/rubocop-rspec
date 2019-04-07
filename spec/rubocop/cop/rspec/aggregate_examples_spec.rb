@@ -48,6 +48,8 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
         its(:another) { is_expected.to be(nil) }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
+        its(:historical_values) { are_expected.to be([true, true]) }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
       end
     RUBY
 
@@ -57,6 +59,7 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples, :config do
           expect(subject.one).to be(true)
           is_expected.to be_cool
           expect(subject.another).to be(nil)
+          expect(subject.historical_values).to be([true, true])
         end
       end
     RUBY

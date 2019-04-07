@@ -327,7 +327,7 @@ module RuboCop
 
         def_node_matcher :expectation?, <<-PATTERN
           {
-            (send nil? :is_expected)
+            (send nil? {:is_expected :are_expected})
             (send nil? :expect #subject_with_no_args?)
           }
         PATTERN
