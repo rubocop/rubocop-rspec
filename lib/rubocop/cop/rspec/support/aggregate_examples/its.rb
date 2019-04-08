@@ -4,6 +4,7 @@ module RuboCop
       class AggregateExamples
         # Support for regular `its` call with an attribute/method name,
         # or a chain of methods expressed as a string with dots.
+        #
         # @example `its`
         #
         #   its(:one) { is_expected.to be(true) }

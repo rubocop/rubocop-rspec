@@ -61,29 +61,6 @@ module RuboCop
       #    specific order.
       #
       #
-      # The examples containing matchers that leave subject in modified state
-      # will fail when not supposed to or come with a risk of not failing when
-      # expected to fail if aggregated. One example is
-      # `validate_presence_of :comment` as it leaves an empty comment after
-      # itself on the subject making it invalid and the subsequent expectation
-      # to fail. Examples with those matchers are not supposed to be aggregated.
-      #
-      # @example MatchersWithSideEffects
-      #
-      #   # .rubocop.yml
-      #   # RSpec/AggregateExamples:
-      #   #   MatchersWithSideEffects:
-      #   #   - allow_value
-      #   #   - allow_values
-      #   #   - validate_presence_of
-      #
-      #   # bad, but is not automatically correctable
-      #   describe do
-      #     it { is_expected.to validate_presence_of(:comment) }
-      #     it { is_expected.to be_valid }
-      #   end
-      #
-      #
       # RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
       # not to fail the example on first unmet expectation that might come
       # handy with aggregated examples.
@@ -129,13 +106,12 @@ module RuboCop
         include RangeHelp
 
         require_relative 'support/aggregate_examples/its'
+        require_relative 'support/aggregate_examples/matchers_with_side_effects'
 
         prepend Its
+        prepend MatchersWithSideEffects
 
         MSG = 'Aggregate with the example at line %d.'.freeze
-        MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS =
-          "#{MSG} IMPORTANT! Pay attention to the expectation order, some " \
-          'of the matchers have side effects.'.freeze
 
         def on_block(node)
           example_group_with_several_examples(node) do |all_examples|
@@ -233,13 +209,8 @@ module RuboCop
           node.body.source
         end
 
-        def message_for(example, first_example)
-          message = if example_with_side_effects?(example)
-                      MSG_FOR_EXPECTATIONS_WITH_SIDE_EFFECTS
-                    else
-                      MSG
-                    end
-          message % first_example.loc.line
+        def message_for(_example, first_example)
+          MSG % first_example.loc.line
         end
 
         def example_method?(method_name)
@@ -282,14 +253,12 @@ module RuboCop
         # Matchers examples with:
         # - expectation statements exclusively
         # - no title (e.g. `it('jumps over the lazy dog')`)
-        # - no matchers known to have side-effects
         # - no HEREDOC
         def_node_matcher :example_for_autocorrect?, <<-PATTERN
           [
             #example_with_expectations_only?
             !#example_has_title?
             !#contains_heredoc?
-            !#example_with_side_effects?
           ]
         PATTERN
 
@@ -316,30 +285,6 @@ module RuboCop
             (send nil? {:is_expected :are_expected})
             (send nil? :expect #subject_with_no_args?)
           }
-        PATTERN
-
-        def matcher_with_side_effects_names
-          cop_config.fetch('MatchersWithSideEffects', [])
-            .map(&:to_sym)
-        end
-
-        def matcher_with_side_effects_name?(matcher_name)
-          matcher_with_side_effects_names.include?(matcher_name)
-        end
-
-        # Matches the matcher with side effects
-        def_node_matcher :matcher_with_side_effects?, <<-PATTERN
-          (send nil? { #matcher_with_side_effects_name? } ...)
-        PATTERN
-
-        # Matches the expectation with matcher with side effects
-        def_node_matcher :expectation_with_side_effects?, <<-PATTERN
-          (send #expectation? #{Runners::ALL.node_pattern_union} #matcher_with_side_effects?)
-        PATTERN
-
-        # Matches the example with matcher with side effects
-        def_node_matcher :example_with_side_effects?, <<-PATTERN
-          (block #example_block? _ #expectation_with_side_effects?)
         PATTERN
 
         def all_expectations?(node)
