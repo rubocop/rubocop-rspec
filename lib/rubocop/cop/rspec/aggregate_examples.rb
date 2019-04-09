@@ -103,13 +103,15 @@ module RuboCop
       #   end
       #
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
-        include RangeHelp
-
         require_relative 'support/aggregate_examples/its'
+        require_relative 'support/aggregate_examples/line_range'
         require_relative 'support/aggregate_examples/matchers_with_side_effects'
+        require_relative 'support/aggregate_examples/metadata'
 
         prepend Its
+        include LineRange
         prepend MatchersWithSideEffects
+        include Metadata
 
         MSG = 'Aggregate with the example at line %d.'.freeze
 
@@ -156,18 +158,6 @@ module RuboCop
             .select { |_, examples| examples.count > 1 }
         end
 
-        def range_for_replace(examples)
-          range = range_by_whole_lines(examples.first.source_range,
-                                       include_final_newline: true)
-          next_range = range_by_whole_lines(examples[1].source_range)
-          range = range.resize(range.length + 1) if adjacent?(range, next_range)
-          range
-        end
-
-        def adjacent?(range, another_range)
-          range.end_pos + 1 == another_range.begin_pos
-        end
-
         def aggregated_example(examples, metadata)
           base_indent = ' ' * examples.first.source_range.column
           metadata = metadata_for_aggregated_example(metadata)
@@ -176,22 +166,6 @@ module RuboCop
             *examples.map { |example| transform_body(example, base_indent) },
             "#{base_indent}end\n"
           ].join("\n")
-        end
-
-        def metadata_for_aggregated_example(metadata)
-          metadata_to_add = metadata.compact.map(&:source)
-          if add_aggregate_failures_metadata?
-            metadata_to_add.unshift(':aggregate_failures')
-          end
-          if metadata_to_add.any?
-            "(#{metadata_to_add.join(', ')})"
-          else
-            ''
-          end
-        end
-
-        def add_aggregate_failures_metadata?
-          cop_config.fetch('AddAggregateFailuresMetadata', false)
         end
 
         def drop_example(corrector, example)
@@ -222,33 +196,6 @@ module RuboCop
             { #single_expectation? #all_expectations? }
           )
         PATTERN
-
-        def metadata_without_aggregate_failures(example)
-          metadata = example_metadata(example) || []
-
-          symbols = metadata_symbols_without_aggregate_failures(metadata)
-          pairs = metadata_pairs_without_aggegate_failures(metadata)
-
-          [*symbols, pairs].flatten.compact
-        end
-
-        def example_metadata(example)
-          example.send_node.arguments
-        end
-
-        def metadata_symbols_without_aggregate_failures(metadata)
-          metadata
-            .select(&:sym_type?)
-            .reject { |item| item.value == :aggregate_failures }
-        end
-
-        def metadata_pairs_without_aggegate_failures(metadata)
-          map = metadata.find(&:hash_type?)
-          pairs = map && map.pairs || []
-          pairs.reject do |pair|
-            pair.key.value == :aggregate_failures && pair.value.true_type?
-          end
-        end
 
         # Matches examples with:
         # - expectation statements exclusively
