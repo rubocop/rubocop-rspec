@@ -250,7 +250,7 @@ module RuboCop
           end
         end
 
-        # Matchers examples with:
+        # Matches examples with:
         # - expectation statements exclusively
         # - no title (e.g. `it('jumps over the lazy dog')`)
         # - no HEREDOC
@@ -297,13 +297,8 @@ module RuboCop
           (send #expectation? #{Runners::ALL.node_pattern_union} _)
         PATTERN
 
-        # Matches example block
         def_node_matcher :example_block?, <<-PATTERN
           (send nil? #{Examples::EXAMPLES.node_pattern_union} ...)
-        PATTERN
-
-        def_node_matcher :example_node?, <<-PATTERN
-          (block #example_block? ...)
         PATTERN
       end
     end
