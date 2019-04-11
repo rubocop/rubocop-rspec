@@ -192,7 +192,7 @@ module RuboCop
         end
 
         def_node_matcher :example_with_expectations_only?, <<-PATTERN
-          (block #example_block? _
+          (block #{Examples::EXAMPLES.send_pattern} _
             { #single_expectation? #all_expectations? }
           )
         PATTERN
@@ -242,10 +242,6 @@ module RuboCop
 
         def_node_matcher :single_expectation?, <<-PATTERN
           (send #expectation? #{Runners::ALL.node_pattern_union} _)
-        PATTERN
-
-        def_node_matcher :example_block?, <<-PATTERN
-          (send nil? #{Examples::EXAMPLES.node_pattern_union} ...)
         PATTERN
       end
     end

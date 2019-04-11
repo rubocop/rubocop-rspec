@@ -61,7 +61,7 @@ module RuboCop
 
           # Matches the example with matcher with side effects
           def_node_matcher :example_with_side_effects?, <<-PATTERN
-            (block #example_block? _ #expectation_with_side_effects?)
+            (block #{Examples::EXAMPLES.send_pattern} _ #expectation_with_side_effects?)
           PATTERN
 
           # Matches the expectation with matcher with side effects
