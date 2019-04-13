@@ -128,9 +128,7 @@ module RuboCop
         end
 
         def autocorrect(example_node)
-          examples_in_group = example_node.parent.each_child_node(:block)
-            .select { |example| example_for_autocorrect?(example) }
-          clusters = example_clusters(examples_in_group)
+          clusters = example_clusters_for_autocorrect(example_node)
           return if clusters.empty?
 
           lambda do |corrector|
@@ -158,6 +156,12 @@ module RuboCop
             .select { |example| example_with_expectations_only?(example) }
             .group_by { |example| metadata_without_aggregate_failures(example) }
             .select { |_, examples| examples.count > 1 }
+        end
+
+        def example_clusters_for_autocorrect(example_node)
+          examples_in_group = example_node.parent.each_child_node(:block)
+            .select { |example| example_for_autocorrect?(example) }
+          example_clusters(examples_in_group)
         end
 
         def aggregated_example(examples, metadata)
