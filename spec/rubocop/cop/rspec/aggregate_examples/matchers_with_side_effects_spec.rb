@@ -30,32 +30,41 @@ RSpec.describe RuboCop::Cop::RSpec::AggregateExamples,
     end
   end
 
-  context 'with the default configuration' do
+  context 'with default configuration' do
     let(:cop_config) { {} }
 
-    offensive_source = <<-RUBY
-      describe 'with and without side effects' do
-        it { expect(fruit).to be_good }
-        it { expect(fruit).to be_cheap }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2.
-        it { expect(fruit).to validate_presence_of(:color) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
-      end
-    RUBY
-
-    good_source = <<-RUBY
-      describe 'with and without side effects' do
-        specify do
-          expect(fruit).to be_good
-          expect(fruit).to be_cheap
+    context 'without qualifiers' do
+      offensive_source = <<-RUBY
+        describe 'with and without side effects' do
+          it { expect(fruit).to be_good }
+          it { expect(fruit).to validate_presence_of(:color) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
         end
-        it { expect(fruit).to validate_presence_of(:color) }
-      end
-    RUBY
+      RUBY
 
-    it 'detects an offense in offensive_source code' do
-      expect_offense(offensive_source)
-      expect_correction(good_source)
+      it 'detects an offense, but does not correct it' do
+        expect_offense(offensive_source)
+        expect_no_corrections
+      end
+    end
+
+    context 'with qualifiers' do
+      offensive_source = <<-RUBY
+        describe 'with and without side effects' do
+          it { expect(fruit).to be_good }
+          it { expect(fruit).to allow_value('green').for(:color) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          it { expect(fruit).to allow_value('green').for(:color).for(:type => :apple) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+          it { expect(fruit).to allow_value('green').for(:color).for(:type => :apple).during(:summer) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Aggregate with the example at line 2. IMPORTANT! Pay attention to the expectation order, some of the matchers have side effects.
+        end
+      RUBY
+
+      it 'detects an offense, but does not correct it' do
+        expect_offense(offensive_source)
+        expect_no_corrections
+      end
     end
   end
 end

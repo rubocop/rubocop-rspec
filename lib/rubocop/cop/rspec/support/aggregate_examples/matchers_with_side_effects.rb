@@ -70,8 +70,8 @@ module RuboCop
           PATTERN
 
           # Matches the matcher with side effects
-          def_node_matcher :matcher_with_side_effects?, <<-PATTERN
-            (send nil? { #matcher_with_side_effects_name? } ...)
+          def_node_search :matcher_with_side_effects?, <<-PATTERN
+            (send nil? #matcher_with_side_effects_name? ...)
           PATTERN
         end
       end
