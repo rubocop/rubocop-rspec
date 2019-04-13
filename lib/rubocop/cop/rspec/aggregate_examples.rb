@@ -117,7 +117,7 @@ module RuboCop
 
         def on_block(node)
           example_group_with_several_examples(node) do |all_examples|
-            example_cluster(all_examples).each do |_, examples|
+            example_clusters(all_examples).each do |_, examples|
               examples[1..-1].each do |example|
                 add_offense(example,
                             location: :expression,
@@ -130,9 +130,11 @@ module RuboCop
         def autocorrect(example_node)
           examples_in_group = example_node.parent.each_child_node(:block)
             .select { |example| example_for_autocorrect?(example) }
+          clusters = example_clusters(examples_in_group)
+          return if clusters.empty?
 
           lambda do |corrector|
-            example_cluster(examples_in_group).each do |metadata, examples|
+            clusters.each do |metadata, examples|
               range = range_for_replace(examples)
               replacement = aggregated_example(examples, metadata)
               corrector.replace(range, replacement)
@@ -151,7 +153,7 @@ module RuboCop
           )
         PATTERN
 
-        def example_cluster(all_examples)
+        def example_clusters(all_examples)
           all_examples
             .select { |example| example_with_expectations_only?(example) }
             .group_by { |example| metadata_without_aggregate_failures(example) }
