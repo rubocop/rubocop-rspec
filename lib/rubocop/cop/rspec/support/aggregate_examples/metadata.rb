@@ -1,7 +1,7 @@
 module RuboCop
   module Cop
     module RSpec
-      class AggregateExamples
+      class AggregateExamples < Cop
         # @internal
         #   Support methods for example metadata.
         #   Examples with similar metadata are grouped.

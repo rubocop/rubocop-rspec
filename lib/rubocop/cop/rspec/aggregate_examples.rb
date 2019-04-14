@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'support/aggregate_examples/its'
+require_relative 'support/aggregate_examples/line_range'
+require_relative 'support/aggregate_examples/matchers_with_side_effects'
+require_relative 'support/aggregate_examples/metadata'
+
 module RuboCop
   module Cop
     module RSpec
@@ -102,11 +107,6 @@ module RuboCop
       #   end
       #
       class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
-        require_relative 'support/aggregate_examples/its'
-        require_relative 'support/aggregate_examples/line_range'
-        require_relative 'support/aggregate_examples/matchers_with_side_effects'
-        require_relative 'support/aggregate_examples/metadata'
-
         prepend Its
         include LineRange
         prepend MatchersWithSideEffects
