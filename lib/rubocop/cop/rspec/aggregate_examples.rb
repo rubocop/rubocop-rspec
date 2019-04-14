@@ -4,6 +4,7 @@ require_relative 'support/aggregate_examples/its'
 require_relative 'support/aggregate_examples/line_range'
 require_relative 'support/aggregate_examples/matchers_with_side_effects'
 require_relative 'support/aggregate_examples/metadata'
+require_relative 'support/aggregate_examples/node_matchers'
 
 module RuboCop
   module Cop
@@ -106,11 +107,12 @@ module RuboCop
       #     expect(number).to be_odd
       #   end
       #
-      class AggregateExamples < Cop # rubocop:disable Metrics/ClassLength
+      class AggregateExamples < Cop
         prepend Its
         include LineRange
         prepend MatchersWithSideEffects
         include Metadata
+        include NodeMatchers
 
         MSG = 'Aggregate with the example at line %d.'.freeze
 
@@ -141,14 +143,6 @@ module RuboCop
         end
 
         private
-
-        def_node_matcher :example_group_with_several_examples, <<-PATTERN
-          (block
-            #{ExampleGroups::ALL.send_pattern}
-            _
-            (begin $...)
-          )
-        PATTERN
 
         def example_clusters(all_examples)
           all_examples
@@ -191,63 +185,6 @@ module RuboCop
         def message_for(_example, first_example)
           MSG % first_example.loc.line
         end
-
-        def example_method?(method_name)
-          %i[it specify example scenario].include?(method_name)
-        end
-
-        def_node_matcher :example_with_expectations_only?, <<-PATTERN
-          (block #{Examples::EXAMPLES.send_pattern} _
-            { #single_expectation? #all_expectations? }
-          )
-        PATTERN
-
-        # Matches examples with:
-        # - expectation statements exclusively
-        # - no title (e.g. `it('jumps over the lazy dog')`)
-        # - no HEREDOC
-        def_node_matcher :example_for_autocorrect?, <<-PATTERN
-          [
-            #example_with_expectations_only?
-            !#example_has_title?
-            !#contains_heredoc?
-          ]
-        PATTERN
-
-        # Matches the example with a title (e.g. `it('is valid')`)
-        def_node_matcher :example_has_title?, <<-PATTERN
-          (block
-            (send nil? #example_method? str ...)
-            ...
-          )
-        PATTERN
-
-        # Searches for HEREDOC in examples. It can be tricky to aggregate,
-        # especially when interleaved with parenthesis or curly braces.
-        def contains_heredoc?(node)
-          node.each_descendant(:str, :xstr, :dstr).any?(&:heredoc?)
-        end
-
-        def_node_matcher :subject_with_no_args?, <<-PATTERN
-          (send _ _)
-        PATTERN
-
-        def_node_matcher :expectation?, <<-PATTERN
-          {
-            (send nil? {:is_expected :are_expected})
-            (send nil? :expect #subject_with_no_args?)
-          }
-        PATTERN
-
-        def all_expectations?(node)
-          return unless node && node.begin_type?
-
-          node.children.all? { |statement| single_expectation?(statement) }
-        end
-
-        def_node_matcher :single_expectation?, <<-PATTERN
-          (send #expectation? #{Runners::ALL.node_pattern_union} _)
-        PATTERN
       end
     end
   end
