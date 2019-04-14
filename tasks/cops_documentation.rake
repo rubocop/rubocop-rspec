@@ -170,24 +170,66 @@ task generate_cops_documentation: :yard_for_generate_documentation do
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   def print_cop_with_doc(cop, config)
     t = config.for_cop(cop)
     non_display_keys = %w[Description Enabled StyleGuide Reference]
     pars = t.reject { |k| non_display_keys.include? k }
-    description = 'No documentation'
-    examples_object = []
-    YARD::Registry.all(:class).detect do |code_object|
-      next unless RuboCop::Cop::Badge.for(code_object.to_s) == cop.badge
-
-      description = code_object.docstring unless code_object.docstring.blank?
-      examples_object = code_object.tags('example')
-    end
-    cops_body(config, cop, description, examples_object, pars)
+    descriptions, examples_objects = cop_description_and_examples(cop)
+    description = composite_cop_description(descriptions)
+    cops_body(config, cop, description, examples_objects, pars)
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
+
+  def cop_description_and_examples(cop)
+    descriptions = []
+    examples_objects = []
+    class_and_modules_objects(cop).each do |code_object|
+      descriptions << code_object.docstring unless code_object.docstring.blank?
+      examples_objects += code_object.tags('example')
+    end
+    [descriptions, examples_objects]
+  end
+
+  # Collects documentation from cop classes and modules in cop class namespace.
+  def class_and_modules_objects(cop)
+    Array(cop_class_object(cop)) + Array(cop_module_objects(cop))
+  end
+
+  def cop_class_object(cop)
+    YARD::Registry.all(:class).detect do |code_object|
+      RuboCop::Cop::Badge.for(code_object.to_s) == cop.badge
+    end
+  end
+
+  def cop_module_objects(cop)
+    YARD::Registry.all(:module).select do |code_object|
+      next if unable_to_infer_cop_badge?(code_object)
+
+      RuboCop::Cop::Badge.for(code_object.parent.to_s) == cop.badge
+    end
+  end
+
+  # @example
+  #  code_object # => #<yardoc module RuboCop>
+  #  unable_to_infer_cop_badge?(code_object) # => true
+  # @example
+  #  code_object # => #<yardoc module RuboCop::Cop>
+  #  unable_to_infer_cop_badge?(code_object) # => true
+  # @example
+  #  code_object # => #<yardoc module RuboCop::Cop::RSpec::Focus::Focusable>
+  #  unable_to_infer_cop_badge?(code_object) # => false
+  def unable_to_infer_cop_badge?(code_object)
+    code_object.root? ||
+      code_object.parent.root? ||
+      code_object.parent.parent.root?
+  end
+
+  def composite_cop_description(descriptions)
+    if descriptions.empty?
+      'No documentation'
+    else
+      descriptions.join("\n")
+    end
+  end
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
