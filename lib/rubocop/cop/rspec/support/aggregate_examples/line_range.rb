@@ -6,6 +6,8 @@ module RuboCop
         module LineRange
           include RangeHelp
 
+          private
+
           def range_for_replace(examples)
             range = range_by_whole_lines(examples.first.source_range,
                                          include_final_newline: true)

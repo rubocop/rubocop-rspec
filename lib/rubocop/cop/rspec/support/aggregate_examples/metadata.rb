@@ -9,6 +9,8 @@ module RuboCop
         #   Depending on the configuration, `aggregate_failures` metadata
         #   is added to aggregated examples.
         module Metadata
+          private
+
           def metadata_for_aggregated_example(metadata)
             metadata_to_add = metadata.compact.map(&:source)
             if add_aggregate_failures_metadata?
