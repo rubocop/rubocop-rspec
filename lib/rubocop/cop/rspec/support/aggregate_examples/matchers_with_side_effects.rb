@@ -2,9 +2,6 @@ module RuboCop
   module Cop
     module RSpec
       class AggregateExamples
-        # Support for taking special care of the matchers that have side
-        # effects, i.e. leave the subject in a modified stte.
-        #
         # When aggregated, the expectations will fail when not supposed to or
         # have a risk of not failing when expected to. One example is
         # `validate_presence_of :comment` as it leaves an empty comment after
@@ -27,6 +24,9 @@ module RuboCop
         #     it { is_expected.to be_valid }
         #   end
         #
+        # @internal
+        #   Support for taking special care of the matchers that have side
+        #   effects, i.e. leave the subject in a modified stte.
         module MatchersWithSideEffects
           extend RuboCop::NodePattern::Macros
           include RuboCop::RSpec::Language

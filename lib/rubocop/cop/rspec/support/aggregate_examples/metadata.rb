@@ -2,11 +2,12 @@ module RuboCop
   module Cop
     module RSpec
       class AggregateExamples
-        # Support methods for example metadata.
-        # Examples with similar metadata are grouped.
+        # @internal
+        #   Support methods for example metadata.
+        #   Examples with similar metadata are grouped.
         #
-        # Depending on the configuration, `aggregate_failures` metadata
-        # is added to aggregated examples.
+        #   Depending on the configuration, `aggregate_failures` metadata
+        #   is added to aggregated examples.
         module Metadata
           def metadata_for_aggregated_example(metadata)
             metadata_to_add = metadata.compact.map(&:source)

@@ -6,7 +6,7 @@ Enabled by default | Supports autocorrection
 --- | ---
 Disabled | Yes
 
-Checks if example groups contain more than one aggregateable example.
+Checks if example groups contain two or more aggregatable examples.
 
 This cop is primarily for reducing the cost of repeated expensive
 context initialization.
@@ -15,7 +15,7 @@ Block expectation syntax is deliberately not supported due to:
 
 1. `subject { -> { ... } }` syntax being hard to detect, e.g. the
    following looks like an example with non-block syntax, but it might
-   be depending on how the subject is defined:
+   be, depending on how the subject is defined:
 
        it { is_expected.to do_something }
 
@@ -29,14 +29,6 @@ Block expectation syntax is deliberately not supported due to:
 3. Aggregation of block syntax with non-block syntax should be in a
    specific order.
 
-
-The examples containing matchers that leave subject in modified state
-will fail when not supposed to or come with a risk of not failing when
-expected to fail if aggregated. One example is
-`validate_presence_of :comment` as it leaves an empty comment after
-itself on the subject making it invalid and the subsequent expectation
-to fail. Examples with those matchers are not supposed to be aggregated.
-
 RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
 not to fail the example on first unmet expectation that might come
 handy with aggregated examples.
@@ -44,9 +36,22 @@ It can be [used in metadata form](https://relishapp.com/rspec/rspec-core/docs/ex
 or [enabled globally](https://relishapp.com/rspec/rspec-core/docs/expectation-framework-integration/aggregating-failures#enable-failure-aggregation-globally-using-%60define-derived-metadata%60).
 
 To match the style being used in the spec suite, AggregateExamples
-can be configured to add metadata to the example or not. The option
-not to add metadata can be also used when it's not desired to make
-expectations after previously failed ones commonly known as fail-fast.
+can be configured to add `:aggregate_failures` metadata to the
+example or not. The option not to add metadata can be also used
+when it's not desired to make expectations after previously failed
+ones, commonly known as fail-fast.
+
+The terms "aggregate examples" and "aggregate failures" not to be
+confused. The former stands for putting several expectations to
+a single example. The latter means to run all the expectations in
+the example instead of aborting on the first one.
+
+When aggregated, the expectations will fail when not supposed to or
+have a risk of not failing when expected to. One example is
+`validate_presence_of :comment` as it leaves an empty comment after
+itself on the subject making it invalid and the subsequent expectation
+to fail.
+Examples with those matchers are not supposed to be aggregated.
 
 ### Examples
 
@@ -81,22 +86,6 @@ describe do
   end
 end
 ```
-#### MatchersWithSideEffects
-
-```ruby
-# .rubocop.yml
-# RSpec/AggregateExamples:
-#   MatchersWithSideEffects:
-#   - allow_value
-#   - allow_values
-#   - validate_presence_of
-
-# bad, but is not automatically correctable
-describe do
-  it { is_expected.to validate_presence_of(:comment) }
-  it { is_expected.to be_valid }
-end
-```
 #### Globally enable `aggregate_failures`
 
 ```ruby
@@ -118,9 +107,60 @@ end
 #### AddAggregateFailuresMetadata: true
 
 ```ruby
+# Metadata set using a symbol
 specify(:aggregate_failures) do
   expect(number).to be_positive
   expect(number).to be_odd
+end
+```
+#### `its`
+
+```ruby
+# Supports regular `its` call with an attribute/method name,
+# or a chain of methods expressed as a string with dots.
+
+its(:one) { is_expected.to be(true) }
+its('two') { is_expected.to be(false) }
+its('phone_numbers.size') { is_expected.to be 2 }
+```
+#### `its` with single-element array argument
+
+```ruby
+# Also supports single-element array argument.
+
+its(['headers']) { is_expected.to include(encoding: 'text') }
+```
+#### `its` with multi-element array argument is ambiguous
+
+```ruby
+# Does not support `its` with multi-element array argument is
+# ambiguous, and depends on the type of the subject, and depending
+# on in and on argument passed:
+# - a Hash: `hash[element1][element2]...`
+# - and arbitrary type: `hash[element1, element2, ...]`
+# It is impossible to infer the type to propose a proper correction.
+
+its(['ambiguous', 'elements']) { ... }
+```
+#### `its` with metadata
+
+```ruby
+its('header', html: true) { is_expected.to include(text: 'hello') }
+```
+#### MatchersWithSideEffects
+
+```ruby
+# .rubocop.yml
+# RSpec/AggregateExamples:
+#   MatchersWithSideEffects:
+#   - allow_value
+#   - allow_values
+#   - validate_presence_of
+
+# bad, but isn't automatically correctable
+describe do
+  it { is_expected.to validate_presence_of(:comment) }
+  it { is_expected.to be_valid }
 end
 ```
 

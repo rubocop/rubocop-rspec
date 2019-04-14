@@ -2,7 +2,7 @@ module RuboCop
   module Cop
     module RSpec
       class AggregateExamples
-        # Support methods for keeping newlines around examples.
+        # @internal Support methods for keeping newlines around examples.
         module LineRange
           include RangeHelp
 

@@ -2,32 +2,36 @@ module RuboCop
   module Cop
     module RSpec
       class AggregateExamples
-        # Support for regular `its` call with an attribute/method name,
-        # or a chain of methods expressed as a string with dots.
-        #
         # @example `its`
+        #
+        #   # Supports regular `its` call with an attribute/method name,
+        #   # or a chain of methods expressed as a string with dots.
         #
         #   its(:one) { is_expected.to be(true) }
         #   its('two') { is_expected.to be(false) }
         #   its('phone_numbers.size') { is_expected.to be 2 }
         #
-        # Also supports single-element array argument.
         # @example `its` with single-element array argument
+        #
+        #   # Also supports single-element array argument.
         #
         #   its(['headers']) { is_expected.to include(encoding: 'text') }
         #
-        # Does not support `its` with multi-element array argument is ambiguous,
-        # and depends on the type of the subject, and depending on in and on
-        # argument passed:
-        # - a Hash: `hash[element1][element2]...`
-        # - and arbitrary type: `hash[element1, element2, ...]`
-        # It is impossible to infer the type to propose a proper correction.
-        #
         # @example `its` with multi-element array argument is ambiguous
+        #
+        #   # Does not support `its` with multi-element array argument is
+        #   # ambiguous, and depends on the type of the subject, and depending
+        #   # on in and on argument passed:
+        #   # - a Hash: `hash[element1][element2]...`
+        #   # - and arbitrary type: `hash[element1, element2, ...]`
+        #   # It is impossible to infer the type to propose a proper correction.
         #
         #   its(['ambiguous', 'elements']) { ... }
         #
-        # Supports `its` with metadata.
+        # @example `its` with metadata
+        #
+        #   its('header', html: true) { is_expected.to include(text: 'hello') }
+        #
         module Its
           extend RuboCop::NodePattern::Macros
 

@@ -60,7 +60,6 @@ module RuboCop
       # 3. Aggregation of block syntax with non-block syntax should be in a
       #    specific order.
       #
-      #
       # RSpec [comes with an `aggregate_failures` helper](https://relishapp.com/rspec/rspec-expectations/docs/aggregating-failures)
       # not to fail the example on first unmet expectation that might come
       # handy with aggregated examples.
