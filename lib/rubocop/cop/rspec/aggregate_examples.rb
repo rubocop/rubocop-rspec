@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if example groups contain two or more aggregateable examples.
+      # Checks if example groups contain two or more aggregatable examples.
       #
       # @see https://github.com/rubocop-hq/rspec-style-guide#expectations-per-example
       #
