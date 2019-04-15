@@ -146,6 +146,8 @@ module RuboCop
 
         private
 
+        # Clusters of examples in the same example group, on the same nesting
+        # level that can be aggregated.
         def example_clusters(all_examples)
           all_examples
             .select { |example| example_with_expectations_only?(example) }
@@ -153,6 +155,8 @@ module RuboCop
             .select { |_, examples| examples.count > 1 }
         end
 
+        # Clusters of examples that can be aggregated without losing any
+        # information (e.g. metadata or docstrings)
         def example_clusters_for_autocorrect(example_node)
           examples_in_group = example_node.parent.each_child_node(:block)
             .select { |example| example_for_autocorrect?(example) }
