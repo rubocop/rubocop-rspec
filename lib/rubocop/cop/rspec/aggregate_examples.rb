@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'support/aggregate_examples/aggregation'
 require_relative 'support/aggregate_examples/its'
 require_relative 'support/aggregate_examples/line_range'
 require_relative 'support/aggregate_examples/matchers_with_side_effects'
@@ -108,6 +109,7 @@ module RuboCop
       #   end
       #
       class AggregateExamples < Cop
+        include Aggregation
         prepend Its
         include LineRange
         prepend MatchersWithSideEffects
@@ -155,31 +157,6 @@ module RuboCop
           examples_in_group = example_node.parent.each_child_node(:block)
             .select { |example| example_for_autocorrect?(example) }
           example_clusters(examples_in_group)
-        end
-
-        def aggregated_example(examples, metadata)
-          base_indent = ' ' * examples.first.source_range.column
-          metadata = metadata_for_aggregated_example(metadata)
-          [
-            "#{base_indent}specify#{metadata} do",
-            *examples.map { |example| transform_body(example, base_indent) },
-            "#{base_indent}end\n"
-          ].join("\n")
-        end
-
-        def drop_example(corrector, example)
-          aggregated_range = range_by_whole_lines(example.source_range,
-                                                  include_final_newline: true)
-          corrector.remove(aggregated_range)
-        end
-
-        # Extracts and transforms the body, keeping proper indentation.
-        def transform_body(node, base_indent)
-          "#{base_indent}  #{new_body(node)}"
-        end
-
-        def new_body(node)
-          node.body.source
         end
 
         def message_for(_example, first_example)
