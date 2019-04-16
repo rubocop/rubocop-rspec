@@ -133,9 +133,8 @@ its(['headers']) { is_expected.to include(encoding: 'text') }
 #### `its` with multi-element array argument is ambiguous
 
 ```ruby
-# Does not support `its` with multi-element array argument is
-# ambiguous, and depends on the type of the subject, and depending
-# on in and on argument passed:
+# Does not support `its` with multi-element array argument due to
+# an ambiguity. Transformation depends on the type of the subject:
 # - a Hash: `hash[element1][element2]...`
 # - and arbitrary type: `hash[element1, element2, ...]`
 # It is impossible to infer the type to propose a proper correction.
