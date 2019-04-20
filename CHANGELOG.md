@@ -4,6 +4,7 @@
 
 * Fixed `RSpec/ContextWording` missing `context`s with metadata. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` not working with an explicit receiver. ([@composerinteralia][])
+* Add `RSpec/Dialect` enforces custom RSpec dialects. ([@gsamokovarov][])
 
 ## 1.32.0 (2019-01-27)
 
@@ -410,3 +411,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@RST-J]: https://github.com/RST-J
 [@ypresto]: https://github.com/ypresto
 [@mkenyon]: https://github.com/mkenyon
+[@gsamokovarov]: https://github.com/gsamokovarov
