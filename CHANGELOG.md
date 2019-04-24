@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Let `RSpec/DescribedClass` pass `Struct` instantiation closures. ([@schmijos][])
 * Fixed `RSpec/ContextWording` missing `context`s with metadata. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` not working with an explicit receiver. ([@composerinteralia][])
 * Add `RSpec/Dialect` enforces custom RSpec dialects. ([@gsamokovarov][])
@@ -412,3 +413,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ypresto]: https://github.com/ypresto
 [@mkenyon]: https://github.com/mkenyon
 [@gsamokovarov]: https://github.com/gsamokovarov
+[@schmijos]: https://github.com/schmijos
