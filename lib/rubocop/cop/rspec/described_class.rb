@@ -40,7 +40,7 @@ module RuboCop
         MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'.freeze
 
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
-          (block (send (const nil? {:Class :Module}) :new ...) ...)
+          (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
         PATTERN
 
         def_node_matcher :rspec_block?,

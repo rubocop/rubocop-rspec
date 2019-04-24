@@ -112,6 +112,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         describe MyClass do
           Class.new  { foo = MyClass }
           Module.new { bar = MyClass }
+          Struct.new { lol = MyClass }
 
           def method
             include MyClass
@@ -121,7 +122,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
             include MyClass
           end
 
-          module MyModle
+          module MyModule
             include MyClass
           end
         end
