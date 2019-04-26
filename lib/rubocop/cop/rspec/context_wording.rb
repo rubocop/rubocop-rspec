@@ -8,9 +8,10 @@ module RuboCop
       # @see https://github.com/reachlocal/rspec-style-guide#context-descriptions
       # @see http://www.betterspecs.org/#contexts
       #
-      # @example `Prefixes` configuration option, defaults: 'when', 'with', and
-      # 'without'
+      # @example `Prefixes` configuration option, defaults: 'for', 'when',
+      # 'with', 'without', and 'if'
       #   Prefixes:
+      #     - for
       #     - when
       #     - with
       #     - without

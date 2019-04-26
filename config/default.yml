@@ -53,6 +53,8 @@ RSpec/ContextWording:
   Description: "`context` block descriptions should start with 'when', or 'with'."
   Enabled: true
   Prefixes:
+  - for
+  - if
   - when
   - with
   - without

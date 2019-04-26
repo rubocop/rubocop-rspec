@@ -241,8 +241,9 @@ Enabled | No
 
 `context` block descriptions should start with 'when', or 'with'.
 
-'without'
+'with', 'without', and 'if'
   Prefixes:
+    - for
     - when
     - with
     - without
@@ -250,7 +251,7 @@ Enabled | No
 
 ### Examples
 
-#### `Prefixes` configuration option, defaults: 'when', 'with', and
+#### `Prefixes` configuration option, defaults: 'for', 'when',
 
 ```ruby
 
@@ -271,7 +272,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
-Prefixes | `when`, `with`, `without` | Array
+Prefixes | `for`, `if`, `when`, `with`, `without` | Array
 
 ### References
 
