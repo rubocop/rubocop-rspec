@@ -34,6 +34,8 @@ module RuboCop
       #     This is enough of an edge case that people can just move this to
       #     a `before` hook on their own
       class MultipleSubjects < Cop
+        include RangeHelp
+
         MSG = 'Do not set more than one subject per example group'.freeze
 
         def on_block(node)
@@ -70,7 +72,9 @@ module RuboCop
 
         def remove_autocorrect(node)
           lambda do |corrector|
-            corrector.remove(node.loc.expression)
+            range = range_by_whole_lines(node.source_range,
+                                         include_final_newline: true)
+            corrector.remove(range)
           end
         end
       end
