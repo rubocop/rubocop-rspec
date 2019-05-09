@@ -79,8 +79,7 @@ module RuboCop
         def example_with_aggregated_failures?(node)
           example = node.send_node
 
-          (aggregated_failures_by_default? ||
-            with_aggregated_failures?(example)) &&
+          with_aggregated_failures?(example) &&
             !disabled_aggregated_failures?(example)
         end
 
@@ -109,10 +108,6 @@ module RuboCop
 
         def max_expectations
           Integer(cop_config.fetch('Max', 1))
-        end
-
-        def aggregated_failures_by_default?
-          cop_config.fetch('AggregateFailuresByDefault', false)
         end
       end
     end
