@@ -27,7 +27,7 @@ module RuboCop
         def on_send(node)
           shared_examples(node) do
             ast_node = node.first_argument
-            next unless ast_node && ast_node.sym_type?
+            next unless ast_node&.sym_type?
 
             checker = Checker.new(ast_node)
             add_offense(checker.node, message: checker.message)
@@ -44,7 +44,7 @@ module RuboCop
         # :nodoc:
         class Checker
           MSG = 'Prefer %<prefer>s over `%<current>s` ' \
-                'to titleize shared examples.'.freeze
+                'to titleize shared examples.'
 
           attr_reader :node
           def initialize(node)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -12,7 +14,7 @@ module RuboCop
       #     expect(foo).not_to receive(:bar)
       #
       class ReceiveNever < Cop
-        MSG = 'Use `not_to receive` instead of `never`.'.freeze
+        MSG = 'Use `not_to receive` instead of `never`.'
 
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 

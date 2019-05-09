@@ -25,7 +25,7 @@ module RuboCop
         #   # good
         #   count { 1 }
         class AttributeDefinedStatically < Cop
-          MSG = 'Use a block to declare attribute values.'.freeze
+          MSG = 'Use a block to declare attribute values.'
 
           def_node_matcher :value_matcher, <<-PATTERN
             (send _ !#reserved_method? $...)

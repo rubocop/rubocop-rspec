@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop-rspec gem extension of RuboCop's ExpectOffense module.
 #
 # This mixin is the same as rubocop's ExpectOffense except the default
@@ -5,7 +7,7 @@
 module ExpectOffense
   include RuboCop::RSpec::ExpectOffense
 
-  DEFAULT_FILENAME = 'example_spec.rb'.freeze
+  DEFAULT_FILENAME = 'example_spec.rb'
 
   def expect_offense(source, filename = DEFAULT_FILENAME)
     super

@@ -18,7 +18,7 @@ module RuboCop
       #
       # @see https://github.com/rspec/rspec-core/issues/1610
       class DescribeSymbol < Cop
-        MSG = 'Avoid describing symbols.'.freeze
+        MSG = 'Avoid describing symbols.'
 
         def_node_matcher :describe_symbol?, <<-PATTERN
           (send #{RSPEC} :describe $sym ...)

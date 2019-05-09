@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'rubocop/rspec/version'
 
@@ -19,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 2.2.0'
+  spec.required_ruby_version = '>= 2.3.0'
 
   spec.require_paths = ['lib']
   spec.files = Dir[

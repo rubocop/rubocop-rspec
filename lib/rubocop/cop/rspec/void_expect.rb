@@ -13,7 +13,7 @@ module RuboCop
       #   expect(something).to be(1)
       class VoidExpect < Cop
         MSG = 'Do not use `expect()` without `.to` or `.not_to`. ' \
-              'Chain the methods or remove it.'.freeze
+              'Chain the methods or remove it.'
 
         def_node_matcher :expect?, <<-PATTERN
           (send nil? :expect ...)

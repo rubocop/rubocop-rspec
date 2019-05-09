@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RuboCop::RSpec::Language::SelectorSet do
   subject(:selector_set) { described_class.new(%i[foo bar]) }
 

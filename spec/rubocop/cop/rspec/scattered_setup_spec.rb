@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   subject(:cop) { described_class.new }
 

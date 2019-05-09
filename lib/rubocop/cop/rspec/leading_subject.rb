@@ -34,8 +34,7 @@ module RuboCop
       class LeadingSubject < Cop
         include RangeHelp
 
-        MSG = 'Declare `subject` above any other `%<offending>s` ' \
-          'declarations.'.freeze
+        MSG = 'Declare `subject` above any other `%<offending>s` declarations.'
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)

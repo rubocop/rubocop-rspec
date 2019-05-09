@@ -26,7 +26,7 @@ module RuboCop
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Do not use multiple top level describes - '\
-              'try to nest them.'.freeze
+              'try to nest them.'
 
         def on_top_level_describe(node, _args)
           return if single_top_level_describe?

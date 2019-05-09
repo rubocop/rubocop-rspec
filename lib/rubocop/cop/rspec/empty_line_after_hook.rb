@@ -36,7 +36,7 @@ module RuboCop
       class EmptyLineAfterHook < Cop
         include RuboCop::RSpec::BlankLineSeparation
 
-        MSG = 'Add an empty line after `%<hook>s`.'.freeze
+        MSG = 'Add an empty line after `%<hook>s`.'
 
         def on_block(node)
           return unless hook?(node)

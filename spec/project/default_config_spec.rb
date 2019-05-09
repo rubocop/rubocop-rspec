@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'config/default.yml' do
   subject(:default_config) do
     RuboCop::ConfigLoader.load_file('config/default.yml')

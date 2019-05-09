@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -15,7 +17,7 @@ module RuboCop
       #   end
       class IteratedExpectation < Cop
         MSG = 'Prefer using the `all` matcher instead ' \
-                  'of iterating over an array.'.freeze
+                  'of iterating over an array.'
 
         def_node_matcher :each?, <<-PATTERN
           (block

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -7,7 +9,7 @@ module RuboCop
         extend NodePattern::Macros
 
         MSG_INFLECTED = 'Prefer using `%<matcher_name>s` matcher over ' \
-                        '`%<predicate_name>s`.'.freeze
+                        '`%<predicate_name>s`.'
 
         private
 
@@ -128,7 +130,7 @@ module RuboCop
         extend NodePattern::Macros
 
         MSG_EXPLICIT = 'Prefer using `%<predicate_name>s` over ' \
-                       '`%<matcher_name>s` matcher.'.freeze
+                       '`%<matcher_name>s` matcher.'
         BUILT_IN_MATCHERS = %w[
           be_truthy be_falsey be_falsy
           have_attributes have_received

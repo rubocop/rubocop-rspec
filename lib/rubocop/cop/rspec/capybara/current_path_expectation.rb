@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -24,7 +26,7 @@ module RuboCop
         class CurrentPathExpectation < Cop
           MSG = 'Do not set an RSpec expectation on `current_path` in ' \
                 'Capybara feature specs - instead, use the ' \
-                '`have_current_path` matcher on `page`'.freeze
+                '`have_current_path` matcher on `page`'
 
           def_node_matcher :expectation_set_on_current_path, <<-PATTERN
             (send nil? :expect (send {(send nil? :page) nil?} :current_path))

@@ -29,7 +29,7 @@ module RuboCop
       class ImplicitSubject < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = "Don't use implicit subject.".freeze
+        MSG = "Don't use implicit subject."
 
         def_node_matcher :implicit_subject?, <<-PATTERN
           (send nil? {:should :should_not :is_expected} ...)

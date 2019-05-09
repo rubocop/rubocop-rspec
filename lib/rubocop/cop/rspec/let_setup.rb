@@ -28,7 +28,7 @@ module RuboCop
       class LetSetup < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Do not use `let!` for test setup.'.freeze
+        MSG = 'Do not use `let!` for test setup.'
 
         def_node_search :let_bang, <<-PATTERN
           (block $(send nil? :let! (sym $_)) args ...)

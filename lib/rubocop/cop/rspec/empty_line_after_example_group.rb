@@ -26,7 +26,7 @@ module RuboCop
       class EmptyLineAfterExampleGroup < Cop
         include RuboCop::RSpec::BlankLineSeparation
 
-        MSG = 'Add an empty line after `%<example_group>s`.'.freeze
+        MSG = 'Add an empty line after `%<example_group>s`.'
 
         def on_block(node)
           return unless example_group?(node)

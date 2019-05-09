@@ -20,7 +20,7 @@ module RuboCop
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'The first argument to describe should be '\
-              'the class or module being tested.'.freeze
+              'the class or module being tested.'
 
         def_node_matcher :valid_describe?, <<-PATTERN
           {

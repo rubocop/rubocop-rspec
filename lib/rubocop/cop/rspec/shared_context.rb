@@ -52,10 +52,10 @@ module RuboCop
       #
       class SharedContext < Cop
         MSG_EXAMPLES = "Use `shared_examples` when you don't "\
-                       'define context.'.freeze
+                       'define context.'
 
         MSG_CONTEXT  = "Use `shared_context` when you don't "\
-                       'define examples.'.freeze
+                       'define examples.'
 
         examples = (Examples::ALL + Includes::EXAMPLES)
         def_node_search :examples?, examples.send_pattern

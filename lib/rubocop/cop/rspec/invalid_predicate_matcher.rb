@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -14,7 +16,7 @@ module RuboCop
       #   # good
       #   expect(foo).to be_something
       class InvalidPredicateMatcher < Cop
-        MSG = 'Omit `?` from `%<matcher>s`.'.freeze
+        MSG = 'Omit `?` from `%<matcher>s`.'
 
         def_node_matcher :invalid_predicate_matcher?, <<-PATTERN
           (send (send nil? :expect ...) #{Runners::ALL.node_pattern_union} $(send nil? #predicate?))

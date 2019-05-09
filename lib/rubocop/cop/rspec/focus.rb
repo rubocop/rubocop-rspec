@@ -20,7 +20,7 @@ module RuboCop
       #   describe MyClass do
       #   end
       class Focus < Cop
-        MSG = 'Focused spec found.'.freeze
+        MSG = 'Focused spec found.'
 
         focusable =
           ExampleGroups::GROUPS  +

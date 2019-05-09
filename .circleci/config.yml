@@ -21,16 +21,6 @@ jobs:
       - run: bundle install
       - run: rake confirm_config documentation_syntax_check confirm_documentation
 
-  # Ruby 2.2
-  ruby-2.2-rspec:
-    docker:
-      - image: circleci/ruby:2.2
-    <<: *rspec
-  ruby-2.2-rubocop:
-    docker:
-      - image: circleci/ruby:2.2
-    <<: *rubocop
-
   # Ruby 2.3
   ruby-2.3-rspec:
     docker:
@@ -115,10 +105,6 @@ workflows:
       - confirm_config_and_documentation
 
       # Use `requires: [confirm_config_and_documentation]` to trick Circle CI into starting the slow jruby job early.
-      - ruby-2.2-rspec:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.2-rubocop:
-          requires: [confirm_config_and_documentation]
       - ruby-2.3-rspec:
           requires: [confirm_config_and_documentation]
       - ruby-2.3-rubocop:

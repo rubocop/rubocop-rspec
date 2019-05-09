@@ -27,7 +27,7 @@ module RuboCop
       #   end
       #
       class ScatteredLet < Cop
-        MSG = 'Group all let/let! blocks in the example group together.'.freeze
+        MSG = 'Group all let/let! blocks in the example group together.'
 
         def on_block(node)
           return unless example_group_with_body?(node)

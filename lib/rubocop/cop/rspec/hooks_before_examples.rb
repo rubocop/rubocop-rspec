@@ -27,7 +27,7 @@ module RuboCop
         include RangeHelp
         include RuboCop::RSpec::FinalEndLocation
 
-        MSG = 'Move `%<hook>s` above the examples in the group.'.freeze
+        MSG = 'Move `%<hook>s` above the examples in the group.'
 
         def_node_matcher :example_or_group?, <<-PATTERN
           {

@@ -32,8 +32,8 @@ module RuboCop
       class ExpectChange < Cop
         include ConfigurableEnforcedStyle
 
-        MSG_BLOCK = 'Prefer `change(%<obj>s, :%<attr>s)`.'.freeze
-        MSG_CALL = 'Prefer `change { %<obj>s.%<attr>s }`.'.freeze
+        MSG_BLOCK = 'Prefer `change(%<obj>s, :%<attr>s)`.'
+        MSG_CALL = 'Prefer `change { %<obj>s.%<attr>s }`.'
 
         def_node_matcher :expect_change_with_arguments, <<-PATTERN
           (send nil? :change ({const send} nil? $_) (sym $_))

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -29,9 +31,9 @@ module RuboCop
       #
       #     expect { do_something }.not_to raise_error
       class UnspecifiedException < Cop
-        MSG = 'Specify the exception being captured'.freeze
+        MSG = 'Specify the exception being captured'
 
-        def_node_matcher :empty_raise_error_or_exception, <<-PATTERN.freeze
+        def_node_matcher :empty_raise_error_or_exception, <<-PATTERN
           (send
             (block
                 (send nil? :expect) ...)
@@ -54,7 +56,7 @@ module RuboCop
         end
 
         def block_with_args?(node)
-          return unless node && node.block_type?
+          return unless node&.block_type?
 
           node.arguments?
         end

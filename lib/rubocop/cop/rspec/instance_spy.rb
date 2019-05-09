@@ -20,7 +20,7 @@ module RuboCop
       #
       class InstanceSpy < Cop
         MSG = 'Use `instance_spy` when you check your double '\
-              'with `have_received`.'.freeze
+              'with `have_received`.'
 
         def_node_search :null_double, <<-PATTERN
           (lvasgn $_

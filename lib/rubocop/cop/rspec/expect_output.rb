@@ -16,7 +16,7 @@ module RuboCop
       #   expect { my_app.print_report }.to output('Hello World').to_stdout
       class ExpectOutput < Cop
         MSG = 'Use `expect { ... }.to output(...).to_%<name>s` '\
-              'instead of mutating $%<name>s.'.freeze
+              'instead of mutating $%<name>s.'
 
         def on_gvasgn(node)
           return unless inside_example_scope?(node)

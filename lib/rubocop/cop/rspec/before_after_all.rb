@@ -27,7 +27,7 @@ module RuboCop
         MSG = 'Beware of using `%<hook>s` as it may cause state to leak '\
               'between tests. If you are using `rspec-rails`, and '\
               '`use_transactional_fixtures` is enabled, then records created '\
-              'in `%<hook>s` are not automatically rolled back.'.freeze
+              'in `%<hook>s` are not automatically rolled back.'
 
         def_node_matcher :before_or_after_all, <<-PATTERN
           $(send _ {:before :after} (sym {:all :context}))

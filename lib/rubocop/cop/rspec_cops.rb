@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'rspec/capybara/current_path_expectation'
 require_relative 'rspec/capybara/feature_methods'
 

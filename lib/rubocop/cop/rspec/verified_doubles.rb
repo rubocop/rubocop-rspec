@@ -23,7 +23,7 @@ module RuboCop
       #     instance_double("ClassName", method_name: 'returned value')
       #   end
       class VerifiedDoubles < Cop
-        MSG = 'Prefer using verifying doubles over normal doubles.'.freeze
+        MSG = 'Prefer using verifying doubles over normal doubles.'
 
         def_node_matcher :unverified_double, <<-PATTERN
           {(send nil? {:double :spy} $...)}
@@ -41,7 +41,7 @@ module RuboCop
         private
 
         def symbol?(name)
-          name && name.sym_type?
+          name&.sym_type?
         end
       end
     end

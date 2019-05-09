@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'smoke test', type: :cop_spec do
   context 'with default configuration' do
     # This is overridden to avoid a number of specs that define `cop_config`

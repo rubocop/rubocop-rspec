@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # Helps find the true end location of nodes which might contain heredocs.

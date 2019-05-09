@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -16,7 +18,7 @@ module RuboCop
       class NotToNot < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%<replacement>s` over `%<original>s`.'.freeze
+        MSG = 'Prefer `%<replacement>s` over `%<original>s`.'
 
         def_node_matcher :not_to_not_offense, '(send _ % ...)'
 

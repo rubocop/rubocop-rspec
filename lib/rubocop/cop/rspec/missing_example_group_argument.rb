@@ -20,7 +20,7 @@ module RuboCop
       #   describe "A feature example" do
       #   end
       class MissingExampleGroupArgument < Cop
-        MSG = 'The first argument to `%<method>s` should not be empty.'.freeze
+        MSG = 'The first argument to `%<method>s` should not be empty.'
 
         def on_block(node)
           return unless example_group?(node)

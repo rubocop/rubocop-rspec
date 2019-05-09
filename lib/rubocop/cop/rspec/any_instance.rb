@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -21,7 +23,7 @@ module RuboCop
       #     end
       #   end
       class AnyInstance < Cop
-        MSG = 'Avoid stubbing using `%<method>s`.'.freeze
+        MSG = 'Avoid stubbing using `%<method>s`.'
 
         def_node_matcher :disallowed_stub, <<-PATTERN
           (send _ ${:any_instance :allow_any_instance_of :expect_any_instance_of} ...)

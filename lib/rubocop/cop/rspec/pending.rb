@@ -26,7 +26,7 @@ module RuboCop
       #   describe MyClass do
       #   end
       class Pending < Cop
-        MSG = 'Pending spec found.'.freeze
+        MSG = 'Pending spec found.'
 
         PENDING_EXAMPLES    = Examples::PENDING + Examples::SKIPPED \
                                 + ExampleGroups::SKIPPED
