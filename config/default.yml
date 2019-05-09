@@ -50,7 +50,7 @@ RSpec/BeforeAfterAll:
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
 RSpec/ContextWording:
-  Description: "`context` block descriptions should start with 'when', or 'with'."
+  Description: Checks that `context` docstring starts with an allowed prefix.
   Enabled: true
   Prefixes:
   - when
