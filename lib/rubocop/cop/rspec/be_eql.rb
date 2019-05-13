@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -34,7 +36,7 @@ module RuboCop
       # coerce objects for comparison.
       #
       class BeEql < Cop
-        MSG = 'Prefer `be` over `eql`.'.freeze
+        MSG = 'Prefer `be` over `eql`.'
 
         def_node_matcher :eql_type_with_identity, <<-PATTERN
           (send _ :to $(send nil? :eql {true false int float sym nil_type?}))

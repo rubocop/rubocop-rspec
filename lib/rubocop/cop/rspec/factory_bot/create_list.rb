@@ -27,8 +27,8 @@ module RuboCop
         class CreateList < Cop
           include ConfigurableEnforcedStyle
 
-          MSG_CREATE_LIST = 'Prefer create_list.'.freeze
-          MSG_N_TIMES = 'Prefer %<number>s.times.'.freeze
+          MSG_CREATE_LIST = 'Prefer create_list.'
+          MSG_N_TIMES = 'Prefer %<number>s.times.'
 
           def_node_matcher :n_times_block_without_arg?, <<-PATTERN
             (block

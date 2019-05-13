@@ -36,8 +36,8 @@ module RuboCop
       class ReturnFromStub < Cop
         include ConfigurableEnforcedStyle
 
-        MSG_AND_RETURN = 'Use `and_return` for static values.'.freeze
-        MSG_BLOCK = 'Use block for static values.'.freeze
+        MSG_AND_RETURN = 'Use `and_return` for static values.'
+        MSG_BLOCK = 'Use block for static values.'
 
         def_node_search :contains_stub?, '(send nil? :receive (...))'
         def_node_search :and_return_value, <<-PATTERN

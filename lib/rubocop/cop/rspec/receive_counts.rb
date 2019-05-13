@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -22,7 +24,7 @@ module RuboCop
       #     expect(foo).to receive(:bar).at_most(:twice).times
       #
       class ReceiveCounts < Cop
-        MSG = 'Use `%<alternative>s` instead of `%<original>s`.'.freeze
+        MSG = 'Use `%<alternative>s` instead of `%<original>s`.'
 
         def_node_matcher :receive_counts, <<-PATTERN
           (send $(send _ {:exactly :at_least :at_most} (int {1 2})) :times)

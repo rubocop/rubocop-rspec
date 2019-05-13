@@ -51,8 +51,8 @@ module RuboCop
         include ConfigurableEnforcedStyle
 
         MSG_DEFAULT_ARGUMENT = 'Omit the argument when you want to ' \
-                               'have auto-generated description.'.freeze
-        MSG_ADD_DESCRIPTION  = 'Add a description.'.freeze
+                               'have auto-generated description.'
+        MSG_ADD_DESCRIPTION  = 'Add a description.'
 
         def_node_matcher :example_description, '(send nil? _ $(str $_))'
 

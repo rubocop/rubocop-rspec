@@ -67,7 +67,7 @@ module RuboCop
           # :nodoc:
           class SymbolicStyleChecker
             MSG = 'Prefer `%<prefer>s` over `%<current>s` ' \
-                  'to describe HTTP status code.'.freeze
+                  'to describe HTTP status code.'
 
             attr_reader :node
             def initialize(node)
@@ -105,7 +105,7 @@ module RuboCop
           # :nodoc:
           class NumericStyleChecker
             MSG = 'Prefer `%<prefer>s` over `%<current>s` ' \
-                  'to describe HTTP status code.'.freeze
+                  'to describe HTTP status code.'
 
             WHITELIST_STATUS = %i[error success missing redirect].freeze
 

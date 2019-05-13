@@ -44,7 +44,7 @@ module RuboCop
       class Dialect < Cop
         include MethodPreference
 
-        MSG = 'Prefer `%<prefer>s` over `%<current>s`.'.freeze
+        MSG = 'Prefer `%<prefer>s` over `%<current>s`.'
 
         def_node_matcher :rspec_method?, ALL.send_pattern
 

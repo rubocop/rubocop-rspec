@@ -7,6 +7,7 @@
 * Fix `FactoryBot/AttributeDefinedStatically` not working with an explicit receiver. ([@composerinteralia][])
 * Add `RSpec/Dialect` enforces custom RSpec dialects. ([@gsamokovarov][])
 * Fix redundant blank lines in `RSpec/MultipleSubjects`'s autocorrect. ([@pirj][])
+* Drop support for ruby `2.2`. ([@bquorning][])
 
 ## 1.32.0 (2019-01-27)
 

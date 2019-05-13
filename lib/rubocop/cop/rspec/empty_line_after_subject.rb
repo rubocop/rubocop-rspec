@@ -17,7 +17,7 @@ module RuboCop
       class EmptyLineAfterSubject < Cop
         include RuboCop::RSpec::BlankLineSeparation
 
-        MSG = 'Add empty line after `subject`.'.freeze
+        MSG = 'Add empty line after `subject`.'
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)

@@ -43,7 +43,7 @@ module RuboCop
       #   end
       class NamedSubject < Cop
         MSG = 'Name your test subject if you need '\
-              'to reference it explicitly.'.freeze
+              'to reference it explicitly.'
 
         def_node_matcher :rspec_block?, <<-PATTERN
           {

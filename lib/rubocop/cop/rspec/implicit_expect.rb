@@ -27,7 +27,7 @@ module RuboCop
       class ImplicitExpect < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%<good>s` over `%<bad>s`.'.freeze
+        MSG = 'Prefer `%<good>s` over `%<bad>s`.'
 
         def_node_matcher :implicit_expect, <<-PATTERN
           {

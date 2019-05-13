@@ -27,7 +27,7 @@ module RuboCop
       #     # ...
       #   end
       class ContextWording < Cop
-        MSG = 'Start context description with %<prefixes>s.'.freeze
+        MSG = 'Start context description with %<prefixes>s.'
 
         def_node_matcher :context_wording, <<-PATTERN
           (block (send #{RSPEC} { :context :shared_context } $(str #bad_prefix?) ...) ...)

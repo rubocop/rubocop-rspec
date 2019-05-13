@@ -41,7 +41,7 @@ module RuboCop
         #     end
         #   end
         class FeatureMethods < Cop
-          MSG = 'Use `%<replacement>s` instead of `%<method>s`.'.freeze
+          MSG = 'Use `%<replacement>s` instead of `%<method>s`.'
 
           # https://git.io/v7Kwr
           MAP = {

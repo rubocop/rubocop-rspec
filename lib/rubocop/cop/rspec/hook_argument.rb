@@ -61,8 +61,8 @@ module RuboCop
         include ConfigurableEnforcedStyle
 
         IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
-                       'argument for RSpec hooks.'.freeze
-        EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'.freeze
+                       'argument for RSpec hooks.'
+        EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'
 
         HOOKS = Hooks::ALL.node_pattern_union.freeze
 

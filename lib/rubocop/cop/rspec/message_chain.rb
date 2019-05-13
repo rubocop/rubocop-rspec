@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -12,7 +14,7 @@ module RuboCop
       #   allow(foo).to receive(bar: thing)
       #
       class MessageChain < Cop
-        MSG = 'Avoid stubbing using `%<method>s`.'.freeze
+        MSG = 'Avoid stubbing using `%<method>s`.'
 
         def_node_matcher :message_chain, <<-PATTERN
           (send _ {:receive_message_chain :stub_chain} ...)

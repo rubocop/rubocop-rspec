@@ -22,7 +22,7 @@ module RuboCop
       #   let(:baz) { baz }
       #   let!(:other) { other }
       class OverwritingSetup < Cop
-        MSG = '`%<name>s` is already defined.'.freeze
+        MSG = '`%<name>s` is already defined.'
 
         def_node_matcher :setup?, (Helpers::ALL + Subject::ALL).block_pattern
         def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'

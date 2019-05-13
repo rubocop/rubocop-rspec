@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # Because RuboCop doesn't yet support plugins, we have to monkey patch in a

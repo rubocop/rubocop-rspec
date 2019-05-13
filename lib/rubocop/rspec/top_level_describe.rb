@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # Helper methods for top level describe cops

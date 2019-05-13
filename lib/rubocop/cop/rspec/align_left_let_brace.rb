@@ -18,7 +18,7 @@ module RuboCop
       #     let(:a)      { b }
       #
       class AlignLeftLetBrace < Cop
-        MSG = 'Align left let brace'.freeze
+        MSG = 'Align left let brace'
 
         def self.autocorrect_incompatible_with
           [Layout::ExtraSpacing]

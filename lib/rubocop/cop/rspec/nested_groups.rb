@@ -89,14 +89,13 @@ module RuboCop
         include ConfigurableMax
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Maximum example group nesting exceeded ' \
-              '[%<total>d/%<max>d].'.freeze
+        MSG = 'Maximum example group nesting exceeded [%<total>d/%<max>d].'
 
-        DEPRECATED_MAX_KEY = 'MaxNesting'.freeze
+        DEPRECATED_MAX_KEY = 'MaxNesting'
 
         DEPRECATION_WARNING =
           "Configuration key `#{DEPRECATED_MAX_KEY}` for #{cop_name} is " \
-          'deprecated in favor of `Max`. Please use that instead.'.freeze
+          'deprecated in favor of `Max`. Please use that instead.'
 
         def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
 

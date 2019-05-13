@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RuboCop::RSpec::Wording do
   let(:replacements) { { 'have' => 'has' } }
   let(:ignores)      { %w[only really]     }

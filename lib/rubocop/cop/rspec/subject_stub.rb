@@ -20,7 +20,7 @@ module RuboCop
       class SubjectStub < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Do not stub your test subject.'.freeze
+        MSG = 'Do not stub your test subject.'
 
         # @!method subject(node)
         #   Find a named or unnamed subject definition

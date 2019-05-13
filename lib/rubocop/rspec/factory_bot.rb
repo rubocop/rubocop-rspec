@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # RuboCop FactoryBot project namespace

@@ -21,7 +21,7 @@ module RuboCop
       #     expect(something).to eq 'foo'
       #   end
       class ExpectInHook < Cop
-        MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'.freeze
+        MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
         def_node_search :expectation, Expectations::ALL.send_pattern
 

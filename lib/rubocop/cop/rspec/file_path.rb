@@ -44,7 +44,7 @@ module RuboCop
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Spec path should end with `%<suffix>s`.'.freeze
+        MSG = 'Spec path should end with `%<suffix>s`.'
 
         def_node_search :const_described?,  '(send _ :describe (const ...) ...)'
         def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
@@ -75,7 +75,7 @@ module RuboCop
         end
 
         def name_glob(name)
-          return unless name && name.str_type?
+          return unless name&.str_type?
 
           "*#{name.str_content.gsub(/\W/, '')}" unless ignore_methods?
         end

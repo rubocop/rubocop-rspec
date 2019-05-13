@@ -36,8 +36,8 @@ module RuboCop
         include RuboCop::RSpec::TopLevelDescribe
         include ConfigurableEnforcedStyle
 
-        DESCRIBED_CLASS = 'described_class'.freeze
-        MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'.freeze
+        DESCRIBED_CLASS = 'described_class'
+        MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'
 
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
           (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)

@@ -34,7 +34,7 @@ module RuboCop
         include RangeHelp
         include RuboCop::RSpec::FinalEndLocation
 
-        MSG = 'Move `let` before the examples in the group.'.freeze
+        MSG = 'Move `let` before the examples in the group.'
 
         def_node_matcher :example_or_group?, <<-PATTERN
           {

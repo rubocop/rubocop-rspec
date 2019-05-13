@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'CHANGELOG.md' do
   subject(:changelog) { SpecHelper::ROOT.join('CHANGELOG.md').read }
 

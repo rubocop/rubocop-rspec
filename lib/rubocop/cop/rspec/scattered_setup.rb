@@ -23,7 +23,7 @@ module RuboCop
       #   end
       #
       class ScatteredSetup < Cop
-        MSG = 'Do not define multiple hooks in the same example group.'.freeze
+        MSG = 'Do not define multiple hooks in the same example group.'
 
         def on_block(node)
           return unless example_group?(node)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # Extracts cop descriptions from YARD docstrings
@@ -20,7 +22,7 @@ module RuboCop
       # Decorator of a YARD code object for working with documented rspec cops
       class CodeObject
         COP_CLASS_NAMES = %w[RuboCop::Cop RuboCop::Cop::RSpec::Cop].freeze
-        RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'.freeze
+        RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'
 
         def initialize(yardoc)
           @yardoc = yardoc

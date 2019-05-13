@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rubocop/rspec/config_formatter'
 
 RSpec.describe RuboCop::RSpec::ConfigFormatter do

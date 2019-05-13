@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -28,7 +30,7 @@ module RuboCop
       #     end
       #
       class RepeatedDescription < Cop
-        MSG = "Don't repeat descriptions within an example group.".freeze
+        MSG = "Don't repeat descriptions within an example group."
 
         def on_block(node)
           return unless example_group?(node)

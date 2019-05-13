@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Project requires' do
   it 'alphabetizes cop requires' do
     source   = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec_cops.rb')

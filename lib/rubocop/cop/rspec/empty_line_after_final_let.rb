@@ -19,7 +19,7 @@ module RuboCop
       class EmptyLineAfterFinalLet < Cop
         include RuboCop::RSpec::BlankLineSeparation
 
-        MSG = 'Add an empty line after the last `let` block.'.freeze
+        MSG = 'Add an empty line after the last `let` block.'
 
         def on_block(node)
           return unless example_group_with_body?(node)

@@ -21,10 +21,10 @@ module RuboCop
         include RuboCop::RSpec::Util
 
         MSG = 'The second argument to describe should be the method '\
-              "being tested. '#instance' or '.class'.".freeze
+              "being tested. '#instance' or '.class'."
 
         def on_top_level_describe(_node, (_, second_arg))
-          return unless second_arg && second_arg.str_type?
+          return unless second_arg&.str_type?
           return if second_arg.str_content.start_with?('#', '.')
 
           add_offense(second_arg, location: :expression)

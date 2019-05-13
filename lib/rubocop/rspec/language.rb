@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # RSpec public API methods that are commonly used in cops
     module Language
-      RSPEC = '{(const nil? :RSpec) nil?}'.freeze
+      RSPEC = '{(const nil? :RSpec) nil?}'
 
       # Set of method selectors
       class SelectorSet

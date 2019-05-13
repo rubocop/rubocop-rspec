@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module RSpec
     # Helps determine the offending location if there is not a blank line
@@ -26,7 +28,7 @@ module RuboCop
       end
 
       def last_child?(node)
-        return true unless node.parent && node.parent.begin_type?
+        return true unless node.parent&.begin_type?
 
         node.equal?(node.parent.children.last)
       end

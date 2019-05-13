@@ -30,8 +30,8 @@ module RuboCop
       #   it 'does things' do
       #   end
       class ExampleWording < Cop
-        MSG_SHOULD = 'Do not use should when describing your tests.'.freeze
-        MSG_IT     = "Do not repeat 'it' when describing your tests.".freeze
+        MSG_SHOULD = 'Do not use should when describing your tests.'
+        MSG_IT     = "Do not repeat 'it' when describing your tests."
 
         SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze

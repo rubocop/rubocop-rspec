@@ -14,7 +14,7 @@ module RuboCop
       class Yield < Cop
         include RangeHelp
 
-        MSG = 'Use `.and_yield`.'.freeze
+        MSG = 'Use `.and_yield`.'
 
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 

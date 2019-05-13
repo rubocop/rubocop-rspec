@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -18,7 +20,7 @@ module RuboCop
       #   expect(foo).to be(true)
       #
       class Be < Cop
-        MSG = 'Don\'t use `be` without an argument.'.freeze
+        MSG = 'Don\'t use `be` without an argument.'
 
         def_node_matcher :be_without_args, <<-PATTERN
           (send _ #{Runners::ALL.node_pattern_union} $(send nil? :be))

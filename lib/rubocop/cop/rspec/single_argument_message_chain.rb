@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -16,7 +18,7 @@ module RuboCop
       #
       class SingleArgumentMessageChain < Cop
         MSG = 'Use `%<recommended>s` instead of calling '\
-              '`%<called>s` with a single argument.'.freeze
+              '`%<called>s` with a single argument.'
 
         def_node_matcher :message_chain, <<-PATTERN
           (send _ {:receive_message_chain :stub_chain} $_)

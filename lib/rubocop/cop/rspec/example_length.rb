@@ -28,7 +28,7 @@ module RuboCop
       class ExampleLength < Cop
         include CodeLength
 
-        MSG = 'Example has too many lines [%<total>d/%<max>d].'.freeze
+        MSG = 'Example has too many lines [%<total>d/%<max>d].'
 
         def on_block(node)
           return unless example?(node)

@@ -36,7 +36,7 @@ module RuboCop
       class MultipleSubjects < Cop
         include RangeHelp
 
-        MSG = 'Do not set more than one subject per example group'.freeze
+        MSG = 'Do not set more than one subject per example group'
 
         def on_block(node)
           return unless example_group?(node)

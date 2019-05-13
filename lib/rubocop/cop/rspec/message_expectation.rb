@@ -27,7 +27,7 @@ module RuboCop
       class MessageExpectation < Cop
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%<style>s` for setting message expectations.'.freeze
+        MSG = 'Prefer `%<style>s` for setting message expectations.'
 
         SUPPORTED_STYLES = %w[allow expect].freeze
 
