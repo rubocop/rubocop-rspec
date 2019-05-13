@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.33.0 (2019-05-13)
+
 * Let `RSpec/DescribedClass` pass `Struct` instantiation closures. ([@schmijos][])
 * Fixed `RSpec/ContextWording` missing `context`s with metadata. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` not working with an explicit receiver. ([@composerinteralia][])
