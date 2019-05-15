@@ -204,4 +204,20 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       end
     RUBY
   end
+
+  it 'flags negated runners' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).not_to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          expect(foo).to_not receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
 end
