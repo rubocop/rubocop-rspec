@@ -60,10 +60,14 @@ module RuboCop
         #     expect(foo).to all(receive(:bar))
         #
         def_node_matcher :message_expectation?, <<-PATTERN
-          {
-            (send nil? :allow (send nil? %))
-            (send (send nil? :expect (send nil? %)) :to #expectation?)
-          }
+          (send
+            {
+              (send nil? { :expect :allow } (send nil? %))
+              (send nil? :is_expected)
+            }
+            :to
+            #expectation?
+          )
         PATTERN
 
         def_node_matcher :all_matcher?, '(send nil? :all ...)'

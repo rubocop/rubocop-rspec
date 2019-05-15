@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
         before do
           allow(foo).to receive(:bar).and_return(baz)
-          ^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
         end
 
         it 'uses expect twice' do
@@ -38,6 +38,19 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
         it 'uses expect twice' do
           expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags one-line expectcation syntax' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        it 'uses one-line expectation syntax' do
+          is_expected.to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
         end
       end
     RUBY
@@ -80,7 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
           before do
             allow(foo).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -119,7 +132,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
         context 'when I shake things up' do
           before do
             allow(foo).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -141,7 +154,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
           before do
             allow(foo).to receive(:wow)
             allow(bar).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -163,7 +176,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
         it 'still flags this test' do
           allow(foo).to receive(:blah)
-          ^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
         end
       end
     RUBY
@@ -184,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
               allow(foo).to receive(:wow)
               allow(bar).to receive(:wow)
               allow(baz).to receive(:wow)
-              ^^^^^^^^^^ Do not stub your test subject.
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
             end
           end
         end
