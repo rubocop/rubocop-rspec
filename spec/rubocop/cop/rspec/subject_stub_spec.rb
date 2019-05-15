@@ -220,4 +220,32 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       end
     RUBY
   end
+
+  it 'flags multiple-method stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).to receive_messages(bar: :baz, baz: :baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags chain stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).to receive_message_chain(:bar, baz: :baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          expect(foo.bar.baz).to eq(baz)
+        end
+      end
+    RUBY
+  end
 end

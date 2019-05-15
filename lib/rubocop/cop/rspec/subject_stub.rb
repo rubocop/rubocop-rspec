@@ -72,7 +72,9 @@ module RuboCop
 
         def_node_matcher :all_matcher?, '(send nil? :all ...)'
 
-        def_node_search :receive_message?, '(send nil? :receive ...)'
+        def_node_search :receive_message?, <<-PATTERN
+          (send nil? { :receive :receive_messages :receive_message_chain } ...)
+        PATTERN
 
         def expectation?(node)
           return if all_matcher?(node)
