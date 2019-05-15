@@ -72,12 +72,13 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'ignores stub when inside all matcher' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags stub inside all matcher' do
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { [Object.new] }
         it 'tries to trick rubocop-rspec' do
           expect(foo).to all(receive(:baz))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
