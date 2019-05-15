@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   subject(:cop) { described_class.new }
 
-  it 'complains when subject is stubbed' do
+  it 'flags when subject is stubbed' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'complains when subject is mocked' do
+  it 'flags when subject is mocked' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
