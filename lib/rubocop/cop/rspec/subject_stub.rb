@@ -6,6 +6,8 @@ module RuboCop
       # Checks for stubbed test subjects.
       #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
+      # @see https://samphippen.com/introducing-rspec-smells-and-where-to-find-them#smell-1-stubject
+      # @see https://github.com/rubocop-hq/rspec-style-guide#dont-stub-subject
       #
       # @example
       #   # bad
