@@ -239,21 +239,22 @@ Enabled by default | Supports autocorrection
 --- | ---
 Enabled | No
 
-`context` block descriptions should start with 'when', or 'with'.
-
-'without'
-  Prefixes:
-    - when
-    - with
-    - without
-    - if
+Checks that `context` docstring starts with an allowed prefix.
 
 ### Examples
 
-#### `Prefixes` configuration option, defaults: 'when', 'with', and
+#### `Prefixes` configuration
 
 ```ruby
-
+# .rubocop.yml
+# RSpec/ContextWording:
+#   Prefixes:
+#     - when
+#     - with
+#     - without
+#     - if
+#     - unless
+#     - for
 ```
 ```ruby
 # bad

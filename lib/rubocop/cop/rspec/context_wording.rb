@@ -3,18 +3,22 @@
 module RuboCop
   module Cop
     module RSpec
-      # `context` block descriptions should start with 'when', or 'with'.
+      # Checks that `context` docstring starts with an allowed prefix.
       #
       # @see https://github.com/reachlocal/rspec-style-guide#context-descriptions
       # @see http://www.betterspecs.org/#contexts
       #
-      # @example `Prefixes` configuration option, defaults: 'when', 'with', and
-      # 'without'
-      #   Prefixes:
-      #     - when
-      #     - with
-      #     - without
-      #     - if
+      # @example `Prefixes` configuration
+      #
+      #   # .rubocop.yml
+      #   # RSpec/ContextWording:
+      #   #   Prefixes:
+      #   #     - when
+      #   #     - with
+      #   #     - without
+      #   #     - if
+      #   #     - unless
+      #   #     - for
       #
       # @example
       #   # bad
