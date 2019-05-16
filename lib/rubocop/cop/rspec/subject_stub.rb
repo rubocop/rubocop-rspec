@@ -70,7 +70,9 @@ module RuboCop
         PATTERN
 
         def_node_search :message_expectation_matcher?, <<-PATTERN
-          (send nil? { :receive :receive_messages :receive_message_chain } ...)
+          (send nil? {
+            :receive :receive_messages :receive_message_chain :have_received
+            } ...)
         PATTERN
 
         def on_block(node)

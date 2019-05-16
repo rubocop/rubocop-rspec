@@ -249,4 +249,19 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       end
     RUBY
   end
+
+  it 'flags spy subject stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          allow(foo).to some_matcher_that_allows_a_bar_message
+          expect(foo.bar).to eq(baz)
+          expect(foo).to have_received(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
 end
