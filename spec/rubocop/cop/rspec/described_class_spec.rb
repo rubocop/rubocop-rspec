@@ -3,11 +3,11 @@
 RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   subject(:cop) { described_class.new(config) }
 
-  let(:cop_config) do
-    { 'EnforcedStyle' => enforced_style }
-  end
+  let(:cop_config) { {} }
 
-  shared_examples 'SkipBlocks enabled' do
+  context 'when SkipBlocks is `true`' do
+    let(:cop_config) { { 'SkipBlocks' => true } }
+
     it 'does not flag violations within non-rspec blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
   end
 
-  shared_examples 'SkipBlocks disabled' do
+  context 'when SkipBlocks is `false`' do
     it 'flags violations within all blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
@@ -51,32 +51,8 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
   end
 
-  context 'when SkipBlocks is `true`' do
-    let(:cop_config) { { 'SkipBlocks' => true } }
-
-    include_examples 'SkipBlocks enabled'
-  end
-
-  context 'when SkipBlocks anything besides `true`' do
-    let(:cop_config) { { 'SkipBlocks' => 'yes' } }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
-  context 'when SkipBlocks is not set' do
-    let(:cop_config) { {} }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
-  context 'when SkipBlocks is `false`' do
-    let(:cop_config) { { 'SkipBlocks' => false } }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
   context 'when EnforcedStyle is :described_class' do
-    let(:enforced_style) { :described_class }
+    let(:cop_config) { { 'EnforcedStyle' => :described_class } }
 
     it 'checks for the use of the described class' do
       expect_offense(<<-RUBY)
@@ -226,7 +202,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   end
 
   context 'when EnforcedStyle is :explicit' do
-    let(:enforced_style) { :explicit }
+    let(:cop_config) { { 'EnforcedStyle' => :explicit } }
 
     it 'checks for the use of the described_class' do
       expect_offense(<<-RUBY)
