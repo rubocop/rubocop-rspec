@@ -251,6 +251,11 @@ RSpec/LeadingSubject:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
+RSpec/LeakyConstantDeclaration:
+  Description: Checks that no class, module, or constant is declared.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
+
 RSpec/LetBeforeExamples:
   Description: Checks for `let` definitions that come after an example.
   Enabled: true

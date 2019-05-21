@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Remove `AggregateFailuresByDefault` config option of `RSpec/MultipleExpectations`. ([@pirj][])
+* Add `RSpec/LeakyConstantDeclaration` cop. ([@jonatas][], [@pirj][])
 
 ## 1.33.0 (2019-05-13)
 

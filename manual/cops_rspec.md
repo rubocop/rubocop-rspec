@@ -1478,6 +1478,92 @@ Enforce that subject is the first definition in the test.
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject)
 
+## RSpec/LeakyConstantDeclaration
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Checks that no class, module, or constant is declared.
+
+Constants, including classes and modules, when declared in a block
+scope, are defined in global namespace, and leak between examples.
+
+If several examples may define a `DummyClass`, instead of being a
+blank slate class as it will be in the first example, subsequent
+examples will be reopening it and modifying its behaviour in
+unpredictable ways.
+Even worse when a class that exists in the codebase is reopened.
+
+Anonymous classes are fine, since they don't result in global
+namespace name clashes.
+
+### Examples
+
+#### Constants leak between examples
+
+```ruby
+# bad
+describe SomeClass do
+  OtherClass = Struct.new
+  CONSTANT_HERE = 'is also denied'
+end
+
+# good
+describe SomeClass do
+  before do
+    stub_const('OtherClass', Struct.new)
+    stub_const('CONSTANT_HERE', 'is also denied')
+  end
+end
+```
+```ruby
+# bad
+describe SomeClass do
+  class OtherClass < described_class
+    def do_something
+    end
+  end
+end
+
+# good
+describe SomeClass do
+  before do
+    fake_class = Class.new(described_class) do
+                   def do_something
+                   end
+                 end
+    stub_const('OtherClass', fake_class)
+  end
+end
+```
+```ruby
+# bad
+describe SomeClass do
+  module SomeModule
+    class SomeClass
+      def do_something
+      end
+    end
+  end
+end
+
+# good
+describe SomeClass do
+  before do
+    fake_class = Class.new(described_class) do
+      def do_something
+      end
+    end
+    stub_const('SomeModule::SomeClass', fake_class)
+  end
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration)
+
 ## RSpec/LetBeforeExamples
 
 Enabled by default | Supports autocorrection

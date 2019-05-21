@@ -48,6 +48,7 @@
 * [RSpec/ItBehavesLike](cops_rspec.md#rspecitbehaveslike)
 * [RSpec/IteratedExpectation](cops_rspec.md#rspeciteratedexpectation)
 * [RSpec/LeadingSubject](cops_rspec.md#rspecleadingsubject)
+* [RSpec/LeakyConstantDeclaration](cops_rspec.md#rspecleakyconstantdeclaration)
 * [RSpec/LetBeforeExamples](cops_rspec.md#rspecletbeforeexamples)
 * [RSpec/LetSetup](cops_rspec.md#rspecletsetup)
 * [RSpec/MessageChain](cops_rspec.md#rspecmessagechain)
