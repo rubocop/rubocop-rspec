@@ -50,20 +50,20 @@ module RuboCop
 
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
-        def_node_search :with_aggregated_failures?, '(sym :aggregate_failures)'
-        def_node_search :disabled_aggregated_failures?, <<-PATTERN
+        def_node_search :with_aggregate_failures?, '(sym :aggregate_failures)'
+        def_node_search :disabled_aggregate_failures?, <<-PATTERN
           (pair (sym :aggregate_failures) (false))
         PATTERN
 
         def_node_matcher :expect?, Expectations::ALL.send_pattern
-        def_node_matcher :aggregate_failures?, <<-PATTERN
+        def_node_matcher :aggregate_failures_block?, <<-PATTERN
           (block (send _ :aggregate_failures ...) ...)
         PATTERN
 
         def on_block(node)
           return unless example?(node)
 
-          return if example_with_aggregated_failures?(node)
+          return if example_with_aggregate_failures?(node)
 
           expectations_count = to_enum(:find_expectation, node).count
 
@@ -76,18 +76,40 @@ module RuboCop
 
         private
 
-        def example_with_aggregated_failures?(node)
-          example = node.send_node
+        def example_with_aggregate_failures?(example_node)
+          node_with_aggregate_failures = find_aggregate_failures(example_node)
+          return false unless node_with_aggregate_failures
 
-          with_aggregated_failures?(example) &&
-            !disabled_aggregated_failures?(example)
+          aggregate_failures?(node_with_aggregate_failures)
+        end
+
+        def find_aggregate_failures(example_node)
+          example_node.send_node.each_ancestor(:block)
+            .find { |block_node| aggregate_failures_present?(block_node) }
+        end
+
+        def aggregate_failures_present?(node)
+          metadata(node)&.any?(&method(:with_aggregate_failures?))
+        end
+
+        def aggregate_failures?(example_or_group_node)
+          metadata(example_or_group_node)&.any? do |metadata|
+            with_aggregate_failures?(metadata) &&
+              !disabled_aggregate_failures?(metadata)
+          end
+        end
+
+        def metadata(example_or_group_node)
+          RuboCop::RSpec::Example
+            .new(example_or_group_node)
+            .metadata
         end
 
         def find_expectation(node, &block)
-          yield if expect?(node) || aggregate_failures?(node)
+          yield if expect?(node) || aggregate_failures_block?(node)
 
           # do not search inside of aggregate_failures block
-          return if aggregate_failures?(node)
+          return if aggregate_failures_block?(node)
 
           node.each_child_node do |child|
             find_expectation(child, &block)
