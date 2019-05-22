@@ -45,7 +45,7 @@ module RuboCop
 
         def on_send(node)
           expect_literal(node) do |argument|
-            add_offense(argument, location: :expression)
+            add_offense(argument)
           end
         end
 

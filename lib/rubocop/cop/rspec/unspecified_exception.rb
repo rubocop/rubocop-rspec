@@ -45,10 +45,7 @@ module RuboCop
         def on_send(node)
           return unless empty_exception_matcher?(node)
 
-          add_offense(
-            node.children.last,
-            location: :expression
-          )
+          add_offense(node.children.last)
         end
 
         def empty_exception_matcher?(node)

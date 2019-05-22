@@ -33,7 +33,6 @@ module RuboCop
           disallowed_stub(node) do |method|
             add_offense(
               node,
-              location: :expression,
               message: format(MSG, method: method)
             )
           end

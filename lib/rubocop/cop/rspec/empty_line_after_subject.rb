@@ -24,7 +24,7 @@ module RuboCop
           return if last_child?(node)
 
           missing_separating_line(node) do |location|
-            add_offense(node, location: location, message: MSG)
+            add_offense(node, location: location)
           end
         end
 

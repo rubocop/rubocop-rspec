@@ -80,7 +80,6 @@ module RuboCop
             style_detected(scope_name)
             add_offense(
               method_send,
-              location: :expression,
               message: explicit_message(scope_name)
             )
           end

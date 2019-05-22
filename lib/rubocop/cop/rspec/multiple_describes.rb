@@ -32,7 +32,7 @@ module RuboCop
           return if single_top_level_describe?
           return unless top_level_nodes.first.equal?(node)
 
-          add_offense(node, location: :expression)
+          add_offense(node)
         end
       end
     end

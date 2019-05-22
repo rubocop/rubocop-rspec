@@ -59,7 +59,6 @@ module RuboCop
           find_usage(body) do |match|
             add_offense(
               match,
-              location: :expression,
               message: message(match.const_name)
             )
           end

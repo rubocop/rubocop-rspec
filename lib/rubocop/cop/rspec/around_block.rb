@@ -51,7 +51,7 @@ module RuboCop
         private
 
         def add_no_arg_offense(node)
-          add_offense(node, location: :expression, message: MSG_NO_ARG)
+          add_offense(node, message: MSG_NO_ARG)
         end
 
         def check_for_unused_proxy(block, proxy)
@@ -63,7 +63,6 @@ module RuboCop
 
           add_offense(
             proxy,
-            location: :expression,
             message: format(MSG_UNUSED_ARG, arg: name)
           )
         end

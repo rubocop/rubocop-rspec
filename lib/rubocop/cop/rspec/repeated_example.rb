@@ -22,7 +22,7 @@ module RuboCop
           return unless example_group?(node)
 
           repeated_examples(node).each do |repeated_example|
-            add_offense(repeated_example, location: :expression)
+            add_offense(repeated_example)
           end
         end
 

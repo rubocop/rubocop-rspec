@@ -40,7 +40,7 @@ module RuboCop
               next unless offensive_receiver?(attribute.receiver, node)
               next if proc?(attribute) || association?(attribute)
 
-              add_offense(attribute, location: :expression)
+              add_offense(attribute)
             end
           end
 

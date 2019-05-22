@@ -104,7 +104,6 @@ module RuboCop
             self.max = nesting
             add_offense(
               context.send_node,
-              location: :expression,
               message: message(nesting)
             )
           end

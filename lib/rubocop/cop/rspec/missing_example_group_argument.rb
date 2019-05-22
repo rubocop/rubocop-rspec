@@ -26,8 +26,7 @@ module RuboCop
           return unless example_group?(node)
           return if node.send_node.arguments?
 
-          add_offense(node, location: :expression,
-                            message: format(MSG, method: node.method_name))
+          add_offense(node, message: format(MSG, method: node.method_name))
         end
       end
     end

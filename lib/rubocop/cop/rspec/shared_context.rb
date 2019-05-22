@@ -101,7 +101,6 @@ module RuboCop
         def add_shared_item_offense(node, message)
           add_offense(
             node,
-            location: :expression,
             message: message
           )
         end

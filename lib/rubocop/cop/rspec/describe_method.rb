@@ -27,7 +27,7 @@ module RuboCop
           return unless second_arg&.str_type?
           return if second_arg.str_content.start_with?('#', '.')
 
-          add_offense(second_arg, location: :expression)
+          add_offense(second_arg)
         end
       end
     end

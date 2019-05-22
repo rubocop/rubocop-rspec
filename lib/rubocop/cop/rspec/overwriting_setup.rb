@@ -33,7 +33,6 @@ module RuboCop
           find_duplicates(node.body) do |duplicate, name|
             add_offense(
               duplicate,
-              location: :expression,
               message: format(MSG, name: name)
             )
           end

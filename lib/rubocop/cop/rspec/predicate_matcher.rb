@@ -17,7 +17,6 @@ module RuboCop
           predicate_in_actual?(node) do |predicate|
             add_offense(
               node,
-              location: :expression,
               message: message_inflected(predicate)
             )
           end
@@ -143,7 +142,6 @@ module RuboCop
           predicate_matcher_block?(node) do |_actual, matcher|
             add_offense(
               node,
-              location: :expression,
               message: message_explicit(matcher)
             )
             ignore_node(node.children.first)
@@ -155,7 +153,6 @@ module RuboCop
           predicate_matcher?(node) do |_actual, matcher|
             add_offense(
               node,
-              location: :expression,
               message: message_explicit(matcher)
             )
           end

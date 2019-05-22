@@ -26,7 +26,7 @@ module RuboCop
 
         def on_send(node)
           describe_symbol?(node) do |match|
-            add_offense(match, location: :expression)
+            add_offense(match)
           end
         end
       end

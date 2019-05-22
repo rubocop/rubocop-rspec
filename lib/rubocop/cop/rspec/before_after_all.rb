@@ -37,7 +37,6 @@ module RuboCop
           before_or_after_all(node) do |hook|
             add_offense(
               node,
-              location: :expression,
               message: format(MSG, hook: hook.source)
             )
           end

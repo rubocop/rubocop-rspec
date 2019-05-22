@@ -44,7 +44,7 @@ module RuboCop
           subjects = RuboCop::RSpec::ExampleGroup.new(node).subjects
 
           subjects[0...-1].each do |subject|
-            add_offense(subject, location: :expression)
+            add_offense(subject)
           end
         end
 

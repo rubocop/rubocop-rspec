@@ -59,7 +59,6 @@ module RuboCop
 
           add_offense(
             node,
-            location: :expression,
             message: format(MSG, suffix: glob)
           )
         end
