@@ -21,7 +21,9 @@ module RuboCop
         def on_gvasgn(node)
           return unless inside_example_scope?(node)
 
+          # rubocop:disable InternalAffairs/NodeDestructuring
           variable_name, _rhs = *node
+          # rubocop:enable InternalAffairs/NodeDestructuring
           name = variable_name[1..-1]
           return unless name.eql?('stdout') || name.eql?('stderr')
 
