@@ -51,8 +51,7 @@ module RuboCop
             return unless n_times_block_without_arg?(node)
             return unless contains_only_factory?(node.body)
 
-            add_offense(node.send_node,
-                        location: :expression, message: MSG_CREATE_LIST)
+            add_offense(node.send_node, message: MSG_CREATE_LIST)
           end
 
           def on_send(node)

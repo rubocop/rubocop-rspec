@@ -34,7 +34,7 @@ module RuboCop
             return if name.nil? && cop_config['IgnoreNameless']
             return if symbol?(name) && cop_config['IgnoreSymbolicNames']
 
-            add_offense(node, location: :expression)
+            add_offense(node)
           end
         end
 

@@ -46,7 +46,7 @@ module RuboCop
         def on_send(node)
           return unless pending_block?(node) || skipped_from_metadata?(node)
 
-          add_offense(node, location: :expression)
+          add_offense(node)
         end
 
         private

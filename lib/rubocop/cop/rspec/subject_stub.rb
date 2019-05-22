@@ -80,7 +80,7 @@ module RuboCop
           return unless example_group?(node)
 
           find_subject_stub(node) do |stub|
-            add_offense(stub, location: :expression)
+            add_offense(stub)
           end
         end
 

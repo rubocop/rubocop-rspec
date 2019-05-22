@@ -47,7 +47,6 @@ module RuboCop
             if offending?(sibling)
               add_offense(
                 node,
-                location: :expression,
                 message: format(MSG, offending: sibling.method_name)
               )
             end

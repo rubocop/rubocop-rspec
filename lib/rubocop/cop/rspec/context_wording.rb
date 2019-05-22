@@ -39,7 +39,8 @@ module RuboCop
 
         def on_block(node)
           context_wording(node) do |context|
-            add_offense(context, message: message)
+            add_offense(context,
+                        message: format(MSG, prefixes: joined_prefixes))
           end
         end
 
@@ -49,20 +50,16 @@ module RuboCop
           !prefixes.include?(description.split.first)
         end
 
-        def prefixes
-          cop_config['Prefixes'] || []
-        end
-
-        def message
-          format(MSG, prefixes: joined_prefixes)
-        end
-
         def joined_prefixes
           quoted = prefixes.map { |prefix| "'#{prefix}'" }
           return quoted.first if quoted.size == 1
 
           quoted << "or #{quoted.pop}"
           quoted.join(', ')
+        end
+
+        def prefixes
+          cop_config['Prefixes'] || []
         end
       end
     end

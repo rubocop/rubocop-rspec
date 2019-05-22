@@ -68,7 +68,7 @@ module RuboCop
             return if inside_dynamic_class?(ivar)
             return if assignment_only? && !ivar_assigned?(node, name)
 
-            add_offense(ivar, location: :expression)
+            add_offense(ivar)
           end
         end
 

@@ -73,7 +73,7 @@ module RuboCop
           node.each_child_node do |child|
             next if child.sibling_index < first_example.sibling_index
 
-            add_offense(child, location: :expression) if let?(child)
+            add_offense(child) if let?(child)
           end
         end
 

@@ -70,7 +70,7 @@ module RuboCop
         def on_block(node)
           return unless example_group?(node) && !contains_example?(node)
 
-          add_offense(node.send_node, location: :expression)
+          add_offense(node.send_node)
         end
 
         private

@@ -29,7 +29,7 @@ module RuboCop
           return unless example_group?(node)
 
           analyzable_hooks(node).each do |repeated_hook|
-            add_offense(repeated_hook, location: :expression)
+            add_offense(repeated_hook)
           end
         end
 
