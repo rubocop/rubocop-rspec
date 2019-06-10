@@ -6,6 +6,8 @@ module RuboCop
       # Checks for stubbed test subjects.
       #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
+      # @see https://samphippen.com/introducing-rspec-smells-and-where-to-find-them#smell-1-stubject
+      # @see https://github.com/rubocop-hq/rspec-style-guide#dont-stub-subject
       #
       # @example
       #   # bad
@@ -20,7 +22,7 @@ module RuboCop
       class SubjectStub < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
-        MSG = 'Do not stub your test subject.'
+        MSG = 'Do not stub methods of the object under test.'
 
         # @!method subject(node)
         #   Find a named or unnamed subject definition
@@ -56,25 +58,22 @@ module RuboCop
         #     expect(foo).to receive(:bar).with(1)
         #     expect(foo).to receive(:bar).with(1).and_return(2)
         #
-        #   @example source that not matches
-        #     expect(foo).to all(receive(:bar))
-        #
         def_node_matcher :message_expectation?, <<-PATTERN
-          {
-            (send nil? :allow (send nil? %))
-            (send (send nil? :expect (send nil? %)) :to #expectation?)
-          }
+          (send
+            {
+              (send nil? { :expect :allow } (send nil? {% :subject}))
+              (send nil? :is_expected)
+            }
+            #{Runners::ALL.node_pattern_union}
+            #message_expectation_matcher?
+          )
         PATTERN
 
-        def_node_matcher :all_matcher?, '(send nil? :all ...)'
-
-        def_node_search :receive_message?, '(send nil? :receive ...)'
-
-        def expectation?(node)
-          return if all_matcher?(node)
-
-          receive_message?(node)
-        end
+        def_node_search :message_expectation_matcher?, <<-PATTERN
+          (send nil? {
+            :receive :receive_messages :receive_message_chain :have_received
+            } ...)
+        PATTERN
 
         def on_block(node)
           return unless example_group?(node)

@@ -3,14 +3,14 @@
 RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   subject(:cop) { described_class.new }
 
-  it 'complains when subject is stubbed' do
+  it 'flags when subject is stubbed' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
         before do
           allow(foo).to receive(:bar).and_return(baz)
-          ^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
 
         it 'uses expect twice' do
@@ -20,24 +20,63 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'complains when subject is mocked' do
+  it 'flags when subject is mocked' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
         before do
           expect(foo).to receive(:bar).and_return(baz)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           expect(foo).to receive(:bar)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           expect(foo).to receive(:bar).with(1)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           expect(foo).to receive(:bar).with(1).and_return(2)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
 
         it 'uses expect twice' do
           expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags when an unnamed subject is mocked' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject { described_class.new }
+
+        it 'uses unnamed subject' do
+          expect(subject).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'flags an expectation made on an unnamed subject' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        it 'uses unnamed subject' do
+          expect(subject).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'flags one-line expectcation syntax' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        it 'uses one-line expectation syntax' do
+          is_expected.to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
@@ -59,12 +98,13 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'ignores stub when inside all matcher' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags stub inside all matcher' do
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { [Object.new] }
         it 'tries to trick rubocop-rspec' do
           expect(foo).to all(receive(:baz))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
@@ -80,7 +120,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
           before do
             allow(foo).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -119,7 +159,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
         context 'when I shake things up' do
           before do
             allow(foo).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -141,7 +181,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
           before do
             allow(foo).to receive(:wow)
             allow(bar).to receive(:wow)
-            ^^^^^^^^^^ Do not stub your test subject.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -163,7 +203,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
         it 'still flags this test' do
           allow(foo).to receive(:blah)
-          ^^^^^^^^^^ Do not stub your test subject.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
@@ -184,9 +224,68 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
               allow(foo).to receive(:wow)
               allow(bar).to receive(:wow)
               allow(baz).to receive(:wow)
-              ^^^^^^^^^^ Do not stub your test subject.
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
             end
           end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags negated runners' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).not_to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+          expect(foo).to_not receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+          expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags multiple-method stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).to receive_messages(bar: :baz, baz: :baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+          expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags chain stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          expect(foo).to receive_message_chain(:bar, baz: :baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+          expect(foo.bar.baz).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags spy subject stubs' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        specify do
+          allow(foo).to some_matcher_that_allows_a_bar_message
+          expect(foo.bar).to eq(baz)
+          expect(foo).to have_received(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY

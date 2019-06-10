@@ -5,6 +5,7 @@
 * Remove `AggregateFailuresByDefault` config option of `RSpec/MultipleExpectations`. ([@pirj][])
 * Add `RSpec/LeakyConstantDeclaration` cop. ([@jonatas][], [@pirj][])
 * Improve `aggregate_failures` metadata detection of `RSpec/MultipleExpectations`. ([@pirj][])
+* Improve `RSpec/SubjectStub` detection and message. ([@pirj][])
 
 ## 1.33.0 (2019-05-13)
 
