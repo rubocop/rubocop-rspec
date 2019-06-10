@@ -43,6 +43,32 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
+  it 'flags when an unnamed subject is mocked' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject { described_class.new }
+
+        it 'uses unnamed subject' do
+          expect(subject).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'flags an expectation made on an unnamed subject' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        subject(:foo) { described_class.new }
+
+        it 'uses unnamed subject' do
+          expect(subject).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
   it 'flags one-line expectcation syntax' do
     expect_offense(<<-RUBY)
       describe Foo do
