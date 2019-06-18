@@ -26,7 +26,8 @@ module RuboCop
           ExampleGroups::GROUPS  +
           ExampleGroups::SKIPPED +
           Examples::EXAMPLES     +
-          Examples::SKIPPED
+          Examples::SKIPPED      +
+          Examples::PENDING
 
         focused = ExampleGroups::FOCUSED + Examples::FOCUSED
 
