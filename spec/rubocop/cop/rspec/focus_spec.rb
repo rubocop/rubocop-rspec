@@ -136,4 +136,11 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       ^^^^^^^^^^^^ Focused spec found.
     RUBY
   end
+
+  it 'flags rspec example blocks that include `:focus` preceding a hash' do
+    expect_offense(<<-RUBY)
+      describe 'test', :focus, js: true do; end
+                       ^^^^^^ Focused spec found.
+    RUBY
+  end
 end
