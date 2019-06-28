@@ -28,6 +28,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
+    it 'finds interpolated description with `should` at the beginning' do
+      expect_offense(<<-'RUBY')
+        it "should do #{:stuff}" do
+            ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-'RUBY')
+        it "does #{:stuff}" do
+        end
+      RUBY
+    end
+
     it 'finds description with `Should` at the beginning' do
       expect_offense(<<-RUBY)
         it 'Should do something' do
@@ -106,6 +119,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
       RUBY
     end
 
+    it 'finds leading it in interpolated description' do
+      expect_offense(<<-'RUBY')
+        it "it does #{action}" do
+            ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<-'RUBY')
+        it "does #{action}" do
+        end
+      RUBY
+    end
+
     it "skips words beginning with 'it'" do
       expect_no_offenses(<<-RUBY)
         it 'itemizes items' do
@@ -123,6 +149,13 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
     it 'skips descriptions starting with words that begin with `should`' do
       expect_no_offenses(<<-RUBY)
         it 'shoulders the burden' do
+        end
+      RUBY
+    end
+
+    it 'skips interpolated description without literal `should` at the start' do
+      expect_no_offenses(<<-'RUBY')
+        it "#{should} not be here" do
         end
       RUBY
     end

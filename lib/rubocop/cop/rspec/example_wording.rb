@@ -36,10 +36,12 @@ module RuboCop
         SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze
 
-        def_node_matcher(
-          :it_description,
-          '(block (send _ :it $(str $_) ...) ...)'
-        )
+        def_node_matcher :it_description, <<-PATTERN
+          (block (send _ :it ${
+            (str $_)
+            (dstr (str $_ ) ...)
+          } ...) ...)
+        PATTERN
 
         def on_block(node)
           it_description(node) do |description_node, message|
