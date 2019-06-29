@@ -1506,35 +1506,51 @@ namespace name clashes.
 # bad
 describe SomeClass do
   OtherClass = Struct.new
-  CONSTANT_HERE = 'is also denied'
+  CONSTANT_HERE = 'I leak into global namespace'
 end
 
 # good
 describe SomeClass do
   before do
     stub_const('OtherClass', Struct.new)
-    stub_const('CONSTANT_HERE', 'is also denied')
+    stub_const('CONSTANT_HERE', 'I only exist during this example')
   end
 end
 ```
 ```ruby
 # bad
 describe SomeClass do
-  class OtherClass < described_class
-    def do_something
+  class FooClass < described_class
+    def double_that
+      some_base_method * 2
     end
   end
+
+  it { expect(FooClass.new.double_that).to eq(4) }
 end
 
-# good
+# good - anonymous class, no constant needs to be defined
+let(:foo_class) do
+  Class.new(described_class) do
+    def double_that
+      some_base_method * 2
+    end
+  end
+
+  it { expect(foo_class.new.double_that).to eq(4) }
+end
+
+# good - constant is stubbed
 describe SomeClass do
   before do
-    fake_class = Class.new(described_class) do
-                   def do_something
-                   end
-                 end
-    stub_const('OtherClass', fake_class)
+    foo_class = Class.new(described_class) do
+                  def do_something
+                  end
+                end
+    stub_const('FooClass', foo_class)
   end
+
+  it { expect(FooClass.new.double_that).to eq(4) }
 end
 ```
 ```ruby
@@ -1551,11 +1567,11 @@ end
 # good
 describe SomeClass do
   before do
-    fake_class = Class.new(described_class) do
-      def do_something
-      end
-    end
-    stub_const('SomeModule::SomeClass', fake_class)
+    foo_class = Class.new(described_class) do
+                  def do_something
+                  end
+                end
+    stub_const('SomeModule::SomeClass', foo_class)
   end
 end
 ```
