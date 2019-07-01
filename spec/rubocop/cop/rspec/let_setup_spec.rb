@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
     expect_offense(<<-RUBY)
       describe Foo do
         let!(:foo) { bar }
-        ^^^^^^^^^^ Do not use `let!` for test setup.
+        ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
 
         it 'does not use foo' do
           expect(baz).to eq(qux)
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
       describe Foo do
         context 'when something special happens' do
           let!(:foo) { bar }
-          ^^^^^^^^^^ Do not use `let!` for test setup.
+          ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
 
           it 'does not use foo' do
             expect(baz).to eq(qux)

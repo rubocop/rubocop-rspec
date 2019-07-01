@@ -6,6 +6,7 @@
 * Add `RSpec/LeakyConstantDeclaration` cop. ([@jonatas][], [@pirj][])
 * Improve `aggregate_failures` metadata detection of `RSpec/MultipleExpectations`. ([@pirj][])
 * Improve `RSpec/SubjectStub` detection and message. ([@pirj][])
+* Change message of `RSpec/LetSetup` cop to be more descriptive. ([@foton][])
 
 ## 1.33.0 (2019-05-13)
 
@@ -423,3 +424,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mkenyon]: https://github.com/mkenyon
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@schmijos]: https://github.com/schmijos
+[@foton]: https://github.com/foton
