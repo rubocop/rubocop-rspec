@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   context 'when SkipBlocks is `true`' do
     let(:cop_config) { { 'SkipBlocks' => true } }
 
-    it 'does not flag violations within non-rspec blocks' do
+    it 'ignores violations within non-rspec blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
           controller(ApplicationController) do
@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   context 'when EnforcedStyle is :described_class' do
     let(:cop_config) { { 'EnforcedStyle' => :described_class } }
 
-    it 'checks for the use of the described class' do
+    it 'flags for the use of the described class' do
       expect_offense(<<-RUBY)
         describe MyClass do
           include MyClass
@@ -137,7 +137,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'checks for the use of described class with namespace' do
+    it 'flags the use of described class with namespace' do
       expect_offense(<<-RUBY)
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
@@ -146,7 +146,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a class scope change' do
+    it 'ignores violations within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -158,7 +158,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a hook scope change' do
+    it 'ignores violations within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do
@@ -168,7 +168,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'checks for the use of described class with module' do
+    it 'flags the use of described class with module' do
       pending
 
       expect_offense(<<-RUBY)
@@ -204,7 +204,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   context 'when EnforcedStyle is :explicit' do
     let(:cop_config) { { 'EnforcedStyle' => :explicit } }
 
-    it 'checks for the use of the described_class' do
+    it 'flags the use of the described_class' do
       expect_offense(<<-RUBY)
         describe MyClass do
           include described_class
@@ -235,7 +235,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a class scope change' do
+    it 'ignores violations within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -247,7 +247,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a hook scope change' do
+    it 'ignores violations within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do
