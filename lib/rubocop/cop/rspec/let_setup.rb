@@ -26,8 +26,6 @@ module RuboCop
       #     expect(Widget.count).to eq(1)
       #   end
       class LetSetup < Cop
-        include RuboCop::RSpec::TopLevelDescribe
-
         MSG = 'Do not use `let!` to setup objects not referenced in tests.'
 
         def_node_search :let_bang, <<-PATTERN

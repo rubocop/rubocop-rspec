@@ -20,8 +20,6 @@ module RuboCop
       #   end
       #
       class SubjectStub < Cop
-        include RuboCop::RSpec::TopLevelDescribe
-
         MSG = 'Do not stub methods of the object under test.'
 
         # @!method subject(node)
