@@ -7,6 +7,7 @@
 * Improve `aggregate_failures` metadata detection of `RSpec/MultipleExpectations`. ([@pirj][])
 * Improve `RSpec/SubjectStub` detection and message. ([@pirj][])
 * Change message of `RSpec/LetSetup` cop to be more descriptive. ([@foton][])
+* Improve `RSpec/ExampleWording` to handle interpolated example messages. ([@nc-holodakg][])
 
 ## 1.33.0 (2019-05-13)
 
@@ -425,3 +426,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@schmijos]: https://github.com/schmijos
 [@foton]: https://github.com/foton
+[@nc-holodakg]: https://github.com/nc-holodakg
