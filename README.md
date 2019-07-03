@@ -45,6 +45,14 @@ cops together with the standard cops.
 rubocop --require rubocop-rspec
 ```
 
+Alternatively, use the following array notation when specifying multiple extensions.
+
+```bash
+require:
+  - rubocop-other-extension
+  - rubocop-rspec
+```
+
 ### Rake task
 
 ```ruby
