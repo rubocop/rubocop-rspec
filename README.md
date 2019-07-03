@@ -32,8 +32,16 @@ ways to do this:
 
 Put this into your `.rubocop.yml`.
 
-```
+```yaml
 require: rubocop-rspec
+```
+
+Alternatively, use the following array notation when specifying multiple extensions.
+
+```yaml
+require:
+  - rubocop-other-extension
+  - rubocop-rspec
 ```
 
 Now you can run `rubocop` and it will automatically load the RuboCop RSpec
@@ -43,14 +51,6 @@ cops together with the standard cops.
 
 ```bash
 rubocop --require rubocop-rspec
-```
-
-Alternatively, use the following array notation when specifying multiple extensions.
-
-```bash
-require:
-  - rubocop-other-extension
-  - rubocop-rspec
 ```
 
 ### Rake task
