@@ -67,6 +67,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
                    ^^^^^^^ Use `described_class` instead of `MyClass`.
         end
       RUBY
+
+      expect_correction(<<-RUBY)
+        describe MyClass do
+          include described_class
+
+          subject { described_class.do_something }
+
+          before { described_class.do_something }
+        end
+      RUBY
     end
 
     it 'ignores described class as string' do
@@ -187,18 +197,6 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         end
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { include Foo }',
-                     'describe(Foo) { include described_class }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { subject { Foo.do_action } }',
-                     'describe(Foo) { subject { described_class.do_action } }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { before { Foo.do_action } }',
-                     'describe(Foo) { before { described_class.do_action } }'
   end
 
   context 'when EnforcedStyle is :explicit' do
@@ -215,6 +213,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
 
           before { described_class.do_something }
                    ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe MyClass do
+          include MyClass
+
+          subject { MyClass.do_something }
+
+          before { MyClass.do_something }
         end
       RUBY
     end
@@ -257,27 +265,18 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    include_examples 'autocorrect',
-                     'describe(Foo) { include described_class }',
-                     'describe(Foo) { include Foo }'
+    it 'autocorrects corresponding' do
+      expect_offense(<<-RUBY)
+        describe(Foo) { include described_class }
+                                ^^^^^^^^^^^^^^^ Use `Foo` instead of `described_class`.
+        describe(Bar) { include described_class }
+                                ^^^^^^^^^^^^^^^ Use `Bar` instead of `described_class`.
+      RUBY
 
-    include_examples 'autocorrect',
-                     'describe(Foo) { subject { described_class.do_action } }',
-                     'describe(Foo) { subject { Foo.do_action } }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { before { described_class.do_action } }',
-                     'describe(Foo) { before { Foo.do_action } }'
-
-    original = <<-RUBY
-      describe(Foo) { include described_class }
-      describe(Bar) { include described_class }
-    RUBY
-    corrected = <<-RUBY
-      describe(Foo) { include Foo }
-      describe(Bar) { include Bar }
-    RUBY
-
-    include_examples 'autocorrect', original, corrected
+      expect_correction(<<-RUBY)
+        describe(Foo) { include Foo }
+        describe(Bar) { include Bar }
+      RUBY
+    end
   end
 end
