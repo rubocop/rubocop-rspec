@@ -109,7 +109,7 @@ module RuboCop
         end
 
         def skip_blocks?
-          cop_config['SkipBlocks'].equal?(true)
+          cop_config['SkipBlocks']
         end
 
         def offensive?(node)
