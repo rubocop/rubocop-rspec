@@ -18,6 +18,13 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
     RUBY
   end
 
+  it 'supports ::RSpec.describe' do
+    expect_no_offenses(<<-RUBY)
+      ::RSpec.describe Foo do
+      end
+    RUBY
+  end
+
   it 'checks describe statements after a require' do
     expect_offense(<<-RUBY)
       require 'spec_helper'

@@ -8,6 +8,7 @@
 * Improve `RSpec/SubjectStub` detection and message. ([@pirj][])
 * Change message of `RSpec/LetSetup` cop to be more descriptive. ([@foton][])
 * Improve `RSpec/ExampleWording` to handle interpolated example messages. ([@nc-holodakg][])
+* Improve detection by allowing the use of `RSpec` as a top-level constant. ([@pirj][])
 
 ## 1.33.0 (2019-05-13)
 
