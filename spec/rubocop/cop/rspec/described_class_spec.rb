@@ -117,14 +117,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'only takes class from top level describes' do
+    it 'takes class from innermost describe' do
       expect_offense(<<-RUBY)
         describe MyClass do
           describe MyClass::Foo do
             subject { MyClass::Foo }
+                      ^^^^^^^^^^^^ Use `described_class` instead of `MyClass::Foo`.
 
             let(:foo) { MyClass }
-                        ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
         end
       RUBY

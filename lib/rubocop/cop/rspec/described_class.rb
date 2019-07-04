@@ -33,7 +33,6 @@ module RuboCop
       #   end
       #
       class DescribedClass < Cop
-        include RuboCop::RSpec::TopLevelDescribe
         include ConfigurableEnforcedStyle
 
         DESCRIBED_CLASS = 'described_class'
@@ -48,13 +47,16 @@ module RuboCop
 
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 
+        def_node_matcher :described_constant, <<-PATTERN
+          (block $(send _ :describe $(const ...)) (args) $_)
+        PATTERN
+
         def on_block(node)
-          # In case the explicit style is used, we needs to remember what's
-          # being described. Thus, we use an ivar for @described_class.
+          # In case the explicit style is used, we need to remember what's
+          # being described.
           describe, @described_class, body = described_constant(node)
 
           return if body.nil?
-          return unless top_level_describe?(describe)
 
           find_usage(body) do |match|
             add_offense(
@@ -111,8 +113,13 @@ module RuboCop
         end
 
         def offensive?(node)
+          _, nearest_described_class, _ = node.each_ancestor(:block)
+            .map { |ancestor| described_constant(ancestor) }
+            .find(&:itself)
+
           if style == :described_class
-            node.eql?(@described_class)
+            node == nearest_described_class &&
+              node.parent != nearest_described_class.parent
           else
             node.send_type? && node.method_name == :described_class
           end
