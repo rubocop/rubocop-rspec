@@ -138,11 +138,21 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'ignores if namespace is not matching' do
+    it 'ignores non-matching namespace defined on `describe` level' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           subject { ::MyClass }
           let(:foo) { MyClass }
+        end
+      RUBY
+    end
+
+    it 'ignores non-matching namespace' do
+      expect_no_offenses(<<-RUBY)
+        module MyNamespace
+          describe MyClass do
+            subject { ::MyClass }
+          end
         end
       RUBY
     end
@@ -152,6 +162,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
                     ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
+        end
+      RUBY
+    end
+
+    it 'ignores non-matching namespace in usages' do
+      expect_no_offenses(<<-RUBY)
+        module UnrelatedNamespace
+          describe MyClass do
+            subject { MyNamespace::MyClass }
+          end
         end
       RUBY
     end
@@ -179,15 +199,44 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
 
     it 'flags the use of described class with module' do
-      pending
-
       expect_offense(<<-RUBY)
         module MyNamespace
           describe MyClass do
             subject { MyNamespace::MyClass }
-                      ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+                      ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
           end
         end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        module MyNamespace
+          describe MyClass do
+            subject { described_class }
+          end
+        end
+      RUBY
+    end
+
+    it 'flags the use of described class with nested namespace' do
+      expect_offense(<<-RUBY)
+          module A
+            class B::C
+              module D
+                describe E do
+                  subject { A::B::C::D::E }
+                            ^^^^^^^^^^^^^ Use `described_class` instead of `A::B::C::D::E`.
+                  let(:one) { B::C::D::E }
+                              ^^^^^^^^^^ Use `described_class` instead of `B::C::D::E`.
+                  let(:two) { C::D::E }
+                              ^^^^^^^ Use `described_class` instead of `C::D::E`.
+                  let(:six) { D::E }
+                              ^^^^ Use `described_class` instead of `D::E`.
+                  let(:ten) { E }
+                              ^ Use `described_class` instead of `E`.
+                end
+              end
+            end
+          end
       RUBY
     end
 
