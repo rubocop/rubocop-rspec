@@ -127,7 +127,7 @@ is a feature of RSpec itself – you can read about it in the [RSpec Documentati
 Enforcing
 
 ```ruby
-Rspec.describe MyClass do
+RSpec.describe MyClass do
   ...
 end
 ```

@@ -210,7 +210,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 * Add [observed_nesting/max_nesting] info to `RSpec/NestedGroups` messages. ([@dgollahon][])
 * Add `RSpec/ItBehavesLike` cop. ([@dgollahon][])
 * Add `RSpec/SharedContext` cop. ([@Darhazer][])
-* `Rspec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
+* `RSpec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer][])
 * Fix `ExpectActual` cop flagging `rspec-rails` routing specs. ([@backus][])
 * Fix `FilePath` cop not registering offenses for files like `spec/blog/user.rb` when it should be `spec/blog/user_spec.rb`. ([@backus][])
 
@@ -318,7 +318,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 * Update to rubocop 0.37.2. ([@nijikon][])
 * Update ruby versions we test against. ([@nijikon][])
 * Add `RSpec::NotToNot` cop. ([@miguelfteixeira][])
-* Add `Rspec/AnyInstance` cop. ([@mlarraz][])
+* Add `RSpec/AnyInstance` cop. ([@mlarraz][])
 
 ## 1.3.1
 
