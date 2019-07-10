@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
                   ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
 
-          before(:each) do
+          before do
             MyClass
             ^^^^^^^ Use `described_class` instead of `MyClass`.
 
