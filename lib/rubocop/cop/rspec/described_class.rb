@@ -48,7 +48,7 @@ module RuboCop
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 
         def_node_matcher :described_constant, <<-PATTERN
-          (block (send _ :describe $(const ...)) (args) $_)
+          (block (send _ :describe $(const ...) ...) (args) $_)
         PATTERN
 
         def on_block(node)

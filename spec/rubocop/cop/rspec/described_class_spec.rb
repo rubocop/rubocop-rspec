@@ -79,6 +79,15 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
+    it 'flags with metadata' do
+      expect_offense(<<-RUBY)
+        describe MyClass, some: :metadata do
+          subject { MyClass }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+    end
+
     it 'ignores described class as string' do
       expect_no_offenses(<<-RUBY)
         describe MyClass do
