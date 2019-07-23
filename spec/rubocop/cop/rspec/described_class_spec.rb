@@ -3,12 +3,12 @@
 RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
   subject(:cop) { described_class.new(config) }
 
-  let(:cop_config) do
-    { 'EnforcedStyle' => enforced_style }
-  end
+  let(:cop_config) { {} }
 
-  shared_examples 'SkipBlocks enabled' do
-    it 'does not flag violations within non-rspec blocks' do
+  context 'when SkipBlocks is `true`' do
+    let(:cop_config) { { 'SkipBlocks' => true } }
+
+    it 'ignores violations within non-rspec blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
           controller(ApplicationController) do
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
   end
 
-  shared_examples 'SkipBlocks disabled' do
+  context 'when SkipBlocks is `false`' do
     it 'flags violations within all blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
                   ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
 
-          before(:each) do
+          before do
             MyClass
             ^^^^^^^ Use `described_class` instead of `MyClass`.
 
@@ -51,34 +51,10 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
     end
   end
 
-  context 'when SkipBlocks is `true`' do
-    let(:cop_config) { { 'SkipBlocks' => true } }
-
-    include_examples 'SkipBlocks enabled'
-  end
-
-  context 'when SkipBlocks anything besides `true`' do
-    let(:cop_config) { { 'SkipBlocks' => 'yes' } }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
-  context 'when SkipBlocks is not set' do
-    let(:cop_config) { {} }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
-  context 'when SkipBlocks is `false`' do
-    let(:cop_config) { { 'SkipBlocks' => false } }
-
-    include_examples 'SkipBlocks disabled'
-  end
-
   context 'when EnforcedStyle is :described_class' do
-    let(:enforced_style) { :described_class }
+    let(:cop_config) { { 'EnforcedStyle' => :described_class } }
 
-    it 'checks for the use of the described class' do
+    it 'flags for the use of the described class' do
       expect_offense(<<-RUBY)
         describe MyClass do
           include MyClass
@@ -89,6 +65,25 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
 
           before { MyClass.do_something }
                    ^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe MyClass do
+          include described_class
+
+          subject { described_class.do_something }
+
+          before { described_class.do_something }
+        end
+      RUBY
+    end
+
+    it 'flags with metadata' do
+      expect_offense(<<-RUBY)
+        describe MyClass, some: :metadata do
+          subject { MyClass }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
         end
       RUBY
     end
@@ -131,14 +126,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'only takes class from top level describes' do
+    it 'takes class from innermost describe' do
       expect_offense(<<-RUBY)
         describe MyClass do
           describe MyClass::Foo do
             subject { MyClass::Foo }
+                      ^^^^^^^^^^^^ Use `described_class` instead of `MyClass::Foo`.
 
             let(:foo) { MyClass }
-                        ^^^^^^^ Use `described_class` instead of `MyClass`.
           end
         end
       RUBY
@@ -152,7 +147,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'ignores if namespace is not matching' do
+    it 'ignores non-matching namespace defined on `describe` level' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           subject { ::MyClass }
@@ -161,7 +156,17 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'checks for the use of described class with namespace' do
+    it 'ignores non-matching namespace' do
+      expect_no_offenses(<<-RUBY)
+        module MyNamespace
+          describe MyClass do
+            subject { ::MyClass }
+          end
+        end
+      RUBY
+    end
+
+    it 'flags the use of described class with namespace' do
       expect_offense(<<-RUBY)
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
@@ -170,7 +175,17 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a class scope change' do
+    it 'ignores non-matching namespace in usages' do
+      expect_no_offenses(<<-RUBY)
+        module UnrelatedNamespace
+          describe MyClass do
+            subject { MyNamespace::MyClass }
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores violations within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -182,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a hook scope change' do
+    it 'ignores violations within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do
@@ -192,16 +207,45 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'checks for the use of described class with module' do
-      pending
-
+    it 'flags the use of described class with module' do
       expect_offense(<<-RUBY)
         module MyNamespace
           describe MyClass do
             subject { MyNamespace::MyClass }
-                      ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`
+                      ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
           end
         end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        module MyNamespace
+          describe MyClass do
+            subject { described_class }
+          end
+        end
+      RUBY
+    end
+
+    it 'flags the use of described class with nested namespace' do
+      expect_offense(<<-RUBY)
+          module A
+            class B::C
+              module D
+                describe E do
+                  subject { A::B::C::D::E }
+                            ^^^^^^^^^^^^^ Use `described_class` instead of `A::B::C::D::E`.
+                  let(:one) { B::C::D::E }
+                              ^^^^^^^^^^ Use `described_class` instead of `B::C::D::E`.
+                  let(:two) { C::D::E }
+                              ^^^^^^^ Use `described_class` instead of `C::D::E`.
+                  let(:six) { D::E }
+                              ^^^^ Use `described_class` instead of `D::E`.
+                  let(:ten) { E }
+                              ^ Use `described_class` instead of `E`.
+                end
+              end
+            end
+          end
       RUBY
     end
 
@@ -211,24 +255,12 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         end
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { include Foo }',
-                     'describe(Foo) { include described_class }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { subject { Foo.do_action } }',
-                     'describe(Foo) { subject { described_class.do_action } }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { before { Foo.do_action } }',
-                     'describe(Foo) { before { described_class.do_action } }'
   end
 
   context 'when EnforcedStyle is :explicit' do
-    let(:enforced_style) { :explicit }
+    let(:cop_config) { { 'EnforcedStyle' => :explicit } }
 
-    it 'checks for the use of the described_class' do
+    it 'flags the use of the described_class' do
       expect_offense(<<-RUBY)
         describe MyClass do
           include described_class
@@ -239,6 +271,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
 
           before { described_class.do_something }
                    ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe MyClass do
+          include MyClass
+
+          subject { MyClass.do_something }
+
+          before { MyClass.do_something }
         end
       RUBY
     end
@@ -259,7 +301,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a class scope change' do
+    it 'ignores violations within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -271,7 +313,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    it 'does not flag violations within a hook scope change' do
+    it 'ignores violations within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do
@@ -281,27 +323,18 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
       RUBY
     end
 
-    include_examples 'autocorrect',
-                     'describe(Foo) { include described_class }',
-                     'describe(Foo) { include Foo }'
+    it 'autocorrects corresponding' do
+      expect_offense(<<-RUBY)
+        describe(Foo) { include described_class }
+                                ^^^^^^^^^^^^^^^ Use `Foo` instead of `described_class`.
+        describe(Bar) { include described_class }
+                                ^^^^^^^^^^^^^^^ Use `Bar` instead of `described_class`.
+      RUBY
 
-    include_examples 'autocorrect',
-                     'describe(Foo) { subject { described_class.do_action } }',
-                     'describe(Foo) { subject { Foo.do_action } }'
-
-    include_examples 'autocorrect',
-                     'describe(Foo) { before { described_class.do_action } }',
-                     'describe(Foo) { before { Foo.do_action } }'
-
-    original = <<-RUBY
-      describe(Foo) { include described_class }
-      describe(Bar) { include described_class }
-    RUBY
-    corrected = <<-RUBY
-      describe(Foo) { include Foo }
-      describe(Bar) { include Bar }
-    RUBY
-
-    include_examples 'autocorrect', original, corrected
+      expect_correction(<<-RUBY)
+        describe(Foo) { include Foo }
+        describe(Bar) { include Bar }
+      RUBY
+    end
   end
 end

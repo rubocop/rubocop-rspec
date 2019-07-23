@@ -6,10 +6,6 @@ module RuboCop
     module TopLevelDescribe
       extend NodePattern::Macros
 
-      def_node_matcher :described_constant, <<-PATTERN
-        (block $(send _ :describe $(const ...)) (args) $_)
-      PATTERN
-
       def on_send(node)
         return unless respond_to?(:on_top_level_describe)
         return unless top_level_describe?(node)
