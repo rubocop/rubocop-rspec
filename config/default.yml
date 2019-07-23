@@ -197,6 +197,11 @@ RSpec/HooksBeforeExamples:
   Description: Checks for before/around/after hooks that come after an example.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
 
+RSpec/ImplicitBlockExpectation:
+  Description: Check that implicit block expectation syntax is not used.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation
+
 RSpec/ImplicitExpect:
   Description: Check that a consistent implicit expectation style is used.
   Enabled: true

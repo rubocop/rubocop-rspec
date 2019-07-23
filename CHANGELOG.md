@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/ImplicitBlockExpectation` cop. ([@pirj][])
+
 ## 1.34.1 (2019-07-31)
 
 * Fix `RSpec/DescribedClass`'s error when a local variable is part of the namespace. ([@pirj][])
