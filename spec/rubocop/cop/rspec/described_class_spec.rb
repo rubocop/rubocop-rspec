@@ -255,6 +255,18 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
         end
       RUBY
     end
+
+    it 'ignores if a local variable is part of the namespace' do
+      expect_no_offenses(<<-RUBY)
+        describe Broken do
+          [Foo, Bar].each do |klass|
+            describe klass::Baz.name do
+              it { }
+            end
+          end
+        end
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :explicit' do
