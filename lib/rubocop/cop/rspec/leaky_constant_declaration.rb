@@ -47,10 +47,12 @@ module RuboCop
       #   end
       #
       #   # good - anonymous class, no constant needs to be defined
-      #   let(:foo_class) do
-      #     Class.new(described_class) do
-      #       def double_that
-      #         some_base_method * 2
+      #   describe SomeClass do
+      #     let(:foo_class) do
+      #       Class.new(described_class) do
+      #         def double_that
+      #           some_base_method * 2
+      #         end
       #       end
       #     end
       #
