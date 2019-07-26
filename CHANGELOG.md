@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/DescribedClass`'s error when a local variable is part of the namespace. ([@pirj][])
+
 ## 1.34.0 (2019-07-23)
 
 * Remove `AggregateFailuresByDefault` config option of `RSpec/MultipleExpectations`. ([@pirj][])

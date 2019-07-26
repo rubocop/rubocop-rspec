@@ -166,10 +166,10 @@ module RuboCop
           # rubocop:enable InternalAffairs/NodeDestructuring
           if !namespace
             [name]
-          elsif namespace.cbase_type?
-            [nil, name]
-          else
+          elsif namespace.const_type?
             [*const_name(namespace), name]
+          elsif namespace.lvar_type? || namespace.cbase_type?
+            [nil, name]
           end
         end
 
