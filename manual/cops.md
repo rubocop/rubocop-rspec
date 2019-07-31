@@ -40,6 +40,7 @@
 * [RSpec/Focus](cops_rspec.md#rspecfocus)
 * [RSpec/HookArgument](cops_rspec.md#rspechookargument)
 * [RSpec/HooksBeforeExamples](cops_rspec.md#rspechooksbeforeexamples)
+* [RSpec/ImplicitBlockExpectation](cops_rspec.md#rspecimplicitblockexpectation)
 * [RSpec/ImplicitExpect](cops_rspec.md#rspecimplicitexpect)
 * [RSpec/ImplicitSubject](cops_rspec.md#rspecimplicitsubject)
 * [RSpec/InstanceSpy](cops_rspec.md#rspecinstancespy)
