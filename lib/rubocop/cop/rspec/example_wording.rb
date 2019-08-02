@@ -53,27 +53,30 @@ module RuboCop
           end
         end
 
-        def autocorrect(range)
-          ->(corrector) { corrector.replace(range, replacement_text(range)) }
+        def autocorrect(node)
+          lambda do |corrector|
+            corrector.replace(docstring(node), replacement_text(node))
+          end
         end
 
         private
 
         def add_wording_offense(node, message)
-          expr = node.loc.expression
-
-          docstring =
-            Parser::Source::Range.new(
-              expr.source_buffer,
-              expr.begin_pos + 1,
-              expr.end_pos - 1
-            )
-
-          add_offense(docstring, location: docstring, message: message)
+          add_offense(node, location: docstring(node), message: message)
         end
 
-        def replacement_text(range)
-          text = range.source
+        def docstring(node)
+          expr = node.loc.expression
+
+          Parser::Source::Range.new(
+            expr.source_buffer,
+            expr.begin_pos + 1,
+            expr.end_pos - 1
+          )
+        end
+
+        def replacement_text(node)
+          text = text(node)
 
           if text =~ SHOULD_PREFIX
             RuboCop::RSpec::Wording.new(
@@ -83,6 +86,19 @@ module RuboCop
             ).rewrite
           else
             text.sub(IT_PREFIX, '')
+          end
+        end
+
+        # Recursive processing is required to process nested dstr nodes
+        # that is the case for \-separated multiline strings with interpolation.
+        def text(node)
+          case node.type
+          when :dstr
+            node.node_parts.map { |child_node| text(child_node) }.join
+          when :str
+            node.value
+          when :begin
+            node.source
           end
         end
 
