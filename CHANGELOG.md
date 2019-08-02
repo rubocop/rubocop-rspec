@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.35.0 (2019-08-02)
+
 * Add `RSpec/ImplicitBlockExpectation` cop. ([@pirj][])
 
 ## 1.34.1 (2019-07-31)
