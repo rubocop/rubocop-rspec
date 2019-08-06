@@ -51,6 +51,10 @@ module RuboCop
           (block (send _ :describe $(const ...) ...) (args) $_)
         PATTERN
 
+        def_node_search :contains_described_class?, <<-PATTERN
+          (send nil? :described_class)
+        PATTERN
+
         def on_block(node)
           # In case the explicit style is used, we need to remember what's
           # being described.
@@ -119,6 +123,8 @@ module RuboCop
 
         def offensive_described_class?(node)
           return unless node.const_type?
+          # E.g. `described_class::CONSTANT`
+          return if contains_described_class?(node)
 
           nearest_described_class, = node.each_ancestor(:block)
             .map { |ancestor| described_constant(ancestor) }.find(&:itself)

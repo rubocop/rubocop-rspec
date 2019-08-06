@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/DescribedClass`'s error when a `described_class` is part of the namespace. ([@pirj][])
+
 ## 1.35.0 (2019-08-02)
 
 * Add `RSpec/ImplicitBlockExpectation` cop. ([@pirj][])
