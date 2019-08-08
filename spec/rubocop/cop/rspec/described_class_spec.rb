@@ -228,24 +228,24 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
 
     it 'flags the use of described class with nested namespace' do
       expect_offense(<<-RUBY)
-          module A
-            class B::C
-              module D
-                describe E do
-                  subject { A::B::C::D::E }
-                            ^^^^^^^^^^^^^ Use `described_class` instead of `A::B::C::D::E`.
-                  let(:one) { B::C::D::E }
-                              ^^^^^^^^^^ Use `described_class` instead of `B::C::D::E`.
-                  let(:two) { C::D::E }
-                              ^^^^^^^ Use `described_class` instead of `C::D::E`.
-                  let(:six) { D::E }
-                              ^^^^ Use `described_class` instead of `D::E`.
-                  let(:ten) { E }
-                              ^ Use `described_class` instead of `E`.
-                end
+        module A
+          class B::C
+            module D
+              describe E do
+                subject { A::B::C::D::E }
+                          ^^^^^^^^^^^^^ Use `described_class` instead of `A::B::C::D::E`.
+                let(:one) { B::C::D::E }
+                            ^^^^^^^^^^ Use `described_class` instead of `B::C::D::E`.
+                let(:two) { C::D::E }
+                            ^^^^^^^ Use `described_class` instead of `C::D::E`.
+                let(:six) { D::E }
+                            ^^^^ Use `described_class` instead of `D::E`.
+                let(:ten) { E }
+                            ^ Use `described_class` instead of `E`.
               end
             end
           end
+        end
       RUBY
     end
 
@@ -262,6 +262,18 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
           [Foo, Bar].each do |klass|
             describe klass::Baz.name do
               it { }
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores if `described_class` is a part of the constant' do
+      expect_no_offenses(<<-RUBY)
+        module SomeGem
+          describe VERSION do
+            it 'returns proper version string' do
+              expect(described_class::STRING).to eq('1.1.1')
             end
           end
         end
