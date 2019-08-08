@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix `RSpec/DescribedClass`'s error when a `described_class` is part of the namespace. ([@pirj][])
+* Fix `RSpec/ExampleWording` autocorrect of multi-line docstrings. ([@pirj][])
 
 ## 1.35.0 (2019-08-02)
 

@@ -159,6 +159,34 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
         end
       RUBY
     end
+
+    it 'flags \-separated multiline strings' do
+      expect_offense(<<-RUBY)
+        it 'should do something '\\
+            ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+            'and correctly fix' do
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something and correctly fix' do
+        end
+      RUBY
+    end
+
+    it 'flags \-separated multiline interpolated strings' do
+      expect_offense(<<-'RUBY')
+        it "should do something "\
+            ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+            "with #{object}" do
+        end
+      RUBY
+
+      expect_correction(<<-'RUBY')
+        it "does something with #{object}" do
+        end
+      RUBY
+    end
   end
 
   context 'when configuration is empty' do
