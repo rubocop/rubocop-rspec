@@ -8,7 +8,8 @@ module RuboCop
       # If the first argument of describe is a class, the class is exposed to
       # each example via described_class.
       #
-      # This cop can be configured using the `EnforcedStyle` option
+      # This cop can be configured using the `EnforcedStyle` and `SkipBlocks`
+      # options.
       #
       # @example `EnforcedStyle: described_class`
       #   # bad
@@ -30,6 +31,27 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #     subject { MyClass.do_something }
+      #   end
+      #
+      # There's a known caveat with rspec-rails's `controller` helper that
+      # runs its block in a different context, and `described_class` is not
+      # available to it. `SkipBlocks` option excludes detection in all
+      # non-RSpec related blocks.
+      #
+      # To narrow down this setting to only a specific directory, it is
+      # possible to use an overriding configuration file local to that
+      # directory.
+      #
+      # @example `SkipBlocks: true`
+      #   # spec/controllers/.rubocop.yml
+      #   # RSpec/DescribedClass:
+      #   #   SkipBlocks: true
+      #
+      #   # acceptable
+      #   describe MyConcern do
+      #     controller(ApplicationController) do
+      #       include MyConcern
+      #     end
       #   end
       #
       class DescribedClass < Cop
