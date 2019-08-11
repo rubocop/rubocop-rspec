@@ -124,61 +124,61 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
-  it 'does not flag describe' do
+  it 'ignores describe' do
     expect_no_offenses(<<-RUBY)
       describe 'test' do; end
     RUBY
   end
 
-  it 'does not flag example' do
+  it 'ignores example' do
     expect_no_offenses(<<-RUBY)
       example 'test' do; end
     RUBY
   end
 
-  it 'does not flag scenario' do
+  it 'ignores scenario' do
     expect_no_offenses(<<-RUBY)
       scenario 'test' do; end
     RUBY
   end
 
-  it 'does not flag specify' do
+  it 'ignores specify' do
     expect_no_offenses(<<-RUBY)
-      specify 'test' do; end
+      specify do; end
     RUBY
   end
 
-  it 'does not flag feature' do
+  it 'ignores feature' do
     expect_no_offenses(<<-RUBY)
       feature 'test' do; end
     RUBY
   end
 
-  it 'does not flag context' do
+  it 'ignores context' do
     expect_no_offenses(<<-RUBY)
       context 'test' do; end
     RUBY
   end
 
-  it 'does not flag it' do
+  it 'ignores it' do
     expect_no_offenses(<<-RUBY)
       it 'test' do; end
     RUBY
   end
 
-  it 'does not flag it with skip: false metadata' do
+  it 'ignores it with skip: false metadata' do
     expect_no_offenses(<<-RUBY)
       it 'test', skip: false do; end
     RUBY
   end
 
-  it 'does not flag example_group' do
+  it 'ignores example_group' do
     expect_no_offenses(<<-RUBY)
       example_group 'test' do; end
     RUBY
   end
 
-  it 'does not flag method called pending' do
+  it 'ignores method called pending' do
     expect_no_offenses(<<-RUBY)
       subject { Project.pending }
     RUBY
