@@ -4,6 +4,7 @@
 
 * Fix `RSpec/DescribedClass`'s error when a `described_class` is part of the namespace. ([@pirj][])
 * Fix `RSpec/ExampleWording` autocorrect of multi-line docstrings. ([@pirj][])
+* Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
 
 ## 1.35.0 (2019-08-02)
 

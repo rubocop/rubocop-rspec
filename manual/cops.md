@@ -18,6 +18,7 @@
 * [RSpec/Be](cops_rspec.md#rspecbe)
 * [RSpec/BeEql](cops_rspec.md#rspecbeeql)
 * [RSpec/BeforeAfterAll](cops_rspec.md#rspecbeforeafterall)
+* [RSpec/ContextMethod](cops_rspec.md#rspeccontextmethod)
 * [RSpec/ContextWording](cops_rspec.md#rspeccontextwording)
 * [RSpec/DescribeClass](cops_rspec.md#rspecdescribeclass)
 * [RSpec/DescribeMethod](cops_rspec.md#rspecdescribemethod)

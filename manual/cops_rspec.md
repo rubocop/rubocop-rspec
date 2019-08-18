@@ -233,6 +233,40 @@ Exclude | `spec/spec_helper.rb`, `spec/rails_helper.rb`, `spec/support/**/*.rb` 
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll)
 
+## RSpec/ContextMethod
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+`context` should not be used for specifying methods.
+
+### Examples
+
+```ruby
+# bad
+context '#foo_bar' do
+  # ...
+end
+
+context '.foo_bar' do
+  # ...
+end
+
+# good
+describe '#foo_bar' do
+  # ...
+end
+
+describe '.foo_bar' do
+  # ...
+end
+```
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod)
+
 ## RSpec/ContextWording
 
 Enabled by default | Supports autocorrection

@@ -49,6 +49,11 @@ RSpec/BeforeAfterAll:
   - spec/support/**/*.rb
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
+RSpec/ContextMethod:
+  Description: "`context` should not be used for specifying methods."
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
+
 RSpec/ContextWording:
   Description: Checks that `context` docstring starts with an allowed prefix.
   Enabled: true
