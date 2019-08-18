@@ -25,13 +25,10 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
   spec.files = Dir[
-    '{config,lib,spec}/**/*',
-    '*.md',
-    '*.gemspec',
-    'Gemfile',
-    'Rakefile'
+    'lib/**/*',
+    'config/default.yml',
+    '*.md'
   ]
-  spec.test_files = spec.files.grep(%r{^spec/})
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.metadata = {
