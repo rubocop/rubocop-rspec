@@ -47,7 +47,8 @@ module RuboCop
       #   end
       #
       class InstanceVariable < Cop
-        MSG = 'Replace instance variable with local variable or `let`.'
+        MSG = 'Avoid instance variables – use let, ' \
+              'a method call, or a local variable (if possible).'
 
         EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
 

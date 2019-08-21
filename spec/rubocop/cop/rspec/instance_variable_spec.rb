@@ -3,12 +3,12 @@
 RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   subject(:cop) { described_class.new }
 
-  it 'finds an instance variable inside a describe' do
+  it 'flags an instance variable inside a describe' do
     expect_offense(<<-RUBY)
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
-                    ^^^^ Replace instance variable with local variable or `let`.
+                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
       end
     RUBY
   end
@@ -22,11 +22,11 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     RUBY
   end
 
-  it 'finds an instance variable inside a shared example' do
+  it 'flags an instance variable inside a shared example' do
     expect_offense(<<-RUBY)
       shared_examples 'shared example' do
         it { expect(@foo).to be_empty }
-                    ^^^^ Replace instance variable with local variable or `let`.
+                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
       end
     RUBY
   end
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
         describe MyClass do
           before { @foo = [] }
           it { expect(@foo).to be_empty }
-                      ^^^^ Replace instance variable with local variable or `let`.
+                      ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
         end
       RUBY
     end
