@@ -61,6 +61,19 @@ jobs:
       - image: circleci/ruby:2.6
     <<: *rubocop
 
+  edge-rubocop:
+    docker:
+      - image: circleci/ruby
+    steps:
+      - checkout
+      - run:
+          name: Use latest RuboCop from `master`
+          command: |
+            echo "gem 'rubocop', github: 'rubocop-hq/rubocop'" > Gemfile.local
+      - run: bundle install --no-cache
+      - run: rake spec
+      - run: rake internal_investigation
+
   # JRuby
   jruby:
     docker:
@@ -120,6 +133,8 @@ workflows:
       - ruby-2.6-rspec:
           requires: [confirm_config_and_documentation]
       - ruby-2.6-rubocop:
+          requires: [confirm_config_and_documentation]
+      - edge-rubocop:
           requires: [confirm_config_and_documentation]
       - jruby
       - code-climate
