@@ -74,6 +74,20 @@ jobs:
       - run: rake spec
       - run: rake internal_investigation
 
+  earliest-supported-rubocop:
+    docker:
+      - image: circleci/ruby
+    steps:
+      - checkout
+      - run:
+          name: Use earliest supported RuboCop
+          command: |
+            RUBOCOP_VERSION=$(grep -E "add_runtime_dependency 'rubocop'" < rubocop-rspec.gemspec | sed -e "s/^[^0-9]*//" -e "s/'$//")
+            echo "gem 'rubocop', '$RUBOCOP_VERSION'" > Gemfile.local
+      - run: bundle install --no-cache
+      - run: rake spec
+      - run: rake internal_investigation
+
   # JRuby
   jruby:
     docker:
@@ -135,6 +149,8 @@ workflows:
       - ruby-2.6-rubocop:
           requires: [confirm_config_and_documentation]
       - edge-rubocop:
+          requires: [confirm_config_and_documentation]
+      - earliest-supported-rubocop:
           requires: [confirm_config_and_documentation]
       - jruby
       - code-climate
