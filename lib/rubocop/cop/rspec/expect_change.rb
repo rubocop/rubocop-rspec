@@ -12,22 +12,22 @@ module RuboCop
       #
       # @example `EnforcedStyle: block`
       #   # bad
-      #   expect(run).to change(Foo, :bar)
+      #   expect { run }.to change(Foo, :bar)
       #
       #   # good
-      #   expect(run).to change { Foo.bar }
+      #   expect { run }.to change { Foo.bar }
       #
       # @example `EnforcedStyle: method_call`
       #   # bad
-      #   expect(run).to change { Foo.bar }
-      #   expect(run).to change { foo.baz }
+      #   expect { run }.to change { Foo.bar }
+      #   expect { run }.to change { foo.baz }
       #
       #   # good
-      #   expect(run).to change(Foo, :bar)
-      #   expect(run).to change(foo, :baz)
+      #   expect { run }.to change(Foo, :bar)
+      #   expect { run }.to change(foo, :baz)
       #   # also good when there are arguments or chained method calls
-      #   expect(run).to change { Foo.bar(:count) }
-      #   expect(run).to change { user.reload.name }
+      #   expect { run }.to change { Foo.bar(:count) }
+      #   expect { run }.to change { user.reload.name }
       #
       class ExpectChange < Cop
         include ConfigurableEnforcedStyle
