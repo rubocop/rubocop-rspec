@@ -10,17 +10,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
   context 'with EnforcedStyle `method_call`' do
     let(:enforced_style) { 'method_call' }
 
-    it 'finds blocks that contain simple message sending' do
+    it 'flags blocks that contain simple message sending' do
       expect_offense(<<-RUBY)
         it do
-          expect(run).to change { User.count }.by(1)
-                         ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
+          expect { run }.to change { User.count }.by(1)
+                            ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
         end
       RUBY
 
       expect_correction(<<-RUBY)
         it do
-          expect(run).to change(User, :count).by(1)
+          expect { run }.to change(User, :count).by(1)
         end
       RUBY
     end
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
     it 'ignores blocks that cannot be converted to obj/attribute pair' do
       expect_no_offenses(<<-RUBY)
         it do
-          expect(run).to change { User.sum(:points) }
+          expect { run }.to change { User.sum(:points) }
         end
       RUBY
     end
@@ -40,37 +40,46 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
         end
       RUBY
     end
+
+    it 'flags implicit block expectation syntax' do
+      expect_offense(<<-RUBY)
+        it do
+          expect(run).to change { User.count }.by(1)
+                         ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
+        end
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `block`' do
     let(:enforced_style) { 'block' }
 
-    it 'finds change matcher without block' do
+    it 'flags change matcher without block' do
       expect_offense(<<-RUBY)
         it do
-          expect(run).to change(User, :count).by(1)
-                         ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
+          expect { run }.to change(User, :count).by(1)
+                            ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
         end
       RUBY
 
       expect_correction(<<-RUBY)
         it do
-          expect(run).to change { User.count }.by(1)
+          expect { run }.to change { User.count }.by(1)
         end
       RUBY
     end
 
-    it 'finds change matcher when receiver is a variable' do
+    it 'flags change matcher when receiver is a variable' do
       expect_offense(<<-RUBY)
         it do
-          expect(run).to change(user, :count)
-                         ^^^^^^^^^^^^^^^^^^^^ Prefer `change { user.count }`.
+          expect { run }.to change(User, :count)
+                            ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
         end
       RUBY
 
       expect_correction(<<-RUBY)
         it do
-          expect(run).to change { user.count }
+          expect { run }.to change { User.count }
         end
       RUBY
     end
@@ -79,6 +88,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
       expect_no_offenses(<<-RUBY)
         it do
           record.change(user, :count)
+        end
+      RUBY
+    end
+
+    it 'flags implicit block expectation syntax' do
+      expect_offense(<<-RUBY)
+        it do
+          expect(run).to change(User, :count).by(1)
+                         ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
         end
       RUBY
     end
