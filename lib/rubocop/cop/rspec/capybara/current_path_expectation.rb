@@ -78,12 +78,28 @@ module RuboCop
                                'have_no_current_path'
                              end
             corrector.replace(matcher_node.loc.selector, matcher_method)
+            add_ignore_query_options(corrector, node)
           end
 
           def convert_regexp_str_to_literal(corrector, matcher_node, regexp_str)
             str_node = matcher_node.first_argument
             regexp_expr = Regexp.new(regexp_str).inspect
             corrector.replace(str_node.loc.expression, regexp_expr)
+          end
+
+          # `have_current_path` with no options will include the querystring
+          # while `page.current_path` does not.
+          # This ensures the option `ignore_query: true` is added
+          # except when the expectation is a regexp or string
+          def add_ignore_query_options(corrector, node)
+            expectation_node = node.parent.last_argument
+            expectation_last_child = expectation_node.children.last
+            return if %i[regexp str].include?(expectation_last_child.type)
+
+            corrector.insert_after(
+              expectation_last_child.loc.expression,
+              ', ignore_query: true'
+            )
           end
         end
       end
