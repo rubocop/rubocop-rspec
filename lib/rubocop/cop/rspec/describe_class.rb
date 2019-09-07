@@ -29,17 +29,17 @@ module RuboCop
           }
         PATTERN
 
-        def_node_matcher :describe_with_metadata, <<-PATTERN
-          (send #{RSPEC} :describe
-            !const
-            ...
-            (hash $...))
+        def_node_matcher :describe_with_rails_metadata?, <<-PATTERN
+          (send #{RSPEC} :describe !const ...
+            (hash <#rails_metadata? ...>)
+          )
         PATTERN
 
         def_node_matcher :rails_metadata?, <<-PATTERN
           (pair
             (sym :type)
-            (sym {:request :feature :system :routing :view}))
+            (sym {:request :feature :system :routing :view})
+          )
         PATTERN
 
         def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
@@ -47,10 +47,7 @@ module RuboCop
         def on_top_level_describe(node, args)
           return if shared_group?(root_node)
           return if valid_describe?(node)
-
-          describe_with_metadata(node) do |pairs|
-            return if pairs.any?(&method(:rails_metadata?))
-          end
+          return if describe_with_rails_metadata?(node)
 
           add_offense(args.first)
         end

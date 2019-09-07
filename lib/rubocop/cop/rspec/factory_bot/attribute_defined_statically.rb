@@ -38,7 +38,7 @@ module RuboCop
           def on_block(node)
             factory_attributes(node).to_a.flatten.each do |attribute|
               next unless offensive_receiver?(attribute.receiver, node)
-              next if proc?(attribute) || association?(attribute)
+              next if proc?(attribute) || association?(attribute.first_argument)
 
               add_offense(attribute)
             end
@@ -72,14 +72,7 @@ module RuboCop
             value_matcher(attribute).to_a.all?(&:block_pass_type?)
           end
 
-          def association?(attribute)
-            argument = attribute.first_argument
-            argument.hash_type? && factory_key?(argument)
-          end
-
-          def factory_key?(hash_node)
-            hash_node.keys.any? { |key| key.sym_type? && key.value == :factory }
-          end
+          def_node_matcher :association?, '(hash <(pair (sym :factory) _) ...>)'
 
           def autocorrect_replacing_parens(node)
             left_braces, right_braces = braces(node)

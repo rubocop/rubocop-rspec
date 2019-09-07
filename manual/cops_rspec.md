@@ -2258,6 +2258,12 @@ describe MyClass do
 end
 
 describe MyClass do
+  it "should be true", skip: true do
+    expect(1).to eq(2)
+  end
+end
+
+describe MyClass do
   it "should be true" do
     pending
   end
