@@ -602,6 +602,64 @@ CustomIncludeMethods | `[]` | Array
 
 * [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup)
 
+## RSpec/EmptyLineAfterExample
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks if there is an empty line after example blocks.
+
+### Examples
+
+```ruby
+# bad
+RSpec.describe Foo do
+  it 'does this' do
+  end
+  it 'does that' do
+  end
+end
+
+# good
+RSpec.describe Foo do
+  it 'does this' do
+  end
+
+  it 'does that' do
+  end
+end
+
+# fair - it's ok to have non-separated one-liners
+RSpec.describe Foo do
+  it { one }
+  it { two }
+end
+```
+#### with AllowConsecutiveOneLiners configuration
+
+```ruby
+# rubocop.yml
+# RSpec/EmptyLineAfterExample:
+#   AllowConsecutiveOneLiners: false
+
+# bad
+RSpec.describe Foo do
+  it { one }
+  it { two }
+end
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+AllowConsecutiveOneLiners | `true` | Boolean
+
+### References
+
+* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample)
+
 ## RSpec/EmptyLineAfterExampleGroup
 
 Enabled by default | Supports autocorrection
