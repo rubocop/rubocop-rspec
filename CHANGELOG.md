@@ -6,6 +6,7 @@
 * Fix `RSpec/ExampleWording` autocorrect of multi-line docstrings. ([@pirj][])
 * Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
 * Update RuboCop dependency to 0.68.1 with support for children matching node pattern syntax. ([@pirj][])
+* Add `RSpec/EmptyLineAfterExample` cop to check that there is an empty line after example blocks. ([@pirj][])
 
 ## 1.35.0 (2019-08-02)
 
