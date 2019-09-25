@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.36.0 (2019-09-27)
+
 * Fix `RSpec/DescribedClass`'s error when `described_class` is used as part of a constant. ([@pirj][])
 * Fix `RSpec/ExampleWording` autocorrect of multi-line docstrings. ([@pirj][])
 * Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
