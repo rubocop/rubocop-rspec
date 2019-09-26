@@ -2,6 +2,9 @@
 
 source 'https://rubygems.org'
 
+gem 'rubocop', github: 'pirj/rubocop', branch: 'use-rubocop-dev'
+gem 'rubocop-dev', github: 'pirj/rubocop-dev'
+
 gemspec
 
 local_gemfile = 'Gemfile.local'
