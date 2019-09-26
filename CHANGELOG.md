@@ -7,6 +7,7 @@
 * Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
 * Update RuboCop dependency to 0.68.1 with support for children matching node pattern syntax. ([@pirj][])
 * Add `RSpec/EmptyLineAfterExample` cop to check that there is an empty line after example blocks. ([@pirj][])
+* Fix `Capybara/CurrentPathExpectation` auto-corrector, to include option `ignore_query: true`. ([@onumis][])
 
 ## 1.35.0 (2019-08-02)
 
@@ -446,3 +447,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@schmijos]: https://github.com/schmijos
 [@foton]: https://github.com/foton
 [@nc-holodakg]: https://github.com/nc-holodakg
+[@onumis]: https://github.com/onumis
