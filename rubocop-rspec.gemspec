@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '>= 3.4'
+  spec.add_development_dependency 'rubocop-dev'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'yard'
 end

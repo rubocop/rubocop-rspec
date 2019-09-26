@@ -2,7 +2,7 @@
 
 require 'rubocop'
 
-require 'rubocop/rspec/support'
+require 'rubocop/dev/rspec/support'
 
 if ENV['COVERAGE'] == 'true'
   require 'simplecov'
