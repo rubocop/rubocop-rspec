@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # Version information for the RSpec RuboCop plugin.
     module Version
-      STRING = '1.35.0'
+      STRING = '1.36.0'
     end
   end
 end

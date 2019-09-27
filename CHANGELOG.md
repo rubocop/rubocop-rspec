@@ -2,7 +2,9 @@
 
 ## Master (Unreleased)
 
-* Fix `RSpec/DescribedClass`'s error when a `described_class` is part of the namespace. ([@pirj][])
+## 1.36.0 (2019-09-27)
+
+* Fix `RSpec/DescribedClass`'s error when `described_class` is used as part of a constant. ([@pirj][])
 * Fix `RSpec/ExampleWording` autocorrect of multi-line docstrings. ([@pirj][])
 * Add `RSpec/ContextMethod` cop, to detect method names in `context`. ([@geniou][])
 * Update RuboCop dependency to 0.68.1 with support for children matching node pattern syntax. ([@pirj][])
