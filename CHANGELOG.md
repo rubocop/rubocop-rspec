@@ -8,6 +8,8 @@
 * Update RuboCop dependency to 0.68.1 with support for children matching node pattern syntax. ([@pirj][])
 * Add `RSpec/EmptyLineAfterExample` cop to check that there is an empty line after example blocks. ([@pirj][])
 * Fix `Capybara/CurrentPathExpectation` auto-corrector, to include option `ignore_query: true`. ([@onumis][])
+* Fix `RSpec/Focus` detecting mixed array/hash metadata. ([@dgollahon][])
+* Fix `RSpec/Focus` to also detect `pending` examples. ([@dgollahon][])
 
 ## 1.35.0 (2019-08-02)
 

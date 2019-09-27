@@ -38,6 +38,8 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                                    ^^^^^^^^^^^ Focused spec found.
       xscenario 'test', meta: true, focus: true do; end
                                     ^^^^^^^^^^^ Focused spec found.
+      pending 'test', meta: true, focus: true do; end
+                                  ^^^^^^^^^^^ Focused spec found.
     RUBY
   end
 
@@ -75,6 +77,8 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                        ^^^^^^ Focused spec found.
       it 'test', :focus do; end
                  ^^^^^^ Focused spec found.
+      pending 'test', :focus do; end
+                      ^^^^^^ Focused spec found.
     RUBY
   end
   # rubocop:enable RSpec/ExampleLength
@@ -134,6 +138,13 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       ^^^^^^^^^^^^^^^ Focused spec found.
       focus 'test' do; end
       ^^^^^^^^^^^^ Focused spec found.
+    RUBY
+  end
+
+  it 'flags rspec example blocks that include `:focus` preceding a hash' do
+    expect_offense(<<-RUBY)
+      describe 'test', :focus, js: true do; end
+                       ^^^^^^ Focused spec found.
     RUBY
   end
 end
