@@ -290,4 +290,15 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       end
     RUBY
   end
+
+  it 'flags when an implicit subject is mocked' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it 'uses an implicit subject' do
+          expect(subject).to receive(:bar).and_return(baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
 end
