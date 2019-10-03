@@ -7,7 +7,7 @@ module RuboCop
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
       NAMESPACES = /^(RSpec|Capybara|FactoryBot|Rails)/.freeze
-      STYLE_GUIDE_BASE_URL = 'http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
+      STYLE_GUIDE_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
 
       def initialize(config, descriptions)
         @config       = config
