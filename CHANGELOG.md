@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Upgrade Rubocop to at least 0.75 to fix documentation rake tasks
+
 ## 1.36.0 (2019-09-27)
 
 * Fix `RSpec/DescribedClass`'s error when `described_class` is used as part of a constant. ([@pirj][])
