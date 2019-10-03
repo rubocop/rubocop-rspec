@@ -21,13 +21,15 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
 
   let(:fake_cop) do
     stub_const('RuboCop::RSpec', Module.new)
-    # rubocop:disable ClassAndModuleChildren, RSpec/LeakyConstantDeclaration
+    # rubocop:disable Style/ClassAndModuleChildren
+    # rubocop:disable RSpec/LeakyConstantDeclaration
     class RuboCop::RSpec::FakeCop < described_class
       def on_send(node)
         add_offense(node, message: 'I flag everything')
       end
     end
-    # rubocop:enable ClassAndModuleChildren, RSpec/LeakyConstantDeclaration
+    # rubocop:enable Style/ClassAndModuleChildren
+    # rubocop:enable RSpec/LeakyConstantDeclaration
     RuboCop::RSpec::FakeCop
   end
 
