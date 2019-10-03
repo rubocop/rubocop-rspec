@@ -138,9 +138,32 @@ task generate_cops_documentation: :yard_for_generate_documentation do
   end
   # rubocop:enable Metrics/MethodLength
 
+  def cop_urls(config, cop)
+    rubocop_version = Gem::Version.new(RuboCop::Version::STRING)
+
+    # Since Rubocop v0.75.0 and above, MessageAnnotator#new changed from:
+    #   def initialize(config, cop_config, options)
+    # to:
+    #   def initialize(config, cop_name, cop_config, options)
+    #
+    # Since this library has a loose Rubocop dependency, we select the
+    # right arguments based on the installed version.
+    #
+    # TODO: When Rubocop < 0.75 is no longer supported, remove the second half
+    # of this condition.
+
+    if rubocop_version >= Gem::Version.new('0.75.0')
+      RuboCop::Cop::MessageAnnotator.new(
+        config, cop.name, config.for_cop(cop), {}
+      ).urls
+    else
+      RuboCop::Cop::MessageAnnotator.new(config, config.for_cop(cop), {}).urls
+    end
+  end
+
   def references(config, cop)
-    cop_config = config.for_cop(cop)
-    urls = RuboCop::Cop::MessageAnnotator.new(config, cop_config, {}).urls
+    urls = cop_urls(config, cop)
+
     return '' if urls.empty?
 
     content = h3('References')
