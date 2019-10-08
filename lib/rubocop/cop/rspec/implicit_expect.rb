@@ -82,7 +82,7 @@ module RuboCop
           end
         end
 
-        def is_expected_range(source_map) # rubocop:disable PredicateName
+        def is_expected_range(source_map) # rubocop:disable Naming/PredicateName
           Parser::Source::Range.new(
             source_map.expression.source_buffer,
             source_map.expression.begin_pos,

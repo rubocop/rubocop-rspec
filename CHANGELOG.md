@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix documentation rake task to support Rubocop 0.75. ([@nickcampbell18][])
+
 ## 1.36.0 (2019-09-27)
 
 * Fix `RSpec/DescribedClass`'s error when `described_class` is used as part of a constant. ([@pirj][])
@@ -452,3 +454,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@foton]: https://github.com/foton
 [@nc-holodakg]: https://github.com/nc-holodakg
 [@onumis]: https://github.com/onumis
+[@nickcampbell18]: https://github.com/nickcampbell18
