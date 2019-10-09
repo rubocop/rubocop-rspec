@@ -469,6 +469,34 @@ EnforcedStyle | `described_class` | `described_class`, `explicit`
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass)
 
+## RSpec/DescribedClassModuleWrapping
+
+Enabled by default | Supports autocorrection
+--- | ---
+Disabled | No
+
+Avoid opening modules and defining specs within them.
+
+### Examples
+
+```ruby
+# bad
+module MyModule
+  RSpec.describe MyClass do
+    # ...
+  end
+end
+
+# good
+RSpec.describe MyModule::MyClass do
+  # ...
+end
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping)
+
 ## RSpec/Dialect
 
 Enabled by default | Supports autocorrection
