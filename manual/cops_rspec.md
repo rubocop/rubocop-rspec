@@ -24,7 +24,7 @@ let(:a)      { b }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace)
 
 ## RSpec/AlignRightLetBrace
 
@@ -50,7 +50,7 @@ let(:a)      { b        }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace)
 
 ## RSpec/AnyInstance
 
@@ -83,7 +83,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance)
 
 ## RSpec/AroundBlock
 
@@ -119,7 +119,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock)
 
 ## RSpec/Be
 
@@ -147,7 +147,7 @@ expect(foo).to be(true)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be)
 
 ## RSpec/BeEql
 
@@ -191,7 +191,7 @@ expect(foo).to be(nil)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql)
 
 ## RSpec/BeforeAfterAll
 
@@ -231,7 +231,7 @@ Exclude | `spec/spec_helper.rb`, `spec/rails_helper.rb`, `spec/support/**/*.rb` 
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll)
 
 ## RSpec/ContextMethod
 
@@ -265,7 +265,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod)
 
 ## RSpec/ContextWording
 
@@ -310,7 +310,7 @@ Prefixes | `when`, `with`, `without` | Array
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording)
 
 ## RSpec/DescribeClass
 
@@ -337,7 +337,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass)
 
 ## RSpec/DescribeMethod
 
@@ -364,7 +364,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod)
 
 ## RSpec/DescribeSymbol
 
@@ -390,7 +390,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol)
 
 ## RSpec/DescribedClass
 
@@ -467,7 +467,7 @@ EnforcedStyle | `described_class` | `described_class`, `explicit`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass)
 
 ## RSpec/Dialect
 
@@ -525,7 +525,7 @@ PreferredMethods | `{}` |
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect)
 
 ## RSpec/EmptyExampleGroup
 
@@ -600,7 +600,7 @@ CustomIncludeMethods | `[]` | Array
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup)
 
 ## RSpec/EmptyLineAfterExample
 
@@ -658,7 +658,7 @@ AllowConsecutiveOneLiners | `true` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample)
 
 ## RSpec/EmptyLineAfterExampleGroup
 
@@ -691,7 +691,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup)
 
 ## RSpec/EmptyLineAfterFinalLet
 
@@ -718,7 +718,7 @@ it { does_something }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet)
 
 ## RSpec/EmptyLineAfterHook
 
@@ -761,7 +761,7 @@ it { does_something }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook)
 
 ## RSpec/EmptyLineAfterSubject
 
@@ -786,7 +786,7 @@ let(:foo) { bar }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject)
 
 ## RSpec/ExampleLength
 
@@ -828,7 +828,7 @@ Max | `5` | Integer
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength)
 
 ## RSpec/ExampleWithoutDescription
 
@@ -898,7 +898,7 @@ EnforcedStyle | `always_allow` | `always_allow`, `single_line_only`, `disallow`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription)
 
 ## RSpec/ExampleWording
 
@@ -943,7 +943,7 @@ IgnoredWords | `[]` | Array
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording)
 
 ## RSpec/ExpectActual
 
@@ -975,7 +975,7 @@ Exclude | `spec/routing/**/*` | Array
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual)
 
 ## RSpec/ExpectChange
 
@@ -1024,7 +1024,7 @@ EnforcedStyle | `method_call` | `method_call`, `block`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange)
 
 ## RSpec/ExpectInHook
 
@@ -1055,7 +1055,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook)
 
 ## RSpec/ExpectOutput
 
@@ -1080,7 +1080,7 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput)
 
 ## RSpec/FilePath
 
@@ -1140,7 +1140,7 @@ IgnoreMethods | `false` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath)
 
 ## RSpec/Focus
 
@@ -1170,7 +1170,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus)
 
 ## RSpec/HookArgument
 
@@ -1250,7 +1250,7 @@ EnforcedStyle | `implicit` | `implicit`, `each`, `example`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument)
 
 ## RSpec/HooksBeforeExamples
 
@@ -1283,7 +1283,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples)
 
 ## RSpec/ImplicitBlockExpectation
 
@@ -1310,7 +1310,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation)
 
 ## RSpec/ImplicitExpect
 
@@ -1352,7 +1352,7 @@ EnforcedStyle | `is_expected` | `is_expected`, `should`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect)
 
 ## RSpec/ImplicitSubject
 
@@ -1398,7 +1398,7 @@ EnforcedStyle | `single_line_only` | `single_line_only`, `single_statement_only`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject)
 
 ## RSpec/InstanceSpy
 
@@ -1426,7 +1426,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy)
 
 ## RSpec/InstanceVariable
 
@@ -1489,7 +1489,7 @@ AssignmentOnly | `false` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable)
 
 ## RSpec/InvalidPredicateMatcher
 
@@ -1514,7 +1514,7 @@ expect(foo).to be_something
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher)
 
 ## RSpec/ItBehavesLike
 
@@ -1553,7 +1553,7 @@ EnforcedStyle | `it_behaves_like` | `it_behaves_like`, `it_should_behave_like`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike)
 
 ## RSpec/IteratedExpectation
 
@@ -1579,7 +1579,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation)
 
 ## RSpec/LeadingSubject
 
@@ -1619,7 +1619,7 @@ Enforce that subject is the first definition in the test.
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject)
 
 ## RSpec/LeakyConstantDeclaration
 
@@ -1723,7 +1723,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration)
 
 ## RSpec/LetBeforeExamples
 
@@ -1764,7 +1764,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples)
 
 ## RSpec/LetSetup
 
@@ -1800,7 +1800,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup)
 
 ## RSpec/MessageChain
 
@@ -1823,7 +1823,7 @@ allow(foo).to receive(bar: thing)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain)
 
 ## RSpec/MessageExpectation
 
@@ -1865,7 +1865,7 @@ EnforcedStyle | `allow` | `allow`, `expect`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation)
 
 ## RSpec/MessageSpies
 
@@ -1907,7 +1907,7 @@ EnforcedStyle | `have_received` | `have_received`, `receive`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies)
 
 ## RSpec/MissingExampleGroupArgument
 
@@ -1937,7 +1937,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument)
 
 ## RSpec/MultipleDescribes
 
@@ -1970,7 +1970,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes)
 
 ## RSpec/MultipleExpectations
 
@@ -2030,7 +2030,7 @@ AggregateFailuresByDefault | `false` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations)
 
 ## RSpec/MultipleSubjects
 
@@ -2073,7 +2073,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects)
 
 ## RSpec/NamedSubject
 
@@ -2131,7 +2131,7 @@ IgnoreSharedExamples | `true` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject)
 
 ## RSpec/NestedGroups
 
@@ -2233,7 +2233,7 @@ Max | `3` | Integer
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups)
 
 ## RSpec/NotToNot
 
@@ -2265,7 +2265,7 @@ EnforcedStyle | `not_to` | `not_to`, `to_not`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot)
 
 ## RSpec/OverwritingSetup
 
@@ -2297,7 +2297,7 @@ let!(:other) { other }
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup)
 
 ## RSpec/Pending
 
@@ -2339,7 +2339,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending)
 
 ## RSpec/PredicateMatcher
 
@@ -2405,7 +2405,7 @@ EnforcedStyle | `inflected` | `inflected`, `explicit`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher)
 
 ## RSpec/ReceiveCounts
 
@@ -2437,7 +2437,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts)
 
 ## RSpec/ReceiveNever
 
@@ -2459,7 +2459,7 @@ expect(foo).not_to receive(:bar)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever)
 
 ## RSpec/RepeatedDescription
 
@@ -2497,7 +2497,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription)
 
 ## RSpec/RepeatedExample
 
@@ -2521,7 +2521,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample)
 
 ## RSpec/ReturnFromStub
 
@@ -2574,7 +2574,7 @@ EnforcedStyle | `and_return` | `and_return`, `block`
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub)
 
 ## RSpec/ScatteredLet
 
@@ -2610,7 +2610,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet)
 
 ## RSpec/ScatteredSetup
 
@@ -2642,7 +2642,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup)
 
 ## RSpec/SharedContext
 
@@ -2702,7 +2702,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext)
 
 ## RSpec/SharedExamples
 
@@ -2732,7 +2732,7 @@ include_examples 'foo bar baz'
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples)
 
 ## RSpec/SingleArgumentMessageChain
 
@@ -2758,7 +2758,7 @@ allow(foo).to receive("bar.baz")
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain)
 
 ## RSpec/SubjectStub
 
@@ -2783,7 +2783,7 @@ end
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub)
 
 ## RSpec/UnspecifiedException
 
@@ -2823,7 +2823,7 @@ expect { do_something }.not_to raise_error
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException)
 
 ## RSpec/VerifiedDoubles
 
@@ -2861,7 +2861,7 @@ IgnoreSymbolicNames | `false` | Boolean
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles)
 
 ## RSpec/VoidExpect
 
@@ -2883,7 +2883,7 @@ expect(something).to be(1)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect)
 
 ## RSpec/Yield
 
@@ -2905,4 +2905,4 @@ expect(foo).to be(:bar).and_yield(1)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield)

@@ -8,7 +8,7 @@ Enabled | Yes
 
 Checks that no expectations are set on Capybara's `current_path`.
 
-The `have_current_path` matcher (http://www.rubydoc.info/github/
+The `have_current_path` matcher (https://www.rubydoc.info/github/
 teamcapybara/capybara/master/Capybara/RSpecMatchers#have_current_path-
 instance_method) should be used on `page` to set expectations on
 Capybara's current path, since it uses Capybara's waiting
@@ -30,7 +30,7 @@ expect(page).to have_current_path(/widgets/)
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation)
 
 ## Capybara/FeatureMethods
 
@@ -86,4 +86,4 @@ EnabledMethods | `[]` | Array
 
 ### References
 
-* [http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods](http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods)
