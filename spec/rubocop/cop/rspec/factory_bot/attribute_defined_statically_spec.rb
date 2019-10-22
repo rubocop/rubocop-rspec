@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do # rubocop:disable Metrics/LineLength
+RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
   subject(:cop) { described_class.new }
 
   it 'registers an offense for offending code' do
