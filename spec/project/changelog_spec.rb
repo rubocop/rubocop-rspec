@@ -39,7 +39,7 @@ RSpec.describe 'CHANGELOG.md' do
       it 'has a valid URL' do
         issues.each do |issue|
           number = issue[:number].gsub(/\D/, '')
-          pattern = %r{^https://github\.com/.+/.+/(?:issues|pull)/#{number}$} # rubocop:disable Metrics/LineLength
+          pattern = %r{^https://github\.com/.+/.+/(?:issues|pull)/#{number}$}
           expect(issue[:url]).to match(pattern)
         end
       end
