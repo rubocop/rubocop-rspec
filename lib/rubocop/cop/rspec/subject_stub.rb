@@ -132,7 +132,10 @@ module RuboCop
         # @yieldparam subject_name [Symbol] name of subject being defined
         # @yieldparam parent [RuboCop::Node] parent of subject definition
         def find_subject(node, parent: nil, &block)
-          subject(node) { |name| yield(name, parent) }
+          # An implicit subject is defined by RSpec when no subject is declared
+          subject_name = subject(node) || :subject
+
+          yield(subject_name, parent) if parent
 
           node.each_child_node do |child|
             find_subject(child, parent: node, &block)
