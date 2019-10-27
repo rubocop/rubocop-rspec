@@ -83,8 +83,8 @@
 * [RSpec/VoidExpect](cops_rspec.md#rspecvoidexpect)
 * [RSpec/Yield](cops_rspec.md#rspecyield)
 
-#### Department [Rails](cops_rails.md)
+#### Department [RSpecRails](cops_rspecrails.md)
 
-* [Rails/HttpStatus](cops_rails.md#railshttpstatus)
+* [RSpecRails/HttpStatus](cops_rspecrails.md#rspecrailshttpstatus)
 
 <!-- END_COP_LIST -->

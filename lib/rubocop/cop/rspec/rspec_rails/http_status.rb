@@ -5,7 +5,7 @@ require 'rack/utils'
 module RuboCop
   module Cop
     module RSpec
-      module Rails
+      module RSpecRails
         # Enforces use of symbolic or numeric value to describe HTTP status.
         #
         # @example `EnforcedStyle: symbolic` (default)

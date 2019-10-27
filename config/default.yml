@@ -474,11 +474,11 @@ FactoryBot/CreateList:
   - n_times
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
-Rails/HttpStatus:
+RSpecRails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
   EnforcedStyle: symbolic
   SupportedStyles:
   - numeric
   - symbolic
-  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RSpecRails/HttpStatus

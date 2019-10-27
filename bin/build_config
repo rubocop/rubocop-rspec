@@ -10,7 +10,7 @@ require 'rubocop/rspec/description_extractor'
 require 'rubocop/rspec/config_formatter'
 
 glob = File.join(__dir__, '..', 'lib', 'rubocop', 'cop', 'rspec',
-                 '{,capybara,factory_bot,rails}', '*.rb')
+                 '{,capybara,factory_bot,rspec_rails}', '*.rb')
 YARD.parse(Dir[glob], [])
 
 descriptions = RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all).to_h

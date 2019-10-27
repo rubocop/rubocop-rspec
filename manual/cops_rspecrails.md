@@ -1,6 +1,6 @@
-# Rails
+# RSpecRails
 
-## Rails/HttpStatus
+## RSpecRails/HttpStatus
 
 Enabled by default | Supports autocorrection
 --- | ---
@@ -45,4 +45,4 @@ EnforcedStyle | `symbolic` | `numeric`, `symbolic`
 
 ### References
 
-* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus)
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RSpecRails/HttpStatus](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RSpecRails/HttpStatus)

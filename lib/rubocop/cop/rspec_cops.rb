@@ -7,9 +7,9 @@ require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/create_list'
 
 begin
-  require_relative 'rspec/rails/http_status'
+  require_relative 'rspec/rspec_rails/http_status'
 rescue LoadError # rubocop:disable Lint/HandleExceptions
-  # Rails/HttpStatus cannot be loaded if rack/utils is unavailable.
+  # RSpecRails/HttpStatus cannot be loaded if rack/utils is unavailable.
 end
 
 require_relative 'rspec/align_left_let_brace'
