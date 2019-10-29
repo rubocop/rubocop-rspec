@@ -48,7 +48,3 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
-
-RSpec/FilePath:
-  Exclude:
-    - spec/rubocop/cop/rspec/rspec_rails/**/*.rb

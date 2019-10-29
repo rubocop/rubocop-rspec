@@ -1135,7 +1135,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 Name | Default value | Configurable values
 --- | --- | ---
-CustomTransform | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}` | 
+CustomTransform | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec", "RSpecRails"=>"rspec_rails"}` | 
 IgnoreMethods | `false` | Boolean
 
 ### References

@@ -185,6 +185,7 @@ RSpec/FilePath:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
+    RSpecRails: rspec_rails
   IgnoreMethods: false
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
