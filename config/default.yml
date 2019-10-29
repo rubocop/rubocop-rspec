@@ -88,6 +88,11 @@ RSpec/DescribedClass:
   - explicit
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
+RSpec/DescribedClassModuleWrapping:
+  Description: Avoid opening modules and defining specs within them.
+  Enabled: false
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
+
 RSpec/Dialect:
   Description: This cop enforces custom RSpec dialects.
   Enabled: false

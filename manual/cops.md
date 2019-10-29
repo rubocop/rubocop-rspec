@@ -24,6 +24,7 @@
 * [RSpec/DescribeMethod](cops_rspec.md#rspecdescribemethod)
 * [RSpec/DescribeSymbol](cops_rspec.md#rspecdescribesymbol)
 * [RSpec/DescribedClass](cops_rspec.md#rspecdescribedclass)
+* [RSpec/DescribedClassModuleWrapping](cops_rspec.md#rspecdescribedclassmodulewrapping)
 * [RSpec/Dialect](cops_rspec.md#rspecdialect)
 * [RSpec/EmptyExampleGroup](cops_rspec.md#rspecemptyexamplegroup)
 * [RSpec/EmptyLineAfterExample](cops_rspec.md#rspecemptylineafterexample)
