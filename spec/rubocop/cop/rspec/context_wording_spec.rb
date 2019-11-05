@@ -76,7 +76,7 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording, :config do
   context 'when configured' do
     let(:cop_config) { { 'Prefixes' => %w[if] } }
 
-    it 'finds context without whitelisted prefixes at the beginning' do
+    it 'finds context without allowed prefixes at the beginning' do
       expect_offense(<<-RUBY)
         context 'when display name is present' do
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Start context description with 'if'.
@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording, :config do
       RUBY
     end
 
-    it 'skips descriptions with whitelisted prefixes at the beginning' do
+    it 'skips descriptions with allowed prefixes at the beginning' do
       expect_no_offenses(<<-RUBY)
         context 'if display name is present' do
         end
