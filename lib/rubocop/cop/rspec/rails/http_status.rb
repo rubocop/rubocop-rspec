@@ -107,7 +107,7 @@ module RuboCop
             MSG = 'Prefer `%<prefer>s` over `%<current>s` ' \
                   'to describe HTTP status code.'
 
-            WHITELIST_STATUS = %i[error success missing redirect].freeze
+            ALLOWED_STATUSES = %i[error success missing redirect].freeze
 
             attr_reader :node
             def initialize(node)
@@ -115,7 +115,7 @@ module RuboCop
             end
 
             def offensive?
-              !node.int_type? && !whitelisted_symbol?
+              !node.int_type? && !allowed_symbol?
             end
 
             def message
@@ -136,8 +136,8 @@ module RuboCop
               node.value
             end
 
-            def whitelisted_symbol?
-              node.sym_type? && WHITELIST_STATUS.include?(node.value)
+            def allowed_symbol?
+              node.sym_type? && ALLOWED_STATUSES.include?(node.value)
             end
           end
         end
