@@ -5,8 +5,10 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
 
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style,
-      'Strict' => strict }
+      'Strict' => strict,
+      'AllowedExplicitMatchers' => allowed_explicit_matchers }
   end
+  let(:allowed_explicit_matchers) { [] }
 
   context 'when enforced style is `inflected`' do
     let(:enforced_style) { 'inflected' }
@@ -268,6 +270,16 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
           expect(foo).to be_within(0.1).of(10.0)
           expect(foo).to exist
         RUBY
+      end
+
+      context 'when custom matchers are allowed' do
+        let(:allowed_explicit_matchers) { ['have_http_status'] }
+
+        it 'accepts custom allowed explicit matchers' do
+          expect_no_offenses(<<-RUBY)
+            expect(foo).to have_http_status(:ok)
+          RUBY
+        end
       end
 
       it 'accepts non-predicate matcher' do

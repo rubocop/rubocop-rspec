@@ -138,6 +138,10 @@ module RuboCop
 
         private
 
+        def allowed_explicit_matchers
+          cop_config.fetch('AllowedExplicitMatchers', []) + BUILT_IN_MATCHERS
+        end
+
         def check_explicit(node) # rubocop:disable Metrics/MethodLength
           predicate_matcher_block?(node) do |_actual, matcher|
             add_offense(
@@ -178,7 +182,7 @@ module RuboCop
         def predicate_matcher_name?(name)
           name = name.to_s
 
-          return false if BUILT_IN_MATCHERS.include?(name)
+          return false if allowed_explicit_matchers.include?(name)
 
           name.start_with?('be_', 'have_') && !name.end_with?('?')
         end

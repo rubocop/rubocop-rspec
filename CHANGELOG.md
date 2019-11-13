@@ -6,6 +6,7 @@
 * Fix documentation rake task to support Rubocop 0.75. ([@nickcampbell18][])
 * Fix `RSpec/SubjectStub` to detect implicit subjects stubbed. ([@QQism][])
 * Fix `RSpec/Pending` not flagging `skip` with string values. ([@pirj][])
+* Add `AllowedExplicitMatchers` config option for `RSpec/PredicateMatcher`. ([@mkrawc][])
 
 ## 1.36.0 (2019-09-27)
 
@@ -460,3 +461,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@nickcampbell18]: https://github.com/nickcampbell18
 [@QQism]: https://github.com/QQism
 [@kellysutton]: https://github.com/kellysutton
+[@mkrawc]: https://github.com/mkrawc

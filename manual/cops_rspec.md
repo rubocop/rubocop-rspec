@@ -2430,6 +2430,7 @@ Name | Default value | Configurable values
 --- | --- | ---
 Strict | `true` | Boolean
 EnforcedStyle | `inflected` | `inflected`, `explicit`
+AllowedExplicitMatchers | `[]` | Array
 
 ### References
 
