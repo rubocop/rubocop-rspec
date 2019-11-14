@@ -7,6 +7,7 @@
 * Fix `RSpec/SubjectStub` to detect implicit subjects stubbed. ([@QQism][])
 * Fix `RSpec/Pending` not flagging `skip` with string values. ([@pirj][])
 * Add `AllowedExplicitMatchers` config option for `RSpec/PredicateMatcher`. ([@mkrawc][])
+* Add `FactoryBot/FactoryClassName` cop. ([@jfragoulis][])
 
 ## 1.36.0 (2019-09-27)
 
@@ -462,3 +463,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@QQism]: https://github.com/QQism
 [@kellysutton]: https://github.com/kellysutton
 [@mkrawc]: https://github.com/mkrawc
+[@jfragoulis]: https://github.com/jfragoulis
