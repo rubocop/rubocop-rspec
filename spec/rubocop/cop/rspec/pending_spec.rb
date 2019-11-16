@@ -108,6 +108,14 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
+  it 'flags blocks with skip: string metadata' do
+    expect_offense(<<-RUBY)
+      it 'test', skip: 'skipped because of being slow' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Pending spec found.
+      end
+    RUBY
+  end
+
   it 'flags pending blocks' do
     expect_offense(<<-RUBY)
       pending 'test' do

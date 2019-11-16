@@ -5,6 +5,7 @@
 * Implement `RSpec/DescribedClassModuleWrapping` to disallow RSpec statements within a module. ([@kellysutton][])
 * Fix documentation rake task to support Rubocop 0.75. ([@nickcampbell18][])
 * Fix `RSpec/SubjectStub` to detect implicit subjects stubbed. ([@QQism][])
+* Fix `RSpec/Pending` not flagging `skip` with string values. ([@pirj][])
 
 ## 1.36.0 (2019-09-27)
 

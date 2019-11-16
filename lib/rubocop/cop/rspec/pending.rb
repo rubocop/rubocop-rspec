@@ -42,7 +42,7 @@ module RuboCop
         def_node_matcher :skipped_in_metadata?, <<-PATTERN
           {
             (send _ _ <#skip_or_pending? ...>)
-            (send _ _ ... (hash <(pair #skip_or_pending? true) ...>))
+            (send _ _ ... (hash <(pair #skip_or_pending? { true str }) ...>))
           }
         PATTERN
 
