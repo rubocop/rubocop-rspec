@@ -77,3 +77,27 @@ EnforcedStyle | `create_list` | `create_list`, `n_times`
 ### References
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList)
+
+## FactoryBot/FactoryClassName
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Use string value when setting the class attribute explicitly.
+
+### Examples
+
+```ruby
+# bad
+factory :foo, class: Foo do
+end
+
+# good
+factory :foo, class: 'Foo' do
+end
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName)
