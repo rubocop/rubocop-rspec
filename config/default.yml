@@ -368,6 +368,7 @@ RSpec/PredicateMatcher:
   Enabled: true
   Strict: true
   EnforcedStyle: inflected
+  AllowedExplicitMatchers: []
   SupportedStyles:
   - inflected
   - explicit
