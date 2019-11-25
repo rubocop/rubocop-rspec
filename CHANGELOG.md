@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.37.0 (2019-11-25)
+
 * Implement `RSpec/DescribedClassModuleWrapping` to disallow RSpec statements within a module. ([@kellysutton][])
 * Fix documentation rake task to support Rubocop 0.75. ([@nickcampbell18][])
 * Fix `RSpec/SubjectStub` to detect implicit subjects stubbed. ([@QQism][])
