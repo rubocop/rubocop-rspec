@@ -6,6 +6,11 @@ module RuboCop
       module FactoryBot
         # Use string value when setting the class attribute explicitly.
         #
+        # This cop would promote faster tests by lazy-loading of
+        # application files. Also, this could help you suppress potential bugs
+        # in combination with external libraries by avoiding a preload of
+        # application files from the factory files.
+        #
         # @example
         #   # bad
         #   factory :foo, class: Foo do
@@ -15,7 +20,8 @@ module RuboCop
         #   factory :foo, class: 'Foo' do
         #   end
         class FactoryClassName < Cop
-          MSG = "Pass '%<class_name>s' instead of %<class_name>s."
+          MSG = "Pass '%<class_name>s' string instead of `%<class_name>s` " \
+                'constant.'
 
           def_node_matcher :class_name, <<~PATTERN
             (send _ :factory _ (hash <(pair (sym :class) $(const ...)) ...>))
