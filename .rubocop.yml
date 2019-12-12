@@ -13,7 +13,7 @@ AllCops:
     - 'spec/smoke_tests/**/*.rb'
 
 # See https://github.com/rubocop-hq/rubocop/issues/6410
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 Metrics/BlockLength:
