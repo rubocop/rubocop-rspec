@@ -49,6 +49,20 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
         end
       RUBY
     end
+
+    it 'ignores passing Hash' do
+      expect_no_offenses(<<~RUBY)
+        factory :foo, class: Hash do
+        end
+      RUBY
+    end
+
+    it 'ignores passing OpenStruct' do
+      expect_no_offenses(<<~RUBY)
+        factory :foo, class: OpenStruct do
+        end
+      RUBY
+    end
   end
 
   context 'when not passing block' do
