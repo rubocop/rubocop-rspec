@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
-require: 
+require:
  - rubocop-rspec
- - rubocop/cop/internal_affairs 
+ - rubocop/cop/internal_affairs
 
 AllCops:
   DisplayCopNames: true
