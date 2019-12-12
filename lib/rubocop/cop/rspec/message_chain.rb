@@ -11,7 +11,7 @@ module RuboCop
       #
       #   # better
       #   thing = Thing.new(baz: 42)
-      #   allow(foo).to receive(bar: thing)
+      #   allow(foo).to receive(:bar).and_return(thing)
       #
       class MessageChain < Cop
         MSG = 'Avoid stubbing using `%<method>s`.'
