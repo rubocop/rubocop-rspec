@@ -9,7 +9,7 @@ require_relative 'rspec/factory_bot/factory_class_name'
 
 begin
   require_relative 'rspec/rails/http_status'
-rescue LoadError # rubocop:disable Lint/HandleExceptions
+rescue LoadError # rubocop:disable Lint/SuppressedException
   # Rails/HttpStatus cannot be loaded if rack/utils is unavailable.
 end
 
