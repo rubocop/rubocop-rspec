@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Improve message and description of `FactoryBot/FactoryClassName`. ([@ybiquitous][])
+
 ## 1.37.0 (2019-11-25)
 
 * Implement `RSpec/DescribedClassModuleWrapping` to disallow RSpec statements within a module. ([@kellysutton][])
@@ -466,3 +468,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@kellysutton]: https://github.com/kellysutton
 [@mkrawc]: https://github.com/mkrawc
 [@jfragoulis]: https://github.com/jfragoulis
+[@ybiquitous]: https://github.com/ybiquitous

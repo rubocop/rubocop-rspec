@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
     it 'flags passing a class' do
       expect_offense(<<~RUBY)
         factory :foo, class: Foo do
-                             ^^^ Pass 'Foo' instead of Foo.
+                             ^^^ Pass 'Foo' string instead of `Foo` constant.
         end
       RUBY
 
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
     it 'flags passing a class from global namespace' do
       expect_offense(<<~RUBY)
         factory :foo, class: ::Foo do
-                             ^^^^^ Pass 'Foo' instead of Foo.
+                             ^^^^^ Pass 'Foo' string instead of `Foo` constant.
         end
       RUBY
 
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
     it 'flags passing a subclass' do
       expect_offense(<<~RUBY)
         factory :foo, class: Foo::Bar do
-                             ^^^^^^^^ Pass 'Foo::Bar' instead of Foo::Bar.
+                             ^^^^^^^^ Pass 'Foo::Bar' string instead of `Foo::Bar` constant.
         end
       RUBY
 
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
     it 'flags passing a class' do
       expect_offense(<<~RUBY)
         factory :foo, class: Foo
-                             ^^^ Pass 'Foo' instead of Foo.
+                             ^^^ Pass 'Foo' string instead of `Foo` constant.
       RUBY
 
       expect_correction(<<~RUBY)
