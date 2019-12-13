@@ -22,6 +22,7 @@ module RuboCop
         class FactoryClassName < Cop
           MSG = "Pass '%<class_name>s' string instead of `%<class_name>s` " \
                 'constant.'
+          ALLOWED_CONSTANTS = %w[Hash OpenStruct].freeze
 
           def_node_matcher :class_name, <<~PATTERN
             (send _ :factory _ (hash <(pair (sym :class) $(const ...)) ...>))
@@ -29,6 +30,8 @@ module RuboCop
 
           def on_send(node)
             class_name(node) do |cn|
+              next if allowed?(cn.const_name)
+
               add_offense(cn, message: format(MSG, class_name: cn.const_name))
             end
           end
@@ -37,6 +40,12 @@ module RuboCop
             lambda do |corrector|
               corrector.replace(node.loc.expression, "'#{node.source}'")
             end
+          end
+
+          private
+
+          def allowed?(const_name)
+            ALLOWED_CONSTANTS.include?(const_name)
           end
         end
       end
