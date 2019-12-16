@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.37.1 (2019-12-16)
+
 * Improve message and description of `FactoryBot/FactoryClassName`. ([@ybiquitous][])
 * Fix `FactoryBot/FactoryClassName` to ignore `Hash` and `OpenStruct`. ([@jfragoulis][])
 
