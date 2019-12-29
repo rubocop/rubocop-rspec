@@ -31,6 +31,18 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     RUBY
   end
 
+  it 'flags several instance variables inside a describe' do
+    expect_offense(<<-RUBY)
+      describe MyClass do
+        before { @foo = [] }
+        it { expect(@foo).to be_empty }
+                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+        it { expect(@bar).to be_empty }
+                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+      end
+    RUBY
+  end
+
   it 'ignores an instance variable without describe' do
     expect_no_offenses(<<-RUBY)
       @foo = []
@@ -65,6 +77,57 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
         @foo
       end
     RUBY
+  end
+
+  context 'when used in a custom matcher' do
+    it 'ignores instance variables inside `matcher`' do
+      expect_no_offenses(<<~RUBY)
+        describe MyClass do
+          matcher :have_color do
+            match do |object|
+              @matcher = have_attributes(color: anything)
+              @matcher.matches?(object)
+            end
+
+            failure_message do
+              @matcher.failure_message
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags instance variables outside `matcher`' do
+      expect_offense(<<~RUBY)
+        describe MyClass do
+          matcher :have_color do
+            match do |object|
+              @matcher = have_attributes(color: anything)
+              @matcher.matches?(object)
+            end
+          end
+
+          it { expect(color: 1).to @matcher }
+                                   ^^^^^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+        end
+      RUBY
+    end
+
+    it 'ignores instance variables inside `RSpec::Matchers.define`' do
+      expect_no_offenses(<<~RUBY)
+        describe MyClass do
+          RSpec::Matchers.define :be_bigger_than do |first|
+            match do |actual|
+              (actual > first) && (actual < @second)
+            end
+
+            chain :and_smaller_than do |second|
+              @second = second
+            end
+          end
+        end
+      RUBY
+    end
   end
 
   context 'when configured with AssignmentOnly', :config do

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])
+
 ## 1.37.1 (2019-12-16)
 
 * Improve message and description of `FactoryBot/FactoryClassName`. ([@ybiquitous][])
