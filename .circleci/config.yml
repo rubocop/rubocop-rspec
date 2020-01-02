@@ -61,6 +61,16 @@ jobs:
       - image: circleci/ruby:2.6
     <<: *rubocop
 
+  # Ruby 2.7
+  ruby-2.7-rspec:
+    docker:
+      - image: circleci/ruby:2.7
+    <<: *rspec
+  ruby-2.7-rubocop:
+    docker:
+      - image: circleci/ruby:2.7
+    <<: *rubocop
+
   edge-rubocop:
     docker:
       - image: circleci/ruby
@@ -133,6 +143,10 @@ workflows:
       - ruby-2.6-rspec:
           requires: [confirm_config_and_documentation]
       - ruby-2.6-rubocop:
+          requires: [confirm_config_and_documentation]
+      - ruby-2.7-rspec:
+          requires: [confirm_config_and_documentation]
+      - ruby-2.7-rubocop:
           requires: [confirm_config_and_documentation]
       - edge-rubocop:
           requires: [confirm_config_and_documentation]
