@@ -94,6 +94,18 @@ module RuboCop
             append_after
           ]
         )
+
+        module Scopes
+          ALL = SelectorSet.new(
+            %i[
+              each
+              example
+              context
+              all
+              suite
+            ]
+          )
+        end
       end
 
       module Helpers

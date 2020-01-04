@@ -36,8 +36,8 @@ module RuboCop
         def analyzable_hooks(node)
           RuboCop::RSpec::ExampleGroup.new(node)
             .hooks
-            .select { |hook| hook.knowable_scope? && hook.valid_scope? }
-            .group_by { |hook| [hook.name, hook.scope] }
+            .select(&:knowable_scope?)
+            .group_by { |hook| [hook.name, hook.scope, hook.metadata] }
             .values
             .reject(&:one?)
             .flatten
