@@ -977,7 +977,7 @@ IgnoredWords | `[]` | Array
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | No
+Enabled | Yes
 
 Checks for `expect(...)` calls containing literal values.
 

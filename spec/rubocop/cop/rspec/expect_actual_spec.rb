@@ -18,6 +18,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(123)
+          expect(bar).to eq(12.3)
+          expect(bar).to eq(1i)
+          expect(bar).to eq(1r)
+        end
+      end
+    RUBY
   end
 
   it 'flags boolean literal values within expect(...)' do
@@ -28,6 +39,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
                  ^^^^ Provide the actual you are testing to `expect(...)`.
           expect(false).to eq(bar)
                  ^^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(true)
+          expect(bar).to eq(false)
         end
       end
     RUBY
@@ -44,6 +64,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq("foo")
+          expect(bar).to eq(:foo)
+        end
+      end
+    RUBY
   end
 
   it 'flags literal nil value within expect(...)' do
@@ -52,6 +81,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         it 'uses expect incorrectly' do
           expect(nil).to eq(bar)
                  ^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(nil)
         end
       end
     RUBY
@@ -80,6 +117,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq([123])
+          expect(bar).to eq([[123]])
+        end
+      end
+    RUBY
   end
 
   it 'flags hashes containing only literal values within expect(...)' do
@@ -90,6 +136,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
                  ^^^^^^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
           expect(foo: 1, bar: [{}]).to eq(bar)
                  ^^^^^^^^^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(foo: 1, bar: 2)
+          expect(bar).to eq(foo: 1, bar: [{}])
         end
       end
     RUBY
@@ -106,6 +161,15 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(1..2)
+          expect(bar).to eq(1...2)
+        end
+      end
+    RUBY
   end
 
   it 'flags regexps containing only literal values within expect(...)' do
@@ -114,6 +178,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         it 'uses expect incorrectly' do
           expect(/foo|bar/).to eq(bar)
                  ^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(/foo|bar/)
         end
       end
     RUBY
@@ -133,6 +205,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
         end
       end
     RUBY
+  end
+
+  it 'flags but does not autocorrect violations without eq' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect([1,2,3]).to include(a)
+                 ^^^^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_no_corrections
   end
 
   context 'when inspecting rspec-rails routing specs' do

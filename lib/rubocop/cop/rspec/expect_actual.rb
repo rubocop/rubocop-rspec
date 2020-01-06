@@ -49,6 +49,17 @@ module RuboCop
           end
         end
 
+        def autocorrect(node)
+          lambda do |corrector|
+            expectation = node.parent.parent
+            rhs = expectation.children.last
+            return unless rhs.is_a?(RuboCop::AST::MethodDispatchNode)
+            return if rhs.method_name != :eq
+
+            swap_order(corrector, node, rhs.children.last)
+          end
+        end
+
         private
 
         # This is not implement using a NodePattern because it seems
@@ -64,6 +75,11 @@ module RuboCop
         def complex_literal?(node)
           COMPLEX_LITERALS.include?(node.type) &&
             node.each_child_node.all?(&method(:literal?))
+        end
+
+        def swap_order(corrector, lhs_arg, rhs_arg)
+          corrector.replace(lhs_arg.source_range, rhs_arg.source)
+          corrector.replace(rhs_arg.source_range, lhs_arg.source)
         end
       end
     end
