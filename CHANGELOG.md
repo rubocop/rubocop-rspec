@@ -4,7 +4,7 @@
 
 * Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])
 * Fix `RSpec/ScatteredSetup` to distinguish hooks with different metadata. ([@pirj][])
-* Add autocorrect support for `RSpec/ExpectActual` cop. ([@dduugg][])
+* Add autocorrect support for `RSpec/ExpectActual` cop. ([@dduugg][], [@pirj][])
 
 ## 1.37.1 (2019-12-16)
 

@@ -41,11 +41,16 @@ module RuboCop
           regexp
         ].freeze
 
+        SUPPORTED_MATCHERS = %i[eq eql equal be].freeze
+
         def_node_matcher :expect_literal, <<~PATTERN
           (send
             (send nil? :expect $#literal?)
             #{Runners::ALL.node_pattern_union}
-            $(send nil? ...)
+            {
+              (send (send nil? $:be) :== $_)
+              (send nil? $_ $_ ...)
+            }
           )
         PATTERN
 
@@ -56,11 +61,11 @@ module RuboCop
         end
 
         def autocorrect(node)
-          argument, matcher = expect_literal(node)
+          actual, matcher, expected = expect_literal(node)
           lambda do |corrector|
-            return if matcher.method_name != :eq
+            return unless SUPPORTED_MATCHERS.include?(matcher)
 
-            swap(corrector, argument, matcher.arguments.first)
+            swap(corrector, actual, expected)
           end
         end
 

@@ -207,7 +207,93 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
     RUBY
   end
 
-  it 'flags but does not autocorrect violations without eq' do
+  it 'ignores `be` with no argument' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        it 'uses expect legitimately' do
+          expect(1).to be
+        end
+      end
+    RUBY
+  end
+
+  it 'flags `be` with an argument' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(true).to be(a)
+                 ^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(a).to be(true)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags `be ==`' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(1).to be == a
+                 ^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(a).to be == 1
+        end
+      end
+    RUBY
+  end
+
+  it 'flags with `eql` matcher' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(1).to eql(bar)
+                 ^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eql(1)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags with `equal` matcher' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(1).to equal(bar)
+                 ^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to equal(1)
+        end
+      end
+    RUBY
+  end
+
+  it 'flags but does not autocorrect violations for other matchers' do
     expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do
