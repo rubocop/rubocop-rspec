@@ -60,7 +60,7 @@ module RuboCop
           lambda do |corrector|
             return if matcher.method_name != :eq
 
-            swap_order(corrector, argument, matcher.arguments.first)
+            swap(corrector, argument, matcher.arguments.first)
           end
         end
 
@@ -81,9 +81,9 @@ module RuboCop
             node.each_child_node.all?(&method(:literal?))
         end
 
-        def swap_order(corrector, lhs_arg, rhs_arg)
-          corrector.replace(lhs_arg.source_range, rhs_arg.source)
-          corrector.replace(rhs_arg.source_range, lhs_arg.source)
+        def swap(corrector, actual, expected)
+          corrector.replace(actual.source_range, expected.source)
+          corrector.replace(expected.source_range, actual.source)
         end
       end
     end
