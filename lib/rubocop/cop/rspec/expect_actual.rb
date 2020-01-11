@@ -41,22 +41,26 @@ module RuboCop
           regexp
         ].freeze
 
-        def_node_matcher :expect_literal, '(send _ :expect $#literal?)'
+        def_node_matcher :expect_literal, <<~PATTERN
+          (send
+            (send nil? :expect $#literal?)
+            #{Runners::ALL.node_pattern_union}
+            $(send nil? ...)
+          )
+        PATTERN
 
         def on_send(node)
           expect_literal(node) do |argument|
-            add_offense(argument)
+            add_offense(node, location: argument.source_range)
           end
         end
 
         def autocorrect(node)
+          argument, matcher = expect_literal(node)
           lambda do |corrector|
-            expectation = node.parent.parent
-            rhs = expectation.children.last
-            return unless rhs.is_a?(RuboCop::AST::MethodDispatchNode)
-            return if rhs.method_name != :eq
+            return if matcher.method_name != :eq
 
-            swap_order(corrector, node, rhs.children.last)
+            swap_order(corrector, argument, matcher.arguments.first)
           end
         end
 
