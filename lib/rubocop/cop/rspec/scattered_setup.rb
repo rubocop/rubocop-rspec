@@ -23,25 +23,43 @@ module RuboCop
       #   end
       #
       class ScatteredSetup < Cop
-        MSG = 'Do not define multiple hooks in the same example group.'
+        MSG = 'Do not define multiple `%<hook_name>s` hooks in the same '\
+              'example group (also defined on %<lines>s).'
 
         def on_block(node)
           return unless example_group?(node)
 
-          analyzable_hooks(node).each do |repeated_hook|
-            add_offense(repeated_hook)
+          repeated_hooks(node).each do |occurrences|
+            lines = occurrences.map(&:first_line)
+
+            occurrences.each do |occurrence|
+              lines_except_current = lines - [occurrence.first_line]
+              message = format(MSG, hook_name: occurrences.first.method_name,
+                               lines: lines_msg(lines_except_current))
+              add_offense(occurrence, message: message)
+            end
           end
         end
 
-        def analyzable_hooks(node)
-          RuboCop::RSpec::ExampleGroup.new(node)
+        def repeated_hooks(node)
+          hooks = RuboCop::RSpec::ExampleGroup.new(node)
             .hooks
             .select(&:knowable_scope?)
             .group_by { |hook| [hook.name, hook.scope, hook.metadata] }
             .values
             .reject(&:one?)
-            .flatten
-            .map(&:to_node)
+
+          hooks.map do |hook|
+            hook.map(&:to_node)
+          end
+        end
+
+        def lines_msg(numbers)
+          if numbers.size == 1
+            "line #{numbers.first}"
+          else
+            "lines #{numbers.join(', ')}"
+          end
         end
       end
     end
