@@ -41,11 +41,31 @@ module RuboCop
           regexp
         ].freeze
 
-        def_node_matcher :expect_literal, '(send _ :expect $#literal?)'
+        SUPPORTED_MATCHERS = %i[eq eql equal be].freeze
+
+        def_node_matcher :expect_literal, <<~PATTERN
+          (send
+            (send nil? :expect $#literal?)
+            #{Runners::ALL.node_pattern_union}
+            {
+              (send (send nil? $:be) :== $_)
+              (send nil? $_ $_ ...)
+            }
+          )
+        PATTERN
 
         def on_send(node)
           expect_literal(node) do |argument|
-            add_offense(argument)
+            add_offense(node, location: argument.source_range)
+          end
+        end
+
+        def autocorrect(node)
+          actual, matcher, expected = expect_literal(node)
+          lambda do |corrector|
+            return unless SUPPORTED_MATCHERS.include?(matcher)
+
+            swap(corrector, actual, expected)
           end
         end
 
@@ -64,6 +84,11 @@ module RuboCop
         def complex_literal?(node)
           COMPLEX_LITERALS.include?(node.type) &&
             node.each_child_node.all?(&method(:literal?))
+        end
+
+        def swap(corrector, actual, expected)
+          corrector.replace(actual.source_range, expected.source)
+          corrector.replace(expected.source_range, actual.source)
         end
       end
     end
