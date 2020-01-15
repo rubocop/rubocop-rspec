@@ -20,7 +20,7 @@ gem install rubocop-rspec
 or if you use bundler put this in your `Gemfile`
 
 ```
-gem 'rubocop-rspec'
+gem 'rubocop-rspec', require: false
 ```
 
 ## Usage
