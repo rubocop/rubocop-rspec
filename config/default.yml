@@ -394,6 +394,16 @@ RSpec/RepeatedExample:
   Description: Check for repeated examples within example groups.
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
+RSpec/RepeatedExampleGroupBody:
+  Enabled: true
+  Description: Check for repeated describe and context block body.
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody
+
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: true
+  Description: Check for repeated example group descriptions.
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
+
 RSpec/ReturnFromStub:
   Enabled: true
   Description: Checks for consistent style of stub's return setting.

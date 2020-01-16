@@ -73,6 +73,8 @@
 * [RSpec/ReceiveNever](cops_rspec.md#rspecreceivenever)
 * [RSpec/RepeatedDescription](cops_rspec.md#rspecrepeateddescription)
 * [RSpec/RepeatedExample](cops_rspec.md#rspecrepeatedexample)
+* [RSpec/RepeatedExampleGroupBody](cops_rspec.md#rspecrepeatedexamplegroupbody)
+* [RSpec/RepeatedExampleGroupDescription](cops_rspec.md#rspecrepeatedexamplegroupdescription)
 * [RSpec/ReturnFromStub](cops_rspec.md#rspecreturnfromstub)
 * [RSpec/ScatteredLet](cops_rspec.md#rspecscatteredlet)
 * [RSpec/ScatteredSetup](cops_rspec.md#rspecscatteredsetup)

@@ -5,6 +5,8 @@
 * Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])
 * Fix `RSpec/ScatteredSetup` to distinguish hooks with different metadata. ([@pirj][])
 * Add autocorrect support for `RSpec/ExpectActual` cop. ([@dduugg][], [@pirj][])
+* Add `RSpec/RepeatedExampleGroupBody` cop. ([@lazycoder9][])
+* Add `RSpec/RepeatedExampleGroupDescription` cop. ([@lazycoder9][])
 
 ## 1.37.1 (2019-12-16)
 
@@ -477,3 +479,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jfragoulis]: https://github.com/jfragoulis
 [@ybiquitous]: https://github.com/ybiquitous
 [@dduugg]: https://github.com/dduugg
+[@lazycoder9]: https://github.com/lazycoder9
