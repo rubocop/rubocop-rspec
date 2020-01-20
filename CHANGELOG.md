@@ -55,6 +55,7 @@
 * Add `RSpec/RepeatedExampleGroupDescription` cop. ([@lazycoder9][])
 * Add block name and other lines to `RSpec/ScatteredSetup` message. ([@elebow][])
 * Fix `RSpec/RepeatedDescription` to take into account example metadata. ([@lazycoder9][])
+* Add `RSpec/MemoizedHelpersInExampleGroup` cop. ([@mockdeep][])
 
 ## 1.37.1 (2019-12-16)
 
@@ -542,3 +543,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@elliterate]: https://github.com/elliterate
 [@mlarraz]: https://github.com/mlarraz
 [@jtannas]: https://github.com/jtannas
+[@mockdeep]: https://github.com/mockdeep

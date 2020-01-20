@@ -347,6 +347,13 @@ RSpec/LetSetup:
   VersionAdded: '1.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+RSpec/MemoizedHelpersInExampleGroup:
+  Description: Checks if example groups contain too many `let` and `subject` calls.
+  Enabled: false
+  AllowSubject: false
+  Max: 5
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedHelpersInExampleGroup
+
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
   Enabled: true

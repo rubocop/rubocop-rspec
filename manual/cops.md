@@ -58,6 +58,7 @@
 * [RSpec/LeakyConstantDeclaration](cops_rspec.md#rspecleakyconstantdeclaration)
 * [RSpec/LetBeforeExamples](cops_rspec.md#rspecletbeforeexamples)
 * [RSpec/LetSetup](cops_rspec.md#rspecletsetup)
+* [RSpec/MemoizedHelpersInExampleGroup](cops_rspec.md#rspecmemoizedhelpersinexamplegroup)
 * [RSpec/MessageChain](cops_rspec.md#rspecmessagechain)
 * [RSpec/MessageExpectation](cops_rspec.md#rspecmessageexpectation)
 * [RSpec/MessageSpies](cops_rspec.md#rspecmessagespies)
