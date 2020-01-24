@@ -15,6 +15,7 @@
 * Extend the list of Rails spec types for `RSpec/DescribeClass`. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` to allow `#traits_for_enum` without a block. ([@harrylewis][])
 * Improve the performance of `FactoryBot/AttributeDefinedStatically`, `RSpec/InstanceVariable`, `RSpec/LetSetup`, `RSpec/NestedGroups` and `RSpec/ReturnFromStub`. ([@andrykonchin][])
+* Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][], [@pirj][])
 
 ## 1.40.0 (2020-06-11)
 
@@ -534,3 +535,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@andrykonchin]: https://github.com/andrykonchin
 [@harrylewis]: https://github.com/harrylewis
 [@elliterate]: https://github.com/elliterate
+[@mlarraz]: https://github.com/mlarraz

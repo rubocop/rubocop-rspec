@@ -29,6 +29,23 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'flags examples improperly nested in invalid scopes' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+      ^^^^^^^^^^^^ Empty example group detected.
+        before do
+          it 'yields a block when given' do
+            value = nil
+
+            helper.feature('whatevs') { value = 5 }
+
+            expect(value).to be 5
+          end
+        end
+      end
+    RUBY
+  end
+
   it 'does not flag include_examples' do
     expect_no_offenses(<<-RUBY)
       describe Foo do
@@ -64,7 +81,6 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   it 'does not recognize custom include methods by default' do
     expect_offense(<<-RUBY)
       describe Foo do
-      ^^^^^^^^^^^^ Empty example group detected.
         context "when I do something clever" do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
           it_has_special_behavior

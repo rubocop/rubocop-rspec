@@ -60,15 +60,26 @@ module RuboCop
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
-        def_node_search :contains_example?, <<-PATTERN
+        def_node_matcher :contains_example?, <<-PATTERN
           {
-            #{(Examples::ALL + Includes::ALL).send_pattern}
-            (send _ #custom_include? ...)
+            #{Examples::ALL.block_pattern}
+            #{ExampleGroups::ALL.block_pattern}
+            #{Includes::ALL.send_pattern}
+            (send nil? #custom_include? ...)
           }
         PATTERN
 
         def on_block(node)
-          return unless example_group?(node) && !contains_example?(node)
+          return unless example_group?(node)
+
+          body =
+            if node.body&.begin_type?
+              node.body.each_child_node
+            else
+              [node.body].each
+            end
+
+          return if body.any?(&method(:contains_example?))
 
           add_offense(node.send_node)
         end
