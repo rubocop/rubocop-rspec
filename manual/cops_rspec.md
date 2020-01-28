@@ -2556,6 +2556,101 @@ end
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample)
 
+## RSpec/RepeatedExampleGroupBody
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Check for repeated describe and context block body.
+
+### Examples
+
+```ruby
+# bad
+describe 'cool feature x' do
+  it { cool_predicate }
+end
+
+describe 'cool feature y' do
+  it { cool_predicate }
+end
+
+# good
+describe 'cool feature' do
+  it { cool_predicate }
+end
+
+describe 'another cool feature' do
+  it { another_predicate }
+end
+
+# good
+context 'when case x', :tag do
+  it { cool_predicate }
+end
+
+context 'when case y' do
+  it { cool_predicate }
+end
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody)
+
+## RSpec/RepeatedExampleGroupDescription
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Check for repeated example group descriptions.
+
+### Examples
+
+```ruby
+# bad
+describe 'cool feature' do
+  # example group
+end
+
+describe 'cool feature' do
+  # example group
+end
+
+# bad
+context 'when case x' do
+  # example group
+end
+
+describe 'when case x' do
+  # example group
+end
+
+# good
+describe 'cool feature' do
+  # example group
+end
+
+describe 'another cool feature' do
+  # example group
+end
+
+# good
+context 'when case x' do
+  # example group
+end
+
+context 'when another case' do
+  # example group
+end
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription)
+
 ## RSpec/ReturnFromStub
 
 Enabled by default | Supports autocorrection
