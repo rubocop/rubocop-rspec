@@ -5,7 +5,11 @@ module RuboCop
     module RSpec
       # Checks that `context` docstring starts with an allowed prefix.
       #
-      # @see https://github.com/reachlocal/rspec-style-guide#context-descriptions
+      # The default list of prefixes is minimal. Users are encouraged to tailor
+      # the configuration to meet project needs. Other acceptable prefixes may
+      # include `if`, `unless`, `for`, `before`, `after`, or `during`.
+      #
+      # @see https://rspec.rubystyle.guide/#context-descriptions
       # @see http://www.betterspecs.org/#contexts
       #
       # @example `Prefixes` configuration

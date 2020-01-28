@@ -275,6 +275,10 @@ Enabled | No
 
 Checks that `context` docstring starts with an allowed prefix.
 
+The default list of prefixes is minimal. Users are encouraged to tailor
+the configuration to meet project needs. Other acceptable prefixes may
+include `if`, `unless`, `for`, `before`, `after`, or `during`.
+
 ### Examples
 
 #### `Prefixes` configuration
