@@ -7,6 +7,7 @@
 * Add autocorrect support for `RSpec/ExpectActual` cop. ([@dduugg][], [@pirj][])
 * Add `RSpec/RepeatedExampleGroupBody` cop. ([@lazycoder9][])
 * Add `RSpec/RepeatedExampleGroupDescription` cop. ([@lazycoder9][])
+* Add block name and other lines to `RSpec/ScatteredSetup` message. ([@elebow][])
 
 ## 1.37.1 (2019-12-16)
 
@@ -480,3 +481,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ybiquitous]: https://github.com/ybiquitous
 [@dduugg]: https://github.com/dduugg
 [@lazycoder9]: https://github.com/lazycoder9
+[@elebow]: https://github.com/elebow
