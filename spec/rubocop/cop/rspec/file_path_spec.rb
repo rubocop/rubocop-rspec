@@ -172,6 +172,15 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  it 'uses relative path' do
+    allow(RuboCop::PathUtil)
+      .to receive(:relative_path).and_return('spec/models/bar_spec.rb')
+    expect_offense(<<-RUBY, '/home/foo/spec/models/bar_spec.rb')
+      describe Foo do; end
+      ^^^^^^^^^^^^ Spec path should end with `foo*_spec.rb`.
+    RUBY
+  end
+
   context 'when configured with CustomTransform' do
     let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 

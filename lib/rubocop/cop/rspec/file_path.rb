@@ -103,7 +103,9 @@ module RuboCop
         end
 
         def filename_ends_with?(glob)
-          File.fnmatch?("*#{glob}", processed_source.buffer.name)
+          filename =
+            RuboCop::PathUtil.relative_path(processed_source.buffer.name)
+          File.fnmatch?("*#{glob}", filename)
         end
 
         def relevant_rubocop_rspec_file?(_file)
