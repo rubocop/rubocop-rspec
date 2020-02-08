@@ -191,6 +191,8 @@ RSpec/FilePath:
     RuboCop: rubocop
     RSpec: rspec
   IgnoreMethods: false
+  SpecFileExtensions:
+  - _spec.rb
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:

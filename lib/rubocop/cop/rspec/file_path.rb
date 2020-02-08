@@ -41,6 +41,51 @@ module RuboCop
       #   # good
       #   my_class_spec.rb         # describe MyClass, '#method'
       #
+      # With the configuration option `SpecFileExtensions`
+      # alternate extensions for spec files may be specified
+      # as a list of strings.  The default is the
+      # formerly-hardcoded `[ '_spec.rb' ]`, but any string
+      # can be used as an extension.
+      #
+      # @example when `SpecFileExtensions` contains `.spec.rb`
+      #
+      #   # bad
+      #   my_class_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class.spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_method.spec.rb  # describe MyClass, '#method'
+      #
+      #   # good
+      #   my_class/method.spec.rb  # describe MyClass, '#method'
+      #
+      # @example when `SpecFileExtensions` contains  `[ '.spec.rb', _spec.rb' ]`
+      #
+      #   # bad
+      #   my_class_test.rb         # describe MyClass
+      #
+      #   # bad
+      #   my_class.test.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class.spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_method_spec.rb  # describe MyClass, '#method'
+      #
+      #   # good
+      #   my_class_method.spec.rb  # describe MyClass, '#method'
+      #
+      #   # good
+      #   my_class/method_spec.rb  # describe MyClass, '#method'
+      #
+      #   # good
+      #   my_class/method.spec.rb  # describe MyClass, '#method'
       class FilePath < Cop
         include RuboCop::RSpec::TopLevelDescribe
 
@@ -70,7 +115,9 @@ module RuboCop
         end
 
         def glob_for((described_class, method_name))
-          "#{expected_path(described_class)}#{name_glob(method_name)}*_spec.rb"
+          "#{expected_path(described_class)}" \
+          "#{name_glob(method_name)}" \
+          "#{extension_glob}"
         end
 
         def name_glob(name)
@@ -102,8 +149,30 @@ module RuboCop
           cop_config['IgnoreMethods']
         end
 
+        def file_extensions
+          cop_config.fetch('SpecFileExtensions', ['_spec.rb'])
+        end
+
+        def glob_metachars
+          ['*', '?', '{', '}', '[', ']', ',']
+        end
+
+        def escape_glob(str)
+          (str.split.uniq & glob_metachars)
+            .reduce(str) { |prior, mc| prior.gsub(mc, "\\#{mc}") }
+        end
+
+        def extension_glob
+          if file_extensions.count == 1
+            '*' + escape_glob(file_extensions.first)
+          else
+            "*{#{file_extensions.map(&method(:escape_glob)).join(',')}}"
+          end
+        end
+
         def filename_ends_with?(glob)
-          File.fnmatch?("*#{glob}", processed_source.buffer.name)
+          flags = file_extensions.count > 1 ? [File::FNM_EXTGLOB] : []
+          File.fnmatch?("*#{glob}", processed_source.buffer.name, *flags)
         end
 
         def relevant_rubocop_rspec_file?(_file)

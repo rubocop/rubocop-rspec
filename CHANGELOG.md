@@ -1,5 +1,8 @@
 # Change log
 
+## spec-file-extensions (branch)
+* Fix `RSpec/FilePath` to support spec file extensions other than `_spec.rb`. ([@cwilbur][])
+
 ## Master (Unreleased)
 
 * Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])
@@ -425,6 +428,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@andyw8]: https://github.com/andyw8
 [@backus]: https://github.com/backus
 [@bquorning]: https://github.com/bquorning
+[@cwilbur]: https://github.com/cwilbur
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@geniou]: https://github.com/geniou
 [@jaredbeck]: https://github.com/jaredbeck

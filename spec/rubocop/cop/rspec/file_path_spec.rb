@@ -197,4 +197,46 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
       RUBY
     end
   end
+
+  context 'when configured with a variant SpecFileExtensions' do
+    extensions = ['.spec.rb']
+    extension_glob = '*.spec.rb'
+
+    let(:cop_config) { { 'SpecFileExtensions' => extensions } }
+
+    it 'still registers an offense for a file missing .spec' do
+      expect_offense(<<-RUBY, 'user.rb')
+        describe User do; end
+        ^^^^^^^^^^^^^ Spec path should end with `user#{extension_glob}`.
+      RUBY
+    end
+
+    it 'registers an offense for a file ending _spec.rb' do
+      expect_offense(<<-RUBY, 'user_spec.rb')
+        describe User do; end
+        ^^^^^^^^^^^^^ Spec path should end with `user#{extension_glob}`.
+      RUBY
+    end
+  end
+
+  context 'when configured with a list of SpecFileExtensions' do
+    extensions = ['_spec.rb', '.spec.rb']
+    extension_glob = '*{_spec.rb,.spec.rb}'
+    let(:cop_config) { { 'SpecFileExtensions' => extensions } }
+
+    it 'still registers an offense for a file missing _spec' do
+      expect_offense(<<-RUBY, 'user.rb')
+        describe User do; end
+        ^^^^^^^^^^^^^ Spec path should end with `user#{extension_glob}`.
+      RUBY
+    end
+
+    extensions.each do |ext|
+      it "allows the configured extension #{ext}" do
+        expect_no_offenses(<<-RUBY, 'user' + ext)
+          describe User do; end
+        RUBY
+      end
+    end
+  end
 end

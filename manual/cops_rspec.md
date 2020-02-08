@@ -1132,6 +1132,12 @@ With the configuration option `CustomTransform` modules or classes can
 be specified that should not as usual be transformed from CamelCase to
 snake_case (e.g. 'RuboCop' => 'rubocop' ).
 
+With the configuration option `SpecFileExtensions`
+alternate extensions for spec files may be specified
+as a list of strings.  The default is the
+formerly-hardcoded `[ '_spec.rb' ]`, but any string
+can be used as an extension.
+
 ### Examples
 
 ```ruby
@@ -1162,6 +1168,48 @@ my_class_spec.rb         # describe MyClass
 # good
 my_class_spec.rb         # describe MyClass, '#method'
 ```
+#### when `SpecFileExtensions` contains `.spec.rb`
+
+```ruby
+# bad
+my_class_spec.rb         # describe MyClass
+
+# good
+my_class.spec.rb         # describe MyClass
+
+# good
+my_class_method.spec.rb  # describe MyClass, '#method'
+
+# good
+my_class/method.spec.rb  # describe MyClass, '#method'
+```
+#### when `SpecFileExtensions` contains `[ '.spec.rb', _spec.rb' ]`
+
+```ruby
+# bad
+my_class_test.rb         # describe MyClass
+
+# bad
+my_class.test.rb         # describe MyClass
+
+# good
+my_class_spec.rb         # describe MyClass
+
+# good
+my_class.spec.rb         # describe MyClass
+
+# good
+my_class_method_spec.rb  # describe MyClass, '#method'
+
+# good
+my_class_method.spec.rb  # describe MyClass, '#method'
+
+# good
+my_class/method_spec.rb  # describe MyClass, '#method'
+
+# good
+my_class/method.spec.rb  # describe MyClass, '#method'
+```
 
 ### Configurable attributes
 
@@ -1169,6 +1217,7 @@ Name | Default value | Configurable values
 --- | --- | ---
 CustomTransform | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}` | 
 IgnoreMethods | `false` | Boolean
+SpecFileExtensions | `_spec.rb` | Array
 
 ### References
 
