@@ -8,6 +8,7 @@
 * Add `RSpec/RepeatedExampleGroupBody` cop. ([@lazycoder9][])
 * Add `RSpec/RepeatedExampleGroupDescription` cop. ([@lazycoder9][])
 * Add block name and other lines to `RSpec/ScatteredSetup` message. ([@elebow][])
+* Fix `RSpec/RepeatedDescription` to take into account example metadata. ([@lazycoder9][])
 
 ## 1.37.1 (2019-12-16)
 

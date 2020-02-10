@@ -2526,6 +2526,17 @@ RSpec.describe User do
     # ...
   end
 end
+
+# good
+RSpec.describe User do
+  it 'is valid' do
+    # ...
+  end
+
+  it 'is valid', :flag do
+    # ...
+  end
+end
 ```
 
 ### References

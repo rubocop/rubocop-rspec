@@ -73,4 +73,48 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
       end
     RUBY
   end
+
+  it 'does not flag examples if metadata is different' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        it 'do something' do
+          # ...
+        end
+
+        it 'do something', :flag do
+          # ...
+        end
+      end
+    RUBY
+  end
+
+  it 'does not flag examples with same metadata and different description' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        it 'do something', :flag do
+          # ...
+        end
+
+        it 'do another thing', :flag do
+          # ...
+        end
+      end
+    RUBY
+  end
+
+  it 'registers offense for repeated description and metadata' do
+    expect_offense(<<-RUBY)
+      describe 'doing x' do
+        it 'do something', :flag do
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          # ...
+        end
+
+        it 'do something', :flag do
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          # ...
+        end
+      end
+    RUBY
+  end
 end

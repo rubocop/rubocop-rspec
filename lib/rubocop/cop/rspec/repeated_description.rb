@@ -29,6 +29,17 @@ module RuboCop
       #       end
       #     end
       #
+      #     # good
+      #     RSpec.describe User do
+      #       it 'is valid' do
+      #         # ...
+      #       end
+      #
+      #       it 'is valid', :flag do
+      #         # ...
+      #       end
+      #     end
+      #
       class RepeatedDescription < Cop
         MSG = "Don't repeat descriptions within an example group."
 
@@ -47,13 +58,17 @@ module RuboCop
           grouped_examples =
             RuboCop::RSpec::ExampleGroup.new(node)
               .examples
-              .group_by(&:doc_string)
+              .group_by { |example| example_signature(example) }
 
           grouped_examples
-            .select { |description, group| description && group.size > 1 }
+            .select { |signatures, group| signatures.any? && group.size > 1 }
             .values
             .flatten
             .map(&:definition)
+        end
+
+        def example_signature(example)
+          [example.metadata, example.doc_string]
         end
       end
     end
