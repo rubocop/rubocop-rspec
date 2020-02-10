@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.38.0 (2020-02-11)
+
 * Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])
 * Fix `RSpec/ScatteredSetup` to distinguish hooks with different metadata. ([@pirj][])
 * Add autocorrect support for `RSpec/ExpectActual` cop. ([@dduugg][], [@pirj][])
