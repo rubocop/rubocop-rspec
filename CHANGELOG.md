@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/RepeatedDescription` to detect descriptions with interpolation and methods. ([@lazycoder9][])
+
 ## 1.38.0 (2020-02-11)
 
 * Fix `RSpec/InstanceVariable` detection inside custom matchers. ([@pirj][])

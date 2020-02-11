@@ -117,4 +117,48 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
       end
     RUBY
   end
+
+  it 'does not flag descriptions with different interpolated variables' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        it "does \#{x}" do
+        end
+
+        it "does \#{y}" do
+        end
+      end
+    RUBY
+  end
+
+  it 'registers offense for repeated description in same iterator' do
+    expect_offense(<<-RUBY)
+      describe 'doing x' do
+        %i[foo bar].each do |type|
+          it "does a thing \#{type}" do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          end
+
+          it "does a thing \#{type}" do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'registers offense if same method used in docstring' do
+    expect_offense(<<-RUBY)
+      describe 'doing x' do
+        it(description) do
+        ^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          # ...
+        end
+
+        it(description) do
+        ^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          # ...
+        end
+      end
+    RUBY
+  end
 end
