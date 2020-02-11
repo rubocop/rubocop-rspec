@@ -18,7 +18,6 @@ module RuboCop
       #   end
       class DescribeMethod < Cop
         include RuboCop::RSpec::TopLevelDescribe
-        include RuboCop::RSpec::Util
 
         MSG = 'The second argument to describe should be the method '\
               "being tested. '#instance' or '.class'."
