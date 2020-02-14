@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.38.1 (2020-02-15)
+
 * Fix `RSpec/RepeatedDescription` to detect descriptions with interpolation and methods. ([@lazycoder9][])
 
 ## 1.38.0 (2020-02-11)
