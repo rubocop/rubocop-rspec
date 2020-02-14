@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec examples
     class Example < Concept
-      def_node_matcher :extract_doc_string,     '(send _ _ $str ...)'
+      def_node_matcher :extract_doc_string,     '(send _ _ $_ ...)'
       def_node_matcher :extract_metadata,       '(send _ _ _ $...)'
       def_node_matcher :extract_implementation, '(block send args $_)'
 
