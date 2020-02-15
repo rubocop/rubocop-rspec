@@ -146,6 +146,40 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
     RUBY
   end
 
+  it 'registers offense for repeated description in different iterators' do
+    expect_offense(<<-RUBY)
+      describe 'doing x' do
+        %i[foo bar].each do |type|
+          it "does a thing \#{type}" do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          end
+        end
+
+        %i[baz qux].each do |type|
+          it "does a thing \#{type}" do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'does not flag different descriptions in different iterators' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        %i[foo bar].each do |type|
+          it "does a thing \#{type}" do
+          end
+        end
+
+        %i[baz qux].each do |type|
+          it "does another thing \#{type}" do
+          end
+        end
+      end
+    RUBY
+  end
+
   it 'registers offense if same method used in docstring' do
     expect_offense(<<-RUBY)
       describe 'doing x' do
@@ -156,6 +190,20 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
 
         it(description) do
         ^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+          # ...
+        end
+      end
+    RUBY
+  end
+
+  it 'does not flag different methods used as docstring' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        it(description) do
+          # ...
+        end
+
+        it(title) do
           # ...
         end
       end

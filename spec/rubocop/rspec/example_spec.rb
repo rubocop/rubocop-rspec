@@ -22,6 +22,11 @@ RSpec.describe RuboCop::RSpec::Example do
       .to eq(s(:dstr, s(:str, 'does '), s(:begin, s(:send, nil, :x))))
   end
 
+  it 'extracts symbol doc string' do
+    expect(example('it(:works_fine)').doc_string)
+      .to eq(s(:sym, :works_fine))
+  end
+
   it 'extracts method doc string' do
     expect(example('it(description)').doc_string)
       .to eq(s(:send, nil, :description))
