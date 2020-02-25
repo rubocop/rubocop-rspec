@@ -2058,7 +2058,6 @@ end
 Name | Default value | Configurable values
 --- | --- | ---
 Max | `1` | Integer
-AggregateFailuresByDefault | `false` | Boolean
 
 ### References
 
