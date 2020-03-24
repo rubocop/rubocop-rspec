@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])
+* Add new `Capybara/VisibilityMatcher` cop. ([@aried3r][])
 
 ## 1.38.1 (2020-02-15)
 
@@ -492,3 +493,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@lazycoder9]: https://github.com/lazycoder9
 [@elebow]: https://github.com/elebow
 [@eitoball]: https://github.com/eitoball
+[@aried3r]: https://github.com/aried3r

@@ -3,6 +3,7 @@
 
 * [Capybara/CurrentPathExpectation](cops_capybara.md#capybaracurrentpathexpectation)
 * [Capybara/FeatureMethods](cops_capybara.md#capybarafeaturemethods)
+* [Capybara/VisibilityMatcher](cops_capybara.md#capybaravisibilitymatcher)
 
 #### Department [FactoryBot](cops_factorybot.md)
 

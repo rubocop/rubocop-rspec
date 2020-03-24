@@ -87,3 +87,48 @@ EnabledMethods | `[]` | Array
 ### References
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods)
+
+## Capybara/VisibilityMatcher
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Checks for boolean visibility in capybara finders.
+
+Capybara lets you find elements that match a certain visibility using
+the `:visible` option. `:visible` accepts both boolean and symbols as
+values, however using booleans can have unwanted effects. `visible:
+false` does not find just invisible elements, but both visible and
+invisible elements. For expressiveness and clarity, use one of the
+symbol values, `:all`, `:hidden` or `:visible`.
+(https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all)
+
+### Examples
+
+```ruby
+# bad
+expect(page).to have_selector('.foo', visible: false)
+
+# bad
+expect(page).to have_selector('.foo', visible: true)
+
+# good
+expect(page).to have_selector('.foo', visible: :all)
+
+# good
+expect(page).to have_selector('.foo', visible: :hidden)
+
+# good
+expect(page).to have_selector('.foo', visible: :visible)
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+VersionAdded | `1.39` | String
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher)
