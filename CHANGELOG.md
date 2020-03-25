@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])
+
 ## 1.38.1 (2020-02-15)
 
 * Fix `RSpec/RepeatedDescription` to detect descriptions with interpolation and methods. ([@lazycoder9][])
@@ -489,3 +491,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@dduugg]: https://github.com/dduugg
 [@lazycoder9]: https://github.com/lazycoder9
 [@elebow]: https://github.com/elebow
+[@eitoball]: https://github.com/eitoball
