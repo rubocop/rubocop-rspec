@@ -284,7 +284,7 @@ RSpec/LetBeforeExamples:
 
 RSpec/LetSetup:
   Description: Checks unreferenced `let!` calls being used for test setup.
-  Enabled: true
+  Enabled: false
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
 RSpec/MessageChain:

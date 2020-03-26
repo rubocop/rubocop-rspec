@@ -1802,7 +1802,7 @@ end
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | No
+Disabled | No
 
 Checks unreferenced `let!` calls being used for test setup.
 
