@@ -475,6 +475,12 @@ Capybara/FeatureMethods:
   EnabledMethods: []
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+Capybara/VisibilityMatcher:
+  Description: Checks for boolean visibility in capybara finders.
+  Enabled: true
+  VersionAdded: '1.39'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher
+
 FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
