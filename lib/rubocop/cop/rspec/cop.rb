@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RuboCop
-  module Cop # rubocop:disable Style/Documentation
+  module Cop
     WorkaroundCop = Cop.dup
 
     # Clone of the the normal RuboCop::Cop::Cop class so we can rewrite
