@@ -51,6 +51,75 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
     RUBY
   end
 
+  context 'when argument is a String literal' do
+    it 'ignores class without namespace' do
+      expect_no_offenses(<<-RUBY)
+        describe 'Thing' do
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'ignores class with namespace' do
+      expect_no_offenses(<<-RUBY)
+        describe 'Some::Thing' do
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'ignores value constants' do
+      expect_no_offenses(<<-RUBY)
+        describe 'VERSION' do
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'ignores value constants with namespace' do
+      expect_no_offenses(<<-RUBY)
+        describe 'Some::VERSION' do
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'ignores top-level constants with `::` at start' do
+      expect_no_offenses(<<-RUBY)
+        describe '::Some::VERSION' do
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'checks `camelCase`' do
+      expect_offense(<<-RUBY)
+        describe 'activeRecord' do
+                 ^^^^^^^^^^^^^^ The first argument to describe should be the class or module being tested.
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'checks numbers at start' do
+      expect_offense(<<-RUBY)
+        describe '2Thing' do
+                 ^^^^^^^^ The first argument to describe should be the class or module being tested.
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+
+    it 'checks empty strings' do
+      expect_offense(<<-RUBY)
+        describe '' do
+                 ^^ The first argument to describe should be the class or module being tested.
+          subject { Object.const_get(self.class.description) }
+        end
+      RUBY
+    end
+  end
+
   it 'ignores request specs' do
     expect_no_offenses(<<-RUBY)
       describe 'my new feature', type: :request do

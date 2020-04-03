@@ -333,6 +333,11 @@ end
 
 # good
 describe TestedClass do
+  subject { described_class }
+end
+
+describe 'TestedClass::VERSION' do
+  subject { Object.const_get(self.class.description) }
 end
 
 describe "A feature example", type: :feature do

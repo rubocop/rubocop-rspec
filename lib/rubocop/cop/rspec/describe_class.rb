@@ -12,6 +12,11 @@ module RuboCop
       #
       #   # good
       #   describe TestedClass do
+      #     subject { described_class }
+      #   end
+      #
+      #   describe 'TestedClass::VERSION' do
+      #     subject { Object.const_get(self.class.description) }
       #   end
       #
       #   describe "A feature example", type: :feature do
@@ -44,12 +49,20 @@ module RuboCop
 
         def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
 
-        def on_top_level_describe(node, args)
+        def on_top_level_describe(node, (described_value, _))
           return if shared_group?(root_node)
           return if valid_describe?(node)
           return if describe_with_rails_metadata?(node)
+          return if string_constant_describe?(described_value)
 
-          add_offense(args.first)
+          add_offense(described_value)
+        end
+
+        private
+
+        def string_constant_describe?(described_value)
+          described_value.str_type? &&
+            described_value.value =~ /^((::)?[A-Z]\w*)+$/
         end
       end
     end
