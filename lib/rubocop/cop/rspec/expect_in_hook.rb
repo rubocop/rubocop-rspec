@@ -20,6 +20,15 @@ module RuboCop
       #   it do
       #     expect(something).to eq 'foo'
       #   end
+      #
+      # @example `IgnoreSharedGroups: true`
+      #
+      #   # good
+      #   shared_example 'some shared setup' do
+      #     after do
+      #       expect_any_instance_of(Something).to receive(:foo)
+      #     end
+      #   end
       class ExpectInHook < Cop
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
@@ -28,6 +37,7 @@ module RuboCop
         def on_block(node)
           return unless hook?(node)
           return if node.body.nil?
+          return if ignore_shared_groups? && nested_in_shared_group?(node)
 
           expectation(node.body) do |expect|
             add_offense(expect, location: :selector,
@@ -36,6 +46,14 @@ module RuboCop
         end
 
         private
+
+        def nested_in_shared_group?(node)
+          node.each_ancestor(:block).any?(&method(:shared_group?))
+        end
+
+        def ignore_shared_groups?
+          cop_config['IgnoreSharedGroups'] == true
+        end
 
         def message(expect, hook)
           format(MSG, expect: expect.method_name, hook: hook.method_name)

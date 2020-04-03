@@ -5,6 +5,7 @@
 * Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])
 * Add new `Capybara/VisibilityMatcher` cop. ([@aried3r][])
 * Ignore String constants by `RSpec/Describe`. ([@AlexWayfer][])
+* Add `IgnoreShardGroups` option to `RSpec/ExpectInHook` cop. ([@jonatas][])
 
 ## 1.38.1 (2020-02-15)
 

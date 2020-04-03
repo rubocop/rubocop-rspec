@@ -9,6 +9,8 @@ module RuboCop
 
         def_node_matcher :example_group?, ExampleGroups::ALL.block_pattern
 
+        def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
+
         def_node_matcher :example_group_with_body?, <<-PATTERN
           (block #{ExampleGroups::ALL.send_pattern} args [!nil?])
         PATTERN
