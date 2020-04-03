@@ -1089,6 +1089,16 @@ it do
   expect(something).to eq 'foo'
 end
 ```
+#### `IgnoreSharedGroups: true`
+
+```ruby
+# good
+shared_example 'some shared setup' do
+  after do
+    expect_any_instance_of(Something).to receive(:foo)
+  end
+end
+```
 
 ### References
 
