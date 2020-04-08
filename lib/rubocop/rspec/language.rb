@@ -83,7 +83,7 @@ module RuboCop
       end
 
       module Hooks
-        ALL = SelectorSet.new(
+        BUILTIN = SelectorSet.new(
           %i[
             prepend_before
             before
@@ -92,8 +92,14 @@ module RuboCop
             prepend_after
             after
             append_after
+            setup
           ]
         )
+
+        custom_hooks = CONFIG.dig('AllCops', 'RSpec', 'CustomHooks') || []
+        CUSTOM = SelectorSet.new(custom_hooks.map(&:to_sym))
+
+        ALL = BUILTIN + CUSTOM
 
         module Scopes
           ALL = SelectorSet.new(

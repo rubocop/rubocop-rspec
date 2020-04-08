@@ -76,4 +76,22 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
       end
     RUBY
   end
+
+  it 'adds an offense for `expect` with block in `setup` hook' do
+    expect_offense(<<-RUBY)
+      setup do
+        expect { something }.to eq('foo')
+        ^^^^^^ Do not use `expect` in `setup` hook
+      end
+    RUBY
+  end
+
+  it 'adds an offense for `expect` with block in custom `custom_hook` hook' do
+    expect_offense(<<-RUBY)
+      custom_hook do
+        expect { something }.to eq('foo')
+        ^^^^^^ Do not use `expect` in `custom_hook` hook
+      end
+    RUBY
+  end
 end

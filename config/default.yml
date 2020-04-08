@@ -4,6 +4,8 @@ AllCops:
     Patterns:
     - _spec.rb
     - "(?:^|/)spec/"
+    CustomHooks:
+      - custom_hook
   RSpec/FactoryBot:
     Patterns:
     - spec/factories.rb
