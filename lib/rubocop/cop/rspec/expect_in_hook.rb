@@ -36,8 +36,8 @@ module RuboCop
 
         def on_block(node)
           return unless hook?(node)
-          return if node.body.nil?
-          return if ignore_shared_groups? && nested_in_shared_group?(node)
+          return unless node.body
+          return if ignore_shared_groups? && directly_in_shared_group?(node)
 
           expectation(node.body) do |expect|
             add_offense(expect, location: :selector,
@@ -47,8 +47,8 @@ module RuboCop
 
         private
 
-        def nested_in_shared_group?(node)
-          node.each_ancestor(:block).any?(&method(:shared_group?))
+        def directly_in_shared_group?(node)
+          shared_group?(node.each_ancestor(:block).first)
         end
 
         def ignore_shared_groups?

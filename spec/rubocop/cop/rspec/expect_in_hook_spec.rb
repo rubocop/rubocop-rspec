@@ -82,16 +82,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook, :config do
 
     it 'does not accepts `expect` in `shared_examples`' do
       expect_offense(<<-RUBY)
-      shared_examples 'for shared setup' do
-        before do
-          expect(object).to receive(:message)
-          ^^^^^^ Do not use `expect` in `before` hook
-          expect_any_instance_of(something).to receive(:foo)
-          ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `before` hook
+        shared_examples 'for shared setup' do
+          before do
+            expect(object).to receive(:message)
+            ^^^^^^ Do not use `expect` in `before` hook
+            expect_any_instance_of(something).to receive(:foo)
+            ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `before` hook
+          end
         end
-      end
-        expect(object).to receive(:message)
-        expect_any_instance_of(something).to receive(:foo)
       RUBY
     end
   end
@@ -99,28 +97,25 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook, :config do
   context 'with config IgnoreSharedGroups set to true' do
     let(:cop_config) { { 'IgnoreSharedGroups' => true } }
 
-    it 'accepts `expect` in `shared_examples`' do
+    it 'ignores `expect` in hook directly in `shared_examples`' do
       expect_no_offenses(<<-RUBY)
-      shared_examples 'for shared setup' do
-        before do
-          expect(object).to receive(:message)
-          expect_any_instance_of(something).to receive(:foo)
+        shared_examples 'for shared setup' do
+          before do
+            expect(object).to receive(:message)
+            expect_any_instance_of(something).to receive(:foo)
+          end
         end
-      end
       RUBY
     end
 
-    it 'accepts `expect` in `shared_examples` on any level' do
-      expect_no_offenses(<<-RUBY)
+    it 'flags `expect` in `shared_examples` inside an example group' do
+      expect_offense(<<-RUBY)
         shared_examples 'some shared examples' do
           describe '#some_method' do
             context 'in some case' do
               after do
                 expect_any_instance_of(Something).to receive(:foo)
-              end
-
-              it 'does that' do
-                something.perform
+                ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `after` hook
               end
             end
           end

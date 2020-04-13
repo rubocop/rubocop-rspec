@@ -1100,6 +1100,12 @@ shared_example 'some shared setup' do
 end
 ```
 
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+IgnoreSharedGroups | `false` | Boolean
+
 ### References
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook)
