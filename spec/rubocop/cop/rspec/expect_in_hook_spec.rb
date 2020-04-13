@@ -80,14 +80,18 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook, :config do
   context 'with config IgnoreSharedGroups set to false' do
     let(:cop_config) { { 'IgnoreSharedGroups' => false } }
 
-    it 'does not accepts `expect` in `shared_examples`' do
+    it 'flags `expect` in shared groups' do
       expect_offense(<<-RUBY)
         shared_examples 'for shared setup' do
           before do
             expect(object).to receive(:message)
             ^^^^^^ Do not use `expect` in `before` hook
+          end
+        end
+        shared_context 'with an expectation' do
+          after(:example) do
             expect_any_instance_of(something).to receive(:foo)
-            ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `before` hook
+            ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `after` hook
           end
         end
       RUBY

@@ -5,6 +5,9 @@ module RuboCop
     module RSpec
       # Do not use `expect` in hooks such as `before`.
       #
+      # With `IgnoreSharedGroups` the cop will ignore expectations in hooks
+      # directly in shared groups.
+      #
       # @example
       #   # bad
       #   before do
