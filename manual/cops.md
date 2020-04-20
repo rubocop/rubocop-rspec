@@ -29,6 +29,7 @@
 * [RSpec/DescribedClassModuleWrapping](cops_rspec.md#rspecdescribedclassmodulewrapping)
 * [RSpec/Dialect](cops_rspec.md#rspecdialect)
 * [RSpec/EmptyExampleGroup](cops_rspec.md#rspecemptyexamplegroup)
+* [RSpec/EmptyHook](cops_rspec.md#rspecemptyhook)
 * [RSpec/EmptyLineAfterExample](cops_rspec.md#rspecemptylineafterexample)
 * [RSpec/EmptyLineAfterExampleGroup](cops_rspec.md#rspecemptylineafterexamplegroup)
 * [RSpec/EmptyLineAfterFinalLet](cops_rspec.md#rspecemptylineafterfinallet)

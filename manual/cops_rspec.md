@@ -639,6 +639,45 @@ CustomIncludeMethods | `[]` | Array
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup)
 
+## RSpec/EmptyHook
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | Yes
+
+Checks for empty before and after hooks.
+
+### Examples
+
+```ruby
+# bad
+before {}
+after do; end
+before(:all) do
+end
+after(:all) { }
+
+# good
+before { create_users }
+after do
+  cleanup_users
+end
+before(:all) do
+  create_feed
+end
+after(:all) { cleanup_feed }
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+VersionAdded | `1.39.0` | String
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook)
+
 ## RSpec/EmptyLineAfterExample
 
 Enabled by default | Supports autocorrection

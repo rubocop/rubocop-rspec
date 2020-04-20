@@ -105,6 +105,12 @@ RSpec/EmptyExampleGroup:
   CustomIncludeMethods: []
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
+RSpec/EmptyHook:
+  Description: Checks for empty before and after hooks.
+  Enabled: true
+  VersionAdded: 1.39.0
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
+
 RSpec/EmptyLineAfterExample:
   Description: Checks if there is an empty line after example blocks.
   Enabled: true
