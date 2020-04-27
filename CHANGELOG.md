@@ -5,6 +5,7 @@
 * Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])
 * Add new `Capybara/VisibilityMatcher` cop. ([@aried3r][])
 * Ignore String constants by `RSpec/Describe`. ([@AlexWayfer][])
+* Drop support for ruby 2.3. ([@bquorning][])
 
 ## 1.38.1 (2020-02-15)
 
