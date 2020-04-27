@@ -2120,11 +2120,11 @@ Enabled | No
 Checks for explicitly referenced test subjects.
 
 RSpec lets you declare an "implicit subject" using `subject { ... }`
-which allows for tests like `it { should be_valid }`. If you need to
-reference your test subject you should explicitly name it using
-`subject(:your_subject_name) { ... }`. Your test subjects should be
-the most important object in your tests so they deserve a descriptive
-name.
+which allows for tests like `it { is_expected.to be_valid }`.
+If you need to reference your test subject you should explicitly
+name it using `subject(:your_subject_name) { ... }`. Your test subjects
+should be the most important object in your tests so they deserve
+a descriptive name.
 
 This cop can be configured in your configuration using the
 `IgnoreSharedExamples` which will not report offenses for implicit
@@ -2155,7 +2155,7 @@ end
 RSpec.describe Foo do
   subject(:user) { described_class.new }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 end
 ```
 
