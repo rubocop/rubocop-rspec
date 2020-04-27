@@ -21,7 +21,14 @@ Gem::Specification.new do |spec|
 
   spec.version = RuboCop::RSpec::Version::STRING
   spec.platform = Gem::Platform::RUBY
-  spec.required_ruby_version = '>= 2.3.0'
+
+  # RuboCop RSpec does require Ruby 2.3+ to run. In development and on CI,
+  # RuboCop RSpec flexibly depends on RuboCop, with a minimum version of
+  # 0.68. RuboCop only supports Ruby 2.4+ as a TargetRubyVersion starting
+  # from version 0.82, while its version 0.68 does support Ruby 2.3. We
+  # keep support for codebases that use Ruby 2.3 and RuboCop pre-0.82.
+  spec.required_ruby_version =
+    '>= 2.3.0' # rubocop:disable Gemspec/RequiredRubyVersion
 
   spec.require_paths = ['lib']
   spec.files = Dir[
