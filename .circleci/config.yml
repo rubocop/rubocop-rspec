@@ -1,16 +1,4 @@
-version: 2
-
-rspec: &rspec
-  steps:
-    - checkout
-    - run: bundle install
-    - run: rake spec
-
-rubocop: &rubocop
-  steps:
-    - checkout
-    - run: bundle install
-    - run: rake internal_investigation
+version: 2.1
 
 jobs:
   confirm_config_and_documentation:
@@ -21,45 +9,27 @@ jobs:
       - run: bundle install
       - run: rake confirm_config documentation_syntax_check confirm_documentation
 
-  # Ruby 2.4
-  ruby-2.4-rspec:
+  rspec:
+    parameters:
+      ruby:
+        type: string
     docker:
-      - image: circleci/ruby:2.4
-    <<: *rspec
-  ruby-2.4-rubocop:
-    docker:
-      - image: circleci/ruby:2.4
-    <<: *rubocop
+      - image: circleci/ruby:<<parameters.ruby>>
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake spec
 
-  # Ruby 2.5
-  ruby-2.5-rspec:
+  rubocop:
+    parameters:
+      ruby:
+        type: string
     docker:
-      - image: circleci/ruby:2.5
-    <<: *rspec
-  ruby-2.5-rubocop:
-    docker:
-      - image: circleci/ruby:2.5
-    <<: *rubocop
-
-  # Ruby 2.6
-  ruby-2.6-rspec:
-    docker:
-      - image: circleci/ruby:2.6
-    <<: *rspec
-  ruby-2.6-rubocop:
-    docker:
-      - image: circleci/ruby:2.6
-    <<: *rubocop
-
-  # Ruby 2.7
-  ruby-2.7-rspec:
-    docker:
-      - image: circleci/ruby:2.7
-    <<: *rspec
-  ruby-2.7-rubocop:
-    docker:
-      - image: circleci/ruby:2.7
-    <<: *rubocop
+      - image: circleci/ruby:<<parameters.ruby>>
+    steps:
+      - checkout
+      - run: bundle install
+      - run: rake internal_investigation
 
   edge-rubocop:
     docker:
@@ -118,22 +88,16 @@ workflows:
       - confirm_config_and_documentation
 
       # Use `requires: [confirm_config_and_documentation]` to trick Circle CI into starting the slow jruby job early.
-      - ruby-2.4-rspec:
+      - rspec:
           requires: [confirm_config_and_documentation]
-      - ruby-2.4-rubocop:
+          matrix:
+            parameters:
+              ruby: ['2.4', '2.5', '2.6', '2.7']
+      - rubocop:
           requires: [confirm_config_and_documentation]
-      - ruby-2.5-rspec:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.5-rubocop:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.6-rspec:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.6-rubocop:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.7-rspec:
-          requires: [confirm_config_and_documentation]
-      - ruby-2.7-rubocop:
-          requires: [confirm_config_and_documentation]
+          matrix:
+            parameters:
+              ruby: ['2.4', '2.5', '2.6', '2.7']
       - edge-rubocop:
           requires: [confirm_config_and_documentation]
       - jruby
