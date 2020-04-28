@@ -32,8 +32,6 @@ module RuboCop
       #     it { expect_something_else }
       #
       class LeadingSubject < Cop
-        include RangeHelp
-
         MSG = 'Declare `subject` above any other `%<offending>s` declarations.'
 
         def on_block(node)
@@ -58,10 +56,9 @@ module RuboCop
         def autocorrect(node)
           lambda do |corrector|
             first_node = find_first_offending_node(node)
-            first_node_position = first_node.loc.expression
-            indent = "\n" + ' ' * first_node.loc.column
-            corrector.insert_before(first_node_position, node.source + indent)
-            corrector.remove(node_range(node))
+            RuboCop::RSpec::Corrector::MoveNode.new(
+              node, corrector, processed_source
+            ).move_before(first_node)
           end
         end
 
@@ -73,10 +70,6 @@ module RuboCop
 
         def find_first_offending_node(node)
           node.parent.children.find { |sibling| offending?(sibling) }
-        end
-
-        def node_range(node)
-          range_by_whole_lines(node.source_range, include_final_newline: true)
         end
 
         def in_spec_block?(node)

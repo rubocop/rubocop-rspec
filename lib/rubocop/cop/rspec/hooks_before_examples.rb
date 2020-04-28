@@ -24,9 +24,6 @@ module RuboCop
       #   end
       #
       class HooksBeforeExamples < Cop
-        include RangeHelp
-        include RuboCop::RSpec::FinalEndLocation
-
         MSG = 'Move `%<hook>s` above the examples in the group.'
 
         def_node_matcher :example_or_group?, <<-PATTERN
@@ -45,11 +42,9 @@ module RuboCop
         def autocorrect(node)
           lambda do |corrector|
             first_example = find_first_example(node.parent)
-            first_example_pos = first_example.loc.expression
-            indent = "\n" + ' ' * first_example.loc.column
-
-            corrector.insert_before(first_example_pos, source(node) + indent)
-            corrector.remove(node_range_with_surrounding_space(node))
+            RuboCop::RSpec::Corrector::MoveNode.new(
+              node, corrector, processed_source
+            ).move_before(first_example)
           end
         end
 
@@ -76,19 +71,6 @@ module RuboCop
 
         def find_first_example(node)
           node.children.find { |sibling| example_or_group?(sibling) }
-        end
-
-        def node_range_with_surrounding_space(node)
-          range = node_range(node)
-          range_by_whole_lines(range, include_final_newline: true)
-        end
-
-        def source(node)
-          node_range(node).source
-        end
-
-        def node_range(node)
-          node.loc.expression.with(end_pos: final_end_location(node).end_pos)
         end
       end
     end
