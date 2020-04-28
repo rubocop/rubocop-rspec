@@ -35,6 +35,15 @@ module RuboCop
           check_let_declarations(node.body)
         end
 
+        def autocorrect(node)
+          lambda do |corrector|
+            first_let = find_first_let(node.parent)
+            RuboCop::RSpec::Corrector::MoveNode.new(
+              node, corrector, processed_source
+            ).move_after(first_let)
+          end
+        end
+
         private
 
         def check_let_declarations(body)
@@ -46,6 +55,10 @@ module RuboCop
 
             add_offense(node)
           end
+        end
+
+        def find_first_let(node)
+          node.children.find { |child| let?(child) }
         end
       end
     end
