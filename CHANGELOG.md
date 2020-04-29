@@ -7,6 +7,7 @@
 * Ignore String constants by `RSpec/Describe`. ([@AlexWayfer][])
 * Drop support for ruby 2.3. ([@bquorning][])
 * Fix multiple cops to detect `let` with proc argument. ([@tejasbubane][])
+* Add autocorrect support for `RSpec/ScatteredLet`. ([@Darhazer][])
 
 ## 1.38.1 (2020-02-15)
 

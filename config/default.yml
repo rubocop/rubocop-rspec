@@ -416,6 +416,7 @@ RSpec/ScatteredLet:
   Description: Checks for let scattered across the example group.
   Enabled: true
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
+  VersionChanged: '1.39'
 
 RSpec/ScatteredSetup:
   Description: Checks for setup scattered across multiple hooks in an example group.

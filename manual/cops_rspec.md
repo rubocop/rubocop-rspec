@@ -2723,7 +2723,7 @@ EnforcedStyle | `and_return` | `and_return`, `block`
 
 Enabled by default | Supports autocorrection
 --- | ---
-Enabled | No
+Enabled | Yes
 
 Checks for let scattered across the example group.
 
@@ -2750,6 +2750,12 @@ describe Foo do
   let!(:baz) { 3 }
 end
 ```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+VersionChanged | `1.39` | String
 
 ### References
 
