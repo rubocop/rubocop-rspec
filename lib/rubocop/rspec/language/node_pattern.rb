@@ -17,7 +17,7 @@ module RuboCop
 
         def_node_matcher :hook?, Hooks::ALL.block_pattern
 
-        def_node_matcher :let?, Helpers::ALL.block_pattern
+        def_node_matcher :let?, Helpers::ALL.block_or_block_pass_pattern
 
         def_node_matcher :subject?, Subject::ALL.block_pattern
       end

@@ -47,6 +47,26 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
+  it 'checks for empty line after let with proc argument' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:user, &args[:build_user])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:user, &args[:build_user])
+
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+  end
+
   it 'approves empty line after let' do
     expect_no_offenses(<<-RUBY)
     RSpec.describe User do

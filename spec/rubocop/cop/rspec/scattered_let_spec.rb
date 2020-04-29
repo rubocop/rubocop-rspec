@@ -25,4 +25,15 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
   end
+
+  it 'flags `let` with proc argument' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        subject { User }
+        let(:user, &args[:build_user])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+      end
+    RUBY
+  end
 end

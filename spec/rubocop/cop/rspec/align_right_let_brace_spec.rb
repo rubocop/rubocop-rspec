@@ -45,6 +45,12 @@ RSpec.describe RuboCop::Cop::RSpec::AlignRightLetBrace do
   end
   # rubocop:enable RSpec/ExampleLength
 
+  it 'does not register offense for let with proc argument' do
+    expect_no_offenses(<<-RUBY)
+      let(:user, &args[:build_user])
+    RUBY
+  end
+
   it 'works with empty file' do
     expect_no_offenses('')
   end

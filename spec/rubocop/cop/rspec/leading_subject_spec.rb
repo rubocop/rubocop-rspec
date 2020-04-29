@@ -41,6 +41,25 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
+  it 'checks subject below let with proc argument' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:user, &args[:build_user])
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        let(:user, &args[:build_user])
+
+      end
+    RUBY
+  end
+
   it 'approves of subject above let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
