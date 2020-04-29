@@ -62,6 +62,25 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
     RUBY
   end
 
+  it 'flags `let` with proc argument' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        include_examples('should be after let')
+
+        let(:user, &args[:build_user])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Move `let` before the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:user, &args[:build_user])
+        include_examples('should be after let')
+
+      end
+    RUBY
+  end
+
   it 'does not flag `let` before the examples' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
