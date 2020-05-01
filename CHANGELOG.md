@@ -8,6 +8,7 @@
 * Drop support for ruby 2.3. ([@bquorning][])
 * Fix multiple cops to detect `let` with proc argument. ([@tejasbubane][])
 * Add autocorrect support for `RSpec/ScatteredLet`. ([@Darhazer][])
+* Add new `RSpec/EmptyHook` cop. ([@tejasbubane][])
 
 ## 1.38.1 (2020-02-15)
 
