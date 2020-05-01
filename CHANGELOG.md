@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.39.0 (2020-05-01)
+
 * Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])
 * Add new `Capybara/VisibilityMatcher` cop. ([@aried3r][])
 * Ignore String constants by `RSpec/Describe`. ([@AlexWayfer][])
