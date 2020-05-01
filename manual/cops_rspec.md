@@ -3013,6 +3013,50 @@ expect { do_something }.not_to raise_error
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException)
 
+## RSpec/VariableName
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+This cop makes sure that all variables use the configured style.
+
+### Examples
+
+#### EnforcedStyle: snake_case (default)
+
+```ruby
+# bad
+let(:userName) { 'Adam' }
+subject(:userName) { 'Adam' }
+
+# good
+let(:user_name) { 'Adam' }
+subject(:user_name) { 'Adam' }
+```
+#### EnforcedStyle: camelCase
+
+```ruby
+# bad
+let(:user_name) { 'Adam' }
+subject(:user_name) { 'Adam' }
+
+# good
+let(:userName) { 'Adam' }
+subject(:userName) { 'Adam' }
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+EnforcedStyle | `snake_case` | `snake_case`, `camelCase`
+VersionAdded | `1.40` | String
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName)
+
 ## RSpec/VerifiedDoubles
 
 Enabled by default | Supports autocorrection
