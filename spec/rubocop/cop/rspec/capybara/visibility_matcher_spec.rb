@@ -17,6 +17,33 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::VisibilityMatcher do
     RUBY
   end
 
+  it 'recognizes multiple matchers' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_css('.profile', visible: false)
+                                           ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_xpath('.//profile', visible: false)
+                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_link('news', visible: false)
+                                        ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_button('login', visible: false)
+                                           ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_field('name', visible: false)
+                                         ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_select('sauce', visible: false)
+                                           ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_table('arrivals', visible: false)
+                                             ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_checked_field('cat', visible: false)
+                                                ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_unchecked_field('cat', visible: false)
+                                                  ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_text('My homepage', visible: false)
+                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_content('Success', visible: false)
+                                              ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+    RUBY
+  end
+
   it 'registers an offense when using a selector`' do
     expect_offense(<<-RUBY)
       expect(page).to have_selector(:css, '.my_element', visible: false)

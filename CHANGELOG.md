@@ -4,6 +4,7 @@
 
 * Add new `RSpec/VariableName` cop. ([@tejasbubane][])
 * Add new `RSpec/VariableDefinition` cop. ([@tejasbubane][])
+* Expand `Capybara/VisibilityMatcher` to support more than just `have_selector`. ([@twalpole][])
 
 ## 1.39.0 (2020-05-01)
 
@@ -506,3 +507,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@aried3r]: https://github.com/aried3r
 [@AlexWayfer]: https://github.com/AlexWayfer
 [@tejasbubane]: https://github.com/tejasbubane
+[@twalpole]: https://github.com/twalpole

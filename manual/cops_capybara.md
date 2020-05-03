@@ -109,18 +109,13 @@ symbol values, `:all`, `:hidden` or `:visible`.
 ```ruby
 # bad
 expect(page).to have_selector('.foo', visible: false)
-
-# bad
-expect(page).to have_selector('.foo', visible: true)
-
-# good
-expect(page).to have_selector('.foo', visible: :all)
-
-# good
-expect(page).to have_selector('.foo', visible: :hidden)
+expect(page).to have_css('.foo', visible: true)
+expect(page).to have_link('my link', visible: false)
 
 # good
 expect(page).to have_selector('.foo', visible: :visible)
+expect(page).to have_css('.foo', visible: :all)
+expect(page).to have_link('my link', visible: :hidden)
 ```
 
 ### Configurable attributes
