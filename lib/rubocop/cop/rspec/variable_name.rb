@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # This cop makes sure that all variables use the configured style.
+      # Checks that memoized helper names use the configured style.
       #
       # @example EnforcedStyle: snake_case (default)
       #   # bad
@@ -24,16 +24,14 @@ module RuboCop
       #   subject(:userName) { 'Adam' }
       class VariableName < Cop
         include ConfigurableNaming
+        include RuboCop::RSpec::Variable
 
         MSG = 'Use %<style>s for variable names.'
 
-        def_node_matcher :variable_definition?, <<~PATTERN
-          (send #{RSPEC} #{(Helpers::ALL + Subject::ALL).node_pattern_union}
-            $({sym str} _) ...)
-        PATTERN
-
         def on_send(node)
           variable_definition?(node) do |variable|
+            return if variable.dstr_type? || variable.dsym_type?
+
             check_name(node, variable.value, variable.loc.expression)
           end
         end

@@ -85,6 +85,7 @@
 * [RSpec/SingleArgumentMessageChain](cops_rspec.md#rspecsingleargumentmessagechain)
 * [RSpec/SubjectStub](cops_rspec.md#rspecsubjectstub)
 * [RSpec/UnspecifiedException](cops_rspec.md#rspecunspecifiedexception)
+* [RSpec/VariableDefinition](cops_rspec.md#rspecvariabledefinition)
 * [RSpec/VariableName](cops_rspec.md#rspecvariablename)
 * [RSpec/VerifiedDoubles](cops_rspec.md#rspecverifieddoubles)
 * [RSpec/VoidExpect](cops_rspec.md#rspecvoidexpect)

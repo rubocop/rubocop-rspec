@@ -3013,13 +3013,57 @@ expect { do_something }.not_to raise_error
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException)
 
+## RSpec/VariableDefinition
+
+Enabled by default | Supports autocorrection
+--- | ---
+Enabled | No
+
+Checks that memoized helpers names are symbols or strings.
+
+### Examples
+
+#### EnforcedStyle: symbols (default)
+
+```ruby
+# bad
+let('user_name') { 'Adam' }
+subject('user') { create_user }
+
+# good
+let(:user_name) { 'Adam' }
+subject(:user) { create_user }
+```
+#### EnforcedStyle: strings
+
+```ruby
+# bad
+let(:user_name) { 'Adam' }
+subject(:user) { create_user }
+
+# good
+let('user_name') { 'Adam' }
+subject('user') { create_user }
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+EnforcedStyle | `symbols` | `symbols`, `strings`
+VersionAdded | `1.40` | String
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableDefinition](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableDefinition)
+
 ## RSpec/VariableName
 
 Enabled by default | Supports autocorrection
 --- | ---
 Enabled | No
 
-This cop makes sure that all variables use the configured style.
+Checks that memoized helper names use the configured style.
 
 ### Examples
 
