@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add new `RSpec/VariableName` cop. ([@tejasbubane][])
+
 ## 1.39.0 (2020-05-01)
 
 * Fix `RSpec/FilePath` detection when absolute path includes test subject. ([@eitoball][])

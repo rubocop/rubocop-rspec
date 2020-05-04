@@ -454,6 +454,16 @@ RSpec/UnspecifiedException:
   Enabled: true
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException
 
+RSpec/VariableName:
+  Description: This cop makes sure that all variables use the configured style.
+  Enabled: true
+  EnforcedStyle: snake_case
+  SupportedStyles:
+  - snake_case
+  - camelCase
+  VersionAdded: '1.40'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
+
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
