@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add new `RSpec/VariableName` cop. ([@tejasbubane][])
+* Add new `RSpec/VariableDefinition` cop. ([@tejasbubane][])
 
 ## 1.39.0 (2020-05-01)
 

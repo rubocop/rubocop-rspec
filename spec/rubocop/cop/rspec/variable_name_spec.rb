@@ -36,6 +36,12 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName, :config do
           let(:user_name) { 'Adam' }
         RUBY
       end
+
+      it 'does not register offense for interpolated symbol' do
+        expect_no_offenses(<<~'RUBY')
+          let(:"user#{name}") { 'Adam' }
+        RUBY
+      end
     end
 
     context 'when `let` with string names' do
@@ -56,6 +62,12 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName, :config do
       it 'does not register an offense for snake_case' do
         expect_no_offenses(<<~RUBY)
           let('user_name') { 'Adam' }
+        RUBY
+      end
+
+      it 'does not register offense for interpolated string' do
+        expect_no_offenses(<<~'RUBY')
+          let("user#{name}") { 'Adam' }
         RUBY
       end
     end
