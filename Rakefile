@@ -81,7 +81,14 @@ task :new_cop, [:cop] do |_task, args|
   generator.write_source
   generator.write_spec
   generator.inject_require(root_file_path: 'lib/rubocop/cop/rspec_cops.rb')
-  generator.inject_config(config_file_path: 'config/default.yml')
+  generator.inject_config(config_file_path: 'config/default.yml',
+                          version_added: bump_minor_version)
 
   puts generator.todo
+end
+
+def bump_minor_version
+  major, minor, _patch = RuboCop::RSpec::Version::STRING.split('.')
+
+  "#{major}.#{minor.succ}.0"
 end
