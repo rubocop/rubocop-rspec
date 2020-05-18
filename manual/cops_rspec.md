@@ -1164,10 +1164,11 @@ Enabled by default | Supports autocorrection
 --- | ---
 Enabled | No
 
-Checks that spec file paths are consistent with the test subject.
+Checks that spec file paths are consistent and well-formed.
 
-Checks the path of the spec file and enforces that it reflects the
-described class/module and its optionally called out method.
+By default, this checks that spec file paths are consistent with the
+test subject and and enforces that it reflects the described
+class/module and its optionally called out method.
 
 With the configuration option `IgnoreMethods` the called out method will
 be ignored when determining the enforced path.
@@ -1175,6 +1176,10 @@ be ignored when determining the enforced path.
 With the configuration option `CustomTransform` modules or classes can
 be specified that should not as usual be transformed from CamelCase to
 snake_case (e.g. 'RuboCop' => 'rubocop' ).
+
+With the configuration option `SpecSuffixOnly` test files will only
+be checked to ensure they end in '_spec.rb'. This option disables
+checking for consistency in the test subject or test methods.
 
 ### Examples
 
@@ -1206,6 +1211,18 @@ my_class_spec.rb         # describe MyClass
 # good
 my_class_spec.rb         # describe MyClass, '#method'
 ```
+#### when configuration is `SpecSuffixOnly: true`
+
+```ruby
+# good
+whatever_spec.rb         # describe MyClass
+
+# good
+my_class_spec.rb         # describe MyClass
+
+# good
+my_class_spec.rb         # describe MyClass, '#method'
+```
 
 ### Configurable attributes
 
@@ -1213,6 +1230,7 @@ Name | Default value | Configurable values
 --- | --- | ---
 CustomTransform | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}` | 
 IgnoreMethods | `false` | Boolean
+SpecSuffixOnly | `false` | Boolean
 
 ### References
 

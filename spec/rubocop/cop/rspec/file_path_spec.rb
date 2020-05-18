@@ -206,4 +206,21 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
       RUBY
     end
   end
+
+  context 'when configured with SpecSuffixOnly' do
+    let(:cop_config) { { 'SpecSuffixOnly' => true } }
+
+    it 'does not care about the described class' do
+      expect_no_offenses(<<-RUBY, 'whatever_spec.rb')
+        describe MyClass do; end
+      RUBY
+    end
+
+    it 'registers an offense when _spec.rb suffix is missing' do
+      expect_offense(<<-RUBY, 'whatever.rb')
+        describe MyClass do; end
+        ^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+      RUBY
+    end
+  end
 end

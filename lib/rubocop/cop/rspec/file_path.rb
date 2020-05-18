@@ -3,10 +3,11 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that spec file paths are consistent with the test subject.
+      # Checks that spec file paths are consistent and well-formed.
       #
-      # Checks the path of the spec file and enforces that it reflects the
-      # described class/module and its optionally called out method.
+      # By default, this checks that spec file paths are consistent with the
+      # test subject and and enforces that it reflects the described
+      # class/module and its optionally called out method.
       #
       # With the configuration option `IgnoreMethods` the called out method will
       # be ignored when determining the enforced path.
@@ -14,6 +15,10 @@ module RuboCop
       # With the configuration option `CustomTransform` modules or classes can
       # be specified that should not as usual be transformed from CamelCase to
       # snake_case (e.g. 'RuboCop' => 'rubocop' ).
+      #
+      # With the configuration option `SpecSuffixOnly` test files will only
+      # be checked to ensure they end in '_spec.rb'. This option disables
+      # checking for consistency in the test subject or test methods.
       #
       # @example
       #   # bad
@@ -33,6 +38,16 @@ module RuboCop
       #
       # @example when configuration is `IgnoreMethods: true`
       #   # bad
+      #   whatever_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_spec.rb         # describe MyClass
+      #
+      #   # good
+      #   my_class_spec.rb         # describe MyClass, '#method'
+      #
+      # @example when configuration is `SpecSuffixOnly: true`
+      #   # good
       #   whatever_spec.rb         # describe MyClass
       #
       #   # good
@@ -70,7 +85,13 @@ module RuboCop
         end
 
         def glob_for((described_class, method_name))
+          return glob_for_spec_suffix_only? if spec_suffix_only?
+
           "#{expected_path(described_class)}#{name_glob(method_name)}*_spec.rb"
+        end
+
+        def glob_for_spec_suffix_only?
+          '*_spec.rb'
         end
 
         def name_glob(name)
@@ -110,6 +131,10 @@ module RuboCop
 
         def relevant_rubocop_rspec_file?(_file)
           true
+        end
+
+        def spec_suffix_only?
+          cop_config['SpecSuffixOnly']
         end
       end
     end

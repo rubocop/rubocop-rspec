@@ -191,12 +191,13 @@ RSpec/ExpectOutput:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
 RSpec/FilePath:
-  Description: Checks that spec file paths are consistent with the test subject.
+  Description: Checks that spec file paths are consistent and well-formed.
   Enabled: true
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
   IgnoreMethods: false
+  SpecSuffixOnly: false
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:
