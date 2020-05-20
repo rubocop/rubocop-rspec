@@ -27,6 +27,9 @@ Naming/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
+Layout/LineLength:
+  Max: 80 # default: 120
+
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
