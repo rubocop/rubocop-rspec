@@ -70,6 +70,7 @@ module RuboCop
                   'to describe HTTP status code.'
 
             attr_reader :node
+
             def initialize(node)
               @node = node
             end
@@ -110,6 +111,7 @@ module RuboCop
             ALLOWED_STATUSES = %i[error success missing redirect].freeze
 
             attr_reader :node
+
             def initialize(node)
               @node = node
             end
