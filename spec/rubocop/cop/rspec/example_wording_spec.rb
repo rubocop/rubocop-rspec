@@ -192,7 +192,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
   context 'when configuration is empty' do
     include_examples 'autocorrect',
                      'it "should have trait" do end',
-                     'it "haves trait" do end'
+                     'it "has trait" do end'
 
     include_examples 'autocorrect',
                      'it "should only fail" do end',
