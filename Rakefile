@@ -42,9 +42,12 @@ task confirm_config: :build_config do
   _, stdout, _, process =
     Open3.popen3('git diff --exit-code config/default.yml')
 
-  unless process.value.success?
-    raise "default.yml is out of sync:\n\n#{stdout.read}\nRun bin/build_config"
-  end
+  raise <<~ERROR unless process.value.success?
+    default.yml is out of sync:
+
+    #{stdout.read}
+    Run bin/build_config
+  ERROR
 end
 
 desc 'Confirm documentation is up to date'

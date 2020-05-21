@@ -47,6 +47,7 @@ module RuboCop
                 'to titleize shared examples.'
 
           attr_reader :node
+
           def initialize(node)
             @node = node
           end

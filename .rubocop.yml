@@ -16,16 +16,8 @@ AllCops:
 Layout/HashAlignment:
   Enabled: false
 
-Metrics/BlockLength:
-  Exclude:
-    - rubocop-rspec.gemspec
-    - Rakefile
-    - '**/*.rake'
-    - spec/**/*.rb
-
-Naming/FileName:
-  Exclude:
-    - lib/rubocop-rspec.rb
+Layout/LineLength:
+  Max: 80 # default: 120
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -41,6 +33,17 @@ Lint/BooleanSymbol:
 Lint/InterpolationCheck:
   Exclude:
     - spec/**/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - rubocop-rspec.gemspec
+    - Rakefile
+    - '**/*.rake'
+    - spec/**/*.rb
+
+Naming/FileName:
+  Exclude:
+    - lib/rubocop-rspec.rb
 
 RSpec/ExampleLength:
   Max: 30
