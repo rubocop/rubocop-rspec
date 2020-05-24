@@ -20,7 +20,6 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
   end
 
   let(:fake_cop) do
-    stub_const('RuboCop::RSpec', Module.new)
     # rubocop:disable Style/ClassAndModuleChildren
     # rubocop:disable RSpec/LeakyConstantDeclaration
     class RuboCop::RSpec::FakeCop < described_class

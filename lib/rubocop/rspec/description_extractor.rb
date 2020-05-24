@@ -68,10 +68,8 @@ module RuboCop
         end
 
         def cop_subclass?
-          # YARD superclass resolution is a bit flaky: All classes loaded before
-          # RuboCop::Cop::WorkaroundCop are shown as having RuboCop::Cop as
-          # superclass, while all the following classes are listed as having
-          # RuboCop::Cop::RSpec::Cop as their superclass.
+          # FIXME: simplify
+
           COP_CLASS_NAMES.include?(yardoc.superclass.path)
         end
 
