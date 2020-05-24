@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
-  subject(:cop) { described_class.new(config) }
-
   it 'registers an offense for a bad path' do
     expect_offense(<<-RUBY, 'wrong_path_foo_spec.rb')
       describe MyClass, 'foo' do; end

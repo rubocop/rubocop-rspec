@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
-  subject(:cop) { described_class.new(config) }
-
   it 'finds a `double` instead of an `instance_double`' do
     expect_offense(<<-RUBY)
       it do
@@ -55,25 +53,25 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
     end
   end
 
-  it 'doubles that have no name specified' do
-    expect_offense(<<-RUBY)
-      it do
-        foo = double
-              ^^^^^^ Prefer using verifying doubles over normal doubles.
-      end
-    RUBY
-  end
+  context 'when configured not to ignore nameless doubles' do
+    let(:cop_config) { { 'IgnoreNameless' => false } }
 
-  context 'when configured to ignore nameless doubles' do
-    let(:cop_config) { { 'IgnoreNameless' => true } }
-
-    it 'ignores doubles that have no name specified' do
-      expect_no_offenses(<<-RUBY)
+    it 'flags doubles that have no name specified' do
+      expect_offense(<<-RUBY)
         it do
           foo = double
+                ^^^^^^ Prefer using verifying doubles over normal doubles.
         end
       RUBY
     end
+  end
+
+  it 'ignores doubles that have no name specified' do
+    expect_no_offenses(<<-RUBY)
+      it do
+        foo = double
+      end
+    RUBY
   end
 
   it 'ignores instance_doubles' do

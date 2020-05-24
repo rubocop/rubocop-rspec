@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations, :config do
-  subject(:cop) { described_class.new(config) }
-
   context 'without configuration' do
     let(:cop_config) { {} }
 
