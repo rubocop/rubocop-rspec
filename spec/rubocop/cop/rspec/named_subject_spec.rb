@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NamedSubject, :config do
-  subject(:cop) { described_class.new(config) }
-
   shared_examples_for 'checking subject outside of shared examples' do
     it 'checks `it` and `specify` for explicit subject usage' do
       expect_offense(<<-RUBY)

@@ -131,8 +131,6 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   context 'when configured with AssignmentOnly', :config do
-    subject(:cop) { described_class.new(config) }
-
     let(:cop_config) do
       { 'AssignmentOnly' => true }
     end

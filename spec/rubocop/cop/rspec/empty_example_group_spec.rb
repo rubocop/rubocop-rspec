@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
-  subject(:cop) { described_class.new(config) }
-
   it 'flags an empty context' do
     expect_offense(<<-RUBY)
       describe Foo do

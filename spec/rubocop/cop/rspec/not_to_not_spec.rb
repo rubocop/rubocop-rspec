@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NotToNot, :config do
-  subject(:cop) { described_class.new(config) }
-
   context 'when EnforcedStyle is `not_to`' do
     let(:cop_config) { { 'EnforcedStyle' => 'not_to' } }
 

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
-  subject(:cop) { described_class.new(config) }
-
   it 'flags nested contexts' do
     expect_offense(<<-RUBY)
       describe MyClass do
