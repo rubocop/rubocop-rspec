@@ -3,8 +3,6 @@
 RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods, :config do
   subject(:cop) { described_class.new(config) }
 
-  let(:cop_config) { { 'EnabledMethods' => [] } }
-
   it 'flags violations for `background`' do
     expect_offense(<<-RUBY)
       describe 'some feature' do
