@@ -85,8 +85,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     h3('Configurable attributes') + to_table(header, content)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
-  def configurable_values(pars, name)
+  def configurable_values(pars, name) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
     case name
     when /^Enforced/
       supported_style_name = RuboCop::Cop::Util.to_supported_styles(name)
@@ -110,7 +109,6 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/MethodLength
 
   def to_table(header, content)
     table = [
@@ -121,8 +119,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     table.join("\n") + "\n"
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def format_table_value(val)
+  def format_table_value(val) # rubocop:disable Metrics/MethodLength
     value =
       case val
       when Array
@@ -136,20 +133,19 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       end
     value.gsub("#{Dir.pwd}/", '').rstrip
   end
-  # rubocop:enable Metrics/MethodLength
 
   def cop_urls(config, cop)
     rubocop_version = Gem::Version.new(RuboCop::Version::STRING)
 
-    # Since Rubocop v0.75.0 and above, MessageAnnotator#new changed from:
+    # Since RuboCop v0.75.0 and above, MessageAnnotator#new changed from:
     #   def initialize(config, cop_config, options)
     # to:
     #   def initialize(config, cop_name, cop_config, options)
     #
-    # Since this library has a loose Rubocop dependency, we select the
+    # Since this library has a loose RuboCop dependency, we select the
     # right arguments based on the installed version.
     #
-    # TODO: When Rubocop < 0.75 is no longer supported, remove the second half
+    # TODO: When RuboCop < 0.75 is no longer supported, remove the second half
     # of this condition.
 
     if rubocop_version >= Gem::Version.new('0.75.0')
@@ -172,30 +168,29 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     content
   end
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
-  def print_cops_of_department(cops, department, config)
-    selected_cops = cops_of_department(cops, department).select do |cop|
-      cop.to_s.start_with?('RuboCop::Cop::RSpec')
+  def selected_cops(cops, department)
+    cops_of_department(cops, department.to_sym).select do |cop|
+      cop.name.start_with?('RuboCop::Cop::RSpec') &&
+        cop.name != 'RuboCop::Cop::RSpec::Cop'
     end
+  end
+
+  def print_cops_of_department(cops, department, config) # rubocop:disable Metrics/MethodLength
+    selected_cops = selected_cops(cops, department)
     return if selected_cops.empty?
 
-    content = +"# #{department}\n"
-    selected_cops.each do |cop|
-      content << print_cop_with_doc(cop, config)
-    end
+    content = [
+      "# #{department}\n",
+      *selected_cops.map { |cop| print_cop_with_doc(cop, config) }
+    ].join
     file_name = "#{Dir.pwd}/manual/cops_#{department.downcase}.md"
     File.open(file_name, 'w') do |file|
       puts "* generated #{file_name}"
-      file.write(content.strip + "\n")
+      file.write(content)
     end
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
-  def print_cop_with_doc(cop, config)
+  def print_cop_with_doc(cop, config) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     t = config.for_cop(cop)
     non_display_keys = %w[Description Enabled StyleGuide Reference]
     pars = t.reject { |k| non_display_keys.include? k }
@@ -209,15 +204,9 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     end
     cops_body(config, cop, description, examples_object, pars)
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   def table_of_content_for_department(cops, department)
-    selected_cops = cops_of_department(cops, department.to_sym).select do |cop|
-      cop.to_s.start_with?('RuboCop::Cop::RSpec')
-    end
+    selected_cops = selected_cops(cops, department)
     return if selected_cops.empty?
 
     type_title = department[0].upcase + department[1..-1]
@@ -230,8 +219,6 @@ task generate_cops_documentation: :yard_for_generate_documentation do
 
     content
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
   def print_table_of_contents(cops)
     path = "#{Dir.pwd}/manual/cops.md"
@@ -254,7 +241,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       .map(&:to_s)
       .sort
       .map { |department| table_of_content_for_department(cops, department) }
-      .reject(&:nil?)
+      .compact
       .join("\n")
   end
 

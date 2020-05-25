@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # @abstract parent class to rspec cops
+      # @abstract parent class to RSpec cops
       #
       # The criteria for whether rubocop-rspec analyzes a certain ruby file
       # is configured via `AllCops/RSpec`. For example, if you want to
@@ -11,12 +11,12 @@ module RuboCop
       # then you could add this to your configuration:
       #
       # @example configuring analyzed paths
-      #
-      #   AllCops:
-      #     RSpec:
-      #       Patterns:
-      #       - '_test.rb$'
-      #       - '(?:^|/)test/'
+      #   # .rubocop.yml
+      #   # AllCops:
+      #   #   RSpec:
+      #   #     Patterns:
+      #   #     - '_test.rb$'
+      #   #     - '(?:^|/)test/'
       class Cop < ::RuboCop::Cop::Cop
         include RuboCop::RSpec::Language
         include RuboCop::RSpec::Language::NodePattern
