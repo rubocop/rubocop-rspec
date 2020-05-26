@@ -179,6 +179,24 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  it 'uses relative path for sibling directory project' do
+    allow(RuboCop::PathUtil)
+      .to receive(:relative_path)
+      .and_return('../ext-project/spec/models/bar_spec.rb')
+    expect_no_offenses(<<-RUBY, '/home/ext-project/spec/models/bar_spec.rb')
+      describe Bar do; end
+    RUBY
+  end
+
+  it 'uses relative path for different path project' do
+    allow(RuboCop::PathUtil)
+      .to receive(:relative_path)
+      .and_return('../../opt/ext-project/spec/models/bar_spec.rb')
+    expect_no_offenses(<<-RUBY, '/opt/ext-project/spec/models/bar_spec.rb')
+      describe Bar do; end
+    RUBY
+  end
+
   context 'when configured with CustomTransform' do
     let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
