@@ -1,0 +1,15 @@
+= Installation
+
+Just install the `rubocop-rspec` gem
+
+[source,bash]
+----
+gem install rubocop-rspec
+----
+
+or if you use bundler put this in your `Gemfile`
+
+[source,ruby]
+----
+gem 'rubocop-rspec'
+----

@@ -1,0 +1,2 @@
+RSpec-specific analysis for your projects, as an extension to
+https://github.com/rubocop-hq/rubocop[RuboCop].
