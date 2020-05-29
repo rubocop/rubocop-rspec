@@ -6,6 +6,7 @@
 * Add new `RSpec/VariableDefinition` cop. ([@tejasbubane][])
 * Expand `Capybara/VisibilityMatcher` to support more than just `have_selector`. ([@twalpole][])
 * Add new `SpecSuffixOnly` option to `RSpec/FilePath` cop. ([@zdennis][])
+* Allow `RSpec/RepeatedExampleGroupBody` to differ only by described_class. ([@robotdana][])
 
 ## 1.39.0 (2020-05-01)
 
@@ -510,3 +511,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@tejasbubane]: https://github.com/tejasbubane
 [@twalpole]: https://github.com/twalpole
 [@zdennis]: https://github.com/zdennis
+[@robotdana]: https://github.com/robotdana

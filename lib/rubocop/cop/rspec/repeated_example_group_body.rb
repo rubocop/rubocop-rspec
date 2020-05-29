@@ -34,6 +34,15 @@ module RuboCop
       #      it { cool_predicate }
       #    end
       #
+      #    # good
+      #    context Array do
+      #      it { is_expected.to respond_to :each }
+      #    end
+      #
+      #    context Hash do
+      #      it { is_expected.to respond_to :each }
+      #    end
+      #
       class RepeatedExampleGroupBody < Cop
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
@@ -43,6 +52,7 @@ module RuboCop
 
         def_node_matcher :metadata, '(block (send _ _ _ $...) ...)'
         def_node_matcher :body, '(block _ args $...)'
+        def_node_matcher :const_arg, '(block (send _ _ $const ...) ...)'
 
         def_node_matcher :skip_or_pending?, <<-PATTERN
           (block <(send nil? {:skip :pending}) ...>)
@@ -75,7 +85,7 @@ module RuboCop
         end
 
         def signature_keys(group)
-          [metadata(group), body(group)]
+          [metadata(group), body(group), const_arg(group)]
         end
 
         def message(group, repeats)
