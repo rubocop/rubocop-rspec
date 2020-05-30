@@ -42,7 +42,7 @@ module RuboCop
         end
 
         def repeated_hooks(node)
-          hooks = RuboCop::RSpec::ExampleGroup.new(node)
+          hooks = RuboCop::RSpec::ExampleGroup.new(node, config)
             .hooks
             .select(&:knowable_scope?)
             .group_by { |hook| [hook.name, hook.scope, hook.metadata] }

@@ -6,10 +6,12 @@ module RuboCop
     class Concept
       include Language
       include Language::NodePattern
+      include ConfigShortcuts
       extend NodePattern::Macros
 
-      def initialize(node)
+      def initialize(node, config = nil)
         @node = node
+        @config = config
       end
 
       def eql?(other)
@@ -29,6 +31,7 @@ module RuboCop
       protected
 
       attr_reader :node
+      attr_reader :config
     end
   end
 end
