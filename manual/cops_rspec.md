@@ -2665,6 +2665,15 @@ end
 context 'when case y' do
   it { cool_predicate }
 end
+
+# good
+context Array do
+  it { is_expected.to respond_to :each }
+end
+
+context Hash do
+  it { is_expected.to respond_to :each }
+end
 ```
 
 ### References

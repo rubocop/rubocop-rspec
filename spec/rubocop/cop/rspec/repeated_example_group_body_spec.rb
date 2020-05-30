@@ -74,6 +74,44 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
     RUBY
   end
 
+  it 'does not register offense if module arg is different' do
+    expect_no_offenses(<<-RUBY)
+      describe CSV::Row do
+        it { is_expected.to respond_to :headers }
+      end
+
+      describe CSV::Table do
+        it { is_expected.to respond_to :headers }
+      end
+    RUBY
+  end
+
+  it 'does not register offense when module arg namespace is different' do
+    expect_no_offenses(<<-RUBY)
+      describe CSV::Parser do
+        it { expect(described_class).to respond_to(:parse) }
+      end
+
+      describe URI::Parser do
+        it { expect(described_class).to respond_to(:parse) }
+      end
+    RUBY
+  end
+
+  it 'registers an offense for when module arg and namespace are identical' do
+    expect_offense(<<-RUBY)
+      context Net::HTTP do
+      ^^^^^^^^^^^^^^^^^^^^ Repeated context block body on line(s) [5]
+        it { expect(described_class).to respond_to :start }
+      end
+
+      context Net::HTTP do
+      ^^^^^^^^^^^^^^^^^^^^ Repeated context block body on line(s) [1]
+        it { expect(described_class).to respond_to :start }
+      end
+    RUBY
+  end
+
   it 'does not register offense with several docstring' do
     expect_no_offenses(<<-RUBY)
       describe 'doing x', :json, 'request' do
