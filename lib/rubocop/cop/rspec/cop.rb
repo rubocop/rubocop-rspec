@@ -40,6 +40,7 @@ module RuboCop
       class Cop < WorkaroundCop
         include RuboCop::RSpec::Language
         include RuboCop::RSpec::Language::NodePattern
+        include RuboCop::RSpec::ConfigShortcuts
 
         DEFAULT_CONFIGURATION =
           RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
