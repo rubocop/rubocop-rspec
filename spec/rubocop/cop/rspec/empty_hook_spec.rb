@@ -240,4 +240,30 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
       RUBY
     end
   end
+
+  # TODO: These tests just demonstrate that hooks aliases work in rewritten cops
+  context 'with `custom_hook` hook' do
+    it 'does NOT detect offense for empty NOT configured hook' do
+      expect_no_offenses(<<~RUBY)
+        custom_hook {}
+      RUBY
+    end
+
+    context 'when `custom_hook` is configured in AllCops.RSpec.Aliases.Hooks' do
+      include_context 'config'
+
+      let(:all_cops_config) do
+        { 'RSpec' => { 'Aliases' => { 'Hooks' => %w[custom_hook] } } }
+      end
+
+      it 'detects offense for empty configured hook' do
+        expect_offense(<<~RUBY)
+          custom_hook {}
+          ^^^^^^^^^^^ Empty hook detected.
+        RUBY
+
+        expect_correction('')
+      end
+    end
+  end
 end
