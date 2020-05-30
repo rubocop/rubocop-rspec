@@ -6,6 +6,16 @@ module RuboCop
     module Language
       RSPEC = '{(const {nil? cbase} :RSpec) nil?}'
 
+      module Patterns
+        BLOCK_PATTERN = <<-PATTERN
+          (block (send {(const {nil? cbase} :RSpec) nil?} $_ ...) ...)
+        PATTERN
+
+        SEND_PATTERN = <<-PATTERN
+          (send {(const {nil? cbase} :RSpec) nil?} $_ ...)
+        PATTERN
+      end
+
       # Set of method selectors
       class SelectorSet
         def initialize(selectors)
@@ -91,17 +101,17 @@ module RuboCop
       end
 
       module Hooks
-        ALL = SelectorSet.new(
-          %i[
-            prepend_before
-            before
-            append_before
-            around
-            prepend_after
-            after
-            append_after
-          ]
-        )
+        NAMES = %i[
+          prepend_before
+          before
+          append_before
+          around
+          prepend_after
+          after
+          append_after
+        ].freeze
+
+        ALL = SelectorSet.new(NAMES)
 
         module Scopes
           ALL = SelectorSet.new(
