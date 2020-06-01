@@ -42,11 +42,19 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
     YARD::Registry.all
   end
 
+  let(:temp_class) do
+    temp = RuboCop::Cop::Cop.dup
+    temp.class_exec do
+      class << self
+        undef inherited
+        def inherited(*) end
+      end
+    end
+    temp
+  end
+
   def stub_cop_const(name)
-    stub_const(
-      "RuboCop::Cop::RSpec::#{name}",
-      Class.new(RuboCop::Cop.const_get(:WorkaroundCop))
-    )
+    stub_const("RuboCop::Cop::RSpec::#{name}", Class.new(temp_class))
   end
 
   before do
