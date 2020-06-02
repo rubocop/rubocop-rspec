@@ -14,14 +14,14 @@ https://github.com/rubocop-hq/rubocop[RuboCop].
 
 Enforcing
 
-[source,bash]
+[source,ruby]
 ----
 expect(calculator.compute(line_item)).to eq(5)
 ----
 
 over
 
-[source,bash]
+[source,ruby]
 ----
 calculator.compute(line_item).should == 5
 ----
@@ -32,7 +32,7 @@ is a feature of RSpec itself – you can read about it in the https://relishapp.
 
 Enforcing
 
-[source,bash]
+[source,ruby]
 ----
 RSpec.describe MyClass do
   ...
@@ -41,7 +41,7 @@ end
 
 over
 
-[source,bash]
+[source,ruby]
 ----
 describe MyClass do
   ...
