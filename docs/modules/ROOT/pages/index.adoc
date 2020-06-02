@@ -1,2 +1,53 @@
+= RuboCop RSpec
+
 RSpec-specific analysis for your projects, as an extension to
 https://github.com/rubocop-hq/rubocop[RuboCop].
+
+== Project Goals
+
+* Enforce the guidelines and best practices outlined in the community https://rspec.rubystyle.guide[RSpec style guide]
+* Simplify the process of adopting new RSpec functionality
+
+== Non-goals of RuboCop RSpec
+
+=== Enforcing `should` vs. `expect` syntax
+
+Enforcing
+
+[source,bash]
+----
+expect(calculator.compute(line_item)).to eq(5)
+----
+
+over
+
+[source,bash]
+----
+calculator.compute(line_item).should == 5
+----
+
+is a feature of RSpec itself – you can read about it in the https://relishapp.com/rspec/rspec-expectations/docs/syntax-configuration#disable-should-syntax[RSpec Documentation].
+
+=== Enforcing an explicit RSpec receiver for top-level methods (disabling monkey patching)
+
+Enforcing
+
+[source,bash]
+----
+RSpec.describe MyClass do
+  ...
+end
+----
+
+over
+
+[source,bash]
+----
+describe MyClass do
+  ...
+end
+----
+
+can be achieved using RSpec's `disable_monkey_patching!` method, which you can read more about in the https://relishapp.com/rspec/rspec-core/v/3-7/docs/configuration/zero-monkey-patching-mode#monkey-patched-methods-are-undefined-with-%60disable-monkey-patching!%60[RSpec Documentation]. This will also prevent `should` from being defined on every object in your system.
+
+Before disabling `should` you will need all your specs to use the `expect` syntax. You can use http://yujinakayama.me/transpec/[Transpec], which will do the conversion for you.
