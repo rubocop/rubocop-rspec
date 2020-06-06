@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Cop do
-  subject(:cop) { fake_cop.new(config) }
+  subject(:cop) { RuboCop::RSpec::FakeCop.new(config) }
 
   let(:config) do
     rubocop_config =
@@ -19,20 +19,16 @@ RSpec.describe RuboCop::Cop::RSpec::Cop do
     RuboCop::Config.new(rubocop_config, 'fake_cop_config.yml')
   end
 
-  let(:fake_cop) do
-    # rubocop:disable Style/ClassAndModuleChildren
-    # rubocop:disable RSpec/LeakyConstantDeclaration
-    class RuboCop::RSpec::FakeCop < described_class
-      def on_send(node)
-        add_offense(node, message: 'I flag everything')
-      end
-    end
-    # rubocop:enable Style/ClassAndModuleChildren
-    # rubocop:enable RSpec/LeakyConstantDeclaration
-    RuboCop::RSpec::FakeCop
-  end
-
   let(:rspec_patterns) { ['_spec.rb$', '(?:^|/)spec/'] }
+
+  before do
+    stub_const('RuboCop::RSpec::FakeCop',
+               Class.new(described_class) do
+                 def on_send(node)
+                   add_offense(node, message: 'I flag everything')
+                 end
+               end)
+  end
 
   context 'when the source path ends with `_spec.rb`' do
     it 'registers an offense' do
