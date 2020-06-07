@@ -102,14 +102,10 @@ module RuboCop
         end
 
         def find_all_named_subjects(node)
-          named_subjects = {}
-
-          node.each_descendant(:block) do |child|
+          node.each_descendant(:block).each_with_object({}) do |child, h|
             name = subject(child)
-            named_subjects[child.parent.parent] = name if name
+            h[child.parent.parent] = name if name
           end
-
-          named_subjects
         end
 
         def find_subject_expectations(node, subject_name = nil, &block)
