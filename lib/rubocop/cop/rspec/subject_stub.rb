@@ -76,20 +76,12 @@ module RuboCop
         PATTERN
 
         def on_block(node)
-          # process only describe/context/... example groups
           return unless example_group?(node)
-
-          # skip already processed example group
-          # it's processed if is nested in one of the processed example groups
           return unless (processed_example_groups & node.ancestors).empty?
 
-          # add example group to already processed
           processed_example_groups << node
+          @explicit_subjects = find_all_explicit_subjects(node)
 
-          # find all custom subjects e.g. subject(:foo) { ... }
-          @named_subjects = find_all_named_subjects(node)
-
-          # look for method expectation matcher
           find_subject_expectations(node) do |stub|
             add_offense(stub)
           end
@@ -98,32 +90,31 @@ module RuboCop
         private
 
         def processed_example_groups
-          @processed_example_groups ||= Set[]
+          @processed_example_groups ||= Set.new
         end
 
-        def find_all_named_subjects(node)
+        def find_all_explicit_subjects(node)
           node.each_descendant(:block).each_with_object({}) do |child, h|
             name = subject(child)
-            h[child.parent.parent] = name if name
+            if name
+              h[child.parent.parent] ||= []
+              h[child.parent.parent] << name
+            end
           end
         end
 
-        def find_subject_expectations(node, subject_name = nil, &block)
-          # if it's a new example group - check whether new named subject is
-          # defined there
-          if example_group?(node)
-            subject_name = @named_subjects[node] || subject_name
+        def find_subject_expectations(node, subject_names = [], &block)
+          if example_group?(node) && @explicit_subjects[node]
+            subject_names = @explicit_subjects[node]
           end
 
-          # check default :subject and then named one (if it's present)
-          expectation_detected = message_expectation?(node, :subject) || \
-            (subject_name && message_expectation?(node, subject_name))
-
+          expectation_detected = (subject_names + [:subject]).any? do |name|
+            message_expectation?(node, name)
+          end
           return yield(node) if expectation_detected
 
-          # Recurse through node's children looking for a message expectation.
           node.each_child_node do |child|
-            find_subject_expectations(child, subject_name, &block)
+            find_subject_expectations(child, subject_names, &block)
           end
         end
       end
