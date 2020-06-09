@@ -12,6 +12,7 @@ module RuboCop
       #   # good
       #   expect(foo).to be(:bar).and_yield(1)
       class Yield < Cop
+        extend AutoCorrector
         include RangeHelp
 
         MSG = 'Use `.and_yield`.'
@@ -27,21 +28,23 @@ module RuboCop
 
           block_arg(node.arguments) do |block|
             if calling_block?(node.body, block)
-              add_offense(node, location: block_range(node))
+              range = block_range(node)
+
+              add_offense(range) do |corrector|
+                autocorrect(corrector, node, range)
+              end
             end
           end
         end
 
-        def autocorrect(node)
-          lambda do |corrector|
-            node_range = range_with_surrounding_space(
-              range: block_range(node), side: :left
-            )
-            corrector.replace(node_range, generate_replacement(node.body))
-          end
-        end
-
         private
+
+        def autocorrect(corrector, node, range)
+          corrector.replace(
+            range_with_surrounding_space(range: range, side: :left),
+            generate_replacement(node.body)
+          )
+        end
 
         def calling_block?(node, block)
           if node.begin_type?

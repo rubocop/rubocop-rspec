@@ -58,6 +58,7 @@ module RuboCop
       #     # ...
       #   end
       class HookArgument < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
@@ -78,18 +79,11 @@ module RuboCop
             return check_implicit(method_send) unless scope_name
 
             style_detected(scope_name)
-            add_offense(
-              method_send,
-              message: explicit_message(scope_name)
-            )
-          end
-        end
-
-        def autocorrect(node)
-          scope = implicit_style? ? '' : "(#{style.inspect})"
-
-          lambda do |corrector|
-            corrector.replace(argument_range(node), scope)
+            msg = explicit_message(scope_name)
+            add_offense(method_send, message: msg) do |corrector|
+              scope = implicit_style? ? '' : "(#{style.inspect})"
+              corrector.replace(argument_range(method_send), scope)
+            end
           end
         end
 
@@ -99,11 +93,11 @@ module RuboCop
           style_detected(:implicit)
           return if implicit_style?
 
-          add_offense(
-            method_send,
-            location: :selector,
-            message: format(EXPLICIT_MSG, scope: style)
-          )
+          msg = explicit_message(nil)
+          add_offense(method_send.loc.selector, message: msg) do |corrector|
+            scope = "(#{style.inspect})"
+            corrector.replace(argument_range(method_send), scope)
+          end
         end
 
         def explicit_message(scope)

@@ -17,6 +17,8 @@ module RuboCop
       #   allow(foo).to receive("bar.baz")
       #
       class SingleArgumentMessageChain < Cop
+        extend AutoCorrector
+
         MSG = 'Use `%<recommended>s` instead of calling '\
               '`%<called>s` with a single argument.'
 
@@ -30,21 +32,22 @@ module RuboCop
           message_chain(node) do |arg|
             return if valid_usage?(arg)
 
-            add_offense(node, location: :selector)
-          end
-        end
+            method = node.method_name
+            msg = format(MSG, recommended: replacement(method), called: method)
 
-        def autocorrect(node)
-          lambda do |corrector|
-            corrector.replace(node.loc.selector, replacement(node.method_name))
-            message_chain(node) do |arg|
-              autocorrect_hash_arg(corrector, arg) if single_key_hash?(arg)
-              autocorrect_array_arg(corrector, arg) if arg.array_type?
+            add_offense(node.loc.selector, message: msg) do |corrector|
+              autocorrect(corrector, node, method, arg)
             end
           end
         end
 
         private
+
+        def autocorrect(corrector, node, method, arg)
+          corrector.replace(node.loc.selector, replacement(method))
+          autocorrect_hash_arg(corrector, arg) if single_key_hash?(arg)
+          autocorrect_array_arg(corrector, arg) if arg.array_type?
+        end
 
         def valid_usage?(node)
           return true unless node.literal? || node.array_type?
@@ -63,7 +66,7 @@ module RuboCop
         def autocorrect_hash_arg(corrector, arg)
           key, value = *arg.children.first
 
-          corrector.replace(arg.loc.expression, key_to_arg(key))
+          corrector.replace(arg, key_to_arg(key))
           corrector.insert_after(arg.parent.loc.end,
                                  ".and_return(#{value.source})")
         end
@@ -71,7 +74,7 @@ module RuboCop
         def autocorrect_array_arg(corrector, arg)
           value = arg.children.first
 
-          corrector.replace(arg.loc.expression, value.source)
+          corrector.replace(arg, value.source)
         end
 
         def key_to_arg(node)
@@ -81,12 +84,6 @@ module RuboCop
 
         def replacement(method)
           method.equal?(:receive_message_chain) ? 'receive' : 'stub'
-        end
-
-        def message(node)
-          method = node.method_name
-
-          format(MSG, recommended: replacement(method), called: method)
         end
       end
     end

@@ -40,7 +40,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     ]
     config = config.for_cop(cop)
     safe_auto_correct = config.fetch('SafeAutoCorrect', true)
-    autocorrect = if cop.new.support_autocorrect?
+    autocorrect = if cop.support_autocorrect?
                     "Yes #{'(Unsafe)' unless safe_auto_correct}"
                   else
                     'No'

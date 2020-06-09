@@ -16,6 +16,7 @@ module RuboCop
       #     expect(false).not_to be_true
       #   end
       class NotToNot < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG = 'Prefer `%<replacement>s` over `%<original>s`.'
@@ -24,12 +25,10 @@ module RuboCop
 
         def on_send(node)
           not_to_not_offense(node, alternative_style) do
-            add_offense(node, location: :selector)
+            add_offense(node.loc.selector) do |corrector|
+              corrector.replace(node.loc.selector, style.to_s)
+            end
           end
-        end
-
-        def autocorrect(node)
-          ->(corrector) { corrector.replace(node.loc.selector, style.to_s) }
         end
 
         private

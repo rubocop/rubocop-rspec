@@ -31,6 +31,8 @@ module RuboCop
       #     expect(some).to be
       #   end
       class LetBeforeExamples < Cop
+        extend AutoCorrector
+
         MSG = 'Move `let` before the examples in the group.'
 
         def_node_matcher :example_or_group?, <<-PATTERN
@@ -46,15 +48,6 @@ module RuboCop
           check_let_declarations(node.body) if multiline_block?(node.body)
         end
 
-        def autocorrect(node)
-          lambda do |corrector|
-            first_example = find_first_example(node.parent)
-            RuboCop::RSpec::Corrector::MoveNode.new(
-              node, corrector, processed_source
-            ).move_before(first_example)
-          end
-        end
-
         private
 
         def multiline_block?(block)
@@ -67,13 +60,22 @@ module RuboCop
 
           node.each_child_node do |child|
             next if child.sibling_index < first_example.sibling_index
+            next unless let?(child)
 
-            add_offense(child) if let?(child)
+            add_offense(child) do |corrector|
+              autocorrect(corrector, child, first_example)
+            end
           end
         end
 
         def find_first_example(node)
           node.children.find { |sibling| example_or_group?(sibling) }
+        end
+
+        def autocorrect(corrector, node, first_example)
+          RuboCop::RSpec::Corrector::MoveNode.new(
+            node, corrector, processed_source
+          ).move_before(first_example)
         end
       end
     end

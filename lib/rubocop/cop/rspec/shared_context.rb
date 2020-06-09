@@ -51,6 +51,8 @@ module RuboCop
       #   end
       #
       class SharedContext < Cop
+        extend AutoCorrector
+
         MSG_EXAMPLES = "Use `shared_examples` when you don't "\
                        'define context.'
 
@@ -68,22 +70,14 @@ module RuboCop
 
         def on_block(node)
           context_with_only_examples(node) do
-            add_shared_item_offense(node.send_node, MSG_EXAMPLES)
+            add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
+              corrector.replace(node.send_node.loc.selector, 'shared_examples')
+            end
           end
 
           examples_with_only_context(node) do
-            add_shared_item_offense(node.send_node, MSG_CONTEXT)
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            context_with_only_examples(node.parent) do
-              corrector.replace(node.loc.selector, 'shared_examples')
-            end
-
-            examples_with_only_context(node.parent) do
-              corrector.replace(node.loc.selector, 'shared_context')
+            add_offense(node.send_node, message: MSG_CONTEXT) do |corrector|
+              corrector.replace(node.send_node.loc.selector, 'shared_context')
             end
           end
         end
@@ -96,13 +90,6 @@ module RuboCop
 
         def examples_with_only_context(node)
           shared_example(node) { yield if context?(node) && !examples?(node) }
-        end
-
-        def add_shared_item_offense(node, message)
-          add_offense(
-            node,
-            message: message
-          )
         end
       end
     end

@@ -62,7 +62,7 @@ module RuboCop
           return if !rspec_block?(node) || ignored_shared_example?(node)
 
           subject_usage(node) do |subject_node|
-            add_offense(subject_node, location: :selector)
+            add_offense(subject_node.loc.selector)
           end
         end
 
