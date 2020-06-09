@@ -405,7 +405,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | 1.0 | 1.11
+Enabled | Yes | Yes (Unsafe) | 1.0 | 1.11
 
 Checks that tests use `described_class`.
 
@@ -2432,7 +2432,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | 1.16 | -
+Enabled | Yes | Yes (Unsafe) | 1.16 | -
 
 Prefer using predicate matcher over using predicate method directly.
 

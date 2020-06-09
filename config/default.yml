@@ -99,6 +99,7 @@ RSpec/DescribedClass:
   SupportedStyles:
   - described_class
   - explicit
+  SafeAutoCorrect: false
   VersionAdded: '1.0'
   VersionChanged: '1.11'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
@@ -444,6 +445,7 @@ RSpec/PredicateMatcher:
   SupportedStyles:
   - inflected
   - explicit
+  SafeAutoCorrect: false
   VersionAdded: '1.16'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
