@@ -44,8 +44,7 @@ module RuboCop
         private
 
         def token_aligner
-          @token_aligner ||=
-            RuboCop::RSpec::AlignLetBrace.new(processed_source.ast, :end)
+          RuboCop::RSpec::AlignLetBrace.new(processed_source.ast, :end)
         end
       end
     end
