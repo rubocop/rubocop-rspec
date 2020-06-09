@@ -22,8 +22,6 @@ module RuboCop
       #   end
       #
       class SubjectStub < Cop
-        include RuboCop::RSpec::TopLevelDescribe
-
         MSG = 'Do not stub methods of the object under test.'
 
         # @!method subject(node)
@@ -77,15 +75,23 @@ module RuboCop
             } ...)
         PATTERN
 
-        def on_top_level_describe(node, _args)
-          @explicit_subjects = find_all_explicit_subjects(node.parent)
+        def on_block(node)
+          return unless example_group?(node)
+          return unless (processed_example_groups & node.ancestors).empty?
 
-          find_subject_expectations(node.parent) do |stub|
+          processed_example_groups << node
+          @explicit_subjects = find_all_explicit_subjects(node)
+
+          find_subject_expectations(node) do |stub|
             add_offense(stub)
           end
         end
 
         private
+
+        def processed_example_groups
+          @processed_example_groups ||= Set.new
+        end
 
         def find_all_explicit_subjects(node)
           node.each_descendant(:block).each_with_object({}) do |child, h|
