@@ -59,13 +59,14 @@ RSpec/BeforeAfterAll:
 RSpec/ContextMethod:
   Description: "`context` should not be used for specifying methods."
   Enabled: true
+  VersionAdded: '1.36'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
 
 RSpec/ContextWording:
   Description: Checks that `context` docstring starts with an allowed prefix.
   Enabled: true
   VersionAdded: '1.20'
-  VersionChanged: 1.20.1
+  VersionChanged: '1.20.1'
   Prefixes:
   - when
   - with
@@ -105,11 +106,13 @@ RSpec/DescribedClass:
 RSpec/DescribedClassModuleWrapping:
   Description: Avoid opening modules and defining specs within them.
   Enabled: false
+  VersionAdded: '1.37'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
 
 RSpec/Dialect:
   Description: This cop enforces custom RSpec dialects.
   Enabled: false
+  VersionAdded: '1.33'
   PreferredMethods: {}
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
@@ -123,12 +126,13 @@ RSpec/EmptyExampleGroup:
 RSpec/EmptyHook:
   Description: Checks for empty before and after hooks.
   Enabled: true
-  VersionAdded: 1.39.0
+  VersionAdded: '1.39'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
 
 RSpec/EmptyLineAfterExample:
   Description: Checks if there is an empty line after example blocks.
   Enabled: true
+  VersionAdded: '1.36'
   AllowConsecutiveOneLiners: true
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample
 
@@ -254,6 +258,7 @@ RSpec/HooksBeforeExamples:
 RSpec/ImplicitBlockExpectation:
   Description: Check that implicit block expectation syntax is not used.
   Enabled: true
+  VersionAdded: '1.35'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation
 
 RSpec/ImplicitExpect:
@@ -324,6 +329,7 @@ RSpec/LeadingSubject:
 RSpec/LeakyConstantDeclaration:
   Description: Checks that no class, module, or constant is declared.
   Enabled: true
+  VersionAdded: '1.35'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 
 RSpec/LetBeforeExamples:
@@ -395,7 +401,7 @@ RSpec/MultipleSubjects:
 RSpec/NamedSubject:
   Description: Checks for explicitly referenced test subjects.
   Enabled: true
-  VersionAdded: 1.5.3
+  VersionAdded: '1.5.3'
   IgnoreSharedExamples: true
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
@@ -466,13 +472,15 @@ RSpec/RepeatedExample:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
 RSpec/RepeatedExampleGroupBody:
-  Enabled: true
   Description: Check for repeated describe and context block body.
+  Enabled: true
+  VersionAdded: '1.38'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody
 
 RSpec/RepeatedExampleGroupDescription:
-  Enabled: true
   Description: Check for repeated example group descriptions.
+  Enabled: true
+  VersionAdded: '1.38'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
 
 RSpec/ReturnFromStub:
@@ -553,7 +561,7 @@ RSpec/VariableName:
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
-  VersionAdded: 1.2.1
+  VersionAdded: '1.2.1'
   VersionChanged: '1.5'
   IgnoreNameless: true
   IgnoreSymbolicNames: false
@@ -568,6 +576,7 @@ RSpec/VoidExpect:
 RSpec/Yield:
   Description: This cop checks for calling a block within a stub.
   Enabled: true
+  VersionAdded: '1.32'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
 
 Capybara/CurrentPathExpectation:
@@ -609,6 +618,7 @@ FactoryBot/CreateList:
 FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
+  VersionAdded: '1.37'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
 Rails/HttpStatus:

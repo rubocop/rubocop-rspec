@@ -82,7 +82,7 @@ EnforcedStyle | `create_list` | `create_list`, `n_times`
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | - | -
+Enabled | Yes | Yes  | 1.37 | -
 
 Use string value when setting the class attribute explicitly.
 

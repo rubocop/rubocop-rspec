@@ -237,7 +237,7 @@ Exclude | `spec/spec_helper.rb`, `spec/rails_helper.rb`, `spec/support/**/*.rb` 
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | - | -
+Enabled | Yes | Yes  | 1.36 | -
 
 `context` should not be used for specifying methods.
 
@@ -482,7 +482,7 @@ EnforcedStyle | `described_class` | `described_class`, `explicit`
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Disabled | Yes | No | - | -
+Disabled | Yes | No | 1.37 | -
 
 Avoid opening modules and defining specs within them.
 
@@ -510,7 +510,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Disabled | Yes | Yes  | - | -
+Disabled | Yes | Yes  | 1.33 | -
 
 This cop enforces custom RSpec dialects.
 
@@ -643,7 +643,7 @@ CustomIncludeMethods | `[]` | Array
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | 1.39.0 | -
+Enabled | Yes | Yes  | 1.39 | -
 
 Checks for empty before and after hooks.
 
@@ -676,7 +676,7 @@ after(:all) { cleanup_feed }
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | - | -
+Enabled | Yes | Yes  | 1.36 | -
 
 Checks if there is an empty line after example blocks.
 
@@ -1377,7 +1377,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.35 | -
 
 Check that implicit block expectation syntax is not used.
 
@@ -1713,7 +1713,7 @@ Enforce that subject is the first definition in the test.
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.35 | -
 
 Checks that no class, module, or constant is declared.
 
@@ -2626,7 +2626,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.38 | -
 
 Check for repeated describe and context block body.
 
@@ -2678,7 +2678,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.38 | -
 
 Check for repeated example group descriptions.
 
@@ -3178,7 +3178,7 @@ expect(something).to be(1)
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | Yes  | - | -
+Enabled | Yes | Yes  | 1.32 | -
 
 This cop checks for calling a block within a stub.
 
