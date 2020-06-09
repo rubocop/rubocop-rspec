@@ -96,17 +96,19 @@ module RuboCop
         def find_all_explicit_subjects(node)
           node.each_descendant(:block).each_with_object({}) do |child, h|
             name = subject(child)
-            if name
-              h[child.parent.parent] ||= []
-              h[child.parent.parent] << name
+            next unless name
+
+            outer_example_group = child.each_ancestor.find do |a|
+              example_group?(a)
             end
+
+            h[outer_example_group] ||= []
+            h[outer_example_group] << name
           end
         end
 
         def find_subject_expectations(node, subject_names = [], &block)
-          if example_group?(node) && @explicit_subjects[node]
-            subject_names = @explicit_subjects[node]
-          end
+          subject_names = @explicit_subjects[node] if @explicit_subjects[node]
 
           expectation_detected = (subject_names + [:subject]).any? do |name|
             message_expectation?(node, name)

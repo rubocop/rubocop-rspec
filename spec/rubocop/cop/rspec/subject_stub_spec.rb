@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when subject is stubbed and there are several named subjects ' \
-     'in the same example group', :wip do
+     'in the same example group' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
