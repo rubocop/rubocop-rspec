@@ -2,9 +2,9 @@
 
 ## FactoryBot/AttributeDefinedStatically
 
-Enabled by default | Supports autocorrection
---- | ---
-Enabled | Yes
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | Yes  | 1.28 | -
 
 Always declare attribute values as blocks.
 
@@ -36,9 +36,9 @@ count { 1 }
 
 ## FactoryBot/CreateList
 
-Enabled by default | Supports autocorrection
---- | ---
-Enabled | Yes
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | Yes  | 1.25 | -
 
 Checks for create_list usage.
 
@@ -80,9 +80,9 @@ EnforcedStyle | `create_list` | `create_list`, `n_times`
 
 ## FactoryBot/FactoryClassName
 
-Enabled by default | Supports autocorrection
---- | ---
-Enabled | Yes
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | Yes  | 1.37 | -
 
 Use string value when setting the class attribute explicitly.
 

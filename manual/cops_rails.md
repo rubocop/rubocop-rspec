@@ -2,9 +2,9 @@
 
 ## Rails/HttpStatus
 
-Enabled by default | Supports autocorrection
---- | ---
-Enabled | Yes
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | Yes  | 1.23 | -
 
 Enforces use of symbolic or numeric value to describe HTTP status.
 
