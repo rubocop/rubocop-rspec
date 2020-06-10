@@ -41,6 +41,8 @@ module RuboCop
         #     end
         #   end
         class FeatureMethods < Cop
+          extend AutoCorrector
+
           MSG = 'Use `%<replacement>s` instead of `%<method>s`.'
 
           # https://git.io/v7Kwr
@@ -72,16 +74,11 @@ module RuboCop
               next if enabled?(match)
 
               add_offense(
-                send_node,
-                location: :selector,
+                send_node.loc.selector,
                 message: format(MSG, method: match, replacement: MAP[match])
-              )
-            end
-          end
-
-          def autocorrect(node)
-            lambda do |corrector|
-              corrector.replace(node.loc.selector, MAP[node.method_name].to_s)
+              ) do |corrector|
+                corrector.replace(send_node.loc.selector, MAP[match].to_s)
+              end
             end
           end
 

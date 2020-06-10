@@ -21,11 +21,12 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          message_chain(node) { add_offense(node, location: :selector) }
-        end
-
-        def message(node)
-          format(MSG, method: node.method_name)
+          message_chain(node) do
+            add_offense(
+              node.loc.selector,
+              message: format(MSG, method: node.method_name)
+            )
+          end
         end
       end
     end

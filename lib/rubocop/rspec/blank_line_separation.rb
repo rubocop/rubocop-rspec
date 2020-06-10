@@ -32,14 +32,6 @@ module RuboCop
 
         node.equal?(node.parent.children.last)
       end
-
-      def autocorrect(node)
-        lambda do |corrector|
-          missing_separating_line(node) do |location|
-            corrector.insert_after(location.end, "\n")
-          end
-        end
-      end
     end
   end
 end

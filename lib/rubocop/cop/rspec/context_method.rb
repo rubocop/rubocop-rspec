@@ -24,6 +24,8 @@ module RuboCop
       #     # ...
       #   end
       class ContextMethod < Cop
+        extend AutoCorrector
+
         MSG = 'Use `describe` for testing methods.'
 
         def_node_matcher :context_method, <<-PATTERN
@@ -32,13 +34,9 @@ module RuboCop
 
         def on_block(node)
           context_method(node) do |context|
-            add_offense(context)
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            corrector.replace(node.parent.loc.selector, 'describe')
+            add_offense(context) do |corrector|
+              corrector.replace(context.parent.loc.selector, 'describe')
+            end
           end
         end
 

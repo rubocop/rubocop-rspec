@@ -30,6 +30,7 @@ module RuboCop
       #   expect { run }.to change { user.reload.name }
       #
       class ExpectChange < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG_BLOCK = 'Prefer `change(%<obj>s, :%<attr>s)`.'
@@ -51,10 +52,11 @@ module RuboCop
           return unless style == :block
 
           expect_change_with_arguments(node) do |receiver, message|
-            add_offense(
-              node,
-              message: format(MSG_CALL, obj: receiver, attr: message)
-            )
+            msg = format(MSG_CALL, obj: receiver, attr: message)
+            add_offense(node, message: msg) do |corrector|
+              replacement = "change { #{receiver}.#{message} }"
+              corrector.replace(node, replacement)
+            end
           end
         end
 
@@ -62,37 +64,10 @@ module RuboCop
           return unless style == :method_call
 
           expect_change_with_block(node) do |receiver, message|
-            add_offense(
-              node,
-              message: format(MSG_BLOCK, obj: receiver, attr: message)
-            )
-          end
-        end
-
-        def autocorrect(node)
-          if style == :block
-            autocorrect_method_call_to_block(node)
-          else
-            autocorrect_block_to_method_call(node)
-          end
-        end
-
-        private
-
-        def autocorrect_method_call_to_block(node)
-          lambda do |corrector|
-            expect_change_with_arguments(node) do |receiver, message|
-              replacement = "change { #{receiver}.#{message} }"
-              corrector.replace(node.loc.expression, replacement)
-            end
-          end
-        end
-
-        def autocorrect_block_to_method_call(node)
-          lambda do |corrector|
-            expect_change_with_block(node) do |receiver, message|
+            msg = format(MSG_BLOCK, obj: receiver, attr: message)
+            add_offense(node, message: msg) do |corrector|
               replacement = "change(#{receiver}, :#{message})"
-              corrector.replace(node.loc.expression, replacement)
+              corrector.replace(node, replacement)
             end
           end
         end

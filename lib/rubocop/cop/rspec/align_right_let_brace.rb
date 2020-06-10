@@ -18,26 +18,24 @@ module RuboCop
       #     let(:a)      { b        }
       #
       class AlignRightLetBrace < Cop
+        extend AutoCorrector
+
         MSG = 'Align right let brace'
 
         def self.autocorrect_incompatible_with
           [Layout::ExtraSpacing]
         end
 
-        def investigate(_processed_source)
+        def on_new_investigation
           return if processed_source.blank?
 
           token_aligner.offending_tokens.each do |let|
-            add_offense(let, location: :end)
-          end
-        end
-
-        def autocorrect(let)
-          lambda do |corrector|
-            corrector.insert_before(
-              let.loc.end,
-              token_aligner.indent_for(let)
-            )
+            add_offense(let.loc.end) do |corrector|
+              corrector.insert_before(
+                let.loc.end,
+                token_aligner.indent_for(let)
+              )
+            end
           end
         end
 

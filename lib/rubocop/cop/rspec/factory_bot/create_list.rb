@@ -25,6 +25,7 @@ module RuboCop
         #   # good
         #   3.times { create :user }
         class CreateList < Cop
+          extend AutoCorrector
           include ConfigurableEnforcedStyle
 
           MSG_CREATE_LIST = 'Prefer create_list.'
@@ -51,7 +52,9 @@ module RuboCop
             return unless n_times_block_without_arg?(node)
             return unless contains_only_factory?(node.body)
 
-            add_offense(node.send_node, message: MSG_CREATE_LIST)
+            add_offense(node.send_node, message: MSG_CREATE_LIST) do |corrector|
+              CreateListCorrector.new(node.send_node).call(corrector)
+            end
           end
 
           def on_send(node)
@@ -59,18 +62,11 @@ module RuboCop
 
             factory_list_call(node) do |_receiver, _factory, count, _|
               add_offense(
-                node,
-                location: :selector,
+                node.loc.selector,
                 message: format(MSG_N_TIMES, number: count)
-              )
-            end
-          end
-
-          def autocorrect(node)
-            if style == :create_list
-              CreateListCorrector.new(node)
-            else
-              TimesCorrector.new(node)
+              ) do |corrector|
+                TimesCorrector.new(node).call(corrector)
+              end
             end
           end
 
@@ -115,7 +111,7 @@ module RuboCop
 
             def call(corrector)
               replacement = generate_n_times_block(node)
-              corrector.replace(node.loc.expression, replacement)
+              corrector.replace(node, replacement)
             end
 
             private
@@ -148,7 +144,7 @@ module RuboCop
                               call_replacement(node)
                             end
 
-              corrector.replace(node.loc.expression, replacement)
+              corrector.replace(node, replacement)
             end
 
             private

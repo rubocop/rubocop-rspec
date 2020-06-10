@@ -34,6 +34,7 @@ module RuboCop
       #   allow(Foo).to receive(:bar) { bar.baz }
       #
       class ReturnFromStub < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG_AND_RETURN = 'Use `and_return` for static values.'
@@ -59,24 +60,17 @@ module RuboCop
           check_block_body(node)
         end
 
-        def autocorrect(node)
-          if style == :block
-            AndReturnCallCorrector.new(node)
-          else
-            BlockBodyCorrector.new(node)
-          end
-        end
-
         private
 
         def check_and_return_call(node)
           and_return_value(node) do |and_return, args|
             unless dynamic?(args)
               add_offense(
-                and_return,
-                location: :selector,
+                and_return.loc.selector,
                 message: MSG_BLOCK
-              )
+              ) do |corrector|
+                AndReturnCallCorrector.new(and_return).call(corrector)
+              end
             end
           end
         end
@@ -85,10 +79,11 @@ module RuboCop
           body = block.body
           unless dynamic?(body) # rubocop:disable Style/GuardClause
             add_offense(
-              block,
-              location: :begin,
+              block.loc.begin,
               message: MSG_AND_RETURN
-            )
+            ) do |corrector|
+              BlockBodyCorrector.new(block).call(corrector)
+            end
           end
         end
 
@@ -153,7 +148,7 @@ module RuboCop
             return if heredoc?
 
             corrector.replace(
-              block.loc.expression,
+              block,
               "#{block.send_node.source}.and_return(#{body.source})"
             )
           end

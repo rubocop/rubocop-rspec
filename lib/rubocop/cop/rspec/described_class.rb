@@ -55,6 +55,7 @@ module RuboCop
       #   end
       #
       class DescribedClass < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         DESCRIBED_CLASS = 'described_class'
@@ -85,22 +86,24 @@ module RuboCop
           return unless body
 
           find_usage(body) do |match|
-            add_offense(match, message: message(match.const_name))
+            msg = message(match.const_name)
+            add_offense(match, message: msg) do |corrector|
+              autocorrect(corrector, match)
+            end
           end
         end
 
-        def autocorrect(node)
+        private
+
+        def autocorrect(corrector, match)
           replacement = if style == :described_class
                           DESCRIBED_CLASS
                         else
                           @described_class.const_name
                         end
-          lambda do |corrector|
-            corrector.replace(node.loc.expression, replacement)
-          end
-        end
 
-        private
+          corrector.replace(match, replacement)
+        end
 
         def find_usage(node, &block)
           yield(node) if offensive?(node)

@@ -14,4 +14,4 @@ InternalAffairs/MethodNameEqual:
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 104
+  Max: 106

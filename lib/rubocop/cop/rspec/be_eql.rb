@@ -36,6 +36,8 @@ module RuboCop
       # coerce objects for comparison.
       #
       class BeEql < Cop
+        extend AutoCorrector
+
         MSG = 'Prefer `be` over `eql`.'
 
         def_node_matcher :eql_type_with_identity, <<-PATTERN
@@ -44,12 +46,10 @@ module RuboCop
 
         def on_send(node)
           eql_type_with_identity(node) do |eql|
-            add_offense(eql, location: :selector)
+            add_offense(eql.loc.selector) do |corrector|
+              corrector.replace(eql.loc.selector, 'be')
+            end
           end
-        end
-
-        def autocorrect(node)
-          ->(corrector) { corrector.replace(node.loc.selector, 'be') }
         end
       end
     end

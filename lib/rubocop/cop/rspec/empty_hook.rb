@@ -23,6 +23,7 @@ module RuboCop
       #   end
       #   after(:all) { cleanup_feed }
       class EmptyHook < Cop
+        extend AutoCorrector
         include RuboCop::Cop::RangeHelp
 
         MSG = 'Empty hook detected.'
@@ -33,15 +34,11 @@ module RuboCop
 
         def on_block(node)
           empty_hook?(node) do |hook|
-            add_offense(hook)
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            block = node.parent
-            range = range_with_surrounding_space(range: block.loc.expression)
-            corrector.remove(range)
+            add_offense(hook) do |corrector|
+              block = hook.parent
+              range = range_with_surrounding_space(range: block.loc.expression)
+              corrector.remove(range)
+            end
           end
         end
       end

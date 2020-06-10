@@ -30,6 +30,8 @@ module RuboCop
       #   it 'does things' do
       #   end
       class ExampleWording < Cop
+        extend AutoCorrector
+
         MSG_SHOULD = 'Do not use should when describing your tests.'
         MSG_IT     = "Do not repeat 'it' when describing your tests."
 
@@ -53,16 +55,12 @@ module RuboCop
           end
         end
 
-        def autocorrect(node)
-          lambda do |corrector|
-            corrector.replace(docstring(node), replacement_text(node))
-          end
-        end
-
         private
 
         def add_wording_offense(node, message)
-          add_offense(node, location: docstring(node), message: message)
+          add_offense(docstring(node), message: message) do |corrector|
+            corrector.replace(docstring(node), replacement_text(node))
+          end
         end
 
         def docstring(node)

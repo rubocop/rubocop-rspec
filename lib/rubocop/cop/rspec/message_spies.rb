@@ -48,8 +48,7 @@ module RuboCop
             return correct_style_detected if preferred_style?(message_matcher)
 
             add_offense(
-              message_matcher,
-              location: :selector,
+              message_matcher.loc.selector,
               message: error_message(receiver)
             ) { opposite_style_detected }
           end

@@ -24,6 +24,8 @@ module RuboCop
       #     expect(foo).to receive(:bar).at_most(:twice).times
       #
       class ReceiveCounts < Cop
+        extend AutoCorrector
+
         MSG = 'Use `%<alternative>s` instead of `%<original>s`.'
 
         def_node_matcher :receive_counts, <<-PATTERN
@@ -38,27 +40,23 @@ module RuboCop
 
             offending_range = range(node, offending_node)
 
-            add_offense(
-              offending_node,
-              message: message_for(offending_node, offending_range.source),
-              location: offending_range
-            )
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            replacement = matcher_for(
-              node.method_name,
-              node.first_argument.source.to_i
-            )
-
-            original = range(node.parent, node)
-            corrector.replace(original, replacement)
+            msg = message_for(offending_node, offending_range.source)
+            add_offense(offending_range, message: msg) do |corrector|
+              autocorrect(corrector, offending_node, offending_range)
+            end
           end
         end
 
         private
+
+        def autocorrect(corrector, node, range)
+          replacement = matcher_for(
+            node.method_name,
+            node.first_argument.source.to_i
+          )
+
+          corrector.replace(range, replacement)
+        end
 
         def message_for(node, source)
           alternative = matcher_for(

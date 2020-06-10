@@ -25,6 +25,7 @@ module RuboCop
       #   it { should be_truthy }
       #
       class ImplicitExpect < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG = 'Prefer `%<good>s` over `%<bad>s`.'
@@ -55,19 +56,12 @@ module RuboCop
             opposite_style_detected
 
             add_offense(
-              node,
-              location: source_range,
+              source_range,
               message: offense_message(expectation_source)
-            )
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            offense     = offending_expect(node)
-            replacement = replacement_source(offense.source)
-
-            corrector.replace(offense, replacement)
+            ) do |corrector|
+              replacement = replacement_source(expectation_source)
+              corrector.replace(source_range, replacement)
+            end
           end
         end
 
