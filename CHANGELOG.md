@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.40.0 (2020-06-11)
+
 * Add new `RSpec/VariableName` cop. ([@tejasbubane][])
 * Add new `RSpec/VariableDefinition` cop. ([@tejasbubane][])
 * Expand `Capybara/VisibilityMatcher` to support more than just `have_selector`. ([@twalpole][])
