@@ -231,6 +231,7 @@ RSpec/FilePath:
   IgnoreMethods: false
   SpecSuffixOnly: false
   VersionAdded: '1.2'
+  VersionChanged: '1.40'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:

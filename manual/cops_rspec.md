@@ -1156,7 +1156,7 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | 1.2 | -
+Enabled | Yes | No | 1.2 | 1.40
 
 Checks that spec file paths are consistent and well-formed.
 
