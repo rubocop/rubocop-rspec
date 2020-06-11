@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Extend the list of Rails spec types for `RSpec/DescribeClass`. ([@pirj][])
+
 ## 1.40.0 (2020-06-11)
 
 * Add new `RSpec/VariableName` cop. ([@tejasbubane][])
