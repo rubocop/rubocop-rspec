@@ -77,7 +77,7 @@ module RuboCop
 
         def on_block(node)
           return unless example_group?(node)
-          return unless (processed_example_groups & node.ancestors).empty?
+          return if (processed_example_groups & node.ancestors).any?
 
           processed_example_groups << node
           @explicit_subjects = find_all_explicit_subjects(node)
@@ -94,7 +94,7 @@ module RuboCop
         end
 
         def find_all_explicit_subjects(node)
-          node.each_descendant(:block).each_with_object({}) do |child, h|
+          node.each_descendant(:block).with_object({}) do |child, h|
             name = subject(child)
             next unless name
 
