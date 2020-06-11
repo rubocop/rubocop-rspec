@@ -8,6 +8,7 @@
 * Add new `SpecSuffixOnly` option to `RSpec/FilePath` cop. ([@zdennis][])
 * Allow `RSpec/RepeatedExampleGroupBody` to differ only by described_class. ([@robotdana][])
 * Fix `RSpec/FilePath` detection across sibling directories. ([@rolfschmidt][])
+* Improve the performance of `RSpec/SubjectStub` by an order of magnitude. ([@andrykonchin][])
 
 ## 1.39.0 (2020-05-01)
 
@@ -514,3 +515,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@zdennis]: https://github.com/zdennis
 [@robotdana]: https://github.com/robotdana
 [@rolfschmidt]: https://github.com/rolfschmidt
+[@andrykonchin]: https://github.com/andrykonchin
