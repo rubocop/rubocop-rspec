@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 module RuboCop
   module Cop
     module RSpec
@@ -75,70 +77,46 @@ module RuboCop
 
         def on_block(node)
           return unless example_group?(node)
+          return unless (processed_example_groups & node.ancestors).empty?
 
-          find_subject_stub(node) do |stub|
+          processed_example_groups << node
+          @explicit_subjects = find_all_explicit_subjects(node)
+
+          find_subject_expectations(node) do |stub|
             add_offense(stub)
           end
         end
 
         private
 
-        # Find subjects within tree and then find (send) nodes for that subject
-        #
-        # @param node [RuboCop::Node] example group
-        #
-        # @yield [RuboCop::Node] message expectations for subject
-        def find_subject_stub(node, &block)
-          find_subject(node) do |subject_name, context|
-            find_subject_expectation(context, subject_name, &block)
+        def processed_example_groups
+          @processed_example_groups ||= Set.new
+        end
+
+        def find_all_explicit_subjects(node)
+          node.each_descendant(:block).each_with_object({}) do |child, h|
+            name = subject(child)
+            next unless name
+
+            outer_example_group = child.each_ancestor.find do |a|
+              example_group?(a)
+            end
+
+            h[outer_example_group] ||= []
+            h[outer_example_group] << name
           end
         end
 
-        # Find a subject message expectation
-        #
-        # @param node [RuboCop::Node]
-        # @param subject_name [Symbol] name of subject
-        #
-        # @yield [RuboCop::Node] message expectation
-        def find_subject_expectation(node, subject_name, &block)
-          # Do not search node if it is an example group with its own subject.
-          return if example_group?(node) && redefines_subject?(node)
+        def find_subject_expectations(node, subject_names = [], &block)
+          subject_names = @explicit_subjects[node] if @explicit_subjects[node]
 
-          # Yield the current node if it is a message expectation.
-          yield(node) if message_expectation?(node, subject_name)
-
-          # Recurse through node's children looking for a message expectation.
-          node.each_child_node do |child|
-            find_subject_expectation(child, subject_name, &block)
+          expectation_detected = (subject_names + [:subject]).any? do |name|
+            message_expectation?(node, name)
           end
-        end
-
-        # Check if node's children contain a subject definition
-        #
-        # @param node [RuboCop::Node]
-        #
-        # @return [Boolean]
-        def redefines_subject?(node)
-          node.each_child_node.any? do |child|
-            subject(child) || redefines_subject?(child)
-          end
-        end
-
-        # Find a subject definition
-        #
-        # @param node [RuboCop::Node]
-        # @param parent [RuboCop::Node,nil]
-        #
-        # @yieldparam subject_name [Symbol] name of subject being defined
-        # @yieldparam parent [RuboCop::Node] parent of subject definition
-        def find_subject(node, parent: nil, &block)
-          # An implicit subject is defined by RSpec when no subject is declared
-          subject_name = subject(node) || :subject
-
-          yield(subject_name, parent) if parent
+          return yield(node) if expectation_detected
 
           node.each_child_node do |child|
-            find_subject(child, parent: node, &block)
+            find_subject_expectations(child, subject_names, &block)
           end
         end
       end
