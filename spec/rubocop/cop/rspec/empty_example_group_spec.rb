@@ -46,6 +46,44 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'ignores example group with examples defined in iterator' do
+    expect_no_offenses(<<-RUBY)
+      describe 'RuboCop monthly' do
+        [1, 2, 3].each do |page|
+          it { expect(newspaper(page)).to have_ads }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in surrounded iterator' do
+    expect_no_offenses(<<-RUBY)
+      describe 'RuboCop weekly' do
+        some_method
+        [1, 2, 3].each do |page|
+          it { expect(newspaper(page)).to have_ads }
+        end
+        more_surroundings
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in nested iterator' do
+    expect_no_offenses(<<-RUBY)
+      describe 'RuboCop daily' do
+        some_method
+        [1, 2, 3].each do |page|
+          some_method
+          [1, 2, 3].each do |paragraph|
+            it { expect(newspaper(page, paragraph)).to have_ads }
+          end
+          more_surroundings
+        end
+        more_surroundings
+      end
+    RUBY
+  end
+
   it 'does not flag include_examples' do
     expect_no_offenses(<<-RUBY)
       describe Foo do

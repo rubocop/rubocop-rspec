@@ -6,6 +6,8 @@
 * Add support for subject detection after includes and example groups in `RSpec/LeadingSubject`. ([@pirj][])
 * Ignore trailing punctuation in context description prefix. ([@elliterate][])
 
+* Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][], [@pirj][])
+
 ## 1.42.0 (2020-07-09)
 
 * Update RuboCop dependency to 0.87.0 because of changes to internal APIs. ([@bquorning][], [@Darhazer][])
@@ -15,7 +17,6 @@
 * Extend the list of Rails spec types for `RSpec/DescribeClass`. ([@pirj][])
 * Fix `FactoryBot/AttributeDefinedStatically` to allow `#traits_for_enum` without a block. ([@harrylewis][])
 * Improve the performance of `FactoryBot/AttributeDefinedStatically`, `RSpec/InstanceVariable`, `RSpec/LetSetup`, `RSpec/NestedGroups` and `RSpec/ReturnFromStub`. ([@andrykonchin][])
-* Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][], [@pirj][])
 
 ## 1.40.0 (2020-06-11)
 
