@@ -1,0 +1,941 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
++	lib/rubocop/rspec/language.rb	/^        def +(other)$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+<	lib/rubocop/cop/rspec/cop.rb	/^      def self.<(other)$/;"	F	class:RuboCop.Cop
+==	lib/rubocop/rspec/language.rb	/^        def ==(other)$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+A	spec/rubocop/cop/rspec/described_class_spec.rb	/^        module A$/;"	m
+AlignLeftLetBrace	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^      class AlignLeftLetBrace < Cop$/;"	c	class:RuboCop.Cop.RSpec
+AlignLetBrace	lib/rubocop/rspec/align_let_brace.rb	/^    class AlignLetBrace$/;"	c	class:RuboCop.RSpec
+AlignRightLetBrace	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^      class AlignRightLetBrace < Cop$/;"	c	class:RuboCop.Cop.RSpec
+AndReturnCallCorrector	lib/rubocop/cop/rspec/return_from_stub.rb	/^        class AndReturnCallCorrector$/;"	c	class:RuboCop.Cop.RSpec.ReturnFromStub
+AnyInstance	lib/rubocop/cop/rspec/any_instance.rb	/^      class AnyInstance < Cop$/;"	c	class:RuboCop.Cop.RSpec
+AroundBlock	lib/rubocop/cop/rspec/around_block.rb	/^      class AroundBlock < Cop$/;"	c	class:RuboCop.Cop.RSpec
+AttributeDefinedStatically	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^        class AttributeDefinedStatically < Cop$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot
+B	spec/rubocop/cop/rspec/described_class_spec.rb	/^          class B::C$/;"	c	class:A
+Be	lib/rubocop/cop/rspec/be.rb	/^      class Be < Cop$/;"	c	class:RuboCop.Cop.RSpec
+BeEql	lib/rubocop/cop/rspec/be_eql.rb	/^      class BeEql < Cop$/;"	c	class:RuboCop.Cop.RSpec
+BeforeAfterAll	lib/rubocop/cop/rspec/before_after_all.rb	/^      class BeforeAfterAll < Cop$/;"	c	class:RuboCop.Cop.RSpec
+BlankLineSeparation	lib/rubocop/rspec/blank_line_separation.rb	/^    module BlankLineSeparation$/;"	m	class:RuboCop.RSpec
+BlockBodyCorrector	lib/rubocop/cop/rspec/return_from_stub.rb	/^        class BlockBodyCorrector$/;"	c	class:RuboCop.Cop.RSpec.ReturnFromStub
+Broken	spec/smoke_tests/weird_rspec_spec.rb	/^class Broken$/;"	c
+Capybara	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^      module Capybara$/;"	m	class:RuboCop.Cop.RSpec
+Capybara	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^      module Capybara$/;"	m	class:RuboCop.Cop.RSpec
+Capybara	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^      module Capybara$/;"	m	class:RuboCop.Cop.RSpec
+Checker	lib/rubocop/cop/rspec/shared_examples.rb	/^        class Checker$/;"	c	class:RuboCop.Cop.RSpec.SharedExamples
+CodeObject	lib/rubocop/rspec/description_extractor.rb	/^      class CodeObject$/;"	c	class:RuboCop.RSpec.DescriptionExtractor
+Concept	lib/rubocop/rspec/concept.rb	/^    class Concept$/;"	c	class:RuboCop.RSpec
+ConfigFormatter	lib/rubocop/rspec/config_formatter.rb	/^    class ConfigFormatter$/;"	c	class:RuboCop.RSpec
+ContextMethod	lib/rubocop/cop/rspec/context_method.rb	/^      class ContextMethod < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ContextWording	lib/rubocop/cop/rspec/context_wording.rb	/^      class ContextWording < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Cop	lib/rubocop-rspec.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/any_instance.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/around_block.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/be.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/be_eql.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/before_after_all.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/context_method.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/context_wording.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/cop.rb	/^      class Cop < WorkaroundCop$/;"	c	class:RuboCop.RSpec
+Cop	lib/rubocop/cop/rspec/cop.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/describe_class.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/describe_method.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/describe_symbol.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/described_class.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/described_class_module_wrapping.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/dialect.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_example_group.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_hook.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_line_after_example_group.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_line_after_final_let.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_line_after_hook.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/example_length.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/example_without_description.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/example_wording.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/expect_actual.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/expect_change.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/expect_in_hook.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/expect_output.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/file_path.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/focus.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/hook_argument.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/implicit_expect.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/implicit_subject.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/instance_spy.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/instance_variable.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/it_behaves_like.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/iterated_expectation.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/leading_subject.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/let_before_examples.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/let_setup.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/message_chain.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/message_expectation.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/message_spies.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/missing_example_group_argument.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/multiple_describes.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/multiple_expectations.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/multiple_subjects.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/named_subject.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/nested_groups.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/not_to_not.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/overwriting_setup.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/pending.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/predicate_matcher.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/rails/http_status.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/receive_counts.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/receive_never.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/repeated_description.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/repeated_example.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/return_from_stub.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/scattered_let.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/scattered_setup.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/shared_context.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/shared_examples.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/subject_stub.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/unspecified_exception.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/verified_doubles.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/void_expect.rb	/^  module Cop$/;"	m	class:RuboCop
+Cop	lib/rubocop/cop/rspec/yield.rb	/^  module Cop$/;"	m	class:RuboCop
+Corrector	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          class Corrector$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+Corrector	lib/rubocop/rspec/corrector/move_node.rb	/^    module Corrector$/;"	m	class:RuboCop.RSpec
+CreateList	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^        class CreateList < Cop$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot
+CreateListCorrector	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          class CreateListCorrector < Corrector$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+CurrentPathExpectation	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^        class CurrentPathExpectation < Cop$/;"	c	class:RuboCop.Cop.RSpec.Capybara
+D	spec/rubocop/cop/rspec/described_class_spec.rb	/^            module D$/;"	m	class:A.B
+DescribeClass	lib/rubocop/cop/rspec/describe_class.rb	/^      class DescribeClass < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DescribeMethod	lib/rubocop/cop/rspec/describe_method.rb	/^      class DescribeMethod < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DescribeSymbol	lib/rubocop/cop/rspec/describe_symbol.rb	/^      class DescribeSymbol < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DescribedClass	lib/rubocop/cop/rspec/described_class.rb	/^      class DescribedClass < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DescribedClassModuleWrapping	lib/rubocop/cop/rspec/described_class_module_wrapping.rb	/^      class DescribedClassModuleWrapping < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DescriptionExtractor	lib/rubocop/rspec/description_extractor.rb	/^    class DescriptionExtractor$/;"	c	class:RuboCop.RSpec
+Dialect	lib/rubocop/cop/rspec/dialect.rb	/^      class Dialect < Cop$/;"	c	class:RuboCop.Cop.RSpec
+DummyClass	spec/rubocop/cop/rspec/leaky_constant_declaration_spec.rb	/^          class DummyClass < described_class$/;"	c
+DummyModule	spec/rubocop/cop/rspec/leaky_constant_declaration_spec.rb	/^          module DummyModule$/;"	m
+EmptyExampleGroup	lib/rubocop/cop/rspec/empty_example_group.rb	/^      class EmptyExampleGroup < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyHook	lib/rubocop/cop/rspec/empty_hook.rb	/^      class EmptyHook < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyLineAfterExample	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^      class EmptyLineAfterExample < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyLineAfterExampleGroup	lib/rubocop/cop/rspec/empty_line_after_example_group.rb	/^      class EmptyLineAfterExampleGroup < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyLineAfterFinalLet	lib/rubocop/cop/rspec/empty_line_after_final_let.rb	/^      class EmptyLineAfterFinalLet < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyLineAfterHook	lib/rubocop/cop/rspec/empty_line_after_hook.rb	/^      class EmptyLineAfterHook < Cop$/;"	c	class:RuboCop.Cop.RSpec
+EmptyLineAfterSubject	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^      class EmptyLineAfterSubject < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Example	lib/rubocop/rspec/example.rb	/^    class Example < Concept$/;"	c	class:RuboCop.RSpec
+ExampleGroup	lib/rubocop/rspec/example_group.rb	/^    class ExampleGroup < Concept$/;"	c	class:RuboCop.RSpec
+ExampleGroups	lib/rubocop/rspec/language.rb	/^      module ExampleGroups$/;"	m	class:RuboCop.RSpec.Language
+ExampleLength	lib/rubocop/cop/rspec/example_length.rb	/^      class ExampleLength < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ExampleWithoutDescription	lib/rubocop/cop/rspec/example_without_description.rb	/^      class ExampleWithoutDescription < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ExampleWording	lib/rubocop/cop/rspec/example_wording.rb	/^      class ExampleWording < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Examples	lib/rubocop/rspec/language.rb	/^      module Examples$/;"	m	class:RuboCop.RSpec.Language
+ExpectActual	lib/rubocop/cop/rspec/expect_actual.rb	/^      class ExpectActual < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ExpectChange	lib/rubocop/cop/rspec/expect_change.rb	/^      class ExpectChange < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ExpectInHook	lib/rubocop/cop/rspec/expect_in_hook.rb	/^      class ExpectInHook < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ExpectOffense	spec/support/expect_offense.rb	/^module ExpectOffense$/;"	m
+ExpectOutput	lib/rubocop/cop/rspec/expect_output.rb	/^      class ExpectOutput < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Expectations	lib/rubocop/rspec/language.rb	/^      module Expectations$/;"	m	class:RuboCop.RSpec.Language
+ExplicitHelper	lib/rubocop/cop/rspec/predicate_matcher.rb	/^      module ExplicitHelper$/;"	m	class:RuboCop.Cop
+ExtraSpacing	lib/rubocop-rspec.rb	/^      class ExtraSpacing # rubocop:disable Style\/Documentation$/;"	c	class:RuboCop.Cop.Layout
+FactoryBot	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^      module FactoryBot$/;"	m	class:RuboCop.Cop.RSpec
+FactoryBot	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^      module FactoryBot$/;"	m	class:RuboCop.Cop.RSpec
+FactoryBot	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^      module FactoryBot$/;"	m	class:RuboCop.Cop.RSpec
+FactoryBot	lib/rubocop/rspec/factory_bot.rb	/^    module FactoryBot$/;"	m	class:RuboCop.RSpec
+FactoryClassName	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^        class FactoryClassName < Cop$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot
+FeatureMethods	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^        class FeatureMethods < Cop$/;"	c	class:RuboCop.Cop.RSpec.Capybara
+FilePath	lib/rubocop/cop/rspec/file_path.rb	/^      class FilePath < Cop$/;"	c	class:RuboCop.Cop.RSpec
+FinalEndLocation	lib/rubocop/rspec/final_end_location.rb	/^    module FinalEndLocation$/;"	m	class:RuboCop.RSpec
+Focus	lib/rubocop/cop/rspec/focus.rb	/^      class Focus < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Foo	spec/rubocop/cop/rspec/described_class_spec.rb	/^            class Foo$/;"	c
+HelperClassForFoo	spec/rubocop/rspec/description_extractor_spec.rb	/^        class HelperClassForFoo$/;"	c	class:RuboCop
+Helpers	lib/rubocop/rspec/language.rb	/^      module Helpers$/;"	m	class:RuboCop.RSpec.Language
+Hook	lib/rubocop/rspec/hook.rb	/^    class Hook < Concept$/;"	c	class:RuboCop.RSpec
+HookArgument	lib/rubocop/cop/rspec/hook_argument.rb	/^      class HookArgument < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Hooks	lib/rubocop/rspec/language.rb	/^      module Hooks$/;"	m	class:RuboCop.RSpec.Language
+HooksBeforeExamples	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^      class HooksBeforeExamples < Cop$/;"	c	class:RuboCop.Cop.RSpec
+HttpStatus	lib/rubocop/cop/rspec/rails/http_status.rb	/^        class HttpStatus < Cop$/;"	c	class:RuboCop.Cop.RSpec.Rails
+ImplicitBlockExpectation	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^      class ImplicitBlockExpectation < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ImplicitExpect	lib/rubocop/cop/rspec/implicit_expect.rb	/^      class ImplicitExpect < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ImplicitSubject	lib/rubocop/cop/rspec/implicit_subject.rb	/^      class ImplicitSubject < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Includes	lib/rubocop/rspec/language.rb	/^      module Includes$/;"	m	class:RuboCop.RSpec.Language
+InflectedHelper	lib/rubocop/cop/rspec/predicate_matcher.rb	/^      module InflectedHelper$/;"	m	class:RuboCop.Cop.RSpec
+Inject	lib/rubocop/rspec/inject.rb	/^    module Inject$/;"	m	class:RuboCop.RSpec
+InstanceSpy	lib/rubocop/cop/rspec/instance_spy.rb	/^      class InstanceSpy < Cop$/;"	c	class:RuboCop.Cop.RSpec
+InstanceVariable	lib/rubocop/cop/rspec/instance_variable.rb	/^      class InstanceVariable < Cop$/;"	c	class:RuboCop.Cop.RSpec
+InvalidPredicateMatcher	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^      class InvalidPredicateMatcher < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ItBehavesLike	lib/rubocop/cop/rspec/it_behaves_like.rb	/^      class ItBehavesLike < Cop$/;"	c	class:RuboCop.Cop.RSpec
+IteratedExpectation	lib/rubocop/cop/rspec/iterated_expectation.rb	/^      class IteratedExpectation < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Language	lib/rubocop/rspec/language.rb	/^    module Language$/;"	m	class:RuboCop.RSpec
+Language	lib/rubocop/rspec/language/node_pattern.rb	/^    module Language$/;"	m	class:RuboCop.RSpec
+Layout	lib/rubocop-rspec.rb	/^    module Layout$/;"	m	class:RuboCop.Cop
+LeadingSubject	lib/rubocop/cop/rspec/leading_subject.rb	/^      class LeadingSubject < Cop$/;"	c	class:RuboCop.Cop.RSpec
+LeakyConstantDeclaration	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^      class LeakyConstantDeclaration < Cop$/;"	c	class:RuboCop.Cop.RSpec
+LetBeforeExamples	lib/rubocop/cop/rspec/let_before_examples.rb	/^      class LetBeforeExamples < Cop$/;"	c	class:RuboCop.Cop.RSpec
+LetSetup	lib/rubocop/cop/rspec/let_setup.rb	/^      class LetSetup < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MessageChain	lib/rubocop/cop/rspec/message_chain.rb	/^      class MessageChain < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MessageExpectation	lib/rubocop/cop/rspec/message_expectation.rb	/^      class MessageExpectation < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MessageSpies	lib/rubocop/cop/rspec/message_spies.rb	/^      class MessageSpies < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MissingExampleGroupArgument	lib/rubocop/cop/rspec/missing_example_group_argument.rb	/^      class MissingExampleGroupArgument < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MoveNode	lib/rubocop/rspec/corrector/move_node.rb	/^      class MoveNode$/;"	c	class:RuboCop.RSpec.Corrector
+MultipleDescribes	lib/rubocop/cop/rspec/multiple_describes.rb	/^      class MultipleDescribes < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MultipleExpectations	lib/rubocop/cop/rspec/multiple_expectations.rb	/^      class MultipleExpectations < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MultipleSubjects	lib/rubocop/cop/rspec/multiple_subjects.rb	/^      class MultipleSubjects < Cop$/;"	c	class:RuboCop.Cop.RSpec
+MyFirstModule	spec/rubocop/cop/rspec/described_class_module_wrapping_spec.rb	/^      module MyFirstModule$/;"	m
+MyModule	spec/rubocop/cop/rspec/described_class_module_wrapping_spec.rb	/^      module MyModule$/;"	m
+MyModule	spec/rubocop/cop/rspec/described_class_spec.rb	/^          module MyModule$/;"	m
+MyNamespace	spec/rubocop/cop/rspec/described_class_spec.rb	/^        module MyNamespace$/;"	m
+MySecondModule	spec/rubocop/cop/rspec/described_class_module_wrapping_spec.rb	/^        module MySecondModule$/;"	m	class:MyFirstModule
+MyThingy	spec/rubocop/cop/rspec/nested_groups_spec.rb	/^      class MyThingy$/;"	c
+NamedSubject	lib/rubocop/cop/rspec/named_subject.rb	/^      class NamedSubject < Cop$/;"	c	class:RuboCop.Cop.RSpec
+NestedGroups	lib/rubocop/cop/rspec/nested_groups.rb	/^      class NestedGroups < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Node	lib/rubocop/rspec/node.rb	/^    module Node$/;"	m	class:RuboCop.RSpec
+NodePattern	lib/rubocop/rspec/language/node_pattern.rb	/^      module NodePattern$/;"	m	class:RuboCop.RSpec.Language
+NotToNot	lib/rubocop/cop/rspec/not_to_not.rb	/^      class NotToNot < Cop$/;"	c	class:RuboCop.Cop.RSpec
+NumericStyleChecker	lib/rubocop/cop/rspec/rails/http_status.rb	/^          class NumericStyleChecker$/;"	c	class:RuboCop.Cop.RSpec.Rails.HttpStatus
+OtherClass	spec/rubocop/cop/rspec/described_class_spec.rb	/^          class OtherClass$/;"	c
+OverwritingSetup	lib/rubocop/cop/rspec/overwriting_setup.rb	/^      class OverwritingSetup < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Pending	lib/rubocop/cop/rspec/pending.rb	/^      class Pending < Cop$/;"	c	class:RuboCop.Cop.RSpec
+PredicateMatcher	lib/rubocop/cop/rspec/predicate_matcher.rb	/^      class PredicateMatcher < Cop$/;"	c	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/any_instance.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/around_block.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/be.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/be_eql.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/before_after_all.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/context_method.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/context_wording.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/cop.rb	/^    module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/cop/rspec/describe_class.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/describe_method.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/describe_symbol.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/described_class.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/described_class_module_wrapping.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/dialect.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_example_group.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_hook.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_line_after_example_group.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_line_after_final_let.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_line_after_hook.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/example_length.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/example_without_description.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/example_wording.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/expect_actual.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/expect_change.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/expect_in_hook.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/expect_output.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/file_path.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/focus.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/hook_argument.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/implicit_expect.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/implicit_subject.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/instance_spy.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/instance_variable.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/it_behaves_like.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/iterated_expectation.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/leading_subject.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/let_before_examples.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/let_setup.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/message_chain.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/message_expectation.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/message_spies.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/missing_example_group_argument.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/multiple_describes.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/multiple_expectations.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/multiple_subjects.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/named_subject.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/nested_groups.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/not_to_not.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/overwriting_setup.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/pending.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/predicate_matcher.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/rails/http_status.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/receive_counts.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/receive_never.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/repeated_description.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/repeated_example.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/return_from_stub.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/scattered_let.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/scattered_setup.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/shared_context.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/shared_examples.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/subject_stub.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/unspecified_exception.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/verified_doubles.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/void_expect.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/cop/rspec/yield.rb	/^    module RSpec$/;"	m	class:RuboCop.Cop
+RSpec	lib/rubocop/rspec.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/align_let_brace.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/blank_line_separation.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/concept.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/config_formatter.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/corrector/move_node.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/description_extractor.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/example.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/example_group.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/factory_bot.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/final_end_location.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/hook.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/inject.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/language.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/language/node_pattern.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/node.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/top_level_describe.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/version.rb	/^  module RSpec$/;"	m	class:RuboCop
+RSpec	lib/rubocop/rspec/wording.rb	/^  module RSpec$/;"	m	class:RuboCop
+Rails	lib/rubocop/cop/rspec/rails/http_status.rb	/^      module Rails$/;"	m	class:RuboCop.Cop.RSpec
+ReceiveCounts	lib/rubocop/cop/rspec/receive_counts.rb	/^      class ReceiveCounts < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ReceiveNever	lib/rubocop/cop/rspec/receive_never.rb	/^      class ReceiveNever < Cop$/;"	c	class:RuboCop.Cop.RSpec
+RepeatedDescription	lib/rubocop/cop/rspec/repeated_description.rb	/^      class RepeatedDescription < Cop$/;"	c	class:RuboCop.Cop.RSpec
+RepeatedExample	lib/rubocop/cop/rspec/repeated_example.rb	/^      class RepeatedExample < Cop$/;"	c	class:RuboCop.Cop.RSpec
+RepeatedExampleGroupBody	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^      class RepeatedExampleGroupBody < Cop$/;"	c	class:RuboCop.Cop.RSpec
+RepeatedExampleGroupDescription	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^      class RepeatedExampleGroupDescription < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ReturnFromStub	lib/rubocop/cop/rspec/return_from_stub.rb	/^      class ReturnFromStub < Cop$/;"	c	class:RuboCop.Cop.RSpec
+RuboCop	lib/rubocop-rspec.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/any_instance.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/around_block.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/be.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/be_eql.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/before_after_all.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/context_method.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/context_wording.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/cop.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/describe_class.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/describe_method.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/describe_symbol.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/described_class.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/described_class_module_wrapping.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/dialect.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_example_group.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_hook.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_line_after_example_group.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_line_after_final_let.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_line_after_hook.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/example_length.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/example_without_description.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/example_wording.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/expect_actual.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/expect_change.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/expect_in_hook.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/expect_output.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/file_path.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/focus.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/hook_argument.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/implicit_expect.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/implicit_subject.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/instance_spy.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/instance_variable.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/it_behaves_like.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/iterated_expectation.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/leading_subject.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/let_before_examples.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/let_setup.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/message_chain.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/message_expectation.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/message_spies.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/missing_example_group_argument.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/multiple_describes.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/multiple_expectations.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/multiple_subjects.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/named_subject.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/nested_groups.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/not_to_not.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/overwriting_setup.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/pending.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/predicate_matcher.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/rails/http_status.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/receive_counts.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/receive_never.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/repeated_description.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/repeated_example.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/return_from_stub.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/scattered_let.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/scattered_setup.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/shared_context.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/shared_examples.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/subject_stub.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/unspecified_exception.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/verified_doubles.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/void_expect.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/cop/rspec/yield.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/align_let_brace.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/blank_line_separation.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/concept.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/config_formatter.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/corrector/move_node.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/description_extractor.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/example.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/example_group.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/factory_bot.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/final_end_location.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/hook.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/inject.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/language.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/language/node_pattern.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/node.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/top_level_describe.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/version.rb	/^module RuboCop$/;"	m
+RuboCop	lib/rubocop/rspec/wording.rb	/^module RuboCop$/;"	m
+RuboCop	spec/rubocop/cop/rspec/cop_spec.rb	/^    class RuboCop::RSpec::FakeCop < described_class$/;"	c
+RuboCop	spec/rubocop/rspec/description_extractor_spec.rb	/^      class RuboCop::Cop::Mixin::Sneaky$/;"	c
+RuboCop	spec/rubocop/rspec/description_extractor_spec.rb	/^      class RuboCop::Cop::RSpec::Cop$/;"	c
+RuboCop	spec/rubocop/rspec/description_extractor_spec.rb	/^      class RuboCop::Cop::RSpec::Foo < RuboCop::Cop::RSpec::Cop$/;"	c
+RuboCop	spec/rubocop/rspec/description_extractor_spec.rb	/^      class RuboCop::Cop::RSpec::Undocumented < RuboCop::Cop::RSpec::Cop$/;"	c
+Runners	lib/rubocop/rspec/language.rb	/^      module Runners$/;"	m	class:RuboCop.RSpec.Language
+ScatteredLet	lib/rubocop/cop/rspec/scattered_let.rb	/^      class ScatteredLet < Cop$/;"	c	class:RuboCop.Cop.RSpec
+ScatteredSetup	lib/rubocop/cop/rspec/scattered_setup.rb	/^      class ScatteredSetup < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Scopes	lib/rubocop/rspec/language.rb	/^        module Scopes$/;"	m	class:RuboCop.RSpec.Language.Hooks
+SelectorSet	lib/rubocop/rspec/language.rb	/^      class SelectorSet$/;"	c	class:RuboCop.RSpec.Language
+SharedContext	lib/rubocop/cop/rspec/shared_context.rb	/^      class SharedContext < Cop$/;"	c	class:RuboCop.Cop.RSpec
+SharedExamples	lib/rubocop/cop/rspec/shared_examples.rb	/^      class SharedExamples < Cop$/;"	c	class:RuboCop.Cop.RSpec
+SharedGroups	lib/rubocop/rspec/language.rb	/^      module SharedGroups$/;"	m	class:RuboCop.RSpec.Language
+SingleArgumentMessageChain	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^      class SingleArgumentMessageChain < Cop$/;"	c	class:RuboCop.Cop.RSpec
+SomeGem	spec/rubocop/cop/rspec/described_class_spec.rb	/^        module SomeGem$/;"	m
+SomeModule	spec/rubocop/cop/rspec/leaky_constant_declaration_spec.rb	/^          class SomeModule::AnotherModule::DummyClass$/;"	c
+SpecHelper	spec/spec_helper.rb	/^module SpecHelper$/;"	m
+Subject	lib/rubocop/rspec/language.rb	/^      module Subject$/;"	m	class:RuboCop.RSpec.Language
+SubjectStub	lib/rubocop/cop/rspec/subject_stub.rb	/^      class SubjectStub < Cop$/;"	c	class:RuboCop.Cop.RSpec
+SymbolicStyleChecker	lib/rubocop/cop/rspec/rails/http_status.rb	/^          class SymbolicStyleChecker$/;"	c	class:RuboCop.Cop.RSpec.Rails.HttpStatus
+TimesCorrector	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          class TimesCorrector < Corrector$/;"	c	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+TopLevelDescribe	lib/rubocop/rspec/top_level_describe.rb	/^    module TopLevelDescribe$/;"	m	class:RuboCop.RSpec
+UnrelatedNamespace	spec/rubocop/cop/rspec/described_class_spec.rb	/^        module UnrelatedNamespace$/;"	m
+UnspecifiedException	lib/rubocop/cop/rspec/unspecified_exception.rb	/^      class UnspecifiedException < Cop$/;"	c	class:RuboCop.Cop.RSpec
+VerifiedDoubles	lib/rubocop/cop/rspec/verified_doubles.rb	/^      class VerifiedDoubles < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Version	lib/rubocop/rspec/version.rb	/^    module Version$/;"	m	class:RuboCop.RSpec
+VisibilityMatcher	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^        class VisibilityMatcher < Cop$/;"	c	class:RuboCop.Cop.RSpec.Capybara
+VoidExpect	lib/rubocop/cop/rspec/void_expect.rb	/^      class VoidExpect < Cop$/;"	c	class:RuboCop.Cop.RSpec
+Wording	lib/rubocop/rspec/wording.rb	/^    class Wording$/;"	c	class:RuboCop.RSpec
+WorkaroundCop	lib/rubocop/cop/rspec/cop.rb	/^    class WorkaroundCop$/;"	c	class:RuboCop.Cop
+Yield	lib/rubocop/cop/rspec/yield.rb	/^      class Yield < Cop$/;"	c	class:RuboCop.Cop.RSpec
+abstract?	lib/rubocop/rspec/description_extractor.rb	/^        def abstract?$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+add_ignore_query_options	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^          def add_ignore_query_options(corrector, node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara
+add_no_arg_offense	lib/rubocop/cop/rspec/around_block.rb	/^        def add_no_arg_offense(node)$/;"	f	class:RuboCop.Cop.RSpec.AroundBlock
+add_repeated_lines	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^        def add_repeated_lines(groups)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupBody
+add_repeated_lines	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^        def add_repeated_lines(groups)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupDescription
+add_shared_item_offense	lib/rubocop/cop/rspec/shared_context.rb	/^        def add_shared_item_offense(node, message)$/;"	f	class:RuboCop.Cop.RSpec.SharedContext
+add_wording_offense	lib/rubocop/cop/rspec/example_wording.rb	/^        def add_wording_offense(node, message)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+adjacent_let_chunks	lib/rubocop/rspec/align_let_brace.rb	/^      def adjacent_let_chunks$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+all_cops_config	lib/rubocop/cop/rspec/cop.rb	/^        def all_cops_config$/;"	f	class:RuboCop.RSpec.Cop
+allow_consecutive_one_liners?	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def allow_consecutive_one_liners?$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+allowed?	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^          def allowed?(const_name)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.FactoryClassName
+allowed_by_style?	lib/rubocop/cop/rspec/implicit_subject.rb	/^        def allowed_by_style?(example)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitSubject
+allowed_explicit_matchers	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def allowed_explicit_matchers$/;"	f	class:RuboCop.Cop.ExplicitHelper
+allowed_one_liner?	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def allowed_one_liner?(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+allowed_symbol?	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def allowed_symbol?$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+announce	spec/smoke_tests/weird_rspec_spec.rb	/^      def announce$/;"	f
+append_suffix	lib/rubocop/rspec/wording.rb	/^      def append_suffix(word, suffix)$/;"	f	class:RuboCop.RSpec.Wording
+args_loc	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def args_loc(send_node)$/;"	f	class:RuboCop.Cop.PredicateMatcher
+argument_range	lib/rubocop/cop/rspec/hook_argument.rb	/^        def argument_range(send_node)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+assignment_only?	lib/rubocop/cop/rspec/instance_variable.rb	/^        def assignment_only?$/;"	f	class:RuboCop.Cop.RSpec.InstanceVariable
+attribute_defining_method?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def attribute_defining_method?(method_name)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+attribute_defining_methods	lib/rubocop/rspec/factory_bot.rb	/^      def self.attribute_defining_methods$/;"	F	class:RuboCop.RSpec.FactoryBot
+autocorrect	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^        def autocorrect(let)$/;"	f	class:RuboCop.Cop.RSpec.AlignLeftLetBrace
+autocorrect	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^        def autocorrect(let)$/;"	f	class:RuboCop.Cop.RSpec.AlignRightLetBrace
+autocorrect	lib/rubocop/cop/rspec/be_eql.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.BeEql
+autocorrect	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.CurrentPathExpectation
+autocorrect	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+autocorrect	lib/rubocop/cop/rspec/context_method.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ContextMethod
+autocorrect	lib/rubocop/cop/rspec/described_class.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.DescribedClass
+autocorrect	lib/rubocop/cop/rspec/dialect.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.Dialect
+autocorrect	lib/rubocop/cop/rspec/empty_hook.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyHook
+autocorrect	lib/rubocop/cop/rspec/example_wording.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+autocorrect	lib/rubocop/cop/rspec/expect_actual.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+autocorrect	lib/rubocop/cop/rspec/expect_change.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectChange
+autocorrect	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+autocorrect	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+autocorrect	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.FactoryClassName
+autocorrect	lib/rubocop/cop/rspec/hook_argument.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+autocorrect	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.HooksBeforeExamples
+autocorrect	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+autocorrect	lib/rubocop/cop/rspec/implicit_subject.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitSubject
+autocorrect	lib/rubocop/cop/rspec/instance_spy.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.InstanceSpy
+autocorrect	lib/rubocop/cop/rspec/it_behaves_like.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ItBehavesLike
+autocorrect	lib/rubocop/cop/rspec/leading_subject.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+autocorrect	lib/rubocop/cop/rspec/let_before_examples.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.LetBeforeExamples
+autocorrect	lib/rubocop/cop/rspec/multiple_subjects.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleSubjects
+autocorrect	lib/rubocop/cop/rspec/not_to_not.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.NotToNot
+autocorrect	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.PredicateMatcher
+autocorrect	lib/rubocop/cop/rspec/rails/http_status.rb	/^          def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus
+autocorrect	lib/rubocop/cop/rspec/receive_counts.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveCounts
+autocorrect	lib/rubocop/cop/rspec/receive_never.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveNever
+autocorrect	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+autocorrect	lib/rubocop/cop/rspec/scattered_let.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredLet
+autocorrect	lib/rubocop/cop/rspec/shared_context.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedContext
+autocorrect	lib/rubocop/cop/rspec/shared_examples.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples
+autocorrect	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+autocorrect	lib/rubocop/cop/rspec/yield.rb	/^        def autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+autocorrect	lib/rubocop/rspec/blank_line_separation.rb	/^      def autocorrect(node)$/;"	f	class:RuboCop.RSpec.BlankLineSeparation
+autocorrect_array_arg	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def autocorrect_array_arg(corrector, arg)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+autocorrect_block_to_method_call	lib/rubocop/cop/rspec/expect_change.rb	/^        def autocorrect_block_to_method_call(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectChange
+autocorrect_explicit	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def autocorrect_explicit(node)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+autocorrect_explicit_block	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def autocorrect_explicit_block(node)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+autocorrect_explicit_send	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def autocorrect_explicit_send(node)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+autocorrect_hash_arg	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def autocorrect_hash_arg(corrector, arg)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+autocorrect_incompatible_with	lib/rubocop-rspec.rb	/^        def self.autocorrect_incompatible_with$/;"	F	class:RuboCop.Cop.Layout.ExtraSpacing
+autocorrect_incompatible_with	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^        def self.autocorrect_incompatible_with$/;"	F	class:RuboCop.Cop.RSpec.AlignLeftLetBrace
+autocorrect_incompatible_with	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^        def self.autocorrect_incompatible_with$/;"	F	class:RuboCop.Cop.RSpec.AlignRightLetBrace
+autocorrect_inflected	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def autocorrect_inflected(node)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+autocorrect_method_call_to_block	lib/rubocop/cop/rspec/expect_change.rb	/^        def autocorrect_method_call_to_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectChange
+autocorrect_replacing_parens	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def autocorrect_replacing_parens(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+autocorrect_without_parens	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def autocorrect_without_parens(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+bad_prefix?	lib/rubocop/cop/rspec/context_wording.rb	/^        def bad_prefix?(description)$/;"	f	class:RuboCop.Cop.RSpec.ContextWording
+bar	spec/rubocop/rspec/description_extractor_spec.rb	/^        def bar$/;"	f	class:RuboCop
+block_loc	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def block_loc(send_node)$/;"	f	class:RuboCop.Cop.PredicateMatcher
+block_or_block_pass_pattern	lib/rubocop/rspec/language.rb	/^        def block_or_block_pass_pattern$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+block_pass_pattern	lib/rubocop/rspec/language.rb	/^        def block_pass_pattern$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+block_pattern	lib/rubocop/rspec/language.rb	/^        def block_pattern$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+block_range	lib/rubocop/cop/rspec/yield.rb	/^        def block_range(node)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+block_with_args?	lib/rubocop/cop/rspec/unspecified_exception.rb	/^        def block_with_args?(node)$/;"	f	class:RuboCop.Cop.RSpec.UnspecifiedException
+boolean_matcher?	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def boolean_matcher?(node)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+braces	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def braces(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+build_arguments	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def build_arguments(node, count)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+build_options_string	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def build_options_string(options)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.Corrector
+call	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def call(corrector)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.CreateListCorrector
+call	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def call(corrector)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.TimesCorrector
+call	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def call(corrector)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+call	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def call(corrector)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.BlockBodyCorrector
+call_replacement	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def call_replacement(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+call_with_block_replacement	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def call_with_block_replacement(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+calling_block?	lib/rubocop/cop/rspec/yield.rb	/^        def calling_block?(node, block)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+camel_to_snake_case	lib/rubocop/cop/rspec/file_path.rb	/^        def camel_to_snake_case(string)$/;"	f	class:RuboCop.Cop.RSpec
+check_and_return_call	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def check_and_return_call(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+check_block_body	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def check_block_body(block)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+check_example_without_description	lib/rubocop/cop/rspec/example_without_description.rb	/^        def check_example_without_description(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWithoutDescription
+check_expect	lib/rubocop/cop/rspec/void_expect.rb	/^        def check_expect(node)$/;"	f	class:RuboCop.Cop.RSpec.VoidExpect
+check_explicit	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def check_explicit(node) # rubocop:disable Metrics\/MethodLength$/;"	f	class:RuboCop.Cop.ExplicitHelper
+check_for_unused_proxy	lib/rubocop/cop/rspec/around_block.rb	/^        def check_for_unused_proxy(block, proxy)$/;"	f	class:RuboCop.Cop.RSpec.AroundBlock
+check_hooks	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^        def check_hooks(node)$/;"	f	class:RuboCop.Cop.RSpec.HooksBeforeExamples
+check_implicit	lib/rubocop/cop/rspec/hook_argument.rb	/^        def check_implicit(method_send)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+check_inflected	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def check_inflected(node)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+check_let_declarations	lib/rubocop/cop/rspec/let_before_examples.rb	/^        def check_let_declarations(node)$/;"	f	class:RuboCop.Cop.RSpec.LetBeforeExamples
+check_let_declarations	lib/rubocop/cop/rspec/scattered_let.rb	/^        def check_let_declarations(body)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredLet
+check_previous_nodes	lib/rubocop/cop/rspec/leading_subject.rb	/^        def check_previous_nodes(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+checker_class	lib/rubocop/cop/rspec/rails/http_status.rb	/^          def checker_class$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus
+class_documentation?	lib/rubocop/rspec/description_extractor.rb	/^        def class_documentation?$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+code_length	lib/rubocop/cop/rspec/example_length.rb	/^        def code_length(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleLength
+collapse_namespace	lib/rubocop/cop/rspec/described_class.rb	/^        def collapse_namespace(namespace, const)$/;"	f	class:RuboCop.Cop.RSpec
+common_setup?	lib/rubocop/cop/rspec/overwriting_setup.rb	/^        def common_setup?(node)$/;"	f	class:RuboCop.Cop.RSpec
+complex_literal?	lib/rubocop/cop/rspec/expect_actual.rb	/^        def complex_literal?(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+configuration	lib/rubocop/rspec/description_extractor.rb	/^        def configuration$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+consecutive_one_liner?	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def consecutive_one_liner?(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+const_name	lib/rubocop/cop/rspec/described_class.rb	/^        def const_name(node)$/;"	f	class:RuboCop.Cop.RSpec
+contains_only_factory?	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          def contains_only_factory?(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+context_with_only_examples	lib/rubocop/cop/rspec/shared_context.rb	/^        def context_with_only_examples(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedContext
+convert_block_to_yield	lib/rubocop/cop/rspec/yield.rb	/^        def convert_block_to_yield(node)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+convert_regexp_str_to_literal	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^          def convert_regexp_str_to_literal(corrector, matcher_node, regexp_str)$/;"	f	class:RuboCop.Cop.RSpec.Capybara
+cop_configuration	spec/project/default_config_spec.rb	/^  def cop_configuration(config_key)$/;"	f
+cop_name	lib/rubocop/rspec/description_extractor.rb	/^        def cop_name$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+cop_subclass?	lib/rubocop/rspec/description_extractor.rb	/^        def cop_subclass?$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+cops	lib/rubocop/rspec/config_formatter.rb	/^      def cops$/;"	f	class:RuboCop.RSpec.ConfigFormatter
+corrector_explicit	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def corrector_explicit(to_node, actual, matcher, block_child)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+custom_http_status_code?	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def custom_http_status_code?$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+custom_include?	lib/rubocop/cop/rspec/empty_example_group.rb	/^        def custom_include?(method_name)$/;"	f	class:RuboCop.Cop.RSpec.EmptyExampleGroup
+custom_include_methods	lib/rubocop/cop/rspec/empty_example_group.rb	/^        def custom_include_methods$/;"	f	class:RuboCop.Cop.RSpec.EmptyExampleGroup
+custom_transform	lib/rubocop/cop/rspec/example_wording.rb	/^        def custom_transform$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+custom_transform	lib/rubocop/cop/rspec/file_path.rb	/^        def custom_transform$/;"	f	class:RuboCop.Cop.RSpec
+defaults	lib/rubocop/rspec/inject.rb	/^      def self.defaults!$/;"	F	class:RuboCop.RSpec.Inject
+definition	lib/rubocop/rspec/example.rb	/^      def definition$/;"	f	class:RuboCop.RSpec.Example
+describe_statement_children	lib/rubocop/rspec/top_level_describe.rb	/^      def describe_statement_children(node)$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+description	lib/rubocop/rspec/description_extractor.rb	/^        def description$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+disallow_empty_description?	lib/rubocop/cop/rspec/example_without_description.rb	/^        def disallow_empty_description?(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWithoutDescription
+doc_string	lib/rubocop/rspec/example.rb	/^      def doc_string$/;"	f	class:RuboCop.RSpec.Example
+docstring	lib/rubocop/cop/rspec/example_wording.rb	/^        def docstring(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+documented_constant	lib/rubocop/rspec/description_extractor.rb	/^        def documented_constant$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+dump	lib/rubocop/rspec/config_formatter.rb	/^      def dump$/;"	f	class:RuboCop.RSpec.ConfigFormatter
+dynamic?	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def dynamic?(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+empty_exception_matcher?	lib/rubocop/cop/rspec/unspecified_exception.rb	/^        def empty_exception_matcher?(node)$/;"	f	class:RuboCop.Cop.RSpec.UnspecifiedException
+enabled?	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def enabled?(method_name)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+enabled_methods	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def enabled_methods$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+eql?	lib/rubocop/rspec/concept.rb	/^      def eql?(other)$/;"	f	class:RuboCop.RSpec.Concept
+error_message	lib/rubocop/cop/rspec/message_spies.rb	/^        def error_message(receiver)$/;"	f	class:RuboCop.Cop.RSpec.MessageSpies
+example	spec/rubocop/rspec/example_spec.rb	/^  def example(source)$/;"	f
+example?	lib/rubocop/rspec/hook.rb	/^      def example?$/;"	f	class:RuboCop.RSpec.Hook
+example_signature	lib/rubocop/cop/rspec/repeated_description.rb	/^        def example_signature(example)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedDescription
+example_signature	lib/rubocop/cop/rspec/repeated_example.rb	/^        def example_signature(example)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExample
+example_with_aggregate_failures?	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def example_with_aggregate_failures?(example_node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+examples	lib/rubocop/rspec/example_group.rb	/^      def examples$/;"	f	class:RuboCop.RSpec.ExampleGroup
+examples_in_scope	lib/rubocop/rspec/example_group.rb	/^      def examples_in_scope(node, &blk)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+examples_with_only_context	lib/rubocop/cop/rspec/shared_context.rb	/^        def examples_with_only_context(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedContext
+expect_no_offenses	spec/support/expect_offense.rb	/^  def expect_no_offenses(source, filename = DEFAULT_FILENAME)$/;"	f	class:ExpectOffense
+expect_offense	spec/support/expect_offense.rb	/^  def expect_offense(source, filename = DEFAULT_FILENAME)$/;"	f	class:ExpectOffense
+expected_path	lib/rubocop/cop/rspec/file_path.rb	/^        def expected_path(constant)$/;"	f	class:RuboCop.Cop.RSpec
+explicit_message	lib/rubocop/cop/rspec/hook_argument.rb	/^        def explicit_message(scope)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+filename_ends_with?	lib/rubocop/cop/rspec/file_path.rb	/^        def filename_ends_with?(glob)$/;"	f	class:RuboCop.Cop.RSpec
+final_end_location	lib/rubocop/rspec/final_end_location.rb	/^      def final_end_location(start_node)$/;"	f	class:RuboCop.RSpec.FinalEndLocation
+find_aggregate_failures	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def find_aggregate_failures(example_node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+find_duplicates	lib/rubocop/cop/rspec/overwriting_setup.rb	/^        def find_duplicates(node)$/;"	f	class:RuboCop.Cop.RSpec.OverwritingSetup
+find_examples	lib/rubocop/rspec/example_group.rb	/^      def find_examples(node)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+find_expectation	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def find_expectation(node, &block)$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+find_first_example	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^        def find_first_example(node)$/;"	f	class:RuboCop.Cop.RSpec.HooksBeforeExamples
+find_first_example	lib/rubocop/cop/rspec/let_before_examples.rb	/^        def find_first_example(node)$/;"	f	class:RuboCop.Cop.RSpec.LetBeforeExamples
+find_first_let	lib/rubocop/cop/rspec/scattered_let.rb	/^        def find_first_let(node)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredLet
+find_first_offending_node	lib/rubocop/cop/rspec/leading_subject.rb	/^        def find_first_offending_node(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+find_hooks	lib/rubocop/rspec/example_group.rb	/^      def find_hooks(node)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+find_nested_contexts	lib/rubocop/cop/rspec/nested_groups.rb	/^        def find_nested_contexts(node, nesting: 1, &block)$/;"	f	class:RuboCop.Cop.RSpec.NestedGroups
+find_subject	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^        def find_subject(block_node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitBlockExpectation
+find_subject	lib/rubocop/cop/rspec/subject_stub.rb	/^        def find_subject(node, parent: nil, &block)$/;"	f	class:RuboCop.Cop.RSpec.SubjectStub
+find_subject_expectation	lib/rubocop/cop/rspec/subject_stub.rb	/^        def find_subject_expectation(node, subject_name, &block)$/;"	f	class:RuboCop.Cop.RSpec.SubjectStub
+find_subject_stub	lib/rubocop/cop/rspec/subject_stub.rb	/^        def find_subject_stub(node, &block)$/;"	f	class:RuboCop.Cop.RSpec.SubjectStub
+find_subjects	lib/rubocop/rspec/example_group.rb	/^      def find_subjects(node)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+find_usage	lib/rubocop/cop/rspec/described_class.rb	/^        def find_usage(node, &block)$/;"	f	class:RuboCop.Cop.RSpec
+flag_example	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def flag_example(node, expectation_count:)$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+focus_metadata	lib/rubocop/cop/rspec/focus.rb	/^        def focus_metadata(node, &block)$/;"	f	class:RuboCop.Cop.RSpec.Focus
+foo	spec/rubocop/cop/rspec/named_subject_spec.rb	/^        def foo$/;"	f
+format_block	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def format_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+format_method_call	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def format_method_call(node, method, arguments)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.Corrector
+format_multiline_block	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def format_multiline_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+format_receiver	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def format_receiver(receiver)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.Corrector
+format_singeline_block	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def format_singeline_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+full_const_name	lib/rubocop/cop/rspec/described_class.rb	/^        def full_const_name(node)$/;"	f	class:RuboCop.Cop.RSpec
+generate_n_times_block	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def generate_n_times_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.TimesCorrector
+generate_replacement	lib/rubocop/cop/rspec/yield.rb	/^        def generate_replacement(node)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+glob_for	lib/rubocop/cop/rspec/file_path.rb	/^        def glob_for((described_class, method_name))$/;"	f	class:RuboCop.Cop.RSpec
+hash	lib/rubocop/rspec/concept.rb	/^      def hash$/;"	f	class:RuboCop.RSpec.Concept
+hash_without_braces?	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def hash_without_braces?$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+heredoc?	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def heredoc?$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+heredoc?	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def heredoc?$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.BlockBodyCorrector
+hook	lib/rubocop/cop/rspec/hook_argument.rb	/^        def hook(node, &block)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+hook	spec/rubocop/rspec/hook_spec.rb	/^  def hook(source)$/;"	f
+hooks	lib/rubocop/rspec/example_group.rb	/^      def hooks$/;"	f	class:RuboCop.RSpec.ExampleGroup
+hooks_in_scope	lib/rubocop/rspec/example_group.rb	/^      def hooks_in_scope(node)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+ignore_methods?	lib/rubocop/cop/rspec/file_path.rb	/^        def ignore_methods?$/;"	f	class:RuboCop.Cop.RSpec
+ignored_shared_example?	lib/rubocop/cop/rspec/named_subject.rb	/^        def ignored_shared_example?(node)$/;"	f	class:RuboCop.Cop.RSpec.NamedSubject
+ignored_word?	lib/rubocop/rspec/wording.rb	/^      def ignored_word?(word)$/;"	f	class:RuboCop.RSpec.Wording
+ignored_words	lib/rubocop/cop/rspec/example_wording.rb	/^        def ignored_words$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+implementation	lib/rubocop/rspec/example.rb	/^      def implementation$/;"	f	class:RuboCop.RSpec.Example
+implicit_style?	lib/rubocop/cop/rspec/hook_argument.rb	/^        def implicit_style?$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+in_spec_block?	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^        def in_spec_block?(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterSubject
+in_spec_block?	lib/rubocop/cop/rspec/leading_subject.rb	/^        def in_spec_block?(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+include?	lib/rubocop/rspec/language.rb	/^        def include?(selector)$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+indent_for	lib/rubocop/rspec/align_let_brace.rb	/^      def indent_for(node)$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+inherited	lib/rubocop/cop/rspec/cop.rb	/^        def inherited(*) end$/;"	f	class:RuboCop.Cop.WorkaroundCop
+inherited	lib/rubocop/cop/rspec/cop.rb	/^        def self.inherited(subclass)$/;"	F	class:RuboCop.RSpec.Cop
+initialize	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.CreateListCorrector
+initialize	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^            def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList.TimesCorrector
+initialize	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+initialize	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+initialize	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def initialize(block)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.BlockBodyCorrector
+initialize	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+initialize	lib/rubocop/cop/rspec/shared_examples.rb	/^          def initialize(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples.Checker
+initialize	lib/rubocop/rspec/align_let_brace.rb	/^      def initialize(root, token)$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+initialize	lib/rubocop/rspec/concept.rb	/^      def initialize(node)$/;"	f	class:RuboCop.RSpec.Concept
+initialize	lib/rubocop/rspec/config_formatter.rb	/^      def initialize(config, descriptions)$/;"	f	class:RuboCop.RSpec.ConfigFormatter
+initialize	lib/rubocop/rspec/corrector/move_node.rb	/^        def initialize(node, corrector, processed_source)$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+initialize	lib/rubocop/rspec/description_extractor.rb	/^        def initialize(yardoc)$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+initialize	lib/rubocop/rspec/description_extractor.rb	/^      def initialize(yardocs)$/;"	f	class:RuboCop.RSpec.DescriptionExtractor
+initialize	lib/rubocop/rspec/language.rb	/^        def initialize(selectors)$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+initialize	lib/rubocop/rspec/wording.rb	/^      def initialize(text, ignore:, replace:)$/;"	f	class:RuboCop.RSpec.Wording
+initialize	spec/rubocop/cop/rspec/instance_variable_spec.rb	/^            def initialize(resource)$/;"	f
+initialize	spec/smoke_tests/weird_rspec_spec.rb	/^      def initialize(thing)$/;"	f
+inside_describe_block?	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^        def inside_describe_block?(node)$/;"	f	class:RuboCop.Cop.RSpec.LeakyConstantDeclaration
+inside_example_scope?	lib/rubocop/cop/rspec/expect_output.rb	/^        def inside_example_scope?(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectOutput
+inside_spec?	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def inside_spec?(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+investigate	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^        def investigate(_processed_source)$/;"	f	class:RuboCop.Cop.RSpec.AlignLeftLetBrace
+investigate	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^        def investigate(_processed_source)$/;"	f	class:RuboCop.Cop.RSpec.AlignRightLetBrace
+is_expected_range	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def is_expected_range(source_map) # rubocop:disable Naming\/PredicateName$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+joined_prefixes	lib/rubocop/cop/rspec/context_wording.rb	/^        def joined_prefixes$/;"	f	class:RuboCop.Cop.RSpec.ContextWording
+key_to_arg	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def key_to_arg(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+knowable_scope?	lib/rubocop/rspec/hook.rb	/^      def knowable_scope?$/;"	f	class:RuboCop.RSpec.Hook
+last_child?	lib/rubocop/rspec/blank_line_separation.rb	/^      def last_child?(node)$/;"	f	class:RuboCop.RSpec.BlankLineSeparation
+let_group_for	lib/rubocop/rspec/align_let_brace.rb	/^      def let_group_for(let)$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+let_token	lib/rubocop/rspec/align_let_brace.rb	/^      def let_token(node)$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+lines_msg	lib/rubocop/cop/rspec/scattered_setup.rb	/^        def lines_msg(numbers)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredSetup
+literal?	lib/rubocop/cop/rspec/expect_actual.rb	/^        def literal?(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+matcher_for	lib/rubocop/cop/rspec/receive_counts.rb	/^        def matcher_for(method, count)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveCounts
+max_expectations	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def max_expectations$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+max_nesting	lib/rubocop/cop/rspec/nested_groups.rb	/^        def max_nesting$/;"	f	class:RuboCop.Cop.RSpec.NestedGroups
+max_nesting_config	lib/rubocop/cop/rspec/nested_groups.rb	/^        def max_nesting_config$/;"	f	class:RuboCop.Cop.RSpec.NestedGroups
+message	lib/rubocop/cop/rspec/described_class.rb	/^        def message(offense)$/;"	f	class:RuboCop.Cop.RSpec
+message	lib/rubocop/cop/rspec/dialect.rb	/^        def message(node)$/;"	f	class:RuboCop.Cop.RSpec.Dialect
+message	lib/rubocop/cop/rspec/example_length.rb	/^        def message(length)$/;"	f	class:RuboCop.Cop.RSpec.ExampleLength
+message	lib/rubocop/cop/rspec/expect_in_hook.rb	/^        def message(expect, hook)$/;"	f	class:RuboCop.Cop.RSpec.ExpectInHook
+message	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^        def message(predicate)$/;"	f	class:RuboCop.Cop.RSpec.InvalidPredicateMatcher
+message	lib/rubocop/cop/rspec/it_behaves_like.rb	/^        def message(_node)$/;"	f	class:RuboCop.Cop.RSpec.ItBehavesLike
+message	lib/rubocop/cop/rspec/message_chain.rb	/^        def message(node)$/;"	f	class:RuboCop.Cop.RSpec.MessageChain
+message	lib/rubocop/cop/rspec/nested_groups.rb	/^        def message(nesting)$/;"	f	class:RuboCop.Cop.RSpec.NestedGroups
+message	lib/rubocop/cop/rspec/not_to_not.rb	/^        def message(_node)$/;"	f	class:RuboCop.Cop.RSpec.NotToNot
+message	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def message$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+message	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def message$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+message	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^        def message(group, repeats)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupBody
+message	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^        def message(group, repeats)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupDescription
+message	lib/rubocop/cop/rspec/shared_examples.rb	/^          def message$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples.Checker
+message	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def message(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+message	spec/rubocop/cop/rspec/before_after_all_spec.rb	/^  def message(hook)$/;"	f
+message_explicit	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def message_explicit(matcher)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+message_for	lib/rubocop/cop/rspec/receive_counts.rb	/^        def message_for(node, source)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveCounts
+message_inflected	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def message_inflected(predicate)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+metadata	lib/rubocop/rspec/example.rb	/^      def metadata$/;"	f	class:RuboCop.RSpec.Example
+metadata	lib/rubocop/rspec/hook.rb	/^      def metadata$/;"	f	class:RuboCop.RSpec.Hook
+metadata	spec/rubocop/rspec/hook_spec.rb	/^    def metadata(source)$/;"	f
+method	spec/rubocop/cop/rspec/described_class_spec.rb	/^          def method$/;"	f
+method	spec/rubocop/cop/rspec/leaky_constant_declaration_spec.rb	/^              def method$/;"	f
+method_name?	lib/rubocop/cop/rspec/context_method.rb	/^        def method_name?(description)$/;"	f	class:RuboCop.Cop.RSpec.ContextMethod
+missing_separating_line	lib/rubocop/rspec/blank_line_separation.rb	/^      def missing_separating_line(node)$/;"	f	class:RuboCop.RSpec.BlankLineSeparation
+move_after	lib/rubocop/rspec/corrector/move_node.rb	/^        def move_after(other)$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+move_before	lib/rubocop/rspec/corrector/move_node.rb	/^        def move_before(other) # rubocop:disable Metrics\/AbcSize$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+move_predicate	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def move_predicate(corrector, actual, matcher, block_child)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+multi_statement_example_group?	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^        def multi_statement_example_group?(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitBlockExpectation
+multiline_block?	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^        def multiline_block?(block)$/;"	f	class:RuboCop.Cop.RSpec.HooksBeforeExamples
+multiline_block?	lib/rubocop/cop/rspec/let_before_examples.rb	/^        def multiline_block?(block)$/;"	f	class:RuboCop.Cop.RSpec.LetBeforeExamples
+name	lib/rubocop/rspec/hook.rb	/^      def name$/;"	f	class:RuboCop.RSpec.Hook
+name_glob	lib/rubocop/cop/rspec/file_path.rb	/^        def name_glob(name)$/;"	f	class:RuboCop.Cop.RSpec
+named_subject?	lib/rubocop/cop/rspec/multiple_subjects.rb	/^        def named_subject?(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleSubjects
+namespace	lib/rubocop/cop/rspec/described_class.rb	/^        def namespace(node)$/;"	f	class:RuboCop.Cop.RSpec
+nearest_subject	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^        def nearest_subject(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitBlockExpectation
+next_one_line_example?	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def next_one_line_example?(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+next_sibling	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def next_sibling(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+node_pattern	lib/rubocop/rspec/language.rb	/^        def node_pattern$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+node_pattern_union	lib/rubocop/rspec/language.rb	/^        def node_pattern_union$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+node_range	lib/rubocop/rspec/corrector/move_node.rb	/^        def node_range(node)$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+node_range_with_surrounding_space	lib/rubocop/rspec/corrector/move_node.rb	/^        def node_range_with_surrounding_space(node)$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+number	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def number$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+number	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def number$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+offending?	lib/rubocop/cop/rspec/leading_subject.rb	/^        def offending?(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+offending_expect	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def offending_expect(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+offending_loc	lib/rubocop/rspec/blank_line_separation.rb	/^      def offending_loc(last_line)$/;"	f	class:RuboCop.RSpec.BlankLineSeparation
+offending_tokens	lib/rubocop/rspec/align_let_brace.rb	/^      def offending_tokens$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+offense_message	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def offense_message(offending_source)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+offensive?	lib/rubocop/cop/rspec/described_class.rb	/^        def offensive?(node)$/;"	f	class:RuboCop.Cop.RSpec
+offensive?	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def offensive?$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+offensive?	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def offensive?$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+offensive_described_class?	lib/rubocop/cop/rspec/described_class.rb	/^        def offensive_described_class?(node)$/;"	f	class:RuboCop.Cop.RSpec
+offensive_receiver?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def offensive_receiver?(receiver, node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+on_begin	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^        def on_begin(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupBody
+on_begin	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^        def on_begin(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupDescription
+on_block	lib/rubocop/cop/rspec/around_block.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.AroundBlock
+on_block	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+on_block	lib/rubocop/cop/rspec/context_method.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ContextMethod
+on_block	lib/rubocop/cop/rspec/context_wording.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ContextWording
+on_block	lib/rubocop/cop/rspec/described_class.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.DescribedClass
+on_block	lib/rubocop/cop/rspec/empty_example_group.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyExampleGroup
+on_block	lib/rubocop/cop/rspec/empty_hook.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyHook
+on_block	lib/rubocop/cop/rspec/empty_line_after_example.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExample
+on_block	lib/rubocop/cop/rspec/empty_line_after_example_group.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterExampleGroup
+on_block	lib/rubocop/cop/rspec/empty_line_after_final_let.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterFinalLet
+on_block	lib/rubocop/cop/rspec/empty_line_after_hook.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterHook
+on_block	lib/rubocop/cop/rspec/empty_line_after_subject.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.EmptyLineAfterSubject
+on_block	lib/rubocop/cop/rspec/example_length.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleLength
+on_block	lib/rubocop/cop/rspec/example_without_description.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWithoutDescription
+on_block	lib/rubocop/cop/rspec/example_wording.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+on_block	lib/rubocop/cop/rspec/expect_change.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectChange
+on_block	lib/rubocop/cop/rspec/expect_in_hook.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectInHook
+on_block	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+on_block	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+on_block	lib/rubocop/cop/rspec/hook_argument.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.HookArgument
+on_block	lib/rubocop/cop/rspec/hooks_before_examples.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.HooksBeforeExamples
+on_block	lib/rubocop/cop/rspec/instance_spy.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.InstanceSpy
+on_block	lib/rubocop/cop/rspec/instance_variable.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.InstanceVariable
+on_block	lib/rubocop/cop/rspec/iterated_expectation.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.IteratedExpectation
+on_block	lib/rubocop/cop/rspec/leading_subject.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.LeadingSubject
+on_block	lib/rubocop/cop/rspec/let_before_examples.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.LetBeforeExamples
+on_block	lib/rubocop/cop/rspec/let_setup.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.LetSetup
+on_block	lib/rubocop/cop/rspec/missing_example_group_argument.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.MissingExampleGroupArgument
+on_block	lib/rubocop/cop/rspec/multiple_expectations.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleExpectations
+on_block	lib/rubocop/cop/rspec/multiple_subjects.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleSubjects
+on_block	lib/rubocop/cop/rspec/named_subject.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.NamedSubject
+on_block	lib/rubocop/cop/rspec/overwriting_setup.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.OverwritingSetup
+on_block	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.PredicateMatcher
+on_block	lib/rubocop/cop/rspec/repeated_description.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedDescription
+on_block	lib/rubocop/cop/rspec/repeated_example.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExample
+on_block	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+on_block	lib/rubocop/cop/rspec/scattered_let.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredLet
+on_block	lib/rubocop/cop/rspec/scattered_setup.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredSetup
+on_block	lib/rubocop/cop/rspec/shared_context.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedContext
+on_block	lib/rubocop/cop/rspec/subject_stub.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.SubjectStub
+on_block	lib/rubocop/cop/rspec/void_expect.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.VoidExpect
+on_block	lib/rubocop/cop/rspec/yield.rb	/^        def on_block(node)$/;"	f	class:RuboCop.Cop.RSpec.Yield
+on_casgn	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^        def on_casgn(node)$/;"	f	class:RuboCop.Cop.RSpec.LeakyConstantDeclaration
+on_class	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^        def on_class(node)$/;"	f	class:RuboCop.Cop.RSpec.LeakyConstantDeclaration
+on_gvasgn	lib/rubocop/cop/rspec/expect_output.rb	/^        def on_gvasgn(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectOutput
+on_module	lib/rubocop/cop/rspec/described_class_module_wrapping.rb	/^        def on_module(node)$/;"	f	class:RuboCop.Cop.RSpec.DescribedClassModuleWrapping
+on_module	lib/rubocop/cop/rspec/leaky_constant_declaration.rb	/^        def on_module(node)$/;"	f	class:RuboCop.Cop.RSpec.LeakyConstantDeclaration
+on_send	lib/rubocop/cop/rspec/any_instance.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.AnyInstance
+on_send	lib/rubocop/cop/rspec/be.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Be
+on_send	lib/rubocop/cop/rspec/be_eql.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.BeEql
+on_send	lib/rubocop/cop/rspec/before_after_all.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.BeforeAfterAll
+on_send	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^          def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.CurrentPathExpectation
+on_send	lib/rubocop/cop/rspec/capybara/visibility_matcher.rb	/^          def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.VisibilityMatcher
+on_send	lib/rubocop/cop/rspec/describe_symbol.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.DescribeSymbol
+on_send	lib/rubocop/cop/rspec/dialect.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Dialect
+on_send	lib/rubocop/cop/rspec/expect_actual.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+on_send	lib/rubocop/cop/rspec/expect_change.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectChange
+on_send	lib/rubocop/cop/rspec/factory_bot/create_list.rb	/^          def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.CreateList
+on_send	lib/rubocop/cop/rspec/factory_bot/factory_class_name.rb	/^          def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.FactoryClassName
+on_send	lib/rubocop/cop/rspec/focus.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Focus
+on_send	lib/rubocop/cop/rspec/implicit_block_expectation.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitBlockExpectation
+on_send	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def on_send(node) # rubocop:disable Metrics\/MethodLength$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+on_send	lib/rubocop/cop/rspec/implicit_subject.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitSubject
+on_send	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.InvalidPredicateMatcher
+on_send	lib/rubocop/cop/rspec/it_behaves_like.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ItBehavesLike
+on_send	lib/rubocop/cop/rspec/message_chain.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.MessageChain
+on_send	lib/rubocop/cop/rspec/message_expectation.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.MessageExpectation
+on_send	lib/rubocop/cop/rspec/message_spies.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.MessageSpies
+on_send	lib/rubocop/cop/rspec/not_to_not.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.NotToNot
+on_send	lib/rubocop/cop/rspec/pending.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Pending
+on_send	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.PredicateMatcher
+on_send	lib/rubocop/cop/rspec/rails/http_status.rb	/^          def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus
+on_send	lib/rubocop/cop/rspec/receive_counts.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveCounts
+on_send	lib/rubocop/cop/rspec/receive_never.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveNever
+on_send	lib/rubocop/cop/rspec/return_from_stub.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub
+on_send	lib/rubocop/cop/rspec/shared_examples.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples
+on_send	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+on_send	lib/rubocop/cop/rspec/unspecified_exception.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.UnspecifiedException
+on_send	lib/rubocop/cop/rspec/verified_doubles.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.VerifiedDoubles
+on_send	lib/rubocop/cop/rspec/void_expect.rb	/^        def on_send(node)$/;"	f	class:RuboCop.Cop.RSpec.VoidExpect
+on_send	lib/rubocop/rspec/top_level_describe.rb	/^      def on_send(node)$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+on_send	spec/rubocop/cop/rspec/cop_spec.rb	/^      def on_send(node)$/;"	f	class:RuboCop
+on_top_level_describe	lib/rubocop/cop/rspec/describe_class.rb	/^        def on_top_level_describe(node, (described_value, _))$/;"	f	class:RuboCop.Cop.RSpec.DescribeClass
+on_top_level_describe	lib/rubocop/cop/rspec/describe_method.rb	/^        def on_top_level_describe(_node, (_, second_arg))$/;"	f	class:RuboCop.Cop.RSpec.DescribeMethod
+on_top_level_describe	lib/rubocop/cop/rspec/file_path.rb	/^        def on_top_level_describe(node, args)$/;"	f	class:RuboCop.Cop.RSpec
+on_top_level_describe	lib/rubocop/cop/rspec/multiple_describes.rb	/^        def on_top_level_describe(node, _args)$/;"	f	class:RuboCop.Cop.RSpec.MultipleDescribes
+on_top_level_describe	lib/rubocop/cop/rspec/nested_groups.rb	/^        def on_top_level_describe(node, _args)$/;"	f	class:RuboCop.Cop.RSpec.NestedGroups
+only_expectations?	lib/rubocop/cop/rspec/iterated_expectation.rb	/^        def only_expectations?(body, arg)$/;"	f	class:RuboCop.Cop.RSpec.IteratedExpectation
+permits	spec/rubocop/cop/rspec/implicit_subject_spec.rb	/^        def permits(actions)$/;"	f
+predicate?	lib/rubocop/cop/rspec/invalid_predicate_matcher.rb	/^        def predicate?(name)$/;"	f	class:RuboCop.Cop.RSpec.InvalidPredicateMatcher
+predicate?	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def predicate?(sym)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+predicate_matcher_name?	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def predicate_matcher_name?(name)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+preferred_style	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def preferred_style$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+preferred_style	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def preferred_style$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+preferred_style	lib/rubocop/cop/rspec/shared_examples.rb	/^          def preferred_style$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples.Checker
+preferred_style?	lib/rubocop/cop/rspec/message_expectation.rb	/^        def preferred_style?(expectation)$/;"	f	class:RuboCop.Cop.RSpec.MessageExpectation
+preferred_style?	lib/rubocop/cop/rspec/message_spies.rb	/^        def preferred_style?(expectation)$/;"	f	class:RuboCop.Cop.RSpec.MessageSpies
+prefixes	lib/rubocop/cop/rspec/context_wording.rb	/^        def prefixes$/;"	f	class:RuboCop.Cop.RSpec.ContextWording
+proc?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def proc?(attribute)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+range	lib/rubocop/cop/rspec/receive_counts.rb	/^        def range(node, offending_node)$/;"	f	class:RuboCop.Cop.RSpec.ReceiveCounts
+range	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def range$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+receive_message_matcher	lib/rubocop/cop/rspec/message_spies.rb	/^        def receive_message_matcher(node)$/;"	f	class:RuboCop.Cop.RSpec.MessageSpies
+receiver_matches_first_block_argument?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def receiver_matches_first_block_argument?(receiver, node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+recursive_literal_or_const?	lib/rubocop/rspec/node.rb	/^      def recursive_literal_or_const?$/;"	f	class:RuboCop.RSpec.Node
+redefines_subject?	lib/rubocop/cop/rspec/subject_stub.rb	/^        def redefines_subject?(node)$/;"	f	class:RuboCop.Cop.RSpec.SubjectStub
+relevant_file?	lib/rubocop/cop/rspec/cop.rb	/^        def relevant_file?(file)$/;"	f	class:RuboCop.RSpec.Cop
+relevant_rubocop_rspec_file?	lib/rubocop/cop/rspec/cop.rb	/^        def relevant_rubocop_rspec_file?(file)$/;"	f	class:RuboCop.RSpec.Cop
+relevant_rubocop_rspec_file?	lib/rubocop/cop/rspec/file_path.rb	/^        def relevant_rubocop_rspec_file?(_file)$/;"	f	class:RuboCop.Cop.RSpec
+remove_autocorrect	lib/rubocop/cop/rspec/multiple_subjects.rb	/^        def remove_autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleSubjects
+remove_predicate	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def remove_predicate(corrector, predicate)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+remove_should_and_pluralize	lib/rubocop/rspec/wording.rb	/^      def remove_should_and_pluralize$/;"	f	class:RuboCop.RSpec.Wording
+rename_autocorrect	lib/rubocop/cop/rspec/multiple_subjects.rb	/^        def rename_autocorrect(node)$/;"	f	class:RuboCop.Cop.RSpec.MultipleSubjects
+repeated_descriptions	lib/rubocop/cop/rspec/repeated_description.rb	/^        def repeated_descriptions(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedDescription
+repeated_examples	lib/rubocop/cop/rspec/repeated_example.rb	/^        def repeated_examples(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExample
+repeated_group_bodies	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^        def repeated_group_bodies(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupBody
+repeated_group_descriptions	lib/rubocop/cop/rspec/repeated_example_group_description.rb	/^        def repeated_group_descriptions(node)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupDescription
+repeated_hooks	lib/rubocop/cop/rspec/scattered_setup.rb	/^        def repeated_hooks(node)$/;"	f	class:RuboCop.Cop.RSpec.ScatteredSetup
+replace_prefix	lib/rubocop/rspec/wording.rb	/^      def replace_prefix(pattern, replacement)$/;"	f	class:RuboCop.RSpec.Wording
+replacement	lib/rubocop/cop/rspec/return_from_stub.rb	/^          def replacement$/;"	f	class:RuboCop.Cop.RSpec.ReturnFromStub.AndReturnCallCorrector
+replacement	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def replacement(method)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+replacement_matcher	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def replacement_matcher(node)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+replacement_source	lib/rubocop/cop/rspec/implicit_expect.rb	/^        def replacement_source(offending_source)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitExpect
+replacement_text	lib/rubocop/cop/rspec/example_wording.rb	/^        def replacement_text(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+reserved_method?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def reserved_method?(method_name)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+reserved_methods	lib/rubocop/rspec/factory_bot.rb	/^      def self.reserved_methods$/;"	F	class:RuboCop.RSpec.FactoryBot
+rewrite	lib/rubocop/rspec/wording.rb	/^      def rewrite$/;"	f	class:RuboCop.RSpec.Wording
+rewrite_expectation	lib/rubocop/cop/rspec/capybara/current_path_expectation.rb	/^          def rewrite_expectation(corrector, node, to_symbol, matcher_node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.CurrentPathExpectation
+rewrite_matcher	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def rewrite_matcher(corrector, predicate, matcher)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+root_node	lib/rubocop/rspec/top_level_describe.rb	/^      def root_node$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+root_node?	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def root_node?(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+root_with_siblings?	lib/rubocop/cop/rspec/capybara/feature_methods.rb	/^          def root_with_siblings?(node)$/;"	f	class:RuboCop.Cop.RSpec.Capybara.FeatureMethods
+routing_spec?	lib/rubocop/cop/rspec/file_path.rb	/^        def routing_spec?(args)$/;"	f	class:RuboCop.Cop.RSpec
+rspec_cop?	lib/rubocop/rspec/description_extractor.rb	/^        def rspec_cop?$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+rspec_cop_namespace?	lib/rubocop/rspec/description_extractor.rb	/^        def rspec_cop_namespace?$/;"	f	class:RuboCop.RSpec.DescriptionExtractor.CodeObject
+rspec_pattern	lib/rubocop/cop/rspec/cop.rb	/^        def rspec_pattern$/;"	f	class:RuboCop.RSpec.Cop
+rspec_pattern_config	lib/rubocop/cop/rspec/cop.rb	/^        def rspec_pattern_config$/;"	f	class:RuboCop.RSpec.Cop
+rspec_pattern_config?	lib/rubocop/cop/rspec/cop.rb	/^        def rspec_pattern_config?$/;"	f	class:RuboCop.RSpec.Cop
+scope	lib/rubocop/rspec/hook.rb	/^      def scope$/;"	f	class:RuboCop.RSpec.Hook
+scope_argument	lib/rubocop/rspec/hook.rb	/^      def scope_argument$/;"	f	class:RuboCop.RSpec.Hook
+scope_change?	lib/rubocop/cop/rspec/described_class.rb	/^        def scope_change?(node)$/;"	f	class:RuboCop.Cop.RSpec
+scope_name	lib/rubocop/rspec/hook.rb	/^      def scope_name$/;"	f	class:RuboCop.RSpec.Hook
+send_pattern	lib/rubocop/rspec/language.rb	/^        def send_pattern$/;"	f	class:RuboCop.RSpec.Language.SelectorSet
+serialize	spec/rubocop/cop/rspec/instance_variable_spec.rb	/^            def serialize$/;"	f
+signature_keys	lib/rubocop/cop/rspec/repeated_example_group_body.rb	/^        def signature_keys(group)$/;"	f	class:RuboCop.Cop.RSpec.RepeatedExampleGroupBody
+simple_literal?	lib/rubocop/cop/rspec/expect_actual.rb	/^        def simple_literal?(node)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+single_element_array?	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def single_element_array?(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+single_expectation?	lib/rubocop/cop/rspec/iterated_expectation.rb	/^        def single_expectation?(body, arg)$/;"	f	class:RuboCop.Cop.RSpec.IteratedExpectation
+single_line_lets	lib/rubocop/rspec/align_let_brace.rb	/^      def single_line_lets$/;"	f	class:RuboCop.RSpec.AlignLetBrace.adjacent_let_chunks
+single_top_level_describe?	lib/rubocop/rspec/top_level_describe.rb	/^      def single_top_level_describe?$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+skip_blocks?	lib/rubocop/cop/rspec/described_class.rb	/^        def skip_blocks?$/;"	f	class:RuboCop.Cop.RSpec
+skippable_block?	lib/rubocop/cop/rspec/described_class.rb	/^        def skippable_block?(node)$/;"	f	class:RuboCop.Cop.RSpec
+skipped?	lib/rubocop/cop/rspec/pending.rb	/^        def skipped?(node)$/;"	f	class:RuboCop.Cop.RSpec.Pending
+some_method	spec/rubocop/cop/rspec/described_class_module_wrapping_spec.rb	/^        def some_method$/;"	f	class:MyModule
+source	lib/rubocop/rspec/corrector/move_node.rb	/^        def source(node)$/;"	f	class:RuboCop.RSpec.Corrector.MoveNode
+string_constant_describe?	lib/rubocop/cop/rspec/describe_class.rb	/^        def string_constant_describe?(described_value)$/;"	f	class:RuboCop.Cop.RSpec.DescribeClass
+stub_cop_const	spec/rubocop/rspec/description_extractor_spec.rb	/^  def stub_cop_const(name)$/;"	f
+stub_foo	spec/rubocop/cop/rspec/return_from_stub_spec.rb	/^        def stub_foo$/;"	f
+subjects	lib/rubocop/rspec/example_group.rb	/^      def subjects$/;"	f	class:RuboCop.RSpec.ExampleGroup
+subjects_in_scope	lib/rubocop/rspec/example_group.rb	/^      def subjects_in_scope(node)$/;"	f	class:RuboCop.RSpec.ExampleGroup
+substitute	lib/rubocop/rspec/wording.rb	/^      def substitute(word)$/;"	f	class:RuboCop.RSpec.Wording
+swap	lib/rubocop/cop/rspec/expect_actual.rb	/^        def swap(corrector, actual, expected)$/;"	f	class:RuboCop.Cop.RSpec.ExpectActual
+symbol	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def symbol$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.NumericStyleChecker
+symbol	lib/rubocop/cop/rspec/rails/http_status.rb	/^            def symbol$/;"	f	class:RuboCop.Cop.RSpec.Rails.HttpStatus.SymbolicStyleChecker
+symbol	lib/rubocop/cop/rspec/shared_examples.rb	/^          def symbol$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples.Checker
+symbol?	lib/rubocop/cop/rspec/verified_doubles.rb	/^        def symbol?(name)$/;"	f	class:RuboCop.Cop.RSpec.VerifiedDoubles
+target_column_for	lib/rubocop/rspec/align_let_brace.rb	/^      def target_column_for(let)$/;"	f	class:RuboCop.RSpec.AlignLetBrace
+text	lib/rubocop/cop/rspec/example_wording.rb	/^        def text(node)$/;"	f	class:RuboCop.Cop.RSpec.ExampleWording
+to_h	lib/rubocop/rspec/description_extractor.rb	/^      def to_h$/;"	f	class:RuboCop.RSpec.DescriptionExtractor
+to_node	lib/rubocop/rspec/concept.rb	/^      def to_node$/;"	f	class:RuboCop.RSpec.Concept
+to_predicate_matcher	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def to_predicate_matcher(name)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+to_predicate_method	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def to_predicate_method(matcher)$/;"	f	class:RuboCop.Cop.ExplicitHelper
+token_aligner	lib/rubocop/cop/rspec/align_left_let_brace.rb	/^        def token_aligner$/;"	f	class:RuboCop.Cop.RSpec.AlignLeftLetBrace
+token_aligner	lib/rubocop/cop/rspec/align_right_let_brace.rb	/^        def token_aligner$/;"	f	class:RuboCop.Cop.RSpec.AlignRightLetBrace
+top_level_describe?	lib/rubocop/rspec/top_level_describe.rb	/^      def top_level_describe?(node)$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+top_level_nodes	lib/rubocop/rspec/top_level_describe.rb	/^      def top_level_nodes$/;"	f	class:RuboCop.RSpec.TopLevelDescribe
+transform_metadata	lib/rubocop/rspec/hook.rb	/^      def transform_metadata(meta)$/;"	f	class:RuboCop.RSpec.Hook
+transform_true	lib/rubocop/rspec/hook.rb	/^      def transform_true(node)$/;"	f	class:RuboCop.RSpec.Hook
+true?	lib/rubocop/cop/rspec/predicate_matcher.rb	/^        def true?(to_symbol, matcher)$/;"	f	class:RuboCop.Cop.RSpec.InflectedHelper
+unified_config	lib/rubocop/rspec/config_formatter.rb	/^      def unified_config$/;"	f	class:RuboCop.RSpec.ConfigFormatter
+unused_let_bang	lib/rubocop/cop/rspec/let_setup.rb	/^        def unused_let_bang(node)$/;"	f	class:RuboCop.Cop.RSpec.LetSetup
+uppercase?	lib/rubocop/rspec/wording.rb	/^      def uppercase?(word)$/;"	f	class:RuboCop.RSpec.Wording
+valid_scope?	lib/rubocop/rspec/hook.rb	/^      def valid_scope?(node)$/;"	f	class:RuboCop.RSpec.Hook
+valid_usage?	lib/rubocop/cop/rspec/implicit_subject.rb	/^        def valid_usage?(node)$/;"	f	class:RuboCop.Cop.RSpec.ImplicitSubject
+valid_usage?	lib/rubocop/cop/rspec/instance_variable.rb	/^        def valid_usage?(node)$/;"	f	class:RuboCop.Cop.RSpec.InstanceVariable
+valid_usage?	lib/rubocop/cop/rspec/single_argument_message_chain.rb	/^        def valid_usage?(node)$/;"	f	class:RuboCop.Cop.RSpec.SingleArgumentMessageChain
+value_hash_without_braces?	lib/rubocop/cop/rspec/factory_bot/attribute_defined_statically.rb	/^          def value_hash_without_braces?(node)$/;"	f	class:RuboCop.Cop.RSpec.FactoryBot.AttributeDefinedStatically
+void?	lib/rubocop/cop/rspec/void_expect.rb	/^        def void?(expect)$/;"	f	class:RuboCop.Cop.RSpec.VoidExpect
+wrap_with_single_quotes	lib/rubocop/cop/rspec/shared_examples.rb	/^          def wrap_with_single_quotes(string)$/;"	f	class:RuboCop.Cop.RSpec.SharedExamples.Checker
