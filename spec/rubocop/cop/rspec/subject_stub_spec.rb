@@ -349,6 +349,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       context xcontext fcontext
       feature xfeature ffeature
       example_group
+      shared_examples shared_examples_for shared_context
     ].each do |method|
       it "flags in top level #{method}" do
         expect_offense(<<-RUBY)
