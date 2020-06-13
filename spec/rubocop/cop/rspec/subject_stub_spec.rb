@@ -324,7 +324,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
   it 'flags when there are several top level example groups' do
     expect_offense(<<-RUBY)
-      describe Foo do
+      RSpec.describe Foo do
         subject(:foo) { described_class.new }
 
         specify do
@@ -332,12 +332,12 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
         end
       end
 
-      describe Bar do
+      RSpec.describe Bar do
         subject(:bar) { described_class.new }
 
         specify do
-          allow(bar).to receive(:bar).and_return(baz)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+          allow(bar).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
@@ -353,10 +353,10 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     ].each do |method|
       it "flags in top level #{method}" do
         expect_offense(<<-RUBY)
-          #{method} '#{method}' do
+          RSpec.#{method} '#{method}' do
             it 'uses an implicit subject' do
-              expect(subject).to receive(:bar).and_return(baz)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+              expect(subject).to receive(:bar)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
             end
           end
         RUBY
