@@ -29,12 +29,11 @@ module RuboCop
       end
 
       def top_level_nodes
-        @top_level_nodes ||=
-          if root_node.begin_type?
-            root_node.children
-          else
-            [root_node]
-          end
+        if root_node.begin_type?
+          root_node.children
+        else
+          [root_node]
+        end
       end
 
       def root_node
