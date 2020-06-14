@@ -50,10 +50,6 @@ module RuboCop
         MSG = 'Avoid instance variables – use let, ' \
               'a method call, or a local variable (if possible).'
 
-        EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
-
-        def_node_matcher :spec_group?, EXAMPLE_GROUP_METHODS.block_pattern
-
         def_node_matcher :dynamic_class?, <<-PATTERN
           (block (send (const nil? :Class) :new ...) ...)
         PATTERN

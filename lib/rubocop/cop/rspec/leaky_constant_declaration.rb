@@ -119,11 +119,8 @@ module RuboCop
         private
 
         def inside_describe_block?(node)
-          node.each_ancestor(:block).any?(&method(:in_example_or_shared_group?))
+          node.each_ancestor(:block).any?(&method(:spec_group?))
         end
-
-        def_node_matcher :in_example_or_shared_group?,
-                         (ExampleGroups::ALL + SharedGroups::ALL).block_pattern
       end
     end
   end
