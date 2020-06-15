@@ -14,72 +14,44 @@ module RuboCop
         ExampleGroups::ALL + SharedGroups::ALL + Includes::ALL
       ).block_pattern
 
+      def lets
+        find_all_in_scope(node, :let?)
+      end
+
       def subjects
-        subjects_in_scope(node)
+        find_all_in_scope(node, :subject?)
       end
 
       def examples
-        examples_in_scope(node).map(&Example.public_method(:new))
+        find_all_in_scope(node, :example?).map(&Example.public_method(:new))
       end
 
       def hooks
-        hooks_in_scope(node).map(&Hook.public_method(:new))
+        find_all_in_scope(node, :hook?).map(&Hook.public_method(:new))
       end
 
       private
 
-      def subjects_in_scope(node)
-        node.each_child_node.flat_map do |child|
-          find_subjects(child)
-        end
-      end
-
-      def find_subjects(node)
-        return [] if scope_change?(node)
-
-        if subject?(node)
-          [node]
-        else
-          subjects_in_scope(node)
-        end
-      end
-
-      def hooks_in_scope(node)
-        node.each_child_node.flat_map do |child|
-          find_hooks(child)
-        end
-      end
-
-      def find_hooks(node)
-        return [] if scope_change?(node) || example?(node)
-
-        if hook?(node)
-          [node]
-        else
-          hooks_in_scope(node)
-        end
-      end
-
-      def examples_in_scope(node, &blk)
-        node.each_child_node.flat_map do |child|
-          find_examples(child, &blk)
-        end
-      end
-
-      # Recursively search for examples within the current scope
+      # Recursively search for predicate within the current scope
       #
-      # Searches node for examples and halts when a scope change is detected
+      # Searches node and halts when a scope change is detected
       #
-      # @param node [RuboCop::Node] node to recursively search for examples
+      # @param node [RuboCop::Node] node to recursively search
       #
-      # @return [Array<RuboCop::Node>] discovered example nodes
-      def find_examples(node)
-        return [] if scope_change?(node)
+      # @return [Array<RuboCop::Node>] discovered nodes
+      def find_all_in_scope(node, predicate)
+        node.each_child_node.flat_map do |child|
+          find_all(child, predicate)
+        end
+      end
 
-        if example?(node)
+      def find_all(node, predicate)
+        if public_send(predicate, node)
           [node]
+        elsif scope_change?(node) || example?(node)
+          []
         else
-          examples_in_scope(node)
+          find_all_in_scope(node, predicate)
         end
       end
     end
