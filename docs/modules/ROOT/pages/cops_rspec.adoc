@@ -1984,38 +1984,6 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
-== RSpec/InvalidPredicateMatcher
-
-|===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
-
-| Enabled
-| Yes
-| No
-| 1.16
-| -
-|===
-
-Checks invalid usage for predicate matcher.
-
-Predicate matcher does not need a question.
-This cop checks an unnecessary question in predicate matcher.
-
-=== Examples
-
-[source,ruby]
-----
-# bad
-expect(foo).to be_something?
-
-# good
-expect(foo).to be_something
-----
-
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher
-
 == RSpec/ItBehavesLike
 
 |===
