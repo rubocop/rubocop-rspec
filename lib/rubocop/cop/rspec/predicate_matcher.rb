@@ -277,12 +277,12 @@ module RuboCop
       #   expect(foo).to be_something
       #
       #   # also good - It checks "true" strictly.
-      #   expect(foo).to be(true)
+      #   expect(foo.something?).to be(true)
       #
       # @example Strict: false, EnforcedStyle: inflected
       #   # bad
       #   expect(foo.something?).to be_truthy
-      #   expect(foo).to be(true)
+      #   expect(foo.something?).to be(true)
       #
       #   # good
       #   expect(foo).to be_something
