@@ -35,7 +35,7 @@ module RuboCop
       #
       class EmptyLineAfterHook < Cop
         extend AutoCorrector
-        include RuboCop::RSpec::EmptyLineSeparation
+        include EmptyLineSeparation
 
         MSG = 'Add an empty line after `%<hook>s`.'
 

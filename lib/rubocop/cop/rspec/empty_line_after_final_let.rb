@@ -18,7 +18,7 @@ module RuboCop
       #   it { does_something }
       class EmptyLineAfterFinalLet < Cop
         extend AutoCorrector
-        include RuboCop::RSpec::EmptyLineSeparation
+        include EmptyLineSeparation
 
         MSG = 'Add an empty line after the last `%<let>s`.'
 

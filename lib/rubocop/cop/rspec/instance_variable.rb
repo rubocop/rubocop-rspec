@@ -47,7 +47,7 @@ module RuboCop
       #   end
       #
       class InstanceVariable < Cop
-        include RuboCop::RSpec::TopLevelGroup
+        include TopLevelGroup
 
         MSG = 'Avoid instance variables – use let, ' \
               'a method call, or a local variable (if possible).'

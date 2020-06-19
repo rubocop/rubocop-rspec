@@ -25,7 +25,7 @@ module RuboCop
       #
       class EmptyLineAfterExampleGroup < Cop
         extend AutoCorrector
-        include RuboCop::RSpec::EmptyLineSeparation
+        include EmptyLineSeparation
 
         MSG = 'Add an empty line after `%<example_group>s`.'
 

@@ -24,7 +24,7 @@ module RuboCop
       #   subject(:userName) { 'Adam' }
       class VariableName < Cop
         include ConfigurableNaming
-        include RuboCop::RSpec::Variable
+        include Variable
 
         MSG = 'Use %<style>s for variable names.'
 

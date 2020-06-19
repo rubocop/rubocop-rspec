@@ -24,7 +24,7 @@ module RuboCop
       #   subject('user') { create_user }
       class VariableDefinition < Cop
         include ConfigurableEnforcedStyle
-        include RuboCop::RSpec::Variable
+        include Variable
 
         MSG = 'Use %<style>s for variable names.'
 
