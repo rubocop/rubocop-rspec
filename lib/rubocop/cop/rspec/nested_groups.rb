@@ -87,7 +87,7 @@ module RuboCop
       #
       class NestedGroups < Base
         include ConfigurableMax
-        include RuboCop::RSpec::TopLevelGroup
+        include TopLevelGroup
 
         MSG = 'Maximum example group nesting exceeded [%<total>d/%<max>d].'
 

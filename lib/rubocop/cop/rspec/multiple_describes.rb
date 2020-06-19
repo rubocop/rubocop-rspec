@@ -23,7 +23,7 @@ module RuboCop
       #     end
       #   end
       class MultipleDescribes < Base
-        include RuboCop::RSpec::TopLevelGroup
+        include TopLevelGroup
 
         MSG = 'Do not use multiple top-level example groups - '\
               'try to nest them.'
