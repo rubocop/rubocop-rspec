@@ -154,6 +154,16 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
     RUBY
   end
 
+  it 'accepts valid traits_for_enum definition' do
+    expect_no_offenses(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          traits_for_enum :status, [:draft, :published]
+        end
+      end
+    RUBY
+  end
+
   bad = <<-RUBY
     FactoryBot.define do
       factory :post do
