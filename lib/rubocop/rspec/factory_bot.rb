@@ -4,7 +4,13 @@ module RuboCop
   module RSpec
     # RuboCop FactoryBot project namespace
     module FactoryBot
-      ATTRIBUTE_DEFINING_METHODS = %i[factory trait traits_for_enum transient ignore].freeze
+      ATTRIBUTE_DEFINING_METHODS = %i[
+        factory
+        ignore
+        trait
+        traits_for_enum
+        transient
+      ].freeze
 
       UNPROXIED_METHODS = %i[
         __send__
