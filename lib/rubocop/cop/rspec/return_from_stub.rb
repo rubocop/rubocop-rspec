@@ -45,15 +45,15 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless contains_stub?(node)
           return unless style == :block
+          return unless contains_stub?(node)
 
           check_and_return_call(node)
         end
 
         def on_block(node)
-          return unless contains_stub?(node)
           return unless style == :and_return
+          return unless contains_stub?(node)
 
           check_block_body(node)
         end
