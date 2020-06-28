@@ -31,12 +31,15 @@ module RuboCop
             (send _ !#reserved_method? $...)
           PATTERN
 
-          def_node_search :factory_attributes, <<-PATTERN
+          def_node_matcher :factory_attributes, <<-PATTERN
             (block (send _ #attribute_defining_method? ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
           def on_block(node)
-            factory_attributes(node).to_a.flatten.each do |attribute|
+            attributes = factory_attributes(node) || []
+            attributes = [attributes] unless attributes.is_a?(Array)
+
+            attributes.each do |attribute|
               next unless offensive_receiver?(attribute.receiver, node)
               next if proc?(attribute) || association?(attribute.first_argument)
 
