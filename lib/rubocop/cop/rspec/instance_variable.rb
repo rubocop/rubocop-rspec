@@ -47,12 +47,10 @@ module RuboCop
       #   end
       #
       class InstanceVariable < Cop
+        include RuboCop::RSpec::TopLevelGroup
+
         MSG = 'Avoid instance variables – use let, ' \
               'a method call, or a local variable (if possible).'
-
-        EXAMPLE_GROUP_METHODS = ExampleGroups::ALL + SharedGroups::ALL
-
-        def_node_matcher :spec_group?, EXAMPLE_GROUP_METHODS.block_pattern
 
         def_node_matcher :dynamic_class?, <<-PATTERN
           (block (send (const nil? :Class) :new ...) ...)
@@ -69,9 +67,7 @@ module RuboCop
 
         def_node_search :ivar_assigned?, '(ivasgn % ...)'
 
-        def on_block(node)
-          return unless spec_group?(node)
-
+        def on_top_level_group(node)
           ivar_usage(node) do |ivar, name|
             next if valid_usage?(ivar)
             next if assignment_only? && !ivar_assigned?(node, name)
