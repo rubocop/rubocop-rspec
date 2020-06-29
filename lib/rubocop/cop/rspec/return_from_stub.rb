@@ -40,20 +40,21 @@ module RuboCop
         MSG_BLOCK = 'Use block for static values.'
 
         def_node_search :contains_stub?, '(send nil? :receive (...))'
+        def_node_matcher :stub_with_block?, '(block #contains_stub? ...)'
         def_node_search :and_return_value, <<-PATTERN
           $(send _ :and_return $(...))
         PATTERN
 
         def on_send(node)
-          return unless contains_stub?(node)
           return unless style == :block
+          return unless contains_stub?(node)
 
           check_and_return_call(node)
         end
 
         def on_block(node)
-          return unless contains_stub?(node)
           return unless style == :and_return
+          return unless stub_with_block?(node)
 
           check_block_body(node)
         end
