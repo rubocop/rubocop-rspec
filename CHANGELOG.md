@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Extend the list of Rails spec types for `RSpec/DescribeClass`. ([@pirj][])
+* Fix `FactoryBot/AttributeDefinedStatically` to allow `#traits_for_enum` without a block. ([@harrylewis][])
 
 ## 1.40.0 (2020-06-11)
 
