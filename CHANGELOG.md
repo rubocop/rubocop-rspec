@@ -521,3 +521,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@robotdana]: https://github.com/robotdana
 [@rolfschmidt]: https://github.com/rolfschmidt
 [@andrykonchin]: https://github.com/andrykonchin
+[@harrylewis]: https://github.com/harrylewis
