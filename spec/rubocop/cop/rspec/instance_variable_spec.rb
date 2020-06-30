@@ -152,5 +152,19 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
         end
       RUBY
     end
+
+    it 'flags an instance variable when it is also assigned ' \
+       'in a sibling example group' do
+      expect_offense(<<-RUBY)
+        describe MyClass do
+          context 'foo' do
+            before { @foo = [] }
+          end
+
+          it { expect(@foo).to be_empty }
+                      ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+        end
+      RUBY
+    end
   end
 end
