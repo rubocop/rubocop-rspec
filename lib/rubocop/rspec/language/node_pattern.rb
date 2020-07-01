@@ -8,6 +8,10 @@ module RuboCop
         extend RuboCop::NodePattern::Macros
 
         def_node_matcher :example_group?, ExampleGroups::ALL.block_pattern
+        def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
+
+        spec_groups = ExampleGroups::ALL + SharedGroups::ALL
+        def_node_matcher :spec_group?, spec_groups.block_pattern
 
         def_node_matcher :example_group_with_body?, <<-PATTERN
           (block #{ExampleGroups::ALL.send_pattern} args [!nil?])

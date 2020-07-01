@@ -51,8 +51,6 @@ module RuboCop
           )
         PATTERN
 
-        def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
-
         def on_top_level_describe(node, (described_value, _))
           return if shared_group?(root_node)
           return if valid_describe?(node)
