@@ -63,4 +63,53 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
       end
     RUBY
   end
+
+  it 'complains when let! is used and not referenced in shared example group' do
+    expect_offense(<<-RUBY)
+      shared_context 'foo' do
+        let!(:bar) { baz }
+        ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+
+        it 'does not use bar' do
+          expect(baz).to eq(qux)
+        end
+      end
+    RUBY
+  end
+
+  it 'complains when let! used in shared example including' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it_behaves_like 'bar' do
+          let!(:baz) { foobar }
+          ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+          let(:a) { b }
+        end
+      end
+    RUBY
+  end
+
+  it 'complains when there is only one nested node into example group' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        let!(:bar) { baz }
+        ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+      end
+    RUBY
+  end
+
+  it 'complains when there is a custom nesting level' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        [].each do |i|
+          let!(:bar) { i }
+          ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+
+          it 'does not use bar' do
+            expect(baz).to eq(qux)
+          end
+        end
+      end
+    RUBY
+  end
 end
