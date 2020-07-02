@@ -97,13 +97,11 @@ module RuboCop
           "Configuration key `#{DEPRECATED_MAX_KEY}` for #{cop_name} is " \
           'deprecated in favor of `Max`. Please use that instead.'
 
-        def_node_search :find_contexts, ExampleGroups::ALL.block_pattern
-
         def on_top_level_describe(node, _args)
-          find_nested_contexts(node.parent) do |context, nesting|
+          find_nested_example_groups(node.parent) do |example_group, nesting|
             self.max = nesting
             add_offense(
-              context.send_node,
+              example_group.send_node,
               message: message(nesting)
             )
           end
@@ -111,13 +109,14 @@ module RuboCop
 
         private
 
-        def find_nested_contexts(node, nesting: 1, &block)
-          find_contexts(node) do |nested_context|
-            yield(nested_context, nesting) if nesting > max_nesting
+        def find_nested_example_groups(node, nesting: 1, &block)
+          example_group = example_group?(node)
+          yield node, nesting if example_group && nesting > max_nesting
 
-            nested_context.each_child_node do |child|
-              find_nested_contexts(child, nesting: nesting + 1, &block)
-            end
+          next_nesting = example_group ? nesting + 1 : nesting
+
+          node.each_child_node(:block, :begin) do |child|
+            find_nested_example_groups(child, nesting: next_nesting, &block)
           end
         end
 

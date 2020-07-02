@@ -76,4 +76,20 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
         ).to_stderr
     end
   end
+
+  it 'counts nesting correctly when non-spec nesting' do
+    expect_offense(<<-RUBY)
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            [].each do |i|
+              context 'when baz' do
+              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+              end
+            end
+          end
+        end
+      end
+    RUBY
+  end
 end
