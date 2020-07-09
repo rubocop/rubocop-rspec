@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+## 1.42.0 (2020-07-09)
+
+* Update RuboCop dependency to 0.87.0 because of changes to internal APIs. ([@bquorning][], [@Darhazer][])
+
 ## 1.41.0 (2020-07-03)
 
 * Extend the list of Rails spec types for `RSpec/DescribeClass`. ([@pirj][])
