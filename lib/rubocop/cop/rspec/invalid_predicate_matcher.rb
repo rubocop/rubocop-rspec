@@ -24,7 +24,8 @@ module RuboCop
 
         def on_send(node)
           invalid_predicate_matcher?(node) do |predicate|
-            add_offense(predicate)
+            add_offense(predicate,
+                        message: format(MSG, matcher: predicate.method_name))
           end
         end
 
@@ -33,10 +34,6 @@ module RuboCop
         def predicate?(name)
           name = name.to_s
           name.start_with?('be_', 'have_') && name.end_with?('?')
-        end
-
-        def message(predicate)
-          format(MSG, matcher: predicate.method_name)
         end
       end
     end

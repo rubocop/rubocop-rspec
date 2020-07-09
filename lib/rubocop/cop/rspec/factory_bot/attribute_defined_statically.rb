@@ -25,6 +25,8 @@ module RuboCop
         #   # good
         #   count { 1 }
         class AttributeDefinedStatically < Cop
+          extend AutoCorrector
+
           MSG = 'Use a block to declare attribute values.'
 
           def_node_matcher :value_matcher, <<-PATTERN
@@ -43,19 +45,21 @@ module RuboCop
               next unless offensive_receiver?(attribute.receiver, node)
               next if proc?(attribute) || association?(attribute.first_argument)
 
-              add_offense(attribute)
-            end
-          end
-
-          def autocorrect(node)
-            if node.parenthesized?
-              autocorrect_replacing_parens(node)
-            else
-              autocorrect_without_parens(node)
+              add_offense(attribute) do |corrector|
+                autocorrect(corrector, attribute)
+              end
             end
           end
 
           private
+
+          def autocorrect(corrector, node)
+            if node.parenthesized?
+              autocorrect_replacing_parens(corrector, node)
+            else
+              autocorrect_without_parens(corrector, node)
+            end
+          end
 
           def offensive_receiver?(receiver, node)
             receiver.nil? ||
@@ -77,24 +81,20 @@ module RuboCop
 
           def_node_matcher :association?, '(hash <(pair (sym :factory) _) ...>)'
 
-          def autocorrect_replacing_parens(node)
+          def autocorrect_replacing_parens(corrector, node)
             left_braces, right_braces = braces(node)
 
-            lambda do |corrector|
-              corrector.replace(node.location.begin, ' ' + left_braces)
-              corrector.replace(node.location.end, right_braces)
-            end
+            corrector.replace(node.location.begin, ' ' + left_braces)
+            corrector.replace(node.location.end, right_braces)
           end
 
-          def autocorrect_without_parens(node)
+          def autocorrect_without_parens(corrector, node)
             left_braces, right_braces = braces(node)
 
-            lambda do |corrector|
-              argument = node.first_argument
-              expression = argument.location.expression
-              corrector.insert_before(expression, left_braces)
-              corrector.insert_after(expression, right_braces)
-            end
+            argument = node.first_argument
+            expression = argument.location.expression
+            corrector.insert_before(expression, left_braces)
+            corrector.insert_after(expression, right_braces)
           end
 
           def braces(node)

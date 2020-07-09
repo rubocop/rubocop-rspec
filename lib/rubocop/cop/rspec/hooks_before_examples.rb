@@ -24,6 +24,8 @@ module RuboCop
       #   end
       #
       class HooksBeforeExamples < Cop
+        extend AutoCorrector
+
         MSG = 'Move `%<hook>s` above the examples in the group.'
 
         def_node_matcher :example_or_group?, <<-PATTERN
@@ -37,15 +39,6 @@ module RuboCop
           return unless example_group_with_body?(node)
 
           check_hooks(node.body) if multiline_block?(node.body)
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            first_example = find_first_example(node.parent)
-            RuboCop::RSpec::Corrector::MoveNode.new(
-              node, corrector, processed_source
-            ).move_before(first_example)
-          end
         end
 
         private
@@ -62,15 +55,21 @@ module RuboCop
             next if child.sibling_index < first_example.sibling_index
             next unless hook?(child)
 
-            add_offense(
-              child,
-              message: format(MSG, hook: child.method_name)
-            )
+            msg = format(MSG, hook: child.method_name)
+            add_offense(child, message: msg) do |corrector|
+              autocorrect(corrector, child, first_example)
+            end
           end
         end
 
         def find_first_example(node)
           node.children.find { |sibling| example_or_group?(sibling) }
+        end
+
+        def autocorrect(corrector, node, first_example)
+          RuboCop::RSpec::Corrector::MoveNode.new(
+            node, corrector, processed_source
+          ).move_before(first_example)
         end
       end
     end

@@ -27,6 +27,7 @@ module RuboCop
       #   it { expect(subject).to be_truthy }
       #
       class ImplicitSubject < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG = "Don't use implicit subject."
@@ -39,10 +40,14 @@ module RuboCop
           return unless implicit_subject?(node)
           return if valid_usage?(node)
 
-          add_offense(node)
+          add_offense(node) do |corrector|
+            autocorrect(corrector, node)
+          end
         end
 
-        def autocorrect(node)
+        private
+
+        def autocorrect(corrector, node)
           replacement = 'expect(subject)'
           if node.method_name == :should
             replacement += '.to'
@@ -50,10 +55,8 @@ module RuboCop
             replacement += '.not_to'
           end
 
-          ->(corrector) { corrector.replace(node.loc.selector, replacement) }
+          corrector.replace(node.loc.selector, replacement)
         end
-
-        private
 
         def valid_usage?(node)
           example = node.ancestors.find { |parent| example?(parent) }

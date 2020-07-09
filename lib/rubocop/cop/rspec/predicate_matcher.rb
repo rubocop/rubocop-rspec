@@ -14,11 +14,14 @@ module RuboCop
         private
 
         def check_inflected(node)
-          predicate_in_actual?(node) do |predicate|
-            add_offense(
-              node,
-              message: message_inflected(predicate)
-            )
+          predicate_in_actual?(node) do |predicate, to, matcher|
+            msg = message_inflected(predicate)
+            add_offense(node, message: msg) do |corrector|
+              remove_predicate(corrector, predicate)
+              corrector.replace(node.loc.selector,
+                                true?(to, matcher) ? 'to' : 'not_to')
+              rewrite_matcher(corrector, predicate, matcher)
+            end
           end
         end
 
@@ -76,17 +79,6 @@ module RuboCop
         end
         # rubocop:enable Metrics/MethodLength
 
-        def autocorrect_inflected(node)
-          predicate_in_actual?(node) do |predicate, to, matcher|
-            lambda do |corrector|
-              remove_predicate(corrector, predicate)
-              corrector.replace(node.loc.selector,
-                                true?(to, matcher) ? 'to' : 'not_to')
-              rewrite_matcher(corrector, predicate, matcher)
-            end
-          end
-        end
-
         def remove_predicate(corrector, predicate)
           range = predicate.loc.dot.with(
             end_pos: predicate.loc.expression.end_pos
@@ -123,7 +115,6 @@ module RuboCop
       end
 
       # A helper for `explicit` style
-      # rubocop:disable Metrics/ModuleLength
       module ExplicitHelper
         include RuboCop::RSpec::Language
         extend NodePattern::Macros
@@ -143,22 +134,21 @@ module RuboCop
         end
 
         def check_explicit(node) # rubocop:disable Metrics/MethodLength
-          predicate_matcher_block?(node) do |_actual, matcher|
-            add_offense(
-              node,
-              message: message_explicit(matcher)
-            )
+          predicate_matcher_block?(node) do |actual, matcher|
+            add_offense(node, message: message_explicit(matcher)) do |corrector|
+              to_node = node.send_node
+              corrector_explicit(corrector, to_node, actual, matcher, to_node)
+            end
             ignore_node(node.children.first)
             return
           end
 
           return if part_of_ignored_node?(node)
 
-          predicate_matcher?(node) do |_actual, matcher|
-            add_offense(
-              node,
-              message: message_explicit(matcher)
-            )
+          predicate_matcher?(node) do |actual, matcher|
+            add_offense(node, message: message_explicit(matcher)) do |corrector|
+              corrector_explicit(corrector, node, actual, matcher, matcher)
+            end
           end
         end
 
@@ -193,31 +183,11 @@ module RuboCop
                  matcher_name: matcher.method_name)
         end
 
-        def autocorrect_explicit(node)
-          autocorrect_explicit_send(node) ||
-            autocorrect_explicit_block(node)
-        end
-
-        def autocorrect_explicit_send(node)
-          predicate_matcher?(node) do |actual, matcher|
-            corrector_explicit(node, actual, matcher, matcher)
-          end
-        end
-
-        def autocorrect_explicit_block(node)
-          predicate_matcher_block?(node) do |actual, matcher|
-            to_node = node.send_node
-            corrector_explicit(to_node, actual, matcher, to_node)
-          end
-        end
-
-        def corrector_explicit(to_node, actual, matcher, block_child)
-          lambda do |corrector|
-            replacement_matcher = replacement_matcher(to_node)
-            corrector.replace(matcher.loc.expression, replacement_matcher)
-            move_predicate(corrector, actual, matcher, block_child)
-            corrector.replace(to_node.loc.selector, 'to')
-          end
+        def corrector_explicit(corrector, to_node, actual, matcher, block_child)
+          replacement_matcher = replacement_matcher(to_node)
+          corrector.replace(matcher.loc.expression, replacement_matcher)
+          move_predicate(corrector, actual, matcher, block_child)
+          corrector.replace(to_node.loc.selector, 'to')
         end
 
         def move_predicate(corrector, actual, matcher, block_child)
@@ -261,7 +231,6 @@ module RuboCop
           end
         end
       end
-      # rubocop:enable Metrics/ModuleLength
 
       # Prefer using predicate matcher over using predicate method directly.
       #
@@ -301,6 +270,7 @@ module RuboCop
       #   # good - the above code is rewritten to it by this cop
       #   expect(foo.something?).to be_truthy
       class PredicateMatcher < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
         include InflectedHelper
         include ExplicitHelper

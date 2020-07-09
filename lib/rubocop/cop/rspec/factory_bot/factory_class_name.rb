@@ -20,6 +20,8 @@ module RuboCop
         #   factory :foo, class: 'Foo' do
         #   end
         class FactoryClassName < Cop
+          extend AutoCorrector
+
           MSG = "Pass '%<class_name>s' string instead of `%<class_name>s` " \
                 'constant.'
           ALLOWED_CONSTANTS = %w[Hash OpenStruct].freeze
@@ -32,13 +34,10 @@ module RuboCop
             class_name(node) do |cn|
               next if allowed?(cn.const_name)
 
-              add_offense(cn, message: format(MSG, class_name: cn.const_name))
-            end
-          end
-
-          def autocorrect(node)
-            lambda do |corrector|
-              corrector.replace(node.loc.expression, "'#{node.source}'")
+              msg = format(MSG, class_name: cn.const_name)
+              add_offense(cn, message: msg) do |corrector|
+                corrector.replace(cn, "'#{cn.source}'")
+              end
             end
           end
 

@@ -24,6 +24,8 @@ module RuboCop
         #   expect(page).to have_current_path(/widgets/)
         #
         class CurrentPathExpectation < Cop
+          extend AutoCorrector
+
           MSG = 'Do not set an RSpec expectation on `current_path` in ' \
                 'Capybara feature specs - instead, use the ' \
                 '`have_current_path` matcher on `page`'
@@ -47,30 +49,30 @@ module RuboCop
 
           def on_send(node)
             expectation_set_on_current_path(node) do
-              add_offense(node, location: :selector)
-            end
-          end
+              add_offense(node.loc.selector) do |corrector|
+                next unless node.chained?
 
-          def autocorrect(node)
-            lambda do |corrector|
-              return unless node.chained?
-
-              as_is_matcher(node.parent) do |to_sym, matcher_node|
-                rewrite_expectation(corrector, node, to_sym, matcher_node)
-              end
-
-              regexp_str_matcher(node.parent) do |to_sym, matcher_node, regexp|
-                rewrite_expectation(corrector, node, to_sym, matcher_node)
-                convert_regexp_str_to_literal(corrector, matcher_node, regexp)
+                autocorrect(corrector, node)
               end
             end
           end
 
           private
 
+          def autocorrect(corrector, node)
+            as_is_matcher(node.parent) do |to_sym, matcher_node|
+              rewrite_expectation(corrector, node, to_sym, matcher_node)
+            end
+
+            regexp_str_matcher(node.parent) do |to_sym, matcher_node, regexp|
+              rewrite_expectation(corrector, node, to_sym, matcher_node)
+              convert_regexp_str_to_literal(corrector, matcher_node, regexp)
+            end
+          end
+
           def rewrite_expectation(corrector, node, to_symbol, matcher_node)
             current_path_node = node.first_argument
-            corrector.replace(current_path_node.loc.expression, 'page')
+            corrector.replace(current_path_node, 'page')
             corrector.replace(node.parent.loc.selector, 'to')
             matcher_method = if to_symbol == :to
                                'have_current_path'
@@ -84,7 +86,7 @@ module RuboCop
           def convert_regexp_str_to_literal(corrector, matcher_node, regexp_str)
             str_node = matcher_node.first_argument
             regexp_expr = Regexp.new(regexp_str).inspect
-            corrector.replace(str_node.loc.expression, regexp_expr)
+            corrector.replace(str_node, regexp_expr)
           end
 
           # `have_current_path` with no options will include the querystring
@@ -97,7 +99,7 @@ module RuboCop
             return if %i[regexp str].include?(expectation_last_child.type)
 
             corrector.insert_after(
-              expectation_last_child.loc.expression,
+              expectation_last_child,
               ', ignore_query: true'
             )
           end

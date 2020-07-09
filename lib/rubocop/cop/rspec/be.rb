@@ -28,7 +28,7 @@ module RuboCop
 
         def on_send(node)
           be_without_args(node) do |matcher|
-            add_offense(matcher, location: :selector)
+            add_offense(matcher.loc.selector)
           end
         end
       end

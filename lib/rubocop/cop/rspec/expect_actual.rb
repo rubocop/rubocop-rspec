@@ -17,6 +17,8 @@ module RuboCop
       #   expect(name).to eq("John")
       #
       class ExpectActual < Cop
+        extend AutoCorrector
+
         MSG = 'Provide the actual you are testing to `expect(...)`.'
 
         SIMPLE_LITERALS = %i[
@@ -55,17 +57,12 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          expect_literal(node) do |argument|
-            add_offense(node, location: argument.source_range)
-          end
-        end
+          expect_literal(node) do |actual, matcher, expected|
+            add_offense(actual.source_range) do |corrector|
+              next unless SUPPORTED_MATCHERS.include?(matcher)
 
-        def autocorrect(node)
-          actual, matcher, expected = expect_literal(node)
-          lambda do |corrector|
-            return unless SUPPORTED_MATCHERS.include?(matcher)
-
-            swap(corrector, actual, expected)
+              swap(corrector, actual, expected)
+            end
           end
         end
 

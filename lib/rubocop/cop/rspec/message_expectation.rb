@@ -42,7 +42,7 @@ module RuboCop
             return correct_style_detected if preferred_style?(match)
 
             message = format(MSG, style: style)
-            add_offense(match, location: :selector, message: message) do
+            add_offense(match.loc.selector, message: message) do
               opposite_style_detected
             end
           end

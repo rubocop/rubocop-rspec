@@ -308,12 +308,10 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
     let(:cop_config) { {} }
 
     it 'ignores rspec-rails routing specs' do
-      inspect_source(
+      expect_no_offenses(
         'expect(get: "/foo").to be_routeable',
         'spec/routing/foo_spec.rb'
       )
-
-      expect(cop.offenses).to be_empty
     end
   end
 end

@@ -30,8 +30,8 @@ module RuboCop
           return if node.body.nil?
 
           expectation(node.body) do |expect|
-            add_offense(expect, location: :selector,
-                                message: message(expect, node))
+            add_offense(expect.loc.selector,
+                        message: message(expect, node))
           end
         end
 

@@ -19,6 +19,8 @@ module RuboCop
       #   end
       #
       class InstanceSpy < Cop
+        extend AutoCorrector
+
         MSG = 'Use `instance_spy` when you check your double '\
               'with `have_received`.'
 
@@ -43,22 +45,26 @@ module RuboCop
 
           null_double(node) do |var, receiver|
             have_received_usage(node) do |expected|
-              add_offense(receiver) if expected == var
+              next if expected != var
+
+              add_offense(receiver) do |corrector|
+                autocorrect(corrector, receiver)
+              end
             end
           end
         end
 
-        def autocorrect(node)
-          lambda do |corrector|
-            replacement = 'instance_spy'
-            corrector.replace(node.loc.selector, replacement)
+        private
 
-            double_source_map = node.parent.loc
-            as_null_object_range = double_source_map
-              .dot
-              .join(double_source_map.selector)
-            corrector.remove(as_null_object_range)
-          end
+        def autocorrect(corrector, node)
+          replacement = 'instance_spy'
+          corrector.replace(node.loc.selector, replacement)
+
+          double_source_map = node.parent.loc
+          as_null_object_range = double_source_map
+            .dot
+            .join(double_source_map.selector)
+          corrector.remove(as_null_object_range)
         end
       end
     end

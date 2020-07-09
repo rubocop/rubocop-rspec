@@ -19,6 +19,7 @@ module RuboCop
       #   # good
       #   it_should_behave_like 'a foo'
       class ItBehavesLike < Cop
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
 
         MSG = 'Prefer `%<replacement>s` over `%<original>s` when including '\
@@ -28,12 +29,10 @@ module RuboCop
 
         def on_send(node)
           example_inclusion_offense(node, alternative_style) do
-            add_offense(node)
+            add_offense(node) do |corrector|
+              corrector.replace(node.loc.selector, style.to_s)
+            end
           end
-        end
-
-        def autocorrect(node)
-          ->(corrector) { corrector.replace(node.loc.selector, style.to_s) }
         end
 
         private

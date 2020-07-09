@@ -34,6 +34,7 @@ module RuboCop
       #   it { does_something }
       #
       class EmptyLineAfterHook < Cop
+        extend AutoCorrector
         include RuboCop::RSpec::BlankLineSeparation
 
         MSG = 'Add an empty line after `%<hook>s`.'
@@ -43,11 +44,10 @@ module RuboCop
           return if last_child?(node)
 
           missing_separating_line(node) do |location|
-            add_offense(
-              node,
-              location: location,
-              message: format(MSG, hook: node.method_name)
-            )
+            msg = format(MSG, hook: node.method_name)
+            add_offense(location, message: msg) do |corrector|
+              corrector.insert_after(location.end, "\n")
+            end
           end
         end
       end

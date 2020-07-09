@@ -21,6 +21,8 @@ module RuboCop
       #   include_examples 'foo bar baz'
       #
       class SharedExamples < Cop
+        extend AutoCorrector
+
         def_node_matcher :shared_examples,
                          (SharedGroups::ALL + Includes::ALL).send_pattern
 
@@ -30,14 +32,9 @@ module RuboCop
             next unless ast_node&.sym_type?
 
             checker = Checker.new(ast_node)
-            add_offense(checker.node, message: checker.message)
-          end
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            checker = Checker.new(node)
-            corrector.replace(node.loc.expression, checker.preferred_style)
+            add_offense(checker.node, message: checker.message) do |corrector|
+              corrector.replace(checker.node, checker.preferred_style)
+            end
           end
         end
 

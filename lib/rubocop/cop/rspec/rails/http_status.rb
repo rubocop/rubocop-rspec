@@ -31,6 +31,7 @@ module RuboCop
         #   it { is_expected.to have_http_status :error }
         #
         class HttpStatus < Cop
+          extend AutoCorrector
           include ConfigurableEnforcedStyle
 
           def_node_matcher :http_status, <<-PATTERN
@@ -42,14 +43,9 @@ module RuboCop
               checker = checker_class.new(ast_node)
               return unless checker.offensive?
 
-              add_offense(checker.node, message: checker.message)
-            end
-          end
-
-          def autocorrect(node)
-            lambda do |corrector|
-              checker = checker_class.new(node)
-              corrector.replace(node.loc.expression, checker.preferred_style)
+              add_offense(checker.node, message: checker.message) do |corrector|
+                corrector.replace(checker.node, checker.preferred_style)
+              end
             end
           end
 

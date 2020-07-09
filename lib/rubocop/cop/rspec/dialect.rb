@@ -42,6 +42,7 @@ module RuboCop
       #     # ...
       #   end
       class Dialect < Cop
+        extend AutoCorrector
         include MethodPreference
 
         MSG = 'Prefer `%<prefer>s` over `%<current>s`.'
@@ -52,23 +53,15 @@ module RuboCop
           return unless rspec_method?(node)
           return unless preferred_methods[node.method_name]
 
-          add_offense(node)
-        end
+          msg = format(MSG, prefer: preferred_method(node.method_name),
+                            current: node.method_name)
 
-        def autocorrect(node)
-          lambda do |corrector|
+          add_offense(node, message: msg) do |corrector|
             current = node.loc.selector
             preferred = preferred_method(current.source)
 
             corrector.replace(current, preferred)
           end
-        end
-
-        private
-
-        def message(node)
-          format(MSG, prefer: preferred_method(node.method_name),
-                      current: node.method_name)
         end
       end
     end

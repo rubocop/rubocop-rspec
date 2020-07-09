@@ -17,6 +17,7 @@ module RuboCop
       #
       #   it { does_something }
       class EmptyLineAfterFinalLet < Cop
+        extend AutoCorrector
         include RuboCop::RSpec::BlankLineSeparation
 
         MSG = 'Add an empty line after the last `let` block.'
@@ -30,7 +31,9 @@ module RuboCop
           return if last_child?(latest_let)
 
           missing_separating_line(latest_let) do |location|
-            add_offense(latest_let, location: location)
+            add_offense(location) do |corrector|
+              corrector.insert_after(location.end, "\n")
+            end
           end
         end
       end

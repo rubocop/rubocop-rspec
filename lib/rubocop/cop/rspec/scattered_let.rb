@@ -27,21 +27,14 @@ module RuboCop
       #   end
       #
       class ScatteredLet < Cop
+        extend AutoCorrector
+
         MSG = 'Group all let/let! blocks in the example group together.'
 
         def on_block(node)
           return unless example_group_with_body?(node)
 
           check_let_declarations(node.body)
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
-            first_let = find_first_let(node.parent)
-            RuboCop::RSpec::Corrector::MoveNode.new(
-              node, corrector, processed_source
-            ).move_after(first_let)
-          end
         end
 
         private
@@ -53,7 +46,11 @@ module RuboCop
           lets.each_with_index do |node, idx|
             next if node.sibling_index == first_let.sibling_index + idx
 
-            add_offense(node)
+            add_offense(node) do |corrector|
+              RuboCop::RSpec::Corrector::MoveNode.new(
+                node, corrector, processed_source
+              ).move_after(first_let)
+            end
           end
         end
 
