@@ -17,7 +17,7 @@ module RuboCop
       #     let(:baz)    { bar      }
       #     let(:a)      { b        }
       #
-      class AlignRightLetBrace < Cop
+      class AlignRightLetBrace < Base
         extend AutoCorrector
 
         MSG = 'Align right let brace'

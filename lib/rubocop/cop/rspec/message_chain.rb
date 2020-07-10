@@ -13,7 +13,7 @@ module RuboCop
       #   thing = Thing.new(baz: 42)
       #   allow(foo).to receive(:bar).and_return(thing)
       #
-      class MessageChain < Cop
+      class MessageChain < Base
         MSG = 'Avoid stubbing using `%<method>s`.'
 
         def_node_matcher :message_chain, <<-PATTERN

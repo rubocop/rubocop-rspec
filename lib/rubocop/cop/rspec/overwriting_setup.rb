@@ -21,7 +21,7 @@ module RuboCop
       #   let(:foo) { bar }
       #   let(:baz) { baz }
       #   let!(:other) { other }
-      class OverwritingSetup < Cop
+      class OverwritingSetup < Base
         MSG = '`%<name>s` is already defined.'
 
         def_node_matcher :setup?, (Helpers::ALL + Subject::ALL).block_pattern

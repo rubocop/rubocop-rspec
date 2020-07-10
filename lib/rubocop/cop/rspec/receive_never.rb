@@ -13,7 +13,7 @@ module RuboCop
       #     # good
       #     expect(foo).not_to receive(:bar)
       #
-      class ReceiveNever < Cop
+      class ReceiveNever < Base
         extend AutoCorrector
         MSG = 'Use `not_to receive` instead of `never`.'
 

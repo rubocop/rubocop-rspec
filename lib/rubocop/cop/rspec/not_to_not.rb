@@ -15,7 +15,7 @@ module RuboCop
       #   it '...' do
       #     expect(false).not_to be_true
       #   end
-      class NotToNot < Cop
+      class NotToNot < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

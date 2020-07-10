@@ -43,7 +43,7 @@ module RuboCop
       #      # example group
       #    end
       #
-      class RepeatedExampleGroupDescription < Cop
+      class RepeatedExampleGroupDescription < Base
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
 
         def_node_matcher :several_example_groups?, <<-PATTERN

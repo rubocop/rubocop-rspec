@@ -18,7 +18,7 @@ module RuboCop
       #     expect(foo).to have_received(:bar)
       #   end
       #
-      class InstanceSpy < Cop
+      class InstanceSpy < Base
         extend AutoCorrector
 
         MSG = 'Use `instance_spy` when you check your double '\

@@ -33,7 +33,7 @@ module RuboCop
       #   # also good as the returned value is dynamic
       #   allow(Foo).to receive(:bar) { bar.baz }
       #
-      class ReturnFromStub < Cop
+      class ReturnFromStub < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

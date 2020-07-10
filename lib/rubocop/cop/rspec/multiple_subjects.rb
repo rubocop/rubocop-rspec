@@ -33,7 +33,7 @@ module RuboCop
       #   - If subjects are defined with `subject!` then we don't autocorrect.
       #     This is enough of an edge case that people can just move this to
       #     a `before` hook on their own
-      class MultipleSubjects < Cop
+      class MultipleSubjects < Base
         extend AutoCorrector
         include RangeHelp
 

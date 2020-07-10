@@ -23,7 +23,7 @@ module RuboCop
       #     expect(foo).to receive(:bar).at_most(:once)
       #     expect(foo).to receive(:bar).at_most(:twice).times
       #
-      class ReceiveCounts < Cop
+      class ReceiveCounts < Base
         extend AutoCorrector
 
         MSG = 'Use `%<alternative>s` instead of `%<original>s`.'

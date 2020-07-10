@@ -47,7 +47,7 @@ module RuboCop
       #     result = service.call
       #     expect(result).to be(true)
       #   end
-      class ExampleWithoutDescription < Cop
+      class ExampleWithoutDescription < Base
         include ConfigurableEnforcedStyle
 
         MSG_DEFAULT_ARGUMENT = 'Omit the argument when you want to ' \

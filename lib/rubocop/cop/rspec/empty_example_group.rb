@@ -57,7 +57,7 @@ module RuboCop
       #     end
       #   end
       #
-      class EmptyExampleGroup < Cop
+      class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
         def_node_search :contains_example?, <<-PATTERN

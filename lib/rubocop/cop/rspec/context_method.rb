@@ -23,7 +23,7 @@ module RuboCop
       #   describe '.foo_bar' do
       #     # ...
       #   end
-      class ContextMethod < Cop
+      class ContextMethod < Base
         extend AutoCorrector
 
         MSG = 'Use `describe` for testing methods.'

@@ -11,7 +11,7 @@ module RuboCop
       #
       #   # good
       #   expect(something).to be(1)
-      class VoidExpect < Cop
+      class VoidExpect < Base
         MSG = 'Do not use `expect()` without `.to` or `.not_to`. ' \
               'Chain the methods or remove it.'
 

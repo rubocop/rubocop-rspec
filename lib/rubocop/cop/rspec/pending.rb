@@ -31,7 +31,7 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #   end
-      class Pending < Cop
+      class Pending < Base
         MSG = 'Pending spec found.'
 
         PENDING = Examples::PENDING + Examples::SKIPPED + ExampleGroups::SKIPPED

@@ -16,7 +16,7 @@ module RuboCop
       #
       #   describe MyClass, '.my_class_method' do
       #   end
-      class DescribeMethod < Cop
+      class DescribeMethod < Base
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'The second argument to describe should be the method '\

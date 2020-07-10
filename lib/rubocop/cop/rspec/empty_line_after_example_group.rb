@@ -23,7 +23,7 @@ module RuboCop
       #     end
       #   end
       #
-      class EmptyLineAfterExampleGroup < Cop
+      class EmptyLineAfterExampleGroup < Base
         extend AutoCorrector
         include RuboCop::RSpec::EmptyLineSeparation
 

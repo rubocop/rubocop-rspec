@@ -25,7 +25,7 @@ module RuboCop
       #   it 'counts widgets' do
       #     expect(Widget.count).to eq(1)
       #   end
-      class LetSetup < Cop
+      class LetSetup < Base
         MSG = 'Do not use `let!` to setup objects not referenced in tests.'
 
         def_node_matcher :example_or_shared_group_or_including?,

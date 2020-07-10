@@ -16,7 +16,7 @@ module RuboCop
       #   let(:something) { other }
       #
       #   it { does_something }
-      class EmptyLineAfterFinalLet < Cop
+      class EmptyLineAfterFinalLet < Base
         extend AutoCorrector
         include RuboCop::RSpec::EmptyLineSeparation
 

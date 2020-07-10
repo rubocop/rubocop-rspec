@@ -20,7 +20,7 @@ module RuboCop
       #   it do
       #     expect(something).to eq 'foo'
       #   end
-      class ExpectInHook < Cop
+      class ExpectInHook < Base
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
         def_node_search :expectation, Expectations::ALL.send_pattern

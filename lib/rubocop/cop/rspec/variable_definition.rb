@@ -22,7 +22,7 @@ module RuboCop
       #   # good
       #   let('user_name') { 'Adam' }
       #   subject('user') { create_user }
-      class VariableDefinition < Cop
+      class VariableDefinition < Base
         include ConfigurableEnforcedStyle
         include RuboCop::RSpec::Variable
 

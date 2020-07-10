@@ -16,7 +16,7 @@ module RuboCop
       #   expect(pattern).to eq(/foo/)
       #   expect(name).to eq("John")
       #
-      class ExpectActual < Cop
+      class ExpectActual < Base
         extend AutoCorrector
 
         MSG = 'Provide the actual you are testing to `expect(...)`.'

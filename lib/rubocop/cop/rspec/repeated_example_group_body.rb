@@ -43,7 +43,7 @@ module RuboCop
       #      it { is_expected.to respond_to :each }
       #    end
       #
-      class RepeatedExampleGroupBody < Cop
+      class RepeatedExampleGroupBody < Base
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
         def_node_matcher :several_example_groups?, <<-PATTERN

@@ -16,7 +16,7 @@ module RuboCop
       #   allow(foo).to receive(:bar, :baz)
       #   allow(foo).to receive("bar.baz")
       #
-      class SingleArgumentMessageChain < Cop
+      class SingleArgumentMessageChain < Base
         extend AutoCorrector
 
         MSG = 'Use `%<recommended>s` instead of calling '\

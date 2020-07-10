@@ -50,7 +50,7 @@ module RuboCop
       #     end
       #   end
       #
-      class SharedContext < Cop
+      class SharedContext < Base
         extend AutoCorrector
 
         MSG_EXAMPLES = "Use `shared_examples` when you don't "\

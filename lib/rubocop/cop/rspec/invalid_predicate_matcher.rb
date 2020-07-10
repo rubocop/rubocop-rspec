@@ -15,7 +15,7 @@ module RuboCop
       #
       #   # good
       #   expect(foo).to be_something
-      class InvalidPredicateMatcher < Cop
+      class InvalidPredicateMatcher < Base
         MSG = 'Omit `?` from `%<matcher>s`.'
 
         def_node_matcher :invalid_predicate_matcher?, <<-PATTERN

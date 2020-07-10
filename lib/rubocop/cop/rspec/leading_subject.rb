@@ -31,7 +31,7 @@ module RuboCop
       #     it { expect_something }
       #     it { expect_something_else }
       #
-      class LeadingSubject < Cop
+      class LeadingSubject < Base
         extend AutoCorrector
 
         MSG = 'Declare `subject` above any other `%<offending>s` declarations.'

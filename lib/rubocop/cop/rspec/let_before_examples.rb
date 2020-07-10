@@ -30,7 +30,7 @@ module RuboCop
       #   it 'checks what some does' do
       #     expect(some).to be
       #   end
-      class LetBeforeExamples < Cop
+      class LetBeforeExamples < Base
         extend AutoCorrector
 
         MSG = 'Move `let` before the examples in the group.'

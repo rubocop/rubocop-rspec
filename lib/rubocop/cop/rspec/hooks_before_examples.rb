@@ -23,7 +23,7 @@ module RuboCop
       #     expect(foo).to be
       #   end
       #
-      class HooksBeforeExamples < Cop
+      class HooksBeforeExamples < Base
         extend AutoCorrector
 
         MSG = 'Move `%<hook>s` above the examples in the group.'

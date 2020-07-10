@@ -20,7 +20,7 @@ module RuboCop
       #   shared_examples_for 'foo bar baz'
       #   include_examples 'foo bar baz'
       #
-      class SharedExamples < Cop
+      class SharedExamples < Base
         extend AutoCorrector
 
         def_node_matcher :shared_examples,

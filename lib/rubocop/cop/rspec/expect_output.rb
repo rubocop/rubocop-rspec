@@ -14,7 +14,7 @@ module RuboCop
       #
       #   # good
       #   expect { my_app.print_report }.to output('Hello World').to_stdout
-      class ExpectOutput < Cop
+      class ExpectOutput < Base
         MSG = 'Use `expect { ... }.to output(...).to_%<name>s` '\
               'instead of mutating $%<name>s.'
 

@@ -45,7 +45,7 @@ module RuboCop
       #     end
       #   end
       #
-      class MultipleExpectations < Cop
+      class MultipleExpectations < Base
         include ConfigurableMax
 
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'

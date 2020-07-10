@@ -40,7 +40,7 @@ module RuboCop
       #       end
       #     end
       #
-      class RepeatedDescription < Cop
+      class RepeatedDescription < Base
         MSG = "Don't repeat descriptions within an example group."
 
         def on_block(node)

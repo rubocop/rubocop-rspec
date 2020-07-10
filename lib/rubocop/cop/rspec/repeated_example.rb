@@ -15,7 +15,7 @@ module RuboCop
       #      expect(user).to be_valid
       #    end
       #
-      class RepeatedExample < Cop
+      class RepeatedExample < Base
         MSG = "Don't repeat examples within an example group."
 
         def on_block(node)

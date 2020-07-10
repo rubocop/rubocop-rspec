@@ -24,7 +24,7 @@ module RuboCop
         #
         #   # good
         #   3.times { create :user }
-        class CreateList < Cop
+        class CreateList < Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
 

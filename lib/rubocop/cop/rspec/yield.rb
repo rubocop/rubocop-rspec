@@ -11,7 +11,7 @@ module RuboCop
       #
       #   # good
       #   expect(foo).to be(:bar).and_yield(1)
-      class Yield < Cop
+      class Yield < Base
         extend AutoCorrector
         include RangeHelp
 

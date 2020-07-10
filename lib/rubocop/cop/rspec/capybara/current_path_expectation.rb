@@ -23,7 +23,7 @@ module RuboCop
         #   expect(page).to have_current_path("/callback")
         #   expect(page).to have_current_path(/widgets/)
         #
-        class CurrentPathExpectation < Cop
+        class CurrentPathExpectation < Base
           extend AutoCorrector
 
           MSG = 'Do not set an RSpec expectation on `current_path` in ' \

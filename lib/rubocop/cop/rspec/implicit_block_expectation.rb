@@ -16,7 +16,7 @@ module RuboCop
       #   it 'changes something to a new value' do
       #     expect { do_something }.to change(something).to(new_value)
       #   end
-      class ImplicitBlockExpectation < Cop
+      class ImplicitBlockExpectation < Base
         MSG = 'Avoid implicit block expectations.'
 
         def_node_matcher :lambda?, <<-PATTERN

@@ -40,7 +40,7 @@ module RuboCop
         #       # ...
         #     end
         #   end
-        class FeatureMethods < Cop
+        class FeatureMethods < Base
           extend AutoCorrector
 
           MSG = 'Use `%<replacement>s` instead of `%<method>s`.'

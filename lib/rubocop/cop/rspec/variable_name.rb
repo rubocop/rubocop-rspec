@@ -22,7 +22,7 @@ module RuboCop
       #   # good
       #   let(:userName) { 'Adam' }
       #   subject(:userName) { 'Adam' }
-      class VariableName < Cop
+      class VariableName < Base
         include ConfigurableNaming
         include RuboCop::RSpec::Variable
 
