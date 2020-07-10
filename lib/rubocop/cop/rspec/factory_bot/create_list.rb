@@ -44,7 +44,7 @@ module RuboCop
           PATTERN
 
           def_node_matcher :factory_list_call, <<-PATTERN
-            (send ${(const nil? {:FactoryGirl :FactoryBot}) nil?} :create_list (sym $_) (int $_) $...)
+            (send {(const nil? {:FactoryGirl :FactoryBot}) nil?} :create_list (sym _) (int $_) ...)
           PATTERN
 
           def on_block(node)
@@ -60,7 +60,7 @@ module RuboCop
           def on_send(node)
             return unless style == :n_times
 
-            factory_list_call(node) do |_receiver, _factory, count, _|
+            factory_list_call(node) do |count|
               message = format(MSG_N_TIMES, number: count)
               add_offense(node.loc.selector, message: message) do |corrector|
                 TimesCorrector.new(node).call(corrector)
