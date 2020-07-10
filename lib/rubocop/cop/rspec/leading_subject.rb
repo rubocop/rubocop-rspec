@@ -47,7 +47,7 @@ module RuboCop
             if offending?(sibling)
               msg = format(MSG, offending: sibling.method_name)
               add_offense(node, message: msg) do |corrector|
-                autocorrect(corrector, node)
+                autocorrect(corrector, node, sibling)
               end
             end
 
@@ -57,19 +57,14 @@ module RuboCop
 
         private
 
-        def autocorrect(corrector, node)
-          first_node = find_first_offending_node(node)
+        def autocorrect(corrector, node, sibling)
           RuboCop::RSpec::Corrector::MoveNode.new(
             node, corrector, processed_source
-          ).move_before(first_node)
+          ).move_before(sibling)
         end
 
         def offending?(node)
           let?(node) || hook?(node) || example?(node)
-        end
-
-        def find_first_offending_node(node)
-          node.parent.children.find { |sibling| offending?(sibling) }
         end
 
         def in_spec_block?(node)
