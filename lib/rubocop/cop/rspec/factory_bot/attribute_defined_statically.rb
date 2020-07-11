@@ -39,7 +39,7 @@ module RuboCop
 
           def on_block(node)
             attributes = factory_attributes(node) || []
-            attributes = [attributes] unless attributes.is_a?(Array)
+            attributes = [attributes] unless attributes.is_a?(Array) # rubocop:disable Style/ArrayCoercion, Lint/RedundantCopDisableDirective
 
             attributes.each do |attribute|
               next unless offensive_receiver?(attribute.receiver, node)

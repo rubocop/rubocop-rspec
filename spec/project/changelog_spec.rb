@@ -26,7 +26,7 @@ RSpec.describe 'CHANGELOG.md' do
     describe 'link to related issue on github' do
       let(:issues) do
         entries.map do |entry|
-          entry.match(/\[(?<number>[#\d]+)\]\((?<url>[^\)]+)\)/)
+          entry.match(/\[(?<number>[#\d]+)\]\((?<url>[^)]+)\)/)
         end.compact
       end
 
@@ -58,7 +58,7 @@ RSpec.describe 'CHANGELOG.md' do
         entries.map do |entry|
           entry
             .sub(/^\*\s*(?:\[.+?\):\s*)?/, '')
-            .sub(/\s*\([^\)]+\)$/, '')
+            .sub(/\s*\([^)]+\)$/, '')
         end
       end
 
@@ -69,7 +69,7 @@ RSpec.describe 'CHANGELOG.md' do
       end
 
       it 'ends with a punctuation' do
-        expect(bodies).to all(match(/[\.\!]$/))
+        expect(bodies).to all(match(/[.!]$/))
       end
     end
   end

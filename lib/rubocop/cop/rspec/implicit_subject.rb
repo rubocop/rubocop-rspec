@@ -49,9 +49,10 @@ module RuboCop
 
         def autocorrect(corrector, node)
           replacement = 'expect(subject)'
-          if node.method_name == :should
+          case node.method_name
+          when :should
             replacement += '.to'
-          elsif node.method_name == :should_not
+          when :should_not
             replacement += '.not_to'
           end
 
@@ -66,9 +67,10 @@ module RuboCop
         end
 
         def allowed_by_style?(example)
-          if style == :single_line_only
+          case style
+          when :single_line_only
             example.single_line?
-          elsif style == :single_statement_only
+          when :single_statement_only
             !example.body.begin_type?
           else
             false
