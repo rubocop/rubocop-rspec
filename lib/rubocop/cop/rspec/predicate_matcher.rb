@@ -288,15 +288,6 @@ module RuboCop
           check_explicit(node) if style == :explicit
         end
 
-        def autocorrect(node)
-          case style
-          when :inflected
-            autocorrect_inflected(node)
-          when :explicit
-            autocorrect_explicit(node)
-          end
-        end
-
         private
 
         # returns args location with whitespace
