@@ -45,7 +45,7 @@ module RuboCop
         end
 
         def rspec_pattern
-          if rspec_pattern_config?
+          @rspec_pattern ||= if rspec_pattern_config?
             Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))
           else
             DEFAULT_PATTERN_RE
