@@ -18,14 +18,15 @@ module RuboCop
         extend AutoCorrector
         include RuboCop::RSpec::BlankLineSeparation
 
-        MSG = 'Add empty line after `subject`.'
+        MSG = 'Add an empty line after `%<subject>s`.'
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
           return if last_child?(node)
 
           missing_separating_line(node) do |location|
-            add_offense(location) do |corrector|
+            msg = format(MSG, subject: node.method_name)
+            add_offense(location, message: msg) do |corrector|
               corrector.insert_after(location.end, "\n")
             end
           end

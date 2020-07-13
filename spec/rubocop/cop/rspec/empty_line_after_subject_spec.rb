@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add empty line after `subject`.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject`.
         let(:params) { foo }
       end
     RUBY
@@ -25,7 +25,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject! { described_class.new }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add empty line after `subject`.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject!`.
         let(:params) { foo }
       end
     RUBY
