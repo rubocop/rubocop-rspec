@@ -2,9 +2,9 @@
 
 module RuboCop
   module RSpec
-    # Helps determine the offending location if there is not a blank line
+    # Helps determine the offending location if there is not an empty line
     # following the node. Allows comments to follow directly after.
-    module BlankLineSeparation
+    module EmptyLineSeparation
       include FinalEndLocation
       include RuboCop::Cop::RangeHelp
 

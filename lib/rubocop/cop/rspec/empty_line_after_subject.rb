@@ -16,7 +16,7 @@ module RuboCop
       #   let(:foo) { bar }
       class EmptyLineAfterSubject < Cop
         extend AutoCorrector
-        include RuboCop::RSpec::BlankLineSeparation
+        include RuboCop::RSpec::EmptyLineSeparation
 
         MSG = 'Add an empty line after `%<subject>s`.'
 
