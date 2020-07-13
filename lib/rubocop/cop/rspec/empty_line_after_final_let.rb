@@ -28,13 +28,9 @@ module RuboCop
           latest_let = node.body.child_nodes.select { |child| let?(child) }.last
 
           return if latest_let.nil?
-          return if last_child?(latest_let)
 
-          missing_separating_line(latest_let) do |location|
-            msg = format(MSG, let: latest_let.method_name)
-            add_offense(location, message: msg) do |corrector|
-              corrector.insert_after(location.end, "\n")
-            end
+          missing_separating_line_offense(latest_let) do |method|
+            format(MSG, let: method)
           end
         end
       end

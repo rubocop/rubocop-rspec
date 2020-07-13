@@ -22,13 +22,9 @@ module RuboCop
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
-          return if last_child?(node)
 
-          missing_separating_line(node) do |location|
-            msg = format(MSG, subject: node.method_name)
-            add_offense(location, message: msg) do |corrector|
-              corrector.insert_after(location.end, "\n")
-            end
+          missing_separating_line_offense(node) do |method|
+            format(MSG, subject: method)
           end
         end
 
