@@ -23,7 +23,7 @@ require_relative 'rubocop/cop/rspec/cop'
 require_relative 'rubocop/rspec/align_let_brace'
 require_relative 'rubocop/rspec/factory_bot'
 require_relative 'rubocop/rspec/final_end_location'
-require_relative 'rubocop/rspec/blank_line_separation'
+require_relative 'rubocop/rspec/empty_line_separation'
 require_relative 'rubocop/rspec/corrector/move_node'
 
 RuboCop::RSpec::Inject.defaults!

@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
-        ^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        ^^^^^^^^^^^^^ Add an empty line after the last `let`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         let!(:b) do
           b
         end
-        ^^^ Add an empty line after the last `let` block.
+        ^^^ Add an empty line after the last `let!`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -52,7 +52,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
       RSpec.describe User do
         let(:a) { a }
         let(:user, &args[:build_user])
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -96,7 +96,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         let(:a) { a }
         let(:b) { b }
         # end of setup
-        ^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        ^^^^^^^^^^^^^^ Add an empty line after the last `let`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -119,7 +119,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         let(:b) { b }
         # a multiline comment marking
         # the end of setup
-        ^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        ^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -144,7 +144,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         subject { described_class }
 
         let!(:b) { b }
-        ^^^^^^^^^^^^^^ Add an empty line after the last `let` block.
+        ^^^^^^^^^^^^^^ Add an empty line after the last `let!`.
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -236,7 +236,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
         hello
         world
         BAR
-        ^^^ Add an empty line after the last `let` block.
+        ^^^ Add an empty line after the last `let`.
         it 'has tricky syntax' do
           expect(foo).to eql("  hello\n  world\n")
         end
