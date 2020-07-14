@@ -43,19 +43,23 @@ module RuboCop
         end
 
         def check_previous_nodes(node)
-          node.parent.each_child_node do |sibling|
-            if offending?(sibling)
-              msg = format(MSG, offending: sibling.method_name)
-              add_offense(node, message: msg) do |corrector|
-                autocorrect(corrector, node, sibling)
-              end
+          offending_node(node) do |offender|
+            msg = format(MSG, offending: offender.method_name)
+            add_offense(node, message: msg) do |corrector|
+              autocorrect(corrector, node, offender)
             end
-
-            break if offending?(sibling) || sibling.equal?(node)
           end
         end
 
         private
+
+        def offending_node(node)
+          node.parent.each_child_node.find do |sibling|
+            break if sibling.equal?(node)
+
+            yield sibling if offending?(sibling)
+          end
+        end
 
         def autocorrect(corrector, node, sibling)
           RuboCop::RSpec::Corrector::MoveNode.new(
