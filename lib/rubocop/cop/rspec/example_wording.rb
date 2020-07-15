@@ -47,9 +47,9 @@ module RuboCop
 
         def on_block(node)
           it_description(node) do |description_node, message|
-            if message =~ SHOULD_PREFIX
+            if message.match?(SHOULD_PREFIX)
               add_wording_offense(description_node, MSG_SHOULD)
-            elsif message =~ IT_PREFIX
+            elsif message.match?(IT_PREFIX)
               add_wording_offense(description_node, MSG_IT)
             end
           end
@@ -77,7 +77,7 @@ module RuboCop
         def replacement_text(node)
           text = text(node)
 
-          if text =~ SHOULD_PREFIX
+          if text.match?(SHOULD_PREFIX)
             RuboCop::RSpec::Wording.new(
               text,
               ignore:  ignored_words,

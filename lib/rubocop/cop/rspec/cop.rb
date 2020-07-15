@@ -41,7 +41,7 @@ module RuboCop
         private
 
         def relevant_rubocop_rspec_file?(file)
-          rspec_pattern =~ file
+          rspec_pattern.match?(file)
         end
 
         def rspec_pattern
