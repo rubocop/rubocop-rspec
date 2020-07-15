@@ -16,7 +16,7 @@ module RuboCop
       private
 
       def top_level_describe?(node)
-        return false unless node.method_name == :describe
+        return false unless node.method?(:describe)
 
         top_level_nodes.include?(node)
       end
@@ -44,7 +44,7 @@ module RuboCop
 
       def describe_statement_children(node)
         node.each_child_node(:send).select do |element|
-          element.method_name == :describe
+          element.method?(:describe)
         end
       end
     end
