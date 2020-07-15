@@ -50,17 +50,13 @@ module RuboCop
 
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
+        ANYTHING = ->(_node) { true }
+        TRUE = ->(node) { node.true_type? }
+
         def_node_matcher :aggregate_failures?, <<-PATTERN
           (block {
               (send _ _ <(sym :aggregate_failures) ...>)
-              (send _ _ ... (hash <(pair (sym :aggregate_failures) true) ...>))
-            } ...)
-        PATTERN
-
-        def_node_matcher :aggregate_failures_present?, <<-PATTERN
-          (block {
-              (send _ _ <(sym :aggregate_failures) ...>)
-              (send _ _ ... (hash <(pair (sym :aggregate_failures) _) ...>))
+              (send _ _ ... (hash <(pair (sym :aggregate_failures) %1) ...>))
             } ...)
         PATTERN
 
@@ -89,12 +85,12 @@ module RuboCop
           node_with_aggregate_failures = find_aggregate_failures(example_node)
           return false unless node_with_aggregate_failures
 
-          aggregate_failures?(node_with_aggregate_failures)
+          aggregate_failures?(node_with_aggregate_failures, TRUE)
         end
 
         def find_aggregate_failures(example_node)
           example_node.send_node.each_ancestor(:block)
-            .find { |block_node| aggregate_failures_present?(block_node) }
+            .find { |block_node| aggregate_failures?(block_node, ANYTHING) }
         end
 
         def find_expectation(node, &block)
