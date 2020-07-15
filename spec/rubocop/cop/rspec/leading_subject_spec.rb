@@ -135,4 +135,29 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       end
     RUBY
   end
+
+  it 'checks also when subject is below a non-offending node' do
+    expect_offense(<<~RUBY)
+      RSpec.describe do
+        def helper_method
+        end
+
+        it { is_expected.to be_present }
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe do
+        def helper_method
+        end
+
+        subject { described_class.new }
+        it { is_expected.to be_present }
+
+      end
+    RUBY
+  end
 end
