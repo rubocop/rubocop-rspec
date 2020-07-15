@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add a new base cop class `::RuboCop::Cop::RSpec::Base`. The old base class `::RuboCop::Cop::RSpec::Cop` is deprecated, and will be removed in the next major release. ([@bquorning][])
+* Add support for subject detection after includes and example groups in `RSpec/LeadingSubject`. ([@pirj][])
 
 ## 1.42.0 (2020-07-09)
 

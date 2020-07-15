@@ -40,6 +40,10 @@ module RuboCop
           "(send #{RSPEC} #{node_pattern_union} ...)"
         end
 
+        def send_or_block_or_block_pass_pattern
+          "{#{send_pattern} #{block_pattern} #{block_pass_pattern}}"
+        end
+
         def node_pattern_union
           "{#{node_pattern}}"
         end

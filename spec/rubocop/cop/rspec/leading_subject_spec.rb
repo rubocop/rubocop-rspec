@@ -63,12 +63,12 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
   it 'approves of subject above let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
-        context 'blah' do
-        end
-
         subject { described_class.new }
 
         let(:params) { foo }
+
+        context 'blah' do
+        end
       end
     RUBY
   end
@@ -156,6 +156,115 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
 
         subject { described_class.new }
         it { is_expected.to be_present }
+
+      end
+    RUBY
+  end
+
+  it 'flags subject below example group' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        describe do
+          it { is_expected.to be_present }
+        end
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `describe` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        describe do
+          it { is_expected.to be_present }
+        end
+
+      end
+    RUBY
+  end
+
+  it 'flags subject below shared example group' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        shared_examples_for 'used later' do
+          it { is_expected.to be_present }
+        end
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `shared_examples_for` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        shared_examples_for 'used later' do
+          it { is_expected.to be_present }
+        end
+
+      end
+    RUBY
+  end
+
+  it 'flags subject below include' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        it_behaves_like 'a good citizen'
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it_behaves_like` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        it_behaves_like 'a good citizen'
+
+      end
+    RUBY
+  end
+
+  it 'flags subject below include with a block' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        it_behaves_like 'a good citizen' do
+          let(:used_in_shared_examples) { 'something' }
+        end
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it_behaves_like` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new }
+        it_behaves_like 'a good citizen' do
+          let(:used_in_shared_examples) { 'something' }
+        end
+
+      end
+    RUBY
+  end
+
+  it 'flags subject below include with a blockpass' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        block = ->{ }
+        it_behaves_like 'a good citizen', &block
+
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `it_behaves_like` declarations.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        block = ->{ }
+        subject { described_class.new }
+        it_behaves_like 'a good citizen', &block
 
       end
     RUBY

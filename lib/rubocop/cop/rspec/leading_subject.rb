@@ -68,7 +68,11 @@ module RuboCop
         end
 
         def offending?(node)
-          let?(node) || hook?(node) || example?(node)
+          let?(node) ||
+            hook?(node) ||
+            example?(node) ||
+            spec_group?(node) ||
+            include?(node)
         end
 
         def in_spec_block?(node)
