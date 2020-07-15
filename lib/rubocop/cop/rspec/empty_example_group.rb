@@ -60,30 +60,41 @@ module RuboCop
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
-        def_node_matcher :contains_example?, <<-PATTERN
+        def_node_matcher :example_group_body, <<~PATTERN
+          (block #{ExampleGroups::ALL.send_pattern} args $_)
+        PATTERN
+
+        def_node_matcher :example_or_group_or_include?, <<~PATTERN
           {
             #{Examples::ALL.block_pattern}
             #{ExampleGroups::ALL.block_pattern}
             #{Includes::ALL.send_pattern}
             (send nil? #custom_include? ...)
-            (block (send _ :each) _ #contains_example?)
-            (begin <(block (send _ :each) _ #contains_example?) ...>)
+          }
+        PATTERN
+
+        def_node_matcher :examples_in_iterator?, <<~PATTERN
+          (block (send _ :each) _ #examples?)
+        PATTERN
+
+        def_node_matcher :examples_directly_or_in_iterator?, <<~PATTERN
+          {
+            #example_or_group_or_include?
+            #examples_in_iterator?
+          }
+        PATTERN
+
+        def_node_matcher :examples?, <<~PATTERN
+          {
+            #examples_directly_or_in_iterator?
+            (begin <#examples_directly_or_in_iterator? ...>)
           }
         PATTERN
 
         def on_block(node)
-          return unless example_group?(node)
-
-          body =
-            if node.body&.begin_type?
-              node.body.each_child_node
-            else
-              [node.body].each
-            end
-
-          return if body.any?(&method(:contains_example?))
-
-          add_offense(node.send_node)
+          example_group_body(node) do |body|
+            add_offense(node.send_node) unless examples?(body)
+          end
         end
 
         private

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
-  it 'flags an empty context' do
-    expect_offense(<<-RUBY)
+  it 'flags an empty example group' do
+    expect_offense(<<~RUBY)
       describe Foo do
         context 'when bar' do
         ^^^^^^^^^^^^^^^^^^ Empty example group detected.
@@ -22,17 +22,17 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   end
 
   it 'flags an empty top level describe' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
       ^^^^^^^^^^^^ Empty example group detected.
       end
     RUBY
   end
 
-  it 'flags examples improperly nested in invalid scopes' do
-    expect_offense(<<-RUBY)
-      describe Foo do
-      ^^^^^^^^^^^^ Empty example group detected.
+  it 'flags example group with examples defined in hooks' do
+    expect_offense(<<~RUBY)
+      context 'hook with implicit scope' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
         before do
           it 'yields a block when given' do
             value = nil
@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   end
 
   it 'ignores example group with examples defined in iterator' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'RuboCop monthly' do
         [1, 2, 3].each do |page|
           it { expect(newspaper(page)).to have_ads }
@@ -56,8 +56,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
-  it 'ignores example group with examples defined in surrounded iterator' do
-    expect_no_offenses(<<-RUBY)
+  it 'ignores example group with examples defined in an iterator' do
+    expect_no_offenses(<<~RUBY)
       describe 'RuboCop weekly' do
         some_method
         [1, 2, 3].each do |page|
@@ -68,8 +68,22 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
-  it 'ignores example group with examples defined in nested iterator' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags example group with no examples defined in an iterator' do
+    expect_offense(<<~RUBY)
+      describe 'RuboCop Sunday' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        some_method
+        [1, 2, 3].each do |page|
+          no_examples_here
+          and_no_ads_either
+        end
+        more_surroundings
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in a nested iterator' do
+    expect_no_offenses(<<~RUBY)
       describe 'RuboCop daily' do
         some_method
         [1, 2, 3].each do |page|
@@ -84,8 +98,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
-  it 'does not flag include_examples' do
-    expect_no_offenses(<<-RUBY)
+  it 'ignores examples groups with includes' do
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         context "when something is true" do
           include_examples "some expectations"
@@ -102,8 +116,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
-  it 'does not flag methods matching example group names' do
-    expect_no_offenses(<<-RUBY)
+  it 'ignores methods matching example group names' do
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         it 'yields a block when given' do
           value = nil
@@ -116,8 +130,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
-  it 'does not recognize custom include methods by default' do
-    expect_offense(<<-RUBY)
+  it 'flags custom include methods by default' do
+    expect_offense(<<~RUBY)
       describe Foo do
         context "when I do something clever" do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
@@ -132,8 +146,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       { 'CustomIncludeMethods' => %w[it_has_special_behavior] }
     end
 
-    it 'does not flag an otherwise empty example group' do
-      expect_no_offenses(<<-RUBY)
+    it 'ignores an empty example group with a custom include' do
+      expect_no_offenses(<<~RUBY)
         describe Foo do
           context "when I do something clever" do
             it_has_special_behavior
