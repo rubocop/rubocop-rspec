@@ -25,11 +25,11 @@ module RuboCop
         def on_block(node)
           return unless example_group_with_body?(node)
 
-          latest_let = node.body.child_nodes.select { |child| let?(child) }.last
+          final_let = node.body.child_nodes.reverse.find { |child| let?(child) }
 
-          return if latest_let.nil?
+          return if final_let.nil?
 
-          missing_separating_line_offense(latest_let) do |method|
+          missing_separating_line_offense(final_let) do |method|
             format(MSG, let: method)
           end
         end

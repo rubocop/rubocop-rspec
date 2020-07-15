@@ -64,7 +64,7 @@ module RuboCop
 
         def string_constant_describe?(described_value)
           described_value.str_type? &&
-            described_value.value =~ /^((::)?[A-Z]\w*)+$/
+            described_value.value.match?(/^(?:(?:::)?[A-Z]\w*)+$/)
         end
       end
     end
