@@ -219,7 +219,7 @@ module RuboCop
         # rubocop:enable Metrics/MethodLength
 
         def replacement_matcher(node)
-          case [cop_config['Strict'], node.method_name == :to]
+          case [cop_config['Strict'], node.method?(:to)]
           when [true, true]
             'be(true)'
           when [true, false]

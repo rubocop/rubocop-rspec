@@ -142,7 +142,7 @@ module RuboCop
           if style == :described_class
             offensive_described_class?(node)
           else
-            node.send_type? && node.method_name == :described_class
+            node.send_type? && node.method?(:described_class)
           end
         end
 

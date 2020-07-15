@@ -20,7 +20,7 @@ module RuboCop
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 
         def on_send(node)
-          return unless node.method_name == :never && method_on_stub?(node)
+          return unless node.method?(:never) && method_on_stub?(node)
 
           add_offense(node.loc.selector) do |corrector|
             autocorrect(corrector, node)

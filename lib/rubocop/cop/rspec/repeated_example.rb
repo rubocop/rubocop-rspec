@@ -41,7 +41,7 @@ module RuboCop
         def example_signature(example)
           key_parts = [example.metadata, example.implementation]
 
-          if example.definition.method_name == :its
+          if example.definition.method?(:its)
             key_parts << example.definition.arguments
           end
 

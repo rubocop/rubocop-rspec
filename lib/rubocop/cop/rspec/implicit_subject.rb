@@ -63,7 +63,7 @@ module RuboCop
           example = node.ancestors.find { |parent| example?(parent) }
           return false if example.nil?
 
-          example.method_name == :its || allowed_by_style?(example)
+          example.method?(:its) || allowed_by_style?(example)
         end
 
         def allowed_by_style?(example)
