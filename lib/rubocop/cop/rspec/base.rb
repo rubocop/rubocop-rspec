@@ -21,14 +21,6 @@ module RuboCop
         include RuboCop::RSpec::Language
         include RuboCop::RSpec::Language::NodePattern
 
-        DEFAULT_CONFIGURATION =
-          RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
-
-        DEFAULT_PATTERN_RE = Regexp.union(
-          DEFAULT_CONFIGURATION.fetch('Patterns')
-                               .map(&Regexp.public_method(:new))
-        )
-
         # Invoke the original inherited hook so our cops are recognized
         def self.inherited(subclass) # rubocop:disable Lint/MissingSuper
           RuboCop::Cop::Base.inherited(subclass)
@@ -41,32 +33,28 @@ module RuboCop
         private
 
         def relevant_rubocop_rspec_file?(file)
-          rspec_pattern.match?(file)
+          self.class.rspec_pattern.match?(file)
         end
 
-        def rspec_pattern
-          if rspec_pattern_config?
-            Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))
-          else
-            DEFAULT_PATTERN_RE
+        class << self
+          def rspec_pattern
+            @rspec_pattern ||=
+              Regexp.union(
+                rspec_pattern_config.map(&Regexp.public_method(:new))
+              )
           end
-        end
 
-        def all_cops_config
-          config
-            .for_all_cops
-        end
+          private
 
-        def rspec_pattern_config?
-          return unless all_cops_config.key?('RSpec')
+          def rspec_pattern_config
+            default_configuration =
+              RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
 
-          all_cops_config.fetch('RSpec').key?('Patterns')
-        end
-
-        def rspec_pattern_config
-          all_cops_config
-            .fetch('RSpec', DEFAULT_CONFIGURATION)
-            .fetch('Patterns')
+            Config.new
+              .for_all_cops
+              .fetch('RSpec', default_configuration)
+              .fetch('Patterns')
+          end
         end
       end
     end
