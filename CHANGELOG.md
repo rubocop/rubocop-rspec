@@ -7,6 +7,8 @@
 * Ignore trailing punctuation in context description prefix. ([@elliterate][])
 
 * Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][], [@pirj][])
+* Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][])
+* Fix `RSpec/EmptyExampleGroup` to ignore examples groups with examples defined inside iterators. ([@pirj][])
 
 ## 1.42.0 (2020-07-09)
 

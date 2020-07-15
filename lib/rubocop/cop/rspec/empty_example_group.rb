@@ -74,7 +74,16 @@ module RuboCop
         PATTERN
 
         def_node_matcher :examples_in_iterator?, <<~PATTERN
-          (block (send _ :each) _ #examples?)
+          (block
+            {
+              (send _ :each)
+              (send _ :each_with_object _)
+              (send _ :each_with_index)
+              (send (send _ :each) :with_object _)
+              (send (send _ :each) :with_index)
+            }
+            _ #examples?
+          )
         PATTERN
 
         def_node_matcher :examples_directly_or_in_iterator?, <<~PATTERN

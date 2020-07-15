@@ -82,6 +82,36 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'ignores example group with examples defined in an obscure iterators' do
+    expect_no_offenses(<<~RUBY)
+      describe 'RuboCop Friday night' do
+        context 'with each.with_object' do
+          [1, 2, 3].each.with_object(0) do |page, price|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+
+        context 'with each.with_index' do
+          [1, 2, 3].each.with_index do |page, index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+
+        context 'with each_with_object' do
+          [1, 2, 3].each_with_object(0) do |page, index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+
+        context 'with each_with_index' do
+          [1, 2, 3].each_with_index do |page, index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+      end
+    RUBY
+  end
+
   it 'ignores example group with examples defined in a nested iterator' do
     expect_no_offenses(<<~RUBY)
       describe 'RuboCop daily' do
