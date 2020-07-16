@@ -41,7 +41,7 @@ module RuboCop
       #   describe 'display name presence' do
       #     # ...
       #   end
-      class Dialect < Cop
+      class Dialect < Base
         extend AutoCorrector
         include MethodPreference
 

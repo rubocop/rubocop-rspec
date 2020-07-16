@@ -21,7 +21,7 @@ module RuboCop
       #
       #   describe "A feature example", type: :feature do
       #   end
-      class DescribeClass < Cop
+      class DescribeClass < Base
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'The first argument to describe should be '\

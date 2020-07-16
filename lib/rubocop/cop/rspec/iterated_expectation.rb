@@ -15,7 +15,7 @@ module RuboCop
       #   it 'validates users' do
       #     expect([user1, user2, user3]).to all(be_valid)
       #   end
-      class IteratedExpectation < Cop
+      class IteratedExpectation < Base
         MSG = 'Prefer using the `all` matcher instead ' \
                   'of iterating over an array.'
 

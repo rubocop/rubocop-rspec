@@ -22,7 +22,7 @@ module RuboCop
       #   let(:foo) do
       #     instance_double("ClassName", method_name: 'returned value')
       #   end
-      class VerifiedDoubles < Cop
+      class VerifiedDoubles < Base
         MSG = 'Prefer using verifying doubles over normal doubles.'
 
         def_node_matcher :unverified_double, <<-PATTERN

@@ -57,7 +57,7 @@ module RuboCop
       #   before(:example) do
       #     # ...
       #   end
-      class HookArgument < Cop
+      class HookArgument < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

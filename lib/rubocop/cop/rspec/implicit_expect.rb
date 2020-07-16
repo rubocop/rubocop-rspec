@@ -24,7 +24,7 @@ module RuboCop
       #   # good
       #   it { should be_truthy }
       #
-      class ImplicitExpect < Cop
+      class ImplicitExpect < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

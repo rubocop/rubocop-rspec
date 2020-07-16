@@ -30,7 +30,7 @@ module RuboCop
       #     }.to raise_error(/err/)
       #
       #     expect { do_something }.not_to raise_error
-      class UnspecifiedException < Cop
+      class UnspecifiedException < Base
         MSG = 'Specify the exception being captured'
 
         def_node_matcher :empty_raise_error_or_exception, <<-PATTERN

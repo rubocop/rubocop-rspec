@@ -25,7 +25,7 @@ module RuboCop
       #     some_method
       #     test.run
       #   end
-      class AroundBlock < Cop
+      class AroundBlock < Base
         MSG_NO_ARG     = 'Test object should be passed to around block.'
         MSG_UNUSED_ARG = 'You should call `%<arg>s.call` '\
                          'or `%<arg>s.run`.'

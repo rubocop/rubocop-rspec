@@ -22,7 +22,7 @@ module RuboCop
       #     create_feed
       #   end
       #   after(:all) { cleanup_feed }
-      class EmptyHook < Cop
+      class EmptyHook < Base
         extend AutoCorrector
         include RuboCop::Cop::RangeHelp
 

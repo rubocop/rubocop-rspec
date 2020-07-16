@@ -185,7 +185,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
   def selected_cops(cops, department)
     cops_of_department(cops, department.to_sym).select do |cop|
       cop.name.start_with?('RuboCop::Cop::RSpec') &&
-        cop.name != 'RuboCop::Cop::RSpec::Cop'
+        cop.name != 'RuboCop::Cop::RSpec::Base'
     end
   end
 

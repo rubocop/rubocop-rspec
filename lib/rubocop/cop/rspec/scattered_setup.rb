@@ -22,7 +22,7 @@ module RuboCop
       #     end
       #   end
       #
-      class ScatteredSetup < Cop
+      class ScatteredSetup < Base
         MSG = 'Do not define multiple `%<hook_name>s` hooks in the same '\
               'example group (also defined on %<lines>s).'
 

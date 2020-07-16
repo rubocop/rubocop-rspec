@@ -41,7 +41,7 @@ module RuboCop
       #     it { two }
       #   end
       #
-      class EmptyLineAfterExample < Cop
+      class EmptyLineAfterExample < Base
         extend AutoCorrector
         include RuboCop::RSpec::EmptyLineSeparation
 

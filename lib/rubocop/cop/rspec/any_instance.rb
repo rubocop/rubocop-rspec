@@ -22,7 +22,7 @@ module RuboCop
       #       allow(my_instance).to receive(:foo)
       #     end
       #   end
-      class AnyInstance < Cop
+      class AnyInstance < Base
         MSG = 'Avoid stubbing using `%<method>s`.'
 
         def_node_matcher :disallowed_stub, <<-PATTERN

@@ -22,7 +22,7 @@ module RuboCop
       #     describe '.do_something_else' do
       #     end
       #   end
-      class MultipleDescribes < Cop
+      class MultipleDescribes < Base
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Do not use multiple top level describes - '\

@@ -14,7 +14,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
       # This is not a concrete cop
       #
       # @abstract
-      class RuboCop::Cop::RSpec::Cop
+      class RuboCop::Cop::RSpec::Base
       end
 
       # Checks foo
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
       # Some description
       #
       # @note only works with foo
-      class RuboCop::Cop::RSpec::Foo < RuboCop::Cop::RSpec::Cop
+      class RuboCop::Cop::RSpec::Foo < RuboCop::Cop::RSpec::Base
         # Hello
         def bar
         end
@@ -32,7 +32,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
         end
       end
 
-      class RuboCop::Cop::RSpec::Undocumented < RuboCop::Cop::RSpec::Cop
+      class RuboCop::Cop::RSpec::Undocumented < RuboCop::Cop::RSpec::Base
         # Hello
         def bar
         end
@@ -43,7 +43,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   end
 
   let(:temp_class) do
-    temp = RuboCop::Cop::Cop.dup
+    temp = RuboCop::Cop::Base.dup
     temp.class_exec do
       class << self
         undef inherited

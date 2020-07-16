@@ -29,7 +29,7 @@ module RuboCop
       #   # good
       #   it 'does things' do
       #   end
-      class ExampleWording < Cop
+      class ExampleWording < Base
         extend AutoCorrector
 
         MSG_SHOULD = 'Do not use should when describing your tests.'

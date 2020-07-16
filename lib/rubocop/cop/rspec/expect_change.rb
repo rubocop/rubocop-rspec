@@ -29,7 +29,7 @@ module RuboCop
       #   expect { run }.to change { Foo.bar(:count) }
       #   expect { run }.to change { user.reload.name }
       #
-      class ExpectChange < Cop
+      class ExpectChange < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

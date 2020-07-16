@@ -26,7 +26,7 @@ module RuboCop
       #   # good
       #   it { expect(subject).to be_truthy }
       #
-      class ImplicitSubject < Cop
+      class ImplicitSubject < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

@@ -269,7 +269,7 @@ module RuboCop
       #
       #   # good - the above code is rewritten to it by this cop
       #   expect(foo.something?).to be_truthy
-      class PredicateMatcher < Cop
+      class PredicateMatcher < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
         include InflectedHelper

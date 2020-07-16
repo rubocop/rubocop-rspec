@@ -85,7 +85,7 @@ module RuboCop
       #     end
       #   end
       #
-      class NestedGroups < Cop
+      class NestedGroups < Base
         include ConfigurableMax
         include RuboCop::RSpec::TopLevelDescribe
 

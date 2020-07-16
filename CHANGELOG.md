@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add a new base cop class `::RuboCop::Cop::RSpec::Base`. The old base class `::RuboCop::Cop::RSpec::Cop` is deprecated, and will be removed in the next major release. ([@bquorning][])
+
 ## 1.42.0 (2020-07-09)
 
 * Update RuboCop dependency to 0.87.0 because of changes to internal APIs. ([@bquorning][], [@Darhazer][])

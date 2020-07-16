@@ -93,7 +93,7 @@ module RuboCop
       #       stub_const('SomeModule::SomeClass', foo_class)
       #     end
       #   end
-      class LeakyConstantDeclaration < Cop
+      class LeakyConstantDeclaration < Base
         MSG_CONST = 'Stub constant instead of declaring explicitly.'
         MSG_CLASS = 'Stub class constant instead of declaring explicitly.'
         MSG_MODULE = 'Stub module constant instead of declaring explicitly.'

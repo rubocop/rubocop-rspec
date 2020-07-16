@@ -25,7 +25,7 @@ module RuboCop
       #     result = service.call
       #     expect(result).to be(true)
       #   end
-      class ExampleLength < Cop
+      class ExampleLength < Base
         include CodeLength
 
         MSG = 'Example has too many lines [%<total>d/%<max>d].'

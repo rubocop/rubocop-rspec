@@ -33,7 +33,7 @@ module RuboCop
       #
       #   it { does_something }
       #
-      class EmptyLineAfterHook < Cop
+      class EmptyLineAfterHook < Base
         extend AutoCorrector
         include RuboCop::RSpec::EmptyLineSeparation
 

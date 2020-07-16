@@ -54,7 +54,7 @@ module RuboCop
       #     end
       #   end
       #
-      class DescribedClass < Cop
+      class DescribedClass < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 

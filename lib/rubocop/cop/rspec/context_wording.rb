@@ -34,7 +34,7 @@ module RuboCop
       #   context 'when the display name is not present' do
       #     # ...
       #   end
-      class ContextWording < Cop
+      class ContextWording < Base
         MSG = 'Start context description with %<prefixes>s.'
 
         def_node_matcher :context_wording, <<-PATTERN

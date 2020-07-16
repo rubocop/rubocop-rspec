@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Cop do
+RSpec.describe RuboCop::Cop::RSpec::Base do
   subject(:cop) { RuboCop::RSpec::FakeCop.new(config) }
 
   let(:config) do

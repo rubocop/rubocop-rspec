@@ -14,7 +14,7 @@ module RuboCop
       #   subject(:obj) { described_class }
       #
       #   let(:foo) { bar }
-      class EmptyLineAfterSubject < Cop
+      class EmptyLineAfterSubject < Base
         extend AutoCorrector
         include RuboCop::RSpec::EmptyLineSeparation
 

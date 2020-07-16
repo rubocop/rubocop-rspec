@@ -24,7 +24,7 @@ module RuboCop
       #   # good
       #   expect(foo).to receive(:bar)
       #
-      class MessageSpies < Cop
+      class MessageSpies < Base
         include ConfigurableEnforcedStyle
 
         MSG_RECEIVE = 'Prefer `receive` for setting message expectations.'

@@ -21,7 +21,7 @@ module RuboCop
       #     end
       #   end
       #
-      class SubjectStub < Cop
+      class SubjectStub < Base
         include RuboCop::RSpec::TopLevelGroup
 
         MSG = 'Do not stub methods of the object under test.'

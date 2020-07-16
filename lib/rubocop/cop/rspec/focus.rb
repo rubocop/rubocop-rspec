@@ -19,7 +19,7 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #   end
-      class Focus < Cop
+      class Focus < Base
         MSG = 'Focused spec found.'
 
         focusable =

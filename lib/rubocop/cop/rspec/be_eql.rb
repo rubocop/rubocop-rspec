@@ -35,7 +35,7 @@ module RuboCop
       # necessarily the same type as `b` since the `#==` operator can
       # coerce objects for comparison.
       #
-      class BeEql < Cop
+      class BeEql < Base
         extend AutoCorrector
 
         MSG = 'Prefer `be` over `eql`.'

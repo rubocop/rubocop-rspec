@@ -56,7 +56,7 @@ module RuboCop
       #   # good
       #   my_class_spec.rb         # describe MyClass, '#method'
       #
-      class FilePath < Cop
+      class FilePath < Base
         include RuboCop::RSpec::TopLevelDescribe
 
         MSG = 'Spec path should end with `%<suffix>s`.'

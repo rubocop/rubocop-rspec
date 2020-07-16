@@ -26,7 +26,7 @@ module RuboCop
       #     let!(:baz) { 3 }
       #   end
       #
-      class ScatteredLet < Cop
+      class ScatteredLet < Base
         extend AutoCorrector
 
         MSG = 'Group all let/let! blocks in the example group together.'

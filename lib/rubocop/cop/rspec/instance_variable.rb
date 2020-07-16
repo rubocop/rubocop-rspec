@@ -46,7 +46,7 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       #
-      class InstanceVariable < Cop
+      class InstanceVariable < Base
         include RuboCop::RSpec::TopLevelGroup
 
         MSG = 'Avoid instance variables – use let, ' \
