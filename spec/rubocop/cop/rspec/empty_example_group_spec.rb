@@ -139,8 +139,18 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
           include_context "some expectations"
         end
 
-        context "when a third thing is true" do
+        context "when the third thing is true" do
           it_behaves_like "some thingy"
+        end
+
+        context "when the fourth thing is true" do
+          it_behaves_like "some thingy" do
+            let(:a) { 'foo' }
+          end
+        end
+
+        context "when the fifth thing is true" do
+          it_behaves_like "some thingy", &block
         end
       end
     RUBY

@@ -69,6 +69,7 @@ module RuboCop
             #{Examples::ALL.block_pattern}
             #{ExampleGroups::ALL.block_pattern}
             #{Includes::ALL.send_pattern}
+            #{Includes::ALL.block_pattern}
             (send nil? #custom_include? ...)
           }
         PATTERN
