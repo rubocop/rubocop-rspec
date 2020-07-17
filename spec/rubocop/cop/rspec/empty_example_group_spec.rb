@@ -34,13 +34,21 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       context 'hook with implicit scope' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
         before do
-          it 'yields a block when given' do
-            value = nil
+          it { is_expected.to never_run }
+        end
+      end
 
-            helper.feature('whatevs') { value = 5 }
+      context 'hook with explicit scope' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        around(:example) do
+          it { is_expected.to never_run }
+        end
+      end
 
-            expect(value).to be 5
-          end
+      context 'hook with explicit scope and metadata' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        after(:each, :corrupt, type: :cop) do
+          it { is_expected.to never_run }
         end
       end
     RUBY
@@ -82,6 +90,28 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'ignores example group with examples defined in an custom block' do
+    expect_no_offenses(<<~RUBY)
+      context 'without arguments' do
+        mute_warnings do
+          it { expect(newspaper(page)).to have_a_lot_of_ads }
+        end
+      end
+
+      context 'with an argument' do
+        with_role :reader do
+          it { expect(newspaper(page)).to have_a_lot_of_ads }
+        end
+      end
+
+      context 'with a block argument' do
+        for_all_species_coming_from(:fish) do |creature|
+          it { expect(newspaper(page)).to have_a_lot_of_ads }
+        end
+      end
+    RUBY
+  end
+
   it 'ignores example group with examples defined in an obscure iterators' do
     expect_no_offenses(<<~RUBY)
       describe 'RuboCop Friday night' do
@@ -91,20 +121,20 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
           end
         end
 
-        context 'with each.with_index' do
-          [1, 2, 3].each.with_index do |page, index|
-            it { expect(newspaper(page)).to have_ads }
-          end
-        end
-
-        context 'with each_with_object' do
-          [1, 2, 3].each_with_object(0) do |page, index|
-            it { expect(newspaper(page)).to have_ads }
-          end
-        end
-
         context 'with each_with_index' do
           [1, 2, 3].each_with_index do |page, index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+
+        context 'with map' do
+          [1, 2, 3].map do |page, index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+
+        context 'with count' do
+          [1, 2, 3].count do |page, index|
             it { expect(newspaper(page)).to have_ads }
           end
         end
