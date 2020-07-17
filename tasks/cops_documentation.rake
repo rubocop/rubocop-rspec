@@ -2,9 +2,10 @@
 
 require 'yard'
 require 'rubocop'
+require 'rubocop-rspec'
 
 YARD::Rake::YardocTask.new(:yard_for_generate_documentation) do |task|
-  task.files = ['lib/rubocop/cop/*/*.rb']
+  task.files = ['lib/rubocop/cop/**/*.rb']
   task.options = ['--no-output']
 end
 
@@ -280,8 +281,14 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     end
   end
 
+  def qualified_cop?(cop)
+    cop.name.start_with?('RuboCop::Cop::RSpec')
+  end
+
   def main
-    cops   = RuboCop::Cop::Cop.registry
+    all_cops       = RuboCop::Cop::Cop.registry
+    qualified_cops = all_cops.select { |cop| qualified_cop?(cop) }
+    cops           = RuboCop::Cop::Registry.new(qualified_cops)
     config = RuboCop::ConfigLoader.default_configuration
 
     YARD::Registry.load!

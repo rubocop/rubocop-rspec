@@ -21,6 +21,8 @@ module RuboCop
         include RuboCop::RSpec::Language
         include RuboCop::RSpec::Language::NodePattern
 
+        exclude_from_registry
+
         DEFAULT_CONFIGURATION =
           RuboCop::RSpec::CONFIG.fetch('AllCops').fetch('RSpec')
 
