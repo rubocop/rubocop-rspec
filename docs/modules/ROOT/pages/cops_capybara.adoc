@@ -3,10 +3,13 @@
 == Capybara/CurrentPathExpectation
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.18
+| -
 |===
 
 Checks that no expectations are set on Capybara's `current_path`.
@@ -39,10 +42,13 @@ expect(page).to have_current_path(/widgets/)
 == Capybara/FeatureMethods
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.17
+| 1.25
 |===
 
 Checks for consistent method usage in feature specs.
@@ -103,10 +109,13 @@ end
 == Capybara/VisibilityMatcher
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.39
+| -
 |===
 
 Checks for boolean visibility in capybara finders.
@@ -133,16 +142,6 @@ expect(page).to have_selector('.foo', visible: :visible)
 expect(page).to have_css('.foo', visible: :all)
 expect(page).to have_link('my link', visible: :hidden)
 ----
-
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| VersionAdded
-| `1.39`
-| String
-|===
 
 === References
 

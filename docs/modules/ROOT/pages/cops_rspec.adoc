@@ -3,10 +3,13 @@
 == RSpec/AlignLeftLetBrace
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
 | Yes
+| Yes
+| 1.16
+| -
 |===
 
 Checks that left braces for adjacent single line lets are aligned.
@@ -33,10 +36,13 @@ let(:a)      { b }
 == RSpec/AlignRightLetBrace
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
 | Yes
+| Yes
+| 1.16
+| -
 |===
 
 Checks that right braces for adjacent single line lets are aligned.
@@ -63,10 +69,13 @@ let(:a)      { b        }
 == RSpec/AnyInstance
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.4
+| -
 |===
 
 Check that instances are not being stubbed globally.
@@ -100,10 +109,13 @@ end
 == RSpec/AroundBlock
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.11
+| -
 |===
 
 Checks that around blocks actually run the test.
@@ -140,10 +152,13 @@ end
 == RSpec/Be
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.25
+| -
 |===
 
 Check for expectations where `be` is used without argument.
@@ -172,20 +187,23 @@ expect(foo).to be(true)
 == RSpec/BeEql
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.7
+| -
 |===
 
-Check for expectations where `+be(...)+` can replace `+eql(...)+`.
+Check for expectations where `be(...)` can replace `eql(...)`.
 
 The `be` matcher compares by identity while the `eql` matcher
 compares using `eql?`. Integers, floats, booleans, symbols, and nil
 can be compared by identity and therefore the `be` matcher is
 preferable as it is a more strict test.
 
-This cop only looks for instances of `+expect(...).to eql(...)+`. We
+This cop only looks for instances of `expect(...).to eql(...)`. We
 do not check `to_not` or `not_to` since `!eql?` is more strict
 than `!equal?`. We also do not try to flag `eq` because if
 `a == b`, and `b` is comparable by identity, `a` is still not
@@ -220,10 +238,13 @@ expect(foo).to be(nil)
 == RSpec/BeforeAfterAll
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.12
+| -
 |===
 
 Check that before/after(:all) isn't being used.
@@ -257,7 +278,7 @@ end
 | Name | Default value | Configurable values
 
 | Exclude
-| `spec/spec_helper.rb`, `spec/rails_helper.rb`, `+spec/support/**/*.rb+`
+| `spec/spec_helper.rb`, `spec/rails_helper.rb`, `spec/support/**/*.rb`
 | Array
 |===
 
@@ -268,10 +289,13 @@ end
 == RSpec/ContextMethod
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.36
+| -
 |===
 
 `context` should not be used for specifying methods.
@@ -306,10 +330,13 @@ end
 == RSpec/ContextWording
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.20
+| 1.20.1
 |===
 
 Checks that `context` docstring starts with an allowed prefix.
@@ -365,13 +392,16 @@ end
 == RSpec/DescribeClass
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.0
+| -
 |===
 
-Check that the first argument to the top level describe is a constant.
+Check that the first argument to the top-level describe is a constant.
 
 === Examples
 
@@ -401,10 +431,13 @@ end
 == RSpec/DescribeMethod
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.0
+| -
 |===
 
 Checks that the second argument to `describe` specifies a method.
@@ -432,10 +465,13 @@ end
 == RSpec/DescribeSymbol
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.15
+| -
 |===
 
 Avoid describing symbols.
@@ -462,10 +498,13 @@ end
 == RSpec/DescribedClass
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes (Unsafe)
+| 1.0
+| 1.11
 |===
 
 Checks that tests use `described_class`.
@@ -554,10 +593,13 @@ end
 == RSpec/DescribedClassModuleWrapping
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
+| Yes
 | No
+| 1.37
+| -
 |===
 
 Avoid opening modules and defining specs within them.
@@ -586,35 +628,38 @@ end
 == RSpec/Dialect
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
 | Yes
+| Yes
+| 1.33
+| -
 |===
 
 This cop enforces custom RSpec dialects.
 
 A dialect can be based on the following RSpec methods:
 
-* describe, context, feature, example_group
-* xdescribe, xcontext, xfeature
-* fdescribe, fcontext, ffeature
-* shared_examples, shared_examples_for, shared_context
-* it, specify, example, scenario, its
-* fit, fspecify, fexample, fscenario, focus
-* xit, xspecify, xexample, xscenario, skip
-* pending
-* prepend_before, before, append_before,
-* around
-* prepend_after, after, append_after
-* let, let!
-* subject, subject!
-* expect, is_expected, expect_any_instance_of
+- describe, context, feature, example_group
+- xdescribe, xcontext, xfeature
+- fdescribe, fcontext, ffeature
+- shared_examples, shared_examples_for, shared_context
+- it, specify, example, scenario, its
+- fit, fspecify, fexample, fscenario, focus
+- xit, xspecify, xexample, xscenario, skip
+- pending
+- prepend_before, before, append_before,
+- around
+- prepend_after, after, append_after
+- let, let!
+- subject, subject!
+- expect, is_expected, expect_any_instance_of
 
 By default all of the RSpec methods and aliases are allowed. By setting
 a config like:
 
-RSpec/Dialect:
+  RSpec/Dialect:
     PreferredMethods:
       context: describe
 
@@ -642,7 +687,7 @@ end
 
 | PreferredMethods
 | `{}`
-|
+| 
 |===
 
 === References
@@ -652,10 +697,13 @@ end
 == RSpec/EmptyExampleGroup
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| -
 |===
 
 Checks if an example group does not include any tests.
@@ -737,10 +785,13 @@ end
 == RSpec/EmptyHook
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.39
+| -
 |===
 
 Checks for empty before and after hooks.
@@ -767,16 +818,6 @@ end
 after(:all) { cleanup_feed }
 ----
 
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| VersionAdded
-| `1.39.0`
-| String
-|===
-
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
@@ -784,10 +825,13 @@ after(:all) { cleanup_feed }
 == RSpec/EmptyLineAfterExample
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.36
+| -
 |===
 
 Checks if there is an empty line after example blocks.
@@ -852,10 +896,13 @@ end
 == RSpec/EmptyLineAfterExampleGroup
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.27
+| -
 |===
 
 Checks if there is an empty line after example group blocks.
@@ -889,10 +936,13 @@ end
 == RSpec/EmptyLineAfterFinalLet
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.14
+| -
 |===
 
 Checks if there is an empty line after the last let block.
@@ -920,10 +970,13 @@ it { does_something }
 == RSpec/EmptyLineAfterHook
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.27
+| -
 |===
 
 Checks if there is an empty line after hook blocks.
@@ -967,10 +1020,13 @@ it { does_something }
 == RSpec/EmptyLineAfterSubject
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.14
+| -
 |===
 
 Checks if there is an empty line after subject block.
@@ -996,10 +1052,13 @@ let(:foo) { bar }
 == RSpec/ExampleLength
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.5
+| -
 |===
 
 Checks for long examples.
@@ -1046,10 +1105,13 @@ end
 == RSpec/ExampleWithoutDescription
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.22
+| -
 |===
 
 Checks for examples without a description.
@@ -1128,10 +1190,13 @@ end
 == RSpec/ExampleWording
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.0
+| 1.2
 |===
 
 Checks for common mistakes in example descriptions.
@@ -1139,7 +1204,7 @@ Checks for common mistakes in example descriptions.
 This cop will correct docstrings that begin with 'should' and 'it'.
 
 The autocorrect is experimental - use with care! It can be configured
-with CustomTransform (e.g. have \=> has) and IgnoredWords (e.g. only).
+with CustomTransform (e.g. have => has) and IgnoredWords (e.g. only).
 
 === Examples
 
@@ -1171,8 +1236,8 @@ end
 | Name | Default value | Configurable values
 
 | CustomTransform
-| `+{"be"=>"is", "BE"=>"IS", "have"=>"has", "HAVE"=>"HAS"}+`
-|
+| `{"be"=>"is", "BE"=>"IS", "have"=>"has", "HAVE"=>"HAS"}`
+| 
 
 | IgnoredWords
 | `[]`
@@ -1186,13 +1251,16 @@ end
 == RSpec/ExpectActual
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.7
+| -
 |===
 
-Checks for `+expect(...)+` calls containing literal values.
+Checks for `expect(...)` calls containing literal values.
 
 === Examples
 
@@ -1215,7 +1283,7 @@ expect(name).to eq("John")
 | Name | Default value | Configurable values
 
 | Exclude
-| `+spec/routing/**/*+`
+| `spec/routing/**/*`
 | Array
 |===
 
@@ -1226,10 +1294,13 @@ expect(name).to eq("John")
 == RSpec/ExpectChange
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.22
+| -
 |===
 
 Checks for consistent style of change matcher.
@@ -1285,10 +1356,13 @@ expect { run }.to change { user.reload.name }
 == RSpec/ExpectInHook
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.16
+| -
 |===
 
 Do not use `expect` in hooks such as `before`.
@@ -1320,13 +1394,16 @@ end
 == RSpec/ExpectOutput
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.10
+| -
 |===
 
-Checks for opportunities to use `+expect { ... }.to output+`.
+Checks for opportunities to use `expect { ... }.to output`.
 
 === Examples
 
@@ -1349,10 +1426,13 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 == RSpec/FilePath
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.2
+| 1.40
 |===
 
 Checks that spec file paths are consistent and well-formed.
@@ -1366,7 +1446,7 @@ be ignored when determining the enforced path.
 
 With the configuration option `CustomTransform` modules or classes can
 be specified that should not as usual be transformed from CamelCase to
-snake_case (e.g. 'RuboCop' \=> 'rubocop' ).
+snake_case (e.g. 'RuboCop' => 'rubocop' ).
 
 With the configuration option `SpecSuffixOnly` test files will only
 be checked to ensure they end in '_spec.rb'. This option disables
@@ -1426,8 +1506,8 @@ my_class_spec.rb         # describe MyClass, '#method'
 | Name | Default value | Configurable values
 
 | CustomTransform
-| `+{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}+`
-|
+| `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
+| 
 
 | IgnoreMethods
 | `false`
@@ -1445,10 +1525,13 @@ my_class_spec.rb         # describe MyClass, '#method'
 == RSpec/Focus
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.5
+| -
 |===
 
 Checks if examples are focused.
@@ -1479,10 +1562,13 @@ end
 == RSpec/HookArgument
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.7
+| -
 |===
 
 Checks the arguments passed to `before`, `around`, and `after`.
@@ -1571,10 +1657,13 @@ end
 == RSpec/HooksBeforeExamples
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.29
+| -
 |===
 
 Checks for before/around/after hooks that come after an example.
@@ -1608,10 +1697,13 @@ end
 == RSpec/ImplicitBlockExpectation
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.35
+| -
 |===
 
 Check that implicit block expectation syntax is not used.
@@ -1639,10 +1731,13 @@ end
 == RSpec/ImplicitExpect
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.8
+| -
 |===
 
 Check that a consistent implicit expectation style is used.
@@ -1691,10 +1786,13 @@ it { should be_truthy }
 == RSpec/ImplicitSubject
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.29
+| 1.30
 |===
 
 Checks for usage of implicit subject (`is_expected` / `should`).
@@ -1747,10 +1845,13 @@ it { expect(subject).to be_truthy }
 == RSpec/InstanceSpy
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.12
+| -
 |===
 
 Checks for `instance_double` used with `have_received`.
@@ -1779,10 +1880,13 @@ end
 == RSpec/InstanceVariable
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.0
+| 1.7
 |===
 
 Checks for instance variable usage in specs.
@@ -1852,10 +1956,13 @@ end
 == RSpec/InvalidPredicateMatcher
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.16
+| -
 |===
 
 Checks invalid usage for predicate matcher.
@@ -1881,10 +1988,13 @@ expect(foo).to be_something
 == RSpec/ItBehavesLike
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.13
+| -
 |===
 
 Checks that only one `it_behaves_like` style is used.
@@ -1930,10 +2040,13 @@ it_should_behave_like 'a foo'
 == RSpec/IteratedExpectation
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.14
+| -
 |===
 
 Check that `all` matcher is used instead of iterating over an array.
@@ -1960,10 +2073,13 @@ end
 == RSpec/LeadingSubject
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.7
+| 1.14
 |===
 
 Enforce that subject is the first definition in the test.
@@ -2004,10 +2120,13 @@ Enforce that subject is the first definition in the test.
 == RSpec/LeakyConstantDeclaration
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.35
+| -
 |===
 
 Checks that no class, module, or constant is declared.
@@ -2116,10 +2235,13 @@ end
 == RSpec/LetBeforeExamples
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.16
+| 1.22
 |===
 
 Checks for `let` definitions that come after an example.
@@ -2161,10 +2283,13 @@ end
 == RSpec/LetSetup
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| -
 |===
 
 Checks unreferenced `let!` calls being used for test setup.
@@ -2201,10 +2326,13 @@ end
 == RSpec/MessageChain
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| -
 |===
 
 Check that chains of messages are not being stubbed.
@@ -2228,10 +2356,13 @@ allow(foo).to receive(:bar).and_return(thing)
 == RSpec/MessageExpectation
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
+| Yes
 | No
+| 1.7
+| 1.8
 |===
 
 Checks for consistent message expectation style.
@@ -2280,10 +2411,13 @@ expect(foo).to receive(:bar)
 == RSpec/MessageSpies
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.9
+| -
 |===
 
 Checks that message expectations are set using spies.
@@ -2332,10 +2466,13 @@ expect(foo).to receive(:bar)
 == RSpec/MissingExampleGroupArgument
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.28
+| -
 |===
 
 Checks that the first argument to an example group is not empty.
@@ -2366,13 +2503,16 @@ end
 == RSpec/MultipleDescribes
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.0
+| -
 |===
 
-Checks for multiple top level describes.
+Checks for multiple top-level example groups.
 
 Multiple descriptions for the same class or module should either
 be nested or separated into different test files.
@@ -2403,10 +2543,13 @@ end
 == RSpec/MultipleExpectations
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| 1.21
 |===
 
 Checks if examples contain too many `expect` calls.
@@ -2469,13 +2612,136 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 
-== RSpec/MultipleSubjects
+== RSpec/MultipleMemoizedHelpers
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| No
+| 1.43
+| -
+|===
+
+Checks if example groups contain too many `let` and `subject` calls.
+
+This cop is configurable using the `Max` option and the `AllowSubject`
+which will configure the cop to only register offenses on calls to
+`let` and not calls to `subject`.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+describe MyClass do
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+  let(:quuz) { {} }
+end
+
+describe MyClass do
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+
+  context 'when stuff' do
+    let(:qux) { [] }
+    let(:quux) { [] }
+    let(:quuz) { {} }
+  end
+end
+
+# good
+describe MyClass do
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+  let(:quuz) { {} }
+end
+
+describe MyClass do
+  context 'when stuff' do
+    let(:foo) { [] }
+    let(:bar) { [] }
+    let!(:booger) { [] }
+  end
+
+  context 'when other stuff' do
+    let(:qux) { [] }
+    let(:quux) { [] }
+    let(:quuz) { {} }
+  end
+end
+----
+
+==== when disabling AllowSubject configuration
+
+[source,ruby]
+----
+# rubocop.yml
+# RSpec/MultipleMemoizedHelpers:
+#   AllowSubject: false
+
+# bad - `subject` counts towards memoized helpers
+describe MyClass do
+  subject { {} }
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+end
+----
+
+==== with Max configuration
+
+[source,ruby]
+----
+# rubocop.yml
+# RSpec/MultipleMemoizedHelpers:
+#   Max: 1
+
+# bad
+describe MyClass do
+  let(:foo) { [] }
+  let(:bar) { [] }
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| AllowSubject
+| `true`
+| Boolean
+
+| Max
+| `5`
+| Integer
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
+
+== RSpec/MultipleSubjects
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Enabled
+| Yes
+| Yes
+| 1.16
+| -
 |===
 
 Checks if an example group defines `subject` multiple times.
@@ -2483,15 +2749,17 @@ Checks if an example group defines `subject` multiple times.
 The autocorrect behavior for this cop depends on the type of
 duplication:
 
-* If multiple named subjects are defined then this probably indicates
-that the overwritten subjects (all subjects except the last
-definition) are effectively being used to define helpers. In this
-case they are replaced with `let`.
-* If multiple unnamed subjects are defined though then this can _only_
-be dead code and we remove the overwritten subject definitions.
-* If subjects are defined with `subject!` then we don't autocorrect.
-This is enough of an edge case that people can just move this to
-a `before` hook on their own
+  - If multiple named subjects are defined then this probably indicates
+    that the overwritten subjects (all subjects except the last
+    definition) are effectively being used to define helpers. In this
+    case they are replaced with `let`.
+
+  - If multiple unnamed subjects are defined though then this can *only*
+    be dead code and we remove the overwritten subject definitions.
+
+  - If subjects are defined with `subject!` then we don't autocorrect.
+    This is enough of an edge case that people can just move this to
+    a `before` hook on their own
 
 === Examples
 
@@ -2517,18 +2785,21 @@ end
 == RSpec/NamedSubject
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.5.3
+| -
 |===
 
 Checks for explicitly referenced test subjects.
 
-RSpec lets you declare an "implicit subject" using `+subject { ... }+`
+RSpec lets you declare an "implicit subject" using `subject { ... }`
 which allows for tests like `it { is_expected.to be_valid }`.
 If you need to reference your test subject you should explicitly
-name it using `+subject(:your_subject_name) { ... }+`. Your test subjects
+name it using `subject(:your_subject_name) { ... }`. Your test subjects
 should be the most important object in your tests so they deserve
 a descriptive name.
 
@@ -2583,10 +2854,13 @@ end
 == RSpec/NestedGroups
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| 1.10
 |===
 
 Checks for nested example groups.
@@ -2695,10 +2969,13 @@ end
 == RSpec/NotToNot
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.4
+| -
 |===
 
 Checks for consistent method usage for negating expectations.
@@ -2735,10 +3012,13 @@ end
 == RSpec/OverwritingSetup
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.14
+| -
 |===
 
 Checks if there is a let/subject that overwrites an existing one.
@@ -2771,10 +3051,13 @@ let!(:other) { other }
 == RSpec/Pending
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Disabled
+| Yes
 | No
+| 1.25
+| -
 |===
 
 Checks for any pending or skipped examples.
@@ -2817,10 +3100,13 @@ end
 == RSpec/PredicateMatcher
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes (Unsafe)
+| 1.16
+| -
 |===
 
 Prefer using predicate matcher over using predicate method directly.
@@ -2842,7 +3128,7 @@ expect(foo.something?).to be_truthy
 expect(foo).to be_something
 
 # also good - It checks "true" strictly.
-expect(foo).to be(true)
+expect(foo.something?).to be(true)
 ----
 
 ==== Strict: false, EnforcedStyle: inflected
@@ -2851,7 +3137,7 @@ expect(foo).to be(true)
 ----
 # bad
 expect(foo.something?).to be_truthy
-expect(foo).to be(true)
+expect(foo.something?).to be(true)
 
 # good
 expect(foo).to be_something
@@ -2904,10 +3190,13 @@ expect(foo.something?).to be_truthy
 == RSpec/ReceiveCounts
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.26
+| -
 |===
 
 Check for `once` and `twice` receive counts matchers usage.
@@ -2940,13 +3229,16 @@ expect(foo).to receive(:bar).at_most(:twice).times
 == RSpec/ReceiveNever
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.28
+| -
 |===
 
-Prefer `+not_to receive(...)+` over `+receive(...).never+`.
+Prefer `not_to receive(...)` over `receive(...).never`.
 
 === Examples
 
@@ -2966,10 +3258,13 @@ expect(foo).not_to receive(:bar)
 == RSpec/RepeatedDescription
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.9
+| -
 |===
 
 Check for repeated description strings in example groups.
@@ -3019,10 +3314,13 @@ end
 == RSpec/RepeatedExample
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.10
+| -
 |===
 
 Check for repeated examples within example groups.
@@ -3047,10 +3345,13 @@ end
 == RSpec/RepeatedExampleGroupBody
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.38
+| -
 |===
 
 Check for repeated describe and context block body.
@@ -3085,6 +3386,15 @@ end
 context 'when case y' do
   it { cool_predicate }
 end
+
+# good
+context Array do
+  it { is_expected.to respond_to :each }
+end
+
+context Hash do
+  it { is_expected.to respond_to :each }
+end
 ----
 
 === References
@@ -3094,10 +3404,13 @@ end
 == RSpec/RepeatedExampleGroupDescription
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.38
+| -
 |===
 
 Check for repeated example group descriptions.
@@ -3147,13 +3460,78 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
 
-== RSpec/ReturnFromStub
+== RSpec/RepeatedIncludeExample
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| No
+| 1.44
+| -
+|===
+
+Check for repeated include of shared examples.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+describe 'foo' do
+  include_examples 'cool stuff'
+  include_examples 'cool stuff'
+end
+
+# bad
+describe 'foo' do
+  it_behaves_like 'a cool', 'thing'
+  it_behaves_like 'a cool', 'thing'
+end
+
+# bad
+context 'foo' do
+  it_should_behave_like 'a duck'
+  it_should_behave_like 'a duck'
+end
+
+# good
+describe 'foo' do
+  include_examples 'cool stuff'
+end
+
+describe 'bar' do
+  include_examples 'cool stuff'
+end
+
+# good
+describe 'foo' do
+  it_behaves_like 'a cool', 'thing'
+  it_behaves_like 'a cool', 'person'
+end
+
+# good
+context 'foo' do
+  it_should_behave_like 'a duck'
+  it_should_behave_like 'a goose'
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
+
+== RSpec/ReturnFromStub
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Enabled
+| Yes
+| Yes
+| 1.16
+| 1.22
 |===
 
 Checks for consistent style of stub's return setting.
@@ -3213,10 +3591,13 @@ allow(Foo).to receive(:bar) { bar.baz }
 == RSpec/ScatteredLet
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.14
+| 1.39
 |===
 
 Checks for let scattered across the example group.
@@ -3246,16 +3627,6 @@ describe Foo do
 end
 ----
 
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| VersionChanged
-| `1.39`
-| String
-|===
-
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
@@ -3263,10 +3634,13 @@ end
 == RSpec/ScatteredSetup
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.10
+| -
 |===
 
 Checks for setup scattered across multiple hooks in an example group.
@@ -3299,10 +3673,13 @@ end
 == RSpec/SharedContext
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.13
+| -
 |===
 
 Checks for proper shared_context and shared_examples usage.
@@ -3365,10 +3742,13 @@ end
 == RSpec/SharedExamples
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.25
+| -
 |===
 
 Enforces use of string to titleize shared examples.
@@ -3399,10 +3779,13 @@ include_examples 'foo bar baz'
 == RSpec/SingleArgumentMessageChain
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.9
+| 1.10
 |===
 
 Checks that chains of messages contain more than one element.
@@ -3429,10 +3812,13 @@ allow(foo).to receive("bar.baz")
 == RSpec/SubjectStub
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.7
+| -
 |===
 
 Checks for stubbed test subjects.
@@ -3458,10 +3844,13 @@ end
 == RSpec/UnspecifiedException
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.30
+| -
 |===
 
 Checks for a specified error in checking raised errors.
@@ -3502,10 +3891,13 @@ expect { do_something }.not_to raise_error
 == RSpec/VariableDefinition
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.40
+| -
 |===
 
 Checks that memoized helpers names are symbols or strings.
@@ -3517,12 +3909,12 @@ Checks that memoized helpers names are symbols or strings.
 [source,ruby]
 ----
 # bad
-let('user_name') { 'Adam' }
 subject('user') { create_user }
+let('user_name') { 'Adam' }
 
 # good
-let(:user_name) { 'Adam' }
 subject(:user) { create_user }
+let(:user_name) { 'Adam' }
 ----
 
 ==== EnforcedStyle: strings
@@ -3530,12 +3922,12 @@ subject(:user) { create_user }
 [source,ruby]
 ----
 # bad
-let(:user_name) { 'Adam' }
 subject(:user) { create_user }
+let(:user_name) { 'Adam' }
 
 # good
-let('user_name') { 'Adam' }
 subject('user') { create_user }
+let('user_name') { 'Adam' }
 ----
 
 === Configurable attributes
@@ -3546,10 +3938,6 @@ subject('user') { create_user }
 | EnforcedStyle
 | `symbols`
 | `symbols`, `strings`
-
-| VersionAdded
-| `1.40`
-| String
 |===
 
 === References
@@ -3559,13 +3947,19 @@ subject('user') { create_user }
 == RSpec/VariableName
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.40
+| 1.43
 |===
 
 Checks that memoized helper names use the configured style.
+
+Variables can be excluded from checking using the `IgnoredPatterns`
+option.
 
 === Examples
 
@@ -3574,12 +3968,12 @@ Checks that memoized helper names use the configured style.
 [source,ruby]
 ----
 # bad
-let(:userName) { 'Adam' }
-subject(:userName) { 'Adam' }
+subject(:userName1) { 'Adam' }
+let(:userName2) { 'Adam' }
 
 # good
-let(:user_name) { 'Adam' }
-subject(:user_name) { 'Adam' }
+subject(:user_name_1) { 'Adam' }
+let(:user_name_2) { 'Adam' }
 ----
 
 ==== EnforcedStyle: camelCase
@@ -3587,12 +3981,30 @@ subject(:user_name) { 'Adam' }
 [source,ruby]
 ----
 # bad
-let(:user_name) { 'Adam' }
-subject(:user_name) { 'Adam' }
+subject(:user_name_1) { 'Adam' }
+let(:user_name_2) { 'Adam' }
 
 # good
-let(:userName) { 'Adam' }
-subject(:userName) { 'Adam' }
+subject(:userName1) { 'Adam' }
+let(:userName2) { 'Adam' }
+----
+
+==== IgnoredPatterns configuration
+
+[source,ruby]
+----
+# rubocop.yml
+# RSpec/VariableName:
+#   EnforcedStyle: snake_case
+#   IgnoredPatterns:
+#     - ^userFood
+----
+
+[source,ruby]
+----
+# okay because it matches the `^userFood` regex in `IgnoredPatterns`
+subject(:userFood_1) { 'spaghetti' }
+let(:userFood_2) { 'fettuccine' }
 ----
 
 === Configurable attributes
@@ -3604,9 +4016,9 @@ subject(:userName) { 'Adam' }
 | `snake_case`
 | `snake_case`, `camelCase`
 
-| VersionAdded
-| `1.40`
-| String
+| IgnoredPatterns
+| `[]`
+| Array
 |===
 
 === References
@@ -3616,10 +4028,13 @@ subject(:userName) { 'Adam' }
 == RSpec/VerifiedDoubles
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.2.1
+| 1.5
 |===
 
 Prefer using verifying doubles over normal doubles.
@@ -3665,10 +4080,13 @@ end
 == RSpec/VoidExpect
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
+| Yes
 | No
+| 1.16
+| -
 |===
 
 This cop checks void `expect()`.
@@ -3691,10 +4109,13 @@ expect(something).to be(1)
 == RSpec/Yield
 
 |===
-| Enabled by default | Supports autocorrection
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
 | Yes
+| Yes
+| 1.32
+| -
 |===
 
 This cop checks for calling a block within a stub.
