@@ -51,7 +51,7 @@ module RuboCop
         private
 
         def bad_prefix?(description)
-          !prefixes.include?(description.split.first)
+          !prefixes.include?(description.split(/\b/).first)
         end
 
         def joined_prefixes
