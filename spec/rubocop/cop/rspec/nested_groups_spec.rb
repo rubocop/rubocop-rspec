@@ -35,11 +35,32 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
     expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 4)
   end
 
-  it 'ignores non-spec context methods' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags example groups wrapped in classes' do
+    expect_offense(<<-RUBY)
       class MyThingy
-        context 'this is not rspec' do
-          context 'but it uses contexts' do
+        describe MyClass do
+          context 'when foo' do
+            context 'when bar' do
+              context 'when baz' do
+              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+              end
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags example groups wrapped in modules' do
+    expect_offense(<<-RUBY)
+      module MyNamespace
+        describe MyClass do
+          context 'when foo' do
+            context 'when bar' do
+              context 'when baz' do
+              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+              end
+            end
           end
         end
       end
