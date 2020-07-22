@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for multiple top level describes.
+      # Checks for multiple top-level example groups.
       #
       # Multiple descriptions for the same class or module should either
       # be nested or separated into different test files.
@@ -23,16 +23,19 @@ module RuboCop
       #     end
       #   end
       class MultipleDescribes < Base
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelGroup
 
-        MSG = 'Do not use multiple top level describes - '\
+        MSG = 'Do not use multiple top-level example groups - '\
               'try to nest them.'
 
-        def on_top_level_describe(node, _args)
-          return if single_top_level_describe?
-          return unless top_level_nodes.first.equal?(node)
+        def on_top_level_group(node)
+          top_level_example_groups =
+            top_level_groups.select(&method(:example_group?))
 
-          add_offense(node)
+          return if top_level_example_groups.one?
+          return unless top_level_example_groups.first.equal?(node)
+
+          add_offense(node.send_node)
         end
       end
     end
