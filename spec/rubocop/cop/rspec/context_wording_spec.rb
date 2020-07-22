@@ -33,6 +33,13 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording, :config do
     RUBY
   end
 
+  it "skips descriptions beginning with 'when,'" do
+    expect_no_offenses(<<-RUBY)
+      context 'when, for some inexplicable reason, you inject a subordinate clause' do
+      end
+    RUBY
+  end
+
   it 'finds context without separate `when` at the beginning' do
     expect_offense(<<-RUBY)
       context 'whenever you do' do

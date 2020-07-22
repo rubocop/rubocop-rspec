@@ -4,6 +4,7 @@
 
 * Add a new base cop class `::RuboCop::Cop::RSpec::Base`. The old base class `::RuboCop::Cop::RSpec::Cop` is deprecated, and will be removed in the next major release. ([@bquorning][])
 * Add support for subject detection after includes and example groups in `RSpec/LeadingSubject`. ([@pirj][])
+* Ignore trailing punctuation in context description prefix. ([@elliterate][])
 
 ## 1.42.0 (2020-07-09)
 
@@ -532,3 +533,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rolfschmidt]: https://github.com/rolfschmidt
 [@andrykonchin]: https://github.com/andrykonchin
 [@harrylewis]: https://github.com/harrylewis
+[@elliterate]: https://github.com/elliterate
