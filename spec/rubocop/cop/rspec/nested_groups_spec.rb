@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
-  it 'flags nested contexts' do
+  it 'flags nested example groups defined inside `describe`' do
     expect_offense(<<-RUBY)
       describe MyClass do
         context 'when foo' do
@@ -14,6 +14,36 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
 
         context 'when qux' do
           context 'when norf' do
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags nested example groups' do
+    expect_offense(<<-RUBY)
+      example_group MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            context 'when baz' do
+            ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags nested example groups inside shared examples' do
+    expect_offense(<<-RUBY)
+      shared_examples_for 'nested like express' do
+        context 'when foo' do
+          context 'when bar' do
+            context 'when baz' do
+              context 'when qux' do
+              ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+              end
+            end
           end
         end
       end

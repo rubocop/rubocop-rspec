@@ -25,14 +25,16 @@ module RuboCop
 
       def top_level_groups
         @top_level_groups ||=
-          top_level_nodes.select { |n| example_or_shared_group?(n) }
+          top_level_nodes(root_node).select { |n| example_or_shared_group?(n) }
       end
 
-      def top_level_nodes
-        if root_node.begin_type?
-          root_node.children
+      def top_level_nodes(node)
+        if node.begin_type?
+          node.children
+        elsif node.module_type? || node.class_type?
+          top_level_nodes(node.body)
         else
-          [root_node]
+          [node]
         end
       end
 
