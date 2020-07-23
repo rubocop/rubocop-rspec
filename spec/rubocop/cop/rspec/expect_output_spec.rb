@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 RSpec.describe RuboCop::Cop::RSpec::ExpectOutput do
   subject(:cop) { described_class.new }
 
