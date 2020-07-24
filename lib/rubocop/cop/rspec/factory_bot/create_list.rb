@@ -79,7 +79,7 @@ module RuboCop
           end
 
           # :nodoc
-          class Corrector
+          module Corrector
             private
 
             def build_options_string(options)
@@ -102,7 +102,9 @@ module RuboCop
           end
 
           # :nodoc
-          class TimesCorrector < Corrector
+          class TimesCorrector
+            include Corrector
+
             def initialize(node)
               @node = node
             end
@@ -130,7 +132,9 @@ module RuboCop
           end
 
           # :nodoc:
-          class CreateListCorrector < Corrector
+          class CreateListCorrector
+            include Corrector
+
             def initialize(node)
               @node = node.parent
             end

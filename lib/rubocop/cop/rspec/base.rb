@@ -30,7 +30,7 @@ module RuboCop
         )
 
         # Invoke the original inherited hook so our cops are recognized
-        def self.inherited(subclass)
+        def self.inherited(subclass) # rubocop:disable Lint/MissingSuper
           RuboCop::Cop::Base.inherited(subclass)
         end
 

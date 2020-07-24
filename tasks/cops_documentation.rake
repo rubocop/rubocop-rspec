@@ -17,7 +17,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
 
   def cops_body(config, cop, description, examples_objects, pars)
     content = h2(cop.cop_name)
-    content << properties(config, cop)
+    content << "#{properties(config, cop)}\n"
     content << "#{description}\n"
     content << examples(examples_objects) if examples_objects.count.positive?
     content << configurations(pars)
@@ -52,7 +52,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       config.fetch('VersionAdded', '-'),
       config.fetch('VersionChanged', '-')
     ]]
-    to_table(header, content) + "\n"
+    to_table(header, content)
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -125,12 +125,11 @@ task generate_cops_documentation: :yard_for_generate_documentation do
   end
 
   def to_table(header, content)
-    table = [
-      header.join(' | '),
-      Array.new(header.size, '---').join(' | ')
-    ]
-    table.concat(content.map { |c| c.join(' | ') })
-    table.join("\n") + "\n"
+    <<~TABLE
+      #{header.join(' | ')}
+      #{Array.new(header.size, '---').join(' | ')}
+      #{content.map { |c| c.join(' | ') }.join("\n")}
+    TABLE
   end
 
   def format_table_value(val) # rubocop:disable Metrics/MethodLength
@@ -204,7 +203,7 @@ task generate_cops_documentation: :yard_for_generate_documentation do
     end
   end
 
-  def print_cop_with_doc(cop, config) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def print_cop_with_doc(cop, config) # rubocop:disable Metrics/MethodLength
     t = config.for_cop(cop)
     non_display_keys = %w[
       Description Enabled StyleGuide Reference Safe SafeAutoCorrect VersionAdded

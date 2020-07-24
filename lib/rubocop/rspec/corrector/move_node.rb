@@ -16,19 +16,21 @@ module RuboCop
           @processed_source = processed_source # used by RangeHelp
         end
 
-        def move_before(other) # rubocop:disable Metrics/AbcSize
+        def move_before(other)
           position = other.loc.expression
-          indent = "\n" + ' ' * other.loc.column
+          indent = ' ' * other.loc.column
+          newline_indent = "\n#{indent}"
 
-          corrector.insert_before(position, source(original) + indent)
+          corrector.insert_before(position, source(original) + newline_indent)
           corrector.remove(node_range_with_surrounding_space(original))
         end
 
         def move_after(other)
           position = final_end_location(other)
-          indent = "\n" + ' ' * other.loc.column
+          indent = ' ' * other.loc.column
+          newline_indent = "\n#{indent}"
 
-          corrector.insert_after(position, indent + source(original))
+          corrector.insert_after(position, newline_indent + source(original))
           corrector.remove(node_range_with_surrounding_space(original))
         end
 
