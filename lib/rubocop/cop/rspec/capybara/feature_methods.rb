@@ -57,13 +57,13 @@ module RuboCop
 
           def_node_matcher :spec?, <<-PATTERN
             (block
-              (send #{RSPEC} {:describe :feature} ...)
+              (send #rspec? {:describe :feature} ...)
             ...)
           PATTERN
 
           def_node_matcher :feature_method, <<-PATTERN
             (block
-              $(send #{RSPEC} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
+              $(send #rspec? ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
             ...)
           PATTERN
 

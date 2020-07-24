@@ -38,7 +38,7 @@ RSpec.describe RuboCop::RSpec::Language::SelectorSet do
   describe '#send_pattern' do
     it 'builds a send matching pattern' do
       expect(selector_set.send_pattern).to eql(
-        '(send {(const {nil? cbase} :RSpec) nil?} {:foo :bar} ...)'
+        '(send #rspec? {:foo :bar} ...)'
       )
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::RSpec::Language::SelectorSet do
   describe '#block_pattern' do
     it 'builds a block matching pattern' do
       expect(selector_set.block_pattern).to eql(
-        '(block (send {(const {nil? cbase} :RSpec) nil?} {:foo :bar} ...) ...)'
+        '(block (send #rspec? {:foo :bar} ...) ...)'
       )
     end
   end

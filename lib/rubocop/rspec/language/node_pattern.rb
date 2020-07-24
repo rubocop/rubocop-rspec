@@ -7,6 +7,8 @@ module RuboCop
       module NodePattern
         extend RuboCop::NodePattern::Macros
 
+        def_node_matcher :rspec?, '{(const {nil? cbase} :RSpec) nil?}'
+
         def_node_matcher :example_group?, ExampleGroups::ALL.block_pattern
         def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
 

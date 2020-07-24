@@ -34,8 +34,8 @@ module RuboCop
         FOCUSABLE_SELECTORS = focusable.node_pattern_union
 
         def_node_matcher :metadata, <<-PATTERN
-          {(send #{RSPEC} #{FOCUSABLE_SELECTORS} <$(sym :focus) ...>)
-           (send #{RSPEC} #{FOCUSABLE_SELECTORS} ... (hash <$(pair (sym :focus) true) ...>))}
+          {(send #rspec? #{FOCUSABLE_SELECTORS} <$(sym :focus) ...>)
+           (send #rspec? #{FOCUSABLE_SELECTORS} ... (hash <$(pair (sym :focus) true) ...>))}
         PATTERN
 
         def_node_matcher :focused_block?, focused.send_pattern
