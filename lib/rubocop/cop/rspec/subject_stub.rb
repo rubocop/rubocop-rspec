@@ -39,7 +39,7 @@ module RuboCop
         #       name # => :thing
         #     end
         #
-        #   @param node [RuboCop::Node]
+        #   @param node [RuboCop::AST::Node]
         #
         #   @yield [Symbol] subject name
         def_node_matcher :subject, <<-PATTERN
