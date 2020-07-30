@@ -172,11 +172,11 @@ module RuboCop
         # @return [Array<Symbol>]
         # @example
         #   # nil represents base constant
-        #   collapse_namespace([], :C)                 # => [:C]
-        #   collapse_namespace([:A, :B], [:C)          # => [:A, :B, :C]
-        #   collapse_namespace([:A, :B], [:B, :C)      # => [:A, :B, :C]
-        #   collapse_namespace([:A, :B], [nil, :C)     # => [nil, :C]
-        #   collapse_namespace([:A, :B], [nil, :B, :C) # => [nil, :B, :C]
+        #   collapse_namespace([], [:C])                # => [:C]
+        #   collapse_namespace([:A, :B], [:C])          # => [:A, :B, :C]
+        #   collapse_namespace([:A, :B], [:B, :C])      # => [:A, :B, :C]
+        #   collapse_namespace([:A, :B], [nil, :C])     # => [nil, :C]
+        #   collapse_namespace([:A, :B], [nil, :B, :C]) # => [nil, :B, :C]
         def collapse_namespace(namespace, const)
           return const if namespace.empty?
           return const if const.first.nil?
