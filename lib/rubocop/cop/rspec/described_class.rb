@@ -156,14 +156,28 @@ module RuboCop
 
           return if nearest_described_class.equal?(node)
 
-          FullConstNameFinder.call(nearest_described_class) ==
-            FullConstNameFinder.call(node)
+          same_full_const_name?(nearest_described_class, node)
         end
 
-        module FullConstNameFinder
+        def same_full_const_name?(node_a, node_b)
+          FullConstName.find(node_a) == FullConstName.find(node_b)
+        end
+
+        # Helper module for finding the "full" constant name, with all namespace
+        # modules, for a given node.
+        module FullConstName
           module_function
 
-          def call(node)
+          # Finds the "full" constant name for a given node. Seemingly
+          # identical nodes may give different results depending on which
+          # modules are defined in their ancestor nodes.
+          #
+          # @param node [RuboCop::AST::Node]
+          # @return [Array<Symbol>]
+          # @example
+          #   const_name(s(:const, nil, :C)) # => [:C]
+          #   const_name(s(:const, nil, :C)) # => [:A, :B, :C]
+          def find(node)
             collapse_namespace(namespace(node), const_name(node))
           end
 
