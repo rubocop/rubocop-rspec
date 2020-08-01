@@ -55,15 +55,18 @@ module RuboCop
             feature:    :describe
           }.freeze
 
+          def_node_matcher :capybara_speak,
+                           SelectorSet.new(MAP.keys).node_pattern_union
+
           def_node_matcher :spec?, <<-PATTERN
             (block
-              (send #{RSPEC} {:describe :feature} ...)
+              (send #rspec? {:describe :feature} ...)
             ...)
           PATTERN
 
           def_node_matcher :feature_method, <<-PATTERN
             (block
-              $(send #{RSPEC} ${#{MAP.keys.map(&:inspect).join(' ')}} ...)
+              $(send #rspec? $#capybara_speak ...)
             ...)
           PATTERN
 

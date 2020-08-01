@@ -29,7 +29,7 @@ module RuboCop
         MSG = 'Use `describe` for testing methods.'
 
         def_node_matcher :context_method, <<-PATTERN
-          (block (send #{RSPEC} :context $(str #method_name?) ...) ...)
+          (block (send #rspec? :context $(str #method_name?) ...) ...)
         PATTERN
 
         def on_block(node)

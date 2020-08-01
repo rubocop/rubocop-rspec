@@ -61,17 +61,16 @@ module RuboCop
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
-        IMPLICIT_MSG = 'Omit the default `%<scope>p` ' \
-                       'argument for RSpec hooks.'
+        IMPLICIT_MSG = 'Omit the default `%<scope>p` argument for RSpec hooks.'
         EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'
 
-        HOOKS = Hooks::ALL.node_pattern_union.freeze
+        def_node_matcher :hook?, Hooks::ALL.node_pattern_union
 
         def_node_matcher :scoped_hook, <<-PATTERN
-          (block $(send _ #{HOOKS} (sym ${:each :example})) ...)
+          (block $(send _ #hook? (sym ${:each :example})) ...)
         PATTERN
 
-        def_node_matcher :unscoped_hook, "(block $(send _ #{HOOKS}) ...)"
+        def_node_matcher :unscoped_hook, '(block $(send _ #hook?) ...)'
 
         def on_block(node)
           hook(node) do |method_send, scope_name|
