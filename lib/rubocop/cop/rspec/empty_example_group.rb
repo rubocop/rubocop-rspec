@@ -60,17 +60,101 @@ module RuboCop
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
-        def_node_search :contains_example?, <<-PATTERN
+        # @!method example_group_body(node)
+        #   Match example group blocks and yield their body
+        #
+        #   @example source that matches
+        #     describe 'example group' do
+        #       it { is_expected.to be }
+        #     end
+        #
+        #   @param node [RuboCop::AST::Node]
+        #   @yield [RuboCop::AST::Node] example group body
+        def_node_matcher :example_group_body, <<~PATTERN
+          (block #{ExampleGroups::ALL.send_pattern} args $_)
+        PATTERN
+
+        # @!method example_or_group_or_include?(node)
+        #   Match examples, example groups and includes
+        #
+        #   @example source that matches
+        #     it { is_expected.to fly }
+        #     describe('non-empty example groups too') { }
+        #     it_behaves_like 'an animal'
+        #     it_behaves_like('a cat') { let(:food) { 'milk' } }
+        #     it_has_root_access
+        #
+        #   @param node [RuboCop::AST::Node]
+        #   @return [Array<RuboCop::AST::Node>] matching nodes
+        def_node_matcher :example_or_group_or_include?, <<~PATTERN
           {
-            #{(Examples::ALL + Includes::ALL).send_pattern}
-            (send _ #custom_include? ...)
+            #{Examples::ALL.block_pattern}
+            #{ExampleGroups::ALL.block_pattern}
+            #{Includes::ALL.send_pattern}
+            #{Includes::ALL.block_pattern}
+            (send nil? #custom_include? ...)
+          }
+        PATTERN
+
+        # @!method examples_inside_block?(node)
+        #   Match examples defined inside a block which is not a hook
+        #
+        #   @example source that matches
+        #     %w(r g b).each do |color|
+        #       it { is_expected.to have_color(color) }
+        #     end
+        #
+        #   @example source that does not match
+        #     before do
+        #       it { is_expected.to fall_into_oblivion }
+        #     end
+        #
+        #   @param node [RuboCop::AST::Node]
+        #   @return [Array<RuboCop::AST::Node>] matching nodes
+        def_node_matcher :examples_inside_block?, <<~PATTERN
+          (block !#{Hooks::ALL.send_pattern} _ #examples?)
+        PATTERN
+
+        # @!method examples_directly_or_in_block?(node)
+        #   Match examples or examples inside blocks
+        #
+        #   @example source that matches
+        #     it { expect(drink).to be_cold }
+        #     context('when winter') { it { expect(drink).to be_hot } }
+        #     (1..5).each { |divisor| it { is_expected.to divide_by(divisor) } }
+        #
+        #   @param node [RuboCop::AST::Node]
+        #   @return [Array<RuboCop::AST::Node>] matching nodes
+        def_node_matcher :examples_directly_or_in_block?, <<~PATTERN
+          {
+            #example_or_group_or_include?
+            #examples_inside_block?
+          }
+        PATTERN
+
+        # @!method examples?(node)
+        #   Matches examples defined in scopes where they could run
+        #
+        #   @example source that matches
+        #     it { expect(myself).to be_run }
+        #     describe { it { i_run_as_well } }
+        #
+        #   @example source that does not match
+        #     before { it { whatever here wont run anyway } }
+        #
+        #   @param node [RuboCop::AST::Node]
+        #   @return [Array<RuboCop::AST::Node>] matching nodes
+        def_node_matcher :examples?, <<~PATTERN
+          {
+            #examples_directly_or_in_block?
+            (begin <#examples_directly_or_in_block? ...>)
           }
         PATTERN
 
         def on_block(node)
-          return unless example_group?(node) && !contains_example?(node)
-
-          add_offense(node.send_node)
+          example_group_body(node) do |body|
+            add_offense(node.send_node) unless examples?(body)
+          end
         end
 
         private

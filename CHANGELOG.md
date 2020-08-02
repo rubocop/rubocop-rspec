@@ -6,6 +6,9 @@
 * Add support for subject detection after includes and example groups in `RSpec/LeadingSubject`. ([@pirj][])
 * Ignore trailing punctuation in context description prefix. ([@elliterate][])
 
+* Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][])
+* Fix `RSpec/EmptyExampleGroup` to ignore examples groups with examples defined inside iterators. ([@pirj][])
+
 ## 1.42.0 (2020-07-09)
 
 * Update RuboCop dependency to 0.87.0 because of changes to internal APIs. ([@bquorning][], [@Darhazer][])
@@ -534,3 +537,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@andrykonchin]: https://github.com/andrykonchin
 [@harrylewis]: https://github.com/harrylewis
 [@elliterate]: https://github.com/elliterate
+[@mlarraz]: https://github.com/mlarraz

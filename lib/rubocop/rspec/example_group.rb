@@ -36,9 +36,9 @@ module RuboCop
       #
       # Searches node and halts when a scope change is detected
       #
-      # @param node [RuboCop::Node] node to recursively search
+      # @param node [RuboCop::AST::Node] node to recursively search
       #
-      # @return [Array<RuboCop::Node>] discovered nodes
+      # @return [Array<RuboCop::AST::Node>] discovered nodes
       def find_all_in_scope(node, predicate)
         node.each_child_node.flat_map do |child|
           find_all(child, predicate)
