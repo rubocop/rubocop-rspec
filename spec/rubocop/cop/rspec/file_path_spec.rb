@@ -8,6 +8,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  it 'registers an offense for a bad path for all kinds of example groups' do
+    expect_offense(<<-RUBY, 'wrong_path_foo_spec.rb')
+      example_group MyClass, 'foo' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*foo*_spec.rb`.
+    RUBY
+  end
+
   it 'registers an offense for a wrong class but a correct method' do
     expect_offense(<<-RUBY, 'wrong_class_foo_spec.rb')
       describe MyClass, '#foo' do; end
