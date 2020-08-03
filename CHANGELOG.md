@@ -5,7 +5,7 @@
 * Add a new base cop class `::RuboCop::Cop::RSpec::Base`. The old base class `::RuboCop::Cop::RSpec::Cop` is deprecated, and will be removed in the next major release. ([@bquorning][])
 * Add support for subject detection after includes and example groups in `RSpec/LeadingSubject`. ([@pirj][])
 * Ignore trailing punctuation in context description prefix. ([@elliterate][])
-
+* Relax `RSpec/VariableDefinition` cop so interpolated and multiline strings are accepted even when configured to enforce the `symbol` style. ([@bquorning][])
 * Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][])
 * Fix `RSpec/EmptyExampleGroup` to ignore examples groups with examples defined inside iterators. ([@pirj][])
 

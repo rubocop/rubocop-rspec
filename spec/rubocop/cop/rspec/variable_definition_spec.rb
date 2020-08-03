@@ -11,17 +11,15 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition, :config do
       RUBY
     end
 
-    it 'registers an offense for interpolated string' do
-      expect_offense(<<~'RUBY')
+    it 'does not register offense for interpolated string' do
+      expect_no_offenses(<<~'RUBY')
         let("user-#{id}") { 'Adam' }
-            ^^^^^^^^^^^^ Use symbols for variable names.
       RUBY
     end
 
-    it 'registers an offense for multiline string' do
-      expect_offense(<<~'RUBY')
-        let("user"\
-            ^^^^^^^ Use symbols for variable names.
+    it 'does not register offense for multiline string' do
+      expect_no_offenses(<<~'RUBY')
+        let("user" \
             "-foo") { 'Adam' }
       RUBY
     end
