@@ -3042,23 +3042,23 @@ Checks that memoized helpers names are symbols or strings.
 
 ```ruby
 # bad
-let('user_name') { 'Adam' }
 subject('user') { create_user }
+let('user_name') { 'Adam' }
 
 # good
-let(:user_name) { 'Adam' }
 subject(:user) { create_user }
+let(:user_name) { 'Adam' }
 ```
 #### EnforcedStyle: strings
 
 ```ruby
 # bad
-let(:user_name) { 'Adam' }
 subject(:user) { create_user }
+let(:user_name) { 'Adam' }
 
 # good
-let('user_name') { 'Adam' }
 subject('user') { create_user }
+let('user_name') { 'Adam' }
 ```
 
 ### Configurable attributes

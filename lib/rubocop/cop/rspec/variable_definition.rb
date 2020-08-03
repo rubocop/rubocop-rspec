@@ -7,21 +7,21 @@ module RuboCop
       #
       # @example EnforcedStyle: symbols (default)
       #   # bad
-      #   let('user_name') { 'Adam' }
       #   subject('user') { create_user }
+      #   let('user_name') { 'Adam' }
       #
       #   # good
-      #   let(:user_name) { 'Adam' }
       #   subject(:user) { create_user }
+      #   let(:user_name) { 'Adam' }
       #
       # @example EnforcedStyle: strings
       #   # bad
-      #   let(:user_name) { 'Adam' }
       #   subject(:user) { create_user }
+      #   let(:user_name) { 'Adam' }
       #
       #   # good
-      #   let('user_name') { 'Adam' }
       #   subject('user') { create_user }
+      #   let('user_name') { 'Adam' }
       class VariableDefinition < Base
         include ConfigurableEnforcedStyle
         include RuboCop::RSpec::Variable
