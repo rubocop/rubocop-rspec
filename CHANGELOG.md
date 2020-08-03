@@ -11,6 +11,7 @@
 * Improve `RSpec/NestedGroups`, `RSpec/FilePath`, `RSpec/DescribeMethod`, `RSpec/MultipleDescribes`, `RSpec/DescribeClass`'s top-level example group detection. ([@pirj][])
 * Add detection of `let!` with a block-pass or a string literal to `RSpec/LetSetup`. ([@pirj][])
 * Add `IgnoredPatterns` configuration option to `RSpec/VariableName`. ([@jtannas][])
+* Add `RSpec/MultipleMemoizedHelpers` cop. ([@mockdeep][])
 
 ## 1.42.0 (2020-07-09)
 
@@ -55,7 +56,6 @@
 * Add `RSpec/RepeatedExampleGroupDescription` cop. ([@lazycoder9][])
 * Add block name and other lines to `RSpec/ScatteredSetup` message. ([@elebow][])
 * Fix `RSpec/RepeatedDescription` to take into account example metadata. ([@lazycoder9][])
-* Add `RSpec/MemoizedHelpersInExampleGroup` cop. ([@mockdeep][])
 
 ## 1.37.1 (2019-12-16)
 

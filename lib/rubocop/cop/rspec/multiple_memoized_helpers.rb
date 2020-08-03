@@ -14,31 +14,31 @@ module RuboCop
       #   describe MyClass do
       #     let(:foo) { [] }
       #     let(:bar) { [] }
-      #     let!(:booger) { [] }
-      #     subject { {} }
-      #     subject(:wat) { {} }
-      #     subject!(:boo) { {} }
+      #     let!(:baz) { [] }
+      #     let(:qux) { [] }
+      #     let(:quux) { [] }
+      #     subject(:quuz) { {} }
       #   end
       #
       #   describe MyClass do
       #     let(:foo) { [] }
       #     let(:bar) { [] }
+      #     let!(:baz) { [] }
       #
       #     context 'when stuff' do
-      #       let!(:booger) { [] }
-      #       subject { {} }
-      #       subject(:wat) { {} }
-      #       subject!(:boo) { {} }
+      #       let(:qux) { [] }
+      #       let(:quux) { [] }
+      #       subject(:quuz) { {} }
       #     end
       #   end
       #
       #   # good
       #   describe MyClass do
-      #     let(:foo) { [] }
-      #     let!(:booger) { [] }
-      #     subject { {} }
-      #     subject(:wat) { {} }
-      #     subject!(:boo) { {} }
+      #     let(:bar) { [] }
+      #     let!(:baz) { [] }
+      #     let(:qux) { [] }
+      #     let(:quux) { [] }
+      #     subject(:quuz) { {} }
       #   end
       #
       #   describe MyClass do
@@ -49,42 +49,32 @@ module RuboCop
       #     end
       #
       #     context 'when other stuff' do
-      #       subject { {} }
-      #       subject(:wat) { {} }
-      #       subject!(:boo) { {} }
+      #       let(:qux) { [] }
+      #       let(:quux) { [] }
+      #       subject(:quuz) { {} }
       #     end
       #   end
       #
-      # @example with AllowSubject configuration
+      # @example when disabling AllowSubject configuration
       #
       #   # rubocop.yml
-      #   # RSpec/MemoizedHelpersInExampleGroup:
+      #   # RSpec/MultipleMemoizedHelpers:
       #   #   AllowSubject: true
-      #
-      #   # bad
-      #   describe MyClass do
-      #     let(:foo) { [] }
-      #     let(:bar) { [] }
-      #     let!(:booger) { [] }
-      #     let(:subject) { {} }
-      #     let(:wat) { {} }
-      #     let!(:boo) { {} }
-      #   end
       #
       #   # good
       #   describe MyClass do
+      #     subject { {} }
       #     let(:foo) { [] }
       #     let(:bar) { [] }
-      #     let!(:booger) { [] }
-      #     subject { {} }
-      #     subject(:wat) { {} }
-      #     subject!(:boo) { {} }
+      #     let!(:baz) { [] }
+      #     let(:qux) { [] }
+      #     let(:quux) { [] }
       #   end
       #
       # @example with Max configuration
       #
       #   # rubocop.yml
-      #   # RSpec/MemoizedHelpersInExampleGroup:
+      #   # RSpec/MultipleMemoizedHelpers:
       #   #   Max: 0
       #
       #   # bad
@@ -97,8 +87,8 @@ module RuboCop
       #     def foo; []; end
       #   end
       #
-      class MemoizedHelpersInExampleGroup < Cop
-        MSG = 'Example has too many memoized helpers [%<count>d/%<max>d]'
+      class MultipleMemoizedHelpers < Base
+        MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
 
         def on_block(node)
           return unless spec_group?(node)

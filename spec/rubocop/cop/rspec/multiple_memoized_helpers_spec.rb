@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
+RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
   let(:cop_config) { { 'Max' => 1 } }
 
   it 'flags an offense when using more than max `#let` calls' do
     expect_offense(<<~RUBY)
       describe Foo do
-      ^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+      ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         let(:foo) { Foo.new }
         let(:bar) { Bar.new }
       end
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
   it 'flags an offense when using `#subject` without name' do
     expect_offense(<<~RUBY)
       describe Foo do
-      ^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+      ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         subject { Foo.new }
         let(:foo) { Foo.new }
       end
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
   it 'flags an offense when using `#subject` with name' do
     expect_offense(<<~RUBY)
       describe Foo do
-      ^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+      ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         subject(:foo) { Foo.new }
         let(:foo) { Foo.new }
       end
@@ -36,7 +36,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
   it 'flags an offense when using `#let!`' do
     expect_offense(<<~RUBY)
       describe Foo do
-      ^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+      ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         let(:foo) { Foo.new }
         let!(:foo) { Foo.new }
       end
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
   it 'flags an offense when using `#subject!`' do
     expect_offense(<<~RUBY)
       describe Foo do
-      ^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+      ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         subject!(:foo) { Foo.new }
         let(:foo) { Foo.new }
       end
@@ -67,7 +67,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
         let(:foo) { Foo.new }
 
         context 'when blah' do
-        ^^^^^^^^^^^^^^^^^^^^^^ Example has too many memoized helpers [2/1]
+        ^^^^^^^^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
           let(:bar) { Bar.new }
         end
       end
@@ -102,7 +102,7 @@ RSpec.describe RuboCop::Cop::RSpec::MemoizedHelpersInExampleGroup, :config do
     it 'flags an offense when using `#let`' do
       expect_offense(<<~RUBY)
         describe Foo do
-        ^^^^^^^^^^^^^^^ Example has too many memoized helpers [1/0]
+        ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [1/0]
           let(:foo) { Foo.new }
         end
       RUBY
