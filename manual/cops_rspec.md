@@ -1890,122 +1890,6 @@ end
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup)
 
-## RSpec/MemoizedHelpersInExampleGroup
-
-Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
---- | --- | --- | --- | ---
-Disabled | Yes | No | - | -
-
-Checks if example groups contain too many `let` and `subject` calls.
-
-This cop is configurable using the `Max` option and the `AllowSubject`
-which will configure the cop to only register offenses on calls to
-`let` and not calls to `subject`.
-
-### Examples
-
-```ruby
-# bad
-describe MyClass do
-  let(:foo) { [] }
-  let(:bar) { [] }
-  let!(:booger) { [] }
-  subject { {} }
-  subject(:wat) { {} }
-  subject!(:boo) { {} }
-end
-
-describe MyClass do
-  let(:foo) { [] }
-  let(:bar) { [] }
-
-  context 'when stuff' do
-    let!(:booger) { [] }
-    subject { {} }
-    subject(:wat) { {} }
-    subject!(:boo) { {} }
-  end
-end
-
-# good
-describe MyClass do
-  let(:foo) { [] }
-  let!(:booger) { [] }
-  subject { {} }
-  subject(:wat) { {} }
-  subject!(:boo) { {} }
-end
-
-describe MyClass do
-  context 'when stuff' do
-    let(:foo) { [] }
-    let(:bar) { [] }
-    let!(:booger) { [] }
-  end
-
-  context 'when other stuff' do
-    subject { {} }
-    subject(:wat) { {} }
-    subject!(:boo) { {} }
-  end
-end
-```
-#### with AllowSubject configuration
-
-```ruby
-# rubocop.yml
-# RSpec/MemoizedHelpersInExampleGroup:
-#   AllowSubject: true
-
-# bad
-describe MyClass do
-  let(:foo) { [] }
-  let(:bar) { [] }
-  let!(:booger) { [] }
-  let(:subject) { {} }
-  let(:wat) { {} }
-  let!(:boo) { {} }
-end
-
-# good
-describe MyClass do
-  let(:foo) { [] }
-  let(:bar) { [] }
-  let!(:booger) { [] }
-  subject { {} }
-  subject(:wat) { {} }
-  subject!(:boo) { {} }
-end
-```
-#### with Max configuration
-
-```ruby
-# rubocop.yml
-# RSpec/MemoizedHelpersInExampleGroup:
-#   Max: 0
-
-# bad
-describe MyClass do
-  let(:foo) { [] }
-end
-
-# good
-describe MyClass do
-  def foo; []; end
-end
-```
-
-### Configurable attributes
-
-Name | Default value | Configurable values
---- | --- | ---
-AllowSubject | `false` | Boolean
-Max | `5` | Integer
-
-### References
-
-* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedHelpersInExampleGroup](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedHelpersInExampleGroup)
-
 ## RSpec/MessageChain
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -2234,6 +2118,112 @@ Max | `1` | Integer
 ### References
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations)
+
+## RSpec/MultipleMemoizedHelpers
+
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Disabled | Yes | No | - | -
+
+Checks if example groups contain too many `let` and `subject` calls.
+
+This cop is configurable using the `Max` option and the `AllowSubject`
+which will configure the cop to only register offenses on calls to
+`let` and not calls to `subject`.
+
+### Examples
+
+```ruby
+# bad
+describe MyClass do
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+  subject(:quuz) { {} }
+end
+
+describe MyClass do
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+
+  context 'when stuff' do
+    let(:qux) { [] }
+    let(:quux) { [] }
+    subject(:quuz) { {} }
+  end
+end
+
+# good
+describe MyClass do
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+  subject(:quuz) { {} }
+end
+
+describe MyClass do
+  context 'when stuff' do
+    let(:foo) { [] }
+    let(:bar) { [] }
+    let!(:booger) { [] }
+  end
+
+  context 'when other stuff' do
+    let(:qux) { [] }
+    let(:quux) { [] }
+    subject(:quuz) { {} }
+  end
+end
+```
+#### when disabling AllowSubject configuration
+
+```ruby
+# rubocop.yml
+# RSpec/MultipleMemoizedHelpers:
+#   AllowSubject: true
+
+# good
+describe MyClass do
+  subject { {} }
+  let(:foo) { [] }
+  let(:bar) { [] }
+  let!(:baz) { [] }
+  let(:qux) { [] }
+  let(:quux) { [] }
+end
+```
+#### with Max configuration
+
+```ruby
+# rubocop.yml
+# RSpec/MultipleMemoizedHelpers:
+#   Max: 0
+
+# bad
+describe MyClass do
+  let(:foo) { [] }
+end
+
+# good
+describe MyClass do
+  def foo; []; end
+end
+```
+
+### Configurable attributes
+
+Name | Default value | Configurable values
+--- | --- | ---
+AllowSubject | `false` | Boolean
+Max | `5` | Integer
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers)
 
 ## RSpec/MultipleSubjects
 
