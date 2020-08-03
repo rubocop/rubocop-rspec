@@ -44,7 +44,7 @@ module RuboCop
         end
 
         def string?(node)
-          node.str_type? || node.dstr_type?
+          node.str_type?
         end
 
         def symbol?(node)
