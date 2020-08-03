@@ -93,11 +93,7 @@ module RuboCop
         def on_block(node)
           return unless spec_group?(node)
 
-          count = count_helpers(node)
-
-          node.each_ancestor(:block) do |ancestor|
-            count += count_helpers(ancestor)
-          end
+          count = total_helpers(node)
 
           return if count <= max
 
@@ -106,11 +102,18 @@ module RuboCop
 
         private
 
-        def count_helpers(node)
+        def total_helpers(node)
+          helpers(node) +
+            node.each_ancestor(:block).map(&method(:helpers)).sum
+        end
+
+        def helpers(node)
           example_group = RuboCop::RSpec::ExampleGroup.new(node)
-          count = example_group.lets.count
-          count += example_group.subjects.count unless allow_subject?
-          count
+          if allow_subject?
+            example_group.lets.count
+          else
+            example_group.lets.count + example_group.subjects.count
+          end
         end
 
         def max
