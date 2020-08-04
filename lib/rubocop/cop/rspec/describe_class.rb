@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Check that the first argument to the top level describe is a constant.
+      # Check that the first argument to the top-level describe is a constant.
       #
       # @example
       #   # bad
@@ -22,49 +22,40 @@ module RuboCop
       #   describe "A feature example", type: :feature do
       #   end
       class DescribeClass < Base
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelGroup
 
         MSG = 'The first argument to describe should be '\
               'the class or module being tested.'
 
-        def_node_matcher :valid_describe?, <<-PATTERN
-          {
-            (send #rspec? :describe const ...)
-            (send #rspec? :describe)
-          }
-        PATTERN
-
-        def_node_matcher :describe_with_rails_metadata?, <<-PATTERN
-          (send #rspec? :describe !const ...
-            (hash <#rails_metadata? ...>)
-          )
-        PATTERN
-
         def_node_matcher :rails_metadata?, <<-PATTERN
           (pair
             (sym :type)
-            (sym {
-                   :channel :controller :helper :job :mailer :model :request
-                   :routing :view :feature :system :mailbox
-                 }
-            )
+            (sym { :channel :controller :helper :job :mailer :model :request
+                   :routing :view :feature :system :mailbox })
           )
         PATTERN
 
-        def on_top_level_describe(node, (described_value, _))
-          return if shared_group?(root_node)
-          return if valid_describe?(node)
-          return if describe_with_rails_metadata?(node)
-          return if string_constant_describe?(described_value)
+        def_node_matcher :example_group_with_rails_metadata?, <<~PATTERN
+          (send #rspec? :describe ... (hash <#rails_metadata? ...>))
+        PATTERN
 
-          add_offense(described_value)
+        def_node_matcher :not_a_const_described, <<~PATTERN
+          (send #rspec? :describe $[!const !#string_constant?] ...)
+        PATTERN
+
+        def on_top_level_group(top_level_node)
+          return if example_group_with_rails_metadata?(top_level_node.send_node)
+
+          not_a_const_described(top_level_node.send_node) do |described|
+            add_offense(described)
+          end
         end
 
         private
 
-        def string_constant_describe?(described_value)
-          described_value.str_type? &&
-            described_value.value.match?(/^(?:(?:::)?[A-Z]\w*)+$/)
+        def string_constant?(described)
+          described.str_type? &&
+            described.value.match?(/^(?:(?:::)?[A-Z]\w*)+$/)
         end
       end
     end

@@ -17,16 +17,24 @@ module RuboCop
       #   describe MyClass, '.my_class_method' do
       #   end
       class DescribeMethod < Base
-        include RuboCop::RSpec::TopLevelDescribe
+        include RuboCop::RSpec::TopLevelGroup
 
         MSG = 'The second argument to describe should be the method '\
               "being tested. '#instance' or '.class'."
 
-        def on_top_level_describe(_node, (_, second_arg))
-          return unless second_arg&.str_type?
-          return if second_arg.str_content.start_with?('#', '.')
+        def_node_matcher :second_argument, <<~PATTERN
+          (block
+            (send #rspec? :describe _first_argument $(str _) ...) ...
+          )
+        PATTERN
 
-          add_offense(second_arg)
+        def on_top_level_group(node)
+          second_argument = second_argument(node)
+
+          return unless second_argument
+          return if second_argument.str_content.start_with?('#', '.')
+
+          add_offense(second_argument)
         end
       end
     end

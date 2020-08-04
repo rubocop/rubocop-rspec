@@ -8,6 +8,7 @@
 * Relax `RSpec/VariableDefinition` cop so interpolated and multiline strings are accepted even when configured to enforce the `symbol` style. ([@bquorning][])
 * Fix `RSpec/EmptyExampleGroup` to flag example groups with examples in invalid scopes. ([@mlarraz][])
 * Fix `RSpec/EmptyExampleGroup` to ignore examples groups with examples defined inside iterators. ([@pirj][])
+* Improve `RSpec/NestedGroups`, `RSpec/FilePath`, `RSpec/DescribeMethod`, `RSpec/MultipleDescribes`, `RSpec/DescribeClass`'s top-level example group detection. ([@pirj][])
 
 ## 1.42.0 (2020-07-09)
 

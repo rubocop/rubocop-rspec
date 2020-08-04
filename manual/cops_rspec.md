@@ -322,7 +322,7 @@ Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChan
 --- | --- | --- | --- | ---
 Enabled | Yes | No | 1.0 | -
 
-Check that the first argument to the top level describe is a constant.
+Check that the first argument to the top-level describe is a constant.
 
 ### Examples
 
@@ -2033,7 +2033,7 @@ Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChan
 --- | --- | --- | --- | ---
 Enabled | Yes | No | 1.0 | -
 
-Checks for multiple top level describes.
+Checks for multiple top-level example groups.
 
 Multiple descriptions for the same class or module should either
 be nested or separated into different test files.

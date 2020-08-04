@@ -10,29 +10,40 @@ module RuboCop
       def_node_matcher :example_or_shared_group?,
                        (ExampleGroups::ALL + SharedGroups::ALL).block_pattern
 
-      def on_block(node)
-        return unless respond_to?(:on_top_level_group)
-        return unless top_level_group?(node)
+      def on_new_investigation
+        super
 
-        on_top_level_group(node)
+        return unless root_node
+
+        top_level_groups.each do |node|
+          example_group?(node, &method(:on_top_level_example_group))
+          on_top_level_group(node)
+        end
+      end
+
+      def top_level_groups
+        @top_level_groups ||=
+          top_level_nodes(root_node).select { |n| example_or_shared_group?(n) }
       end
 
       private
+
+      # Dummy methods to be overridden in the consumer
+      def on_top_level_example_group; end
+
+      def on_top_level_group; end
 
       def top_level_group?(node)
         top_level_groups.include?(node)
       end
 
-      def top_level_groups
-        @top_level_groups ||=
-          top_level_nodes.select { |n| example_or_shared_group?(n) }
-      end
-
-      def top_level_nodes
-        if root_node.begin_type?
-          root_node.children
+      def top_level_nodes(node)
+        if node.begin_type?
+          node.children
+        elsif node.module_type? || node.class_type?
+          top_level_nodes(node.body)
         else
-          [root_node]
+          [node]
         end
       end
 

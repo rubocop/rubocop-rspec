@@ -74,7 +74,7 @@ RSpec/ContextWording:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 
 RSpec/DescribeClass:
-  Description: Check that the first argument to the top level describe is a constant.
+  Description: Check that the first argument to the top-level describe is a constant.
   Enabled: true
   VersionAdded: '1.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
@@ -381,7 +381,7 @@ RSpec/MissingExampleGroupArgument:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
 
 RSpec/MultipleDescribes:
-  Description: Checks for multiple top level describes.
+  Description: Checks for multiple top-level example groups.
   Enabled: true
   VersionAdded: '1.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes
