@@ -88,6 +88,7 @@ module RuboCop
       #   end
       #
       class MultipleMemoizedHelpers < Base
+        include ConfigurableMax
         include RuboCop::RSpec::Variable
 
         MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
@@ -99,6 +100,7 @@ module RuboCop
 
           return if count <= max
 
+          self.max = count
           add_offense(node, message: format(MSG, count: count, max: max))
         end
 

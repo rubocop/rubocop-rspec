@@ -152,4 +152,17 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
       RUBY
     end
   end
+
+  it 'support --auto-gen-config' do
+    inspect_source(<<-RUBY, 'spec/foo_spec.rb')
+      describe Foo do
+        let(:foo) { Foo.new }
+        let(:bar) { Bar.new }
+        let(:baz) { Baz.new }
+        let(:qux) { Qux.new }
+      end
+    RUBY
+
+    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 4)
+  end
 end
