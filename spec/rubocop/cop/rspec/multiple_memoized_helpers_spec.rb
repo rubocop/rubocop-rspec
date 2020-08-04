@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
       describe Foo do
       ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         subject(:foo) { Foo.new }
-        let(:foo) { Foo.new }
+        let(:bar) { Foo.new }
       end
     RUBY
   end
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
       describe Foo do
       ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         let(:foo) { Foo.new }
-        let!(:foo) { Foo.new }
+        let!(:bar) { Foo.new }
       end
     RUBY
   end
@@ -48,7 +48,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
       describe Foo do
       ^^^^^^^^^^^^^^^ Example group has too many memoized helpers [2/1]
         subject!(:foo) { Foo.new }
-        let(:foo) { Foo.new }
+        let(:bar) { Foo.new }
       end
     RUBY
   end
@@ -57,6 +57,34 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
     expect_no_offenses(<<~RUBY)
       describe Foo do
         let(:foo) { Foo.new }
+      end
+    RUBY
+  end
+
+  it 'ignores overridden variables' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        let(:foo) { Foo.new }
+        context do
+          let(:foo) { Foo.new(1) }
+          context do
+            let(:foo) { Foo.new(1, 2) }
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores overridden nameless subjects' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        subject { Foo.new }
+        context do
+          subject { Foo.new(1) }
+          context do
+            subject { Foo.new(1, 2) }
+          end
+        end
       end
     RUBY
   end

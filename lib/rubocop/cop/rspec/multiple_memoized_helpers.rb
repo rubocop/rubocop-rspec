@@ -88,12 +88,14 @@ module RuboCop
       #   end
       #
       class MultipleMemoizedHelpers < Base
+        include RuboCop::RSpec::Variable
+
         MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
 
         def on_block(node)
           return unless spec_group?(node)
 
-          count = total_helpers(node)
+          count = all_helpers(node).uniq.count
 
           return if count <= max
 
@@ -102,18 +104,22 @@ module RuboCop
 
         private
 
-        def total_helpers(node)
-          helpers(node) +
-            node.each_ancestor(:block).map(&method(:helpers)).sum
+        def all_helpers(node)
+          [
+            *helpers(node),
+            *node.each_ancestor(:block).flat_map(&method(:helpers))
+          ]
         end
 
         def helpers(node)
           example_group = RuboCop::RSpec::ExampleGroup.new(node)
-          if allow_subject?
-            example_group.lets.count
-          else
-            example_group.lets.count + example_group.subjects.count
-          end
+          variables =
+            if allow_subject?
+              example_group.lets
+            else
+              example_group.lets + example_group.subjects
+            end
+          variables.map { |variable| variable_definition?(variable.send_node) }
         end
 
         def max
