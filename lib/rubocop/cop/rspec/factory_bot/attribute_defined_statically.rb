@@ -84,7 +84,7 @@ module RuboCop
           def autocorrect_replacing_parens(corrector, node)
             left_braces, right_braces = braces(node)
 
-            corrector.replace(node.location.begin, ' ' + left_braces)
+            corrector.replace(node.location.begin, " #{left_braces}")
             corrector.replace(node.location.end, right_braces)
           end
 

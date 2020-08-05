@@ -47,7 +47,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
     temp.class_exec do
       class << self
         undef inherited
-        def inherited(*) end
+        def inherited(*) end # rubocop:disable Lint/MissingSuper
       end
     end
     temp

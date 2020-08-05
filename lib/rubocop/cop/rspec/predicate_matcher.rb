@@ -208,12 +208,14 @@ module RuboCop
             'is_a?'
           when 'be_an_instance_of', 'be_instance_of', 'an_instance_of'
             'instance_of?'
-          when 'include', 'respond_to'
-            matcher + '?'
+          when 'include'
+            'include?'
+          when 'respond_to'
+            'respond_to?'
           when /^have_(.+)/
             "has_#{Regexp.last_match(1)}?"
           else
-            matcher[/^be_(.+)/, 1] + '?'
+            "#{matcher[/^be_(.+)/, 1]}?"
           end
         end
         # rubocop:enable Metrics/MethodLength

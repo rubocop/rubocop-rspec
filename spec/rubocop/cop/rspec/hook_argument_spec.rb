@@ -34,11 +34,11 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument, :config do
     include_examples 'autocorrect', 'before { }', output
 
     include_examples 'autocorrect', 'config.before(:each) { }',
-                     'config.' + output
+                     "config.#{output}"
     include_examples 'autocorrect', 'config.before(:example) { }',
-                     'config.' + output
+                     "config.#{output}"
     include_examples 'autocorrect', 'config.before { }',
-                     'config.' + output
+                     "config.#{output}"
   end
 
   shared_examples 'an example hook' do
