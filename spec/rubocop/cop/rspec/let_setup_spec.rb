@@ -98,6 +98,24 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
     RUBY
   end
 
+  it 'flags unused helpers defined as strings' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        let!('bar') { baz }
+        ^^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+      end
+    RUBY
+  end
+
+  it 'ignores used helpers defined as strings' do
+    expect_no_offenses(<<-RUBY)
+      describe Foo do
+        let!('bar') { baz }
+        it { expect(bar).to be_near }
+      end
+    RUBY
+  end
+
   it 'complains when there is a custom nesting level' do
     expect_offense(<<-RUBY)
       describe Foo do

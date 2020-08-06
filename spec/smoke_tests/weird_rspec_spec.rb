@@ -33,6 +33,17 @@ RSpec.describe 'Weirdness' do
 
   let(:doop) { foo; 1 }
 
+  let('foo') { 1 }
+  let('foo' \
+      'bar') { 1 }
+
+  let!('foo') { 1 }
+  let!('foo' \
+      'bar') { 1 }
+
+  let("foo#{1}") { 1 }
+  let!("foo#{1}") { 1 }
+
   it {}
   specify {}
 
