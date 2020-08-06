@@ -53,11 +53,11 @@ end
 desc 'Confirm documentation is up to date'
 task confirm_documentation: :generate_cops_documentation do
   _, _, _, process =
-    Open3.popen3('git diff --exit-code manual/')
+    Open3.popen3('git diff --exit-code docs/')
 
   unless process.value.success?
     raise 'Please run `rake generate_cops_documentation` ' \
-          'and add manual/ to the commit.'
+          'and add docs/ to the commit.'
   end
 end
 
