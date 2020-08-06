@@ -2123,7 +2123,7 @@ Max | `1` | Integer
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Disabled | Yes | No | - | -
+Enabled | Yes | No | - | -
 
 Checks if example groups contain too many `let` and `subject` calls.
 
@@ -2141,7 +2141,7 @@ describe MyClass do
   let!(:baz) { [] }
   let(:qux) { [] }
   let(:quux) { [] }
-  subject(:quuz) { {} }
+  let(:quuz) { {} }
 end
 
 describe MyClass do
@@ -2152,7 +2152,7 @@ describe MyClass do
   context 'when stuff' do
     let(:qux) { [] }
     let(:quux) { [] }
-    subject(:quuz) { {} }
+    let(:quuz) { {} }
   end
 end
 
@@ -2162,7 +2162,7 @@ describe MyClass do
   let!(:baz) { [] }
   let(:qux) { [] }
   let(:quux) { [] }
-  subject(:quuz) { {} }
+  let(:quuz) { {} }
 end
 
 describe MyClass do
@@ -2175,7 +2175,7 @@ describe MyClass do
   context 'when other stuff' do
     let(:qux) { [] }
     let(:quux) { [] }
-    subject(:quuz) { {} }
+    let(:quuz) { {} }
   end
 end
 ```
@@ -2184,9 +2184,9 @@ end
 ```ruby
 # rubocop.yml
 # RSpec/MultipleMemoizedHelpers:
-#   AllowSubject: true
+#   AllowSubject: false
 
-# good
+# bad - `subject` counts towards memoized helpers
 describe MyClass do
   subject { {} }
   let(:foo) { [] }
@@ -2201,16 +2201,12 @@ end
 ```ruby
 # rubocop.yml
 # RSpec/MultipleMemoizedHelpers:
-#   Max: 0
+#   Max: 1
 
 # bad
 describe MyClass do
   let(:foo) { [] }
-end
-
-# good
-describe MyClass do
-  def foo; []; end
+  let(:bar) { [] }
 end
 ```
 
@@ -2218,7 +2214,7 @@ end
 
 Name | Default value | Configurable values
 --- | --- | ---
-AllowSubject | `false` | Boolean
+AllowSubject | `true` | Boolean
 Max | `5` | Integer
 
 ### References

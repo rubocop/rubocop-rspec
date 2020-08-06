@@ -17,7 +17,7 @@ module RuboCop
       #     let!(:baz) { [] }
       #     let(:qux) { [] }
       #     let(:quux) { [] }
-      #     subject(:quuz) { {} }
+      #     let(:quuz) { {} }
       #   end
       #
       #   describe MyClass do
@@ -28,7 +28,7 @@ module RuboCop
       #     context 'when stuff' do
       #       let(:qux) { [] }
       #       let(:quux) { [] }
-      #       subject(:quuz) { {} }
+      #       let(:quuz) { {} }
       #     end
       #   end
       #
@@ -38,7 +38,7 @@ module RuboCop
       #     let!(:baz) { [] }
       #     let(:qux) { [] }
       #     let(:quux) { [] }
-      #     subject(:quuz) { {} }
+      #     let(:quuz) { {} }
       #   end
       #
       #   describe MyClass do
@@ -51,7 +51,7 @@ module RuboCop
       #     context 'when other stuff' do
       #       let(:qux) { [] }
       #       let(:quux) { [] }
-      #       subject(:quuz) { {} }
+      #       let(:quuz) { {} }
       #     end
       #   end
       #
@@ -59,9 +59,9 @@ module RuboCop
       #
       #   # rubocop.yml
       #   # RSpec/MultipleMemoizedHelpers:
-      #   #   AllowSubject: true
+      #   #   AllowSubject: false
       #
-      #   # good
+      #   # bad - `subject` counts towards memoized helpers
       #   describe MyClass do
       #     subject { {} }
       #     let(:foo) { [] }
@@ -75,16 +75,12 @@ module RuboCop
       #
       #   # rubocop.yml
       #   # RSpec/MultipleMemoizedHelpers:
-      #   #   Max: 0
+      #   #   Max: 1
       #
       #   # bad
       #   describe MyClass do
       #     let(:foo) { [] }
-      #   end
-      #
-      #   # good
-      #   describe MyClass do
-      #     def foo; []; end
+      #     let(:bar) { [] }
       #   end
       #
       class MultipleMemoizedHelpers < Base
