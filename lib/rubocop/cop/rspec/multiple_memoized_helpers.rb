@@ -114,14 +114,22 @@ module RuboCop
         end
 
         def helpers(node)
-          example_group = RuboCop::RSpec::ExampleGroup.new(node)
-          variables =
-            if allow_subject?
-              example_group.lets
-            else
-              example_group.lets + example_group.subjects
+          variable_nodes(node).map do |variable_node|
+            if variable_node.block_type?
+              variable_definition?(variable_node.send_node)
+            else # block-pass (`let(:foo, &bar)`)
+              variable_definition?(variable_node)
             end
-          variables.map { |variable| variable_definition?(variable.send_node) }
+          end
+        end
+
+        def variable_nodes(node)
+          example_group = RuboCop::RSpec::ExampleGroup.new(node)
+          if allow_subject?
+            example_group.lets
+          else
+            example_group.lets + example_group.subjects
+          end
         end
 
         def max

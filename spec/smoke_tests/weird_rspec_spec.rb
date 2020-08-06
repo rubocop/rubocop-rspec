@@ -11,6 +11,9 @@ RSpec.describe 'Weirdness' do
   let (:foo) { 1 }
   let!   (:bar){}
 
+  bar = -> {}
+  let(:foo, &bar)
+
   let :a do end
 
   let(:bar) { <<-HEREDOC }
