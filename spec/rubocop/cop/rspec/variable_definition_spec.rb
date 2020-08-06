@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition, :config do
 
     it 'registers an offense for string name' do
       expect_offense(<<~RUBY)
-        let("user_name") { 'Adam' }
+        let('user_name') { 'Adam' }
             ^^^^^^^^^^^ Use symbols for variable names.
       RUBY
     end
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition, :config do
 
     it 'does not register offense for string names' do
       expect_no_offenses(<<~RUBY)
-        let("user_name") { 'Adam' }
+        let('user_name') { 'Adam' }
       RUBY
     end
   end
