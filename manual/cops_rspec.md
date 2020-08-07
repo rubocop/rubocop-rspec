@@ -3075,9 +3075,12 @@ EnforcedStyle | `symbols` | `symbols`, `strings`
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | 1.40 | -
+Enabled | Yes | No | 1.40 | 1.43
 
 Checks that memoized helper names use the configured style.
+
+Variables can be excluded from checking using the `IgnoredPatterns`
+option.
 
 ### Examples
 
@@ -3085,23 +3088,37 @@ Checks that memoized helper names use the configured style.
 
 ```ruby
 # bad
-let(:userName) { 'Adam' }
-subject(:userName) { 'Adam' }
+subject(:userName1) { 'Adam' }
+let(:userName2) { 'Adam' }
 
 # good
-let(:user_name) { 'Adam' }
-subject(:user_name) { 'Adam' }
+subject(:user_name_1) { 'Adam' }
+let(:user_name_2) { 'Adam' }
 ```
 #### EnforcedStyle: camelCase
 
 ```ruby
 # bad
-let(:user_name) { 'Adam' }
-subject(:user_name) { 'Adam' }
+subject(:user_name_1) { 'Adam' }
+let(:user_name_2) { 'Adam' }
 
 # good
-let(:userName) { 'Adam' }
-subject(:userName) { 'Adam' }
+subject(:userName1) { 'Adam' }
+let(:userName2) { 'Adam' }
+```
+#### IgnoredPatterns configuration
+
+```ruby
+# rubocop.yml
+# RSpec/VariableName:
+#   EnforcedStyle: snake_case
+#   IgnoredPatterns:
+#     - ^userFood
+```
+```ruby
+# okay because it matches the `^userFood` regex in `IgnoredPatterns`
+subject(:userFood_1) { 'spaghetti' }
+let(:userFood_2) { 'fettuccine' }
 ```
 
 ### Configurable attributes
@@ -3109,6 +3126,7 @@ subject(:userName) { 'Adam' }
 Name | Default value | Configurable values
 --- | --- | ---
 EnforcedStyle | `snake_case` | `snake_case`, `camelCase`
+IgnoredPatterns | `[]` | Array
 
 ### References
 
