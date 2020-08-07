@@ -10,6 +10,7 @@
 * Fix `RSpec/EmptyExampleGroup` to ignore examples groups with examples defined inside iterators. ([@pirj][])
 * Improve `RSpec/NestedGroups`, `RSpec/FilePath`, `RSpec/DescribeMethod`, `RSpec/MultipleDescribes`, `RSpec/DescribeClass`'s top-level example group detection. ([@pirj][])
 * Add detection of `let!` with a block-pass or a string literal to `RSpec/LetSetup`. ([@pirj][])
+* Add `IgnoredPatterns` configuration option to `RSpec/VariableName`. ([@jtannas][])
 
 ## 1.42.0 (2020-07-09)
 
@@ -540,3 +541,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@harrylewis]: https://github.com/harrylewis
 [@elliterate]: https://github.com/elliterate
 [@mlarraz]: https://github.com/mlarraz
+[@jtannas]: https://github.com/jtannas

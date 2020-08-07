@@ -558,7 +558,9 @@ RSpec/VariableName:
   SupportedStyles:
   - snake_case
   - camelCase
+  IgnoredPatterns: []
   VersionAdded: '1.40'
+  VersionChanged: '1.43'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
 
 RSpec/VerifiedDoubles:
