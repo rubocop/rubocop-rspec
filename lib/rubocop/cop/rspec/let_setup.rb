@@ -35,7 +35,10 @@ module RuboCop
                          ).block_pattern
 
         def_node_matcher :let_bang, <<-PATTERN
-          (block $(send nil? :let! (sym $_)) args ...)
+          {
+            (block $(send nil? :let! {(sym $_) (str $_)}) ...)
+            $(send nil? :let! {(sym $_) (str $_)} block_pass)
+          }
         PATTERN
 
         def_node_search :method_called?, '(send nil? %)'
@@ -52,7 +55,7 @@ module RuboCop
 
         def unused_let_bang(node)
           child_let_bang(node) do |method_send, method_name|
-            yield(method_send) unless method_called?(node, method_name)
+            yield(method_send) unless method_called?(node, method_name.to_sym)
           end
         end
 
