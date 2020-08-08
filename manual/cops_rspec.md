@@ -2031,7 +2031,7 @@ end
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.43 | -
 
 Checks that message expectations are not combined with message stubs.
 

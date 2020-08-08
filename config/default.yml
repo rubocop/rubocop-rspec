@@ -383,6 +383,7 @@ RSpec/MissingExampleGroupArgument:
 RSpec/MockNotStub:
   Description: Checks that message expectations are not combined with message stubs.
   Enabled: true
+  VersionAdded: '1.43'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub
 
 RSpec/MultipleDescribes:
