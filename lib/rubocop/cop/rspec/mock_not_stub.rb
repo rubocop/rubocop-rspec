@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that stubs aren't added to mocks.
+      # Checks that message expectations are not combined with message stubs.
       #
       # @example
       #
@@ -14,7 +14,7 @@ module RuboCop
       #   allow(foo).to receive(:bar).with(42).and_return("hello world")
       #   expect(foo).to receive(:bar).with(42)
       #
-      class MockNotStub < Cop
+      class MockNotStub < Base
         MSG = "Don't stub your mock.".freeze
 
         def_node_matcher :message_expectation?, <<-PATTERN

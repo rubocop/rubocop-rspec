@@ -381,9 +381,9 @@ RSpec/MissingExampleGroupArgument:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
 
 RSpec/MockNotStub:
-  Description: Checks that stubs aren't added to mocks.
+  Description: Checks that message expectations are not combined with message stubs.
   Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub
 
 RSpec/MultipleDescribes:
   Description: Checks for multiple top-level example groups.
