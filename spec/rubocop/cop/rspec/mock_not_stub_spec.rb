@@ -5,28 +5,28 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
 
   it 'flags stubbed message expectation' do
     expect_offense(<<-RUBY)
-      expect(foo).to receive(:bar).and_return("hello world")
+      expect(foo).to receive(:bar).and_return('hello world')
                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with a block' do
     expect_offense(<<-RUBY)
-      expect(foo).to receive(:bar) { "hello world" }
+      expect(foo).to receive(:bar) { 'hello world' }
                                    ^^^^^^^^^^^^^^^^^ Don't stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with argument matching' do
     expect_offense(<<-RUBY)
-      expect(foo).to receive(:bar).with(42).and_return("hello world")
+      expect(foo).to receive(:bar).with(42).and_return('hello world')
                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with argument matching and a block' do
     expect_offense(<<-RUBY)
-      expect(foo).to receive(:bar).with(42) { "hello world" }
+      expect(foo).to receive(:bar).with(42) { 'hello world' }
                                             ^^^^^^^^^^^^^^^^^ Don't stub your mock.
     RUBY
   end
@@ -65,17 +65,17 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
 
   it 'flags with order and count constraints', :pending do
     expect_offense(<<-RUBY)
-      expect(foo).to receive(:bar) { "hello world" }.ordered
+      expect(foo).to receive(:bar) { 'hello world' }.ordered
                                    ^^^^^^^^^^^^^^^^^ Don't stub your mock.
-      expect(foo).to receive(:bar).ordered { "hello world" }
+      expect(foo).to receive(:bar).ordered { 'hello world' }
                                            ^^^^^^^^^^^^^^^^^ Don't stub your mock.
-      expect(foo).to receive(:bar).with(42).ordered { "hello world" }
+      expect(foo).to receive(:bar).with(42).ordered { 'hello world' }
                                                     ^^^^^^^^^^^^^^^^^ Don't stub your mock.
-      expect(foo).to receive(:bar).once.with(42).ordered { "hello world" }
+      expect(foo).to receive(:bar).once.with(42).ordered { 'hello world' }
                                                          ^^^^^^^^^^^^^^^^^ Don't stub your mock.
-      expect(foo).to receive(:bar) { "hello world" }.once.with(42).ordered
+      expect(foo).to receive(:bar) { 'hello world' }.once.with(42).ordered
                                    ^^^^^^^^^^^^^^^^^ Don't stub your mock.
-      expect(foo).to receive(:bar).once.with(42).and_return("hello world").ordered
+      expect(foo).to receive(:bar).once.with(42).and_return('hello world').ordered
                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
     RUBY
   end
