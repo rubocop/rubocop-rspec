@@ -63,6 +63,23 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
     RUBY
   end
 
+  it 'flags with order and count constraints', :pending do
+    expect_offense(<<-RUBY)
+      expect(foo).to receive(:bar) { "hello world" }.ordered
+                                   ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar).ordered { "hello world" }
+                                           ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar).with(42).ordered { "hello world" }
+                                                    ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar).once.with(42).ordered { "hello world" }
+                                                         ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar) { "hello world" }.once.with(42).ordered
+                                   ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar).once.with(42).and_return("hello world").ordered
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
+    RUBY
+  end
+
   it 'flags block-pass' do
     expect_offense(<<-RUBY)
       canned = -> { 42 }
