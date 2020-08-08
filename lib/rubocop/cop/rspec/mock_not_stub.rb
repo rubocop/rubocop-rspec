@@ -44,11 +44,11 @@ module RuboCop
 
         def on_send(node)
           message_expectation_with_return_argument(node) do |match|
-            add_offense(match, location: offending_argument_range(match.loc))
+            add_offense(offending_argument_range(match.loc))
           end
 
           message_expectation_with_return_block(node) do |match|
-            add_offense(match, location: offending_block_range(match.loc))
+            add_offense(offending_block_range(match.loc))
           end
         end
 
