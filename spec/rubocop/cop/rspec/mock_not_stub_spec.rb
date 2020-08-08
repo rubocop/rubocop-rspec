@@ -6,28 +6,28 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
   it 'flags stubbed message expectation' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).and_return('hello world')
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with a block' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar) { 'hello world' }
-                                   ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                   ^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with argument matching' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).with(42).and_return('hello world')
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags stubbed message expectation with argument matching and a block' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).with(42) { 'hello world' }
-                                            ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                            ^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
@@ -38,45 +38,45 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
   it 'flags `receive_messages`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive_messages(foo: 42, bar: 777)
-                                      ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                      ^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags `receive_message_chain`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive_message_chain(:foo, bar: 777)
-                                                 ^^^^^^^^ Don't stub your mock.
+                                                 ^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags `receive_message_chain` with `.and_return`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive_message_chain(:foo, :bar).and_return(777)
-                                                      ^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                                      ^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags `receive_message_chain` with a block' do
     expect_offense(<<-RUBY)
       expect(foo).to receive_message_chain(:foo, :bar) { 777 }
-                                                       ^^^^^^^ Don't stub your mock.
+                                                       ^^^^^^^ Do not stub your mock.
     RUBY
   end
 
   it 'flags with order and count constraints', :pending do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar) { 'hello world' }.ordered
-                                   ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                   ^^^^^^^^^^^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar).ordered { 'hello world' }
-                                           ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                           ^^^^^^^^^^^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar).with(42).ordered { 'hello world' }
-                                                    ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                                    ^^^^^^^^^^^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar).once.with(42).ordered { 'hello world' }
-                                                         ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                                         ^^^^^^^^^^^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar) { 'hello world' }.once.with(42).ordered
-                                   ^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                   ^^^^^^^^^^^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar).once.with(42).and_return('hello world').ordered
-                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^ Don't stub your mock.
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub your mock.
     RUBY
   end
 
@@ -84,11 +84,11 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
     expect_offense(<<-RUBY)
       canned = -> { 42 }
       expect(foo).to receive(:bar, &canned)
-                                   ^^^^^^^ Don't stub your mock.
+                                   ^^^^^^^ Do not stub your mock.
       expect(foo).to receive(:bar).with(42, &canned)
-                                            ^^^^^^^ Don't stub your mock.
+                                            ^^^^^^^ Do not stub your mock.
       expect(foo).to receive_message_chain(:foo, :bar, &canned)
-                                                       ^^^^^^^ Don't stub your mock.
+                                                       ^^^^^^^ Do not stub your mock.
     RUBY
   end
 
