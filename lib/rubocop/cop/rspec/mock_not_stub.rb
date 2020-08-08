@@ -44,6 +44,16 @@ module RuboCop
           )
         PATTERN
 
+        def_node_matcher :message_expectation_with_blockpass, <<~PATTERN
+          (send
+            (send nil? :expect ...) :to
+            {
+              (send nil? { :receive :receive_message_chain } ... $block_pass)
+              (send (send nil? :receive ...) :with ... $block_pass)
+            }
+          )
+        PATTERN
+
         def_node_matcher :messages_expectation_with_configured_hash_response,
         <<~PATTERN
           (send
@@ -65,6 +75,10 @@ module RuboCop
           end
 
           messages_expectation_with_configured_hash_response(node) do |match|
+            add_offense(match)
+          end
+
+          message_expectation_with_blockpass(node) do |match|
             add_offense(match)
           end
         end

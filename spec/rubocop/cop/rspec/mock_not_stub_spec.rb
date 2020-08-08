@@ -63,6 +63,18 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
     RUBY
   end
 
+  it 'flags block-pass' do
+    expect_offense(<<-RUBY)
+      canned = -> { 42 }
+      expect(foo).to receive(:bar, &canned)
+                                   ^^^^^^^ Don't stub your mock.
+      expect(foo).to receive(:bar).with(42, &canned)
+                                            ^^^^^^^ Don't stub your mock.
+      expect(foo).to receive_message_chain(:foo, :bar, &canned)
+                                                       ^^^^^^^ Don't stub your mock.
+    RUBY
+  end
+
   it 'ignores message allowances' do
     expect_no_offenses(<<-RUBY)
     RUBY
