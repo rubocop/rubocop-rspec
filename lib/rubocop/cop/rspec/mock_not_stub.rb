@@ -15,7 +15,7 @@ module RuboCop
       #   expect(foo).to receive(:bar).with(42)
       #
       class MockNotStub < Base
-        MSG = "Don't stub your mock.".freeze
+        MSG = "Don't stub your mock."
 
         def_node_matcher :message_expectation?, <<-PATTERN
           {
@@ -29,22 +29,21 @@ module RuboCop
             :and_call_original :and_wrap_original }
         PATTERN
 
-        def_node_matcher :message_expectation_with_configured_response,
-        <<~PATTERN
+        def_node_matcher :expectation_with_configured_response, <<~PATTERN
           (send
             (send nil? :expect ...) :to
             $(send #message_expectation? #configured_response? _)
           )
         PATTERN
 
-        def_node_matcher :message_expectation_with_return_block, <<~PATTERN
+        def_node_matcher :expectation_with_return_block, <<~PATTERN
           (send
             (send nil? :expect ...) :to
             $(block #message_expectation? args _)
           )
         PATTERN
 
-        def_node_matcher :message_expectation_with_blockpass, <<~PATTERN
+        def_node_matcher :expectation_with_blockpass, <<~PATTERN
           (send
             (send nil? :expect ...) :to
             {
@@ -54,8 +53,7 @@ module RuboCop
           )
         PATTERN
 
-        def_node_matcher :messages_expectation_with_configured_hash_response,
-        <<~PATTERN
+        def_node_matcher :expectation_with_hash, <<~PATTERN
           (send
             (send nil? :expect ...) :to
             {
@@ -66,21 +64,17 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          message_expectation_with_configured_response(node) do |match|
+          expectation_with_configured_response(node) do |match|
             add_offense(offending_argument_range(match.loc))
           end
 
-          message_expectation_with_return_block(node) do |match|
+          expectation_with_return_block(node) do |match|
             add_offense(offending_block_range(match.loc))
           end
 
-          messages_expectation_with_configured_hash_response(node) do |match|
-            add_offense(match)
-          end
+          expectation_with_hash(node, &method(:add_offense))
 
-          message_expectation_with_blockpass(node) do |match|
-            add_offense(match)
-          end
+          expectation_with_blockpass(node, &method(:add_offense))
         end
 
         def offending_argument_range(source_map)
