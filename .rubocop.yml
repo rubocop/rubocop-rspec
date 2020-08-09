@@ -54,3 +54,7 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
+
+Style/FormatStringToken:
+  Exclude:
+    - spec/rubocop/**/*.rb
