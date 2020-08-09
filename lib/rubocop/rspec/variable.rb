@@ -8,7 +8,7 @@ module RuboCop
       extend RuboCop::NodePattern::Macros
 
       def_node_matcher :variable_definition?, <<~PATTERN
-        (send #rspec? #{(Helpers::ALL + Subject::ALL).node_pattern_union}
+        (send nil? #{(Helpers::ALL + Subject::ALL).node_pattern_union}
           $({sym str dsym dstr} ...) ...)
       PATTERN
     end

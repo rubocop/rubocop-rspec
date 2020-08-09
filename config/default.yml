@@ -394,6 +394,13 @@ RSpec/MultipleExpectations:
   VersionChanged: '1.21'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 
+RSpec/MultipleMemoizedHelpers:
+  Description: Checks if example groups contain too many `let` and `subject` calls.
+  Enabled: true
+  AllowSubject: true
+  Max: 5
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
+
 RSpec/MultipleSubjects:
   Description: Checks if an example group defines `subject` multiple times.
   Enabled: true

@@ -64,6 +64,7 @@
 * [RSpec/MissingExampleGroupArgument](cops_rspec.md#rspecmissingexamplegroupargument)
 * [RSpec/MultipleDescribes](cops_rspec.md#rspecmultipledescribes)
 * [RSpec/MultipleExpectations](cops_rspec.md#rspecmultipleexpectations)
+* [RSpec/MultipleMemoizedHelpers](cops_rspec.md#rspecmultiplememoizedhelpers)
 * [RSpec/MultipleSubjects](cops_rspec.md#rspecmultiplesubjects)
 * [RSpec/NamedSubject](cops_rspec.md#rspecnamedsubject)
 * [RSpec/NestedGroups](cops_rspec.md#rspecnestedgroups)
