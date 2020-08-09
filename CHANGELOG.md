@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
+
 ## 1.43.1 (2020-08-17)
 
 * Fix `RSpec/FilePath` when checking a file defining e.g. an empty class. ([@bquorning][])
@@ -550,3 +552,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mlarraz]: https://github.com/mlarraz
 [@jtannas]: https://github.com/jtannas
 [@mockdeep]: https://github.com/mockdeep
+[@biinari]: https://github.com/biinari
