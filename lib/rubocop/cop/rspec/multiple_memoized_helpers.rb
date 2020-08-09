@@ -100,7 +100,13 @@ module RuboCop
           add_offense(node, message: format(MSG, count: count, max: max))
         end
 
+        def on_new_investigation
+          @example_group_memoized_helpers = {}
+        end
+
         private
+
+        attr_reader :example_group_memoized_helpers
 
         def all_helpers(node)
           [
@@ -110,13 +116,14 @@ module RuboCop
         end
 
         def helpers(node)
-          variable_nodes(node).map do |variable_node|
-            if variable_node.block_type?
-              variable_definition?(variable_node.send_node)
-            else # block-pass (`let(:foo, &bar)`)
-              variable_definition?(variable_node)
+          @example_group_memoized_helpers[node] ||=
+            variable_nodes(node).map do |variable_node|
+              if variable_node.block_type?
+                variable_definition?(variable_node.send_node)
+              else # block-pass (`let(:foo, &bar)`)
+                variable_definition?(variable_node)
+              end
             end
-          end
         end
 
         def variable_nodes(node)
