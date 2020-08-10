@@ -94,6 +94,15 @@ RSpec.describe RuboCop::Cop::RSpec::MockNotStub do
 
   it 'ignores message allowances' do
     expect_no_offenses(<<-RUBY)
+      allow(foo).to receive(:bar).and_return('hello world')
+      allow(foo).to receive(:bar) { 'hello world' }
+      allow(foo).to receive(:bar).with(42).and_return('hello world')
+      allow(foo).to receive(:bar).with(42) { 'hello world' }
+      allow(foo).to receive_messages(foo: 42, bar: 777)
+      allow(foo).to receive_message_chain(:foo, bar: 777)
+      allow(foo).to receive_message_chain(:foo, :bar).and_return(777)
+      allow(foo).to receive_message_chain(:foo, :bar) { 777 }
+      allow(foo).to receive(:bar, &canned)
     RUBY
   end
 end
