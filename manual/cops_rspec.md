@@ -2027,29 +2027,6 @@ end
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument)
 
-## RSpec/MockNotStub
-
-Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
---- | --- | --- | --- | ---
-Enabled | Yes | No | 1.43 | -
-
-Checks that message expectations are not combined with message stubs.
-
-### Examples
-
-```ruby
-# bad
-expect(foo).to receive(:bar).with(42).and_return("hello world")
-
-# good (without spies)
-allow(foo).to receive(:bar).with(42).and_return("hello world")
-expect(foo).to receive(:bar).with(42)
-```
-
-### References
-
-* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MockNotStub)
-
 ## RSpec/MultipleDescribes
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -3087,6 +3064,29 @@ allow(foo).to receive("bar.baz")
 ### References
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain)
+
+## RSpec/StubbedMock
+
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | No | 1.43 | -
+
+Checks that message expectations are not combined with message stubs.
+
+### Examples
+
+```ruby
+# bad
+expect(foo).to receive(:bar).with(42).and_return("hello world")
+
+# good (without spies)
+allow(foo).to receive(:bar).with(42).and_return("hello world")
+expect(foo).to receive(:bar).with(42)
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock)
 
 ## RSpec/SubjectStub
 

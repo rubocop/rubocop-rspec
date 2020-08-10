@@ -14,7 +14,7 @@ module RuboCop
       #   allow(foo).to receive(:bar).with(42).and_return("hello world")
       #   expect(foo).to receive(:bar).with(42)
       #
-      class MockNotStub < Base
+      class StubbedMock < Base
         MSG = 'Do not stub your mock.'
 
         def_node_matcher :message_expectation?, <<-PATTERN
