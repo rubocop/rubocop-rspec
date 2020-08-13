@@ -81,7 +81,7 @@ module RuboCop
           Parser::Source::Range.new(
             source_map.expression.source_buffer,
             source_map.dot.begin_pos,
-            source_map.end.end_pos
+            source_map.end&.end_pos || source_map.expression.end_pos
           )
         end
 

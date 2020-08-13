@@ -105,4 +105,13 @@ RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
       allow(foo).to receive(:bar, &canned)
     RUBY
   end
+
+  it 'tolerates passed arguments without parentheses' do
+    expect_offense(<<-RUBY)
+      expect(Foo)
+        .to receive(:new)
+        .with(bar).and_return baz
+                  ^^^^^^^^^^^^^^^ Do not stub your mock.
+    RUBY
+  end
 end
