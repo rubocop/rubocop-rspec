@@ -1,0 +1,128 @@
+# frozen_string_literal: true
+
+module RuboCop
+  module Cop
+    module RSpec
+      module Rails
+        # Checks for persistence calls outside example blocks.
+        #
+        # Prevents persistence calls outside examples which usually run
+        # with some sort of cleanup hook. Saving outside of example causes
+        # records to leak into other tests.
+        #
+        # @ example
+        #   # bad - records created outside example group
+        #   describe User do
+        #     User.create!
+        #   end
+        #
+        #   describe User do
+        #     user = User.new
+        #     user.save!
+        #   end
+        #
+        #   # good - records created inside an example group
+        #   describe User do
+        #     it do
+        #       User.create!
+        #     end
+        #   end
+        #
+        #   describe User do
+        #     it do
+        #       user = User.new
+        #       user.save!
+        #     end
+        #   end
+        class PersistenceCalledOutsideExample < Base
+          MSG = 'Persistence called outside of example.'
+
+          # rubocop:disable Metrics/CyclomaticComplexity
+          # rubocop:disable Metrics/PerceivedComplexity
+          def on_send(node)
+            return if inside_example_scope?(node)
+            return if inside_method_definition?(node)
+            return if inside_proc_or_lambda?(node)
+            return if inside_allowed_block?(node)
+            return if allowed_receiver?(node)
+            return if allowed_method?(node)
+            return unless inside_describe_block?(node)
+            return unless persistent_call?(node)
+
+            add_offense(node)
+          end
+          # rubocop:enable Metrics/CyclomaticComplexity
+          # rubocop:enable Metrics/PerceivedComplexity
+
+          private
+
+          def inside_example_scope?(node)
+            node.each_ancestor(:block).any?(&method(:example_scope?))
+          end
+
+          def example_scope?(node)
+            example?(node) ||
+              let?(node) ||
+              hook?(node) ||
+              subject?(node)
+          end
+
+          def inside_method_definition?(node)
+            node.each_ancestor(:def).any?
+          end
+
+          def inside_proc_or_lambda?(node)
+            node.each_ancestor(:block).any?(&:lambda_or_proc?)
+          end
+
+          def inside_allowed_block?(node)
+            node.each_ancestor(:block).any?(&method(:allowed_block?))
+          end
+
+          def allowed_block?(node)
+            allowed_block_names = (cop_config['AllowedBlockNames'] || [])
+            allowed_block_names.include?(node.method_name.to_s)
+          end
+
+          def allowed_receiver?(node)
+            return unless node.receiver.respond_to?(:const_name)
+
+            allowed_receivers.include?(node.receiver.const_name)
+          end
+
+          def allowed_receivers
+            cop_config['AllowedReceivers'] || []
+          end
+
+          def allowed_method?(node)
+            allowed_methods.include?(node.method_name.to_s)
+          end
+
+          def allowed_methods
+            cop_config['AllowedMethods'] || []
+          end
+
+          def inside_describe_block?(node)
+            node.each_ancestor(:block).any?(&method(:spec_group?))
+          end
+
+          def persistent_call?(node)
+            method_name = node.method_name.to_s
+
+            forbidden_methods.include?(method_name) ||
+              forbidden_methods_without_arguments.include?(method_name) &&
+                !node.arguments?
+          end
+
+          def forbidden_methods
+            cop_config['ForbiddenMethods'] || []
+          end
+
+          def forbidden_methods_without_arguments
+            cop_config['ForbiddenMethodsWithoutArguments'] || []
+          end
+        end
+      end
+    end
+  end
+end
