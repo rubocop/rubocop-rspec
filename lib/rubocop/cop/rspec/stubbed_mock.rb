@@ -65,11 +65,11 @@ module RuboCop
 
         def on_send(node)
           expectation_with_configured_response(node) do |match|
-            add_offense(offending_argument_range(match.loc))
+            add_offense(offending_range(match.loc, match.loc.dot))
           end
 
           expectation_with_return_block(node) do |match|
-            add_offense(offending_block_range(match.loc))
+            add_offense(offending_range(match.loc, match.loc.begin))
           end
 
           expectation_with_hash(node, &method(:add_offense))
@@ -77,19 +77,13 @@ module RuboCop
           expectation_with_blockpass(node, &method(:add_offense))
         end
 
-        def offending_argument_range(source_map)
-          Parser::Source::Range.new(
-            source_map.expression.source_buffer,
-            source_map.dot.begin_pos,
-            source_map.end&.end_pos || source_map.expression.end_pos
-          )
-        end
+        private
 
-        def offending_block_range(source_map)
+        def offending_range(source_map, begin_range)
           Parser::Source::Range.new(
             source_map.expression.source_buffer,
-            source_map.begin.begin_pos,
-            source_map.end.end_pos
+            begin_range.begin_pos,
+            source_map.expression.end_pos
           )
         end
       end
