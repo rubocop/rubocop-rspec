@@ -30,7 +30,12 @@ module RuboCop
         PATTERN
 
         def self.expectation_with(matcher)
-          "(send (send nil? :expect ...) :to #{matcher})"
+          <<~PATTERN
+            (send
+              (send nil? #{Expectations::ALL.node_pattern_union} ...)
+              :to #{matcher}
+            )
+          PATTERN
         end
 
         def_node_matcher :expectation_with_configured_response,

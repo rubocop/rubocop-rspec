@@ -92,6 +92,20 @@ RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
     RUBY
   end
 
+  it 'flags `is_expected`' do
+    expect_offense(<<~RUBY)
+      is_expected.to receive(:bar).and_return(:baz)
+                                  ^^^^^^^^^^^^^^^^^ Do not stub your mock.
+    RUBY
+  end
+
+  it 'flags `expect_any_instance_of`' do
+    expect_offense(<<~RUBY)
+      expect_any_instance_of(Foo).to receive(:bar).and_return(:baz)
+                                                  ^^^^^^^^^^^^^^^^^ Do not stub your mock.
+    RUBY
+  end
+
   it 'ignores message allowances' do
     expect_no_offenses(<<-RUBY)
       allow(foo).to receive(:bar).and_return('hello world')
