@@ -29,38 +29,34 @@ module RuboCop
             :and_call_original :and_wrap_original }
         PATTERN
 
-        def_node_matcher :expectation_with_configured_response, <<~PATTERN
-          (send
-            (send nil? :expect ...) :to
-            $(send #message_expectation? #configured_response? _)
-          )
+        def self.expectation_with(matcher)
+          "(send (send nil? :expect ...) :to #{matcher})"
+        end
+
+        def_node_matcher :expectation_with_configured_response,
+                         expectation_with(<<~PATTERN)
+          $(send #message_expectation? #configured_response? _)
         PATTERN
 
-        def_node_matcher :expectation_with_return_block, <<~PATTERN
-          (send
-            (send nil? :expect ...) :to
-            $(block #message_expectation? args _)
-          )
+        def_node_matcher :expectation_with_return_block,
+                         expectation_with(<<~PATTERN)
+          $(block #message_expectation? args _)
         PATTERN
 
-        def_node_matcher :expectation_with_blockpass, <<~PATTERN
-          (send
-            (send nil? :expect ...) :to
-            {
-              (send nil? { :receive :receive_message_chain } ... $block_pass)
-              (send (send nil? :receive ...) :with ... $block_pass)
-            }
-          )
+        def_node_matcher :expectation_with_blockpass,
+                         expectation_with(<<~PATTERN)
+          {
+            (send nil? { :receive :receive_message_chain } ... $block_pass)
+            (send (send nil? :receive ...) :with ... $block_pass)
+          }
         PATTERN
 
-        def_node_matcher :expectation_with_hash, <<~PATTERN
-          (send
-            (send nil? :expect ...) :to
-            {
-              (send nil? :receive_messages $hash)
-              (send nil? :receive_message_chain ... $hash)
-            }
-          )
+        def_node_matcher :expectation_with_hash,
+                         expectation_with(<<~PATTERN)
+          {
+            (send nil? :receive_messages $hash)
+            (send nil? :receive_message_chain ... $hash)
+          }
         PATTERN
 
         def on_send(node)
