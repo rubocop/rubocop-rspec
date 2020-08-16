@@ -15,7 +15,8 @@ module RuboCop
       #   expect(foo).to receive(:bar).with(42)
       #
       class StubbedMock < Base
-        MSG = 'Do not stub your mock.'
+        MSG = 'Prefer `%<replacement>s` to `%<method_name>s` when ' \
+              'configuring a response.'
 
         def_node_matcher :message_expectation?, <<-PATTERN
           {
@@ -32,7 +33,7 @@ module RuboCop
         def self.expectation_with(matcher)
           <<~PATTERN
             (send
-              (send nil? #{Expectations::ALL.node_pattern_union} ...)
+              (send nil? $#{Expectations::ALL.node_pattern_union} ...)
               :to #{matcher}
             )
           PATTERN
@@ -48,37 +49,50 @@ module RuboCop
                            $(block #message_expectation? args _)
                          PATTERN
 
-        def_node_matcher :expectation_with_blockpass,
+        def_node_matcher :expectation_with_blockpass_or_hash,
                          expectation_with(<<~PATTERN)
                            {
                              (send nil? { :receive :receive_message_chain } ... $block_pass)
                              (send (send nil? :receive ...) :with ... $block_pass)
-                           }
-                         PATTERN
-
-        def_node_matcher :expectation_with_hash,
-                         expectation_with(<<~PATTERN)
-                           {
                              (send nil? :receive_messages $hash)
                              (send nil? :receive_message_chain ... $hash)
                            }
                          PATTERN
 
         def on_send(node)
-          expectation_with_configured_response(node) do |match|
-            add_offense(offending_range(match.loc, match.loc.dot))
+          expectation_with_configured_response(node) do |method_name, match|
+            add_offense(offending_range(match.loc, match.loc.dot),
+                        message: message(method_name))
           end
 
-          expectation_with_return_block(node) do |match|
-            add_offense(offending_range(match.loc, match.loc.begin))
+          expectation_with_return_block(node) do |method_name, match|
+            add_offense(offending_range(match.loc, match.loc.begin),
+                        message: message(method_name))
           end
 
-          expectation_with_hash(node, &method(:add_offense))
-
-          expectation_with_blockpass(node, &method(:add_offense))
+          expectation_with_blockpass_or_hash(node) do |method_name, match|
+            add_offense(match, message: message(method_name))
+          end
         end
 
         private
+
+        def message(method_name)
+          format(MSG,
+                 method_name: method_name,
+                 replacement: replacement(method_name))
+        end
+
+        def replacement(method_name)
+          case method_name
+          when :expect
+            :allow
+          when :is_expected
+            'allow(subject)'
+          when :expect_any_instance_of
+            :allow_any_instance_of
+          end
+        end
 
         def offending_range(source_map, begin_range)
           Parser::Source::Range.new(
