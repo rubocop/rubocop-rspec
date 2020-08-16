@@ -3071,7 +3071,7 @@ Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChan
 --- | --- | --- | --- | ---
 Enabled | Yes | No | 1.43 | -
 
-Checks that message expectations are not combined with message stubs.
+Checks that message expectations do not have a configured response.
 
 ### Examples
 

@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks that message expectations are not combined with message stubs.
+      # Checks that message expectations do not have a configured response.
       #
       # @example
       #

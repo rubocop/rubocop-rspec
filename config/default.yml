@@ -537,7 +537,7 @@ RSpec/SingleArgumentMessageChain:
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
 RSpec/StubbedMock:
-  Description: Checks that message expectations are not combined with message stubs.
+  Description: Checks that message expectations do not have a configured response.
   Enabled: true
   VersionAdded: '1.43'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
