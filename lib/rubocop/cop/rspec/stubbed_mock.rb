@@ -40,29 +40,29 @@ module RuboCop
 
         def_node_matcher :expectation_with_configured_response,
                          expectation_with(<<~PATTERN)
-          $(send #message_expectation? #configured_response? _)
-        PATTERN
+                           $(send #message_expectation? #configured_response? _)
+                         PATTERN
 
         def_node_matcher :expectation_with_return_block,
                          expectation_with(<<~PATTERN)
-          $(block #message_expectation? args _)
-        PATTERN
+                           $(block #message_expectation? args _)
+                         PATTERN
 
         def_node_matcher :expectation_with_blockpass,
                          expectation_with(<<~PATTERN)
-          {
-            (send nil? { :receive :receive_message_chain } ... $block_pass)
-            (send (send nil? :receive ...) :with ... $block_pass)
-          }
-        PATTERN
+                           {
+                             (send nil? { :receive :receive_message_chain } ... $block_pass)
+                             (send (send nil? :receive ...) :with ... $block_pass)
+                           }
+                         PATTERN
 
         def_node_matcher :expectation_with_hash,
                          expectation_with(<<~PATTERN)
-          {
-            (send nil? :receive_messages $hash)
-            (send nil? :receive_message_chain ... $hash)
-          }
-        PATTERN
+                           {
+                             (send nil? :receive_messages $hash)
+                             (send nil? :receive_message_chain ... $hash)
+                           }
+                         PATTERN
 
         def on_send(node)
           expectation_with_configured_response(node) do |match|
