@@ -2123,7 +2123,7 @@ Max | `1` | Integer
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 --- | --- | --- | --- | ---
-Enabled | Yes | No | - | -
+Enabled | Yes | No | 1.43 | -
 
 Checks if example groups contain too many `let` and `subject` calls.
 
