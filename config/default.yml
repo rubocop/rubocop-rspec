@@ -399,6 +399,7 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: true
   AllowSubject: true
   Max: 5
+  VersionAdded: '1.43'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
 
 RSpec/MultipleSubjects:
