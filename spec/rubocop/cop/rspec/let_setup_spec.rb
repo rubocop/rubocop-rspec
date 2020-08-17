@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::LetSetup do
-  subject(:cop) { described_class.new }
-
   it 'complains when let! is used and not referenced' do
     expect_offense(<<-RUBY)
       describe Foo do

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
-  subject(:cop) { described_class.new }
-
   it 'flags `let` after the first different node ' do
     expect_offense(<<-RUBY)
       RSpec.describe User do

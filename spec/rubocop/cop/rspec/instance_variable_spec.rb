@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
-  subject(:cop) { described_class.new }
-
   it 'flags an instance variable inside a describe' do
     expect_offense(<<-RUBY)
       describe MyClass do
@@ -130,7 +128,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     end
   end
 
-  context 'when configured with AssignmentOnly', :config do
+  context 'when configured with AssignmentOnly' do
     let(:cop_config) do
       { 'AssignmentOnly' => true }
     end

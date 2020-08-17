@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ExampleWording, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   it 'ignores non-example blocks' do
     expect_no_offenses('foo "should do something" do; end')
   end

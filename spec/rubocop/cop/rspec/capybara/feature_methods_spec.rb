@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods, :config do
+RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
   it 'flags violations for `background`' do
     expect_offense(<<-RUBY)
       describe 'some feature' do

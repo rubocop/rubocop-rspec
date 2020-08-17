@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
-  subject(:cop) { described_class.new }
-
   # rubocop:disable RSpec/ExampleLength
   it 'registers offense for unaligned braces' do
     expect_offense(<<-RUBY)

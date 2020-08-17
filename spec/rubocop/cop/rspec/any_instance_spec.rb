@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::AnyInstance do
-  subject(:cop) { described_class.new }
-
   it 'finds `allow_any_instance_of` instead of an instance double' do
     expect_offense(<<-RUBY)
       before do

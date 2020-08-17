@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MissingExampleGroupArgument do
-  subject(:cop) { described_class.new }
-
   it 'accepts describe with an argument' do
     expect_no_offenses(<<-RUBY)
       describe FooClass do

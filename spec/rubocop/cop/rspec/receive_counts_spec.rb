@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
-  subject(:cop) { described_class.new }
-
   it 'flags usage of `exactly(1).times`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).exactly(1).times

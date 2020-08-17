@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Pending do
-  subject(:cop) { described_class.new }
-
   it 'flags xcontext' do
     expect_offense(<<-RUBY)
       xcontext 'test' do

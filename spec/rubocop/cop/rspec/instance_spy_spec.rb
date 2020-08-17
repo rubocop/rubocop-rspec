@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
-  subject(:cop) { described_class.new }
-
   context 'when used with `have_received`' do
     it 'adds an offense for an instance_double with single argument' do
       expect_offense(<<-RUBY)

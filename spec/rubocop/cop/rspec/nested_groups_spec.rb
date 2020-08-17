@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::NestedGroups, :config do
+RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   it 'flags nested example groups defined inside `describe`' do
     expect_offense(<<-RUBY)
       describe MyClass do

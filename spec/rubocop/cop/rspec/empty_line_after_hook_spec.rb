@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
-  subject(:cop) { described_class.new }
-
   it 'checks for empty line after `before` hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do

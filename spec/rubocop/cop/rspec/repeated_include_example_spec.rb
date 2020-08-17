@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
-  subject(:cop) { described_class.new }
-
   shared_examples 'detect repeated include examples' do |include_method|
     context "with include method: #{include_method}" do
       context 'without parameters' do

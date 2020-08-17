@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
-  subject(:cop) { described_class.new }
-
   it 'checks subject below let' do
     expect_offense(<<-RUBY)
       RSpec.describe User do

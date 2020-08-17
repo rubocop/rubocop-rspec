@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ExpectChange, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style }
   end

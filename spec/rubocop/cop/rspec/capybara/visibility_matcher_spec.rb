@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Capybara::VisibilityMatcher do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense when using `visible: true`' do
     expect_offense(<<-RUBY)
       expect(page).to have_selector('.my_element', visible: true)

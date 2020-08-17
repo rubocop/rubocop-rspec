@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
-  subject(:cop) { described_class.new }
-
   context 'when passing block' do
     it 'flags passing a class' do
       expect_offense(<<~RUBY)

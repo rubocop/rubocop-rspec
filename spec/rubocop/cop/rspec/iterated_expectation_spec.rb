@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
-  subject(:cop) { described_class.new }
-
   it 'flags `each` with an expectation' do
     expect_offense(<<-RUBY)
       it 'validates users' do

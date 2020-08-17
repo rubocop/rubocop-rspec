@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
-  subject(:cop) { described_class.new }
-
   it 'flags multiple hooks in the same example group' do
     expect_offense(<<-RUBY)
       describe Foo do
