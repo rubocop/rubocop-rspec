@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `RSpec/FilePath` when checking a file defining e.g. an empty class. ([@bquorning][])
+
 ## 1.43.0 (2020-08-17)
 
 * Add a new base cop class `::RuboCop::Cop::RSpec::Base`. The old base class `::RuboCop::Cop::RSpec::Cop` is deprecated, and will be removed in the next major release. ([@bquorning][])

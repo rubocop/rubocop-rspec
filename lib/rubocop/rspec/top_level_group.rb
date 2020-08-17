@@ -38,7 +38,9 @@ module RuboCop
       end
 
       def top_level_nodes(node)
-        if node.begin_type?
+        if node.nil?
+          []
+        elsif node.begin_type?
           node.children
         elsif node.module_type? || node.class_type?
           top_level_nodes(node.body)
