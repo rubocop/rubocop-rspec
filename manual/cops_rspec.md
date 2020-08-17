@@ -2828,6 +2828,61 @@ end
 
 * [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription)
 
+## RSpec/RepeatedIncludeExample
+
+Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+--- | --- | --- | --- | ---
+Enabled | Yes | No | 1.44 | -
+
+Check for repeated include of shared examples.
+
+### Examples
+
+```ruby
+# bad
+describe 'foo' do
+  include_examples 'cool stuff'
+  include_examples 'cool stuff'
+end
+
+# bad
+describe 'foo' do
+  it_behaves_like 'a cool', 'thing'
+  it_behaves_like 'a cool', 'thing'
+end
+
+# bad
+context 'foo' do
+  it_should_behave_like 'a duck'
+  it_should_behave_like 'a duck'
+end
+
+# good
+describe 'foo' do
+  include_examples 'cool stuff'
+end
+
+describe 'bar' do
+  include_examples 'cool stuff'
+end
+
+# good
+describe 'foo' do
+  it_behaves_like 'a cool', 'thing'
+  it_behaves_like 'a cool', 'person'
+end
+
+# good
+context 'foo' do
+  it_should_behave_like 'a duck'
+  it_should_behave_like 'a goose'
+end
+```
+
+### References
+
+* [https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample](https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample)
+
 ## RSpec/ReturnFromStub
 
 Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged

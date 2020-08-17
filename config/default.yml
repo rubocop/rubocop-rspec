@@ -494,6 +494,12 @@ RSpec/RepeatedExampleGroupDescription:
   VersionAdded: '1.38'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
 
+RSpec/RepeatedIncludeExample:
+  Description: Check for repeated include of shared examples.
+  Enabled: true
+  VersionAdded: '1.44'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
+
 RSpec/ReturnFromStub:
   Description: Checks for consistent style of stub's return setting.
   Enabled: true
