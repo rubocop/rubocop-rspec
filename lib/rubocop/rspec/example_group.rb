@@ -37,6 +37,7 @@ module RuboCop
       # Searches node and halts when a scope change is detected
       #
       # @param node [RuboCop::AST::Node] node to recursively search
+      # @param predicate [Symbol] method to call with node as argument
       #
       # @return [Array<RuboCop::AST::Node>] discovered nodes
       def find_all_in_scope(node, predicate)
