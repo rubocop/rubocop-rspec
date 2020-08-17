@@ -204,6 +204,14 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  # RSpec/FilePath runs on all files - not only **/*_spec.rb
+  it 'works on files defining an empty class' do
+    expect_no_offenses(<<-RUBY)
+      class Foo
+      end
+    RUBY
+  end
+
   context 'when configured with CustomTransform' do
     let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
