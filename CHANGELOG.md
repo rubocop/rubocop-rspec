@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.43.1 (2020-08-17)
+
 * Fix `RSpec/FilePath` when checking a file defining e.g. an empty class. ([@bquorning][])
 
 ## 1.43.0 (2020-08-17)
