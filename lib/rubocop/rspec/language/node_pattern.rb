@@ -3,32 +3,15 @@
 module RuboCop
   module RSpec
     module Language
-      # Common node matchers used for matching against the rspec DSL
+      # Helper methods to detect RSpec DSL used with send and block
       module NodePattern
-        extend RuboCop::NodePattern::Macros
+        def send_pattern(string)
+          "(send #rspec? #{string} ...)"
+        end
 
-        def_node_matcher :rspec?, '{(const {nil? cbase} :RSpec) nil?}'
-
-        def_node_matcher :example_group?, ExampleGroups::ALL.block_pattern
-        def_node_matcher :shared_group?, SharedGroups::ALL.block_pattern
-
-        spec_groups = ExampleGroups::ALL + SharedGroups::ALL
-        def_node_matcher :spec_group?, spec_groups.block_pattern
-
-        def_node_matcher :example_group_with_body?, <<-PATTERN
-          (block #{ExampleGroups::ALL.send_pattern} args !nil?)
-        PATTERN
-
-        def_node_matcher :example?, Examples::ALL.block_pattern
-
-        def_node_matcher :hook?, Hooks::ALL.block_pattern
-
-        def_node_matcher :let?, Helpers::ALL.block_or_block_pass_pattern
-
-        def_node_matcher :include?,
-                         Includes::ALL.send_or_block_or_block_pass_pattern
-
-        def_node_matcher :subject?, Subject::ALL.block_pattern
+        def block_pattern(string)
+          "(block #{send_pattern(string)} ...)"
+        end
       end
     end
   end

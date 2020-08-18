@@ -76,7 +76,7 @@ module RuboCop
         #   @param node [RuboCop::AST::Node]
         #   @yield [RuboCop::AST::Node] example group body
         def_node_matcher :example_group_body, <<~PATTERN
-          (block #{ExampleGroups::ALL.send_pattern} args $_)
+          (block #{send_pattern('#ExampleGroups.all')} args $_)
         PATTERN
 
         # @!method example_or_group_or_include?(node)
@@ -95,11 +95,10 @@ module RuboCop
         #   @return [Array<RuboCop::AST::Node>] matching nodes
         def_node_matcher :example_or_group_or_include?, <<~PATTERN
           {
-            #{Examples::ALL.send_pattern}
-            #{Examples::ALL.block_pattern}
-            #{ExampleGroups::ALL.block_pattern}
-            #{Includes::ALL.send_pattern}
-            #{Includes::ALL.block_pattern}
+            #{block_pattern(
+              '{#Examples.all #ExampleGroups.all #Includes.all}'
+            )}
+            #{send_pattern('{#Examples.all #Includes.all}')}
             (send nil? #custom_include? ...)
           }
         PATTERN
@@ -120,7 +119,7 @@ module RuboCop
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes
         def_node_matcher :examples_inside_block?, <<~PATTERN
-          (block !#{Hooks::ALL.send_pattern} _ #examples?)
+          (block !#{send_pattern('#Hooks.all')} _ #examples?)
         PATTERN
 
         # @!method examples_directly_or_in_block?(node)

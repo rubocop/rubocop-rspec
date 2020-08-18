@@ -33,7 +33,7 @@ module RuboCop
         def_node_matcher :implicit_expect, <<-PATTERN
           {
             (send nil? ${:should :should_not} ...)
-            (send (send nil? $:is_expected) #{Runners::ALL.node_pattern_union} ...)
+            (send (send nil? $:is_expected) #Runners.all ...)
           }
         PATTERN
 

@@ -32,7 +32,7 @@ module RuboCop
 
         def in_spec_block?(node)
           node.each_ancestor(:block).any? do |ancestor|
-            Examples::ALL.include?(ancestor.method_name)
+            Examples.all(ancestor.method_name)
           end
         end
       end

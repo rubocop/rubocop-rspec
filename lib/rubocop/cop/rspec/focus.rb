@@ -22,19 +22,25 @@ module RuboCop
       class Focus < Base
         MSG = 'Focused spec found.'
 
-        focused = ExampleGroups::FOCUSED + Examples::FOCUSED
-
-        def_node_matcher :focusable_selector?,
-                         (ExampleGroups::GROUPS + ExampleGroups::SKIPPED +
-                          Examples::EXAMPLES + Examples::SKIPPED +
-                          Examples::PENDING).node_pattern_union
+        def_node_matcher :focusable_selector?, <<-PATTERN
+          {
+            #ExampleGroups.regular
+            #ExampleGroups.skipped
+            #Examples.regular
+            #Examples.skipped
+            #Examples.pending
+          }
+        PATTERN
 
         def_node_matcher :metadata, <<-PATTERN
           {(send #rspec? #focusable_selector? <$(sym :focus) ...>)
            (send #rspec? #focusable_selector? ... (hash <$(pair (sym :focus) true) ...>))}
         PATTERN
 
-        def_node_matcher :focused_block?, focused.send_pattern
+        def_node_matcher :focused_block?,
+                         send_pattern(<<~PATTERN)
+                           {#ExampleGroups.focused #Examples.focused}
+                         PATTERN
 
         def on_send(node)
           focus_metadata(node) do |focus|

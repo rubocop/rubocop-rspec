@@ -24,7 +24,9 @@ module RuboCop
         extend AutoCorrector
 
         def_node_matcher :shared_examples,
-                         (SharedGroups::ALL + Includes::ALL).send_pattern
+                         send_pattern(
+                           '{#SharedGroups.all #Includes.all}'
+                         )
 
         def on_send(node)
           shared_examples(node) do

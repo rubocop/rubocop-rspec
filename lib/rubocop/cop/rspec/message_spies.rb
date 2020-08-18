@@ -36,7 +36,7 @@ module RuboCop
         SUPPORTED_STYLES = %w[have_received receive].freeze
 
         def_node_matcher :message_expectation, %(
-          (send (send nil? :expect $_) #{Runners::ALL.node_pattern_union} ...)
+          (send (send nil? :expect $_) #Runners.all ...)
         )
 
         def_node_search :receive_message, %(

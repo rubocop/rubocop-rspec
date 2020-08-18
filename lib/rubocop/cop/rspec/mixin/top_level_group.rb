@@ -6,14 +6,9 @@ module RuboCop
       # Helper methods for top level example group cops
       module TopLevelGroup
         extend RuboCop::NodePattern::Macros
-        include RuboCop::RSpec::Language
-
-        def_node_matcher :example_or_shared_group?,
-                         (ExampleGroups::ALL + SharedGroups::ALL).block_pattern
 
         def on_new_investigation
           super
-
           return unless root_node
 
           top_level_groups.each do |node|
@@ -24,9 +19,7 @@ module RuboCop
 
         def top_level_groups
           @top_level_groups ||=
-            top_level_nodes(root_node).select do |node|
-              example_or_shared_group?(node)
-            end
+            top_level_nodes(root_node).select { |n| spec_group?(n) }
         end
 
         private

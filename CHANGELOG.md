@@ -5,6 +5,7 @@
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
 * Retire `RSpec/InvalidPredicateMatcher` cop. ([@pirj][])
 * Remove the code responsible for filtering files to inspect. ([@pirj][])
+* Make RSpec language elements configurable. ([@sl4vr][])
 
 ## 2.0.0.pre (2020-10-22)
 
@@ -580,3 +581,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@koic]: https://github.com/koic
 [@Rafix02]: https://github.com/Rafix02
 [@PhilCoggins]: https://github.com/PhilCoggins
+[@sl4vr]: https://github.com/sl4vr

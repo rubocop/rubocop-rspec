@@ -76,4 +76,64 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
       RUBY
     end
   end
+
+  describe 'DSL alias configuration' do
+    before do
+      stub_const('RuboCop::RSpec::ExampleGroupHaterCop',
+                 Class.new(described_class) do
+                   def on_block(node)
+                     example_group?(node) do
+                       add_offense(node, message: 'I flag example groups')
+                     end
+                   end
+                 end)
+    end
+
+    let(:cop_class) { RuboCop::RSpec::ExampleGroupHaterCop }
+
+    shared_examples_for 'it detects `describe`' do
+      it 'detects `describe` as an example group' do
+        expect_offense(<<~RUBY)
+          describe 'ouch oh' do
+          ^^^^^^^^^^^^^^^^^^^^^ I flag example groups
+            it { }
+          end
+        RUBY
+      end
+    end
+
+    context 'with the default config' do
+      it 'does not detect `epic` as an example group' do
+        expect_no_offenses(<<~RUBY)
+          epic 'great achievements or events is narrated in elevated style' do
+            ballad 'slays Minotaur' do
+              # ...
+            end
+          end
+        RUBY
+      end
+
+      include_examples 'it detects `describe`'
+    end
+
+    context 'when `epic` is set as an alias to example group' do
+      before do
+        other_cops['RSpec']['Language']['ExampleGroups']['Regular']
+          .push('epic')
+      end
+
+      it 'detects `epic` as an example group' do
+        expect_offense(<<~RUBY)
+          epic 'great achievements or events is narrated in elevated style' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ I flag example groups
+            ballad 'slays Minotaur' do
+              # ...
+            end
+          end
+        RUBY
+      end
+
+      include_examples 'it detects `describe`'
+    end
+  end
 end

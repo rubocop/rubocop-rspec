@@ -101,6 +101,7 @@ module RuboCop
         end
 
         def on_new_investigation
+          super
           @example_group_memoized_helpers = {}
         end
 
@@ -128,6 +129,7 @@ module RuboCop
 
         def variable_nodes(node)
           example_group = RuboCop::RSpec::ExampleGroup.new(node)
+
           if allow_subject?
             example_group.lets
           else

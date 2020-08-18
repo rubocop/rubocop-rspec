@@ -5,11 +5,13 @@ module RuboCop
     module RSpec
       # Helps check offenses with variable definitions
       module Variable
-        include RuboCop::RSpec::Language
         extend RuboCop::NodePattern::Macros
 
+        Subjects = RuboCop::RSpec::Language::Subjects
+        Helpers = RuboCop::RSpec::Language::Helpers
+
         def_node_matcher :variable_definition?, <<~PATTERN
-          (send nil? #{(Helpers::ALL + Subject::ALL).node_pattern_union}
+          (send nil? {#Subjects.all #Helpers.all}
             $({sym str dsym dstr} ...) ...)
         PATTERN
       end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
-  let(:cop) { described_class.new }
-
   it 'registers an offense for every overwritten subject' do
     expect_offense(<<-RUBY)
       describe 'hello there' do
