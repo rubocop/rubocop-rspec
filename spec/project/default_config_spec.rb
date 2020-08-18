@@ -70,7 +70,8 @@ RSpec.describe 'config/default.yml' do
     expect(cop_configuration('Description')).to all(end_with('.'))
   end
 
-  it 'includes Enabled: true for every cop' do
-    expect(cop_configuration('Enabled')).to all(be(true).or(be(false)))
+  it 'includes a valid Enabled for every cop' do
+    expect(cop_configuration('Enabled'))
+      .to all be(true).or(be(false)).or(eq('pending'))
   end
 end
