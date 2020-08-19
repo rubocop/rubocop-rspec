@@ -16,7 +16,7 @@ module RuboCop
         return unless root_node
 
         top_level_groups.each do |node|
-          example_group?(node, &method(:on_top_level_example_group))
+          on_top_level_example_group(node) if example_group?(node)
           on_top_level_group(node)
         end
       end
@@ -29,9 +29,9 @@ module RuboCop
       private
 
       # Dummy methods to be overridden in the consumer
-      def on_top_level_example_group; end
+      def on_top_level_example_group(_node); end
 
-      def on_top_level_group; end
+      def on_top_level_group(_node); end
 
       def top_level_group?(node)
         top_level_groups.include?(node)
