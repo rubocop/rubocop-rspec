@@ -5,8 +5,6 @@ module RuboCop
     module RSpec
       # Checks if an example group does not include any tests.
       #
-      # This cop is configurable using the `CustomIncludeMethods` option
-      #
       # @example usage
       #
       #   # bad
@@ -37,31 +35,6 @@ module RuboCop
       #   describe Bacon do
       #     pending 'will add tests later'
       #   end
-      #
-      # @example configuration
-      #
-      #   # .rubocop.yml
-      #   # RSpec/EmptyExampleGroup:
-      #   #   CustomIncludeMethods:
-      #   #   - include_tests
-      #
-      #   # spec_helper.rb
-      #   RSpec.configure do |config|
-      #     config.alias_it_behaves_like_to(:include_tests)
-      #   end
-      #
-      #   # bacon_spec.rb
-      #   describe Bacon do
-      #     let(:bacon)      { Bacon.new(chunkiness) }
-      #     let(:chunkiness) { false                 }
-      #
-      #     context 'extra chunky' do   # not flagged by rubocop
-      #       let(:chunkiness) { true }
-      #
-      #       include_tests 'shared tests'
-      #     end
-      #   end
-      #
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
@@ -99,7 +72,6 @@ module RuboCop
               '{#Examples.all #ExampleGroups.all #Includes.all}'
             )}
             #{send_pattern('{#Examples.all #Includes.all}')}
-            (send nil? #custom_include? ...)
           }
         PATTERN
 
@@ -190,16 +162,6 @@ module RuboCop
 
         def examples_in_branches?(if_node)
           if_node.branches.any? { |branch| examples?(branch) }
-        end
-
-        def custom_include?(method_name)
-          custom_include_methods.include?(method_name)
-        end
-
-        def custom_include_methods
-          cop_config
-            .fetch('CustomIncludeMethods', [])
-            .map(&:to_sym)
         end
       end
     end
