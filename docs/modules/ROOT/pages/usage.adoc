@@ -14,6 +14,58 @@ require: rubocop-rspec
 Now you can run `rubocop` and it will automatically load the RuboCop RSpec
 cops together with the standard cops.
 
+=== RSpec DSL configuration
+
+In case you https://github.com/rspec/rspec-core/blob/b0d0843a285693c64cdbe0c85726db155b46047e/lib/rspec/core/configuration.rb#L1122[define aliases for RSpec DSL], i.e. examples, example groups, hooks, or include example statements, you need to configure it so those elements are properly detected by RuboCop RSpec.
+
+[source,ruby]
+----
+# spec/spec_helper.rb
+RSpec.configure do |c|
+  c.alias_example_group_to :detail, :detailed => true
+end
+
+# spec/detail_spec.rb
+RSpec.detail "a detail" do
+  it "can do some less important stuff" do
+  end
+end
+----
+
+[source,yaml]
+----
+# .rubocop.yml
+RSpec:
+  Language:
+    ExampleGroups:
+      Regular:
+        - detail
+----
+
+Some libraries extensively define RSpec DSL aliases (e.g. Pundit, Action Policy) or augment existing elements providing the same semantics (e.g. `let_it_be` from `test-prof`).
+Those libraries can provide necessary configuration, but won't necessarily do so.
+If they do, their README will mention that you have to explicitly require their configuration from your `.rubocop.yml` file.
+
+[source,yaml]
+----
+# .rubocop.yml
+
+require:
+  - rubocop-rspec
+  - test-prof
+
+# or
+
+RSpec:
+  Language:
+    Helpers:
+      - let_it_be
+----
+
+NOTE: the default merge mode is to inherit, so you won't remove any of the default settings.
+
+RuboCop RSpec's https://github.com/rubocop-hq/rubocop-rspec/blob/a43424527c09fae2e6ddb133f4b2988f6c46bb2e/config/default.yml#L6[default configuration] is a good source of information on what can be configured.
+
 == Command line
 
 [source,bash]
@@ -53,3 +105,5 @@ RSpec:
   Include:
     - '**/*_test.rb'
 ----
+
+NOTE: Please keep in mind that `Include`'s merge mode is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.

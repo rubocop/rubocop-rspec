@@ -1,0 +1,273 @@
+= Upgrade to Version 2.x
+:doctype: book
+
+== Configuration File Update
+
+In version 2.x:
+
+ - `RSpec/InvalidPredicateMatcher` cop is removed
+ - `CustomIncludeMethods` configuration option for `RSpec/EmptyExampleGroup` is removed
+ - cop departments are nested for cops with a department that doesn’t match the extension name (`Capybara`, `FactoryBot`, `Rails`)
+ - `AllCops/RSpec/Patterns`/`AllCops/FactoryBot/Patterns` options are removed
+ - Calling `super` from `#on_new_investigation` defined in a cop is mandatory now
+ - In specs, do not define `cop`
+
+[discrete]
+=== Adjust the configuration of `RSpec/EmptyExampleGroup`
+
+[source,yaml]
+----
+# .rubocop.yml
+
+# Before
+RSpec/EmptyExampleGroup:
+  CustomIncludeMethods:
+    - include_tests
+
+# After
+RSpec:
+  Language:
+    Includes:
+      Examples:
+        - include_tests
+----
+
+=== Add a top-level `RSpec` department
+
+RuboCop extensions had cops with clashing names and departments, e.g. both `rspec-rails` and `rubocop-rspec` had `Rails::HttpStatus` cops.
+To avoid issues, e.g. inability to disable just one of the cops, each extension now has its own uber-department.
+Expectedly, RuboCop RSpec’s uber-department name is `RSpec`.
+Changes are only applied to cops that don’t already have the department set to `RSpec`, i.e. `Capybara`, `FactoryBot` and `Rails`.
+
+[source,yaml]
+----
+# .rubocop.yml
+
+# Before
+Capybara/CurrentPathExpectation:
+  Enabled: false
+
+FactoryBot/AttributeDefinedStatically:
+  Enabled: false
+
+# remains the same
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+# After
+RSpec/Capybara/CurrentPathExpectation:
+  Enabled: false
+
+RSpec/FactoryBot/AttributeDefinedStatically:
+  Enabled: false
+
+# remains the same
+RSpec/EmptyExampleGroup:
+  Enabled: false
+----
+
+https://github.com/rubocop-hq/rubocop/pull/8490[Learn more about this change].
+
+
+=== Use the RuboCop standard `Include` option to filter inspected files
+
+`Patterns` was a RuboCop RSpec-specific option, and RuboCop has a standard replacement.
+
+[source,yaml]
+----
+# .rubocop.yml
+
+# Before
+AllCops:
+  RSpec/FactoryBot:
+    Patterns:
+      - spec/factories/**/*.rb
+      - property/factories/**/*.rb
+
+# After
+RSpec/FactoryBot:
+  Include:
+    - spec/factories/**/*.rb
+    - property/factories/**/*.rb
+----
+
+NOTE: Please keep in mind that `Include`'s merge mode is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.
+
+https://github.com/rubocop-hq/rubocop-rspec/pull/1063[Learn more about this change].
+
+== Custom Cop Update Guide
+
+Due to significant API changes, custom cops may break.
+Here is the summary of the changes:
+
+1. The base class for cops is now `RuboCop::Cop::RSpec::Base` instead of `RuboCop::Cop::RSpec::Cop`.
+
+2. The module `RuboCop::Cop::RSpec::TopLevelDescribe` is replaced with a more generic `RuboCop::Cop::RSpec::TopLevelGroup`.
+
+3. `RuboCop::RSpec::Language` has been completely rewritten to support dynamic RSpec DSL aliases and negated matchers to fully support third-party libraries such as RSpec Rails, Pundit, Action Policy and many others.
+
+4. RuboCop RSpec updated the dependency of RuboCop to 1.0+.
+
+Below are the necessary steps to update custom cops to work with `rubocop-rspec` version 2.x.
+
+
+=== Change the Parent Class
+
+Change the parent class of the custom cops from `RuboCop::Cop::RSpec::Cop` to `RuboCop::Cop::RSpec::Base`.
+
+[source,ruby]
+----
+# Before
+module RuboCop
+  module Cop
+    module RSpec
+      class FightPowerty < Cop
+
+# After
+module RuboCop
+  module Cop
+    module RSpec
+      class FightPowerty < Base
+----
+
+https://github.com/rubocop-hq/rubocop-rspec/pull/962[Example pull request].
+
+
+=== Replace `TopLevelDescribe`
+
+`TopLevelDescribe` was incomplete, had poor performance and did not distinguish between example groups and shared example groups.
+
+`TopLevelGroup` provides a similar interface, but instead of a single `on_top_level_describe` hook there are two, `on_top_level_example_group` and `on_top_level_group`.
+There’s no need yet for `on_top_level_shared_group` for RuboCop core cops, but if your custom cop needs such a hook, please feel free to send a pull request.
+
+Additionally, `single_top_level_describe?` is removed with no direct replacement.
+You may use `top_level_groups` query method instead, e.g. `top_level_groups.one?`.
+
+Example pull requests to replace `TopLevelDescribe` with `TopLevelGroup` [https://github.com/rubocop-hq/rubocop-rspec/pull/978[1], https://github.com/rubocop-hq/rubocop-rspec/pull/932[2], https://github.com/rubocop-hq/rubocop-rspec/pull/977[3]].
+
+
+=== Change the `Language` Module Usages
+
+To allow for lazy initialization, and for loading of the language configuration after the class are loaded, a https://docs.rubocop.org/rubocop-ast/node_pattern.html#to-call-functions[function call feature of RuboCop AST] is used.
+
+The `RuboCop::RSpec::Language` is completely different now.
+
+`Hooks::ALL` and alike, and their accompanying helpers work differently.
+
+[source,ruby]
+----
+# Before
+def_node_matcher :shared_context,
+                 SharedGroups::CONTEXT.block_pattern
+
+# After
+def_node_matcher :shared_context,
+                 block_pattern('#SharedGroups.context')
+----
+
+[source,ruby]
+----
+# Before
+def_node_search :examples?,
+                (Includes::EXAMPLES + Examples::ALL).send_pattern
+
+# After
+def_node_search :examples?,
+                send_pattern('{#Includes.examples #Examples.all}')
+----
+
+[source,ruby]
+----
+# Before
+def_node_search :find_rspec_blocks,
+                ExampleGroups::ALL.block_pattern
+
+# After
+def_node_search :find_rspec_blocks,
+                block_pattern('#ExampleGroups.all')
+----
+
+If you were calling Language elements directly, you have to make the same adjustments:
+
+[source,ruby]
+----
+# Before
+node&.sym_type? && Hooks::Scopes::ALL.include?(node.value)
+
+# After
+node&.sym_type? && Language::HookScopes.all(node.value)
+----
+
+You may see a common pattern in the change.
+There is a small exception, though:
+
+[source,ruby]
+----
+# Before
+ExampleGroups::GROUPS
+
+# After
+ExampleGroups.regular
+
+# Before
+Examples::EXAMPLES
+
+# After
+Examples.regular
+----
+
+https://github.com/rubocop-hq/rubocop-rspec/pull/956[Pull request with more examples].
+
+=== Always call `super` from `on_new_investigation` in your cops
+
+`on_new_investigation` is now used for internal purposes, and not calling `super` from your cop involves a risk of configuration not being properly loaded, and dynamic RSpec DSL matchers won't work.
+
+NOTE: You don't have to define `on_new_investigation` in your cops unless you need to.
+
+[source,ruby]
+----
+module RuboCop
+  module Cop
+    module RSpec
+      class MultipleMemoizedHelpers < Base
+        def on_new_investigation
+          super # Always call `super`
+          @example_group_memoized_helpers = {}
+        end
+      end
+    end
+  end
+end
+----
+
+https://github.com/rubocop-hq/rubocop-rspec/pull/956[Pull request with more examples].
+
+=== Use `:config` RSpec metadata in cop specs
+
+`:config` metadata should be added to the top-level example group of your cop spec.
+Doing otherwise will not pass configuration to the cop, and dynamic RSpec DSL matchers might not work.
+
+[source,ruby]
+----
+# Before
+RSpec.describe 'MyMightyCop' do
+  let(:cop) { described_class.new }
+  # ...
+end
+
+# After
+RSpec.describe 'MyMightyCop', :config do
+  # `cop` is defined for you by RuboCop's shared context that is included
+  # to example groups with :config metadata
+
+  # ...
+end
+----
+
+https://github.com/rubocop-hq/rubocop/blob/51ff1d7e29c985732fe129082c98d66c531a2611/lib/rubocop/rspec/shared_contexts.rb#L56[RuboCop takes care of defining everything for your cop specs].
+
+=== Conform with RuboCop API Changes
+
+The parent project, RuboCop, has API changes.
+While they won’t result in cop breakages, it is recommended to update cops to use new API’s.
+Follow the https://docs.rubocop.org/rubocop/v1_upgrade_notes[RuboCop v1 update guide] to adjust custom cops’ use of RuboCop’s auto-correction API.

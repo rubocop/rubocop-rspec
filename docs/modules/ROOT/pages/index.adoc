@@ -3,6 +3,12 @@
 RSpec-specific analysis for your projects, as an extension to
 https://github.com/rubocop-hq/rubocop[RuboCop].
 
+RuboCop RSpec follows the https://docs.rubocop.org/rubocop/versioning.html[RuboCop versioning guide].
+In a nutshell, between major versions new cops are introduced in a special `pending` status.
+That means that they won’t be run unless explicitly told otherwise.
+RuboCop will warn on start that certain cops are neither explicitly enabled and disabled.
+On a major version release, all `pending` cops are enabled.
+
 == Project Goals
 
 * Enforce the guidelines and best practices outlined in the community https://rspec.rubystyle.guide[RSpec style guide]
