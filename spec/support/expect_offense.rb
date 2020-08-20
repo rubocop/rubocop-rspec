@@ -9,11 +9,11 @@ module ExpectOffense
 
   DEFAULT_FILENAME = 'example_spec.rb'
 
-  def expect_offense(source, filename = DEFAULT_FILENAME, *args, **kwargs)
+  def expect_offense(source, filename = DEFAULT_FILENAME, *args, **kwargs) # rubocop:disable Lint/UselessMethodDefinition
     super
   end
 
-  def expect_no_offenses(source, filename = DEFAULT_FILENAME)
+  def expect_no_offenses(source, filename = DEFAULT_FILENAME) # rubocop:disable Lint/UselessMethodDefinition
     super
   end
 end
