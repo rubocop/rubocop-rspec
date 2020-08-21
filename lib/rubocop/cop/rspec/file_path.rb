@@ -69,7 +69,7 @@ module RuboCop
 
         def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
 
-        def on_top_level_group(node)
+        def on_top_level_example_group(node)
           return unless top_level_groups.one?
 
           const_described(node) do |send_node, described_class, arguments|

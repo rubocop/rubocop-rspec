@@ -64,6 +64,12 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     RUBY
   end
 
+  it 'ignores shared examples' do
+    expect_no_offenses(<<-RUBY, 'user.rb')
+      shared_examples_for 'foo' do; end
+    RUBY
+  end
+
   it 'skips specs that do not describe a class / method' do
     expect_no_offenses(<<-RUBY, 'some/class/spec.rb')
       describe 'Test something' do; end
