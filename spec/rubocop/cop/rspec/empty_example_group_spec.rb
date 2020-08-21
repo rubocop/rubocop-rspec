@@ -225,5 +225,17 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
         end
       RUBY
     end
+
+    it 'ignores an empty example group with a custom include and a block' do
+      expect_no_offenses(<<~RUBY)
+        describe Foo do
+          context "when I do something clever" do
+            it_has_special_behavior do
+              expect(foo).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
   end
 end

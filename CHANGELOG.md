@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
+* Add detection of custom include blocks for `EmptyExampleGroup`. ([@sl4vr][])
 
 ## 1.43.1 (2020-08-17)
 
@@ -553,3 +554,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@mockdeep]: https://github.com/mockdeep
 [@biinari]: https://github.com/biinari
+[@sl4vr]: https://github.com/sl4vr
