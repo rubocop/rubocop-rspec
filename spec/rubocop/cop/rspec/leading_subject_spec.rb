@@ -269,4 +269,16 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       end
     RUBY
   end
+
+  it 'ignores subject nested inside a block' do
+    expect_no_offenses(<<-RUBY)
+      RSpec.describe User do
+        let(:foo) { 'bar' }
+
+        it_behaves_like 'a good citizen' do
+          subject { described_class.new }
+        end
+      end
+    RUBY
+  end
 end

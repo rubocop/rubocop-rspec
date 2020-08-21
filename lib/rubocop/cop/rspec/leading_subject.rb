@@ -54,11 +54,15 @@ module RuboCop
         private
 
         def offending_node(node)
-          node.parent.each_child_node.find do |sibling|
+          parent(node).each_child_node.find do |sibling|
             break if sibling.equal?(node)
 
             yield sibling if offending?(sibling)
           end
+        end
+
+        def parent(node)
+          node.each_ancestor(:block).first.body
         end
 
         def autocorrect(corrector, node, sibling)
