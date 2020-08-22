@@ -1,6 +1,6 @@
-= Rails
+= RSpec/Rails
 
-== Rails/HttpStatus
+== RSpec/Rails/HttpStatus
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -9,7 +9,7 @@
 | Yes
 | Yes
 | 1.23
-| -
+| 2.0
 |===
 
 Enforces use of symbolic or numeric value to describe HTTP status.

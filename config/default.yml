@@ -620,33 +620,36 @@ RSpec/Yield:
   VersionAdded: '1.32'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
 
-Capybara/CurrentPathExpectation:
+RSpec/Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true
   VersionAdded: '1.18'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
 
-Capybara/FeatureMethods:
+RSpec/Capybara/FeatureMethods:
   Description: Checks for consistent method usage in feature specs.
   Enabled: true
   EnabledMethods: []
   VersionAdded: '1.17'
-  VersionChanged: '1.25'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
-Capybara/VisibilityMatcher:
+RSpec/Capybara/VisibilityMatcher:
   Description: Checks for boolean visibility in capybara finders.
   Enabled: true
   VersionAdded: '1.39'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher
 
-FactoryBot/AttributeDefinedStatically:
+RSpec/FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
   VersionAdded: '1.28'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
 
-FactoryBot/CreateList:
+RSpec/FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
   EnforcedStyle: create_list
@@ -654,15 +657,17 @@ FactoryBot/CreateList:
   - create_list
   - n_times
   VersionAdded: '1.25'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
-FactoryBot/FactoryClassName:
+RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
   VersionAdded: '1.37'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
-Rails/HttpStatus:
+RSpec/Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
   EnforcedStyle: symbolic
@@ -670,4 +675,5 @@ Rails/HttpStatus:
   - numeric
   - symbolic
   VersionAdded: '1.23'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus

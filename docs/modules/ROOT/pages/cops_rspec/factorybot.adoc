@@ -1,6 +1,6 @@
-= FactoryBot
+= RSpec/FactoryBot
 
-== FactoryBot/AttributeDefinedStatically
+== RSpec/FactoryBot/AttributeDefinedStatically
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -9,7 +9,7 @@
 | Yes
 | Yes
 | 1.28
-| -
+| 2.0
 |===
 
 Always declare attribute values as blocks.
@@ -41,7 +41,7 @@ count { 1 }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
 
-== FactoryBot/CreateList
+== RSpec/FactoryBot/CreateList
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -50,7 +50,7 @@ count { 1 }
 | Yes
 | Yes
 | 1.25
-| -
+| 2.0
 |===
 
 Checks for create_list usage.
@@ -98,7 +98,7 @@ create_list :user, 3
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
-== FactoryBot/FactoryClassName
+== RSpec/FactoryBot/FactoryClassName
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -107,7 +107,7 @@ create_list :user, 3
 | Yes
 | Yes
 | 1.37
-| -
+| 2.0
 |===
 
 Use string value when setting the class attribute explicitly.

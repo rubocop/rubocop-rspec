@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Update RuboCop dependency to v1.0.0. ([@bquorning][])
+* **(Potentially breaking)** Change namespace of several cops (`Capybara/*` -> `RSpec/Capybara/*`, `FactoryBot/*` -> `RSpec/FactoryBot/*`, `Rails/*` -> `RSpec/Rails/*`). ([@pirj][], [@bquorning][])
 
 ## 1.44.1 (2020-10-20)
 
