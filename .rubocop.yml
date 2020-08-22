@@ -37,6 +37,14 @@ Lint/InterpolationCheck:
   Exclude:
     - spec/**/*.rb
 
+# When the `edge-rubocop` build is red, and we decide to disable the cop,
+# the rest of the builds become red if the cop has not yet been released.
+# Instead of waiting for RuboCop releases to make `edge-rubocop` green,
+# we prefer keeping disable directives here and there and check if they
+# are still needed once in a while.
+Lint/RedundantCopDisableDirective:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - rubocop-rspec.gemspec
