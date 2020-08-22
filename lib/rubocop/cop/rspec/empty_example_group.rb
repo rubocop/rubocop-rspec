@@ -164,11 +164,34 @@ module RuboCop
           return if node.each_ancestor(:block).any? { |block| example?(block) }
 
           example_group_body(node) do |body|
-            add_offense(node.send_node) unless examples?(body)
+            add_offense(node.send_node) if offensive?(body)
           end
         end
 
         private
+
+        def offensive?(body)
+          return true unless body
+          return false if conditionals_with_examples?(body)
+
+          if body.if_type?
+            !examples_in_branches?(body)
+          else
+            !examples?(body)
+          end
+        end
+
+        def conditionals_with_examples?(body)
+          return unless body.begin_type?
+
+          body.each_descendant(:if).any? do |if_node|
+            examples_in_branches?(if_node)
+          end
+        end
+
+        def examples_in_branches?(if_node)
+          if_node.branches.any? { |branch| examples?(branch) }
+        end
 
         def custom_include?(method_name)
           custom_include_methods.include?(method_name)
