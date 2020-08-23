@@ -12,6 +12,7 @@
 
 * Fix `RSpec/FilePath` when checking a file with a shared example. ([@pirj][])
 * Fix subject nesting detection in `RSpec/LeadingSubject`. ([@pirj][])
+* Add `IgnoredMetadata` configuration option to `RSpec/DescribeClass`. ([@Rafix02][])
 
 ## 1.43.1 (2020-08-17)
 
@@ -563,3 +564,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mockdeep]: https://github.com/mockdeep
 [@biinari]: https://github.com/biinari
 [@koic]: https://github.com/koic
+[@Rafix02]: https://github.com/Rafix02
