@@ -7,7 +7,7 @@ module RuboCop
       #
       # It can be configured to ignore strings when certain metadata is passed.
       #
-      # Ignores Rails `type` metadata by default.
+      # Ignores Rails and Aruba `type` metadata by default.
       #
       # @example `IgnoredMetadata` configuration
       #
