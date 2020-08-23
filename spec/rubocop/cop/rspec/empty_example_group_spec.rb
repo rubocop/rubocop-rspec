@@ -258,4 +258,28 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       describe Foo
     RUBY
   end
+
+  it 'ignores example groups defined inside methods' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        def self.with_yaml_loaded(&block)
+          context 'with YAML loaded' do
+            module_exec(&block)
+          end
+        end
+
+        class << self
+          def without_yaml_loaded(&block)
+            context 'without YAML loaded' do
+              module_exec(&block)
+            end
+          end
+        end
+
+        with_yaml_loaded do
+          it_behaves_like 'normal YAML serialization'
+        end
+      end
+    RUBY
+  end
 end

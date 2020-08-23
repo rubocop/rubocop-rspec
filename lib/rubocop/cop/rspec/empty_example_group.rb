@@ -160,6 +160,8 @@ module RuboCop
         PATTERN
 
         def on_block(node)
+          return if node.each_ancestor(:def, :defs).any?
+
           example_group_body(node) do |body|
             add_offense(node.send_node) unless examples?(body)
           end
