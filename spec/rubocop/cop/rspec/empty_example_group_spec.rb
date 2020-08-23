@@ -226,4 +226,36 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       RUBY
     end
   end
+
+  it 'ignores example groups with pending examples' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        it 'will be implemented later'
+      end
+
+      describe Foo do
+        it 'will be implemented later', year: 2030
+      end
+
+      describe Foo do
+        pending
+      end
+
+      describe Foo do
+        pending 'too hard to specify'
+      end
+
+      describe Foo do
+        skip
+      end
+
+      describe Foo do
+        skip 'undefined behaviour'
+      end
+
+      xdescribe Foo
+
+      describe Foo
+    RUBY
+  end
 end
