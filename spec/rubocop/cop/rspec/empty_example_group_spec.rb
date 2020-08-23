@@ -282,4 +282,15 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       end
     RUBY
   end
+
+  it 'ignores example groups inside examples' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe 'rspec-core' do
+        it 'runs an example group' do
+          group = RSpec.describe { }
+          group.run
+        end
+      end
+    RUBY
+  end
 end

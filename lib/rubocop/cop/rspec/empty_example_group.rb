@@ -161,6 +161,7 @@ module RuboCop
 
         def on_block(node)
           return if node.each_ancestor(:def, :defs).any?
+          return if node.each_ancestor(:block).any? { |block| example?(block) }
 
           example_group_body(node) do |body|
             add_offense(node.send_node) unless examples?(body)
