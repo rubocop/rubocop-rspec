@@ -226,4 +226,71 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
       RUBY
     end
   end
+
+  it 'ignores example groups with pending examples' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        it 'will be implemented later'
+      end
+
+      describe Foo do
+        it 'will be implemented later', year: 2030
+      end
+
+      describe Foo do
+        pending
+      end
+
+      describe Foo do
+        pending 'too hard to specify'
+      end
+
+      describe Foo do
+        skip
+      end
+
+      describe Foo do
+        skip 'undefined behaviour'
+      end
+
+      xdescribe Foo
+
+      describe Foo
+    RUBY
+  end
+
+  it 'ignores example groups defined inside methods' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        def self.with_yaml_loaded(&block)
+          context 'with YAML loaded' do
+            module_exec(&block)
+          end
+        end
+
+        class << self
+          def without_yaml_loaded(&block)
+            context 'without YAML loaded' do
+              module_exec(&block)
+            end
+          end
+        end
+
+        with_yaml_loaded do
+          it_behaves_like 'normal YAML serialization'
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example groups inside examples' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe 'rspec-core' do
+        it 'runs an example group' do
+          group = RSpec.describe { }
+          group.run
+        end
+      end
+    RUBY
+  end
 end

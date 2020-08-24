@@ -33,6 +33,11 @@ module RuboCop
       #     end
       #   end
       #
+      #   # good
+      #   describe Bacon do
+      #     pending 'will add tests later'
+      #   end
+      #
       # @example configuration
       #
       #   # .rubocop.yml
@@ -83,11 +88,14 @@ module RuboCop
         #     it_behaves_like 'an animal'
         #     it_behaves_like('a cat') { let(:food) { 'milk' } }
         #     it_has_root_access
+        #     skip
+        #     it 'will be implemented later'
         #
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes
         def_node_matcher :example_or_group_or_include?, <<~PATTERN
           {
+            #{Examples::ALL.send_pattern}
             #{Examples::ALL.block_pattern}
             #{ExampleGroups::ALL.block_pattern}
             #{Includes::ALL.send_pattern}
@@ -152,6 +160,9 @@ module RuboCop
         PATTERN
 
         def on_block(node)
+          return if node.each_ancestor(:def, :defs).any?
+          return if node.each_ancestor(:block).any? { |block| example?(block) }
+
           example_group_body(node) do |body|
             add_offense(node.send_node) unless examples?(body)
           end

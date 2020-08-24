@@ -739,6 +739,11 @@ describe Bacon do
     expect(bacon.chunky?).to be_truthy
   end
 end
+
+# good
+describe Bacon do
+  pending 'will add tests later'
+end
 ----
 
 ==== configuration

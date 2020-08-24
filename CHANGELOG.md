@@ -6,6 +6,7 @@
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Fix `RSpec/FilePath` when checking a file with a shared example. ([@pirj][])
 * Fix subject nesting detection in `RSpec/LeadingSubject`. ([@pirj][])
+* Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
 
 ## 1.43.1 (2020-08-17)
 
