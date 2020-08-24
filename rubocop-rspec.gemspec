@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata = {
     'changelog_uri' => 'https://github.com/rubocop-hq/rubocop-rspec/blob/master/CHANGELOG.md',
-    'documentation_uri' => 'https://rubocop-rspec.readthedocs.io/'
+    'documentation_uri' => 'https://docs.rubocop.org/rubocop-rspec/'
   }
 
   spec.add_runtime_dependency 'rubocop', '~> 0.87'

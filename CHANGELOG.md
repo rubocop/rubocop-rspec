@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Fix `RSpec/FilePath` when checking a file with a shared example. ([@pirj][])
 * Fix subject nesting detection in `RSpec/LeadingSubject`. ([@pirj][])
