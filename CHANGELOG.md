@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.43.2 (2020-08-25)
+
 * Fix `RSpec/FilePath` when checking a file with a shared example. ([@pirj][])
 * Fix subject nesting detection in `RSpec/LeadingSubject`. ([@pirj][])
 
