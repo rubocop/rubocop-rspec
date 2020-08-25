@@ -5,6 +5,7 @@
 * Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
+* Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
 
 ## 1.43.2 (2020-08-25)
 

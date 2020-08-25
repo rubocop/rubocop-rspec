@@ -543,6 +543,12 @@ RSpec/SingleArgumentMessageChain:
   VersionChanged: '1.10'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
+RSpec/StubbedMock:
+  Description: Checks that message expectations do not have a configured response.
+  Enabled: pending
+  VersionAdded: '1.44'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
+
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true

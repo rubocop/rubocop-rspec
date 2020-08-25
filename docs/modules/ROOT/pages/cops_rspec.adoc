@@ -3814,6 +3814,36 @@ allow(foo).to receive("bar.baz")
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
+== RSpec/StubbedMock
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| No
+| 1.44
+| -
+|===
+
+Checks that message expectations do not have a configured response.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo).to receive(:bar).with(42).and_return("hello world")
+
+# good (without spies)
+allow(foo).to receive(:bar).with(42).and_return("hello world")
+expect(foo).to receive(:bar).with(42)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
+
 == RSpec/SubjectStub
 
 |===
