@@ -6,6 +6,7 @@
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
 * Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
+* Relax `RSpec/MissingExampleGroupArgument` cop so `context` with no arguments can be used if `include_context` is followed on next line. ([@mpospelov][])
 
 ## 1.43.2 (2020-08-25)
 
@@ -561,3 +562,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@mockdeep]: https://github.com/mockdeep
 [@biinari]: https://github.com/biinari
+[@mpospelov]: https://github.com/mpospelov

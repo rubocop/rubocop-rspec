@@ -2499,6 +2499,10 @@ end
 
 describe "A feature example" do
 end
+
+context do
+  include_context 'when something is different'
+end
 ----
 
 === References

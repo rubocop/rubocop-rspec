@@ -54,4 +54,22 @@ RSpec.describe RuboCop::Cop::RSpec::MissingExampleGroupArgument do
       end
     RUBY
   end
+
+  it 'accepts context without name with included context on next line' do
+    expect_no_offenses(<<-RUBY)
+      context do
+        include_context 'when something is different'
+      end
+    RUBY
+  end
+
+  it 'accepts context without name with included context and tests' do
+    expect_no_offenses(<<-RUBY)
+      context do
+        include_context 'when something is different'
+
+        specify { expect(1 + 2).to eq(3) }
+      end
+    RUBY
+  end
 end
