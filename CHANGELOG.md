@@ -4,8 +4,9 @@
 
 * Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
-* Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
 * Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
+* Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
+* Fix a false positive for `RSpec/EmptyExampleGroup` when example is defined in an `if` branch. ([@koic][])
 
 ## 1.43.2 (2020-08-25)
 
@@ -561,3 +562,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@mockdeep]: https://github.com/mockdeep
 [@biinari]: https://github.com/biinari
+[@koic]: https://github.com/koic

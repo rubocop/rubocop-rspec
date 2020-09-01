@@ -54,6 +54,62 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
     RUBY
   end
 
+  it 'ignores example group with examples defined in `if` branches' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Ruby 2.3 syntax' do
+        version = 2.3
+
+        if RUBY_VERSION >= version
+          it { expect(use_safe_navigation_operator?(code)).to be(true) }
+        else
+          warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples but no examples in `if` branches' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Ruby 2.3 syntax' do
+        version = 2.3
+
+        if RUBY_VERSION < version
+          warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+        end
+
+        it { expect(newspaper(page)).to have_ads }
+      end
+    RUBY
+  end
+
+  it 'flags an empty example group with no examples defined in `if` branches' do
+    expect_offense(<<~RUBY)
+      describe 'Ruby 2.3 syntax' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        version = 2.3
+
+        if RUBY_VERSION >= version
+          warn 'Ruby > 2.3 is supported'
+        else
+          warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+        end
+      end
+
+      describe 'Ruby 2.3 syntax' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        if RUBY_VERSION < 2.3
+        else
+        end
+      end
+
+      describe 'Ruby 2.3 syntax' do
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        if RUBY_VERSION >= 2.3
+        end
+      end
+    RUBY
+  end
+
   it 'ignores example group with examples defined in iterator' do
     expect_no_offenses(<<~RUBY)
       describe 'RuboCop monthly' do
