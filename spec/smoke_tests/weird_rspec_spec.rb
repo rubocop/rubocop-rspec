@@ -201,6 +201,8 @@ RSpec.shared_context('even pointless-er') {}
 RSpec.describe do end
 RSpec.shared_examples('pointless2') do end
 RSpec.shared_context('even pointless-er2') do end
+RSpec.describe
+RSpec.describe 'empty'
 
 class Broken
 end
