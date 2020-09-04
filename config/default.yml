@@ -76,7 +76,23 @@ RSpec/ContextWording:
 RSpec/DescribeClass:
   Description: Check that the first argument to the top-level describe is a constant.
   Enabled: true
+  IgnoredMetadata:
+    type:
+    - channel
+    - controller
+    - helper
+    - job
+    - mailer
+    - model
+    - request
+    - routing
+    - view
+    - feature
+    - system
+    - mailbox
+    - aruba
   VersionAdded: '1.0'
+  VersionChanged: '1.44'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
 RSpec/DescribeMethod:
