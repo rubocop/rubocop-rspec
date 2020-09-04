@@ -48,7 +48,7 @@ module RuboCop
           (send #rspec? :describe $[!const !#string_constant?] ...)
         PATTERN
 
-        def_node_matcher :sym_pair?, <<~PATTERN
+        def_node_matcher :sym_pair, <<~PATTERN
           (pair $sym $sym)
         PATTERN
 
@@ -63,7 +63,7 @@ module RuboCop
         private
 
         def ignored_metadata?(node)
-          sym_pair?(node) do |key, value|
+          sym_pair(node) do |key, value|
             ignored_metadata[key.value.to_s].to_a.include?(value.value.to_s)
           end
         end
