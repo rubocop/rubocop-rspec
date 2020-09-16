@@ -40,12 +40,12 @@ module RuboCop
           # rubocop:disable Metrics/CyclomaticComplexity
           # rubocop:disable Metrics/PerceivedComplexity
           def on_send(node)
-            return if inside_example_scope?(node)
-            return if inside_method_definition?(node)
-            return if inside_proc_or_lambda?(node)
-            return if inside_allowed_block?(node)
-            return if allowed_receiver?(node)
-            return if allowed_method?(node)
+            return if inside_example_scope?(node) ||
+              inside_method_definition?(node) ||
+              inside_proc_or_lambda?(node) ||
+              inside_allowed_block?(node) ||
+              allowed_receiver?(node) ||
+              allowed_method?(node)
             return unless inside_describe_block?(node)
             return unless persistent_call?(node)
 
