@@ -108,6 +108,10 @@ records to leak into other tests.
 |===
 | Name | Default value | Configurable values
 
+| AllowedBlockNames
+| `[]`
+| Array
+
 | AllowedReceivers
 | `[]`
 | Array
