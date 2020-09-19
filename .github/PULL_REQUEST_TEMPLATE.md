@@ -21,4 +21,4 @@ If you have created a new cop:
 
 If you have modified an existing cop's configuration options:
 
-* [ ] Set `VersionChanged` in `default/config.yml` to the next major version.
+* [ ] Set `VersionChanged` in `config/default.yml` to the next major version.
