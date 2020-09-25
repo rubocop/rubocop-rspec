@@ -8,7 +8,7 @@
 * Add `IgnoredMetadata` configuration option to `RSpec/DescribeClass`. ([@Rafix02][])
 * Fix false positives in `RSpec/EmptyExampleGroup`. ([@pirj][])
 * Fix a false positive for `RSpec/EmptyExampleGroup` when example is defined in an `if` branch. ([@koic][])
-* Add RSpec/PersistenceCalledOutsideExample cop.([@thijsnado][])
+* Add RSpec/Rails/PersistenceCalledOutsideExample cop.([@thijsnado][])
 
 ## 1.43.2 (2020-08-25)
 
