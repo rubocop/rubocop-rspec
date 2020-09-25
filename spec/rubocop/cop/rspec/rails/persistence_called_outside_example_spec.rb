@@ -243,27 +243,4 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::PersistenceCalledOutsideExample, :con
       RUBY
     end
   end
-
-  context 'when configured with ForbiddenMethodsWithoutArguments' do
-    let(:cop_config) do
-      { 'ForbiddenMethodsWithoutArguments' => ['delete'] }
-    end
-
-    it 'does not flag offense if arguments passed' do
-      expect_no_offenses(<<-RUBY)
-        describe User do
-          array.delete("element")
-        end
-      RUBY
-    end
-
-    it 'does flag offense if no arguments passed' do
-      expect_offense(<<-RUBY)
-        describe User do
-          User.delete
-          ^^^^^^^^^^^ Persistence called outside of example.
-        end
-      RUBY
-    end
-  end
 end

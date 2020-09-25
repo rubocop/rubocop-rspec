@@ -680,40 +680,16 @@ Rails/PersistenceCalledOutsideExample:
   ForbiddenMethods:
   - create
   - create!
+  - build
+  - create_list
+  - build_list
+  - save
+  - save!
   - create_or_find_by
   - create_or_find_by!
-  - decrement!
-  - delete_all
-  - delete_by
-  - destroy_all
-  - destroy_by
   - find_or_create_by
   - find_or_create_by!
   - first_or_create
   - first_or_create!
-  - increment!
-  - save
-  - save!
-  - toggle!
-  - touch_all
-  - update
-  - update!
-  - update_all
-  - update_attribute
-  - update_attributes
-  - update_column
-  - update_columns
-  - attributes_for
-  - attributes_for_list
-  - build
-  - build_list
-  - build_stubbed
-  - build_stubbed_list
-  - create_list
   - Fabricate
-  ForbiddenMethodsWithoutArguments:
-  - delete
-  - destroy
-  - destroy!
-  - touch
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/PersistenceCalledOutsideExample

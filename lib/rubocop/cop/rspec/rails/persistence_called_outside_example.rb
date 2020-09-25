@@ -84,17 +84,11 @@ module RuboCop
           def persistent_call?(node)
             method_name = node.method_name.to_s
 
-            forbidden_methods.include?(method_name) ||
-              forbidden_methods_without_arguments.include?(method_name) &&
-                !node.arguments?
+            forbidden_methods.include?(method_name)
           end
 
           def forbidden_methods
             cop_config['ForbiddenMethods'] || []
-          end
-
-          def forbidden_methods_without_arguments
-            cop_config['ForbiddenMethodsWithoutArguments'] || []
           end
         end
       end
