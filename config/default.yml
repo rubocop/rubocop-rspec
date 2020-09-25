@@ -676,8 +676,6 @@ Rails/PersistenceCalledOutsideExample:
   Description: Checks for persistence calls outside example blocks.
   Enabled: true
   VersionAdded: '1.43'
-  AllowedBlockNames: []
-  AllowedReceivers: []
   AllowedMethods: []
   ForbiddenMethods:
   - create

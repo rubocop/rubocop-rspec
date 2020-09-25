@@ -244,56 +244,6 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::PersistenceCalledOutsideExample, :con
     end
   end
 
-  context 'when configured with AllowedReceivers', :config do
-    let(:cop_config) do
-      { 'AllowedReceivers' => ['Allowed'] }
-    end
-
-    it 'flags offenses that are not allowed' do
-      expect_offense(<<-RUBY)
-        describe User do
-          User.create!
-          ^^^^^^^^^^^^ Persistence called outside of example.
-        end
-      RUBY
-    end
-
-    it 'does not flag calls on AllowedReceivers', :config do
-      expect_no_offenses(<<-RUBY)
-        describe Allowed do
-          Allowed.create!
-        end
-      RUBY
-    end
-  end
-
-  context 'when configured with AllowedBlockNames', :config do
-    let(:cop_config) do
-      { 'AllowedBlockNames' => ['let_once'] }
-    end
-
-    it 'flags offenses if not included in list' do
-      expect_offense(<<-RUBY)
-        describe User do
-          let_many_times do
-            User.create!
-            ^^^^^^^^^^^^ Persistence called outside of example.
-          end
-        end
-      RUBY
-    end
-
-    it 'does not flag offense if included in list' do
-      expect_no_offenses(<<-RUBY)
-        describe User do
-          let_once do
-            User.create!
-          end
-        end
-      RUBY
-    end
-  end
-
   context 'when configured with ForbiddenMethodsWithoutArguments' do
     let(:cop_config) do
       { 'ForbiddenMethodsWithoutArguments' => ['delete'] }

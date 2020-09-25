@@ -37,22 +37,16 @@ module RuboCop
         class PersistenceCalledOutsideExample < Base
           MSG = 'Persistence called outside of example.'
 
-          # rubocop:disable Metrics/CyclomaticComplexity
-          # rubocop:disable Metrics/PerceivedComplexity
           def on_send(node)
             return if inside_example_scope?(node) ||
               inside_method_definition?(node) ||
               inside_proc_or_lambda?(node) ||
-              inside_allowed_block?(node) ||
-              allowed_receiver?(node) ||
               allowed_method?(node)
             return unless inside_describe_block?(node)
             return unless persistent_call?(node)
 
             add_offense(node)
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
-          # rubocop:enable Metrics/PerceivedComplexity
 
           private
 
@@ -73,25 +67,6 @@ module RuboCop
 
           def inside_proc_or_lambda?(node)
             node.each_ancestor(:block).any?(&:lambda_or_proc?)
-          end
-
-          def inside_allowed_block?(node)
-            node.each_ancestor(:block).any?(&method(:allowed_block?))
-          end
-
-          def allowed_block?(node)
-            allowed_block_names = (cop_config['AllowedBlockNames'] || [])
-            allowed_block_names.include?(node.method_name.to_s)
-          end
-
-          def allowed_receiver?(node)
-            return unless node.receiver.respond_to?(:const_name)
-
-            allowed_receivers.include?(node.receiver.const_name)
-          end
-
-          def allowed_receivers
-            cop_config['AllowedReceivers'] || []
           end
 
           def allowed_method?(node)
