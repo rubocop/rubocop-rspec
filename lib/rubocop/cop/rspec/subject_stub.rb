@@ -43,10 +43,10 @@ module RuboCop
         #
         #   @yield [Symbol] subject name
         def_node_matcher :subject, <<-PATTERN
-          {
-            (block (send nil? :subject (sym $_)) args ...)
-            (block (send nil? $:subject) args ...)
-          }
+            (block
+              (send nil?
+                {:subject (sym $_) | $:subject}
+              ) args ...)
         PATTERN
 
         # @!method message_expectation?(node, method_name)
