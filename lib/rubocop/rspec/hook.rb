@@ -6,11 +6,7 @@ module RuboCop
     class Hook < Concept
       def_node_matcher :extract_metadata, <<~PATTERN
         (block
-          {
-            (send _ _ #valid_scope? $...)
-            (send _ _ $...)
-          }
-          ...
+          (send _ _ #valid_scope? ? $...) ...
         )
       PATTERN
 

@@ -22,8 +22,7 @@ module RuboCop
         def_node_matcher :lambda?, <<-PATTERN
           {
             (send (const nil? :Proc) :new)
-            (send nil? :proc)
-            (send nil? :lambda)
+            (send nil? {:proc :lambda})
           }
         PATTERN
 
