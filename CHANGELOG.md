@@ -4,8 +4,8 @@
 
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
 * Drop support for ruby 2.4. ([@bquorning][])
-
 * Add `CountAsOne` configuration option to `RSpec/ExampleLength`. ([@stephannv][])
+* Fix a false positive for `RSpec/RepeatedExampleGroupBody` when `pending` or `skip` have argument(s). ([@Tietew][])
 
 ## 2.2.0 (2021-02-02)
 
@@ -610,3 +610,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@dvandersluis]: https://github.com/dvandersluis
 [@hosamaly]: https://github.com/hosamaly
 [@stephannv]: https://github.com/stephannv
+[@Tietew]: https://github.com/Tietew

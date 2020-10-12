@@ -62,7 +62,7 @@ module RuboCop
 
         # @!method skip_or_pending?(node)
         def_node_matcher :skip_or_pending?, <<-PATTERN
-          (block <(send nil? {:skip :pending}) ...>)
+          (block <(send nil? {:skip :pending} ...) ...>)
         PATTERN
 
         def on_begin(node)
