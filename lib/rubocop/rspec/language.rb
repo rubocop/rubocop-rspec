@@ -51,6 +51,10 @@ module RuboCop
           selectors.map(&:inspect).join(' ')
         end
 
+        def to_a
+          selectors
+        end
+
         protected
 
         attr_reader :selectors
