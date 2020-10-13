@@ -7,7 +7,8 @@ module RuboCop
       # Set of method selectors
       class SelectorSet
         def initialize(selectors)
-          @selectors = selectors
+          @selectors = selectors.freeze
+          freeze
         end
 
         def ==(other)
