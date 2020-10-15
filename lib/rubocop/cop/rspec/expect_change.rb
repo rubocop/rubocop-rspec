@@ -39,7 +39,7 @@ module RuboCop
 
         # @!method expect_change_with_arguments(node)
         def_node_matcher :expect_change_with_arguments, <<-PATTERN
-          (send nil? :change $_ (sym $_))
+          (send nil? :change $_ ({sym str} $_))
         PATTERN
 
         # @!method expect_change_with_block(node)
@@ -47,7 +47,7 @@ module RuboCop
           (block
             (send nil? :change)
             (args)
-            (send ({const send} nil? $_) $_)
+            (send $_ $_)
           )
         PATTERN
 
@@ -67,9 +67,9 @@ module RuboCop
           return unless style == :method_call
 
           expect_change_with_block(node) do |receiver, message|
-            msg = format(MSG_BLOCK, obj: receiver, attr: message)
+            msg = format(MSG_BLOCK, obj: receiver.source, attr: message)
             add_offense(node, message: msg) do |corrector|
-              replacement = "change(#{receiver}, :#{message})"
+              replacement = "change(#{receiver.source}, :#{message})"
               corrector.replace(node, replacement)
             end
           end
