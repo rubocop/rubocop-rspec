@@ -7,7 +7,8 @@ module RuboCop
       # Set of method selectors
       class SelectorSet
         def initialize(selectors)
-          @selectors = selectors
+          @selectors = selectors.freeze
+          freeze
         end
 
         def ==(other)
@@ -48,6 +49,10 @@ module RuboCop
 
         def node_pattern
           selectors.map(&:inspect).join(' ')
+        end
+
+        def to_a
+          selectors
         end
 
         protected
