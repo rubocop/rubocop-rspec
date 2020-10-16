@@ -577,6 +577,13 @@ RSpec/UnspecifiedException:
   VersionAdded: '1.30'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException
 
+RSpec/UnusedImplicitSubject:
+  Description: Checks for usage of explicit subject that could be implicit.
+  Enabled: false
+  VersionAdded: '1.44'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnusedImplicitSubject
+  Safe: false
+
 RSpec/VariableDefinition:
   Description: Checks that memoized helpers names are symbols or strings.
   Enabled: true

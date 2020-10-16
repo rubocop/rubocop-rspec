@@ -89,6 +89,7 @@
 * xref:cops_rspec.adoc#rspecstubbedmock[RSpec/StubbedMock]
 * xref:cops_rspec.adoc#rspecsubjectstub[RSpec/SubjectStub]
 * xref:cops_rspec.adoc#rspecunspecifiedexception[RSpec/UnspecifiedException]
+* xref:cops_rspec.adoc#rspecunusedimplicitsubject[RSpec/UnusedImplicitSubject]
 * xref:cops_rspec.adoc#rspecvariabledefinition[RSpec/VariableDefinition]
 * xref:cops_rspec.adoc#rspecvariablename[RSpec/VariableName]
 * xref:cops_rspec.adoc#rspecverifieddoubles[RSpec/VerifiedDoubles]

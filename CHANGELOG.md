@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Add `RSpec/UnusedImplicitSubject` cop. ([@marcandre][])
 * Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
@@ -565,3 +566,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@biinari]: https://github.com/biinari
 [@koic]: https://github.com/koic
 [@Rafix02]: https://github.com/Rafix02
+[@marcandre]: https://github.com/marcandre

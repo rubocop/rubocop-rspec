@@ -3949,6 +3949,40 @@ expect { do_something }.not_to raise_error
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException
 
+== RSpec/UnusedImplicitSubject
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Disabled
+| No
+| Yes (Unsafe)
+| 1.44
+| -
+|===
+
+Checks for usage of explicit subject that could be implicit.
+
+This Cop is not safe as it might be confused by what is the subject.
+
+  # bad
+  subject(:foo) { :bar }
+  it { expect(foo).to eq :bar }
+  it { foo.should eq :bar }
+
+  # good
+  subject(:foo) { :bar }
+  it { is_expected.to eq :bar }
+  it { should eq :bar }
+
+  # also good
+  it { expect { foo }.to raise_error }
+  it { expect(foo.to_s).to eq 'bar' }
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnusedImplicitSubject
+
 == RSpec/VariableDefinition
 
 |===
