@@ -93,8 +93,9 @@ module RuboCop
         FOCUSED  = SelectorSet.new(%i[fit fspecify fexample fscenario focus])
         SKIPPED  = SelectorSet.new(%i[xit xspecify xexample xscenario skip])
         PENDING  = SelectorSet.new(%i[pending])
+        API_DOC  = SelectorSet.new(%i[example_request])
 
-        ALL = EXAMPLES + FOCUSED + SKIPPED + PENDING
+        ALL = EXAMPLES + FOCUSED + SKIPPED + PENDING + API_DOC
       end
 
       module Hooks
