@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_runtime_dependency 'rubocop', '~> 0.87'
-  spec.add_runtime_dependency 'rubocop-ast', '~> 0.7.1'
+  spec.add_runtime_dependency 'rubocop-ast', '>= 0.7.1'
 
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'
