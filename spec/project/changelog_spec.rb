@@ -10,6 +10,22 @@ RSpec.describe 'CHANGELOG.md' do
     end
   end
 
+  describe 'contributors' do
+    let(:contributors) do
+      changelog.partition("<!-- Contributors -->\n\n").last.lines
+    end
+
+    it 'does not contain duplicates' do
+      expect(contributors.uniq).to eq(contributors)
+    end
+
+    it 'links to github profiles' do
+      expect(contributors).to all(
+        match(%r{\A\[@([^\]]+)\]: https://github.com/\1\n\z})
+      )
+    end
+  end
+
   describe 'entry' do
     subject(:entries) { lines.grep(/^\*/).map(&:chomp) }
 
