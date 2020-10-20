@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.44.0 (2020-10-20)
+
 * Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
