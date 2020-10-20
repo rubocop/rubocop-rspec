@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 1.44.0 (2020-10-20)
+
 * Move our documentation from rubocop-rspec.readthedocs.io to docs.rubocop.org/rubocop-rspec. ([@bquorning][])
 * Add `RSpec/RepeatedIncludeExample` cop. ([@biinari][])
 * Add `RSpec/StubbedMock` cop. ([@bquorning][], [@pirj][])
@@ -513,8 +515,8 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rspeicher]: https://github.com/rspeicher
 [@jonatas]: https://github.com/jonatas
 [@pocke]: https://github.com/pocke
-[@bmorrall]: https:/github.com/bmorrall
-[@zverok]: https:/github.com/zverok
+[@bmorrall]: https://github.com/bmorrall
+[@zverok]: https://github.com/zverok
 [@timrogers]: https://github.com/timrogers
 [@yevhene]: https://github.com/yevhene
 [@walf443]: https://github.com/walf443
@@ -559,7 +561,6 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@andrykonchin]: https://github.com/andrykonchin
 [@harrylewis]: https://github.com/harrylewis
 [@elliterate]: https://github.com/elliterate
-[@mlarraz]: https://github.com/mlarraz
 [@jtannas]: https://github.com/jtannas
 [@mockdeep]: https://github.com/mockdeep
 [@biinari]: https://github.com/biinari
