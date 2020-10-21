@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Update RuboCop dependency to v1.0.0. ([@bquorning][])
+
 ## 1.44.1 (2020-10-20)
 
 * Relax `rubocop-ast` version constraint. ([@PhilCoggins][])
