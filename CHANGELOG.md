@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
+* Retire `RSpec/InvalidPredicateMatcher` cop. ([@pirj][])
 
 ## 2.0.0.pre (2020-10-22)
 
