@@ -13,7 +13,7 @@ end
 desc 'Generate docs of all cops departments'
 task generate_cops_documentation: :yard_for_generate_documentation do
   generator = CopsDocumentationGenerator.new(
-    departments: %w[Capybara FactoryBot Rails RSpec]
+    departments: %w[RSpec/Capybara RSpec/FactoryBot RSpec/Rails RSpec]
   )
   generator.call
 end
