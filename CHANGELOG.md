@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
+
 ## 2.0.0.pre (2020-10-22)
 
 * Update RuboCop dependency to v1.0.0. ([@bquorning][])

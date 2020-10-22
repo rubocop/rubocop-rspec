@@ -25,7 +25,7 @@ RSpec.describe 'config/default.yml' do
         "#{namespace}/#{cop_name}"
       end
 
-    cop_names - %w[RSpec/Cop RSpec/Base]
+    cop_names - %w[RSpec/Base]
   end
 
   let(:config_keys) do
