@@ -1,0 +1,11 @@
+extends: default
+
+rules:
+  comments:
+    min-spaces-from-content: 1
+  document-start: disable
+  line-length:
+    allow-non-breakable-inline-mappings: true
+    max: 100
+  truthy:
+    check-keys: false

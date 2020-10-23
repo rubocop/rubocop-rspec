@@ -2,4 +2,4 @@ name: rubocop-rspec
 title: RuboCop RSpec
 version: master
 nav:
-- modules/ROOT/nav.adoc
+  - modules/ROOT/nav.adoc
