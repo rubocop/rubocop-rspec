@@ -42,7 +42,7 @@ module RuboCop
       class VariableName < Base
         include ConfigurableNaming
         include IgnoredPattern
-        include RuboCop::RSpec::Variable
+        include Variable
 
         MSG = 'Use %<style>s for variable names.'
 

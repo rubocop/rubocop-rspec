@@ -85,7 +85,7 @@ module RuboCop
       #
       class MultipleMemoizedHelpers < Base
         include ConfigurableMax
-        include RuboCop::RSpec::Variable
+        include Variable
 
         MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
 
