@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Focus do
-  subject(:cop) { described_class.new }
-
   # rubocop:disable RSpec/ExampleLength
   it 'flags all rspec example blocks with that include `focus: true`' do
     expect_offense(<<-RUBY)

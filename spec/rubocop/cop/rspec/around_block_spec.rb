@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
-  subject(:cop) { described_class.new }
-
   context 'when no value is yielded' do
     it 'registers an offense' do
       expect_offense(<<-RUBY)

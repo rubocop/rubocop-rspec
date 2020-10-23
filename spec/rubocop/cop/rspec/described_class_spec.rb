@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::DescribedClass, :config do
+RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
   let(:cop_config) { {} }
 
   context 'when SkipBlocks is `true`' do

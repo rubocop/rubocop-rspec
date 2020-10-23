@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Dialect, :config do
+RSpec.describe RuboCop::Cop::RSpec::Dialect do
   let(:cop_config) do
     {
       'PreferredMethods' => {

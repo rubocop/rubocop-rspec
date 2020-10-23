@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
+RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
   it 'flags an empty example group' do
     expect_offense(<<~RUBY)
       describe Foo do

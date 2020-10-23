@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
-  subject(:cop) { described_class.new }
-
   it 'flags stubbed message expectation' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).and_return('hello world')

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ContextMethod do
-  subject(:cop) { described_class.new }
-
   it 'ignores describe blocks' do
     expect_no_offenses(<<-RUBY)
       describe '.foo_bar' do

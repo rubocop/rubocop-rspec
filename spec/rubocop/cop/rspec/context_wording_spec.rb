@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ContextWording, :config do
+RSpec.describe RuboCop::Cop::RSpec::ContextWording do
   let(:cop_config) { { 'Prefixes' => %w[when with] } }
 
   it 'skips describe blocks' do

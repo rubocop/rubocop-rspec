@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::VoidExpect do
-  subject(:cop) { described_class.new }
-
   it 'registers offenses to void `expect`' do
     expect_offense(<<-RUBY)
       it 'something' do

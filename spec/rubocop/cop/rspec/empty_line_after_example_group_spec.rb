@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
-  subject(:cop) { described_class.new }
-
   it 'checks for empty line after describe' do
     expect_offense(<<-RUBY)
       RSpec.describe Foo do

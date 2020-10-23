@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::VariableName, :config do
+RSpec.describe RuboCop::Cop::RSpec::VariableName do
   context 'when configured for `snake_case`' do
     let(:cop_config) { { 'EnforcedStyle' => 'snake_case' } }
 

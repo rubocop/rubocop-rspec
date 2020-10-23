@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense when using symbolic title' do
     expect_offense(<<-RUBY)
       it_behaves_like :foo_bar_baz

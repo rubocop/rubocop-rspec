@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense for offending code' do
     expect_offense(<<-RUBY)
       FactoryBot.define do

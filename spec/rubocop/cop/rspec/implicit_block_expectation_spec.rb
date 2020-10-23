@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ImplicitBlockExpectation do
-  subject(:cop) { described_class.new }
-
   it 'flags lambda in subject' do
     expect_offense(<<-RUBY)
       describe do

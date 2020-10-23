@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
+RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers do
   let(:cop_config) { { 'Max' => 1 } }
 
   it 'flags excessive `#let`' do
@@ -99,7 +99,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers, :config do
     RUBY
   end
 
-  context 'when using AllowSubject configuration', :config do
+  context 'when using AllowSubject configuration' do
     let(:cop_config) { { 'Max' => 1, 'AllowSubject' => false } }
 
     it 'flags `#subject` without name' do

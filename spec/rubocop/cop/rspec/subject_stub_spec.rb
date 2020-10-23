@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
-  subject(:cop) { described_class.new }
-
   it 'flags when subject is stubbed' do
     expect_offense(<<-RUBY)
       describe Foo do

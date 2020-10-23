@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ExpectActual, :config do
+RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
   it 'flags numeric literal values within expect(...)' do
     expect_offense(<<-RUBY)
       describe Foo do

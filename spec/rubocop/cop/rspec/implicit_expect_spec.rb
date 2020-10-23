@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect, :config do
+RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect do
   context 'when EnforcedStyle is is_expected' do
     let(:cop_config) do
       { 'EnforcedStyle' => 'is_expected' }

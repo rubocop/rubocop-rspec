@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
-  subject(:cop) { described_class.new }
-
   it 'flags multiple top-level example groups with class and method' do
     expect_offense(<<-RUBY)
       describe MyClass, '.do_something' do; end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
-  subject(:cop) { described_class.new }
-
   it 'flags `before` after `it`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do

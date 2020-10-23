@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MessageChain do
-  subject(:cop) { described_class.new }
-
   it 'finds `receive_message_chain`' do
     expect_offense(<<-RUBY)
       before do
