@@ -36,6 +36,10 @@ module RuboCop
           RuboCop::Cop::Base.inherited(subclass)
         end
 
+        class << self
+          attr_accessor :rspec_pattern
+        end
+
         def relevant_file?(file)
           relevant_rubocop_rspec_file?(file) && super
         end
@@ -47,11 +51,14 @@ module RuboCop
         end
 
         def rspec_pattern
-          if rspec_pattern_config?
-            Regexp.union(rspec_pattern_config.map(&Regexp.public_method(:new)))
-          else
-            DEFAULT_PATTERN_RE
-          end
+          self.class.rspec_pattern ||=
+            if rspec_pattern_config?
+              Regexp.union(
+                rspec_pattern_config.map(&Regexp.public_method(:new))
+              )
+            else
+              DEFAULT_PATTERN_RE
+            end
         end
 
         def all_cops_config
