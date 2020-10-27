@@ -1536,6 +1536,10 @@ my_class_spec.rb         # describe MyClass, '#method'
 |===
 | Name | Default value | Configurable values
 
+| Include
+| `+**/*_spec*rb*+`, `+**/spec/**/*+`
+| Array
+
 | CustomTransform
 | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
 | 

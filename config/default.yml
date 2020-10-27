@@ -1,14 +1,8 @@
 ---
-AllCops:
-  RSpec:
-    Patterns:
-    - _spec.rb
-    - "(?:^|/)spec/"
-  RSpec/FactoryBot:
-    Patterns:
-    - spec/factories.rb
-    - spec/factories/**/*.rb
-    - features/support/factories/**/*.rb
+RSpec:
+  Include:
+  - "**/*_spec.rb"
+  - "**/spec/**/*"
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
@@ -241,6 +235,9 @@ RSpec/ExpectOutput:
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
   Enabled: true
+  Include:
+  - "**/*_spec*rb*"
+  - "**/spec/**/*"
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
@@ -639,6 +636,10 @@ RSpec/Capybara/VisibilityMatcher:
 RSpec/FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
+  Include:
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   VersionAdded: '1.28'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
@@ -646,6 +647,12 @@ RSpec/FactoryBot/AttributeDefinedStatically:
 RSpec/FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
+  Include:
+  - "**/*_spec.rb"
+  - "**/spec/**/*"
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   EnforcedStyle: create_list
   SupportedStyles:
   - create_list
@@ -657,6 +664,10 @@ RSpec/FactoryBot/CreateList:
 RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
+  Include:
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   VersionAdded: '1.37'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName

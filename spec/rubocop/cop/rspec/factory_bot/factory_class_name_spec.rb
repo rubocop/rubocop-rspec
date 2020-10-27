@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
+  def inspected_source_filename
+    'spec/factories.rb'
+  end
+
   context 'when passing block' do
     it 'flags passing a class' do
       expect_offense(<<~RUBY)

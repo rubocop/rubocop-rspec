@@ -6,7 +6,7 @@ module RuboCop
   module RSpec
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
-      NAMESPACES = /^(RSpec|Capybara|FactoryBot|Rails)/.freeze
+      EXTENSION_ROOT_DEPARTMENT = %r{^(RSpec/)}.freeze
       STYLE_GUIDE_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
 
       def initialize(config, descriptions)
@@ -15,7 +15,7 @@ module RuboCop
       end
 
       def dump
-        YAML.dump(unified_config).gsub(NAMESPACES, "\n\\1")
+        YAML.dump(unified_config).gsub(EXTENSION_ROOT_DEPARTMENT, "\n\\1")
       end
 
       private
@@ -29,7 +29,7 @@ module RuboCop
       end
 
       def cops
-        (descriptions.keys | config.keys).grep(NAMESPACES)
+        (descriptions.keys | config.keys).grep(EXTENSION_ROOT_DEPARTMENT)
       end
 
       attr_reader :config, :descriptions
