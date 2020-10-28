@@ -7,16 +7,47 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
         factory :post do
           title "Something"
           ^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          comments_count 0
+          ^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          tag Tag::MAGIC
+          ^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          recent_statuses []
+          ^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          status([:draft, :published].sample)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
           published_at 1.day.from_now
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
-          status [:draft, :published].sample
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
-          created_at 1.day.ago
-          ^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          created_at(1.day.ago)
+          ^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
           update_times [Time.current]
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
           meta_tags(foo: Time.current)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          other_tags({ foo: Time.current })
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          options color: :blue
+          ^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          other_options Tag::MAGIC => :magic
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          title { "Something" }
+          comments_count { 0 }
+          tag { Tag::MAGIC }
+          recent_statuses { [] }
+          status { [:draft, :published].sample }
+          published_at { 1.day.from_now }
+          created_at { 1.day.ago }
+          update_times { [Time.current] }
+          meta_tags { { foo: Time.current } }
+          other_tags { { foo: Time.current } }
+          options { { color: :blue } }
+          other_options { { Tag::MAGIC => :magic } }
         end
       end
     RUBY
@@ -31,6 +62,17 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
             ^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
             published_at 1.day.from_now
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          end
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          trait :published do
+            title { "Something" }
+            published_at { 1.day.from_now }
           end
         end
       end
@@ -50,6 +92,17 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
         end
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          transient do
+            title { "Something" }
+            published_at { 1.day.from_now }
+          end
+        end
+      end
+    RUBY
   end
 
   it 'registers an offense for an attribute defined on `self`' do
@@ -59,6 +112,15 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
           self.start { Date.today }
           self.end Date.tomorrow
           ^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      FactoryBot.define do
+        factory :post do
+          self.start { Date.today }
+          self.end { Date.tomorrow }
         end
       end
     RUBY
@@ -73,6 +135,17 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
           post_definition.trait :published do |published_definition|
             published_definition.published_at 1.day.from_now
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use a block to declare attribute values.
+          end
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      FactoryBot.define do
+        factory :post do |post_definition|
+          post_definition.end { Date.tomorrow }
+          post_definition.trait :published do |published_definition|
+            published_definition.published_at { 1.day.from_now }
           end
         end
       end
@@ -161,56 +234,4 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
       end
     RUBY
   end
-
-  bad = <<-RUBY
-    FactoryBot.define do
-      factory :post do
-        title "Something"
-        comments_count 0
-        tag Tag::MAGIC
-        recent_statuses []
-        status([:draft, :published].sample)
-        published_at 1.day.from_now
-        created_at(1.day.ago)
-        updated_at Time.current
-        update_times [Time.current]
-        meta_tags(foo: Time.current)
-        other_tags({ foo: Time.current })
-        options color: :blue
-        other_options Tag::MAGIC => :magic
-        self.end Date.tomorrow
-
-        trait :old do
-          published_at 1.week.ago
-        end
-      end
-    end
-  RUBY
-
-  corrected = <<-RUBY
-    FactoryBot.define do
-      factory :post do
-        title { "Something" }
-        comments_count { 0 }
-        tag { Tag::MAGIC }
-        recent_statuses { [] }
-        status { [:draft, :published].sample }
-        published_at { 1.day.from_now }
-        created_at { 1.day.ago }
-        updated_at { Time.current }
-        update_times { [Time.current] }
-        meta_tags { { foo: Time.current } }
-        other_tags { { foo: Time.current } }
-        options { { color: :blue } }
-        other_options { { Tag::MAGIC => :magic } }
-        self.end { Date.tomorrow }
-
-        trait :old do
-          published_at { 1.week.ago }
-        end
-      end
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad, corrected
 end

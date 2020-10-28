@@ -10,3 +10,7 @@
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ClassLength:
   Max: 106
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/rubocop/cop/rspec/factory_bot/attribute_defined_statically_spec.rb
