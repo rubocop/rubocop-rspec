@@ -4,6 +4,7 @@
 
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
 * Retire `RSpec/InvalidPredicateMatcher` cop. ([@pirj][])
+* Remove the code responsible for filtering files to inspect. ([@pirj][])
 
 ## 2.0.0.pre (2020-10-22)
 

@@ -1,25 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Base do
-  subject(:cop) { RuboCop::RSpec::FakeCop.new(config) }
-
-  let(:config) do
-    rubocop_config =
-      {
-        'AllCops' => {
-          'RSpec' => {
-            'Patterns' => rspec_patterns
-          }
-        },
-        'RSpec/FakeCop' => {
-          'Exclude' => %w[bar_spec.rb]
-        }
-      }
-
-    RuboCop::Config.new(rubocop_config, 'fake_cop_config.yml')
-  end
-
-  let(:rspec_patterns) { ['_spec.rb$', '(?:^|/)spec/'] }
+  let(:cop_class) { RuboCop::RSpec::FakeCop }
+  let(:cop_config) { { 'Exclude' => %w[bar_spec.rb] } }
 
   before do
     stub_const('RuboCop::RSpec::FakeCop',
@@ -78,8 +61,12 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
   end
 
   context 'when custom patterns are specified' do
-    let(:rspec_patterns) do
-      ['_test\.rb$']
+    let(:other_cops) do
+      {
+        'RSpec' => {
+          'Include' => ['*_test\.rb']
+        }
+      }
     end
 
     it 'registers offenses when the path matches a custom specified pattern' do

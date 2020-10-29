@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically do
+  def inspected_source_filename
+    'spec/factories.rb'
+  end
+
   it 'registers an offense for offending code' do
     expect_offense(<<-RUBY)
       FactoryBot.define do

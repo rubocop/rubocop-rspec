@@ -29,7 +29,7 @@ RSpec.describe 'config/default.yml' do
   end
 
   let(:config_keys) do
-    cop_names + %w[AllCops]
+    cop_names + %w[RSpec]
   end
 
   def cop_configuration(config_key)
