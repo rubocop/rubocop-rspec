@@ -3778,7 +3778,7 @@ allow(foo).to receive("bar.baz")
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
-| Pending
+| Enabled
 | Yes
 | No
 | 1.44

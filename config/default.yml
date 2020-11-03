@@ -629,7 +629,7 @@ RSpec/SingleArgumentMessageChain:
 
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '1.44'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
