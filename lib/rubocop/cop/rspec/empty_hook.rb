@@ -29,7 +29,7 @@ module RuboCop
         MSG = 'Empty hook detected.'
 
         def_node_matcher :empty_hook?, <<~PATTERN
-          (block $#{Hooks::ALL.send_pattern} _ nil?)
+          (block $#{send_pattern('#Hooks.all')} _ nil?)
         PATTERN
 
         def on_block(node)

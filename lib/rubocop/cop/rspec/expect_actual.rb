@@ -48,7 +48,7 @@ module RuboCop
         def_node_matcher :expect_literal, <<~PATTERN
           (send
             (send nil? :expect $#literal?)
-            #{Runners::ALL.node_pattern_union}
+            #Runners.all
             {
               (send (send nil? $:be) :== $_)
               (send nil? $_ $_ ...)

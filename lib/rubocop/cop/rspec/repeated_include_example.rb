@@ -54,10 +54,11 @@ module RuboCop
           (begin <#include_examples? #include_examples? ...>)
         PATTERN
 
-        def_node_matcher :include_examples?, Includes::EXAMPLES.send_pattern
+        def_node_matcher :include_examples?,
+                         send_pattern('#Includes.examples')
 
         def_node_matcher :shared_examples_name, <<-PATTERN
-          (send _ #{Includes::EXAMPLES.node_pattern_union} $_ ...)
+          (send _ #Includes.examples $_ ...)
         PATTERN
 
         def on_begin(node)

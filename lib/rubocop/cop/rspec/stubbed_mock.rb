@@ -60,7 +60,7 @@ module RuboCop
         #   @yield [RuboCop::AST::Node] expectation, method name, matcher
         def_node_matcher :expectation, <<~PATTERN
           (send
-            $(send nil? $#{Expectations::ALL.node_pattern_union} ...)
+            $(send nil? $#Expectations.all ...)
             :to $_)
         PATTERN
 

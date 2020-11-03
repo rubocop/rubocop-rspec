@@ -47,7 +47,7 @@ module RuboCop
 
         MSG = 'Prefer `%<prefer>s` over `%<current>s`.'
 
-        def_node_matcher :rspec_method?, ALL.send_pattern
+        def_node_matcher :rspec_method?, send_pattern('#ALL.all')
 
         def on_send(node)
           return unless rspec_method?(node)

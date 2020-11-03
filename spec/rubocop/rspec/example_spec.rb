@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::RSpec::Example do
+RSpec.describe RuboCop::RSpec::Example, :config do
   include RuboCop::AST::Sexp
+
+  let(:cop_class) { RuboCop::Cop::RSpec::Base }
+
+  # Trigger setting of the `Language` in the case when this spec
+  # runs before cops' specs that set it.
+  before { cop.on_new_investigation }
 
   def example(source)
     described_class.new(parse_source(source).ast)

@@ -37,13 +37,13 @@ module RuboCop
           # Supported matchers: eq(...) / match(/regexp/) / match('regexp')
           def_node_matcher :as_is_matcher, <<-PATTERN
             (send
-              #expectation_set_on_current_path $#{Runners::ALL.node_pattern_union}
+              #expectation_set_on_current_path $#Runners.all
               ${(send nil? :eq ...) (send nil? :match (regexp ...))})
           PATTERN
 
           def_node_matcher :regexp_str_matcher, <<-PATTERN
             (send
-              #expectation_set_on_current_path $#{Runners::ALL.node_pattern_union}
+              #expectation_set_on_current_path $#Runners.all
               $(send nil? :match (str $_)))
           PATTERN
 

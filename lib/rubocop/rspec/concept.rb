@@ -4,9 +4,9 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec DSL methods
     class Concept
+      extend RuboCop::NodePattern::Macros
+      extend Language::NodePattern
       include Language
-      include Language::NodePattern
-      extend NodePattern::Macros
 
       def initialize(node)
         @node = node

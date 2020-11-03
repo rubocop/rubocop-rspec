@@ -5,13 +5,12 @@ require 'yaml'
 
 require 'rubocop'
 
-require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/version'
 require_relative 'rubocop/rspec/inject'
 require_relative 'rubocop/rspec/node'
 require_relative 'rubocop/rspec/wording'
-require_relative 'rubocop/rspec/language'
 require_relative 'rubocop/rspec/language/node_pattern'
+require_relative 'rubocop/rspec/language'
 
 require_relative 'rubocop/cop/rspec/mixin/top_level_group'
 require_relative 'rubocop/cop/rspec/mixin/variable'

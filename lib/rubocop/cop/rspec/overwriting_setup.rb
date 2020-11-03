@@ -24,7 +24,8 @@ module RuboCop
       class OverwritingSetup < Base
         MSG = '`%<name>s` is already defined.'
 
-        def_node_matcher :setup?, (Helpers::ALL + Subject::ALL).block_pattern
+        def_node_matcher :setup?, block_pattern('{#Helpers.all #Subjects.all}')
+
         def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
 
         def on_block(node)

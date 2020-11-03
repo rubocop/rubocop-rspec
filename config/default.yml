@@ -3,6 +3,83 @@ RSpec:
   Include:
   - "**/*_spec.rb"
   - "**/spec/**/*"
+  Language:
+    ExampleGroups:
+      Regular:
+      - describe
+      - context
+      - feature
+      - example_group
+      Skipped:
+      - xdescribe
+      - xcontext
+      - xfeature
+      Focused:
+      - fdescribe
+      - fcontext
+      - ffeature
+    Examples:
+      Regular:
+      - it
+      - specify
+      - example
+      - scenario
+      - its
+      Focused:
+      - fit
+      - fspecify
+      - fexample
+      - fscenario
+      - focus
+      Skipped:
+      - xit
+      - xspecify
+      - xexample
+      - xscenario
+      - skip
+      Pending:
+      - pending
+    Expectations:
+    - expect
+    - is_expected
+    - expect_any_instance_of
+    Helpers:
+    - let
+    - let!
+    Hooks:
+    - prepend_before
+    - before
+    - append_before
+    - around
+    - prepend_after
+    - after
+    - append_after
+    HookScopes:
+    - each
+    - example
+    - context
+    - all
+    - suite
+    Includes:
+      Examples:
+      - it_behaves_like
+      - it_should_behave_like
+      - include_examples
+      Context:
+      - include_context
+    Runners:
+    - to
+    - to_not
+    - not_to
+    SharedGroups:
+      Examples:
+      - shared_examples
+      - shared_examples_for
+      Context:
+      - shared_context
+    Subjects:
+    - subject
+    - subject!
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
