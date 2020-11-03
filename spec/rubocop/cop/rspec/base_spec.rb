@@ -118,7 +118,7 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
 
     context 'when `epic` is set as an alias to example group' do
       before do
-        other_cops['RSpec']['Language']['ExampleGroups']['Regular']
+        other_cops.dig('RSpec', 'Language', 'ExampleGroups', 'Regular')
           .push('epic')
       end
 
