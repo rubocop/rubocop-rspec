@@ -1,18 +1,20 @@
-# Change log
+# Changelog
 
 ## Master (Unreleased)
+
+## 2.0.0 (2020-11-06)
 
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
 * Retire `RSpec/InvalidPredicateMatcher` cop. ([@pirj][])
 * Remove the code responsible for filtering files to inspect. ([@pirj][])
 * Make RSpec language elements configurable. ([@sl4vr][])
 * Remove `CustomIncludeMethods` `RSpec/EmptyExampleGroup` option in favour of the new RSpec DSL configuration. ([@pirj][])
-* Enabled pending cops (`RSpec/StubbedMock'). ([@pirj][])
+* Enabled pending cop (`RSpec/StubbedMock`). ([@pirj][])
 
 ## 2.0.0.pre (2020-10-22)
 
 * Update RuboCop dependency to v1.0.0. ([@bquorning][])
-* **(Potentially breaking)** Change namespace of several cops (`Capybara/*` -> `RSpec/Capybara/*`, `FactoryBot/*` -> `RSpec/FactoryBot/*`, `Rails/*` -> `RSpec/Rails/*`). ([@pirj][], [@bquorning][])
+* Change namespace of several cops (`Capybara/*` -> `RSpec/Capybara/*`, `FactoryBot/*` -> `RSpec/FactoryBot/*`, `Rails/*` -> `RSpec/Rails/*`). ([@pirj][], [@bquorning][])
 
 ## 1.44.1 (2020-10-20)
 
