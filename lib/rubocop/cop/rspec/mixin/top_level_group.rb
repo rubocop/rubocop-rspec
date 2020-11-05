@@ -9,7 +9,6 @@ module RuboCop
 
         def on_new_investigation
           super
-          return unless root_node
 
           top_level_groups.each do |node|
             on_top_level_example_group(node) if example_group?(node)
@@ -34,11 +33,12 @@ module RuboCop
         end
 
         def top_level_nodes(node)
-          if node.nil?
-            []
-          elsif node.begin_type?
+          return [] if node.nil?
+
+          case node.type
+          when :begin
             node.children
-          elsif node.module_type? || node.class_type?
+          when :module, :class
             top_level_nodes(node.body)
           else
             [node]
