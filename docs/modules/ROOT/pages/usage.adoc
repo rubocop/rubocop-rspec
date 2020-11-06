@@ -114,4 +114,4 @@ RSpec:
     - '**/*_test.rb'
 ----
 
-NOTE: Please keep in mind that `Include`'s merge mode is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.
+NOTE: Please keep in mind that `Include`’s merge mode is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.
