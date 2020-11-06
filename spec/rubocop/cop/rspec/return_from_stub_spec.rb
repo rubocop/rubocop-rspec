@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
+RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style }
   end

@@ -35,7 +35,7 @@ module RuboCop
       #   describe "A feature example", type: :feature do
       #   end
       class DescribeClass < Base
-        include RuboCop::RSpec::TopLevelGroup
+        include TopLevelGroup
 
         MSG = 'The first argument to describe should be '\
               'the class or module being tested.'

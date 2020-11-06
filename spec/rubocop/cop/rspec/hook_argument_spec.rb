@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::HookArgument, :config do
+RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style }
   end

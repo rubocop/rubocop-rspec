@@ -1,6 +1,6 @@
-= Capybara
+= RSpec/Capybara
 
-== Capybara/CurrentPathExpectation
+== RSpec/Capybara/CurrentPathExpectation
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -9,7 +9,7 @@
 | Yes
 | Yes
 | 1.18
-| -
+| 2.0
 |===
 
 Checks that no expectations are set on Capybara's `current_path`.
@@ -39,7 +39,7 @@ expect(page).to have_current_path(/widgets/)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
 
-== Capybara/FeatureMethods
+== RSpec/Capybara/FeatureMethods
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -48,7 +48,7 @@ expect(page).to have_current_path(/widgets/)
 | Yes
 | Yes
 | 1.17
-| 1.25
+| 2.0
 |===
 
 Checks for consistent method usage in feature specs.
@@ -106,7 +106,7 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
-== Capybara/VisibilityMatcher
+== RSpec/Capybara/VisibilityMatcher
 
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
@@ -115,7 +115,7 @@ end
 | Yes
 | No
 | 1.39
-| -
+| 2.0
 |===
 
 Checks for boolean visibility in capybara finders.

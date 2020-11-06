@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
-  subject(:cop) { described_class.new }
-
   it 'ignores describes with only a class' do
     expect_no_offenses('describe Some::Class do; end')
   end

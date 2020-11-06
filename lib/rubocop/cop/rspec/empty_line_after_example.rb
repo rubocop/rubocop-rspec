@@ -43,7 +43,7 @@ module RuboCop
       #
       class EmptyLineAfterExample < Base
         extend AutoCorrector
-        include RuboCop::RSpec::EmptyLineSeparation
+        include EmptyLineSeparation
 
         MSG = 'Add an empty line after `%<example>s`.'
 

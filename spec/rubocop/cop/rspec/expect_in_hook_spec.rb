@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
-  subject(:cop) { described_class.new }
-
   it 'adds an offense for `expect` in `before` hook' do
     expect_offense(<<-RUBY)
       before do

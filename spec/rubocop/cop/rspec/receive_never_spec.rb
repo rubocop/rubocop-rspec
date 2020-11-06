@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ReceiveNever do
-  subject(:cop) { described_class.new }
-
   it 'flags usage of `never`' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).never

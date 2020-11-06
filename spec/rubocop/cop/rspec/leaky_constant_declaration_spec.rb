@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
-  subject(:cop) { described_class.new }
-
   describe 'constant assignment' do
     it 'flags inside an example group' do
       expect_offense(<<-RUBY)

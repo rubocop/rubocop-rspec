@@ -1,25 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Base do
-  subject(:cop) { RuboCop::RSpec::FakeCop.new(config) }
-
-  let(:config) do
-    rubocop_config =
-      {
-        'AllCops' => {
-          'RSpec' => {
-            'Patterns' => rspec_patterns
-          }
-        },
-        'RSpec/FakeCop' => {
-          'Exclude' => %w[bar_spec.rb]
-        }
-      }
-
-    RuboCop::Config.new(rubocop_config, 'fake_cop_config.yml')
-  end
-
-  let(:rspec_patterns) { ['_spec.rb$', '(?:^|/)spec/'] }
+  let(:cop_class) { RuboCop::RSpec::FakeCop }
+  let(:cop_config) { { 'Exclude' => %w[bar_spec.rb] } }
 
   before do
     stub_const('RuboCop::RSpec::FakeCop',
@@ -78,8 +61,12 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
   end
 
   context 'when custom patterns are specified' do
-    let(:rspec_patterns) do
-      ['_test\.rb$']
+    let(:other_cops) do
+      {
+        'RSpec' => {
+          'Include' => ['*_test\.rb']
+        }
+      }
     end
 
     it 'registers offenses when the path matches a custom specified pattern' do
@@ -87,6 +74,66 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
         foo(1)
         ^^^^^^ I flag everything
       RUBY
+    end
+  end
+
+  describe 'DSL alias configuration' do
+    before do
+      stub_const('RuboCop::RSpec::ExampleGroupHaterCop',
+                 Class.new(described_class) do
+                   def on_block(node)
+                     example_group?(node) do
+                       add_offense(node, message: 'I flag example groups')
+                     end
+                   end
+                 end)
+    end
+
+    let(:cop_class) { RuboCop::RSpec::ExampleGroupHaterCop }
+
+    shared_examples_for 'it detects `describe`' do
+      it 'detects `describe` as an example group' do
+        expect_offense(<<~RUBY)
+          describe 'ouch oh' do
+          ^^^^^^^^^^^^^^^^^^^^^ I flag example groups
+            it { }
+          end
+        RUBY
+      end
+    end
+
+    context 'with the default config' do
+      it 'does not detect `epic` as an example group' do
+        expect_no_offenses(<<~RUBY)
+          epic 'great achievements or events is narrated in elevated style' do
+            ballad 'slays Minotaur' do
+              # ...
+            end
+          end
+        RUBY
+      end
+
+      include_examples 'it detects `describe`'
+    end
+
+    context 'when `epic` is set as an alias to example group' do
+      before do
+        other_cops.dig('RSpec', 'Language', 'ExampleGroups', 'Regular')
+          .push('epic')
+      end
+
+      it 'detects `epic` as an example group' do
+        expect_offense(<<~RUBY)
+          epic 'great achievements or events is narrated in elevated style' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ I flag example groups
+            ballad 'slays Minotaur' do
+              # ...
+            end
+          end
+        RUBY
+      end
+
+      include_examples 'it detects `describe`'
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::DescribeClass, :config do
+RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
   it 'checks first-line describe statements' do
     expect_offense(<<-RUBY)
       describe "bad describe" do

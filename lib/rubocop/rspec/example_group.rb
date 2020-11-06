@@ -10,9 +10,14 @@ module RuboCop
       #
       #   Selectors which indicate that we should stop searching
       #
-      def_node_matcher :scope_change?, (
-        ExampleGroups::ALL + SharedGroups::ALL + Includes::ALL
-      ).block_pattern
+      def_node_matcher :scope_change?,
+                       block_pattern(<<~PATTERN)
+                         {
+                           #SharedGroups.all
+                           #ExampleGroups.all
+                           #Includes.all
+                         }
+                       PATTERN
 
       def lets
         find_all_in_scope(node, :let?)
@@ -23,11 +28,15 @@ module RuboCop
       end
 
       def examples
-        find_all_in_scope(node, :example?).map(&Example.public_method(:new))
+        find_all_in_scope(node, :example?).map do |node|
+          Example.new(node)
+        end
       end
 
       def hooks
-        find_all_in_scope(node, :hook?).map(&Hook.public_method(:new))
+        find_all_in_scope(node, :hook?).map do |node|
+          Hook.new(node)
+        end
       end
 
       private
@@ -37,6 +46,7 @@ module RuboCop
       # Searches node and halts when a scope change is detected
       #
       # @param node [RuboCop::AST::Node] node to recursively search
+      # @param predicate [Symbol] method to call with node as argument
       #
       # @return [Array<RuboCop::AST::Node>] discovered nodes
       def find_all_in_scope(node, predicate)

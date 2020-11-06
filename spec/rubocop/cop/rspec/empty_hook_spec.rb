@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
-  subject(:cop) { described_class.new }
-
   context 'with `before` hook' do
     it 'detects offense for empty `before`' do
       expect_offense(<<~RUBY)

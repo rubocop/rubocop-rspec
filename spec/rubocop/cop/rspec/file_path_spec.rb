@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
+RSpec.describe RuboCop::Cop::RSpec::FilePath do
   it 'registers an offense for a bad path' do
     expect_offense(<<-RUBY, 'wrong_path_foo_spec.rb')
       describe MyClass, 'foo' do; end
@@ -58,14 +58,14 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
   end
 
   it 'registers an offense for a file missing _spec' do
-    expect_offense(<<-RUBY, 'user.rb')
+    expect_offense(<<-RUBY, 'spec/models/user.rb')
       describe User do; end
       ^^^^^^^^^^^^^ Spec path should end with `user*_spec.rb`.
     RUBY
   end
 
   it 'ignores shared examples' do
-    expect_no_offenses(<<-RUBY, 'user.rb')
+    expect_no_offenses(<<-RUBY, 'spec/models/user.rb')
       shared_examples_for 'foo' do; end
     RUBY
   end
@@ -254,7 +254,7 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath, :config do
     end
 
     it 'registers an offense when _spec.rb suffix is missing' do
-      expect_offense(<<-RUBY, 'whatever.rb')
+      expect_offense(<<-RUBY, 'spec/whatever.rb')
         describe MyClass do; end
         ^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
       RUBY

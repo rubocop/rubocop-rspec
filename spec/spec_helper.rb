@@ -21,6 +21,11 @@ RSpec.configure do |config|
     meta[:type] = :cop_spec
   end
 
+  # Include config shared context for all cop specs
+  config.define_derived_metadata(type: :cop_spec) do |metadata|
+    metadata[:config] = true
+  end
+
   config.order = :random
 
   # Forbid RSpec from monkey patching any of our objects

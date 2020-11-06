@@ -729,12 +729,10 @@ end
 | Yes
 | No
 | 1.7
-| -
+| 2.0
 |===
 
 Checks if an example group does not include any tests.
-
-This cop is configurable using the `CustomIncludeMethods` option
 
 === Examples
 
@@ -771,43 +769,6 @@ describe Bacon do
   pending 'will add tests later'
 end
 ----
-
-==== configuration
-
-[source,ruby]
-----
-# .rubocop.yml
-# RSpec/EmptyExampleGroup:
-#   CustomIncludeMethods:
-#   - include_tests
-
-# spec_helper.rb
-RSpec.configure do |config|
-  config.alias_it_behaves_like_to(:include_tests)
-end
-
-# bacon_spec.rb
-describe Bacon do
-  let(:bacon)      { Bacon.new(chunkiness) }
-  let(:chunkiness) { false                 }
-
-  context 'extra chunky' do   # not flagged by rubocop
-    let(:chunkiness) { true }
-
-    include_tests 'shared tests'
-  end
-end
-----
-
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| CustomIncludeMethods
-| `[]`
-| Array
-|===
 
 === References
 
@@ -1536,6 +1497,10 @@ my_class_spec.rb         # describe MyClass, '#method'
 |===
 | Name | Default value | Configurable values
 
+| Include
+| `+**/*_spec*rb*+`, `+**/spec/**/*+`
+| Array
+
 | CustomTransform
 | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
 | 
@@ -1983,38 +1948,6 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
-
-== RSpec/InvalidPredicateMatcher
-
-|===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
-
-| Enabled
-| Yes
-| No
-| 1.16
-| -
-|===
-
-Checks invalid usage for predicate matcher.
-
-Predicate matcher does not need a question.
-This cop checks an unnecessary question in predicate matcher.
-
-=== Examples
-
-[source,ruby]
-----
-# bad
-expect(foo).to be_something?
-
-# good
-expect(foo).to be_something
-----
-
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher
 
 == RSpec/ItBehavesLike
 
@@ -3845,7 +3778,7 @@ allow(foo).to receive("bar.baz")
 |===
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
-| Pending
+| Enabled
 | Yes
 | No
 | 1.44

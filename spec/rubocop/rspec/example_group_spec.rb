@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::RSpec::ExampleGroup do
+RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
   include RuboCop::AST::Sexp
 
   subject(:group) { described_class.new(parse_source(source).ast) }
+
+  let(:cop_class) { RuboCop::Cop::RSpec::Base }
 
   let(:source) do
     <<-RUBY
@@ -37,6 +39,10 @@ RSpec.describe RuboCop::RSpec::ExampleGroup do
         s(:args), s(:send, nil, :y))
     ].map { |node| RuboCop::RSpec::Example.new(node) }
   end
+
+  # Trigger setting of the `Language` in the case when this spec
+  # runs before cops' specs that set it.
+  before { cop.on_new_investigation }
 
   it 'exposes examples in scope' do
     expect(group.examples).to eql(example_nodes)

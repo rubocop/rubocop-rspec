@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Yield do
-  subject(:cop) { described_class.new }
-
   it 'flags `block.call`' do
     expect_offense(<<-RUBY)
       allow(foo).to receive(:bar) { |&block| block.call }

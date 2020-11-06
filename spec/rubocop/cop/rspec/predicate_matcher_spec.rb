@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher, :config do
+RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style,
       'Strict' => strict,

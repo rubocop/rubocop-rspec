@@ -16,7 +16,7 @@ module RuboCop
       #   let(:foo) { bar }
       class EmptyLineAfterSubject < Base
         extend AutoCorrector
-        include RuboCop::RSpec::EmptyLineSeparation
+        include EmptyLineSeparation
 
         MSG = 'Add an empty line after `%<subject>s`.'
 
@@ -32,7 +32,7 @@ module RuboCop
 
         def in_spec_block?(node)
           node.each_ancestor(:block).any? do |ancestor|
-            Examples::ALL.include?(ancestor.method_name)
+            Examples.all(ancestor.method_name)
           end
         end
       end

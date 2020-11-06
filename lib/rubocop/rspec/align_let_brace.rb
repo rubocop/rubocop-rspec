@@ -4,7 +4,7 @@ module RuboCop
   module RSpec
     # Shared behavior for aligning braces for single line lets
     class AlignLetBrace
-      include RuboCop::RSpec::Language::NodePattern
+      include RuboCop::RSpec::Language
 
       def initialize(root, token)
         @root  = root

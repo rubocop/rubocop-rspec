@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Be do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense for `be` without an argument' do
     expect_offense(<<-RUBY)
       it { expect(foo).to be }

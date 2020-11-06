@@ -22,7 +22,7 @@ module RuboCop
       #   end
       #
       class SubjectStub < Base
-        include RuboCop::RSpec::TopLevelGroup
+        include TopLevelGroup
 
         MSG = 'Do not stub methods of the object under test.'
 
@@ -66,7 +66,7 @@ module RuboCop
               (send nil? { :expect :allow } (send nil? {% :subject}))
               (send nil? :is_expected)
             }
-            #{Runners::ALL.node_pattern_union}
+            #Runners.all
             #message_expectation_matcher?
           )
         PATTERN

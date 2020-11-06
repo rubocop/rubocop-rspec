@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::DescribeSymbol do
-  subject(:cop) { described_class.new }
-
   it 'flags violations for `describe :symbol`' do
     expect_offense(<<-RUBY)
       describe(:some_method) { }

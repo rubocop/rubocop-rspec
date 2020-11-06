@@ -6,7 +6,7 @@ module RuboCop
       # Helper methods to move a node
       class MoveNode
         include RuboCop::Cop::RangeHelp
-        include RuboCop::RSpec::FinalEndLocation
+        include RuboCop::Cop::RSpec::FinalEndLocation
 
         attr_reader :original, :corrector, :processed_source
 

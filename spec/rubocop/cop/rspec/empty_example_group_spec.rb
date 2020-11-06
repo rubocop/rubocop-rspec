@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
+RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
   it 'flags an empty example group' do
     expect_offense(<<~RUBY)
       describe Foo do
@@ -268,8 +268,9 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   end
 
   context 'when a custom include method is specified' do
-    let(:cop_config) do
-      { 'CustomIncludeMethods' => %w[it_has_special_behavior] }
+    before do
+      other_cops.dig('RSpec', 'Language', 'Includes', 'Examples')
+        .push('it_has_special_behavior')
     end
 
     it 'ignores an empty example group with a custom include' do

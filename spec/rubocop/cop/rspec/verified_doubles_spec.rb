@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles, :config do
+RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
   it 'finds a `double` instead of an `instance_double`' do
     expect_offense(<<-RUBY)
       it do

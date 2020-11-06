@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense for repeated example' do
     expect_offense(<<-RUBY)
       describe 'doing x' do

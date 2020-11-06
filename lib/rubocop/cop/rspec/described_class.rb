@@ -65,8 +65,7 @@ module RuboCop
           (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
         PATTERN
 
-        def_node_matcher :rspec_block?,
-                         RuboCop::RSpec::Language::ALL.block_pattern
+        def_node_matcher :rspec_block?, block_pattern('#ALL.all')
 
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 

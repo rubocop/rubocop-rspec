@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::MessageExpectation, :config do
+RSpec.describe RuboCop::Cop::RSpec::MessageExpectation do
   context 'when EnforcedStyle is allow' do
     let(:cop_config) do
       { 'EnforcedStyle' => 'allow' }

@@ -8,7 +8,7 @@ require:
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4
-  NewCops: enable
+  NewCops: disable
   Exclude:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'

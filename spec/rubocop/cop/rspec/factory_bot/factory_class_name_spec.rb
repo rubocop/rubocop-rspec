@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
-  subject(:cop) { described_class.new }
+  def inspected_source_filename
+    'spec/factories.rb'
+  end
 
   context 'when passing block' do
     it 'flags passing a class' do

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::DescribedClassModuleWrapping do
-  subject(:cop) { described_class.new }
-
   it 'allows a describe block in the outermost scope' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe MyClass do

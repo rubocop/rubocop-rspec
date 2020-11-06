@@ -1,17 +1,5 @@
 // START_COP_LIST
 
-=== Department xref:cops_capybara.adoc[Capybara]
-
-* xref:cops_capybara.adoc#capybaracurrentpathexpectation[Capybara/CurrentPathExpectation]
-* xref:cops_capybara.adoc#capybarafeaturemethods[Capybara/FeatureMethods]
-* xref:cops_capybara.adoc#capybaravisibilitymatcher[Capybara/VisibilityMatcher]
-
-=== Department xref:cops_factorybot.adoc[FactoryBot]
-
-* xref:cops_factorybot.adoc#factorybotattributedefinedstatically[FactoryBot/AttributeDefinedStatically]
-* xref:cops_factorybot.adoc#factorybotcreatelist[FactoryBot/CreateList]
-* xref:cops_factorybot.adoc#factorybotfactoryclassname[FactoryBot/FactoryClassName]
-
 === Department xref:cops_rspec.adoc[RSpec]
 
 * xref:cops_rspec.adoc#rspecalignleftletbrace[RSpec/AlignLeftLetBrace]
@@ -52,7 +40,6 @@
 * xref:cops_rspec.adoc#rspecimplicitsubject[RSpec/ImplicitSubject]
 * xref:cops_rspec.adoc#rspecinstancespy[RSpec/InstanceSpy]
 * xref:cops_rspec.adoc#rspecinstancevariable[RSpec/InstanceVariable]
-* xref:cops_rspec.adoc#rspecinvalidpredicatematcher[RSpec/InvalidPredicateMatcher]
 * xref:cops_rspec.adoc#rspecitbehaveslike[RSpec/ItBehavesLike]
 * xref:cops_rspec.adoc#rspeciteratedexpectation[RSpec/IteratedExpectation]
 * xref:cops_rspec.adoc#rspecleadingsubject[RSpec/LeadingSubject]
@@ -95,8 +82,20 @@
 * xref:cops_rspec.adoc#rspecvoidexpect[RSpec/VoidExpect]
 * xref:cops_rspec.adoc#rspecyield[RSpec/Yield]
 
-=== Department xref:cops_rails.adoc[Rails]
+=== Department xref:cops_rspec/capybara.adoc[RSpec/Capybara]
 
-* xref:cops_rails.adoc#railshttpstatus[Rails/HttpStatus]
+* xref:cops_rspec/capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
+* xref:cops_rspec/capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
+* xref:cops_rspec/capybara.adoc#rspeccapybara/visibilitymatcher[RSpec/Capybara/VisibilityMatcher]
+
+=== Department xref:cops_rspec/factorybot.adoc[RSpec/FactoryBot]
+
+* xref:cops_rspec/factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
+* xref:cops_rspec/factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
+* xref:cops_rspec/factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
+
+=== Department xref:cops_rspec/rails.adoc[RSpec/Rails]
+
+* xref:cops_rspec/rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
 
 // END_COP_LIST

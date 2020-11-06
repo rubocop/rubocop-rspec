@@ -1,14 +1,85 @@
 ---
-AllCops:
-  RSpec:
-    Patterns:
-    - _spec.rb
-    - "(?:^|/)spec/"
-  RSpec/FactoryBot:
-    Patterns:
-    - spec/factories.rb
-    - spec/factories/**/*.rb
-    - features/support/factories/**/*.rb
+RSpec:
+  Include:
+  - "**/*_spec.rb"
+  - "**/spec/**/*"
+  Language:
+    ExampleGroups:
+      Regular:
+      - describe
+      - context
+      - feature
+      - example_group
+      Skipped:
+      - xdescribe
+      - xcontext
+      - xfeature
+      Focused:
+      - fdescribe
+      - fcontext
+      - ffeature
+    Examples:
+      Regular:
+      - it
+      - specify
+      - example
+      - scenario
+      - its
+      Focused:
+      - fit
+      - fspecify
+      - fexample
+      - fscenario
+      - focus
+      Skipped:
+      - xit
+      - xspecify
+      - xexample
+      - xscenario
+      - skip
+      Pending:
+      - pending
+    Expectations:
+    - expect
+    - is_expected
+    - expect_any_instance_of
+    Helpers:
+    - let
+    - let!
+    Hooks:
+    - prepend_before
+    - before
+    - append_before
+    - around
+    - prepend_after
+    - after
+    - append_after
+    HookScopes:
+    - each
+    - example
+    - context
+    - all
+    - suite
+    Includes:
+      Examples:
+      - it_behaves_like
+      - it_should_behave_like
+      - include_examples
+      Context:
+      - include_context
+    Runners:
+    - to
+    - to_not
+    - not_to
+    SharedGroups:
+      Examples:
+      - shared_examples
+      - shared_examples_for
+      Context:
+      - shared_context
+    Subjects:
+    - subject
+    - subject!
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
@@ -136,8 +207,8 @@ RSpec/Dialect:
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
-  CustomIncludeMethods: []
   VersionAdded: '1.7'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
 RSpec/EmptyHook:
@@ -241,6 +312,9 @@ RSpec/ExpectOutput:
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
   Enabled: true
+  Include:
+  - "**/*_spec*rb*"
+  - "**/spec/**/*"
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
@@ -314,12 +388,6 @@ RSpec/InstanceVariable:
   VersionAdded: '1.0'
   VersionChanged: '1.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
-
-RSpec/InvalidPredicateMatcher:
-  Description: Checks invalid usage for predicate matcher.
-  Enabled: true
-  VersionAdded: '1.16'
-  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher
 
 RSpec/ItBehavesLike:
   Description: Checks that only one `it_behaves_like` style is used.
@@ -561,7 +629,7 @@ RSpec/SingleArgumentMessageChain:
 
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '1.44'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
@@ -620,49 +688,68 @@ RSpec/Yield:
   VersionAdded: '1.32'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
 
-Capybara/CurrentPathExpectation:
+RSpec/Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true
   VersionAdded: '1.18'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
 
-Capybara/FeatureMethods:
+RSpec/Capybara/FeatureMethods:
   Description: Checks for consistent method usage in feature specs.
   Enabled: true
   EnabledMethods: []
   VersionAdded: '1.17'
-  VersionChanged: '1.25'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
-Capybara/VisibilityMatcher:
+RSpec/Capybara/VisibilityMatcher:
   Description: Checks for boolean visibility in capybara finders.
   Enabled: true
   VersionAdded: '1.39'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher
 
-FactoryBot/AttributeDefinedStatically:
+RSpec/FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
+  Include:
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   VersionAdded: '1.28'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
 
-FactoryBot/CreateList:
+RSpec/FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
+  Include:
+  - "**/*_spec.rb"
+  - "**/spec/**/*"
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   EnforcedStyle: create_list
   SupportedStyles:
   - create_list
   - n_times
   VersionAdded: '1.25'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
-FactoryBot/FactoryClassName:
+RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
+  Include:
+  - spec/factories.rb
+  - spec/factories/**/*.rb
+  - features/support/factories/**/*.rb
   VersionAdded: '1.37'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
-Rails/HttpStatus:
+RSpec/Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
   EnforcedStyle: symbolic
@@ -670,4 +757,5 @@ Rails/HttpStatus:
   - numeric
   - symbolic
   VersionAdded: '1.23'
+  VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus

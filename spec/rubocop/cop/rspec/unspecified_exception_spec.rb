@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
-  subject(:cop) { described_class.new }
-
   context 'with raise_error matcher' do
     it 'detects the `unspecified_exception` offense' do
       expect_offense(<<-RUBY)

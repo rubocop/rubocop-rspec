@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ExpectOutput do
-  subject(:cop) { described_class.new }
-
   it 'registers an offense for overwriting $stdout within an example' do
     expect_offense(<<-RUBY)
       specify do

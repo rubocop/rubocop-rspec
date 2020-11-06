@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::SharedContext do
-  subject(:cop) { described_class.new }
-
   describe 'shared_context' do
     it 'does not register an offense for empty contexts' do
       expect_no_offenses(<<-RUBY)

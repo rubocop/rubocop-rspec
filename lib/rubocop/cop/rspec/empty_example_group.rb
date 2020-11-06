@@ -5,8 +5,6 @@ module RuboCop
     module RSpec
       # Checks if an example group does not include any tests.
       #
-      # This cop is configurable using the `CustomIncludeMethods` option
-      #
       # @example usage
       #
       #   # bad
@@ -37,31 +35,6 @@ module RuboCop
       #   describe Bacon do
       #     pending 'will add tests later'
       #   end
-      #
-      # @example configuration
-      #
-      #   # .rubocop.yml
-      #   # RSpec/EmptyExampleGroup:
-      #   #   CustomIncludeMethods:
-      #   #   - include_tests
-      #
-      #   # spec_helper.rb
-      #   RSpec.configure do |config|
-      #     config.alias_it_behaves_like_to(:include_tests)
-      #   end
-      #
-      #   # bacon_spec.rb
-      #   describe Bacon do
-      #     let(:bacon)      { Bacon.new(chunkiness) }
-      #     let(:chunkiness) { false                 }
-      #
-      #     context 'extra chunky' do   # not flagged by rubocop
-      #       let(:chunkiness) { true }
-      #
-      #       include_tests 'shared tests'
-      #     end
-      #   end
-      #
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
@@ -76,7 +49,7 @@ module RuboCop
         #   @param node [RuboCop::AST::Node]
         #   @yield [RuboCop::AST::Node] example group body
         def_node_matcher :example_group_body, <<~PATTERN
-          (block #{ExampleGroups::ALL.send_pattern} args $_)
+          (block #{send_pattern('#ExampleGroups.all')} args $_)
         PATTERN
 
         # @!method example_or_group_or_include?(node)
@@ -95,12 +68,10 @@ module RuboCop
         #   @return [Array<RuboCop::AST::Node>] matching nodes
         def_node_matcher :example_or_group_or_include?, <<~PATTERN
           {
-            #{Examples::ALL.send_pattern}
-            #{Examples::ALL.block_pattern}
-            #{ExampleGroups::ALL.block_pattern}
-            #{Includes::ALL.send_pattern}
-            #{Includes::ALL.block_pattern}
-            (send nil? #custom_include? ...)
+            #{block_pattern(
+              '{#Examples.all #ExampleGroups.all #Includes.all}'
+            )}
+            #{send_pattern('{#Examples.all #Includes.all}')}
           }
         PATTERN
 
@@ -120,7 +91,7 @@ module RuboCop
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes
         def_node_matcher :examples_inside_block?, <<~PATTERN
-          (block !#{Hooks::ALL.send_pattern} _ #examples?)
+          (block !#{send_pattern('#Hooks.all')} _ #examples?)
         PATTERN
 
         # @!method examples_directly_or_in_block?(node)
@@ -191,16 +162,6 @@ module RuboCop
 
         def examples_in_branches?(if_node)
           if_node.branches.any? { |branch| examples?(branch) }
-        end
-
-        def custom_include?(method_name)
-          custom_include_methods.include?(method_name)
-        end
-
-        def custom_include_methods
-          cop_config
-            .fetch('CustomIncludeMethods', [])
-            .map(&:to_sym)
         end
       end
     end
