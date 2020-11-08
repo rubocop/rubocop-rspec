@@ -28,6 +28,10 @@ RSpec.configure do |config|
 
   config.order = :random
 
+  # Run focused tests with `fdescribe`, `fit`, `:focus` etc.
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   # Forbid RSpec from monkey patching any of our objects
   config.disable_monkey_patching!
 
