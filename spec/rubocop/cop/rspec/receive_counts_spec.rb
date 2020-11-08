@@ -128,9 +128,4 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveCounts do
       expect(action).to have_published_event.exactly(1).times
     RUBY
   end
-
-  # Does not auto-correct if not part of the RSpec API
-  include_examples 'autocorrect',
-                   'expect(foo).to have_published_event(:bar).exactly(2).times',
-                   'expect(foo).to have_published_event(:bar).exactly(2).times'
 end
