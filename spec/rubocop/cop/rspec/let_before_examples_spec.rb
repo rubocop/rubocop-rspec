@@ -79,6 +79,29 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
     RUBY
   end
 
+  it 'flags `let` with a heredoc argument' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        include_examples('should be after let')
+
+        let(:foo) { (<<-SOURCE) }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^ Move `let` before the examples in the group.
+        some long text here
+        SOURCE
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:foo) { (<<-SOURCE) }
+        some long text here
+        SOURCE
+        include_examples('should be after let')
+
+      end
+    RUBY
+  end
+
   it 'does not flag `let` before the examples' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
@@ -129,26 +152,4 @@ RSpec.describe RuboCop::Cop::RSpec::LetBeforeExamples do
       end
     RUBY
   end
-
-  bad_code = <<-RUBY
-    RSpec.describe User do
-      include_examples('should be after let')
-
-      let(:foo) { (<<-SOURCE) }
-      some long text here
-      SOURCE
-    end
-  RUBY
-
-  good_code = <<-RUBY
-    RSpec.describe User do
-      let(:foo) { (<<-SOURCE) }
-      some long text here
-      SOURCE
-      include_examples('should be after let')
-
-    end
-  RUBY
-
-  include_examples 'autocorrect', bad_code, good_code
 end

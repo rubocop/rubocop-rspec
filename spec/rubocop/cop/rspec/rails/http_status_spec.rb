@@ -9,6 +9,10 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
         it { is_expected.to have_http_status 200 }
                                              ^^^ Prefer `:ok` over `200` to describe HTTP status code.
       RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to have_http_status :ok }
+      RUBY
     end
 
     it 'does not register an offense when using symbolic value' do
@@ -23,22 +27,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       RUBY
     end
 
-    include_examples 'autocorrect',
-                     'it { is_expected.to have_http_status 200 }',
-                     'it { is_expected.to have_http_status :ok }'
-
-    include_examples 'autocorrect',
-                     'it { is_expected.to have_http_status 404 }',
-                     'it { is_expected.to have_http_status :not_found }'
-
     context 'with parenthesis' do
-      include_examples 'autocorrect',
-                       'it { is_expected.to have_http_status(200) }',
-                       'it { is_expected.to have_http_status(:ok) }'
+      it 'registers an offense when using numeric value' do
+        expect_offense(<<-RUBY)
+          it { is_expected.to have_http_status(404) }
+                                               ^^^ Prefer `:not_found` over `404` to describe HTTP status code.
+        RUBY
 
-      include_examples 'autocorrect',
-                       'it { is_expected.to have_http_status(404) }',
-                       'it { is_expected.to have_http_status(:not_found) }'
+        expect_correction(<<-RUBY)
+          it { is_expected.to have_http_status(:not_found) }
+        RUBY
+      end
     end
   end
 
@@ -49,6 +48,10 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       expect_offense(<<-RUBY)
         it { is_expected.to have_http_status :ok }
                                              ^^^ Prefer `200` over `:ok` to describe HTTP status code.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to have_http_status 200 }
       RUBY
     end
 
@@ -67,22 +70,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       RUBY
     end
 
-    include_examples 'autocorrect',
-                     'it { is_expected.to have_http_status :ok }',
-                     'it { is_expected.to have_http_status 200 }'
-
-    include_examples 'autocorrect',
-                     'it { is_expected.to have_http_status :not_found }',
-                     'it { is_expected.to have_http_status 404 }'
-
     context 'with parenthesis' do
-      include_examples 'autocorrect',
-                       'it { is_expected.to have_http_status(:ok) }',
-                       'it { is_expected.to have_http_status(200) }'
+      it 'registers an offense when using symbolic value' do
+        expect_offense(<<-RUBY)
+          it { is_expected.to have_http_status(:not_found) }
+                                               ^^^^^^^^^^ Prefer `404` over `:not_found` to describe HTTP status code.
+        RUBY
 
-      include_examples 'autocorrect',
-                       'it { is_expected.to have_http_status(:not_found) }',
-                       'it { is_expected.to have_http_status(404) }'
+        expect_correction(<<-RUBY)
+          it { is_expected.to have_http_status(404) }
+        RUBY
+      end
     end
   end
 end
