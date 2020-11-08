@@ -36,13 +36,13 @@ Gem::Specification.new do |spec|
     'documentation_uri' => 'https://docs.rubocop.org/rubocop-rspec/'
   }
 
-  spec.add_runtime_dependency 'rubocop', '~> 1.0'
+  spec.add_runtime_dependency 'rubocop', '>= 1.0'
   spec.add_runtime_dependency 'rubocop-ast', '>= 1.1.0'
 
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '>= 3.4'
-  spec.add_development_dependency 'rubocop-performance', '~> 1.7'
+  spec.add_development_dependency 'rubocop-performance', '>= 1.7'
   # Workaround for cc-test-reporter with SimpleCov 0.18.
   # Stop upgrading SimpleCov until the following issue will be resolved.
   # https://github.com/codeclimate/test-reporter/issues/418
