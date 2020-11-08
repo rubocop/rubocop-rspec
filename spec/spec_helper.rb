@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rubocop'
-
 require 'rubocop/rspec/support'
 
 if ENV['COVERAGE'] == 'true'
@@ -14,16 +13,17 @@ module SpecHelper
 end
 
 spec_helper_glob = File.expand_path('{support,shared}/*.rb', __dir__)
-Dir.glob(spec_helper_glob).map(&method(:require))
+Dir.glob(spec_helper_glob).sort.each(&method(:require))
 
 RSpec.configure do |config|
+  # Set metadata so smoke tests are run on all cop specs
   config.define_derived_metadata(file_path: %r{/spec/rubocop/cop/}) do |meta|
     meta[:type] = :cop_spec
   end
 
   # Include config shared context for all cop specs
-  config.define_derived_metadata(type: :cop_spec) do |metadata|
-    metadata[:config] = true
+  config.define_derived_metadata(type: :cop_spec) do |meta|
+    meta[:config] = true
   end
 
   config.order = :random
@@ -42,6 +42,5 @@ RSpec.configure do |config|
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'rubocop-rspec'
