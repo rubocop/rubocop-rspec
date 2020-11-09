@@ -55,11 +55,11 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       expect_offense(<<-RUBY)
         before(:each) { true }
         ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
-        after(:each)  { true }
+        after(:each) { true }
         ^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
         around(:each) { true }
         ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
-        config.after(:each)  { true }
+        config.after(:each) { true }
         ^^^^^^^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
       RUBY
     end
@@ -68,7 +68,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       expect_offense(<<-RUBY)
         before(:example) { true }
         ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
-        after(:example)  { true }
+        after(:example) { true }
         ^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
         around(:example) { true }
         ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
@@ -95,7 +95,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     it 'does not flag :each for hooks' do
       expect_no_offenses(<<-RUBY)
         before(:each) { true }
-        after(:each)  { true }
+        after(:each) { true }
         around(:each) { true }
         config.before(:each) { true }
       RUBY
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       expect_offense(<<-RUBY)
         before(:example) { true }
         ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
-        after(:example)  { true }
+        after(:example) { true }
         ^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
         around(:example) { true }
         ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
@@ -135,7 +135,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     it 'does not flag :example for hooks' do
       expect_no_offenses(<<-RUBY)
         before(:example) { true }
-        after(:example)  { true }
+        after(:example) { true }
         around(:example) { true }
         config.before(:example) { true }
       RUBY
@@ -145,7 +145,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       expect_offense(<<-RUBY)
         before(:each) { true }
         ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
-        after(:each)  { true }
+        after(:each) { true }
         ^^^^^^^^^^^^ Use `:example` for RSpec hooks.
         around(:each) { true }
         ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
