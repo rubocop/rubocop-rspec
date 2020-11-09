@@ -8,6 +8,12 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
         ^^^^^^^^^^ Use `before` instead of `background`.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe 'some feature' do
+        before do; end
+      end
+    RUBY
   end
 
   it 'flags violations for `scenario`' do
@@ -15,6 +21,12 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
       RSpec.describe 'some feature' do
         scenario 'Foo' do; end
         ^^^^^^^^ Use `it` instead of `scenario`.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe 'some feature' do
+        it 'Foo' do; end
       end
     RUBY
   end
@@ -26,6 +38,12 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
               ^^^^^^^^^ Use `xit` instead of `xscenario`.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe 'Foo' do
+        RSpec.xit 'Baz' do; end
+      end
+    RUBY
   end
 
   it 'flags violations for `given`' do
@@ -33,6 +51,12 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
       RSpec.describe 'Foo' do
         given(:foo) { :foo }
         ^^^^^ Use `let` instead of `given`.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe 'Foo' do
+        let(:foo) { :foo }
       end
     RUBY
   end
@@ -44,12 +68,22 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
         ^^^^^^ Use `let!` instead of `given!`.
       end
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe 'Foo' do
+        let!(:foo) { :foo }
+      end
+    RUBY
   end
 
   it 'flags violations for `feature`' do
     expect_offense(<<-RUBY)
       RSpec.feature 'Foo' do; end
             ^^^^^^^ Use `describe` instead of `feature`.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe 'Foo' do; end
     RUBY
   end
 
@@ -101,26 +135,4 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
       RUBY
     end
   end
-
-  shared_examples 'autocorrect_spec' do |original, corrected|
-    original = <<-RUBY
-      describe Foo do
-        #{original}
-      end
-    RUBY
-    corrected = <<-RUBY
-      describe Foo do
-        #{corrected}
-      end
-    RUBY
-
-    include_examples 'autocorrect', original, corrected
-  end
-
-  include_examples 'autocorrect_spec', 'background { }',    'before { }'
-  include_examples 'autocorrect_spec', 'scenario { }',      'it { }'
-  include_examples 'autocorrect_spec', 'xscenario { }',     'xit { }'
-  include_examples 'autocorrect_spec', 'given(:foo) { }',   'let(:foo) { }'
-  include_examples 'autocorrect_spec', 'given!(:foo) { }',  'let!(:foo) { }'
-  include_examples 'autocorrect_spec', 'RSpec.feature { }', 'RSpec.describe { }'
 end
