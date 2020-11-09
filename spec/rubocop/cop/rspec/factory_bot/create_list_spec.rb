@@ -9,52 +9,64 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
     let(:enforced_style) { :create_list }
 
     it 'flags usage of n.times with no arguments' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         3.times { create :user }
         ^^^^^^^ Prefer create_list.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        create_list :user, 3
       RUBY
     end
 
     it 'flags usage of n.times when FactoryGirl.create is used' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         3.times { FactoryGirl.create :user }
         ^^^^^^^ Prefer create_list.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        FactoryGirl.create_list :user, 3
       RUBY
     end
 
     it 'flags usage of n.times when FactoryBot.create is used' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         3.times { FactoryBot.create :user }
         ^^^^^^^ Prefer create_list.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        FactoryBot.create_list :user, 3
       RUBY
     end
 
     it 'ignores create method of other object' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         3.times { SomeFactory.create :user }
       RUBY
     end
 
     it 'ignores create in other block' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         allow(User).to receive(:create) { create :user }
       RUBY
     end
 
     it 'ignores n.times with argument' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         3.times { |n| create :user, created_at: n.days.ago }
       RUBY
     end
 
     it 'ignores n.times when there is no create call inside' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         3.times { do_something }
       RUBY
     end
 
     it 'ignores n.times when there is other calls but create' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         used_passwords = []
         3.times do
           u = create :user
@@ -65,105 +77,135 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
     end
 
     it 'flags FactoryGirl.create calls with a block' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         3.times do
         ^^^^^^^ Prefer create_list.
           create(:user) { |user| create :account, user: user }
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        create_list(:user, 3) { |user| create :account, user: user }
+      RUBY
     end
 
-    include_examples 'autocorrect',
-                     '5.times { create :user }',
-                     'create_list :user, 5'
+    it 'flags usage of n.times with arguments' do
+      expect_offense(<<~RUBY)
+        5.times { create(:user, :trait) }
+        ^^^^^^^ Prefer create_list.
+      RUBY
 
-    include_examples 'autocorrect',
-                     '5.times { create(:user, :trait) }',
-                     'create_list(:user, 5, :trait)'
+      expect_correction(<<~RUBY)
+        create_list(:user, 5, :trait)
+      RUBY
+    end
 
-    include_examples 'autocorrect',
-                     '5.times { create :user, :trait, key: val }',
-                     'create_list :user, 5, :trait, key: val'
+    it 'flags usage of n.times with keyword arguments' do
+      expect_offense(<<~RUBY)
+        5.times { create :user, :trait, key: val }
+        ^^^^^^^ Prefer create_list.
+      RUBY
 
-    include_examples 'autocorrect',
-                     '5.times { FactoryGirl.create :user }',
-                     'FactoryGirl.create_list :user, 5'
+      expect_correction(<<~RUBY)
+        create_list :user, 5, :trait, key: val
+      RUBY
+    end
 
-    bad_code = <<-RUBY
-      3.times do
-        create(:user, :trait) { |user| create :account, user: user }
-      end
-    RUBY
-
-    good_code = <<-RUBY
-      create_list(:user, 3, :trait) { |user| create :account, user: user }
-    RUBY
-
-    include_examples 'autocorrect', bad_code, good_code
-
-    bad_code = <<-RUBY
-      3.times do
-        create(:user, :trait) do |user|
-          create :account, user: user
-          create :profile, user: user
+    it 'flags usage of n.times with block argument' do
+      expect_offense(<<~RUBY)
+        3.times do
+        ^^^^^^^ Prefer create_list.
+          create(:user, :trait) { |user| create :account, user: user }
         end
-      end
-    RUBY
+      RUBY
 
-    good_code = <<-RUBY
-      create_list(:user, 3, :trait) do |user|
-          create :account, user: user
-          create :profile, user: user
-      end
-    RUBY
+      expect_correction(<<~RUBY)
+        create_list(:user, 3, :trait) { |user| create :account, user: user }
+      RUBY
+    end
 
-    include_examples 'autocorrect', bad_code, good_code
+    it 'flags usage of n.times with nested block arguments' do
+      expect_offense(<<~RUBY)
+        3.times do
+        ^^^^^^^ Prefer create_list.
+          create(:user, :trait) do |user|
+            create :account, user: user
+            create :profile, user: user
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        create_list(:user, 3, :trait) do |user|
+            create :account, user: user
+            create :profile, user: user
+        end
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :n_times' do
     let(:enforced_style) { :n_times }
 
     it 'flags usage of create_list' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         create_list :user, 3
         ^^^^^^^^^^^ Prefer 3.times.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        3.times { create :user }
+      RUBY
+    end
+
+    it 'flags usage of create_list with argument' do
+      expect_offense(<<~RUBY)
+        create_list(:user, 3, :trait)
+        ^^^^^^^^^^^ Prefer 3.times.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        3.times { create(:user, :trait) }
+      RUBY
+    end
+
+    it 'flags usage of create_list with keyword arguments' do
+      expect_offense(<<~RUBY)
+        create_list :user, 3, :trait, key: val
+        ^^^^^^^^^^^ Prefer 3.times.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        3.times { create :user, :trait, key: val }
       RUBY
     end
 
     it 'flags usage of FactoryGirl.create_list' do
-      expect_offense(<<-RUBY)
-       FactoryGirl.create_list :user, 3
-                   ^^^^^^^^^^^ Prefer 3.times.
+      expect_offense(<<~RUBY)
+        FactoryGirl.create_list :user, 3
+                    ^^^^^^^^^^^ Prefer 3.times.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        3.times { FactoryGirl.create :user }
       RUBY
     end
 
     it 'flags usage of FactoryGirl.create_list with a block' do
-      expect_offense(<<-RUBY)
-       FactoryGirl.create_list(:user, 3) { |user| user.points = rand(1000) }
-                   ^^^^^^^^^^^ Prefer 3.times.
+      expect_offense(<<~RUBY)
+        FactoryGirl.create_list(:user, 3) { |user| user.points = rand(1000) }
+                    ^^^^^^^^^^^ Prefer 3.times.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        3.times { FactoryGirl.create(:user) } { |user| user.points = rand(1000) }
       RUBY
     end
 
     it 'ignores create method of other object' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         SomeFactory.create_list :user, 3
       RUBY
     end
-
-    include_examples 'autocorrect',
-                     'create_list :user, 5',
-                     '5.times { create :user }'
-
-    include_examples 'autocorrect',
-                     'create_list(:user, 5, :trait)',
-                     '5.times { create(:user, :trait) }'
-
-    include_examples 'autocorrect',
-                     'create_list :user, 5, :trait, key: val',
-                     '5.times { create :user, :trait, key: val }'
-
-    include_examples 'autocorrect',
-                     'FactoryGirl.create_list :user, 5',
-                     '5.times { FactoryGirl.create :user }'
   end
 end
