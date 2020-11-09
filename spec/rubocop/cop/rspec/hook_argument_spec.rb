@@ -92,7 +92,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   context 'when EnforcedStyle is :each' do
     let(:enforced_style) { :each }
 
-    it 'detects :each for hooks' do
+    it 'does not flag :each for hooks' do
       expect_no_offenses(<<-RUBY)
         before(:each) { true }
         after(:each)  { true }
@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   context 'when EnforcedStyle is :example' do
     let(:enforced_style) { :example }
 
-    it 'detects :example for hooks' do
+    it 'does not flag :example for hooks' do
       expect_no_offenses(<<-RUBY)
         before(:example) { true }
         after(:example)  { true }
@@ -154,7 +154,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       RUBY
     end
 
-    it 'does not flag hooks without default scopes' do
+    it 'detects hooks without default scopes' do
       expect_offense(<<-RUBY)
         before { true }
         ^^^^^^ Use `:example` for RSpec hooks.
