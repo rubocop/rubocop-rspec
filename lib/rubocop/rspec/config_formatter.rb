@@ -15,7 +15,9 @@ module RuboCop
       end
 
       def dump
-        YAML.dump(unified_config).gsub(EXTENSION_ROOT_DEPARTMENT, "\n\\1")
+        YAML.dump(unified_config)
+          .gsub(EXTENSION_ROOT_DEPARTMENT, "\n\\1")
+          .gsub(/^(\s+)- /, '\1  - ')
       end
 
       private
