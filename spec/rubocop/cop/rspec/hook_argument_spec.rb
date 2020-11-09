@@ -81,6 +81,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       expect_no_offenses(<<-RUBY)
         before { true }
         after { true }
+        around { true }
         config.before { true }
       RUBY
     end
@@ -120,6 +121,8 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^ Use `:each` for RSpec hooks.
         after { true }
         ^^^^^ Use `:each` for RSpec hooks.
+        around { true }
+        ^^^^^^ Use `:each` for RSpec hooks.
         config.before { true }
                ^^^^^^ Use `:each` for RSpec hooks.
       RUBY
@@ -160,6 +163,8 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^ Use `:example` for RSpec hooks.
         after { true }
         ^^^^^ Use `:example` for RSpec hooks.
+        around { true }
+        ^^^^^^ Use `:example` for RSpec hooks.
         config.before { true }
                ^^^^^^ Use `:example` for RSpec hooks.
       RUBY
