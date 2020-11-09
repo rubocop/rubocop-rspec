@@ -28,19 +28,6 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
   end
 
-  shared_examples 'hook autocorrect' do |output|
-    include_examples 'autocorrect', 'before(:each) { }', output
-    include_examples 'autocorrect', 'before(:example) { }', output
-    include_examples 'autocorrect', 'before { }', output
-
-    include_examples 'autocorrect', 'config.before(:each) { }',
-                     "config.#{output}"
-    include_examples 'autocorrect', 'config.before(:example) { }',
-                     "config.#{output}"
-    include_examples 'autocorrect', 'config.before { }',
-                     "config.#{output}"
-  end
-
   shared_examples 'an example hook' do
     include_examples 'ignored hooks'
     include_examples 'detects style', 'before(:each) { foo }', 'each'
@@ -62,6 +49,13 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.after(:each) { true }
         ^^^^^^^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before { true }
+        after { true }
+        around { true }
+        config.after { true }
+      RUBY
     end
 
     it 'detects :example for hooks' do
@@ -75,6 +69,13 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.before(:example) { true }
         ^^^^^^^^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before { true }
+        after { true }
+        around { true }
+        config.before { true }
+      RUBY
     end
 
     it 'does not flag hooks without default scopes' do
@@ -87,7 +88,6 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     include_examples 'an example hook'
-    include_examples 'hook autocorrect', 'before { }'
   end
 
   context 'when EnforcedStyle is :each' do
@@ -113,6 +113,13 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.before(:example) { true }
         ^^^^^^^^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before(:each) { true }
+        after(:each) { true }
+        around(:each) { true }
+        config.before(:each) { true }
+      RUBY
     end
 
     it 'detects hooks without default scopes' do
@@ -126,10 +133,16 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.before { true }
                ^^^^^^ Use `:each` for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before(:each) { true }
+        after(:each) { true }
+        around(:each) { true }
+        config.before(:each) { true }
+      RUBY
     end
 
     include_examples 'an example hook'
-    include_examples 'hook autocorrect', 'before(:each) { }'
   end
 
   context 'when EnforcedStyle is :example' do
@@ -155,6 +168,13 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.before(:each) { true }
         ^^^^^^^^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before(:example) { true }
+        after(:example) { true }
+        around(:example) { true }
+        config.before(:example) { true }
+      RUBY
     end
 
     it 'detects hooks without default scopes' do
@@ -168,9 +188,15 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         config.before { true }
                ^^^^^^ Use `:example` for RSpec hooks.
       RUBY
+
+      expect_correction(<<-RUBY)
+        before(:example) { true }
+        after(:example) { true }
+        around(:example) { true }
+        config.before(:example) { true }
+      RUBY
     end
 
     include_examples 'an example hook'
-    include_examples 'hook autocorrect', 'before(:example) { }'
   end
 end
