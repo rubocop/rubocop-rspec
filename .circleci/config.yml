@@ -72,7 +72,9 @@ jobs:
       - run:
           name: Setup Code Climate test-reporter
           command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            curl -L \
+              https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > \
+              ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - run:
           name: Run specs
@@ -87,7 +89,8 @@ workflows:
     jobs:
       - confirm_config_and_documentation
 
-      # Use `requires: [confirm_config_and_documentation]` to trick Circle CI into starting the slow jruby job early.
+      # Use `requires: [confirm_config_and_documentation]` to trick Circle CI into starting the slow
+      # jruby job early.
       - rspec:
           requires: [confirm_config_and_documentation]
           matrix:

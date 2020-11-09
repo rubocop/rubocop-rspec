@@ -1,85 +1,85 @@
 ---
 RSpec:
   Include:
-  - "**/*_spec.rb"
-  - "**/spec/**/*"
+    - "**/*_spec.rb"
+    - "**/spec/**/*"
   Language:
     ExampleGroups:
       Regular:
-      - describe
-      - context
-      - feature
-      - example_group
+        - describe
+        - context
+        - feature
+        - example_group
       Skipped:
-      - xdescribe
-      - xcontext
-      - xfeature
+        - xdescribe
+        - xcontext
+        - xfeature
       Focused:
-      - fdescribe
-      - fcontext
-      - ffeature
+        - fdescribe
+        - fcontext
+        - ffeature
     Examples:
       Regular:
-      - it
-      - specify
-      - example
-      - scenario
-      - its
+        - it
+        - specify
+        - example
+        - scenario
+        - its
       Focused:
-      - fit
-      - fspecify
-      - fexample
-      - fscenario
-      - focus
+        - fit
+        - fspecify
+        - fexample
+        - fscenario
+        - focus
       Skipped:
-      - xit
-      - xspecify
-      - xexample
-      - xscenario
-      - skip
+        - xit
+        - xspecify
+        - xexample
+        - xscenario
+        - skip
       Pending:
-      - pending
+        - pending
     Expectations:
-    - expect
-    - is_expected
-    - expect_any_instance_of
+      - expect
+      - is_expected
+      - expect_any_instance_of
     Helpers:
-    - let
-    - let!
+      - let
+      - let!
     Hooks:
-    - prepend_before
-    - before
-    - append_before
-    - around
-    - prepend_after
-    - after
-    - append_after
+      - prepend_before
+      - before
+      - append_before
+      - around
+      - prepend_after
+      - after
+      - append_after
     HookScopes:
-    - each
-    - example
-    - context
-    - all
-    - suite
+      - each
+      - example
+      - context
+      - all
+      - suite
     Includes:
       Examples:
-      - it_behaves_like
-      - it_should_behave_like
-      - include_examples
+        - it_behaves_like
+        - it_should_behave_like
+        - include_examples
       Context:
-      - include_context
+        - include_context
     Runners:
-    - to
-    - to_not
-    - not_to
+      - to
+      - to_not
+      - not_to
     SharedGroups:
       Examples:
-      - shared_examples
-      - shared_examples_for
+        - shared_examples
+        - shared_examples_for
       Context:
-      - shared_context
+        - shared_context
     Subjects:
-    - subject
-    - subject!
+      - subject
+      - subject!
 
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
@@ -121,9 +121,9 @@ RSpec/BeforeAfterAll:
   Description: Check that before/after(:all) isn't being used.
   Enabled: true
   Exclude:
-  - spec/spec_helper.rb
-  - spec/rails_helper.rb
-  - spec/support/**/*.rb
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+    - spec/support/**/*.rb
   VersionAdded: '1.12'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
@@ -137,9 +137,9 @@ RSpec/ContextWording:
   Description: Checks that `context` docstring starts with an allowed prefix.
   Enabled: true
   Prefixes:
-  - when
-  - with
-  - without
+    - when
+    - with
+    - without
   VersionAdded: '1.20'
   VersionChanged: 1.20.1
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
@@ -149,19 +149,19 @@ RSpec/DescribeClass:
   Enabled: true
   IgnoredMetadata:
     type:
-    - channel
-    - controller
-    - helper
-    - job
-    - mailer
-    - model
-    - request
-    - routing
-    - view
-    - feature
-    - system
-    - mailbox
-    - aruba
+      - channel
+      - controller
+      - helper
+      - job
+      - mailer
+      - model
+      - request
+      - routing
+      - view
+      - feature
+      - system
+      - mailbox
+      - aruba
   VersionAdded: '1.0'
   VersionChanged: '1.44'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
@@ -184,8 +184,8 @@ RSpec/DescribedClass:
   SkipBlocks: false
   EnforcedStyle: described_class
   SupportedStyles:
-  - described_class
-  - explicit
+    - described_class
+    - explicit
   SafeAutoCorrect: false
   VersionAdded: '1.0'
   VersionChanged: '1.11'
@@ -260,9 +260,9 @@ RSpec/ExampleWithoutDescription:
   Enabled: true
   EnforcedStyle: always_allow
   SupportedStyles:
-  - always_allow
-  - single_line_only
-  - disallow
+    - always_allow
+    - single_line_only
+    - disallow
   VersionAdded: '1.22'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
@@ -283,7 +283,7 @@ RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
   Enabled: true
   Exclude:
-  - spec/routing/**/*
+    - spec/routing/**/*
   VersionAdded: '1.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
@@ -292,8 +292,8 @@ RSpec/ExpectChange:
   Enabled: true
   EnforcedStyle: method_call
   SupportedStyles:
-  - method_call
-  - block
+    - method_call
+    - block
   VersionAdded: '1.22'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
@@ -313,8 +313,8 @@ RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
   Enabled: true
   Include:
-  - "**/*_spec*rb*"
-  - "**/spec/**/*"
+    - "**/*_spec*rb*"
+    - "**/spec/**/*"
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
@@ -335,9 +335,9 @@ RSpec/HookArgument:
   Enabled: true
   EnforcedStyle: implicit
   SupportedStyles:
-  - implicit
-  - each
-  - example
+    - implicit
+    - each
+    - example
   VersionAdded: '1.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
@@ -358,8 +358,8 @@ RSpec/ImplicitExpect:
   Enabled: true
   EnforcedStyle: is_expected
   SupportedStyles:
-  - is_expected
-  - should
+    - is_expected
+    - should
   VersionAdded: '1.8'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
@@ -368,9 +368,9 @@ RSpec/ImplicitSubject:
   Enabled: true
   EnforcedStyle: single_line_only
   SupportedStyles:
-  - single_line_only
-  - single_statement_only
-  - disallow
+    - single_line_only
+    - single_statement_only
+    - disallow
   VersionAdded: '1.29'
   VersionChanged: '1.30'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
@@ -394,8 +394,8 @@ RSpec/ItBehavesLike:
   Enabled: true
   EnforcedStyle: it_behaves_like
   SupportedStyles:
-  - it_behaves_like
-  - it_should_behave_like
+    - it_behaves_like
+    - it_should_behave_like
   VersionAdded: '1.13'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
 
@@ -442,8 +442,8 @@ RSpec/MessageExpectation:
   Enabled: false
   EnforcedStyle: allow
   SupportedStyles:
-  - allow
-  - expect
+    - allow
+    - expect
   VersionAdded: '1.7'
   VersionChanged: '1.8'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation
@@ -453,8 +453,8 @@ RSpec/MessageSpies:
   Enabled: true
   EnforcedStyle: have_received
   SupportedStyles:
-  - have_received
-  - receive
+    - have_received
+    - receive
   VersionAdded: '1.9'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
 
@@ -512,8 +512,8 @@ RSpec/NotToNot:
   Enabled: true
   EnforcedStyle: not_to
   SupportedStyles:
-  - not_to
-  - to_not
+    - not_to
+    - to_not
   VersionAdded: '1.4'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
@@ -536,8 +536,8 @@ RSpec/PredicateMatcher:
   EnforcedStyle: inflected
   AllowedExplicitMatchers: []
   SupportedStyles:
-  - inflected
-  - explicit
+    - inflected
+    - explicit
   SafeAutoCorrect: false
   VersionAdded: '1.16'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
@@ -589,8 +589,8 @@ RSpec/ReturnFromStub:
   Enabled: true
   EnforcedStyle: and_return
   SupportedStyles:
-  - and_return
-  - block
+    - and_return
+    - block
   VersionAdded: '1.16'
   VersionChanged: '1.22'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
@@ -650,8 +650,8 @@ RSpec/VariableDefinition:
   Enabled: true
   EnforcedStyle: symbols
   SupportedStyles:
-  - symbols
-  - strings
+    - symbols
+    - strings
   VersionAdded: '1.40'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableDefinition
 
@@ -660,8 +660,8 @@ RSpec/VariableName:
   Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
-  - snake_case
-  - camelCase
+    - snake_case
+    - camelCase
   IgnoredPatterns: []
   VersionAdded: '1.40'
   VersionChanged: '1.43'
@@ -714,9 +714,9 @@ RSpec/FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
   Include:
-  - spec/factories.rb
-  - spec/factories/**/*.rb
-  - features/support/factories/**/*.rb
+    - spec/factories.rb
+    - spec/factories/**/*.rb
+    - features/support/factories/**/*.rb
   VersionAdded: '1.28'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
@@ -725,15 +725,15 @@ RSpec/FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
   Include:
-  - "**/*_spec.rb"
-  - "**/spec/**/*"
-  - spec/factories.rb
-  - spec/factories/**/*.rb
-  - features/support/factories/**/*.rb
+    - "**/*_spec.rb"
+    - "**/spec/**/*"
+    - spec/factories.rb
+    - spec/factories/**/*.rb
+    - features/support/factories/**/*.rb
   EnforcedStyle: create_list
   SupportedStyles:
-  - create_list
-  - n_times
+    - create_list
+    - n_times
   VersionAdded: '1.25'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
@@ -742,9 +742,9 @@ RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
   Include:
-  - spec/factories.rb
-  - spec/factories/**/*.rb
-  - features/support/factories/**/*.rb
+    - spec/factories.rb
+    - spec/factories/**/*.rb
+    - features/support/factories/**/*.rb
   VersionAdded: '1.37'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
@@ -754,8 +754,8 @@ RSpec/Rails/HttpStatus:
   Enabled: true
   EnforcedStyle: symbolic
   SupportedStyles:
-  - numeric
-  - symbolic
+    - numeric
+    - symbolic
   VersionAdded: '1.23'
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
