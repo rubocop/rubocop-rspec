@@ -735,7 +735,8 @@ RSpec/FactoryBot/CreateList:
     - create_list
     - n_times
   VersionAdded: '1.25'
-  VersionChanged: '2.0'
+  VersionChanged: '2.1'
+  Safe: false
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
 RSpec/FactoryBot/FactoryClassName:

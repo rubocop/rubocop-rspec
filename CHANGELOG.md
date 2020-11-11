@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Mark `RSpec/FactoryBot/CreateList` as not safe cop. ([@ngouy][])
+
 ## 2.0.0 (2020-11-06)
 
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])
@@ -586,3 +588,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@Rafix02]: https://github.com/Rafix02
 [@PhilCoggins]: https://github.com/PhilCoggins
 [@sl4vr]: https://github.com/sl4vr
+[@ngouy]: https://github.com/ngouy

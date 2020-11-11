@@ -57,10 +57,10 @@ count { 1 }
 | Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
 
 | Enabled
-| Yes
-| Yes
+| No
+| Yes (Unsafe)
 | 1.25
-| 2.0
+| 2.1
 |===
 
 Checks for create_list usage.
