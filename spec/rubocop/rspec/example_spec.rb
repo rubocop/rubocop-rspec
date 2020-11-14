@@ -24,7 +24,7 @@ RSpec.describe RuboCop::RSpec::Example, :config do
   end
 
   it 'extracts interpolated doc string' do
-    expect(example("it(\"does \#{x}\")").doc_string)
+    expect(example('it("does #{x}")').doc_string)
       .to eq(s(:dstr, s(:str, 'does '), s(:begin, s(:send, nil, :x))))
   end
 

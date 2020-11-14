@@ -20,7 +20,7 @@ module RuboCop
       #   expect(foo).to be(true)
       #
       class Be < Base
-        MSG = 'Don\'t use `be` without an argument.'
+        MSG = "Don't use `be` without an argument."
 
         def_node_matcher :be_without_args, <<-PATTERN
           (send _ #Runners.all $(send nil? :be))

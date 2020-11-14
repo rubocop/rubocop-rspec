@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     RUBY
   end
 
-  it 'finds description with `shouldn\'t` at the beginning' do
+  it "finds description with `shouldn't` at the beginning" do
     expect_offense(<<-RUBY)
       it "shouldn't do something" do
           ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     RUBY
   end
 
-  it 'finds description with `SHOULDN\'T` at the beginning' do
+  it "finds description with `SHOULDN'T` at the beginning" do
     expect_offense(<<-RUBY)
       it "SHOULDN'T do something" do
           ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
