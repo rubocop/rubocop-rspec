@@ -29,37 +29,37 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation do
 
   include_examples 'autocorrect',
                    'expect(current_path).to eq expected_path',
-                   'expect(page).to have_current_path expected_path, '\
+                   'expect(page).to have_current_path expected_path, ' \
                    'ignore_query: true'
 
   include_examples 'autocorrect',
                    'expect(current_path).to eq(expected_path)',
-                   'expect(page).to have_current_path(expected_path, '\
+                   'expect(page).to have_current_path(expected_path, ' \
                    'ignore_query: true)'
 
   include_examples 'autocorrect',
                    'expect(current_path).to(eq(expected_path))',
-                   'expect(page).to(have_current_path(expected_path, '\
+                   'expect(page).to(have_current_path(expected_path, ' \
                    'ignore_query: true))'
 
   include_examples 'autocorrect',
                    'expect(current_path).to eq(expected_path(f: :b))',
-                   'expect(page).to have_current_path(expected_path(f: :b), '\
+                   'expect(page).to have_current_path(expected_path(f: :b), ' \
                    'ignore_query: true)'
 
   include_examples 'autocorrect',
                    'expect(page.current_path).to eq(foo(bar).path)',
-                   'expect(page).to have_current_path(foo(bar).path, '\
+                   'expect(page).to have_current_path(foo(bar).path, ' \
                    'ignore_query: true)'
 
   include_examples 'autocorrect',
                    'expect(current_path).not_to eq expected_path',
-                   'expect(page).to have_no_current_path expected_path, '\
+                   'expect(page).to have_no_current_path expected_path, ' \
                    'ignore_query: true'
 
   include_examples 'autocorrect',
                    'expect(current_path).to_not eq expected_path',
-                   'expect(page).to have_no_current_path expected_path, '\
+                   'expect(page).to have_no_current_path expected_path, ' \
                    'ignore_query: true'
 
   include_examples 'autocorrect',

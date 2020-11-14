@@ -22,7 +22,7 @@ module RuboCop
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
-        MSG = 'Prefer `%<replacement>s` over `%<original>s` when including '\
+        MSG = 'Prefer `%<replacement>s` over `%<original>s` when including ' \
               'examples in a nested context.'
 
         def_node_matcher :example_inclusion_offense, '(send _ % ...)'

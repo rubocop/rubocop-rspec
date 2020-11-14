@@ -27,7 +27,7 @@ module RuboCop
       #   end
       class AroundBlock < Base
         MSG_NO_ARG     = 'Test object should be passed to around block.'
-        MSG_UNUSED_ARG = 'You should call `%<arg>s.call` '\
+        MSG_UNUSED_ARG = 'You should call `%<arg>s.call` ' \
                          'or `%<arg>s.run`.'
 
         def_node_matcher :hook, <<-PATTERN

@@ -19,7 +19,7 @@ module RuboCop
       class SingleArgumentMessageChain < Base
         extend AutoCorrector
 
-        MSG = 'Use `%<recommended>s` instead of calling '\
+        MSG = 'Use `%<recommended>s` instead of calling ' \
               '`%<called>s` with a single argument.'
 
         def_node_matcher :message_chain, <<-PATTERN

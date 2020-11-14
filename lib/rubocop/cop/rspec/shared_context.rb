@@ -53,11 +53,8 @@ module RuboCop
       class SharedContext < Base
         extend AutoCorrector
 
-        MSG_EXAMPLES = "Use `shared_examples` when you don't "\
-                       'define context.'
-
-        MSG_CONTEXT  = "Use `shared_context` when you don't "\
-                       'define examples.'
+        MSG_EXAMPLES = "Use `shared_examples` when you don't define context."
+        MSG_CONTEXT  = "Use `shared_context` when you don't define examples."
 
         def_node_search :examples?,
                         send_pattern('{#Includes.examples #Examples.all}')

@@ -37,7 +37,7 @@ module RuboCop
       class DescribeClass < Base
         include TopLevelGroup
 
-        MSG = 'The first argument to describe should be '\
+        MSG = 'The first argument to describe should be ' \
               'the class or module being tested.'
 
         def_node_matcher :example_group_with_ignored_metadata?, <<~PATTERN

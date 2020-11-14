@@ -17,7 +17,7 @@ module RuboCop
       #   end
       class IteratedExpectation < Base
         MSG = 'Prefer using the `all` matcher instead ' \
-                  'of iterating over an array.'
+              'of iterating over an array.'
 
         def_node_matcher :each?, <<-PATTERN
           (block

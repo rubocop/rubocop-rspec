@@ -19,7 +19,7 @@ module RuboCop
       class DescribeMethod < Base
         include TopLevelGroup
 
-        MSG = 'The second argument to describe should be the method '\
+        MSG = 'The second argument to describe should be the method ' \
               "being tested. '#instance' or '.class'."
 
         def_node_matcher :second_argument, <<~PATTERN

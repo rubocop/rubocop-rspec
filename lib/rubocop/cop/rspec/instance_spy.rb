@@ -21,7 +21,7 @@ module RuboCop
       class InstanceSpy < Base
         extend AutoCorrector
 
-        MSG = 'Use `instance_spy` when you check your double '\
+        MSG = 'Use `instance_spy` when you check your double ' \
               'with `have_received`.'
 
         def_node_search :null_double, <<-PATTERN
