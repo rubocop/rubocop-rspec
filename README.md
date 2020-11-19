@@ -71,7 +71,7 @@ rubocop-rspec is available on Code Climate as part of the rubocop engine. [Learn
 
 ## Documentation
 
-You can read more about RuboCop-RSpec in its [official manual](https://docs.rubocop.org/rubocop-rspec).
+You can read more about RuboCop RSpec in its [official manual](https://docs.rubocop.org/rubocop-rspec).
 
 ## The Cops
 
