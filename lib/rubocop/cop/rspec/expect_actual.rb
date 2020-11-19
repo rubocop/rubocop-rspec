@@ -60,6 +60,7 @@ module RuboCop
           expect_literal(node) do |actual, matcher, expected|
             add_offense(actual.source_range) do |corrector|
               next unless SUPPORTED_MATCHERS.include?(matcher)
+              next if literal?(expected)
 
               swap(corrector, actual, expected)
             end
