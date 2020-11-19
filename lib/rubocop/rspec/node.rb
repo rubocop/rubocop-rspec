@@ -2,7 +2,7 @@
 
 module RuboCop
   module RSpec
-    # RuboCop-RSpec specific extensions of RuboCop::AST::Node
+    # RuboCop RSpec specific extensions of RuboCop::AST::Node
     module Node
       # In various cops we want to regard const as literal althought it's not
       # strictly literal.

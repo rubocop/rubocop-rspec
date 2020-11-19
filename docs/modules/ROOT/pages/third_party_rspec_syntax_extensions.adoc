@@ -1,0 +1,26 @@
+= RSpec syntax extensions in third-party gems
+
+Some gems, e.g. https://github.com/CanCanCommunity/cancancan[cancancan], https://github.com/palkan/action_policy[action_policy] and https://github.com/varvet/pundit[pundit] provide their own extensions and aliases to RSpec syntax. Also, RSpec extensions like https://github.com/palkan/test-prof[test-prof], https://github.com/rspec/rspec-its[rspec-its] and https://github.com/zverok/saharspec#its-addons[saharspec] do.
+
+By default, RuboCop RSpec is not aware of those syntax extensions, and does not intend to gather all of them in the default configuration file.
+It is possible for the gems to provide configuration for RuboCop RSpec to allow proper detection of RSpec elements.
+RuboCop https://docs.rubocop.org/rubocop/configuration.html#inheriting-configuration-from-a-dependency-gem[provides third-party gems with an ability to configure RuboCop].
+
+== Packaging configuration for RuboCop RSpec
+
+For a third-party gem, it's sufficient to follow three steps:
+
+1. Provide a configuration file (e.g. `.rubocop_rspec_alias_config.yml` or `config/rubocop-rspec.yml`).
+Please check with the xref:usage.adoc#rspec-dsl-configuration[RSpec DSL configuration] how different elements of RSpec syntax can be configured.
+
+2. Add a section to their documentation how users can benefit from using RuboCop RSpec with full detection of their syntax extensions.
+   Example:
+
+    ## Usage with RuboCop RSpec
+    Please add the following to your `.rubocop.yml` to make RuboCop RSpec aware of our cool syntax extensions:
+      inherit_gem:
+        third-party-gem: .rubocop_rspec_alias_config.yml
+
+3. Include the configuration file to their package by updating their `gemspec`’s `spec.files` to include the aforementioned configuration file.
+
+See pull requests: https://github.com/test-prof/test-prof/pull/199[test-prof], and https://github.com/palkan/action_policy/pull/138[action_policy] for a less trivial example.
