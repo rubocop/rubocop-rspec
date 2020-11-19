@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fixed infinite loop in `RSpec/ExpectActual` autocorrection when both expected and actual values are literals. ([@Darhazer][])
+
 ## 2.0.0 (2020-11-06)
 
 * Remove deprecated class `::RuboCop::Cop::RSpec::Cop`. ([@bquorning][])

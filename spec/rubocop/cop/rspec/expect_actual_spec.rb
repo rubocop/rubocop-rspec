@@ -304,6 +304,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
     expect_no_corrections
   end
 
+  it 'flags but does not autocorrect when the actual value is also a literal' do
+    expect_offense(<<-RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect([1,2,3]).to eq([1, 2, 3])
+                 ^^^^^^^ Provide the actual you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
   context 'when inspecting rspec-rails routing specs' do
     let(:cop_config) { {} }
 
