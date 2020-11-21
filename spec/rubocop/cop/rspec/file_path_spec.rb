@@ -64,6 +64,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
+  it 'registers an offense for a file without the .rb extension' do
+    expect_offense(<<-RUBY, 'spec/models/user_specxrb')
+      describe User do; end
+      ^^^^^^^^^^^^^ Spec path should end with `user*_spec.rb`.
+    RUBY
+  end
+
   it 'ignores shared examples' do
     expect_no_offenses(<<-RUBY, 'spec/models/user.rb')
       shared_examples_for 'foo' do; end
@@ -183,30 +190,26 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
-  it 'uses relative path' do
-    allow(RuboCop::PathUtil)
-      .to receive(:relative_path).and_return('spec/models/bar_spec.rb')
+  it 'registers an offense for a path containing the class name' do
     expect_offense(<<-RUBY, '/home/foo/spec/models/bar_spec.rb')
       describe Foo do; end
       ^^^^^^^^^^^^ Spec path should end with `foo*_spec.rb`.
     RUBY
   end
 
-  it 'uses relative path for sibling directory project' do
-    allow(RuboCop::PathUtil)
-      .to receive(:relative_path)
-      .and_return('../ext-project/spec/models/bar_spec.rb')
-    expect_no_offenses(<<-RUBY, '/home/ext-project/spec/models/bar_spec.rb')
-      describe Bar do; end
+  it 'detects the path based on a class name with long module' do
+    expect_offense(<<-RUBY, '/home/foo/spec/very/my_class_spec.rb')
+      describe Very::Long::Namespace::MyClass do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `very/long/namespace/my_class*_spec.rb`.
     RUBY
   end
 
-  it 'uses relative path for different path project' do
-    allow(RuboCop::PathUtil)
-      .to receive(:relative_path)
-      .and_return('../../opt/ext-project/spec/models/bar_spec.rb')
-    expect_no_offenses(<<-RUBY, '/opt/ext-project/spec/models/bar_spec.rb')
-      describe Bar do; end
+  it 'detects the path based the absolute path of the file' do
+    allow(File).to receive(:expand_path).with('my_class_spec.rb').and_return(
+      '/home/foo/spec/very/long/namespace/my_class_spec.rb'
+    )
+    expect_no_offenses(<<-RUBY, 'my_class_spec.rb')
+      describe Very::Long::Namespace::MyClass do; end
     RUBY
   end
 
@@ -255,6 +258,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
 
     it 'registers an offense when _spec.rb suffix is missing' do
       expect_offense(<<-RUBY, 'spec/whatever.rb')
+        describe MyClass do; end
+        ^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+      RUBY
+    end
+
+    it 'registers an offense when the file extension is not .rb' do
+      expect_offense(<<-RUBY, 'whatever_specxrb')
         describe MyClass do; end
         ^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
       RUBY
