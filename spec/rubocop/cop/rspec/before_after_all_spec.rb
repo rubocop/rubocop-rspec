@@ -2,9 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::BeforeAfterAll do
   def message(hook)
-    "Beware of using `#{hook}` as it may cause state to leak between tests. "\
-    'If you are using `rspec-rails`, and `use_transactional_fixtures` is '\
-    "enabled, then records created in `#{hook}` are not automatically rolled "\
+    "Beware of using `#{hook}` as it may cause state to leak between tests. " \
+    'If you are using `rspec-rails`, and `use_transactional_fixtures` is ' \
+    "enabled, then records created in `#{hook}` are not automatically rolled " \
     'back.'
   end
 

@@ -25,8 +25,7 @@ module RuboCop
       class MultipleDescribes < Base
         include TopLevelGroup
 
-        MSG = 'Do not use multiple top-level example groups - '\
-              'try to nest them.'
+        MSG = 'Do not use multiple top-level example groups - try to nest them.'
 
         def on_top_level_group(node)
           top_level_example_groups =

@@ -29,8 +29,8 @@ module RuboCop
 
         MSG_RECEIVE = 'Prefer `receive` for setting message expectations.'
 
-        MSG_HAVE_RECEIVED = 'Prefer `have_received` for setting message '\
-                            'expectations. Setup `%<source>s` as a spy using '\
+        MSG_HAVE_RECEIVED = 'Prefer `have_received` for setting message ' \
+                            'expectations. Setup `%<source>s` as a spy using ' \
                             '`allow` or `instance_spy`.'
 
         SUPPORTED_STYLES = %w[have_received receive].freeze

@@ -24,9 +24,9 @@ module RuboCop
       #     after(:each) { Widget.delete_all }
       #   end
       class BeforeAfterAll < Base
-        MSG = 'Beware of using `%<hook>s` as it may cause state to leak '\
-              'between tests. If you are using `rspec-rails`, and '\
-              '`use_transactional_fixtures` is enabled, then records created '\
+        MSG = 'Beware of using `%<hook>s` as it may cause state to leak ' \
+              'between tests. If you are using `rspec-rails`, and ' \
+              '`use_transactional_fixtures` is enabled, then records created ' \
               'in `%<hook>s` are not automatically rolled back.'
 
         def_node_matcher :before_or_after_all, <<-PATTERN
