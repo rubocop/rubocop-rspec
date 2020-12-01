@@ -13,11 +13,21 @@ module RuboCop
       #
       # @example
       #   # bad
-      #   describe Foo do
-      #     subject(:bar) { baz }
+      #   describe Article do
+      #     subject(:article) { Article.new }
       #
-      #     before do
-      #       allow(bar).to receive(:qux?).and_return(true)
+      #     it 'indicates that the author is unknown' do
+      #       allow(article).to receive(:author).and_return(nil)
+      #       expect(article.description).to include('by an unknown author')
+      #     end
+      #   end
+      #
+      #   # good
+      #   describe Article do
+      #     subject(:article) { Article.new(author: nil) }
+      #
+      #     it 'indicates that the author is unknown' do
+      #       expect(article.description).to include('by an unknown author')
       #     end
       #   end
       #
