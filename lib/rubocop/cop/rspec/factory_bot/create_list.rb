@@ -15,8 +15,14 @@ module RuboCop
         #   # good
         #   create_list :user, 3
         #
-        #   # good
-        #   3.times { |n| create :user, created_at: n.months.ago }
+        #   # bad
+        #   3.times { create :user, age: 18 }
+        #
+        #   # good - index is used to alter the created models attributes
+        #   3.times { |n| create :user, age: n }
+        #
+        #   # good - contains a method call, may return different values
+        #   3.times { create :user, age: rand }
         #
         # @example `EnforcedStyle: n_times`
         #   # bad
@@ -33,13 +39,26 @@ module RuboCop
           MSG_N_TIMES = 'Prefer %<number>s.times.'
           RESTRICT_ON_SEND = %i[create_list].freeze
 
-          # @!method n_times_block_without_arg?(node)
-          def_node_matcher :n_times_block_without_arg?, <<-PATTERN
+          # @!method n_times_block?(node)
+          def_node_matcher :n_times_block?, <<-PATTERN
             (block
               (send (int _) :times)
-              (args)
               ...
             )
+          PATTERN
+
+          # @!method n_times_block_with_arg_and_used?(node)
+          def_node_matcher :n_times_block_with_arg_and_used?, <<-PATTERN
+            (block
+              (send (int _) :times)
+              (args (arg _value))
+                `_value
+            )
+          PATTERN
+
+          # @!method arguments_include_method_call?(node)
+          def_node_matcher :arguments_include_method_call?, <<-PATTERN
+            (send ${nil? #factory_bot?} :create (sym $_) `$(send ...))
           PATTERN
 
           # @!method factory_call(node)
@@ -54,7 +73,10 @@ module RuboCop
 
           def on_block(node)
             return unless style == :create_list
-            return unless n_times_block_without_arg?(node)
+
+            return unless n_times_block?(node)
+            return if n_times_block_with_arg_and_used?(node)
+            return if arguments_include_method_call?(node.body)
             return unless contains_only_factory?(node.body)
 
             add_offense(node.send_node, message: MSG_CREATE_LIST) do |corrector|

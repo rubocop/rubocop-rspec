@@ -5,6 +5,7 @@
 * Fix incorrect path suggested by `RSpec/FilePath` cop when second argument contains spaces. ([@tejasbubane][])
 * Fix autocorrect for EmptyLineSeparation. ([@johnny-miyake][])
 * Add new `RSpec/Capybara/SpecificMatcher` cop. ([@ydah][])
+* Fixed false offense detection in `FactoryBot/CreateList` when a n.times block is including method calls in the factory create arguments. ([@ngouy][])
 
 ## 2.11.1 (2022-05-18)
 
@@ -699,3 +700,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@M-Yamashita01]: https://github.com/M-Yamashita01
 [@luke-hill]: https://github.com/luke-hill
 [@johnny-miyake]: https://github.com/johnny-miyake
+[@ngouy]: https://github.com/ngouy
