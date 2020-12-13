@@ -82,30 +82,39 @@ module RuboCop
         private
 
         def ensure_correct_file_path(send_node, described_class, arguments)
-          glob = glob_for(described_class, arguments.first)
-          return if filename_ends_with?(glob)
+          pattern = pattern_for(described_class, arguments.first)
+          return if filename_ends_with?(pattern)
 
-          add_offense(send_node, message: format(MSG, suffix: glob))
+          # For the suffix shown in the offense message, modify the regular
+          # expression pattern to resemble a glob pattern for clearer error
+          # messages.
+          offense_suffix = pattern.gsub('.*', '*').sub('[^/]', '')
+            .sub('\.', '.')
+          add_offense(send_node, message: format(MSG, suffix: offense_suffix))
         end
 
         def routing_spec?(args)
           args.any?(&method(:routing_metadata?))
         end
 
-        def glob_for(described_class, method_name)
-          return glob_for_spec_suffix_only? if spec_suffix_only?
+        def pattern_for(described_class, method_name)
+          return pattern_for_spec_suffix_only? if spec_suffix_only?
 
-          "#{expected_path(described_class)}#{name_glob(method_name)}*_spec.rb"
+          [
+            expected_path(described_class),
+            name_pattern(method_name),
+            '[^/]*_spec\.rb'
+          ].join
         end
 
-        def glob_for_spec_suffix_only?
-          '*_spec.rb'
+        def pattern_for_spec_suffix_only?
+          '.*_spec\.rb'
         end
 
-        def name_glob(method_name)
+        def name_pattern(method_name)
           return unless method_name&.str_type?
 
-          "*#{method_name.str_content.gsub(/\W/, '')}" unless ignore_methods?
+          ".*#{method_name.str_content.gsub(/\W/, '')}" unless ignore_methods?
         end
 
         def expected_path(constant)
@@ -131,11 +140,9 @@ module RuboCop
           cop_config['IgnoreMethods']
         end
 
-        def filename_ends_with?(glob)
-          filename =
-            RuboCop::PathUtil.relative_path(processed_source.buffer.name)
-              .gsub('../', '')
-          File.fnmatch?("*#{glob}", filename)
+        def filename_ends_with?(pattern)
+          filename = File.expand_path(processed_source.buffer.name)
+          filename.match?("#{pattern}$")
         end
 
         def relevant_rubocop_rspec_file?(_file)
