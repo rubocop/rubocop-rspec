@@ -39,6 +39,26 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       pending 'test', meta: true, focus: true do; end
                                   ^^^^^^^^^^^ Focused spec found.
     RUBY
+
+    expect_correction(<<-RUBY)
+      example 'test', meta: true do; end
+      xit 'test', meta: true do; end
+      describe 'test', meta: true do; end
+      RSpec.describe 'test', meta: true do; end
+      it 'test', meta: true do; end
+      xspecify 'test', meta: true do; end
+      specify 'test', meta: true do; end
+      example_group 'test', meta: true do; end
+      scenario 'test', meta: true do; end
+      xexample 'test', meta: true do; end
+      xdescribe 'test', meta: true do; end
+      context 'test', meta: true do; end
+      xcontext 'test', meta: true do; end
+      feature 'test', meta: true do; end
+      xfeature 'test', meta: true do; end
+      xscenario 'test', meta: true do; end
+      pending 'test', meta: true do; end
+    RUBY
   end
 
   it 'flags all rspec example blocks that include `:focus`' do
@@ -78,6 +98,26 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       pending 'test', :focus do; end
                       ^^^^^^ Focused spec found.
     RUBY
+
+    expect_correction(<<-RUBY)
+      example_group 'test' do; end
+      feature 'test' do; end
+      xexample 'test' do; end
+      xdescribe 'test' do; end
+      xscenario 'test' do; end
+      specify 'test' do; end
+      example 'test' do; end
+      xfeature 'test' do; end
+      xspecify 'test' do; end
+      scenario 'test' do; end
+      describe 'test' do; end
+      RSpec.describe 'test' do; end
+      xit 'test' do; end
+      context 'test' do; end
+      xcontext 'test' do; end
+      it 'test' do; end
+      pending 'test' do; end
+    RUBY
   end
   # rubocop:enable RSpec/ExampleLength
 
@@ -101,10 +141,15 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
-  it 'does not flag a method that is focused twice' do
+  it 'flags a method that is focused twice' do
     expect_offense(<<-RUBY)
       fit "foo", :focus do
       ^^^^^^^^^^^^^^^^^ Focused spec found.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it "foo" do
       end
     RUBY
   end
@@ -116,7 +161,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
-  it 'flags focused block types' do
+  it 'flags focused block types' do # rubocop:disable RSpec/ExampleLength
     expect_offense(<<-RUBY)
       fdescribe 'test' do; end
       ^^^^^^^^^^^^^^^^ Focused spec found.
@@ -137,12 +182,28 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       focus 'test' do; end
       ^^^^^^^^^^^^ Focused spec found.
     RUBY
+
+    expect_correction(<<-RUBY)
+      describe 'test' do; end
+      RSpec.describe 'test' do; end
+      feature 'test' do; end
+      context 'test' do; end
+      it 'test' do; end
+      scenario 'test' do; end
+      example 'test' do; end
+      specify 'test' do; end
+      focus 'test' do; end
+    RUBY
   end
 
   it 'flags rspec example blocks that include `:focus` preceding a hash' do
     expect_offense(<<-RUBY)
       describe 'test', :focus, js: true do; end
                        ^^^^^^ Focused spec found.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      describe 'test', js: true do; end
     RUBY
   end
 end

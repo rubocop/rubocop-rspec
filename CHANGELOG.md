@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix `RSpec/FilePath` false positive for relative file path runs with long namespaces. ([@ahukkanen][])
+* Update `RSpec/Focus` to have auto-correction. ([@dvandersluis][])
 
 ## 2.0.1 (2020-12-02)
 
@@ -593,3 +594,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@PhilCoggins]: https://github.com/PhilCoggins
 [@sl4vr]: https://github.com/sl4vr
 [@ahukkanen]: https://github.com/ahukkanen
+[@dvandersluis]: https://github.com/dvandersluis
