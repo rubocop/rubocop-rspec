@@ -20,6 +20,9 @@ module RuboCop
       #   describe MyClass do
       #   end
       class Focus < Base
+        extend AutoCorrector
+        include RangeHelp
+
         MSG = 'Focused spec found.'
 
         def_node_matcher :focusable_selector?, <<-PATTERN
@@ -44,7 +47,13 @@ module RuboCop
 
         def on_send(node)
           focus_metadata(node) do |focus|
-            add_offense(focus)
+            add_offense(focus) do |corrector|
+              if focus.pair_type? || focus.str_type? || focus.sym_type?
+                corrector.remove(with_surrounding(focus))
+              elsif focus.send_type?
+                correct_send(corrector, focus)
+              end
+            end
           end
         end
 
@@ -54,6 +63,26 @@ module RuboCop
           yield(node) if focused_block?(node)
 
           metadata(node, &block)
+        end
+
+        def with_surrounding(focus)
+          range_with_space = range_with_surrounding_space(
+            range: focus.loc.expression,
+            side: :left
+          )
+
+          range_with_surrounding_comma(range_with_space, :left)
+        end
+
+        def correct_send(corrector, focus)
+          range = focus.loc.selector
+          unfocused = focus.method_name.to_s.sub(/^f/, '')
+          unless Examples.regular(unfocused) || ExampleGroups.regular(unfocused)
+            return
+          end
+
+          corrector.replace(range,
+                            range.source.sub(focus.method_name.to_s, unfocused))
         end
       end
     end

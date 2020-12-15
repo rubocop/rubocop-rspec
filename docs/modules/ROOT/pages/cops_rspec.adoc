@@ -1525,9 +1525,9 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 | Enabled
 | Yes
-| No
+| Yes
 | 1.5
-| -
+| 2.1
 |===
 
 Checks if examples are focused.
