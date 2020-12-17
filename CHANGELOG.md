@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.1.0 (2020-12-17)
+
 * Fix `RSpec/FilePath` false positive for relative file path runs with long namespaces. ([@ahukkanen][])
 * Update `RSpec/Focus` to have auto-correction. ([@dvandersluis][])
 
