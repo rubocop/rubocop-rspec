@@ -15,6 +15,7 @@ require_relative 'rubocop/rspec/language'
 require_relative 'rubocop/cop/rspec/mixin/top_level_group'
 require_relative 'rubocop/cop/rspec/mixin/variable'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
+require_relative 'rubocop/cop/rspec/mixin/comments_help'
 require_relative 'rubocop/cop/rspec/mixin/empty_line_separation'
 
 require_relative 'rubocop/rspec/concept'

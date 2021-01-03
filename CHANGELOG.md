@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix `HooksBeforeExamples`, `LeadingSubject`, `LetBeforeExamples` and `ScatteredLet` autocorrection to take into account inline comments and comments immediately before the moved node. ([@Darhazer][])
+
 ## 2.1.0 (2020-12-17)
 
 * Fix `RSpec/FilePath` false positive for relative file path runs with long namespaces. ([@ahukkanen][])

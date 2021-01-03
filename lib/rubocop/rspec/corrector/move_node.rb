@@ -6,6 +6,7 @@ module RuboCop
       # Helper methods to move a node
       class MoveNode
         include RuboCop::Cop::RangeHelp
+        include RuboCop::Cop::RSpec::CommentsHelp
         include RuboCop::Cop::RSpec::FinalEndLocation
 
         attr_reader :original, :corrector, :processed_source
@@ -17,20 +18,16 @@ module RuboCop
         end
 
         def move_before(other)
-          position = other.loc.expression
-          indent = ' ' * other.loc.column
-          newline_indent = "\n#{indent}"
+          position = start_line_position(other)
 
-          corrector.insert_before(position, source(original) + newline_indent)
+          corrector.insert_before(position, "#{source(original)}\n")
           corrector.remove(node_range_with_surrounding_space(original))
         end
 
         def move_after(other)
-          position = final_end_location(other)
-          indent = ' ' * other.loc.column
-          newline_indent = "\n#{indent}"
+          position = end_line_position(other)
 
-          corrector.insert_after(position, newline_indent + source(original))
+          corrector.insert_after(position, "\n#{source(original)}")
           corrector.remove(node_range_with_surrounding_space(original))
         end
 
@@ -41,7 +38,7 @@ module RuboCop
         end
 
         def node_range(node)
-          node.loc.expression.with(end_pos: final_end_location(node).end_pos)
+          source_range_with_comment(node)
         end
 
         def node_range_with_surrounding_space(node)
