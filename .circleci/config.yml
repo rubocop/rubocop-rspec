@@ -61,7 +61,7 @@ jobs:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - run: rake internal_investigation spec
+      - run: bundle exec rake internal_investigation spec
 
   code-climate:
     docker:
