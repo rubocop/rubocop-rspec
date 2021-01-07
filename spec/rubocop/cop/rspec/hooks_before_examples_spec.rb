@@ -94,6 +94,27 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
     RUBY
   end
 
+  it 'works with comments' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        it { is_expected.to be_after_before_hook } # h
+        # setup the system
+        # with multiline comment
+        before { setup } # some setup
+        ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        # setup the system
+        # with multiline comment
+        before { setup } # some setup
+        it { is_expected.to be_after_before_hook } # h
+      end
+    RUBY
+  end
+
   it 'does not flag hooks before the examples' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do

@@ -49,6 +49,33 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
     RUBY
   end
 
+  it 'works with comments' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a } # a comment
+        # example comment
+        it { expect(subject.foo).to eq(a) }
+        it { expect(subject.fu).to eq(b) } # inline example comment
+        # define the second letter
+        # with a multi-line description
+        let(:b) { b } # inline explanation as well
+        ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a } # a comment
+        # define the second letter
+        # with a multi-line description
+        let(:b) { b } # inline explanation as well
+        # example comment
+        it { expect(subject.foo).to eq(a) }
+        it { expect(subject.fu).to eq(b) } # inline example comment
+      end
+    RUBY
+  end
+
   it 'flags `let` at different nesting levels' do
     expect_offense(<<-RUBY)
       describe User do
