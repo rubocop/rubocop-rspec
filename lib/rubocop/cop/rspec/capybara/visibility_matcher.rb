@@ -44,6 +44,8 @@ module RuboCop
             have_content
           ].freeze
 
+          RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS
+
           def_node_matcher :visible_true?, <<~PATTERN
             (send nil? #capybara_matcher? ... (hash <$(pair (sym :visible) true) ...>))
           PATTERN

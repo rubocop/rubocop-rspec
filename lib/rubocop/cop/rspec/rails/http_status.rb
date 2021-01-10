@@ -33,6 +33,7 @@ module RuboCop
         class HttpStatus < Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
+          RESTRICT_ON_SEND = %i[have_http_status].freeze
 
           def_node_matcher :http_status, <<-PATTERN
             (send nil? :have_http_status ${int sym})

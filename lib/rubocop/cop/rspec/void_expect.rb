@@ -14,6 +14,7 @@ module RuboCop
       class VoidExpect < Base
         MSG = 'Do not use `expect()` without `.to` or `.not_to`. ' \
               'Chain the methods or remove it.'
+        RESTRICT_ON_SEND = %i[expect].freeze
 
         def_node_matcher :expect?, <<-PATTERN
           (send nil? :expect ...)

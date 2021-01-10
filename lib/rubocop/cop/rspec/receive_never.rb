@@ -16,6 +16,7 @@ module RuboCop
       class ReceiveNever < Base
         extend AutoCorrector
         MSG = 'Use `not_to receive` instead of `never`.'
+        RESTRICT_ON_SEND = %i[never].freeze
 
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 

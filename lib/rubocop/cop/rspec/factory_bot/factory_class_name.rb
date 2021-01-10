@@ -25,6 +25,7 @@ module RuboCop
           MSG = "Pass '%<class_name>s' string instead of `%<class_name>s` " \
                 'constant.'
           ALLOWED_CONSTANTS = %w[Hash OpenStruct].freeze
+          RESTRICT_ON_SEND = %i[factory].freeze
 
           def_node_matcher :class_name, <<~PATTERN
             (send _ :factory _ (hash <(pair (sym :class) $(const ...)) ...>))

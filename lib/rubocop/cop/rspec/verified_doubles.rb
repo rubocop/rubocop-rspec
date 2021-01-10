@@ -24,6 +24,7 @@ module RuboCop
       #   end
       class VerifiedDoubles < Base
         MSG = 'Prefer using verifying doubles over normal doubles.'
+        RESTRICT_ON_SEND = %i[double spy].freeze
 
         def_node_matcher :unverified_double, <<-PATTERN
           {(send nil? {:double :spy} $...)}

@@ -31,6 +31,7 @@ module RuboCop
         include ConfigurableEnforcedStyle
 
         MSG = "Don't use implicit subject."
+        RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
 
         def_node_matcher :implicit_subject?, <<-PATTERN
           (send nil? {:should :should_not :is_expected} ...)

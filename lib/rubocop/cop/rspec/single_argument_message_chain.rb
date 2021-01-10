@@ -21,6 +21,7 @@ module RuboCop
 
         MSG = 'Use `%<recommended>s` instead of calling ' \
               '`%<called>s` with a single argument.'
+        RESTRICT_ON_SEND = %i[receive_message_chain stub_chain].freeze
 
         def_node_matcher :message_chain, <<-PATTERN
           (send _ {:receive_message_chain :stub_chain} $_)
