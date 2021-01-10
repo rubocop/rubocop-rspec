@@ -30,6 +30,8 @@ module RuboCop
                 'Capybara feature specs - instead, use the ' \
                 '`have_current_path` matcher on `page`'
 
+          RESTRICT_ON_SEND = %i[expect].freeze
+
           def_node_matcher :expectation_set_on_current_path, <<-PATTERN
             (send nil? :expect (send {(send nil? :page) nil?} :current_path))
           PATTERN

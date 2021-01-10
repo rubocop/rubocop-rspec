@@ -29,6 +29,8 @@ module RuboCop
               '`use_transactional_fixtures` is enabled, then records created ' \
               'in `%<hook>s` are not automatically rolled back.'
 
+        RESTRICT_ON_SEND = %i[before after].freeze
+
         def_node_matcher :before_or_after_all, <<-PATTERN
           $(send _ {:before :after} (sym {:all :context}))
         PATTERN

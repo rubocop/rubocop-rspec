@@ -18,6 +18,7 @@ module RuboCop
       #   end
       class ImplicitBlockExpectation < Base
         MSG = 'Avoid implicit block expectations.'
+        RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
 
         def_node_matcher :lambda?, <<-PATTERN
           {

@@ -15,18 +15,12 @@ module RuboCop
       #
       class MessageChain < Base
         MSG = 'Avoid stubbing using `%<method>s`.'
-
-        def_node_matcher :message_chain, <<-PATTERN
-          (send _ {:receive_message_chain :stub_chain} ...)
-        PATTERN
+        RESTRICT_ON_SEND = %i[receive_message_chain stub_chain].freeze
 
         def on_send(node)
-          message_chain(node) do
-            add_offense(
-              node.loc.selector,
-              message: format(MSG, method: node.method_name)
-            )
-          end
+          add_offense(
+            node.loc.selector, message: format(MSG, method: node.method_name)
+          )
         end
       end
     end

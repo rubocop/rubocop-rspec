@@ -24,6 +24,7 @@ module RuboCop
 
         MSG = 'Prefer `%<replacement>s` over `%<original>s` when including ' \
               'examples in a nested context.'
+        RESTRICT_ON_SEND = %i[it_behaves_like it_should_behave_like].freeze
 
         def_node_matcher :example_inclusion_offense, '(send _ % ...)'
 
