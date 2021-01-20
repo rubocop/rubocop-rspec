@@ -2973,6 +2973,47 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
+== RSpec/OrderedHooks
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| Yes
+| 2.2
+| -
+|===
+
+Checks that before/around/after hooks are defined in the correct order.
+
+If multiple hooks are defined in example group, they should appear in
+the following order:
+before :suite
+before :context
+before :example
+around :example
+after :example
+after :context
+after :suite
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+after { run_cleanup }
+before { run_setup }
+
+# good
+before { run_setup }
+after { run_cleanup }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OrderedHooks
+
 == RSpec/OverwritingSetup
 
 |===
