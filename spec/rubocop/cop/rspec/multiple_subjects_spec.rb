@@ -41,6 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
     RUBY
 
     expect_offense(source)
+
     expect_no_corrections
   end
 
@@ -72,6 +73,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
         subject { 3 }
       end
     RUBY
+
     expect_correction(<<-RUBY)
       describe 'hello there' do
         subject { 3 }

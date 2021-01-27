@@ -14,6 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
               ^{include_method}^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2]
             end
           RUBY
+
           expect_no_corrections
         end
 
@@ -27,6 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
               ^{include_method}^^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2]
             end
           RUBY
+
           expect_no_corrections
         end
 
@@ -63,6 +65,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
               ^{include_method}^^^^^^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2]
             end
           RUBY
+
           expect_no_corrections
         end
 
@@ -76,6 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
               ^{include_method}^^^^^^^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2]
             end
           RUBY
+
           expect_no_corrections
         end
 
@@ -191,6 +195,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2, 3]
         end
       RUBY
+
       expect_no_corrections
     end
 
@@ -215,6 +220,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated include of shared_examples 'an x' on line(s) [2, 3]
         end
       RUBY
+
       expect_no_corrections
     end
 
