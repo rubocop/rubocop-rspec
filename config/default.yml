@@ -518,6 +518,12 @@ RSpec/NotToNot:
   VersionAdded: '1.4'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
+RSpec/OrderedHooks:
+  Description: Checks that before/around/after hooks are defined in the correct order.
+  Enabled: pending
+  VersionAdded: '2.2'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OrderedHooks
+
 RSpec/OverwritingSetup:
   Description: Checks if there is a let/subject that overwrites an existing one.
   Enabled: true

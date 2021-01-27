@@ -57,6 +57,7 @@
 * xref:cops_rspec.adoc#rspecnamedsubject[RSpec/NamedSubject]
 * xref:cops_rspec.adoc#rspecnestedgroups[RSpec/NestedGroups]
 * xref:cops_rspec.adoc#rspecnottonot[RSpec/NotToNot]
+* xref:cops_rspec.adoc#rspecorderedhooks[RSpec/OrderedHooks]
 * xref:cops_rspec.adoc#rspecoverwritingsetup[RSpec/OverwritingSetup]
 * xref:cops_rspec.adoc#rspecpending[RSpec/Pending]
 * xref:cops_rspec.adoc#rspecpredicatematcher[RSpec/PredicateMatcher]
