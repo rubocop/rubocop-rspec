@@ -4,6 +4,7 @@
 
 * Fix `HooksBeforeExamples`, `LeadingSubject`, `LetBeforeExamples` and `ScatteredLet` autocorrection to take into account inline comments and comments immediately before the moved node. ([@Darhazer][])
 * Improve rubocop-rspec performance. ([@Darhazer][])
+* Include `Enabled: true` to prevent a mismatched configuration parameter warning when `RSpec` cops are explicitly enabled in the user configuration. ([@pirj][])
 
 ## 2.1.0 (2020-12-17)
 

@@ -1,5 +1,6 @@
 ---
 RSpec:
+  Enabled: true
   Include:
     - "**/*_spec.rb"
     - "**/spec/**/*"
