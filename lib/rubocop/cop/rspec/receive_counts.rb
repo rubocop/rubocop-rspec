@@ -28,6 +28,8 @@ module RuboCop
 
         MSG = 'Use `%<alternative>s` instead of `%<original>s`.'
 
+        RESTRICT_ON_SEND = %i[times].freeze
+
         def_node_matcher :receive_counts, <<-PATTERN
           (send $(send _ {:exactly :at_least :at_most} (int {1 2})) :times)
         PATTERN
