@@ -30,6 +30,7 @@ module RuboCop
 
           MSG_CREATE_LIST = 'Prefer create_list.'
           MSG_N_TIMES = 'Prefer %<number>s.times.'
+          RESTRICT_ON_SEND = %i[create_list].freeze
 
           def_node_matcher :n_times_block_without_arg?, <<-PATTERN
             (block
