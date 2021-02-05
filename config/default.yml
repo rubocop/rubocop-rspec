@@ -209,8 +209,9 @@ RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
   VersionAdded: '1.7'
-  VersionChanged: '2.0'
+  VersionChanged: '2.3'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
+  AllowedTypes: []
 
 RSpec/EmptyHook:
   Description: Checks for empty before and after hooks.

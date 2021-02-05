@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
+RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup, :config do
   it 'flags an empty example group' do
     expect_offense(<<~RUBY)
       describe Foo do
@@ -349,5 +349,38 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+  end
+
+  context 'with AllowedTypes: [describe]' do
+    let(:cop_config) { { 'AllowedTypes' => %w[describe] } }
+
+    it 'allows an empty `describe` without a block' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe 'rspec-core'
+      RUBY
+    end
+
+    it 'allows a `describe` example group to be empty' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe 'rspec-core' do
+        end
+      RUBY
+    end
+
+    it 'allows a nested `describe` example group to be empty' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.context 'rspec-core' do
+          describe 'foo'
+        end
+      RUBY
+    end
+
+    it 'registers an offense for an non-allowed empty example group' do
+      expect_offense(<<~RUBY)
+        RSpec.context 'rspec-core' do
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Empty example group detected.
+        end
+      RUBY
+    end
   end
 end

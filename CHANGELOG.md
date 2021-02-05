@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Allow `RSpec/EmptyExampleGroup` to have example group types that should be allowed specified in its configuration. ([@dvandersluis][])
+
 ## 2.2.0 (2021-02-02)
 
 * Fix `HooksBeforeExamples`, `LeadingSubject`, `LetBeforeExamples` and `ScatteredLet` autocorrection to take into account inline comments and comments immediately before the moved node. ([@Darhazer][])

@@ -35,6 +35,11 @@ module RuboCop
       #   describe Bacon do
       #     pending 'will add tests later'
       #   end
+      #
+      # @example AllowedTypes: [describe]
+      #   # good
+      #   describe Bacon do
+      #   end
       class EmptyExampleGroup < Base
         MSG = 'Empty example group detected.'
 
@@ -131,15 +136,22 @@ module RuboCop
         PATTERN
 
         def on_block(node)
-          return if node.each_ancestor(:def, :defs).any?
-          return if node.each_ancestor(:block).any? { |block| example?(block) }
+          return if valid_block?(node)
 
           example_group_body(node) do |body|
+            next if allowed?(node.send_node)
+
             add_offense(node.send_node) if offensive?(body)
           end
         end
 
         private
+
+        def valid_block?(node)
+          node.each_ancestor(:def, :defs).any? ||
+            node.each_ancestor(:block).any? { |block| example?(block) } ||
+            node.each_descendant(:send).any? { |send| allowed?(send) }
+        end
 
         def offensive?(body)
           return true unless body
@@ -162,6 +174,10 @@ module RuboCop
 
         def examples_in_branches?(if_node)
           if_node.branches.any? { |branch| examples?(branch) }
+        end
+
+        def allowed?(send_node)
+          cop_config['AllowedTypes'].include?(send_node.method_name.to_s)
         end
       end
     end
