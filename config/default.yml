@@ -433,6 +433,12 @@ RSpec/LetSetup:
   VersionAdded: '1.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+RSpec/MemoizedMatcher:
+  Description: Matchers used in expectations should not be defined in memoized helpers.
+  Enabled: pending
+  VersionAdded: '2.3'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedMatcher
+
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
   Enabled: true

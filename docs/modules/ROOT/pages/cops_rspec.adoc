@@ -2287,6 +2287,57 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+== RSpec/MemoizedMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| No
+| 2.3
+| -
+|===
+
+Matchers used in expectations should not be defined in memoized helpers.
+
+=== Examples
+
+[source,ruby]
+----
+# bad - plain data
+let(:expected_value) { {a: 1, b: 2, c: 3} }
+
+it 'returns a proper hash' do
+  expect(parser.parse).to eq expected_value
+end
+
+# bad - compound matcher defined in a memoized helper
+let(:expected) { be_positive.and be_rational }
+
+it 'sums up to a positive rational' do
+  expect(calculator.sum).to expected
+end
+
+# good - plain data used inline
+it 'returns a proper hash' do
+  expect(parser.parse).to eq({a: 1, b: 2, c: 3})
+end
+
+# good - compound matcher is extracted to a method
+def be_positive_and_rational
+  be_positive.and be_rational
+end
+
+it 'sums up to a positive rational' do
+  expect(calculator.sum).to be_positive_and_rational
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedMatcher
+
 == RSpec/MessageChain
 
 |===
