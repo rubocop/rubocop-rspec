@@ -27,7 +27,7 @@ RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
     RUBY
   end
 
-  let(:example_nodes) do
+  def example_nodes
     [
       s(:block,
         s(:send, nil, :it,

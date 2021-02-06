@@ -63,6 +63,9 @@ RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
 
+RSpec/MemoizedMatcher:
+  Enabled: true
+
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb

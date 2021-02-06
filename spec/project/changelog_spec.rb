@@ -11,7 +11,7 @@ RSpec.describe 'CHANGELOG.md' do
   end
 
   describe 'contributors' do
-    let(:contributors) do
+    def contributors
       changelog.partition("<!-- Contributors -->\n\n").last.lines
     end
 
