@@ -71,6 +71,24 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
+  it 'registers an offense for a bad path with multiple describe for instance methods' do
+    expect_offense(<<-RUBY, 'wrong_class_foo_spec.rb')
+      describe MyClass, '#foo' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*foo*_spec.rb`.
+      describe MyClass, '#bar' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*bar*_spec.rb`.
+    RUBY
+  end
+
+  it 'registers an offense for a bad path with multiple describe for class methods' do
+    expect_offense(<<-RUBY, 'wrong_class_foo_spec.rb')
+      describe MyClass, '.foo' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*foo*_spec.rb`.
+      describe MyClass, '.bar' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*bar*_spec.rb`.
+    RUBY
+  end
+
   it 'ignores shared examples' do
     expect_no_offenses(<<-RUBY, 'spec/models/user.rb')
       shared_examples_for 'foo' do; end
