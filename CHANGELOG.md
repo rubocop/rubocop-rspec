@@ -4,6 +4,7 @@
 
 * Add missing documentation for `single_statement_only` style of `RSpec/ImplicitSubject` cop. ([@tejasbubane][])
 * Fix an exception in `DescribedClass` when accessing a constant on a variable in a spec that is nested in a namespace. ([@rrosenblum][])
+* Add new `RSpec/IdenticalEqualityAssertion` cop. ([@tejasbubane][])
 
 ## 2.3.0 (2021-04-28)
 
