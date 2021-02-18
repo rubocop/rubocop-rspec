@@ -1,5 +1,38 @@
 = RSpec/Rails
 
+== RSpec/Rails/AvoidSetupHook
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| Yes
+| 2.4
+| -
+|===
+
+Checks that tests use RSpec `before` hook over Rails `setup` method.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+setup do
+  allow(foo).to receive(:bar)
+end
+
+# good
+before do
+  allow(foo).to receive(:bar)
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
+
 == RSpec/Rails/HttpStatus
 
 |===

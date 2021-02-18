@@ -759,6 +759,12 @@ RSpec/FactoryBot/FactoryClassName:
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
+RSpec/Rails/AvoidSetupHook:
+  Description: Checks that tests use RSpec `before` hook over Rails `setup` method.
+  Enabled: pending
+  VersionAdded: '2.4'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
+
 RSpec/Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
