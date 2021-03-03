@@ -23,6 +23,7 @@ module RuboCop
       class ExpectInHook < Base
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
+        # @!method expectation(node)
         def_node_search :expectation, send_pattern('#Expectations.all')
 
         def on_block(node)

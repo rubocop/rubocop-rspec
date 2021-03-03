@@ -25,6 +25,7 @@ module RuboCop
           end
         end
 
+        # @!method predicate_in_actual?(node)
         def_node_matcher :predicate_in_actual?, <<-PATTERN
           (send
             (send nil? :expect {
@@ -34,10 +35,12 @@ module RuboCop
             $#boolean_matcher?)
         PATTERN
 
+        # @!method be_bool?(node)
         def_node_matcher :be_bool?, <<-PATTERN
           (send nil? {:be :eq :eql :equal} {true false})
         PATTERN
 
+        # @!method be_boolthy?(node)
         def_node_matcher :be_boolthy?, <<-PATTERN
           (send nil? {:be_truthy :be_falsey :be_falsy :a_truthy_value :a_falsey_value :a_falsy_value})
         PATTERN
@@ -152,6 +155,7 @@ module RuboCop
           end
         end
 
+        # @!method predicate_matcher?(node)
         def_node_matcher :predicate_matcher?, <<-PATTERN
           (send
             (send nil? :expect $!nil?)
@@ -160,6 +164,7 @@ module RuboCop
               (block $(send nil? #predicate_matcher_name? ...) ...)})
         PATTERN
 
+        # @!method predicate_matcher_block?(node)
         def_node_matcher :predicate_matcher_block?, <<-PATTERN
           (block
             (send

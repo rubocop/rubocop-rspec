@@ -22,6 +22,7 @@ module RuboCop
         MSG = 'The second argument to describe should be the method ' \
               "being tested. '#instance' or '.class'."
 
+        # @!method second_argument(node)
         def_node_matcher :second_argument, <<~PATTERN
           (block
             (send #rspec? :describe _first_argument $(str _) ...) ...

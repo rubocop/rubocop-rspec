@@ -22,6 +22,7 @@ module RuboCop
       class DescribedClassModuleWrapping < Base
         MSG = 'Avoid opening modules and defining specs within them.'
 
+        # @!method find_rspec_blocks(node)
         def_node_search :find_rspec_blocks, block_pattern('#ExampleGroups.all')
 
         def on_module(node)

@@ -28,6 +28,7 @@ module RuboCop
       class LetSetup < Base
         MSG = 'Do not use `let!` to setup objects not referenced in tests.'
 
+        # @!method example_or_shared_group_or_including?(node)
         def_node_matcher :example_or_shared_group_or_including?,
                          block_pattern(<<~PATTERN)
                            {
@@ -37,6 +38,7 @@ module RuboCop
                            }
                          PATTERN
 
+        # @!method let_bang(node)
         def_node_matcher :let_bang, <<-PATTERN
           {
             (block $(send nil? :let! {(sym $_) (str $_)}) ...)
@@ -44,6 +46,7 @@ module RuboCop
           }
         PATTERN
 
+        # @!method method_called?(node)
         def_node_search :method_called?, '(send nil? %)'
 
         def on_block(node)

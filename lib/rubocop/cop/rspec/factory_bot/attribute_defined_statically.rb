@@ -29,10 +29,12 @@ module RuboCop
 
           MSG = 'Use a block to declare attribute values.'
 
+          # @!method value_matcher(node)
           def_node_matcher :value_matcher, <<-PATTERN
             (send _ !#reserved_method? $...)
           PATTERN
 
+          # @!method factory_attributes(node)
           def_node_matcher :factory_attributes, <<-PATTERN
             (block (send _ #attribute_defining_method? ...) _ { (begin $...) $(send ...) } )
           PATTERN
@@ -79,6 +81,7 @@ module RuboCop
             value_matcher(attribute).to_a.all?(&:block_pass_type?)
           end
 
+          # @!method association?(node)
           def_node_matcher :association?, '(hash <(pair (sym :factory) _) ...>)'
 
           def autocorrect_replacing_parens(corrector, node)

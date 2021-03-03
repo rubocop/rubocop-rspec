@@ -37,10 +37,12 @@ module RuboCop
         MSG_CALL = 'Prefer `change { %<obj>s.%<attr>s }`.'
         RESTRICT_ON_SEND = %i[change].freeze
 
+        # @!method expect_change_with_arguments(node)
         def_node_matcher :expect_change_with_arguments, <<-PATTERN
           (send nil? :change ({const send} nil? $_) (sym $_))
         PATTERN
 
+        # @!method expect_change_with_block(node)
         def_node_matcher :expect_change_with_block, <<-PATTERN
           (block
             (send nil? :change)

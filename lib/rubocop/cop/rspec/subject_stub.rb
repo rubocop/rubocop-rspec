@@ -81,6 +81,7 @@ module RuboCop
           )
         PATTERN
 
+        # @!method message_expectation_matcher?(node)
         def_node_search :message_expectation_matcher?, <<-PATTERN
           (send nil? {
             :receive :receive_messages :receive_message_chain :have_received

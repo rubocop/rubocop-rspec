@@ -44,12 +44,15 @@ module RuboCop
       class NamedSubject < Base
         MSG = 'Name your test subject if you need to reference it explicitly.'
 
+        # @!method example_or_hook_block?(node)
         def_node_matcher :example_or_hook_block?,
                          block_pattern('{#Examples.all #Hooks.all}')
 
+        # @!method shared_example?(node)
         def_node_matcher :shared_example?,
                          block_pattern('#SharedGroups.examples')
 
+        # @!method subject_usage(node)
         def_node_search :subject_usage, '$(send nil? :subject)'
 
         def on_block(node)

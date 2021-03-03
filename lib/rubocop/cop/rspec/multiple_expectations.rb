@@ -53,6 +53,7 @@ module RuboCop
         ANYTHING = ->(_node) { true }
         TRUE = ->(node) { node.true_type? }
 
+        # @!method aggregate_failures?(node)
         def_node_matcher :aggregate_failures?, <<-PATTERN
           (block {
               (send _ _ <(sym :aggregate_failures) ...>)
@@ -60,7 +61,9 @@ module RuboCop
             } ...)
         PATTERN
 
+        # @!method expect?(node)
         def_node_matcher :expect?, send_pattern('#Expectations.all')
+        # @!method aggregate_failures_block?(node)
         def_node_matcher :aggregate_failures_block?, <<-PATTERN
           (block (send nil? :aggregate_failures ...) ...)
         PATTERN

@@ -30,10 +30,12 @@ module RuboCop
         MSG_UNUSED_ARG = 'You should call `%<arg>s.call` ' \
                          'or `%<arg>s.run`.'
 
+        # @!method hook(node)
         def_node_matcher :hook, <<-PATTERN
           (block (send nil? :around sym ?) (args $...) ...)
         PATTERN
 
+        # @!method find_arg_usage(node)
         def_node_search :find_arg_usage, <<-PATTERN
           {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
         PATTERN

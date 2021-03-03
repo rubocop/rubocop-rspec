@@ -18,6 +18,7 @@ module RuboCop
         MSG = 'Use `not_to receive` instead of `never`.'
         RESTRICT_ON_SEND = %i[never].freeze
 
+        # @!method method_on_stub?(node)
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 
         def on_send(node)

@@ -19,6 +19,7 @@ module RuboCop
         MSG = 'Prefer using the `all` matcher instead ' \
               'of iterating over an array.'
 
+        # @!method each?(node)
         def_node_matcher :each?, <<-PATTERN
           (block
             (send ... :each)
@@ -27,6 +28,7 @@ module RuboCop
           )
         PATTERN
 
+        # @!method expectation?(node)
         def_node_matcher :expectation?, <<-PATTERN
           (send (send nil? :expect (lvar %)) :to ...)
         PATTERN

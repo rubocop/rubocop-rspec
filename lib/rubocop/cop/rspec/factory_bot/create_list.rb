@@ -32,6 +32,7 @@ module RuboCop
           MSG_N_TIMES = 'Prefer %<number>s.times.'
           RESTRICT_ON_SEND = %i[create_list].freeze
 
+          # @!method n_times_block_without_arg?(node)
           def_node_matcher :n_times_block_without_arg?, <<-PATTERN
             (block
               (send (int _) :times)
@@ -40,10 +41,12 @@ module RuboCop
             )
           PATTERN
 
+          # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
             (send ${(const nil? {:FactoryGirl :FactoryBot}) nil?} :create (sym $_) $...)
           PATTERN
 
+          # @!method factory_list_call(node)
           def_node_matcher :factory_list_call, <<-PATTERN
             (send {(const nil? {:FactoryGirl :FactoryBot}) nil?} :create_list (sym _) (int $_) ...)
           PATTERN

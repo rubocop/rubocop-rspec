@@ -45,6 +45,7 @@ module RuboCop
 
         SUPPORTED_MATCHERS = %i[eq eql equal be].freeze
 
+        # @!method expect_literal(node)
         def_node_matcher :expect_literal, <<~PATTERN
           (send
             (send nil? :expect $#literal?)

@@ -39,6 +39,7 @@ module RuboCop
           }
         PATTERN
 
+        # @!method configured_response?(node)
         def_node_matcher :configured_response?, <<~PATTERN
           { :and_return :and_raise :and_throw :and_yield
             :and_call_original :and_wrap_original }

@@ -30,10 +30,12 @@ module RuboCop
 
         RESTRICT_ON_SEND = %i[times].freeze
 
+        # @!method receive_counts(node)
         def_node_matcher :receive_counts, <<-PATTERN
           (send $(send _ {:exactly :at_least :at_most} (int {1 2})) :times)
         PATTERN
 
+        # @!method stub?(node)
         def_node_search :stub?, '(send nil? :receive ...)'
 
         def on_send(node)
