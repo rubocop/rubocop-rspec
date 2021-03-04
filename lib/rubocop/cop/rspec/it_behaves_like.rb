@@ -26,6 +26,7 @@ module RuboCop
               'examples in a nested context.'
         RESTRICT_ON_SEND = %i[it_behaves_like it_should_behave_like].freeze
 
+        # @!method example_inclusion_offense(node)
         def_node_matcher :example_inclusion_offense, '(send _ % ...)'
 
         def on_send(node)

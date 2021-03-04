@@ -17,10 +17,13 @@ module RuboCop
 
         MSG = 'Use `.and_yield`.'
 
+        # @!method method_on_stub?(node)
         def_node_search :method_on_stub?, '(send nil? :receive ...)'
 
+        # @!method block_arg(node)
         def_node_matcher :block_arg, '(args (blockarg $_))'
 
+        # @!method block_call?(node)
         def_node_matcher :block_call?, '(send (lvar %) :call ...)'
 
         def on_block(node)

@@ -35,6 +35,7 @@ module RuboCop
           include ConfigurableEnforcedStyle
           RESTRICT_ON_SEND = %i[have_http_status].freeze
 
+          # @!method http_status(node)
           def_node_matcher :http_status, <<-PATTERN
             (send nil? :have_http_status ${int sym})
           PATTERN

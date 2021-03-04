@@ -61,18 +61,23 @@ module RuboCop
         DESCRIBED_CLASS = 'described_class'
         MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'
 
+        # @!method common_instance_exec_closure?(node)
         def_node_matcher :common_instance_exec_closure?, <<-PATTERN
           (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
         PATTERN
 
+        # @!method rspec_block?(node)
         def_node_matcher :rspec_block?, block_pattern('#ALL.all')
 
+        # @!method scope_changing_syntax?(node)
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 
+        # @!method described_constant(node)
         def_node_matcher :described_constant, <<-PATTERN
           (block (send _ :describe $(const ...) ...) (args) $_)
         PATTERN
 
+        # @!method contains_described_class?(node)
         def_node_search :contains_described_class?, <<-PATTERN
           (send nil? :described_class)
         PATTERN

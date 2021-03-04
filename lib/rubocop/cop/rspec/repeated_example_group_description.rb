@@ -46,18 +46,22 @@ module RuboCop
       class RepeatedExampleGroupDescription < Base
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
 
+        # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<-PATTERN
           (begin <#example_group? #example_group? ...>)
         PATTERN
 
+        # @!method doc_string_and_metadata(node)
         def_node_matcher :doc_string_and_metadata, <<-PATTERN
           (block (send _ _ $_ $...) ...)
         PATTERN
 
+        # @!method skip_or_pending?(node)
         def_node_matcher :skip_or_pending?, <<-PATTERN
           (block <(send nil? {:skip :pending}) ...>)
         PATTERN
 
+        # @!method empty_description?(node)
         def_node_matcher :empty_description?, '(block (send _ _) ...)'
 
         def on_begin(node)

@@ -46,10 +46,12 @@ module RuboCop
 
           RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS
 
+          # @!method visible_true?(node)
           def_node_matcher :visible_true?, <<~PATTERN
             (send nil? #capybara_matcher? ... (hash <$(pair (sym :visible) true) ...>))
           PATTERN
 
+          # @!method visible_false?(node)
           def_node_matcher :visible_false?, <<~PATTERN
             (send nil? #capybara_matcher? ... (hash <$(pair (sym :visible) false) ...>))
           PATTERN

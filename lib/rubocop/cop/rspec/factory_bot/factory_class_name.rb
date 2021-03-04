@@ -27,6 +27,7 @@ module RuboCop
           ALLOWED_CONSTANTS = %w[Hash OpenStruct].freeze
           RESTRICT_ON_SEND = %i[factory].freeze
 
+          # @!method class_name(node)
           def_node_matcher :class_name, <<~PATTERN
             (send _ :factory _ (hash <(pair (sym :class) $(const ...)) ...>))
           PATTERN

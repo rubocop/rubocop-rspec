@@ -19,23 +19,31 @@ module RuboCop
         attr_accessor :config
       end
 
+      # @!method rspec?(node)
       def_node_matcher :rspec?, '{(const {nil? cbase} :RSpec) nil?}'
 
+      # @!method example_group?(node)
       def_node_matcher :example_group?, block_pattern('#ExampleGroups.all')
 
+      # @!method shared_group?(node)
       def_node_matcher :shared_group?, block_pattern('#SharedGroups.all')
 
+      # @!method spec_group?(node)
       def_node_matcher :spec_group?,
                        block_pattern('{#SharedGroups.all #ExampleGroups.all}')
 
+      # @!method example_group_with_body?(node)
       def_node_matcher :example_group_with_body?, <<-PATTERN
         (block #{send_pattern('#ExampleGroups.all')} args !nil?)
       PATTERN
 
+      # @!method example?(node)
       def_node_matcher :example?, block_pattern('#Examples.all')
 
+      # @!method hook?(node)
       def_node_matcher :hook?, block_pattern('#Hooks.all')
 
+      # @!method let?(node)
       def_node_matcher :let?, <<-PATTERN
         {
           #{block_pattern('#Helpers.all')}
@@ -43,6 +51,7 @@ module RuboCop
         }
       PATTERN
 
+      # @!method include?(node)
       def_node_matcher :include?, <<-PATTERN
         {
           #{send_pattern('#Includes.all')}
@@ -50,6 +59,7 @@ module RuboCop
         }
       PATTERN
 
+      # @!method subject?(node)
       def_node_matcher :subject?, block_pattern('#Subjects.all')
 
       module ExampleGroups # :nodoc:

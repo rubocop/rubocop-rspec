@@ -33,6 +33,7 @@ module RuboCop
         MSG = "Don't use implicit subject."
         RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
 
+        # @!method implicit_subject?(node)
         def_node_matcher :implicit_subject?, <<-PATTERN
           (send nil? {:should :should_not :is_expected} ...)
         PATTERN

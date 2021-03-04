@@ -22,6 +22,7 @@ module RuboCop
         MSG = 'Prefer `%<replacement>s` over `%<original>s`.'
         RESTRICT_ON_SEND = %i[not_to to_not].freeze
 
+        # @!method not_to_not_offense(node)
         def_node_matcher :not_to_not_offense, '(send _ % ...)'
 
         def on_send(node)

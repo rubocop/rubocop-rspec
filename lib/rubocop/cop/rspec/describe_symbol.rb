@@ -21,6 +21,7 @@ module RuboCop
         MSG = 'Avoid describing symbols.'
         RESTRICT_ON_SEND = %i[describe].freeze
 
+        # @!method describe_symbol?(node)
         def_node_matcher :describe_symbol?, <<-PATTERN
           (send #rspec? :describe $sym ...)
         PATTERN

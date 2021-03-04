@@ -61,12 +61,14 @@ module RuboCop
 
         MSG = 'Spec path should end with `%<suffix>s`.'
 
+        # @!method const_described(node)
         def_node_matcher :const_described, <<~PATTERN
           (block
             $(send #rspec? _example_group $(const ...) $...) ...
           )
         PATTERN
 
+        # @!method routing_metadata?(node)
         def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
 
         def on_top_level_example_group(node)

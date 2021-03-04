@@ -46,14 +46,21 @@ module RuboCop
       class RepeatedExampleGroupBody < Base
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
+        # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<-PATTERN
           (begin <#example_group_with_body? #example_group_with_body? ...>)
         PATTERN
 
+        # @!method metadata(node)
         def_node_matcher :metadata, '(block (send _ _ _ $...) ...)'
+
+        # @!method body(node)
         def_node_matcher :body, '(block _ args $...)'
+
+        # @!method const_arg(node)
         def_node_matcher :const_arg, '(block (send _ _ $const ...) ...)'
 
+        # @!method skip_or_pending?(node)
         def_node_matcher :skip_or_pending?, <<-PATTERN
           (block <(send nil? {:skip :pending}) ...>)
         PATTERN

@@ -34,6 +34,7 @@ module RuboCop
         MSG = 'Specify the exception being captured'
         RESTRICT_ON_SEND = %i[to].freeze
 
+        # @!method empty_raise_error_or_exception(node)
         def_node_matcher :empty_raise_error_or_exception, <<-PATTERN
           (send
             (block

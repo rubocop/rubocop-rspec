@@ -23,6 +23,7 @@ module RuboCop
       class SharedExamples < Base
         extend AutoCorrector
 
+        # @!method shared_examples(node)
         def_node_matcher :shared_examples,
                          send_pattern(
                            '{#SharedGroups.all #Includes.all}'

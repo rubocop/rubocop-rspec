@@ -52,10 +52,12 @@ module RuboCop
         MSG = 'Avoid instance variables – use let, ' \
               'a method call, or a local variable (if possible).'
 
+        # @!method dynamic_class?(node)
         def_node_matcher :dynamic_class?, <<-PATTERN
           (block (send (const nil? :Class) :new ...) ...)
         PATTERN
 
+        # @!method custom_matcher?(node)
         def_node_matcher :custom_matcher?, <<-PATTERN
           (block {
             (send nil? :matcher sym)
@@ -63,8 +65,10 @@ module RuboCop
           } ...)
         PATTERN
 
+        # @!method ivar_usage(node)
         def_node_search :ivar_usage, '$(ivar $_)'
 
+        # @!method ivar_assigned?(node)
         def_node_search :ivar_assigned?, '(ivasgn % ...)'
 
         def on_top_level_group(node)

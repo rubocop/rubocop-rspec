@@ -50,13 +50,16 @@ module RuboCop
         MSG = 'Repeated include of shared_examples %<name>s ' \
           'on line(s) %<repeat>s'
 
+        # @!method several_include_examples?(node)
         def_node_matcher :several_include_examples?, <<-PATTERN
           (begin <#include_examples? #include_examples? ...>)
         PATTERN
 
+        # @!method include_examples?(node)
         def_node_matcher :include_examples?,
                          send_pattern('#Includes.examples')
 
+        # @!method shared_examples_name(node)
         def_node_matcher :shared_examples_name, <<-PATTERN
           (send _ #Includes.examples $_ ...)
         PATTERN

@@ -24,6 +24,7 @@ module RuboCop
         MSG = 'Use `instance_spy` when you check your double ' \
               'with `have_received`.'
 
+        # @!method null_double(node)
         def_node_search :null_double, <<-PATTERN
           (lvasgn $_
             (send
@@ -31,6 +32,7 @@ module RuboCop
                 ...) :as_null_object))
         PATTERN
 
+        # @!method have_received_usage(node)
         def_node_search :have_received_usage, <<-PATTERN
           (send
             (send nil? :expect

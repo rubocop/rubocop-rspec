@@ -31,6 +31,7 @@ module RuboCop
 
         RESTRICT_ON_SEND = %i[before after].freeze
 
+        # @!method before_or_after_all(node)
         def_node_matcher :before_or_after_all, <<-PATTERN
           $(send _ {:before :after} (sym {:all :context}))
         PATTERN

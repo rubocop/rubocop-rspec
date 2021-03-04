@@ -30,6 +30,7 @@ module RuboCop
 
         MSG = 'Prefer `%<good>s` over `%<bad>s`.'
 
+        # @!method implicit_expect(node)
         def_node_matcher :implicit_expect, <<-PATTERN
           {
             (send nil? ${:should :should_not} ...)
