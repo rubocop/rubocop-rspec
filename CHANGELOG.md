@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
+
 ## 2.2.0 (2021-02-02)
 
 * Fix `HooksBeforeExamples`, `LeadingSubject`, `LetBeforeExamples` and `ScatteredLet` autocorrection to take into account inline comments and comments immediately before the moved node. ([@Darhazer][])
@@ -603,3 +605,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@sl4vr]: https://github.com/sl4vr
 [@ahukkanen]: https://github.com/ahukkanen
 [@dvandersluis]: https://github.com/dvandersluis
+[@hosamaly]: https://github.com/hosamaly

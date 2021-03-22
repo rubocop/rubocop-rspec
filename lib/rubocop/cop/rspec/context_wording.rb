@@ -8,6 +8,7 @@ module RuboCop
       # The default list of prefixes is minimal. Users are encouraged to tailor
       # the configuration to meet project needs. Other acceptable prefixes may
       # include `if`, `unless`, `for`, `before`, `after`, or `during`.
+      # They may consist of multiple words if desired.
       #
       # @see https://rspec.rubystyle.guide/#context-descriptions
       # @see http://www.betterspecs.org/#contexts
@@ -52,7 +53,7 @@ module RuboCop
         private
 
         def bad_prefix?(description)
-          !prefixes.include?(description.split(/\b/).first)
+          !prefix_regex.match?(description)
         end
 
         def joined_prefixes
@@ -65,6 +66,10 @@ module RuboCop
 
         def prefixes
           cop_config['Prefixes'] || []
+        end
+
+        def prefix_regex
+          /^#{Regexp.union(prefixes)}\b/
         end
       end
     end
