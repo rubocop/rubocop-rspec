@@ -95,5 +95,35 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
         end
       RUBY
     end
+
+    context 'with a multi-word prefix' do
+      let(:cop_config) { { 'Prefixes' => ['assuming that'] } }
+
+      it 'skips descriptions with allowed multi-word prefixes' do
+        expect_no_offenses(<<-RUBY)
+          context 'assuming that display name is present' do
+          end
+        RUBY
+      end
+    end
+
+    context 'with special regex characters' do
+      let(:cop_config) { { 'Prefixes' => ['a$b\d'] } }
+
+      it 'matches the full prefix' do
+        expect_offense(<<-RUBY)
+          context 'a' do
+                  ^^^ Start context description with 'a$b\\d'.
+          end
+        RUBY
+      end
+
+      it 'matches special characters' do
+        expect_no_offenses(<<-RUBY)
+          context 'a$b\\d something' do
+          end
+        RUBY
+      end
+    end
   end
 end
