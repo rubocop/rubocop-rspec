@@ -173,6 +173,14 @@ RSpec/DescribeMethod:
   VersionAdded: '1.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod
 
+RSpec/DescribeTopLevelGroup:
+  Description: Checks that the multiple `describe` is split or combined.
+  Enabled: pending
+  VersionAdded: '2.3'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeTopLevelGroup
+  Combining: false
+  Splitting: false
+
 RSpec/DescribeSymbol:
   Description: Avoid describing symbols.
   Enabled: true

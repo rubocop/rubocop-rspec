@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
+* Add `RSpec/DescribeTopLevelGroup` cop. ([@M-Yamashita01][])
 
 ## 2.2.0 (2021-02-02)
 
@@ -606,3 +607,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ahukkanen]: https://github.com/ahukkanen
 [@dvandersluis]: https://github.com/dvandersluis
 [@hosamaly]: https://github.com/hosamaly
+[@M-Yamashita01]: https://github.com/M-Yamashita01

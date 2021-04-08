@@ -522,6 +522,101 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
 
+== RSpec/DescribeTopLevelGroup
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| No
+| 2.3
+| -
+|===
+
+Checks that the multiple `describe` is split or combined.
+
+This cop can be configured using the `Splitting` and `Combining`
+options.
+
+=== Examples
+
+==== `Splitting: describe_top_level_group`
+
+[source,ruby]
+----
+# bad
+RSpec.describe MyClass do
+  describe '#foo' do
+    subject { my_class_instance.foo }
+  end
+
+  describe '#bar' do
+    subject { my_class_instance.bar }
+  end
+end
+
+# good
+RSpec.describe MyClass do
+  describe '#foo' do
+    subject { my_class_instance.foo }
+  end
+end
+
+RSpec.describe MyClass do
+  describe '#bar' do
+    subject { my_class_instance.bar }
+  end
+end
+----
+
+==== `Combining: describe_top_level_group`
+
+[source,ruby]
+----
+# bad
+RSpec.describe MyClass do
+  describe '#foo' do
+    subject { my_class_instance.foo }
+  end
+end
+
+RSpec.describe MyClass do
+  describe '#bar' do
+    subject { my_class_instance.bar }
+  end
+end
+
+# good
+RSpec.describe MyClass do
+  describe '#foo' do
+    subject { my_class_instance.foo }
+  end
+
+  describe '#bar' do
+    subject { my_class_instance.bar }
+  end
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Combining
+| `false`
+| Boolean
+
+| Splitting
+| `false`
+| Boolean
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeTopLevelGroup
+
 == RSpec/DescribedClass
 
 |===

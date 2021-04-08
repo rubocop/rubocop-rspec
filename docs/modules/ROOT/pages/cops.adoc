@@ -14,6 +14,7 @@
 * xref:cops_rspec.adoc#rspecdescribeclass[RSpec/DescribeClass]
 * xref:cops_rspec.adoc#rspecdescribemethod[RSpec/DescribeMethod]
 * xref:cops_rspec.adoc#rspecdescribesymbol[RSpec/DescribeSymbol]
+* xref:cops_rspec.adoc#rspecdescribetoplevelgroup[RSpec/DescribeTopLevelGroup]
 * xref:cops_rspec.adoc#rspecdescribedclass[RSpec/DescribedClass]
 * xref:cops_rspec.adoc#rspecdescribedclassmodulewrapping[RSpec/DescribedClassModuleWrapping]
 * xref:cops_rspec.adoc#rspecdialect[RSpec/Dialect]
