@@ -5,6 +5,8 @@
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
 * Drop support for ruby 2.4. ([@bquorning][])
 
+* Add `CountAsOne` configuration option to `RSpec/ExampleLength`. ([@stephannv][])
+
 ## 2.2.0 (2021-02-02)
 
 * Fix `HooksBeforeExamples`, `LeadingSubject`, `LetBeforeExamples` and `ScatteredLet` autocorrection to take into account inline comments and comments immediately before the moved node. ([@Darhazer][])
@@ -607,3 +609,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ahukkanen]: https://github.com/ahukkanen
 [@dvandersluis]: https://github.com/dvandersluis
 [@hosamaly]: https://github.com/hosamaly
+[@stephannv]: https://github.com/stephannv

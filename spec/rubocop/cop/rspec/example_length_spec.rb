@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength do
     it 'flags the example' do
       expect_offense(<<-RUBY)
         it do
-        ^^^^^ Example has too many lines [4/3].
+        ^^^^^ Example has too many lines. [4/3]
           line 1
           line 2
           line 3
@@ -64,11 +64,33 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength do
     it 'flags the example' do
       expect_offense(<<-RUBY)
         it do
-        ^^^^^ Example has too many lines [4/3].
+        ^^^^^ Example has too many lines. [4/3]
           line 1
           line 2
           # comment
           line 3
+        end
+      RUBY
+    end
+  end
+
+  context 'when `CountAsOne` is not empty' do
+    before { cop_config['CountAsOne'] = ['array'] }
+
+    it 'folds array into one line' do
+      expect_no_offenses(<<~RUBY)
+        it do
+          a = 1
+          a = [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
         end
       RUBY
     end

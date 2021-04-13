@@ -1051,7 +1051,7 @@ let(:foo) { bar }
 | Yes
 | No
 | 1.5
-| -
+| 2.3
 |===
 
 Checks for long examples.
@@ -1059,6 +1059,10 @@ Checks for long examples.
 A long example is usually more difficult to understand. Consider
 extracting out some behaviour, e.g. with a `let` block, or a helper
 method.
+
+You can set literals you want to fold with `CountAsOne`.
+Available are: 'array', 'hash', and 'heredoc'. Each literal
+will be counted as one line regardless of its actual size.
 
 === Examples
 
@@ -1081,6 +1085,27 @@ it do
 end
 ----
 
+==== CountAsOne: ['array', 'heredoc']
+
+[source,ruby]
+----
+it do
+  array = [         # +1
+    1,
+    2
+  ]
+
+  hash = {          # +3
+    key: 'value'
+  }
+
+  msg = <<~HEREDOC  # +1
+    Heredoc
+    content.
+  HEREDOC
+end                 # 5 points
+----
+
 === Configurable attributes
 
 |===
@@ -1089,6 +1114,10 @@ end
 | Max
 | `5`
 | Integer
+
+| CountAsOne
+| `[]`
+| Array
 |===
 
 === References
