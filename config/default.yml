@@ -253,7 +253,9 @@ RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
   Max: 5
+  CountAsOne: []
   VersionAdded: '1.5'
+  VersionChanged: '2.3'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength
 
 RSpec/ExampleWithoutDescription:
