@@ -95,12 +95,12 @@ workflows:
           requires: [confirm_config_and_documentation]
           matrix:
             parameters:
-              ruby: ['2.4', '2.5', '2.6', '2.7', '3.0']
+              ruby: ['2.5', '2.6', '2.7', '3.0']
       - rubocop:
           requires: [confirm_config_and_documentation]
           matrix:
             parameters:
-              ruby: ['2.4', '2.5', '2.6', '2.7', '3.0']
+              ruby: ['2.5', '2.6', '2.7', '3.0']
       - edge-rubocop:
           requires: [confirm_config_and_documentation]
       - jruby

@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
+* Drop support for ruby 2.4. ([@bquorning][])
 
 ## 2.2.0 (2021-02-02)
 
