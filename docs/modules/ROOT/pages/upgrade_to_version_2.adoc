@@ -66,7 +66,7 @@ RSpec/EmptyExampleGroup:
   Enabled: false
 ----
 
-https://github.com/rubocop-hq/rubocop/pull/8490[Learn more about this change].
+https://github.com/rubocop/rubocop/pull/8490[Learn more about this change].
 
 
 === Use the RuboCop standard `Include` option to filter inspected files
@@ -93,7 +93,7 @@ RSpec/FactoryBot:
 
 NOTE: Please keep in mind that `Include`’s merge mode is set to override the default settings, so if you intend to add a path while keeping the default paths, you should include the default `Include` paths in your configuration.
 
-https://github.com/rubocop-hq/rubocop-rspec/pull/1063[Learn more about this change].
+https://github.com/rubocop/rubocop-rspec/pull/1063[Learn more about this change].
 
 == Custom Cop Update Guide
 
@@ -130,7 +130,7 @@ module RuboCop
       class FightPowerty < Base
 ----
 
-https://github.com/rubocop-hq/rubocop-rspec/pull/962[Example pull request].
+https://github.com/rubocop/rubocop-rspec/pull/962[Example pull request].
 
 
 === Replace `TopLevelDescribe`
@@ -143,7 +143,7 @@ There’s no need yet for `on_top_level_shared_group` for RuboCop core cops, but
 Additionally, `single_top_level_describe?` is removed with no direct replacement.
 You may use `top_level_groups` query method instead, e.g. `top_level_groups.one?`.
 
-Example pull requests to replace `TopLevelDescribe` with `TopLevelGroup` [https://github.com/rubocop-hq/rubocop-rspec/pull/978[1], https://github.com/rubocop-hq/rubocop-rspec/pull/932[2], https://github.com/rubocop-hq/rubocop-rspec/pull/977[3]].
+Example pull requests to replace `TopLevelDescribe` with `TopLevelGroup` [https://github.com/rubocop/rubocop-rspec/pull/978[1], https://github.com/rubocop/rubocop-rspec/pull/932[2], https://github.com/rubocop/rubocop-rspec/pull/977[3]].
 
 
 === Change the `Language` Module Usages
@@ -216,7 +216,7 @@ Examples::EXAMPLES
 Examples.regular
 ----
 
-https://github.com/rubocop-hq/rubocop-rspec/pull/956[Pull request with more examples].
+https://github.com/rubocop/rubocop-rspec/pull/956[Pull request with more examples].
 
 === Always call `super` from `on_new_investigation` in your cops
 
@@ -240,7 +240,7 @@ module RuboCop
 end
 ----
 
-https://github.com/rubocop-hq/rubocop-rspec/pull/956[Pull request with more examples].
+https://github.com/rubocop/rubocop-rspec/pull/956[Pull request with more examples].
 
 === Use `:config` RSpec metadata in cop specs
 
@@ -264,7 +264,7 @@ RSpec.describe 'MyMightyCop', :config do
 end
 ----
 
-https://github.com/rubocop-hq/rubocop/blob/51ff1d7e29c985732fe129082c98d66c531a2611/lib/rubocop/rspec/shared_contexts.rb#L56[RuboCop takes care of defining everything for your cop specs].
+https://github.com/rubocop/rubocop/blob/51ff1d7e29c985732fe129082c98d66c531a2611/lib/rubocop/rspec/shared_contexts.rb#L56[RuboCop takes care of defining everything for your cop specs].
 
 === Conform with RuboCop API Changes
 

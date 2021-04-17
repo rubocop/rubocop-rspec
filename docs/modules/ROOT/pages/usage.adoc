@@ -72,7 +72,7 @@ RSpec:
 
 NOTE: the default merge mode is to inherit, so you won't remove any of the default settings.
 
-RuboCop RSpec's https://github.com/rubocop-hq/rubocop-rspec/blob/a43424527c09fae2e6ddb133f4b2988f6c46bb2e/config/default.yml#L6[default configuration] is a good source of information on what can be configured.
+RuboCop RSpec's https://github.com/rubocop/rubocop-rspec/blob/a43424527c09fae2e6ddb133f4b2988f6c46bb2e/config/default.yml#L6[default configuration] is a good source of information on what can be configured.
 
 == Command line
 

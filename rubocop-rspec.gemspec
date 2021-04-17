@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
     Code style checking for RSpec files.
     A plugin for the RuboCop code style enforcing & linting tool.
   DESCRIPTION
-  spec.homepage = 'https://github.com/rubocop-hq/rubocop-rspec'
+  spec.homepage = 'https://github.com/rubocop/rubocop-rspec'
   spec.authors = ['John Backus', 'Ian MacLeod', 'Nils Gemeinhardt']
   spec.email = [
     'johncbackus@gmail.com',
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/rubocop-hq/rubocop-rspec/blob/master/CHANGELOG.md',
+    'changelog_uri' => 'https://github.com/rubocop/rubocop-rspec/blob/master/CHANGELOG.md',
     'documentation_uri' => 'https://docs.rubocop.org/rubocop-rspec/'
   }
 
