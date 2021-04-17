@@ -18,7 +18,7 @@ module RuboCop
       #     # ...
       #   end
       #
-      # @see https://github.com/rubocop-hq/rubocop-rspec/issues/735
+      # @see https://github.com/rubocop/rubocop-rspec/issues/735
       class DescribedClassModuleWrapping < Base
         MSG = 'Avoid opening modules and defining specs within them.'
 

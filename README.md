@@ -7,7 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8ffaabf633c968c22bdd/maintainability)](https://codeclimate.com/github/rubocop-hq/rubocop-rspec/maintainability)
 
 RSpec-specific analysis for your projects, as an extension to
-[RuboCop](https://github.com/rubocop-hq/rubocop).
+[RuboCop](https://github.com/rubocop/rubocop).
 
 ## Installation
 
