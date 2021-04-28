@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.3.0 (2021-04-28)
+
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
 * Drop support for ruby 2.4. ([@bquorning][])
 * Add `CountAsOne` configuration option to `RSpec/ExampleLength`. ([@stephannv][])
