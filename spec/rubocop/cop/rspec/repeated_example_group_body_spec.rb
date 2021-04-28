@@ -224,6 +224,50 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
     RUBY
   end
 
+  it 'skips `skip` and `pending` statements with arguments' do
+    expect_no_offenses(<<-RUBY)
+      describe '#load' do
+        skip 'storage feature needed'
+      end
+
+      describe '#save' do
+        skip 'storage feature needed'
+      end
+
+      describe '#get_foo' do
+        pending 'foo feature is broken'
+      end
+
+      describe '#set_foo' do
+        pending 'foo feature is broken'
+      end
+    RUBY
+  end
+
+  it 'registers offense correctly if `skip` and `pending` have block' do
+    expect_offense(<<-RUBY)
+      describe '#load' do
+      ^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [5]
+        skip { cool_predicate_method }
+      end
+
+      describe '#save' do
+      ^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [1]
+        skip { cool_predicate_method }
+      end
+
+      describe '#get_foo' do
+      ^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [13]
+        pending { cool_predicate_method }
+      end
+
+      describe '#set_foo' do
+      ^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [9]
+        pending { cool_predicate_method }
+      end
+    RUBY
+  end
+
   it 'registers offense correctly if example groups are separated' do
     expect_offense(<<-RUBY)
       describe 'repeated' do
