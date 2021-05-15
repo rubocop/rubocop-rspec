@@ -2503,13 +2503,18 @@ end
 | Yes
 | No
 | 1.0
-| -
+| 2.4
 |===
 
-Checks for multiple top-level example groups.
+Checks for multiple top-level example groups or nested example groups.
 
-Multiple descriptions for the same class or module should either
-be nested or separated into different test files.
+In the default configuration, multiple descriptions for the same class
+or module should either be nested or separated into different test
+files.
+
+This cop can be configured with the option `Splitting` which will
+check that nested describe for the same class or module must be either
+nested or split into separate test files.
 
 === Examples
 
@@ -2529,6 +2534,61 @@ describe MyClass do
   end
 end
 ----
+
+==== with Splitting configuration
+
+[source,ruby]
+----
+# rubocop.yml
+# RSpec/InstanceVariable:
+#   AssignmentOnly: false
+
+# bad
+describe MyClass do
+  describe '.do_something' do
+  end
+  describe '.do_something_else' do
+  end
+end
+
+# good
+describe MyClass, '.do_something' do
+end
+describe MyClass, '.do_something_else' do
+end
+
+# allowed
+RSpec.describe MyClass do
+  shared_examples 'behaves' do;end
+
+  describe '#do_something' do
+    subject { my_class_instance.foo }
+  end
+end
+
+# allowed
+RSpec.describe MyClass do
+  RSpec::Matchers.define :be_a_multiple_of do |expected|
+    match do |actual|
+      actual % expected == 0
+    end
+  end
+
+  describe '#do_something' do
+    subject { my_class_instance.foo }
+  end
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Splitting
+| `false`
+| Boolean
+|===
 
 === References
 

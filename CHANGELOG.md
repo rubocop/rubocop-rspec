@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `Splitting` configuration option to `RSpec/MultipleDescribes`. ([@M-Yamashita01][])
+
 ## 2.3.0 (2021-04-28)
 
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
@@ -613,3 +615,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@hosamaly]: https://github.com/hosamaly
 [@stephannv]: https://github.com/stephannv
 [@Tietew]: https://github.com/Tietew
+[@M-Yamashita01]: https://github.com/M-Yamashita01
