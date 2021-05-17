@@ -51,8 +51,8 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
     RUBY
   end
 
-  context 'with CopConfig `Splitting' do
-    let(:cop_config) { { 'Splitting' => true } }
+  context 'when EnforcedStyle is :splitting' do
+    let(:cop_config) { { 'EnforcedStyle' => :splitting } }
 
     it 'check first describe in nested describe' do
       expect_offense(<<-RUBY)

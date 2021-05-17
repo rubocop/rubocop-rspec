@@ -5,15 +5,16 @@ module RuboCop
     module RSpec
       # Checks for multiple top-level example groups or nested example groups.
       #
-      # In the default configuration, multiple descriptions for the same class
-      # or module should either be nested or separated into different test
-      # files.
+      # This cop can be configured using the `EnforcedStyle` option.
       #
-      # This cop can be configured with the option `Splitting` which will
-      # check that nested describe for the same class or module must be either
-      # nested or split into separate test files.
+      # Using the `EnforcedStyle: nesting`, multiple descriptions for the
+      # same class or module should either be nested or separated into different
+      # test files.
       #
-      # @example
+      # Using the `EnforcedStyle: splitting`, nested describe for the same class
+      # or module must be either nested or split into separate test files.
+      #
+      # @example `EnforcedStyle: nesting`
       #   # bad
       #   describe MyClass, '.do_something' do
       #   end
@@ -28,11 +29,7 @@ module RuboCop
       #     end
       #   end
       #
-      # @example with Splitting configuration
-      #
-      #   # rubocop.yml
-      #   # RSpec/InstanceVariable:
-      #   #   AssignmentOnly: false
+      # @example `EnforcedStyle: splitting`
       #
       #   # bad
       #   describe MyClass do
@@ -72,6 +69,7 @@ module RuboCop
       #
       class MultipleDescribes < Base
         include TopLevelGroup
+        include ConfigurableEnforcedStyle
 
         MSG = 'Do not use multiple top-level example groups - try to nest them.'
         MSG_SPLIT = 'Do not use nested describe - try to split them.'
@@ -93,7 +91,7 @@ module RuboCop
         def_node_matcher :shared_example?, block_pattern('#SharedGroups.all')
 
         def on_top_level_group(node)
-          return if splitting?
+          return unless style == :nesting
 
           top_level_example_groups =
             top_level_groups.select(&method(:example_group?))
@@ -105,7 +103,7 @@ module RuboCop
         end
 
         def on_send(node)
-          return unless splitting?
+          return unless style == :splitting
 
           return unless describe?(node)
 
@@ -119,10 +117,6 @@ module RuboCop
         end
 
         private
-
-        def splitting?
-          cop_config['Splitting']
-        end
 
         def includes_describe_in_previous_node?(block_node)
           previous_block_node = previous_sibling(block_node)

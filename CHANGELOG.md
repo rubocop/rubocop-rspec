@@ -2,7 +2,7 @@
 
 ## Master (Unreleased)
 
-* Add `Splitting` configuration option to `RSpec/MultipleDescribes`. ([@M-Yamashita01][])
+* Add EnforcedStyle configuration to `RSpec/MultipleDescribes`. ([@M-Yamashita01][])
 
 ## 2.3.0 (2021-04-28)
 

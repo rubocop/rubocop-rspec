@@ -471,7 +471,10 @@ RSpec/MissingExampleGroupArgument:
 RSpec/MultipleDescribes:
   Description: Checks for multiple top-level example groups or nested example groups.
   Enabled: true
-  Splitting: false
+  EnforcedStyle: nesting
+  SupportedStyles:
+    - nesting
+    - splitting
   VersionAdded: '1.0'
   VersionChanged: '2.4'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes
