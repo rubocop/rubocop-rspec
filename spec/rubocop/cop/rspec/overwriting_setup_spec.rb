@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
-  it 'finds overwriten `let`' do
+  it 'registers an offense for overwriten `let`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'finds overwriten `subject`' do
+  it 'registers an offense for overwriten `subject`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject(:a) { a }
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'works with `subject!` and `let!`' do
+  it 'registers an offense for `subject!` and `let!`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject!(:a) { a }
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'finds `let!` overwriting `let`' do
+  it 'registers an offense for `let!` overwriting `let`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { b }
@@ -43,7 +43,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'ignores overwriting in different context' do
+  it 'does not register an offense for overwriting in different context' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'handles unnamed subjects' do
+  it 'registers an offense for overriding an unnamed subject' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { a }
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'handles dynamic names for `let`' do
+  it 'does not register an offense for dynamic names for `let`' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject(:name) { a }
@@ -76,7 +76,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'handles string arguments' do
+  it 'registers an offense for string arguments' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject(:name) { a }

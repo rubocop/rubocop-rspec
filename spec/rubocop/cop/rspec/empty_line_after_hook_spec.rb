@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
-  it 'checks for empty line after `before` hook' do
+  it 'registers an offense for empty line after `before` hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         before { do_something }
@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'checks for empty line after `after` hook' do
+  it 'registers an offense for empty line after `after` hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         after { do_something }
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'checks for empty line after `around` hook' do
+  it 'registers an offense for empty line after `around` hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         around { |test| test.run }
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'approves empty line after `before` hook' do
+  it 'does not register an offense for empty line after `before` hook' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         before { do_something }
@@ -65,7 +65,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'approves empty line after `after` hook' do
+  it 'does not register an offense for empty line after `after` hook' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         after { do_something }
@@ -75,7 +75,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'approves empty line after `around` hook' do
+  it 'does not register an offense for empty line after `around` hook' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         around { |test| test.run }
@@ -85,7 +85,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'handles multiline `before` block' do
+  it 'does not register an offense for multiline `before` block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         before do
@@ -97,7 +97,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'handles multiline `after` block' do
+  it 'does not register an offense for multiline `after` block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         after do
@@ -109,7 +109,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'handles multiline `around` block' do
+  it 'does not register an offense for multiline `around` block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         around do |test|
@@ -121,7 +121,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     RUBY
   end
 
-  it 'handles `before` being the latest node' do
+  it 'does not register an offense for `before` being the latest node' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         before { do_something }

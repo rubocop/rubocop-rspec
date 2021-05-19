@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
-  it 'checks for empty line after subject' do
+  it 'registers an offense for empty line after subject' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'checks for empty line after subject!' do
+  it 'registers an offense for empty line after subject!' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject! { described_class.new }
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'approves empty line after subject' do
+  it 'does not register an offense for empty line after subject' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'approves empty line after subject!' do
+  it 'does not register an offense for empty line after subject!' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject! { described_class.new }
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'handles subjects in tests' do
+  it 'does not register an offense for subjects in tests' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
@@ -70,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'handles multiline subject block' do
+  it 'does not register an offense for multiline subject block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject do
@@ -82,7 +82,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'handles subject being the latest node' do
+  it 'does not register an offense for subject being the latest node' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_user }

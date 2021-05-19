@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
-  it 'checks for empty line after last let' do
+  it 'registers an offense for empty line after last let' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'check for empty line after the last `let!`' do
+  it 'registers an offense for empty line after the last `let!`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -45,7 +45,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'checks for empty line after let with proc argument' do
+  it 'registers an offense for empty line after let with proc argument' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -65,30 +65,32 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'approves empty line after let' do
+  it 'does not register an offense for empty line after let' do
     expect_no_offenses(<<-RUBY)
-    RSpec.describe User do
-      let(:a) { a }
-      let(:b) { b }
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
 
-      it { expect(a).to eq(b) }
-    end
+        it { expect(a).to eq(b) }
+      end
     RUBY
   end
 
-  it 'allows comment followed by an empty line after let' do
+  it 'does not register an offense for comment '\
+     'followed by an empty line after let' do
     expect_no_offenses(<<-RUBY)
-    RSpec.describe User do
-      let(:a) { a }
-      let(:b) { b }
-      # end of setup
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        # end of setup
 
-      it { expect(a).to eq(b) }
-    end
+        it { expect(a).to eq(b) }
+      end
     RUBY
   end
 
-  it 'flags missing empty line after the comment that comes after last let' do
+  it 'registers an offense for missing empty line after the comment '\
+     'that comes after last let' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -110,7 +112,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'flags missing empty line after a multiline comment after last let' do
+  it 'registers an offense for missing empty line after a multiline comment '\
+     'after last let' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -134,20 +137,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'ignores empty lines between the lets' do
-    expect_offense(<<-RUBY)
-      RSpec.describe User do
-        let(:a) { a }
-
-        subject { described_class }
-
-        let!(:b) { b }
-        ^^^^^^^^^^^^^^ Add an empty line after the last `let!`.
-        it { expect(a).to eq(b) }
-      end
-    RUBY
-
-    expect_correction(<<-RUBY)
+  it 'does not register an offense for empty lines between the lets' do
+    expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
 
@@ -160,7 +151,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles let in tests' do
+  it 'does not register an offense for let in tests' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
@@ -173,7 +164,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles multiline let block' do
+  it 'does not register an offense for multiline let block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -186,7 +177,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles let being the latest node' do
+  it 'does not register an offense for let being the latest node' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -195,7 +186,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles HEREDOC for let' do
+  it 'does not register an offense for HEREDOC for let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:foo) do
@@ -212,7 +203,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles silly HEREDOC syntax for let' do
+  it 'does not register an offense for silly HEREDOC syntax for let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe 'silly heredoc syntax' do
         let(:foo) { <<-BAR }
@@ -227,7 +218,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'handles silly HEREDOC offense' do
+  it 'registers an offense for silly HEREDOC offense' do
     expect_offense(<<-RUBY)
       RSpec.describe 'silly heredoc syntax' do
         let(:foo) { <<-BAR }
