@@ -6,6 +6,7 @@
 * Fix an exception in `DescribedClass` when accessing a constant on a variable in a spec that is nested in a namespace. ([@rrosenblum][])
 * Add new `RSpec/IdenticalEqualityAssertion` cop. ([@tejasbubane][])
 * Add `RSpec/Rails/AvoidSetupHook cop. ([@paydaylight][])
+* Fix false negative in `RSpec/ExpectChange` cop with block style and chained method call. ([@tejasbubane][])
 
 ## 2.3.0 (2021-04-28)
 

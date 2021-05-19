@@ -82,6 +82,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       RUBY
     end
 
+    it 'registers an offense for change matcher with chained method call' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { paint_users! }.to change(users.green, :count).by(1)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { users.green.count }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { paint_users! }.to change { users.green.count }.by(1)
+        end
+      RUBY
+    end
+
     it 'ignores methods called change' do
       expect_no_offenses(<<-RUBY)
         it do
