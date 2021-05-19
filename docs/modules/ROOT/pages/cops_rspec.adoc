@@ -1827,7 +1827,7 @@ This cop can be configured using the `EnforcedStyle` option
 
 === Examples
 
-==== `EnforcedStyle: single_line_only`
+==== `EnforcedStyle: single_line_only` (default)
 
 [source,ruby]
 ----
@@ -1840,6 +1840,26 @@ end
 it { is_expected.to be_truthy }
 it do
   expect(subject).to be_truthy
+end
+----
+
+==== `EnforcedStyle: single_statement_only`
+
+[source,ruby]
+----
+# bad
+it do
+  foo = 1
+  is_expected.to be_truthy
+end
+
+# good
+it do
+  foo = 1
+  expect(subject).to be_truthy
+end
+it do
+  is_expected.to be_truthy
 end
 ----
 

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add missing documentation for `single_statement_only` style of `RSpec/ImplicitSubject` cop. ([@tejasbubane][])
+
 ## 2.3.0 (2021-04-28)
 
 * Allow `RSpec/ContextWording` to accept multi-word prefixes. ([@hosamaly][])
