@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add missing documentation for `single_statement_only` style of `RSpec/ImplicitSubject` cop. ([@tejasbubane][])
+* Fix an exception in `DescribedClass` when accessing a constant on a variable in a spec that is nested in a namespace. ([@rrosenblum][])
 
 ## 2.3.0 (2021-04-28)
 
@@ -615,3 +616,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@hosamaly]: https://github.com/hosamaly
 [@stephannv]: https://github.com/stephannv
 [@Tietew]: https://github.com/Tietew
+[@rrosenblum]: https://github.com/rrosenblum
