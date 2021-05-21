@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
-  it 'checks subject below let' do
+  it 'registers an offense for subject below let' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:params) { foo }
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'checks subject below let!' do
+  it 'registers an offense for subject below let!' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let!(:params) { foo }
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'checks subject below let with proc argument' do
+  it 'registers an offense for subject below let with proc argument' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:user, &args[:build_user])
@@ -58,7 +58,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'approves of subject above let' do
+  it 'does not register an offense for subject above let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         subject { described_class.new }
@@ -71,7 +71,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'handles subjects in contexts' do
+  it 'does not register an offense for subjects in contexts' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:params) { foo }
@@ -83,7 +83,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'handles subjects in tests' do
+  it 'does not register an offense for subjects in tests' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         # This shouldn't really ever happen in a sane codebase but I still
@@ -96,7 +96,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'checks subject below hook' do
+  it 'registers an offense for subject below hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         before { allow(Foo).to receive(:bar) }
@@ -115,7 +115,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'checks subject below example' do
+  it 'registers an offense for subject below example' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         it { is_expected.to be_present }
@@ -134,7 +134,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'checks also when subject is below a non-offending node' do
+  it 'registers an offense when subject is below a non-offending node' do
     expect_offense(<<~RUBY)
       RSpec.describe do
         def helper_method
@@ -159,7 +159,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'flags subject below example group' do
+  it 'registers an offense for subject below example group' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         describe do
@@ -182,7 +182,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'flags subject below shared example group' do
+  it 'registers an offense for subject below shared example group' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         shared_examples_for 'used later' do
@@ -205,7 +205,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'flags subject below include' do
+  it 'registers an offense for subject below include' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         it_behaves_like 'a good citizen'
@@ -224,7 +224,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'flags subject below include with a block' do
+  it 'registers an offense for subject below include with a block' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         it_behaves_like 'a good citizen' do
@@ -247,7 +247,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'flags subject below include with a blockpass' do
+  it 'registers an offense for subject below include with a blockpass' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         block = ->{ }
@@ -268,7 +268,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'ignores subject nested inside a block' do
+  it 'does not register an offense for subject nested inside a block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
         let(:foo) { 'bar' }
