@@ -8,6 +8,7 @@ require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/create_list'
 require_relative 'rspec/factory_bot/factory_class_name'
 
+require_relative 'rspec/rails/avoid_setup_hook'
 begin
   require_relative 'rspec/rails/http_status'
 rescue LoadError
