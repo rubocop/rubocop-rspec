@@ -351,6 +351,12 @@ RSpec/HooksBeforeExamples:
   VersionAdded: '1.29'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
 
+RSpec/IdenticalEqualityAssertion:
+  Description: Checks for equality assertions with identical expressions on both sides.
+  Enabled: pending
+  VersionAdded: '2.4'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
+
 RSpec/ImplicitBlockExpectation:
   Description: Check that implicit block expectation syntax is not used.
   Enabled: true

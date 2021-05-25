@@ -35,6 +35,7 @@
 * xref:cops_rspec.adoc#rspecfocus[RSpec/Focus]
 * xref:cops_rspec.adoc#rspechookargument[RSpec/HookArgument]
 * xref:cops_rspec.adoc#rspechooksbeforeexamples[RSpec/HooksBeforeExamples]
+* xref:cops_rspec.adoc#rspecidenticalequalityassertion[RSpec/IdenticalEqualityAssertion]
 * xref:cops_rspec.adoc#rspecimplicitblockexpectation[RSpec/ImplicitBlockExpectation]
 * xref:cops_rspec.adoc#rspecimplicitexpect[RSpec/ImplicitExpect]
 * xref:cops_rspec.adoc#rspecimplicitsubject[RSpec/ImplicitSubject]

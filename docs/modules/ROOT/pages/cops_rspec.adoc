@@ -1720,6 +1720,37 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
 
+== RSpec/IdenticalEqualityAssertion
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| No
+| 2.4
+| -
+|===
+
+Checks for equality assertions with identical expressions on both sides.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo.bar).to eq(foo.bar)
+expect(foo.bar).to eql(foo.bar)
+
+# good
+expect(foo.bar).to eq(2)
+expect(foo.bar).to eql(2)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
+
 == RSpec/ImplicitBlockExpectation
 
 |===
