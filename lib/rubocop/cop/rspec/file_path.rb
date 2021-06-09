@@ -61,10 +61,10 @@ module RuboCop
 
         MSG = 'Spec path should end with `%<suffix>s`.'
 
-        # @!method const_described(node)
-        def_node_matcher :const_described, <<~PATTERN
+        # @!method example_group(node)
+        def_node_matcher :example_group, <<~PATTERN
           (block
-            $(send #rspec? _example_group $(const ...) $...) ...
+            $(send #rspec? _example_group $_ $...) ...
           )
         PATTERN
 
@@ -74,17 +74,17 @@ module RuboCop
         def on_top_level_example_group(node)
           return unless top_level_groups.one?
 
-          const_described(node) do |send_node, described_class, arguments|
+          example_group(node) do |send_node, example_group, arguments|
             next if routing_spec?(arguments)
 
-            ensure_correct_file_path(send_node, described_class, arguments)
+            ensure_correct_file_path(send_node, example_group, arguments)
           end
         end
 
         private
 
-        def ensure_correct_file_path(send_node, described_class, arguments)
-          pattern = pattern_for(described_class, arguments.first)
+        def ensure_correct_file_path(send_node, example_group, arguments)
+          pattern = pattern_for(example_group, arguments.first)
           return if filename_ends_with?(pattern)
 
           # For the suffix shown in the offense message, modify the regular
@@ -99,11 +99,13 @@ module RuboCop
           args.any?(&method(:routing_metadata?))
         end
 
-        def pattern_for(described_class, method_name)
-          return pattern_for_spec_suffix_only? if spec_suffix_only?
+        def pattern_for(example_group, method_name)
+          if spec_suffix_only? || !example_group.const_type?
+            return pattern_for_spec_suffix_only?
+          end
 
           [
-            expected_path(described_class),
+            expected_path(example_group),
             name_pattern(method_name),
             '[^/]*_spec\.rb'
           ].join

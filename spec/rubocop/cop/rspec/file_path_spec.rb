@@ -64,6 +64,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
+  it 'registers an offense for a feature file missing _spec' do
+    expect_offense(<<-RUBY, 'spec/features/my_feature.rb')
+      feature "my feature" do; end
+      ^^^^^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+    RUBY
+  end
+
   it 'registers an offense for a file without the .rb extension' do
     expect_offense(<<-RUBY, 'spec/models/user_specxrb')
       describe User do; end
@@ -262,6 +269,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
       expect_offense(<<-RUBY, 'spec/whatever.rb')
         describe MyClass do; end
         ^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+      RUBY
+    end
+
+    it 'registers an offense when a feature file is missing _spec.rb suffix' do
+      expect_offense(<<-RUBY, 'spec/my_feature.rb')
+        feature "my feature" do; end
+        ^^^^^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
       RUBY
     end
 
