@@ -7,7 +7,7 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option
       #
-      # @example `EnforcedStyle: single_line_only`
+      # @example `EnforcedStyle: single_line_only` (default)
       #   # bad
       #   it do
       #     is_expected.to be_truthy
@@ -17,6 +17,22 @@ module RuboCop
       #   it { is_expected.to be_truthy }
       #   it do
       #     expect(subject).to be_truthy
+      #   end
+      #
+      # @example `EnforcedStyle: single_statement_only`
+      #   # bad
+      #   it do
+      #     foo = 1
+      #     is_expected.to be_truthy
+      #   end
+      #
+      #   # good
+      #   it do
+      #     foo = 1
+      #     expect(subject).to be_truthy
+      #   end
+      #   it do
+      #     is_expected.to be_truthy
       #   end
       #
       # @example `EnforcedStyle: disallow`

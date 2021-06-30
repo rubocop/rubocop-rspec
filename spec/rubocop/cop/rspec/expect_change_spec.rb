@@ -67,7 +67,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       RUBY
     end
 
-    it 'flags change matcher when receiver is a variable' do
+    it 'flags change matcher when receiver is a constant' do
       expect_offense(<<-RUBY)
         it do
           expect { run }.to change(User, :count)
@@ -78,6 +78,81 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       expect_correction(<<-RUBY)
         it do
           expect { run }.to change { User.count }
+        end
+      RUBY
+    end
+
+    it 'flags change matcher when receiver is a top-level constant' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { run }.to change(::User, :count)
+                            ^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { ::User.count }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { run }.to change { ::User.count }
+        end
+      RUBY
+    end
+
+    it 'flags change matcher when receiver is a variable' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { run }.to change(user, :status)
+                            ^^^^^^^^^^^^^^^^^^^^^ Prefer `change { user.status }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { run }.to change { user.status }
+        end
+      RUBY
+    end
+
+    it 'registers an offense for change matcher with chained method call' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { paint_users! }.to change(users.green, :count).by(1)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { users.green.count }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { paint_users! }.to change { users.green.count }.by(1)
+        end
+      RUBY
+    end
+
+    it 'registers an offense for change matcher with an instance variable' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { paint_users! }.to change(@food, :taste).to(:sour)
+                                     ^^^^^^^^^^^^^^^^^^^^^ Prefer `change { @food.taste }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { paint_users! }.to change { @food.taste }.to(:sour)
+        end
+      RUBY
+    end
+
+    it 'registers an offense for change matcher with a global variable' do
+      expect_offense(<<-RUBY)
+        it do
+          expect { paint_users! }.to change($token, :value).to(nil)
+                                     ^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { $token.value }`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { paint_users! }.to change { $token.value }.to(nil)
         end
       RUBY
     end

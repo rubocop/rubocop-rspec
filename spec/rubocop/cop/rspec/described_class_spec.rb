@@ -77,6 +77,17 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
+    it 'allows accessing constants from variables when in a nested namespace' do
+      expect_no_offenses(<<~RUBY)
+        module Foo
+          describe MyClass do
+            let(:foo) { SomeClass }
+            let(:baz) { foo::CONST }
+          end
+        end
+      RUBY
+    end
+
     it 'flags with metadata' do
       expect_offense(<<-RUBY)
         describe MyClass, some: :metadata do

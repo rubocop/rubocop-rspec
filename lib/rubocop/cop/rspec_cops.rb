@@ -8,6 +8,7 @@ require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/create_list'
 require_relative 'rspec/factory_bot/factory_class_name'
 
+require_relative 'rspec/rails/avoid_setup_hook'
 begin
   require_relative 'rspec/rails/http_status'
 rescue LoadError
@@ -47,6 +48,7 @@ require_relative 'rspec/file_path'
 require_relative 'rspec/focus'
 require_relative 'rspec/hook_argument'
 require_relative 'rspec/hooks_before_examples'
+require_relative 'rspec/identical_equality_assertion'
 require_relative 'rspec/implicit_block_expectation'
 require_relative 'rspec/implicit_expect'
 require_relative 'rspec/implicit_subject'

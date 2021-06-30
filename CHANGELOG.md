@@ -3,6 +3,14 @@
 ## Master (Unreleased)
 
 * Add EnforcedStyle configuration to `RSpec/MultipleDescribes`. ([@M-Yamashita01][])
+## 2.4.0 (2021-06-09)
+
+* Update `RSpec/FilePath` to check suffix when given a non-constant top-level node (e.g. features). ([@topalovic][])
+* Add missing documentation for `single_statement_only` style of `RSpec/ImplicitSubject` cop. ([@tejasbubane][])
+* Fix an exception in `DescribedClass` when accessing a constant on a variable in a spec that is nested in a namespace. ([@rrosenblum][])
+* Add new `RSpec/IdenticalEqualityAssertion` cop. ([@tejasbubane][])
+* Add `RSpec/Rails/AvoidSetupHook` cop. ([@paydaylight][])
+* Fix false negative in `RSpec/ExpectChange` cop with block style and chained method call. ([@tejasbubane][])
 
 ## 2.3.0 (2021-04-28)
 
@@ -616,3 +624,6 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@stephannv]: https://github.com/stephannv
 [@Tietew]: https://github.com/Tietew
 [@M-Yamashita01]: https://github.com/M-Yamashita01
+[@rrosenblum]: https://github.com/rrosenblum
+[@paydaylight]: https://github.com/paydaylight
+[@topalovic]: https://github.com/topalovic

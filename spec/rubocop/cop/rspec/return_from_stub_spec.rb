@@ -157,7 +157,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
-    it 'finds concatenated strings with no variables' do
+    it 'registers an offense for concatenated strings with no variables' do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar) do
@@ -176,7 +176,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
-    it 'ignores stubs without return value' do
+    it 'does not register an offense for a stub without return value' do
       expect_no_offenses(<<-RUBY)
         it do
           allow(Foo).to receive(:bar)
@@ -184,7 +184,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
-    it 'handles stubs in a method' do
+    it 'does not register an offense for stub in a method' do
       expect_no_offenses(<<-RUBY)
         def stub_foo
           allow(Foo).to receive(:bar)
@@ -196,7 +196,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
   context 'with EnforcedStyle `block`' do
     let(:enforced_style) { 'block' }
 
-    it 'finds static values returned from method' do
+    it 'registers an offense for static values returned from method' do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar).and_return(42)
@@ -205,7 +205,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
-    it 'finds static values returned from chained method' do
+    it 'registers an offense for static values returned from chained method' do
       expect_offense(<<-RUBY)
         it do
           allow(Foo).to receive(:bar).with(1).and_return(42)
@@ -214,7 +214,7 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
-    it 'ignores dynamic values returned from method' do
+    it 'does not register an offense for dynamic values returned from method' do
       expect_no_offenses(<<-RUBY)
         it do
           allow(Foo).to receive(:bar).and_return(baz)
