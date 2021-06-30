@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
   context 'when EnforcedStyle is :splitting' do
     let(:cop_config) { { 'EnforcedStyle' => :splitting } }
 
-    it 'check first describe in nested describe' do
+    it 'check example group in nested example groups' do
       expect_offense(<<-RUBY)
         RSpec.describe MyClass do
           describe '#do_something' do
@@ -65,20 +65,75 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
       RUBY
     end
 
-    it 'check first describe in each nested describe' do
+    it 'check nested example group in nested example groups' do
       expect_offense(<<-RUBY)
-        describe MyClassController, type: :controller do
-          describe 'do_something' do
-          ^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
-            describe 'do_something_in_describe' do; end
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
+        RSpec.describe MyClass do
+          shared_examples 'behaves_test' do;end
+
+          describe '#do_something' do
+            it_behaves_like 'behaves_test'
+
+            describe 'nested_example_group' do;end
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
           end
-          describe 'do_something_else' do; end
         end
       RUBY
     end
 
-    it 'ignores describe in top level groups' do
+    it 'check example group when not used rspec matcher' do
+      expect_offense(<<-RUBY)
+        RSpec.describe MyClass do
+          RSpec::Matchers.define :be_a_multiple_of do |expected|
+            match do |actual|
+              actual % expected == 0
+            end
+          end
+
+          describe '#do_something' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
+            it 'does not used rspec matcher' do
+              expect(a).to eq(b)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'check example group when not used rspec' \
+        'matcher define_negated_matcher' do
+      expect_offense(<<-RUBY)
+        RSpec.describe MyClass do
+          RSpec::Matchers.define_negated_matcher :not_change, :change
+
+          describe '#do_something' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
+            it 'does not used rspec matcher define_negated_matcher' do
+              expect(a).to eq(b)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'check example group when included shared group' do
+      expect_offense(<<-RUBY)
+        RSpec.describe MyClass do
+          describe '#do_something' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^ Do not use nested describe - try to split them.
+            shared_examples 'behaves_test' do
+              describe 'example_group_in_behaves_test' do;end
+              describe 'other_example_group_in_behaves_test' do;end
+            end
+
+            it_behaves_like 'behaves_test'
+          end
+
+          describe '#do_something_else' do;end
+        end
+      RUBY
+    end
+
+    it 'ignores example group in top level groups' do
       expect_no_offenses(<<-RUBY)
         RSpec.describe MyClass, '#do_something' do
           subject { my_class_instance.foo }
@@ -89,7 +144,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
       RUBY
     end
 
-    it 'ignores describe when rspec matcher exists' do
+    it 'ignores example group that uses to when used rspec matcher' do
       expect_no_offenses(<<-RUBY)
         RSpec.describe MyClass do
           RSpec::Matchers.define :be_a_multiple_of do |expected|
@@ -99,88 +154,78 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleDescribes do
           end
 
           describe '#do_something' do
-            subject { my_class_instance.foo }
-          end
-
-          describe '#do_something_else' do
-            subject { my_class_instance.bar }
-          end
-        end
-      RUBY
-    end
-
-    it 'ignores describe when shared example group exists' do
-      expect_no_offenses(<<-RUBY)
-        RSpec.describe MyClass do
-          shared_examples 'behaves' do;end
-
-          describe '#do_something' do
-            subject { my_class_instance.foo }
-          end
-
-          describe '#do_something_else' do
-            subject { my_class_instance.bar }
-          end
-        end
-      RUBY
-    end
-
-    it 'ignores describe when shared example for group exists' do
-      expect_no_offenses(<<-RUBY)
-        RSpec.describe MyClass do
-          shared_examples_for 'behaves' do;end
-
-          describe '#do_something' do
-            subject { my_class_instance.foo }
-          end
-
-          describe '#do_something_else' do
-            subject { my_class_instance.bar }
-          end
-        end
-      RUBY
-    end
-
-    it 'ignores describe when shared context group exists' do
-      expect_no_offenses(<<-RUBY)
-        RSpec.describe MyClass do
-          shared_context 'behaves' do;end
-
-          describe '#do_something' do
-            subject { my_class_instance.foo }
-          end
-
-          describe '#do_something_else' do
-            subject { my_class_instance.bar }
-          end
-        end
-      RUBY
-    end
-
-    it 'ignores describe when shared context group includes describe' do
-      expect_no_offenses(<<-RUBY)
-        RSpec.describe MyClass do
-          RSpec.shared_examples 'behaves' do
-            describe '#do_something_in_behaves' do;end
-            describe '#do_something_else_in_behaves' do;end
-          end
-
-          describe '#do_something' do;end
-          describe '#do_something_else' do;end
-        end
-      RUBY
-    end
-
-    it 'ignores describe when describe includes shared example group' do
-      expect_no_offenses(<<-RUBY)
-        RSpec.describe MyClass do
-          describe '#foo' do
-            RSpec.shared_examples 'behaves' do
-              describe '#do_something_in_behaves' do;end
-              describe '#do_something_else_in_behaves' do;end
+            it 'used rspec matcher' do
+              expect(a).to be_a_multiple_of
             end
           end
-          describe '#do_something' do;end
+        end
+      RUBY
+    end
+
+    it 'ignores example group that uses not_to when it used rspec matcher' do
+      expect_no_offenses(<<-RUBY)
+        RSpec.describe MyClass do
+          RSpec::Matchers.define :be_a_multiple_of do |expected|
+            match do |actual|
+              actual % expected == 0
+            end
+          end
+
+          describe '#do_something' do
+            it 'used rspec matcher' do
+              expect(a).not_to be_a_multiple_of
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores example group when used rspec matcher' do
+      expect_no_offenses(<<-RUBY)
+        RSpec.describe MyClass do
+          RSpec::Matchers.define :be_a_multiple_of do |expected|
+            match do |actual|
+              actual % expected == 0
+            end
+          end
+
+          describe '#do_something' do
+            describe 'nested_example_group' do
+              it 'used rspec matcher' do
+                expect('foo').to be_a_multiple_of
+              end
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores example group when used rspec matcher define_negated_matcher' do
+      expect_no_offenses(<<-RUBY)
+        RSpec.describe MyClass do
+          RSpec::Matchers.define_negated_matcher :not_change, :change
+
+          describe '#do_something' do
+            it 'used rspec matcher define_negated_matcher' do
+              expect(a).to not_change(Customer, :count).and change(Product, :count).by(1)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores example group when used shared group' do
+      expect_no_offenses(<<-RUBY)
+        RSpec.describe MyClass do
+          shared_examples 'behaves_test' do;end
+
+          describe '#do_something' do
+            it_behaves_like 'behaves_test'
+          end
+
+          describe '#do_something_else' do
+            it_behaves_like 'behaves_test'
+          end
         end
       RUBY
     end

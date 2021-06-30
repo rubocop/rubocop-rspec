@@ -2510,12 +2510,12 @@ Checks for multiple top-level example groups or nested example groups.
 
 This cop can be configured using the `EnforcedStyle` option.
 
-Using the `EnforcedStyle: nesting`, multiple descriptions for the
+Using the `EnforcedStyle: nesting`, multiple example groups for the
 same class or module should either be nested or separated into different
 test files.
 
-Using the `EnforcedStyle: splitting`, nested describe for the same class
-or module must be either nested or split into separate test files.
+Using the `EnforcedStyle: splitting`, nested example group for the
+same class or module should be split into separate test files.
 
 === Examples
 
@@ -2554,28 +2554,6 @@ end
 describe MyClass, '.do_something' do
 end
 describe MyClass, '.do_something_else' do
-end
-
-# allowed
-RSpec.describe MyClass do
-  shared_examples 'behaves' do;end
-
-  describe '#do_something' do
-    subject { my_class_instance.foo }
-  end
-end
-
-# allowed
-RSpec.describe MyClass do
-  RSpec::Matchers.define :be_a_multiple_of do |expected|
-    match do |actual|
-      actual % expected == 0
-    end
-  end
-
-  describe '#do_something' do
-    subject { my_class_instance.foo }
-  end
 end
 ----
 
