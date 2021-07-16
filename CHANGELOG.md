@@ -1,6 +1,7 @@
 # Changelog
 
 ## Master (Unreleased)
+* Fix each example for `RSpec/HookArgument`. ([@lokhi][])
 
 ## 2.4.0 (2021-06-09)
 
@@ -625,3 +626,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rrosenblum]: https://github.com/rrosenblum
 [@paydaylight]: https://github.com/paydaylight
 [@topalovic]: https://github.com/topalovic
+[@lokhi]: https://github.com/lokhi

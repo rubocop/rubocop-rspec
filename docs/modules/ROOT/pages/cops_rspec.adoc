@@ -1635,7 +1635,7 @@ before(:example) do
   # ...
 end
 
-# good
+# bad
 before do
   # ...
 end
