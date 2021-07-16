@@ -32,7 +32,7 @@ module RuboCop
       #     # ...
       #   end
       #
-      #   # good
+      #   # bad
       #   before do
       #     # ...
       #   end
