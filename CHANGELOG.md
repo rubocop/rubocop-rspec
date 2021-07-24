@@ -1,8 +1,10 @@
 # Changelog
 
 ## Master (Unreleased)
+
 * Fix each example for `RSpec/HookArgument`. ([@lokhi][])
 * Exclude unrelated Rails directories from `RSpec/DescribeClass`. ([@MothOnMars][])
+* Add `RSpec/ExcessiveDocstringSpacing` cop. ([@G-Rath][])
 
 ## 2.4.0 (2021-06-09)
 
@@ -629,3 +631,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@topalovic]: https://github.com/topalovic
 [@lokhi]: https://github.com/lokhi
 [@MothOnMars]: https://github.com/MothOnMars
+[@G-Rath]: https://github.com/G-Rath
