@@ -655,6 +655,12 @@ RSpec/StubbedMock:
   VersionAdded: '1.44'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
+RSpec/SubjectDeclaration:
+  Description: Ensure that subject is defined using subject helper.
+  Enabled: pending
+  VersionAdded: '2.5'
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
+
 RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true

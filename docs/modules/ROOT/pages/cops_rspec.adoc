@@ -3930,6 +3930,42 @@ expect(foo).to receive(:bar).with(42)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
+== RSpec/SubjectDeclaration
+
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| No
+| 2.5
+| -
+|===
+
+Ensure that subject is defined using subject helper.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+let(:subject) { foo }
+let!(:subject) { foo }
+subject(:subject) { foo }
+subject!(:subject) { foo }
+
+# bad
+block = -> {}
+let(:subject, &block)
+
+# good
+subject(:test_subject) { foo }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
+
 == RSpec/SubjectStub
 
 |===
