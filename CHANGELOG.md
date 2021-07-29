@@ -6,6 +6,7 @@
 * Exclude unrelated Rails directories from `RSpec/DescribeClass`. ([@MothOnMars][])
 * Add `RSpec/ExcessiveDocstringSpacing` cop. ([@G-Rath][])
 * Add `RSpec/SubjectDeclaration` cop. ([@dswij][])
+* Fix excessive whitespace removal in `RSpec/EmptyHook' autocorrection. ([@pirj][])
 
 ## 2.4.0 (2021-06-09)
 
