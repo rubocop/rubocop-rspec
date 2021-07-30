@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'detects offense for empty `before` with :each scope' do
@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'detects offense for empty `before` with :example scope' do
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'detects offense for empty `before` with :context scope' do
@@ -35,7 +35,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'detects offense for empty `before` with :all scope' do
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'detects offense for empty `before` with :suite scope' do
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `before` hook' do
@@ -90,7 +90,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `after` hook' do
@@ -116,7 +116,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `around` hook' do
@@ -142,7 +142,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `prepend_before` hook' do
@@ -168,7 +168,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `append_before` hook' do
@@ -194,7 +194,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `prepend_after` hook' do
@@ -220,7 +220,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         ^^^^^^^^^^^^ Empty hook detected.
       RUBY
 
-      expect_correction('')
+      expect_correction("\n")
     end
 
     it 'accepts non-empty `append_after` hook' do
@@ -234,6 +234,31 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyHook do
         append_after(:all) do
           cleanup_users
           cleanup_products
+        end
+      RUBY
+    end
+  end
+
+  context 'when the hook is between other blocks' do
+    it 'detects offense for empty `append_after`' do
+      expect_offense(<<~RUBY)
+        let(:foo) { 'bar' }
+
+        before do
+        ^^^^^^ Empty hook detected.
+          # commented out code
+        end
+
+        it do
+          expect(foo).to eq('bar')
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        let(:foo) { 'bar' }
+
+        it do
+          expect(foo).to eq('bar')
         end
       RUBY
     end
