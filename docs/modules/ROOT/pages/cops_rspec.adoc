@@ -1366,9 +1366,9 @@ expect(name).to eq("John")
 
 | Enabled
 | Yes
-| Yes
+| Yes (Unsafe)
 | 1.22
-| -
+| 2.5.0
 |===
 
 Checks for consistent style of change matcher.

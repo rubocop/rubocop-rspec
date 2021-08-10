@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Declare autocorrect as unsafe for `ExpectChange`. ([@francois-ferrandis][])
 * Fix each example for `RSpec/HookArgument`. ([@lokhi][])
 * Exclude unrelated Rails directories from `RSpec/DescribeClass`. ([@MothOnMars][])
 * Add `RSpec/ExcessiveDocstringSpacing` cop. ([@G-Rath][])
@@ -635,3 +636,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@MothOnMars]: https://github.com/MothOnMars
 [@G-Rath]: https://github.com/G-Rath
 [@dswij]: https://github.com/dswij
+[@francois-ferrandis]: https://github.com/francois-ferrandis
