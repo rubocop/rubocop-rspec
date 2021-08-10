@@ -309,7 +309,9 @@ RSpec/ExpectChange:
   SupportedStyles:
     - method_call
     - block
+  SafeAutoCorrect: false
   VersionAdded: '1.22'
+  VersionChanged: 2.5.0
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
 RSpec/ExpectInHook:
