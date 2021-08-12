@@ -36,8 +36,7 @@ Gem::Specification.new do |spec|
     'documentation_uri' => 'https://docs.rubocop.org/rubocop-rspec/'
   }
 
-  spec.add_runtime_dependency 'rubocop', '~> 1.0'
-  spec.add_runtime_dependency 'rubocop-ast', '>= 1.1.0'
+  spec.add_runtime_dependency 'rubocop', '~> 1.19'
 
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'

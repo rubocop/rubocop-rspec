@@ -8,6 +8,7 @@
 * Add `RSpec/ExcessiveDocstringSpacing` cop. ([@G-Rath][])
 * Add `RSpec/SubjectDeclaration` cop. ([@dswij][])
 * Fix excessive whitespace removal in `RSpec/EmptyHook' autocorrection. ([@pirj][])
+* Bump RuboCop requirement to v1.19.0. ([@pirj][])
 
 ## 2.4.0 (2021-06-09)
 
