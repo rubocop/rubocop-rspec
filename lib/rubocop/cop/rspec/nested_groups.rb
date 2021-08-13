@@ -6,7 +6,7 @@ module RuboCop
       # Checks for nested example groups.
       #
       # This cop is configurable using the `Max` option
-      # and supports `--auto-gen-config
+      # and supports `--auto-gen-config`.
       #
       # @example
       #   # bad
