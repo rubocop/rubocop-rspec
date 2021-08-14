@@ -85,21 +85,21 @@
 * xref:cops_rspec.adoc#rspecvoidexpect[RSpec/VoidExpect]
 * xref:cops_rspec.adoc#rspecyield[RSpec/Yield]
 
-=== Department xref:cops_rspec/capybara.adoc[RSpec/Capybara]
+=== Department xref:cops_rspec_capybara.adoc[RSpec/Capybara]
 
-* xref:cops_rspec/capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
-* xref:cops_rspec/capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
-* xref:cops_rspec/capybara.adoc#rspeccapybara/visibilitymatcher[RSpec/Capybara/VisibilityMatcher]
+* xref:cops_rspec_capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
+* xref:cops_rspec_capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
+* xref:cops_rspec_capybara.adoc#rspeccapybara/visibilitymatcher[RSpec/Capybara/VisibilityMatcher]
 
-=== Department xref:cops_rspec/factorybot.adoc[RSpec/FactoryBot]
+=== Department xref:cops_rspec_factorybot.adoc[RSpec/FactoryBot]
 
-* xref:cops_rspec/factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
-* xref:cops_rspec/factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
-* xref:cops_rspec/factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
+* xref:cops_rspec_factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
+* xref:cops_rspec_factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
+* xref:cops_rspec_factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
 
-=== Department xref:cops_rspec/rails.adoc[RSpec/Rails]
+=== Department xref:cops_rspec_rails.adoc[RSpec/Rails]
 
-* xref:cops_rspec/rails.adoc#rspecrails/avoidsetuphook[RSpec/Rails/AvoidSetupHook]
-* xref:cops_rspec/rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
+* xref:cops_rspec_rails.adoc#rspecrails/avoidsetuphook[RSpec/Rails/AvoidSetupHook]
+* xref:cops_rspec_rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
 
 // END_COP_LIST
