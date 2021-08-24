@@ -48,6 +48,8 @@ module RuboCop
         end
 
         def only_expectations?(body, arg)
+          return false unless body.each_child_node.any?
+
           body.each_child_node.all? { |child| expectation?(child, arg) }
         end
       end

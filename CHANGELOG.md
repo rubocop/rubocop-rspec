@@ -7,8 +7,9 @@
 * Exclude unrelated Rails directories from `RSpec/DescribeClass`. ([@MothOnMars][])
 * Add `RSpec/ExcessiveDocstringSpacing` cop. ([@G-Rath][])
 * Add `RSpec/SubjectDeclaration` cop. ([@dswij][])
-* Fix excessive whitespace removal in `RSpec/EmptyHook' autocorrection. ([@pirj][])
+* Fix excessive whitespace removal in `RSpec/EmptyHook` autocorrection. ([@pirj][])
 * Bump RuboCop requirement to v1.19.0. ([@pirj][])
+* Fix false positive in `RSpec/IteratedExpectation` when there is single, non-espectation statement in the block body. ([@Darhazer][])
 
 ## 2.4.0 (2021-06-09)
 

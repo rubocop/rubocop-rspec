@@ -27,6 +27,14 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
     RUBY
   end
 
+  it 'ignores `each` with unused variable' do
+    expect_no_offenses(<<-RUBY)
+      it 'validates users' do
+        [user1, user2, user3].each { |_user| do_something }
+      end
+    RUBY
+  end
+
   it 'flags `each` with multiple expectations' do
     expect_offense(<<-RUBY)
       it 'validates users' do
