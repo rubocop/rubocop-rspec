@@ -10,6 +10,7 @@
 * Fix excessive whitespace removal in `RSpec/EmptyHook` autocorrection. ([@pirj][])
 * Bump RuboCop requirement to v1.19.0. ([@pirj][])
 * Fix false positive in `RSpec/IteratedExpectation` when there is single, non-espectation statement in the block body. ([@Darhazer][])
+* Add `RSpec/LeadingLet` cop. ([@kykyi][])
 
 ## 2.4.0 (2021-06-09)
 
@@ -639,3 +640,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@G-Rath]: https://github.com/G-Rath
 [@dswij]: https://github.com/dswij
 [@francois-ferrandis]: https://github.com/francois-ferrandis
+[@kykyi]: https://github.com/kykyi

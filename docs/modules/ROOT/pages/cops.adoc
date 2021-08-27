@@ -44,6 +44,7 @@
 * xref:cops_rspec.adoc#rspecinstancevariable[RSpec/InstanceVariable]
 * xref:cops_rspec.adoc#rspecitbehaveslike[RSpec/ItBehavesLike]
 * xref:cops_rspec.adoc#rspeciteratedexpectation[RSpec/IteratedExpectation]
+* xref:cops_rspec.adoc#rspecleadinglet[RSpec/LeadingLet]
 * xref:cops_rspec.adoc#rspecleadingsubject[RSpec/LeadingSubject]
 * xref:cops_rspec.adoc#rspecleakyconstantdeclaration[RSpec/LeakyConstantDeclaration]
 * xref:cops_rspec.adoc#rspecletbeforeexamples[RSpec/LetBeforeExamples]
