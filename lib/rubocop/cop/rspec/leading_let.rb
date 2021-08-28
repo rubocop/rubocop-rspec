@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Enforce that let definitions come before subject in the test.
+      # Enforce that let definitions come before all other definitions.
       #
       # @example
       #   # bad
