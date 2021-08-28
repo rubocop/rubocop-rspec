@@ -429,6 +429,12 @@ RSpec/IteratedExpectation:
   VersionAdded: '1.14'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
 
+RSpec/LeadingLet:
+  Description: Enforce that let definitions come before all other definitions.
+  Enabled: pending
+  VersionAdded: 2.4.0
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingLet
+
 RSpec/LeadingSubject:
   Description: Enforce that subject is the first definition in the test.
   Enabled: true
