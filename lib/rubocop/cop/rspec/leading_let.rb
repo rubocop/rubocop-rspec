@@ -34,10 +34,11 @@ module RuboCop
       class LeadingLet < Base
         extend AutoCorrector
 
-        MSG = 'Declare all `let` above any other `%<offending>s` declarations.'
+        MSG = 'Declare all `let` above any `%<offending>s` declarations.'
 
         def on_block(node)
-          return unless let?(node) && !in_spec_block?(node)
+          return unless let?(node)
+          return if in_spec_block?(node)
 
           check_previous_nodes(node)
         end

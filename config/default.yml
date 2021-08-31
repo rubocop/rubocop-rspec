@@ -432,7 +432,7 @@ RSpec/IteratedExpectation:
 RSpec/LeadingLet:
   Description: Enforce that let definitions come before all other definitions.
   Enabled: pending
-  VersionAdded: 2.4.0
+  VersionAdded: 2.5.0
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingLet
 
 RSpec/LeadingSubject:

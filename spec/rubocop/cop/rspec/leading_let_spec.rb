@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         subject { described_class.new }
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `subject` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `subject` declarations.
       end
     RUBY
 
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         subject { described_class.new }
 
         let!(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `subject` declarations.
+        ^^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `subject` declarations.
       end
     RUBY
 
@@ -45,7 +45,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         subject { described_class.new }
 
         let(:user, &args[:build_user])
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `subject` declarations.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `subject` declarations.
       end
     RUBY
 
@@ -83,25 +83,13 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
     RUBY
   end
 
-  it 'does not register an offense for subjects in tests' do
-    expect_no_offenses(<<-RUBY)
-      RSpec.describe User do
-        # This pattern is not advised, put let and subject outside of the test
-        it "doesn't mind me calling a method called subject in the test" do
-          let(foo)
-          subject { bar }
-        end
-      end
-    RUBY
-  end
-
   it 'registers an offense for let below hook' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         before { allow(Foo).to receive(:bar) }
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `before` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `before` declarations.
       end
     RUBY
 
@@ -120,7 +108,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         it { is_expected.to be_present }
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `it` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `it` declarations.
       end
     RUBY
 
@@ -142,7 +130,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         it { is_expected.to be_present }
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `it` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `it` declarations.
       end
     RUBY
 
@@ -166,7 +154,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         end
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `describe` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `describe` declarations.
       end
     RUBY
 
@@ -189,7 +177,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         end
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `shared_examples_for` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `shared_examples_for` declarations.
       end
     RUBY
 
@@ -210,7 +198,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         it_behaves_like 'a good citizen'
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `it_behaves_like` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `it_behaves_like` declarations.
       end
     RUBY
 
@@ -231,7 +219,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         end
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `it_behaves_like` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `it_behaves_like` declarations.
       end
     RUBY
 
@@ -253,7 +241,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         it_behaves_like 'a good citizen', &block
 
         let(:params) { foo }
-        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any other `it_behaves_like` declarations.
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `it_behaves_like` declarations.
       end
     RUBY
 
@@ -277,5 +265,28 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingLet do
         end
       end
     RUBY
+  end
+
+  context 'when the let is below both a hook and a subject' do
+    it 'registers an offense on the first offending node' do
+      expect_offense(<<-RUBY)
+      RSpec.describe User do
+        subject { described_class.new}
+        before { allow(Foo).to receive(:bar) }
+
+        let(:params) { foo }
+        ^^^^^^^^^^^^^^^^^^^^ Declare all `let` above any `subject` declarations.
+      end
+      RUBY
+
+      expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:params) { foo }
+        subject { described_class.new}
+        before { allow(Foo).to receive(:bar) }
+
+      end
+      RUBY
+    end
   end
 end
