@@ -452,7 +452,7 @@ end
 
 | IgnoredMetadata
 | `{"type"=>["channel", "controller", "helper", "job", "mailer", "model", "request", "routing", "view", "feature", "system", "mailbox", "aruba"]}`
-|
+| 
 |===
 
 === References
@@ -718,7 +718,7 @@ end
 
 | PreferredMethods
 | `{}`
-|
+| 
 |===
 
 === References
@@ -1263,7 +1263,7 @@ end
 
 | CustomTransform
 | `{"be"=>"is", "BE"=>"IS", "have"=>"has", "HAVE"=>"HAS"}`
-|
+| 
 
 | IgnoredWords
 | `[]`
@@ -1579,7 +1579,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 | CustomTransform
 | `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
-|
+| 
 
 | IgnoreMethods
 | `false`
@@ -2161,58 +2161,52 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
 
-+== RSpec/LeadingLet
-+
-+|===
-+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
-+
-+| Pending
-+| Yes
-+| Yes
-+| 2.4.0
-+| -
-+|===
-+
-+Enforce that let definitions come before all other definitions.
-+
-+=== Examples
-+
-+[source,ruby]
-+----
-+# bad
-+  subject { described_class.new(params) }
-+  let(:params) { blah }
-+
-+  before { do_something }
-+  let(:params) { blah }
-+
-+  it { expect_something }
-+  let(:params) { blah }
-+  it { expect_something_else }
-+
-+# good
-+  let(:params) { blah }
-+  subject { described_class.new(params) }
-+
-+# good
-+  let(:params) { blah }
-+  before { do_something }
-+
-+# good
-+  let(:params) { blah }
-+  it { expect_something }
-+  it { expect_something_else }
-+----
-+
-+=== References
-+
-+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingLet
-+
- == RSpec/LeadingSubject
+== RSpec/LeadingLet
 
- |===
---
-2.32.0
+|===
+| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+
+| Pending
+| Yes
+| Yes
+| 2.4.0
+| -
+|===
+
+Enforce that let definitions come before all other definitions.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+  subject { described_class.new(params) }
+  let(:params) { blah }
+
+  before { do_something }
+  let(:params) { blah }
+
+  it { expect_something }
+  let(:params) { blah }
+  it { expect_something_else }
+
+# good
+  let(:params) { blah }
+  subject { described_class.new(params) }
+
+# good
+  let(:params) { blah }
+  before { do_something }
+
+# good
+  let(:params) { blah }
+  it { expect_something }
+  it { expect_something_else }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingLet
 
 == RSpec/LeadingSubject
 
