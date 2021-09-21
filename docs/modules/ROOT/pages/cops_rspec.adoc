@@ -399,7 +399,7 @@ end
 | Yes
 | No
 | 1.0
-| 2.4.1
+| 2.5
 |===
 
 Check that the first argument to the top-level describe is a constant.
@@ -1368,7 +1368,7 @@ expect(name).to eq("John")
 | Yes
 | Yes (Unsafe)
 | 1.22
-| 2.5.0
+| 2.5
 |===
 
 Checks for consistent style of change matcher.

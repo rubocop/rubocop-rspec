@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.5.0 (2021-09-21)
+
 * Declare autocorrect as unsafe for `ExpectChange`. ([@francois-ferrandis][])
 * Fix each example for `RSpec/HookArgument`. ([@lokhi][])
 * Exclude unrelated Rails directories from `RSpec/DescribeClass`. ([@MothOnMars][])
@@ -9,7 +11,7 @@
 * Add `RSpec/SubjectDeclaration` cop. ([@dswij][])
 * Fix excessive whitespace removal in `RSpec/EmptyHook` autocorrection. ([@pirj][])
 * Bump RuboCop requirement to v1.19.0. ([@pirj][])
-* Fix false positive in `RSpec/IteratedExpectation` when there is single, non-espectation statement in the block body. ([@Darhazer][])
+* Fix false positive in `RSpec/IteratedExpectation` when there is single, non-expectation statement in the block body. ([@Darhazer][])
 
 ## 2.4.0 (2021-06-09)
 
