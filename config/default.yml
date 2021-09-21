@@ -170,7 +170,7 @@ RSpec/DescribeClass:
       - mailbox
       - aruba
   VersionAdded: '1.0'
-  VersionChanged: 2.4.1
+  VersionChanged: '2.5'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
 RSpec/DescribeMethod:
@@ -311,7 +311,7 @@ RSpec/ExpectChange:
     - block
   SafeAutoCorrect: false
   VersionAdded: '1.22'
-  VersionChanged: 2.5.0
+  VersionChanged: '2.5'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
 RSpec/ExpectInHook:
