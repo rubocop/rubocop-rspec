@@ -67,7 +67,7 @@ end
 
 ### Code Climate
 
-rubocop-rspec is available on Code Climate as part of the rubocop engine. [Learn More](https://codeclimate.com/changelog/55a433bbe30ba00852000fac).
+rubocop-rspec is available on Code Climate as part of the rubocop engine. [Learn More](https://marketing.codeclimate.com/changelog/55a433bbe30ba00852000fac/).
 
 ## Documentation
 
