@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix merging RSpec DSL configuration from third-party gems. ([@pirj][])
+
 ## 2.5.0 (2021-09-21)
 
 * Declare autocorrect as unsafe for `ExpectChange`. ([@francois-ferrandis][])
