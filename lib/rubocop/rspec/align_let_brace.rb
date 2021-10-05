@@ -5,6 +5,7 @@ module RuboCop
     # Shared behavior for aligning braces for single line lets
     class AlignLetBrace
       include RuboCop::RSpec::Language
+      include RuboCop::Cop::Util
 
       def initialize(root, token)
         @root  = root
@@ -34,7 +35,7 @@ module RuboCop
       def let_group_for(let)
         adjacent_let_chunks.detect do |chunk|
           chunk.any? do |member|
-            member == let && member.loc.line == let.loc.line
+            member == let && same_line?(member, let)
           end
         end
       end
