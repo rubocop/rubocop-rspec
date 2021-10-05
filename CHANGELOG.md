@@ -4,6 +4,7 @@
 
 * Fix merging RSpec DSL configuration from third-party gems. ([@pirj][])
 * Fix `RSpec/ExcessiveDocstringSpacing` false positive for multi-line indented strings. ([@G-Rath][])
+* Fix `Include` configuration for sub-departments. ([@pirj][])
 
 ## 2.5.0 (2021-09-21)
 
@@ -24,7 +25,6 @@
 * Add new `RSpec/IdenticalEqualityAssertion` cop. ([@tejasbubane][])
 * Add `RSpec/Rails/AvoidSetupHook` cop. ([@paydaylight][])
 * Fix false negative in `RSpec/ExpectChange` cop with block style and chained method call. ([@tejasbubane][])
-* Fix `Include` configuration for sub-departments. ([@pirj][])
 
 ## 2.3.0 (2021-04-28)
 
