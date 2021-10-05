@@ -3,7 +3,7 @@
 == RSpec/AlignLeftLetBrace
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -36,7 +36,7 @@ let(:a)      { b }
 == RSpec/AlignRightLetBrace
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -69,7 +69,7 @@ let(:a)      { b        }
 == RSpec/AnyInstance
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -109,7 +109,7 @@ end
 == RSpec/AroundBlock
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -152,7 +152,7 @@ end
 == RSpec/Be
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -187,7 +187,7 @@ expect(foo).to be(true)
 == RSpec/BeEql
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -238,7 +238,7 @@ expect(foo).to be(nil)
 == RSpec/BeforeAfterAll
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -289,7 +289,7 @@ end
 == RSpec/ContextMethod
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -330,7 +330,7 @@ end
 == RSpec/ContextWording
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -393,7 +393,7 @@ end
 == RSpec/DescribeClass
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -462,7 +462,7 @@ end
 == RSpec/DescribeMethod
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -496,7 +496,7 @@ end
 == RSpec/DescribeSymbol
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -529,7 +529,7 @@ end
 == RSpec/DescribedClass
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -624,7 +624,7 @@ end
 == RSpec/DescribedClassModuleWrapping
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -659,7 +659,7 @@ end
 == RSpec/Dialect
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -728,7 +728,7 @@ end
 == RSpec/EmptyExampleGroup
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -782,7 +782,7 @@ end
 == RSpec/EmptyHook
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -822,7 +822,7 @@ after(:all) { cleanup_feed }
 == RSpec/EmptyLineAfterExample
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -893,7 +893,7 @@ end
 == RSpec/EmptyLineAfterExampleGroup
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -933,7 +933,7 @@ end
 == RSpec/EmptyLineAfterFinalLet
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -967,7 +967,7 @@ it { does_something }
 == RSpec/EmptyLineAfterHook
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1017,7 +1017,7 @@ it { does_something }
 == RSpec/EmptyLineAfterSubject
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1049,7 +1049,7 @@ let(:foo) { bar }
 == RSpec/ExampleLength
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1131,7 +1131,7 @@ end                 # 5 points
 == RSpec/ExampleWithoutDescription
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1216,7 +1216,7 @@ end
 == RSpec/ExampleWording
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1277,7 +1277,7 @@ end
 == RSpec/ExcessiveDocstringSpacing
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
 | Yes
@@ -1319,7 +1319,7 @@ end
 == RSpec/ExpectActual
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1362,7 +1362,7 @@ expect(name).to eq("John")
 == RSpec/ExpectChange
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1424,7 +1424,7 @@ expect { run }.to change { user.reload.name }
 == RSpec/ExpectInHook
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1462,7 +1462,7 @@ end
 == RSpec/ExpectOutput
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1494,7 +1494,7 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 == RSpec/FilePath
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1597,7 +1597,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 == RSpec/Focus
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1634,7 +1634,7 @@ end
 == RSpec/HookArgument
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1729,7 +1729,7 @@ end
 == RSpec/HooksBeforeExamples
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1769,7 +1769,7 @@ end
 == RSpec/IdenticalEqualityAssertion
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
 | Yes
@@ -1800,7 +1800,7 @@ expect(foo.bar).to eql(2)
 == RSpec/ImplicitBlockExpectation
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1834,7 +1834,7 @@ end
 == RSpec/ImplicitExpect
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1889,7 +1889,7 @@ it { should be_truthy }
 == RSpec/ImplicitSubject
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -1968,7 +1968,7 @@ it { expect(subject).to be_truthy }
 == RSpec/InstanceSpy
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2003,7 +2003,7 @@ end
 == RSpec/InstanceVariable
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2079,7 +2079,7 @@ end
 == RSpec/ItBehavesLike
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2131,7 +2131,7 @@ it_should_behave_like 'a foo'
 == RSpec/IteratedExpectation
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2164,7 +2164,7 @@ end
 == RSpec/LeadingSubject
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2211,7 +2211,7 @@ Enforce that subject is the first definition in the test.
 == RSpec/LeakyConstantDeclaration
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2326,7 +2326,7 @@ end
 == RSpec/LetBeforeExamples
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2374,7 +2374,7 @@ end
 == RSpec/LetSetup
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2417,7 +2417,7 @@ end
 == RSpec/MessageChain
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2447,7 +2447,7 @@ allow(foo).to receive(:bar).and_return(thing)
 == RSpec/MessageExpectation
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -2502,7 +2502,7 @@ expect(foo).to receive(:bar)
 == RSpec/MessageSpies
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2557,7 +2557,7 @@ expect(foo).to receive(:bar)
 == RSpec/MissingExampleGroupArgument
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2594,7 +2594,7 @@ end
 == RSpec/MultipleDescribes
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2634,7 +2634,7 @@ end
 == RSpec/MultipleExpectations
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2706,7 +2706,7 @@ end
 == RSpec/MultipleMemoizedHelpers
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2826,7 +2826,7 @@ end
 == RSpec/MultipleSubjects
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2876,7 +2876,7 @@ end
 == RSpec/NamedSubject
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -2945,7 +2945,7 @@ end
 == RSpec/NestedGroups
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3060,7 +3060,7 @@ end
 == RSpec/NotToNot
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3103,7 +3103,7 @@ end
 == RSpec/OverwritingSetup
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3142,7 +3142,7 @@ let!(:other) { other }
 == RSpec/Pending
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Disabled
 | Yes
@@ -3191,7 +3191,7 @@ end
 == RSpec/PredicateMatcher
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3281,7 +3281,7 @@ expect(foo.something?).to be_truthy
 == RSpec/ReceiveCounts
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3320,7 +3320,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 == RSpec/ReceiveNever
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3349,7 +3349,7 @@ expect(foo).not_to receive(:bar)
 == RSpec/RepeatedDescription
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3405,7 +3405,7 @@ end
 == RSpec/RepeatedExample
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3436,7 +3436,7 @@ end
 == RSpec/RepeatedExampleGroupBody
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3495,7 +3495,7 @@ end
 == RSpec/RepeatedExampleGroupDescription
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3554,7 +3554,7 @@ end
 == RSpec/RepeatedIncludeExample
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3616,7 +3616,7 @@ end
 == RSpec/ReturnFromStub
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3682,7 +3682,7 @@ allow(Foo).to receive(:bar) { bar.baz }
 == RSpec/ScatteredLet
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3725,7 +3725,7 @@ end
 == RSpec/ScatteredSetup
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3764,7 +3764,7 @@ end
 == RSpec/SharedContext
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3833,7 +3833,7 @@ end
 == RSpec/SharedExamples
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3870,7 +3870,7 @@ include_examples 'foo bar baz'
 == RSpec/SingleArgumentMessageChain
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3903,7 +3903,7 @@ allow(foo).to receive("bar.baz")
 == RSpec/StubbedMock
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -3933,7 +3933,7 @@ expect(foo).to receive(:bar).with(42)
 == RSpec/SubjectDeclaration
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
 | Yes
@@ -3969,7 +3969,7 @@ subject(:test_subject) { foo }
 == RSpec/SubjectStub
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4011,7 +4011,7 @@ end
 == RSpec/UnspecifiedException
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4058,7 +4058,7 @@ expect { do_something }.not_to raise_error
 == RSpec/VariableDefinition
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4114,7 +4114,7 @@ let('user_name') { 'Adam' }
 == RSpec/VariableName
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4195,7 +4195,7 @@ let(:userFood_2) { 'fettuccine' }
 == RSpec/VerifiedDoubles
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4247,7 +4247,7 @@ end
 == RSpec/VoidExpect
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -4276,7 +4276,7 @@ expect(something).to be(1)
 == RSpec/Yield
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes

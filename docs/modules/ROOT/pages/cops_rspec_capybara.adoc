@@ -3,7 +3,7 @@
 == RSpec/Capybara/CurrentPathExpectation
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -42,7 +42,7 @@ expect(page).to have_current_path(/widgets/)
 == RSpec/Capybara/FeatureMethods
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -109,7 +109,7 @@ end
 == RSpec/Capybara/VisibilityMatcher
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes

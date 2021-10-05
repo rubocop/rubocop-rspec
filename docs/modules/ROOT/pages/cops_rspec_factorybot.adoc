@@ -3,7 +3,7 @@
 == RSpec/FactoryBot/AttributeDefinedStatically
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -54,7 +54,7 @@ count { 1 }
 == RSpec/FactoryBot/CreateList
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
@@ -115,7 +115,7 @@ create_list :user, 3
 == RSpec/FactoryBot/FactoryClassName
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
