@@ -581,4 +581,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing, only: true do
       RUBY
     end
   end
+
+  it 'does not consider indented whitespace excessive' do
+    expect_no_offenses(<<-RUBY)
+      context "some context" do
+        [].each do |i|
+          it "does something, lala1: #\{i[:a].first} - #\{i[:a].last},
+              lala2: #\{i[:a].first} - #\{i[:a].last}" do
+            # something
+
+            # expect
+          end
+        end
+      end
+    RUBY
+  end
 end
