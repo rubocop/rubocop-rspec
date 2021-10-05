@@ -60,7 +60,10 @@ module RuboCop
 
         def add_wording_offense(node, message)
           docstring = docstring(node)
+
           add_offense(docstring, message: message) do |corrector|
+            next if node.heredoc?
+
             corrector.replace(docstring, replacement_text(node))
           end
         end
