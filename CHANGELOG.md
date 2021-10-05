@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Fix merging RSpec DSL configuration from third-party gems. ([@pirj][])
+* Fix `RSpec/ExcessiveDocstringSpacing` false positive for multi-line indented strings. ([@G-Rath][])
 
 ## 2.5.0 (2021-09-21)
 

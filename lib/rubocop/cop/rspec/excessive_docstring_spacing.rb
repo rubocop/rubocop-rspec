@@ -49,7 +49,9 @@ module RuboCop
 
         # @param text [String]
         def excessive_whitespace?(text)
-          text.start_with?(' ') || text.include?('  ') || text.end_with?(' ')
+          return true if text.start_with?(' ') || text.end_with?(' ')
+
+          text.match?(/[^\n ]  +[^ ]/)
         end
 
         # @param text [String]
