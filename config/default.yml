@@ -5,7 +5,20 @@ RSpec:
     - "**/*_spec.rb"
     - "**/spec/**/*"
   Language:
+    inherit_mode:
+      merge:
+        - Expectations
+        - Helpers
+        - Hooks
+        - HookScopes
+        - Runners
+        - Subjects
     ExampleGroups:
+      inherit_mode:
+        merge:
+          - Regular
+          - Skipped
+          - Focused
       Regular:
         - describe
         - context
@@ -20,6 +33,12 @@ RSpec:
         - fcontext
         - ffeature
     Examples:
+      inherit_mode:
+        merge:
+          - Regular
+          - Skipped
+          - Focused
+          - Pending
       Regular:
         - it
         - specify
@@ -62,6 +81,10 @@ RSpec:
       - all
       - suite
     Includes:
+      inherit_mode:
+        merge:
+          - Examples
+          - Context
       Examples:
         - it_behaves_like
         - it_should_behave_like
@@ -73,6 +96,10 @@ RSpec:
       - to_not
       - not_to
     SharedGroups:
+      inherit_mode:
+        merge:
+          - Examples
+          - Context
       Examples:
         - shared_examples
         - shared_examples_for

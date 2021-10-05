@@ -8,6 +8,8 @@ RuboCop https://docs.rubocop.org/rubocop/configuration.html#inheriting-configura
 
 == Packaging configuration for RuboCop RSpec
 
+NOTE: Due to a [bug](https://github.com/rubocop/rubocop-rspec/issues/1126), this feature doesn't work properly for `rubocop-rspec` 2.5.0 and earlier versions.
+
 For a third-party gem, it's sufficient to follow three steps:
 
 1. Provide a configuration file (e.g. `.rubocop_rspec_alias_config.yml` or `config/rubocop-rspec.yml`).
