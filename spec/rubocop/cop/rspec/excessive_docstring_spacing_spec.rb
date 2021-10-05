@@ -596,4 +596,20 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing, only: true do
       end
     RUBY
   end
+
+  it 'ignores heredocs' do
+    expect_no_offenses(<<-'RUBY')
+      it <<~DESC do
+        does not remove
+          another comments reports,
+          another comments votes,
+          another   comments image,
+          another comments feeds,
+          another comments   notifications,
+        another comments public feeds,
+          another comments subs
+      DESC
+      end
+    RUBY
+  end
 end
