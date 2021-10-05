@@ -3,7 +3,7 @@
 == RSpec/Rails/AvoidSetupHook
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
 | Yes
@@ -36,7 +36,7 @@ end
 == RSpec/Rails/HttpStatus
 
 |===
-| Enabled by default | Safe | Supports autocorrection | VersionAdded | VersionChanged
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
 | Yes
