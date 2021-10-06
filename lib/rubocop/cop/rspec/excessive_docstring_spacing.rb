@@ -37,6 +37,8 @@ module RuboCop
 
         def on_send(node)
           example_description(node) do |description_node, message|
+            return if description_node.heredoc?
+
             text = text(message)
 
             return unless excessive_whitespace?(text)
