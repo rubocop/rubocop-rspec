@@ -6,6 +6,7 @@
 * Fix `RSpec/ExcessiveDocstringSpacing` false positive for multi-line indented strings. ([@G-Rath][])
 * Fix `Include` configuration for sub-departments. ([@pirj][])
 * Ignore heredocs in `RSpec/ExcessiveDocstringSpacing`. ([@G-Rath][])
+* Stop `RSpec/ExampleWording` from trying to correct heredocs. ([@G-Rath][])
 
 ## 2.5.0 (2021-09-21)
 

@@ -177,4 +177,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
       end
     RUBY
   end
+
+  it 'ignores heredocs' do
+    expect_offense(<<-'RUBY')
+      it <<~DESC do
+          ^^^^^ Do not use should when describing your tests.
+        should not start with this word
+      DESC
+      end
+    RUBY
+  end
 end
