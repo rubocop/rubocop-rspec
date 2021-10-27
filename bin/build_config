@@ -20,7 +20,11 @@ rspec_cop_path = File.join('lib', 'rubocop', 'cop', 'rspec', 'base.rb')
 YARD.parse(Dir[glob].prepend(rspec_cop_path), [])
 
 descriptions = RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all).to_h
-current_config = YAML.load_file('config/default.yml')
+current_config = if Psych::VERSION >= '4.0.0' # RUBY_VERSION >= '3.1.0'
+                   YAML.unsafe_load_file('config/default.yml')
+                 else
+                   YAML.load_file('config/default.yml')
+                 end
 
 File.write(
   'config/default.yml',
