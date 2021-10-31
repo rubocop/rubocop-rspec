@@ -23,6 +23,7 @@ module RuboCop
       #   subject('user') { create_user }
       #   let('user_name') { 'Adam' }
       class VariableDefinition < Base
+        extend AutoCorrector
         include ConfigurableEnforcedStyle
         include Variable
 
@@ -30,13 +31,29 @@ module RuboCop
 
         def on_send(node)
           variable_definition?(node) do |variable|
-            if style_violation?(variable)
-              add_offense(variable, message: format(MSG, style: style))
+            next unless style_violation?(variable)
+
+            add_offense(
+              variable,
+              message: format(MSG, style: style)
+            ) do |corrector|
+              corrector.replace(variable, correct_variable(variable))
             end
           end
         end
 
         private
+
+        def correct_variable(variable)
+          case variable.type
+          when :dsym
+            variable.source[1..-1]
+          when :sym
+            variable.value.to_s.inspect
+          else
+            variable.value.to_sym.inspect
+          end
+        end
 
         def style_violation?(variable)
           style == :symbols && string?(variable) ||

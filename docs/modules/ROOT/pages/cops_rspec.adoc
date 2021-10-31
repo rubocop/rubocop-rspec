@@ -4062,7 +4062,7 @@ expect { do_something }.not_to raise_error
 
 | Enabled
 | Yes
-| No
+| Yes
 | 1.40
 | -
 |===

@@ -9,6 +9,10 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
         let('user_name') { 'Adam' }
             ^^^^^^^^^^^ Use symbols for variable names.
       RUBY
+
+      expect_correction(<<~RUBY)
+        let(:user_name) { 'Adam' }
+      RUBY
     end
 
     it 'does not register offense for interpolated string' do
@@ -39,12 +43,20 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
         let(:user_name) { 'Adam' }
             ^^^^^^^^^^ Use strings for variable names.
       RUBY
+
+      expect_correction(<<~RUBY)
+        let("user_name") { 'Adam' }
+      RUBY
     end
 
     it 'registers an offense for interpolated symbol' do
       expect_offense(<<~'RUBY')
         let(:"user-#{id}") { 'Adam' }
             ^^^^^^^^^^^^^ Use strings for variable names.
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        let("user-#{id}") { 'Adam' }
       RUBY
     end
 

@@ -7,6 +7,7 @@
 * Fix `Include` configuration for sub-departments. ([@pirj][])
 * Ignore heredocs in `RSpec/ExcessiveDocstringSpacing`. ([@G-Rath][])
 * Stop `RSpec/ExampleWording` from trying to correct heredocs. ([@G-Rath][])
+* Add autocorrect support for `RSpec/VariableDefinition`. ([@r7kamura][])
 
 ## 2.5.0 (2021-09-21)
 
@@ -647,3 +648,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@G-Rath]: https://github.com/G-Rath
 [@dswij]: https://github.com/dswij
 [@francois-ferrandis]: https://github.com/francois-ferrandis
+[@r7kamura]: https://github.com/r7kamura
