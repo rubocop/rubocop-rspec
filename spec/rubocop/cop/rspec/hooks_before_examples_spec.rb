@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
     expect_correction(<<-RUBY)
       RSpec.describe User do
         before { setup }
-        context 'a context' do
+        setup 'a context' do
           it { is_expected.to be_after_before_hook }
         end
 
