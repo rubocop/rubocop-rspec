@@ -27,6 +27,7 @@ jobs:
           - 2.6
           - 2.7
           - "3.0"
+          - ruby-head
           - jruby
         task:
           - internal_investigation
