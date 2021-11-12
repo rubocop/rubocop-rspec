@@ -87,6 +87,10 @@ module RuboCop
           corrector.replace(range,
                             range.source.sub(focus.method_name.to_s, unfocused))
         end
+
+        def should_autocorrect
+          cop_config['AutoCorrect']
+        end
       end
     end
   end

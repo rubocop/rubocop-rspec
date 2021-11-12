@@ -371,8 +371,9 @@ RSpec/FilePath:
 RSpec/Focus:
   Description: Checks if examples are focused.
   Enabled: true
+  AutoCorrect: true
   VersionAdded: '1.5'
-  VersionChanged: '2.1'
+  VersionChanged: '2.2'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
 RSpec/HookArgument:
