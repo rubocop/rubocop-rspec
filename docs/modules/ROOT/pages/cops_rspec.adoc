@@ -1491,6 +1491,61 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
+== RSpec/FileFixture
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.7.0
+| -
+|===
+
+Favor the use of `file_fixture`.
+
+`RSpec` provides the convenience method
+
+[source,ruby]
+----
+file_fixture('path/some_file.csv')
+----
+
+which (by default) is equivalent to
+
+[source,ruby]
+----
+Rails.root.join('spec/fixtures/files/path/some_file.csv')
+----
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+"#{Rails.root}/spec/fixtures/path/some_file.csv"
+Rails.root.join('spec/fixtures/path/some_file.csv')
+Rails.root.join('spec', 'fixtures', 'path', 'some_file.csv')
+
+"#{Rails.root}/spec/fixtures/files/some_file.csv"
+Rails.root.join('spec/fixtures/files/some_file.csv')
+Rails.root.join('spec', 'fixtures', 'files', 'some_file.csv')
+
+# good
+file_fixture('../path/some_file.csv').path
+file_fixture('../path/some_file.csv')
+file_fixture('../path/some_file.csv')
+
+file_fixture('some_file.csv').path
+file_fixture('some_file.csv')
+file_fixture('some_file.csv')
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FileFixture
+
 == RSpec/FilePath
 
 |===

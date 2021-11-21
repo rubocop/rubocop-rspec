@@ -353,6 +353,12 @@ RSpec/ExpectOutput:
   VersionAdded: '1.10'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
+RSpec/FileFixture:
+  Description: Favor the use of `file_fixture`.
+  Enabled: pending
+  VersionAdded: 2.7.0
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FileFixture
+
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
   Enabled: true

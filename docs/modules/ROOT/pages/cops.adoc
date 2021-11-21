@@ -32,6 +32,7 @@
 * xref:cops_rspec.adoc#rspecexpectchange[RSpec/ExpectChange]
 * xref:cops_rspec.adoc#rspecexpectinhook[RSpec/ExpectInHook]
 * xref:cops_rspec.adoc#rspecexpectoutput[RSpec/ExpectOutput]
+* xref:cops_rspec.adoc#rspecfilefixture[RSpec/FileFixture]
 * xref:cops_rspec.adoc#rspecfilepath[RSpec/FilePath]
 * xref:cops_rspec.adoc#rspecfocus[RSpec/Focus]
 * xref:cops_rspec.adoc#rspechookargument[RSpec/HookArgument]
