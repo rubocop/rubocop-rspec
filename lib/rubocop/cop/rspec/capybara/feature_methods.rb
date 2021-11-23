@@ -42,6 +42,7 @@ module RuboCop
         #   end
         class FeatureMethods < Base
           extend AutoCorrector
+          include InsideExampleGroup
 
           MSG = 'Use `%<replacement>s` instead of `%<method>s`.'
 
@@ -60,13 +61,6 @@ module RuboCop
             {#{MAP.keys.map(&:inspect).join(' ')}}
           PATTERN
 
-          # @!method spec?(node)
-          def_node_matcher :spec?, <<-PATTERN
-            (block
-              (send #rspec? {:describe :feature} ...)
-            ...)
-          PATTERN
-
           # @!method feature_method(node)
           def_node_matcher :feature_method, <<-PATTERN
             (block
@@ -75,7 +69,7 @@ module RuboCop
           PATTERN
 
           def on_block(node)
-            return unless inside_spec?(node)
+            return unless inside_example_group?(node)
 
             feature_method(node) do |send_node, match|
               next if enabled?(match)
@@ -92,21 +86,6 @@ module RuboCop
           end
 
           private
-
-          def inside_spec?(node)
-            return spec?(node) if root_node?(node)
-
-            root = node.ancestors.find { |parent| root_node?(parent) }
-            spec?(root)
-          end
-
-          def root_node?(node)
-            node.parent.nil? || root_with_siblings?(node.parent)
-          end
-
-          def root_with_siblings?(node)
-            node.begin_type? && node.parent.nil?
-          end
 
           def enabled?(method_name)
             enabled_methods.include?(method_name)

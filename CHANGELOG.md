@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* [#1215](https://github.com/rubocop/rubocop-rails/pull/1215): Add new `RSpec/FactoryBot/SyntaxMethods` cop. ([@leoarnold][])
+
 ## 2.6.0 (2021-11-08)
 
 * Fix merging RSpec DSL configuration from third-party gems. ([@pirj][])
@@ -651,3 +653,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@dswij]: https://github.com/dswij
 [@francois-ferrandis]: https://github.com/francois-ferrandis
 [@r7kamura]: https://github.com/r7kamura
+[@leoarnold]: https://github.com/leoarnold
