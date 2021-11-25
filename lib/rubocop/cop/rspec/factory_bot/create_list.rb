@@ -27,6 +27,7 @@ module RuboCop
         class CreateList < Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
+          include RuboCop::RSpec::FactoryBot::Language
 
           MSG_CREATE_LIST = 'Prefer create_list.'
           MSG_N_TIMES = 'Prefer %<number>s.times.'
@@ -43,12 +44,12 @@ module RuboCop
 
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
-            (send ${(const nil? {:FactoryGirl :FactoryBot}) nil?} :create (sym $_) $...)
+            (send ${nil? #factory_bot?} :create (sym $_) $...)
           PATTERN
 
           # @!method factory_list_call(node)
           def_node_matcher :factory_list_call, <<-PATTERN
-            (send {(const nil? {:FactoryGirl :FactoryBot}) nil?} :create_list (sym _) (int $_) ...)
+            (send {nil? #factory_bot?} :create_list (sym _) (int $_) ...)
           PATTERN
 
           def on_block(node)

@@ -816,6 +816,13 @@ RSpec/FactoryBot/FactoryClassName:
   VersionChanged: '2.0'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
+RSpec/FactoryBot/SyntaxMethods:
+  Description: Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/SyntaxMethods
+
 RSpec/Rails:
   Enabled: true
   Include: *1
