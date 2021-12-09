@@ -399,7 +399,7 @@ end
 | Yes
 | No
 | 1.0
-| 2.5
+| 2.7
 |===
 
 Check that the first argument to the top-level describe is a constant.
@@ -451,7 +451,7 @@ end
 | Array
 
 | IgnoredMetadata
-| `{"type"=>["channel", "controller", "helper", "job", "mailer", "model", "request", "routing", "view", "feature", "system", "mailbox", "aruba"]}`
+| `{"type"=>["channel", "controller", "helper", "job", "mailer", "model", "request", "routing", "view", "feature", "system", "mailbox", "aruba", "task"]}`
 | 
 |===
 

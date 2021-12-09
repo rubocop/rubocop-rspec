@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * [#1215](https://github.com/rubocop/rubocop-rails/pull/1215): Add new `RSpec/FactoryBot/SyntaxMethods` cop. ([@leoarnold][])
+* Exclude `task` type specs from `RSpec/DescribeClass` cop. ([@harry-graham][])
 
 ## 2.6.0 (2021-11-08)
 
@@ -654,3 +655,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@francois-ferrandis]: https://github.com/francois-ferrandis
 [@r7kamura]: https://github.com/r7kamura
 [@leoarnold]: https://github.com/leoarnold
+[@harry-graham]: https://github.com/harry-graham

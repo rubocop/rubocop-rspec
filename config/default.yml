@@ -196,8 +196,9 @@ RSpec/DescribeClass:
       - system
       - mailbox
       - aruba
+      - task
   VersionAdded: '1.0'
-  VersionChanged: '2.5'
+  VersionChanged: '2.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
 RSpec/DescribeMethod:
