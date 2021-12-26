@@ -821,7 +821,7 @@ RSpec/FactoryBot/SyntaxMethods:
   Description: Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
   Enabled: pending
   SafeAutoCorrect: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.7'
   StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/SyntaxMethods
 
 RSpec/Rails:
