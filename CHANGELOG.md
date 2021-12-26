@@ -2,7 +2,9 @@
 
 ## Master (Unreleased)
 
-* [#1215](https://github.com/rubocop/rubocop-rails/pull/1215): Add new `RSpec/FactoryBot/SyntaxMethods` cop. ([@leoarnold][])
+## 2.7.0 (2021-12-26)
+
+* Add new `RSpec/FactoryBot/SyntaxMethods` cop. ([@leoarnold][])
 * Exclude `task` type specs from `RSpec/DescribeClass` cop. ([@harry-graham][])
 
 ## 2.6.0 (2021-11-08)
