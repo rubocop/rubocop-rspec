@@ -161,7 +161,7 @@ module RuboCop
             def call_with_block_replacement(node)
               block = node.body
               arguments = build_arguments(block, node.receiver.source)
-              replacement = format_receiver(block.send_node.receiver)
+              replacement = format_receiver(block.receiver)
               replacement += format_method_call(block, 'create_list', arguments)
               replacement += format_block(block)
               replacement
