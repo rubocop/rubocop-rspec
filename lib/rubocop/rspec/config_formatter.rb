@@ -8,7 +8,7 @@ module RuboCop
     class ConfigFormatter
       EXTENSION_ROOT_DEPARTMENT = %r{^(RSpec/)}.freeze
       SUBDEPARTMENTS = %(RSpec/Capybara RSpec/FactoryBot RSpec/Rails)
-      STYLE_GUIDE_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
+      COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
 
       def initialize(config, descriptions)
         @config       = config
@@ -27,9 +27,8 @@ module RuboCop
         cops.each_with_object(config.dup) do |cop, unified|
           next if SUBDEPARTMENTS.include?(cop)
 
-          unified[cop] = config.fetch(cop)
-            .merge(descriptions.fetch(cop))
-            .merge('StyleGuide' => STYLE_GUIDE_BASE_URL + cop.sub('RSpec/', ''))
+          unified[cop].merge!(descriptions.fetch(cop))
+          unified[cop]['Reference'] = COP_DOC_BASE_URL + cop.sub('RSpec/', '')
         end
       end
 
