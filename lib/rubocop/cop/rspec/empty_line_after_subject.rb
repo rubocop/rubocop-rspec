@@ -17,22 +17,16 @@ module RuboCop
       class EmptyLineAfterSubject < Base
         extend AutoCorrector
         include EmptyLineSeparation
+        include InsideExampleGroup
 
         MSG = 'Add an empty line after `%<subject>s`.'
 
         def on_block(node)
-          return unless subject?(node) && !in_spec_block?(node)
+          return unless subject?(node)
+          return unless inside_example_group?(node)
 
           missing_separating_line_offense(node) do |method|
             format(MSG, subject: method)
-          end
-        end
-
-        private
-
-        def in_spec_block?(node)
-          node.each_ancestor(:block).any? do |ancestor|
-            Examples.all(ancestor.method_name)
           end
         end
       end

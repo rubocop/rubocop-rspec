@@ -87,6 +87,21 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
+  it 'flags violations inside shared groups' do
+    expect_offense(<<-RUBY)
+      RSpec.shared_examples_for 'common scenarios' do
+        feature 'Foo' do; end
+        ^^^^^^^ Use `describe` instead of `feature`.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.shared_examples_for 'common scenarios' do
+        describe 'Foo' do; end
+      end
+    RUBY
+  end
+
   it 'ignores variables inside examples' do
     expect_no_offenses(<<-RUBY)
       it 'is valid code' do
