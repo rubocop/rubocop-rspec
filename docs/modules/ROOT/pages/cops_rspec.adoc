@@ -104,6 +104,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#any_instance_of
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
 
 == RSpec/AroundBlock
@@ -182,6 +183,7 @@ expect(foo).to be(true)
 
 === References
 
+* https://rspec.rubystyle.guide/#be-matcher
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
 
 == RSpec/BeEql
@@ -284,6 +286,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
 == RSpec/ContextMethod
@@ -325,6 +328,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#example-group-naming
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
 
 == RSpec/ContextWording
@@ -388,6 +392,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#context-descriptions
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 
 == RSpec/DescribeClass
@@ -888,6 +893,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#empty-lines-around-examples
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample
 
 == RSpec/EmptyLineAfterExampleGroup
@@ -928,6 +934,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#empty-lines-between-describes
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup
 
 == RSpec/EmptyLineAfterFinalLet
@@ -962,6 +969,7 @@ it { does_something }
 
 === References
 
+* https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet
 
 == RSpec/EmptyLineAfterHook
@@ -1012,6 +1020,7 @@ it { does_something }
 
 === References
 
+* https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
 
 == RSpec/EmptyLineAfterSubject
@@ -1044,6 +1053,7 @@ let(:foo) { bar }
 
 === References
 
+* https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
 == RSpec/ExampleLength
@@ -1272,6 +1282,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#should-in-example-docstrings
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
 
 == RSpec/ExcessiveDocstringSpacing
@@ -1724,6 +1735,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#redundant-beforeeach
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
 == RSpec/HooksBeforeExamples
@@ -1829,6 +1841,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#implicit-block-expectations
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation
 
 == RSpec/ImplicitExpect
@@ -1884,6 +1897,7 @@ it { should be_truthy }
 
 === References
 
+* https://rspec.rubystyle.guide/#use-expect
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
 == RSpec/ImplicitSubject
@@ -2074,6 +2088,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#instance-variables
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
 == RSpec/ItBehavesLike
@@ -2206,6 +2221,7 @@ Enforce that subject is the first definition in the test.
 
 === References
 
+* https://rspec.rubystyle.guide/#leading-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
 == RSpec/LeakyConstantDeclaration
@@ -2321,6 +2337,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#declare-constants
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 
 == RSpec/LetBeforeExamples
@@ -2701,6 +2718,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#expectation-per-example
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 
 == RSpec/MultipleMemoizedHelpers
@@ -2821,6 +2839,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#let-blocks
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
 
 == RSpec/MultipleSubjects
@@ -2940,6 +2959,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#use-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
 == RSpec/NestedGroups
@@ -3276,6 +3296,7 @@ expect(foo.something?).to be_truthy
 
 === References
 
+* https://rspec.rubystyle.guide/#predicate-matchers
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
 == RSpec/ReceiveCounts
@@ -4023,6 +4044,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#dont-stub-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 
 == RSpec/UnspecifiedException
@@ -4259,6 +4281,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#doubles
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 
 == RSpec/VoidExpect
