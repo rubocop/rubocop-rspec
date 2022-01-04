@@ -7,6 +7,7 @@
 * Add new `RSpec/FactoryBot/SyntaxMethods` cop. ([@leoarnold][])
 * Exclude `task` type specs from `RSpec/DescribeClass` cop. ([@harry-graham][])
 * Fix `RSpec/FactoryBot/SyntaxMethods` and `RSpec/Capybara/FeatureMethods` to inspect shared groups. ([@pirj][])
+* Fix `RSpec/LeadingSubject` failure in non-spec code. ([@pirj][])
 
 ## 2.6.0 (2021-11-08)
 

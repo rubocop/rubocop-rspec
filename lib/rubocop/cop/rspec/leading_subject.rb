@@ -33,11 +33,13 @@ module RuboCop
       #
       class LeadingSubject < Base
         extend AutoCorrector
+        include InsideExampleGroup
 
         MSG = 'Declare `subject` above any other `%<offending>s` declarations.'
 
         def on_block(node)
-          return unless subject?(node) && !in_spec_block?(node)
+          return unless subject?(node)
+          return unless inside_example_group?(node)
 
           check_previous_nodes(node)
         end
@@ -77,12 +79,6 @@ module RuboCop
             example?(node) ||
             spec_group?(node) ||
             include?(node)
-        end
-
-        def in_spec_block?(node)
-          node.each_ancestor(:block).any? do |ancestor|
-            example?(ancestor)
-          end
         end
       end
     end
