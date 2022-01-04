@@ -57,19 +57,6 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'does not register an offense for subjects in tests' do
-    expect_no_offenses(<<-RUBY)
-      RSpec.describe User do
-        # This shouldn't really ever happen in a sane codebase but I still
-        # want to avoid false positives
-        it "doesn't mind me calling a method called subject in the test" do
-          subject { bar }
-          let(foo)
-        end
-      end
-    RUBY
-  end
-
   it 'does not register an offense for multiline subject block' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
