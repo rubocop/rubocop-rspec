@@ -9,11 +9,11 @@ module RuboCop
         private
 
         def inside_example_group?(node)
-          return example_group?(node) if example_group_root?(node)
+          return spec_group?(node) if example_group_root?(node)
 
           root = node.ancestors.find { |parent| example_group_root?(parent) }
 
-          example_group?(root)
+          spec_group?(root)
         end
 
         def example_group_root?(node)
