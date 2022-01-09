@@ -3980,6 +3980,9 @@ subject(:test_subject) { foo }
 
 Checks for stubbed test subjects.
 
+Checks nested subject stubs for innermost subject definition
+when subject is also defined in parent example groups.
+
 === Examples
 
 [source,ruby]
@@ -3991,6 +3994,20 @@ describe Article do
   it 'indicates that the author is unknown' do
     allow(article).to receive(:author).and_return(nil)
     expect(article.description).to include('by an unknown author')
+  end
+end
+
+# bad
+describe Article do
+  subject(:foo) { Article.new }
+
+  context 'nested subject' do
+    subject(:article) { Article.new }
+
+    it 'indicates that the author is unknown' do
+      allow(article).to receive(:author).and_return(nil)
+      expect(article.description).to include('by an unknown author')
+    end
   end
 end
 
