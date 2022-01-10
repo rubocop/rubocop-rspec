@@ -10,7 +10,7 @@ module RuboCop
       #   allow(foo).to receive(:bar) { |&block| block.call(1) }
       #
       #   # good
-      #   expect(foo).to be(:bar).and_yield(1)
+      #   expect(foo).to receive(:bar).and_yield(1)
       class Yield < Base
         extend AutoCorrector
         include RangeHelp
