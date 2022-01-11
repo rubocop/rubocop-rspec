@@ -7,6 +7,9 @@ module RuboCop
     module RSpec
       # Checks for stubbed test subjects.
       #
+      # Checks nested subject stubs for innermost subject definition
+      # when subject is also defined in parent example groups.
+      #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
       # @see https://samphippen.com/introducing-rspec-smells-and-where-to-find-them#smell-1-stubject
       # @see https://github.com/rubocop-hq/rspec-style-guide#dont-stub-subject
@@ -19,6 +22,20 @@ module RuboCop
       #     it 'indicates that the author is unknown' do
       #       allow(article).to receive(:author).and_return(nil)
       #       expect(article.description).to include('by an unknown author')
+      #     end
+      #   end
+      #
+      #   # bad
+      #   describe Article do
+      #     subject(:foo) { Article.new }
+      #
+      #     context 'nested subject' do
+      #       subject(:article) { Article.new }
+      #
+      #       it 'indicates that the author is unknown' do
+      #         allow(article).to receive(:author).and_return(nil)
+      #         expect(article.description).to include('by an unknown author')
+      #       end
       #     end
       #   end
       #

@@ -4,6 +4,7 @@
 
 * Fix `RSpec/FactoryBot/SyntaxMethods` and `RSpec/Capybara/FeatureMethods` to inspect shared groups. ([@pirj][])
 * Fix `RSpec/LeadingSubject` failure in non-spec code. ([@pirj][])
+* Add bad example to `RSpec/SubjectStub` cop. ([@oshiro3][])
 
 ## 2.7.0 (2021-12-26)
 
@@ -661,3 +662,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@r7kamura]: https://github.com/r7kamura
 [@leoarnold]: https://github.com/leoarnold
 [@harry-graham]: https://github.com/harry-graham
+[@oshiro3]: https://github.com/oshiro3
