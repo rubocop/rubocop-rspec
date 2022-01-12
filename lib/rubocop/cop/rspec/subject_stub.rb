@@ -53,27 +53,35 @@ module RuboCop
 
         MSG = 'Do not stub methods of the object under test.'
 
-        # @!method subject(node)
+        # @!method subject?(node)
         #   Find a named or unnamed subject definition
         #
         #   @example anonymous subject
-        #     subject(parse('subject { foo }').ast) do |name|
+        #     subject?(parse('subject { foo }').ast) do |name|
         #       name # => :subject
         #     end
         #
         #   @example named subject
-        #     subject(parse('subject(:thing) { foo }').ast) do |name|
+        #     subject?(parse('subject(:thing) { foo }').ast) do |name|
         #       name # => :thing
         #     end
         #
         #   @param node [RuboCop::AST::Node]
         #
         #   @yield [Symbol] subject name
-        def_node_matcher :subject, <<-PATTERN
-            (block
-              (send nil?
-                {:subject (sym $_) | $:subject}
-              ) args ...)
+        def_node_matcher :subject?, <<-PATTERN
+          (block
+            (send nil?
+              {:subject (sym $_) | $:subject}
+            ) args ...)
+        PATTERN
+
+        # @!method let?(node)
+        #   Find a memoized helper
+        def_node_matcher :let?, <<-PATTERN
+          (block
+            (send nil? :let (sym $_)
+            ) args ...)
         PATTERN
 
         # @!method message_expectation?(node, method_name)
@@ -106,7 +114,8 @@ module RuboCop
         PATTERN
 
         def on_top_level_group(node)
-          @explicit_subjects = find_all_explicit_subjects(node)
+          @explicit_subjects = find_all_explicit(node, &method(:subject?))
+          @subject_overrides = find_all_explicit(node, &method(:let?))
 
           find_subject_expectations(node) do |stub|
             add_offense(stub)
@@ -115,9 +124,9 @@ module RuboCop
 
         private
 
-        def find_all_explicit_subjects(node)
+        def find_all_explicit(node)
           node.each_descendant(:block).with_object({}) do |child, h|
-            name = subject(child)
+            name = yield(child)
             next unless name
 
             outer_example_group = child.each_ancestor(:block).find do |a|
@@ -130,13 +139,14 @@ module RuboCop
         end
 
         def find_subject_expectations(node, subject_names = [], &block)
-          subject_names = @explicit_subjects[node] if @explicit_subjects[node]
+          subject_names = [*subject_names, *@explicit_subjects[node]]
+          subject_names -= @subject_overrides[node] if @subject_overrides[node]
 
-          names = Set[*[*subject_names, :subject]]
+          names = Set[*subject_names, :subject]
           expectation_detected = message_expectation?(node, names)
           return yield(node) if expectation_detected
 
-          node.each_child_node(:send, :block, :begin) do |child|
+          node.each_child_node(:send, :def, :block, :begin) do |child|
             find_subject_expectations(child, subject_names, &block)
           end
         end
