@@ -14,6 +14,10 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       },
       'RSpec/Bar' => {
         'Enabled'     => true
+      },
+      'RSpec/Baz' => {
+        'Enabled'     => true,
+        'StyleGuide'  => '#buzz'
       }
     }
   end
@@ -25,6 +29,9 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       },
       'RSpec/Bar' => {
         'Description' => 'Wow'
+      },
+      'RSpec/Baz' => {
+        'Description' => 'Woof'
       }
     }
   end
@@ -41,12 +48,18 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       |  Config: 2
       |  Enabled: true
       |  Description: Blah
-      |  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
+      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
       |
       |RSpec/Bar:
       |  Enabled: true
       |  Description: Wow
-      |  StyleGuide: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
+      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
+      |
+      |RSpec/Baz:
+      |  Enabled: true
+      |  StyleGuide: "#buzz"
+      |  Description: Woof
+      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
     YAML
   end
 end
