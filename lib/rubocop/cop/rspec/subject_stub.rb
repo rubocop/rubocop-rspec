@@ -90,7 +90,7 @@ module RuboCop
         def_node_matcher :message_expectation?, <<-PATTERN
           (send
             {
-              (send nil? { :expect :allow } (send nil? {% :subject}))
+              (send nil? { :expect :allow } (send nil? %))
               (send nil? :is_expected)
             }
             #Runners.all
@@ -120,7 +120,7 @@ module RuboCop
             name = subject(child)
             next unless name
 
-            outer_example_group = child.each_ancestor.find do |a|
+            outer_example_group = child.each_ancestor(:block).find do |a|
               example_group?(a)
             end
 
@@ -132,12 +132,11 @@ module RuboCop
         def find_subject_expectations(node, subject_names = [], &block)
           subject_names = @explicit_subjects[node] if @explicit_subjects[node]
 
-          expectation_detected = (subject_names + [:subject]).any? do |name|
-            message_expectation?(node, name)
-          end
+          names = Set[*[*subject_names, :subject]]
+          expectation_detected = message_expectation?(node, names)
           return yield(node) if expectation_detected
 
-          node.each_child_node do |child|
+          node.each_child_node(:send, :block, :begin) do |child|
             find_subject_expectations(child, subject_names, &block)
           end
         end
