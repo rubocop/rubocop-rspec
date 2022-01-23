@@ -3996,7 +3996,7 @@ subject(:test_subject) { foo }
 | Yes
 | No
 | 1.7
-| -
+| 2.8
 |===
 
 Checks for stubbed test subjects.

@@ -717,6 +717,7 @@ RSpec/SubjectStub:
   Description: Checks for stubbed test subjects.
   Enabled: true
   VersionAdded: '1.7'
+  VersionChanged: '2.8'
   StyleGuide: https://rspec.rubystyle.guide/#dont-stub-subject
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 

@@ -6,6 +6,7 @@
 * Fix `RSpec/LeadingSubject` failure in non-spec code. ([@pirj][])
 * Add bad example to `RSpec/SubjectStub` cop. ([@oshiro3][])
 * Replace non-styleguide cops `StyleGuide` attribute with `Reference`. ([@pirj][])
+* Fix `RSpec/SubjectStub` to disallow stubbing of subjects defined in parent example groups. ([@pirj][])
 
 ## 2.7.0 (2021-12-26)
 

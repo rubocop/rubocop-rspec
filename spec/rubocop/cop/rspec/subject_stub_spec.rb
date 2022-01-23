@@ -100,8 +100,8 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'ignores stub within context where subject name changed' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags stub within context where subject name changed' do
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -110,6 +110,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
           it 'tries to trick rubocop-rspec' do
             allow(foo).to receive(:baz)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
         end
       end
@@ -149,8 +150,8 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'ignores nested stubs when nested subject is anonymous' do
-    expect_no_offenses(<<-RUBY)
+  it 'flags nested stubs when nested subject is anonymous' do
+    expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -159,6 +160,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
           before do
             allow(foo).to receive(:wow)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
 
           it 'tries to trick rubocop-rspec' do
@@ -198,6 +200,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
           before do
             allow(foo).to receive(:wow)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
             allow(bar).to receive(:wow)
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
           end
@@ -240,7 +243,9 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
             before do
               allow(foo).to receive(:wow)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
               allow(bar).to receive(:wow)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
               allow(baz).to receive(:wow)
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
             end
@@ -336,6 +341,54 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
         specify do
           allow(bar).to receive(:bar)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'flags stubs inside helper methods' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Bar do
+        subject(:bar) { described_class.new }
+
+        def allow_subject_to_receive_bar
+          allow(bar).to receive(:bar)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores subjects from sibling example groups' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        describe '#bar' do
+          subject(:bar) { :bar }
+          it { }
+        end
+
+        describe '#baz' do
+          specify do
+            allow(bar).to receive(:bar)
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores subjects from parent example groups redefined with let' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        subject(:foo) { described_class.new }
+
+        context '#bar' do
+          subject(:bar) { foo.bar }
+
+          let(:foo) { described_class.new }
+
+          before do
+            allow(foo).to receive(:active?).and_return(true)
+          end
         end
       end
     RUBY
