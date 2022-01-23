@@ -6,13 +6,13 @@ module RuboCop
       module Capybara
         # Checks that no expectations are set on Capybara's `current_path`.
         #
-        # The `have_current_path` matcher (https://www.rubydoc.info/github/
-        # teamcapybara/capybara/master/Capybara/RSpecMatchers#have_current_path-
-        # instance_method) should be used on `page` to set expectations on
-        # Capybara's current path, since it uses Capybara's waiting
-        # functionality (https://github.com/teamcapybara/capybara/blob/master/
-        # README.md#asynchronous-javascript-ajax-and-friends) which ensures that
-        # preceding actions (like `click_link`) have completed.
+        # The
+        # https://www.rubydoc.info/github/teamcapybara/capybara/master/Capybara/RSpecMatchers#have_current_path-instance_method[`have_current_path` matcher]
+        # should be used on `page` to set expectations on Capybara's
+        # current path, since it uses
+        # https://github.com/teamcapybara/capybara/blob/master/README.md#asynchronous-javascript-ajax-and-friends[Capybara's waiting functionality]
+        # which ensures that preceding actions (like `click_link`) have
+        # completed.
         #
         # @example
         #   # bad
