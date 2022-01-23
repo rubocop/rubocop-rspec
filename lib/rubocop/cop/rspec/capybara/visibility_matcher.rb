@@ -4,7 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       module Capybara
-        # Checks for boolean visibility in capybara finders.
+        # Checks for boolean visibility in Capybara finders.
         #
         # Capybara lets you find elements that match a certain visibility using
         # the `:visible` option. `:visible` accepts both boolean and symbols as
@@ -12,7 +12,8 @@ module RuboCop
         # false` does not find just invisible elements, but both visible and
         # invisible elements. For expressiveness and clarity, use one of the
         # symbol values, `:all`, `:hidden` or `:visible`.
-        # (https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all)
+        # Read more in
+        # https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all[the documentation].
         #
         # @example
         #

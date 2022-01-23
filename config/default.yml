@@ -791,7 +791,7 @@ RSpec/Capybara/FeatureMethods:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
 RSpec/Capybara/VisibilityMatcher:
-  Description: Checks for boolean visibility in capybara finders.
+  Description: Checks for boolean visibility in Capybara finders.
   Enabled: true
   VersionAdded: '1.39'
   VersionChanged: '2.0'
