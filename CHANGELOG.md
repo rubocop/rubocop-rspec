@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.8.0 (2022-01-24)
+
 * Fix `RSpec/FactoryBot/SyntaxMethods` and `RSpec/Capybara/FeatureMethods` to inspect shared groups. ([@pirj][])
 * Fix `RSpec/LeadingSubject` failure in non-spec code. ([@pirj][])
 * Add bad example to `RSpec/SubjectStub` cop. ([@oshiro3][])
