@@ -831,6 +831,11 @@ RSpec/FactoryBot/CreateList:
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
+RSpec/FactoryBot/FactoryAssociation:
+  Description: Checks for 'association' in factories that specify a ':factory' option. 
+  Enabled: pending
+  VersionAdded: '2.8.1'
+
 RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true

@@ -9,6 +9,7 @@
 * Add bad example to `RSpec/SubjectStub` cop. ([@oshiro3][])
 * Replace non-styleguide cops `StyleGuide` attribute with `Reference`. ([@pirj][])
 * Fix `RSpec/SubjectStub` to disallow stubbing of subjects defined in parent example groups. ([@pirj][])
+* Add `RSpec/FactoryBot/FactoryAssociation` cop. ([@Benaaaaa][])
 
 ## 2.7.0 (2021-12-26)
 
@@ -667,3 +668,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@leoarnold]: https://github.com/leoarnold
 [@harry-graham]: https://github.com/harry-graham
 [@oshiro3]: https://github.com/oshiro3
+[@Benaaaaa]: https://github.com/Benaaaaa

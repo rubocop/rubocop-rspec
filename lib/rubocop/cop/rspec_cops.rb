@@ -6,6 +6,7 @@ require_relative 'rspec/capybara/visibility_matcher'
 
 require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/create_list'
+require_relative 'rspec/factory_bot/factory_association'
 require_relative 'rspec/factory_bot/factory_class_name'
 require_relative 'rspec/factory_bot/syntax_methods'
 
