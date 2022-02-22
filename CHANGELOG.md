@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add new `RSpec/BeNil` cop. ([@bquorning][])
+* Add new `RSpec/BeEq` cop. ([@bquorning][])
 
 ## 2.8.0 (2022-01-24)
 

@@ -186,6 +186,43 @@ expect(foo).to be(true)
 * https://rspec.rubystyle.guide/#be-matcher
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
 
+== RSpec/BeEq
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.9.0
+| -
+|===
+
+Check for expectations where `be(...)` can replace `eq(...)`.
+
+The `be` matcher compares by identity while the `eq` matcher compares
+using `==`. Booleans and nil can be compared by identity and therefore
+the `be` matcher is preferable as it is a more strict test.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo).to eq(true)
+expect(foo).to eq(false)
+expect(foo).to eq(nil)
+
+# good
+expect(foo).to be(true)
+expect(foo).to be(false)
+expect(foo).to be(nil)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
+
 == RSpec/BeEql
 
 |===
