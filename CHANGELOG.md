@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add new `RSpec/BeNil` cop. ([@bquorning][])
+
 ## 2.8.0 (2022-01-24)
 
 * Fix `RSpec/FactoryBot/SyntaxMethods` and `RSpec/Capybara/FeatureMethods` to inspect shared groups. ([@pirj][])

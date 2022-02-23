@@ -148,6 +148,12 @@ RSpec/BeEql:
   VersionAdded: '1.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
+RSpec/BeNil:
+  Description: Check that `be_nil` is used instead of `be(nil)`.
+  Enabled: pending
+  VersionAdded: 2.9.0
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
+
 RSpec/BeforeAfterAll:
   Description: Check that before/after(:all) isn't being used.
   Enabled: true

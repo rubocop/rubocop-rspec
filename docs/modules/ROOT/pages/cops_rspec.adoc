@@ -237,6 +237,38 @@ expect(foo).to be(nil)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
+== RSpec/BeNil
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.9.0
+| -
+|===
+
+Check that `be_nil` is used instead of `be(nil)`.
+
+RSpec has a built-in `be_nil` matcher specifically for expecting `nil`.
+For consistent specs, we recommend using that instead of `be(nil).
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo).to be(nil)
+
+# good
+expect(foo).to be_nil
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
+
 == RSpec/BeforeAfterAll
 
 |===
