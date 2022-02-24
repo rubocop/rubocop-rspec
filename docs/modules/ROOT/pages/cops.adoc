@@ -7,6 +7,7 @@
 * xref:cops_rspec.adoc#rspecanyinstance[RSpec/AnyInstance]
 * xref:cops_rspec.adoc#rspecaroundblock[RSpec/AroundBlock]
 * xref:cops_rspec.adoc#rspecbe[RSpec/Be]
+* xref:cops_rspec.adoc#rspecbeeq[RSpec/BeEq]
 * xref:cops_rspec.adoc#rspecbeeql[RSpec/BeEql]
 * xref:cops_rspec.adoc#rspecbenil[RSpec/BeNil]
 * xref:cops_rspec.adoc#rspecbeforeafterall[RSpec/BeforeAfterAll]
