@@ -43,7 +43,7 @@ module RuboCop
 
         # @!method eql_type_with_identity(node)
         def_node_matcher :eql_type_with_identity, <<-PATTERN
-          (send _ :to $(send nil? :eql {true false int float sym nil_type?}))
+          (send _ :to $(send nil? :eql {true false int float sym nil}))
         PATTERN
 
         def on_send(node)
