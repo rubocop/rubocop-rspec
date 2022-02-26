@@ -195,6 +195,7 @@ RSpec/DescribeClass:
   Enabled: true
   Exclude:
     - "**/spec/features/**/*"
+    - "**/spec/initializers/**/*"
     - "**/spec/requests/**/*"
     - "**/spec/routing/**/*"
     - "**/spec/system/**/*"
