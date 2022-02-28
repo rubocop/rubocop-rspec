@@ -6,7 +6,7 @@ module RuboCop
       # Check that `be_nil` is used instead of `be(nil)`.
       #
       # RSpec has a built-in `be_nil` matcher specifically for expecting `nil`.
-      # For consistent specs, we recommend using that instead of `be(nil).
+      # For consistent specs, we recommend using that instead of `be(nil)`.
       #
       # @example
       #
