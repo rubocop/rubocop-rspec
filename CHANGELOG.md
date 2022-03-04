@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Enabled pending cops (`RSpec/BeEq`, `RSpec/BeNil`, `RSpec/ExcessiveDocstringSpacing`, `RSpec/IdenticalEqualityAssertion`, `RSpec/SubjectDeclaration`, `RSpec/FactoryBot/SyntaxMethods`, and `RSpec/Rails/AvoidSetupHook`). ([@bquorning][])
+
 ## 2.9.0 (2022-02-28)
 
 * Add new `RSpec/BeNil` cop. ([@bquorning][])

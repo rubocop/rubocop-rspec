@@ -191,7 +191,7 @@ expect(foo).to be(true)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Yes
 | 2.9.0
@@ -279,7 +279,7 @@ expect(foo).to be(nil)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Yes
 | 2.9.0
@@ -1359,7 +1359,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Yes
 | 2.5
@@ -1852,7 +1852,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.4
@@ -4025,7 +4025,7 @@ expect(foo).to receive(:bar).with(42)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.5

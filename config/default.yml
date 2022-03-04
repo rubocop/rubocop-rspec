@@ -144,7 +144,7 @@ RSpec/Be:
 
 RSpec/BeEq:
   Description: Check for expectations where `be(...)` can replace `eq(...)`.
-  Enabled: pending
+  Enabled: true
   VersionAdded: 2.9.0
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
 
@@ -156,7 +156,7 @@ RSpec/BeEql:
 
 RSpec/BeNil:
   Description: Check that `be_nil` is used instead of `be(nil)`.
-  Enabled: pending
+  Enabled: true
   VersionAdded: 2.9.0
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
 
@@ -328,7 +328,7 @@ RSpec/ExampleWithoutDescription:
 
 RSpec/ExcessiveDocstringSpacing:
   Description: Checks for excessive whitespace in example descriptions.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.5'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
 
@@ -420,7 +420,7 @@ RSpec/HooksBeforeExamples:
 
 RSpec/IdenticalEqualityAssertion:
   Description: Checks for equality assertions with identical expressions on both sides.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
 
@@ -721,7 +721,7 @@ RSpec/StubbedMock:
 
 RSpec/SubjectDeclaration:
   Description: Ensure that subject is defined using subject helper.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.5'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
 
@@ -856,7 +856,7 @@ RSpec/FactoryBot/FactoryClassName:
 
 RSpec/FactoryBot/SyntaxMethods:
   Description: Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
-  Enabled: pending
+  Enabled: true
   SafeAutoCorrect: false
   VersionAdded: '2.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/SyntaxMethods
@@ -868,7 +868,7 @@ RSpec/Rails:
 
 RSpec/Rails/AvoidSetupHook:
   Description: Checks that tests use RSpec `before` hook over Rails `setup` method.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
 
