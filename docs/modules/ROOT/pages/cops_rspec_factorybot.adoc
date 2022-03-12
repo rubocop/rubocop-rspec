@@ -43,7 +43,7 @@ count { 1 }
 | Name | Default value | Configurable values
 
 | Include
-| `spec/factories.rb`, `spec/factories/**/*.rb`, `features/support/factories/**/*.rb`
+| `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
 | Array
 |===
 
@@ -100,7 +100,7 @@ create_list :user, 3
 | Name | Default value | Configurable values
 
 | Include
-| `+**/*_spec.rb+`, `+**/spec/**/*+`, `spec/factories.rb`, `spec/factories/**/*.rb`, `features/support/factories/**/*.rb`
+| `+**/*_spec.rb+`, `+**/spec/**/*+`, `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
 | Array
 
 | EnforcedStyle
@@ -150,7 +150,7 @@ end
 | Name | Default value | Configurable values
 
 | Include
-| `spec/factories.rb`, `spec/factories/**/*.rb`, `features/support/factories/**/*.rb`
+| `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
 | Array
 |===
 
