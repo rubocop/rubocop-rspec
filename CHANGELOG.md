@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix a false positive for `RSpec/EmptyExampleGroup` when expectations in case statement. ([@ydah][])
+
 ## 2.9.0 (2022-02-28)
 
 * Add new `RSpec/BeNil` cop. ([@bquorning][])
@@ -672,3 +674,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@leoarnold]: https://github.com/leoarnold
 [@harry-graham]: https://github.com/harry-graham
 [@oshiro3]: https://github.com/oshiro3
+[@ydah]: https://github.com/ydah
