@@ -110,6 +110,69 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
     RUBY
   end
 
+  it 'ignores example group with examples defined in `case` branches' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        case bar
+        when baz
+          it { expect(result).to be(true) }
+        end
+      end
+
+      describe Foo do
+        case bar
+        when baz
+          it { expect(result).to be(true) }
+        else
+          warn 'Enforce appropriate warnings.'
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples but no examples in `case` branches' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        case bar
+        when baz
+          warn 'Enforce appropriate warnings.'
+        end
+
+        it { expect(result).to have_ads }
+      end
+    RUBY
+  end
+
+  it 'flags an empty example group with no examples defined in `case`' \
+    'branches' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+      ^^^^^^^^^^^^ Empty example group detected.
+        case bar
+        when baz
+          warn 'Enforce appropriate warnings.'
+        else
+          warn 'Enforce appropriate warnings.'
+        end
+      end
+
+      describe Foo do
+      ^^^^^^^^^^^^ Empty example group detected.
+        case bar
+        when baz
+        else
+        end
+      end
+
+      describe Foo do
+      ^^^^^^^^^^^^ Empty example group detected.
+        case bar
+        when baz
+        end
+      end
+    RUBY
+  end
+
   it 'ignores example group with examples defined in iterator' do
     expect_no_offenses(<<~RUBY)
       describe 'RuboCop monthly' do
