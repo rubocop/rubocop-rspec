@@ -283,15 +283,19 @@ expect(foo).to be(nil)
 | Yes
 | Yes
 | 2.9.0
-| -
+| 2.10.0
 |===
 
-Check that `be_nil` is used instead of `be(nil)`.
+Ensures a consistent style is used when matching `nil`.
 
-RSpec has a built-in `be_nil` matcher specifically for expecting `nil`.
-For consistent specs, we recommend using that instead of `be(nil)`.
+You can either use the more specific `be_nil` matcher, or the more
+generic `be` matcher with a `nil` argument.
+
+This cop can be configured using the `EnforcedStyle` option
 
 === Examples
+
+==== `EnforcedStyle: be_nil` (default)
 
 [source,ruby]
 ----
@@ -301,6 +305,27 @@ expect(foo).to be(nil)
 # good
 expect(foo).to be_nil
 ----
+
+==== `EnforcedStyle: be`
+
+[source,ruby]
+----
+# bad
+expect(foo).to be_nil
+
+# good
+expect(foo).to be(nil)
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `be_nil`
+| `be`, `be_nil`
+|===
 
 === References
 
