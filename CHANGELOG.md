@@ -1,6 +1,7 @@
 # Changelog
 
 ## Master (Unreleased)
+* Add `RSpec/VerifiedDoubleReference` cop. ([@t3h2mas][])
 
 * Fix a false positive for `RSpec/EmptyExampleGroup` when expectations in case statement. ([@ydah][])
 
@@ -675,3 +676,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@harry-graham]: https://github.com/harry-graham
 [@oshiro3]: https://github.com/oshiro3
 [@ydah]: https://github.com/ydah
+[@t3h2mas]: https://github.com/t3h2mas

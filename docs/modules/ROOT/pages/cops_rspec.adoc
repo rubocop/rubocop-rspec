@@ -4300,6 +4300,81 @@ let(:userFood_2) { 'fettuccine' }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
 
+== RSpec/VerifiedDoubleReference
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.10.0
+| -
+|===
+
+Checks for consistent verified double reference style.
+
+Only investigates references that are one of the supported styles.
+
+This cop can be configured in your configuration using the
+`EnforcedStyle` option and supports `--auto-gen-config`.
+
+=== Examples
+
+==== `EnforcedStyle: constant` (default)
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  instance_double('ClassName', method_name: 'returned_value')
+end
+
+# good
+let(:foo) do
+  instance_double(ClassName, method_name: 'returned_value')
+end
+----
+
+==== `EnforcedStyle: string`
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  instance_double(ClassName, method_name: 'returned_value')
+end
+
+# good
+let(:foo) do
+  instance_double('ClassName', method_name: 'returned_value')
+end
+----
+
+==== Reference is not in the supported style list. No enforcement
+
+[source,ruby]
+----
+# good
+let(:foo) do
+  instance_double(@klass, method_name: 'returned_value')
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `constant`
+| `constant`, `string`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
+
 == RSpec/VerifiedDoubles
 
 |===

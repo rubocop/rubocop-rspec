@@ -761,6 +761,16 @@ RSpec/VariableName:
   VersionChanged: '1.43'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
 
+RSpec/VerifiedDoubleReference:
+  Description: Checks for consistent verified double reference style.
+  Enabled: pending
+  EnforcedStyle: constant
+  SupportedStyles:
+    - constant
+    - string
+  VersionAdded: 2.10.0
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
+
 RSpec/VerifiedDoubles:
   Description: Prefer using verifying doubles over normal doubles.
   Enabled: true
