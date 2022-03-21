@@ -83,6 +83,7 @@
 * xref:cops_rspec.adoc#rspecunspecifiedexception[RSpec/UnspecifiedException]
 * xref:cops_rspec.adoc#rspecvariabledefinition[RSpec/VariableDefinition]
 * xref:cops_rspec.adoc#rspecvariablename[RSpec/VariableName]
+* xref:cops_rspec.adoc#rspecverifieddoublereference[RSpec/VerifiedDoubleReference]
 * xref:cops_rspec.adoc#rspecverifieddoubles[RSpec/VerifiedDoubles]
 * xref:cops_rspec.adoc#rspecvoidexpect[RSpec/VoidExpect]
 * xref:cops_rspec.adoc#rspecyield[RSpec/Yield]
