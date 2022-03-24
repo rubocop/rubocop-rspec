@@ -155,9 +155,14 @@ RSpec/BeEql:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
 RSpec/BeNil:
-  Description: Check that `be_nil` is used instead of `be(nil)`.
+  Description: Ensures a consistent style is used when matching `nil`.
   Enabled: pending
+  EnforcedStyle: be_nil
+  SupportedStyles:
+    - be
+    - be_nil
   VersionAdded: 2.9.0
+  VersionChanged: 2.10.0
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
 
 RSpec/BeforeAfterAll:
