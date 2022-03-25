@@ -37,16 +37,21 @@ require_relative 'rubocop/cop/rspec_cops'
 # We have to register our autocorrect incompatibilities in RuboCop's cops
 # as well so we do not hit infinite loops
 
-module RuboCop
-  module Cop
-    module Layout
-      class ExtraSpacing # rubocop:disable Style/Documentation
-        def self.autocorrect_incompatible_with
-          [RSpec::AlignLeftLetBrace, RSpec::AlignRightLetBrace]
-        end
-      end
+RuboCop::Cop::Layout::ExtraSpacing.singleton_class.prepend(
+  Module.new do
+    def autocorrect_incompatible_with
+      super.push(RuboCop::Cop::RSpec::AlignLeftLetBrace)
+      .push(RuboCop::Cop::RSpec::AlignRightLetBrace)
     end
   end
-end
+)
+
+RuboCop::Cop::Style::TrailingCommaInArguments.singleton_class.prepend(
+  Module.new do
+    def autocorrect_incompatible_with
+      super.push(RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation)
+    end
+  end
+)
 
 RuboCop::AST::Node.include(RuboCop::RSpec::Node)

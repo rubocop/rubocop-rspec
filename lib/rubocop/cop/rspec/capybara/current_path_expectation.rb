@@ -52,6 +52,10 @@ module RuboCop
               $(send nil? :match (str $_)))
           PATTERN
 
+          def self.autocorrect_incompatible_with
+            [Style::TrailingCommaInArguments]
+          end
+
           def on_send(node)
             expectation_set_on_current_path(node) do
               add_offense(node.loc.selector) do |corrector|
