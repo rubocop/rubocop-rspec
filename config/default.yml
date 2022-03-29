@@ -110,6 +110,14 @@ RSpec:
       - subject
       - subject!
 
+Metrics/BlockLength:
+  inherit_mode:
+    merge:
+      - Exclude
+  Exclude:
+    - "**/*_spec.rb"
+    - "**/spec/**/*"
+
 RSpec/AlignLeftLetBrace:
   Description: Checks that left braces for adjacent single line lets are aligned.
   Enabled: false

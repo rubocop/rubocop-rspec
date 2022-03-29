@@ -51,7 +51,6 @@ Metrics/BlockLength:
     - rubocop-rspec.gemspec
     - Rakefile
     - '**/*.rake'
-    - spec/**/*.rb
 
 Naming/FileName:
   Exclude:
