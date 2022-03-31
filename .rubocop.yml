@@ -60,7 +60,9 @@ Naming/FileName:
     - lib/rubocop-rspec.rb
 
 RSpec/ExampleLength:
-  Max: 30
+  CountAsOne:
+    - heredoc
+  Max: 11
 
 RSpec/DescribeClass:
   Exclude:
