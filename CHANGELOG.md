@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.10.0 (2022-04-19)
+
 * Fix a false positive for `RSpec/EmptyExampleGroup` when expectations in case statement. ([@ydah][])
 * Add `RSpec/VerifiedDoubleReference` cop. ([@t3h2mas][])
 * Make `RSpec/BeNil` cop configurable with a `be_nil` style and a `be` style. ([@bquorning][])
