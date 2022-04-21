@@ -54,25 +54,7 @@ module RuboCop
 
           MSG = 'Use `%<method>s` from `FactoryBot::Syntax::Methods`.'
 
-          RESTRICT_ON_SEND = %i[
-            attributes_for
-            attributes_for_list
-            attributes_for_pair
-            build
-            build_list
-            build_pair
-            build_stubbed
-            build_stubbed_list
-            build_stubbed_pair
-            create
-            create_list
-            create_pair
-            generate
-            generate_list
-            null
-            null_list
-            null_pair
-          ].to_set.freeze
+          RESTRICT_ON_SEND = RuboCop::RSpec::FactoryBot::Language::METHODS
 
           def on_send(node)
             return unless factory_bot?(node.receiver)

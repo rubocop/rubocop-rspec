@@ -51,6 +51,67 @@ count { 1 }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
 
+== RSpec/FactoryBot/ConsistentParenthesesStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Use a consistent style for parentheses in factory bot calls.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+create :user
+build(:user)
+create(:login)
+create :login
+----
+
+==== `EnforcedStyle: require_parentheses` (default)
+
+[source,ruby]
+----
+# good
+create(:user)
+create(:user)
+create(:login)
+build(:login)
+----
+
+==== `EnforcedStyle: omit_parentheses`
+
+[source,ruby]
+----
+# good
+create :user
+build :user
+create :login
+create :login
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `require_parentheses`
+| `require_parentheses`, `omit_parentheses`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/ConsistentParenthesesStyle
+
 == RSpec/FactoryBot/CreateList
 
 |===
