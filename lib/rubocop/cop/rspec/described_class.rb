@@ -78,9 +78,8 @@ module RuboCop
         PATTERN
 
         # @!method contains_described_class?(node)
-        def_node_search :contains_described_class?, <<-PATTERN
-          (send nil? :described_class)
-        PATTERN
+        def_node_search :contains_described_class?,
+                        '(send nil? :described_class)'
 
         def on_block(node)
           # In case the explicit style is used, we need to remember what's
@@ -129,17 +128,13 @@ module RuboCop
         end
 
         def scope_change?(node)
-          scope_changing_syntax?(node)          ||
+          scope_changing_syntax?(node) ||
             common_instance_exec_closure?(node) ||
             skippable_block?(node)
         end
 
         def skippable_block?(node)
-          node.block_type? && !rspec_block?(node) && skip_blocks?
-        end
-
-        def skip_blocks?
-          cop_config['SkipBlocks']
+          node.block_type? && !rspec_block?(node) && cop_config['SkipBlocks']
         end
 
         def offensive?(node)
@@ -152,6 +147,7 @@ module RuboCop
 
         def offensive_described_class?(node)
           return unless node.const_type?
+
           # E.g. `described_class::CONSTANT`
           return if contains_described_class?(node)
 
@@ -172,14 +168,13 @@ module RuboCop
         # @return [Array<Symbol>]
         # @example
         #   # nil represents base constant
-        #   collapse_namespace([], :C)                 # => [:C]
-        #   collapse_namespace([:A, :B], [:C)          # => [:A, :B, :C]
-        #   collapse_namespace([:A, :B], [:B, :C)      # => [:A, :B, :C]
-        #   collapse_namespace([:A, :B], [nil, :C)     # => [nil, :C]
-        #   collapse_namespace([:A, :B], [nil, :B, :C) # => [nil, :B, :C]
+        #   collapse_namespace([], [:C])                # => [:C]
+        #   collapse_namespace([:A, :B], [:C])          # => [:A, :B, :C]
+        #   collapse_namespace([:A, :B], [:B, :C])      # => [:A, :B, :C]
+        #   collapse_namespace([:A, :B], [nil, :C])     # => [nil, :C]
+        #   collapse_namespace([:A, :B], [nil, :B, :C]) # => [nil, :B, :C]
         def collapse_namespace(namespace, const)
-          return const if namespace.empty?
-          return const if const.first.nil?
+          return const if namespace.empty? || const.first.nil?
 
           start = [0, (namespace.length - const.length)].max
           max = namespace.length
@@ -196,9 +191,7 @@ module RuboCop
         #   const_name(s(:const, s(:const, nil, :M), :C)) # => [:M, :C]
         #   const_name(s(:const, s(:cbase), :C))          # => [nil, :C]
         def const_name(node)
-          # rubocop:disable InternalAffairs/NodeDestructuring
-          namespace, name = *node
-          # rubocop:enable InternalAffairs/NodeDestructuring
+          namespace, name = *node # rubocop:disable InternalAffairs/NodeDestructuring
           if !namespace
             [name]
           elsif namespace.const_type?
