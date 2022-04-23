@@ -130,6 +130,13 @@ module RuboCop
         end
 
         def camel_to_snake_case(string)
+          if defined?(ActiveSupport::Inflector)
+            if File.exist?('./config/initializers/inflections.rb')
+              require './config/initializers/inflections'
+            end
+            return ActiveSupport::Inflector.underscore(string)
+          end
+
           string
             .gsub(/([^A-Z])([A-Z]+)/, '\1_\2')
             .gsub(/([A-Z])([A-Z][^A-Z\d]+)/, '\1_\2')

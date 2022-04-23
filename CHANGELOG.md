@@ -4,6 +4,7 @@
 
 * Drop Ruby 2.5 support. ([@ydah][])
 * Add new `RSpec/ChangeByZero` cop. ([@ydah][])
+* Make `RSpec/FilePath` support ActiveSupport inflections, if defined. ([@jeromedalbert][])
 
 ## 2.10.0 (2022-04-19)
 
@@ -684,3 +685,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@oshiro3]: https://github.com/oshiro3
 [@ydah]: https://github.com/ydah
 [@t3h2mas]: https://github.com/t3h2mas
+[@jeromedalbert]: https://github.com/jeromedalbert
