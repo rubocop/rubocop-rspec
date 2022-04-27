@@ -46,7 +46,7 @@ module RuboCop
 
           MSG = 'Use `%<replacement>s` instead of `%<method>s`.'
 
-          # https://git.io/v7Kwr
+          # https://github.com/teamcapybara/capybara/blob/e283c1aeaa72441f5403963577e16333bf111a81/lib/capybara/rspec/features.rb#L31-L36
           MAP = {
             background: :before,
             scenario:   :it,
