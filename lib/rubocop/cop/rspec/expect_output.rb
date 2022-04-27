@@ -24,7 +24,7 @@ module RuboCop
           # rubocop:disable InternalAffairs/NodeDestructuring
           variable_name, _rhs = *node
           # rubocop:enable InternalAffairs/NodeDestructuring
-          name = variable_name[1..-1]
+          name = variable_name[1..]
           return unless name.eql?('stdout') || name.eql?('stderr')
 
           add_offense(node.loc.name, message: format(MSG, name: name))
