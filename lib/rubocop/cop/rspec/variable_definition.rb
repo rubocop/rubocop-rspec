@@ -47,7 +47,7 @@ module RuboCop
         def correct_variable(variable)
           case variable.type
           when :dsym
-            variable.source[1..-1]
+            variable.source[1..]
           when :sym
             variable.value.to_s.inspect
           else

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Drop Ruby 2.5 support. ([@ydah][])
+
 ## 2.10.0 (2022-04-19)
 
 * Fix a false positive for `RSpec/EmptyExampleGroup` when expectations in case statement. ([@ydah][])
