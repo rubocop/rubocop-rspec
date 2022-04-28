@@ -20,7 +20,7 @@ Layout/HashAlignment:
 
 Layout/LineLength:
   Max: 80 # default: 120
-  IgnoredPatterns:
+  AllowedPatterns:
     - '^\s*# .*https?:\/\/.+\[.+\]\.?$' # Allow long asciidoc links
 
 Layout/MultilineMethodCallIndentation:
