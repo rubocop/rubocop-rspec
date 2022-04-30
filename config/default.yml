@@ -176,6 +176,12 @@ RSpec/BeforeAfterAll:
   StyleGuide: https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
+RSpec/ChangeByZero:
+  Description: Prefer negated matchers over `to change.by(0)`.
+  Enabled: pending
+  VersionAdded: 2.11.0
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
+
 RSpec/ContextMethod:
   Description: "`context` should not be used for specifying methods."
   Enabled: true

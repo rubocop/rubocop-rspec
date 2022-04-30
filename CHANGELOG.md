@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Drop Ruby 2.5 support. ([@ydah][])
+* Add new `RSpec/ChangeByZero` cop. ([@ydah][])
 
 ## 2.10.0 (2022-04-19)
 
