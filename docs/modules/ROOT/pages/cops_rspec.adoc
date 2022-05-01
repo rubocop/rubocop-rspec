@@ -383,6 +383,49 @@ end
 * https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
+== RSpec/ChangeByZero
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.11.0
+| -
+|===
+
+Prefer negated matchers over `to change.by(0)`.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect { run }.to change(Foo, :bar).by(0)
+expect { run }.to change { Foo.bar }.by(0)
+expect { run }
+  .to change(Foo, :bar).by(0)
+  .and change(Foo, :baz).by(0)
+expect { run }
+  .to change { Foo.bar }.by(0)
+  .and change { Foo.baz }.by(0)
+
+# good
+expect { run }.not_to change(Foo, :bar)
+expect { run }.not_to change { Foo.bar }
+expect { run }
+  .to not_change(Foo, :bar)
+  .and not_change(Foo, :baz)
+expect { run }
+  .to not_change { Foo.bar }
+  .and not_change { Foo.baz }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
+
 == RSpec/ContextMethod
 
 |===

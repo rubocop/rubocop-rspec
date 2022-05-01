@@ -11,6 +11,7 @@
 * xref:cops_rspec.adoc#rspecbeeql[RSpec/BeEql]
 * xref:cops_rspec.adoc#rspecbenil[RSpec/BeNil]
 * xref:cops_rspec.adoc#rspecbeforeafterall[RSpec/BeforeAfterAll]
+* xref:cops_rspec.adoc#rspecchangebyzero[RSpec/ChangeByZero]
 * xref:cops_rspec.adoc#rspeccontextmethod[RSpec/ContextMethod]
 * xref:cops_rspec.adoc#rspeccontextwording[RSpec/ContextWording]
 * xref:cops_rspec.adoc#rspecdescribeclass[RSpec/DescribeClass]
