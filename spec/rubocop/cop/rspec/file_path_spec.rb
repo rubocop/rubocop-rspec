@@ -246,6 +246,27 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     end
   end
 
+  context 'when ActiveSupport Inflector is defined', order: :defined do
+    before { require 'active_support/inflector' }
+
+    it 'registers an offense for a bad path when there is no custom acronym' do
+      expect_offense(<<-RUBY, 'pvp_class_foo_spec.rb')
+        describe PvPClass, 'foo' do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `pv_p_class*foo*_spec.rb`.
+      RUBY
+    end
+
+    it 'does not register an offense when class name contains custom acronym' do
+      ActiveSupport::Inflector.inflections do |inflect|
+        inflect.acronym('PvP')
+      end
+
+      expect_no_offenses(<<-RUBY, 'pvp_class_foo_spec.rb')
+        describe PvPClass, 'foo' do; end
+      RUBY
+    end
+  end
+
   context 'when configured with IgnoreMethods' do
     let(:cop_config) { { 'IgnoreMethods' => true } }
 
