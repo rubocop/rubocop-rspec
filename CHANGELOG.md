@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.11.0 (2022-05-18)
+
 * Drop Ruby 2.5 support. ([@ydah][])
 * Add new `RSpec/ChangeByZero` cop. ([@ydah][])
 * Improve `RSpec/ExpectChange` to detect namespaced and top-level constants. ([@M-Yamashita01][])
