@@ -86,11 +86,33 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       RUBY
     end
 
-    it 'flags chained method calls' do
+    it 'flags a method call on an object' do
       expect_offense(<<-RUBY)
         it do
-          expect { file.upload! }.to change { user.uploads.count }.by(1)
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change(user.uploads, :count)`.
+          expect { run }.to change { user.name }.to('Jack')
+                            ^^^^^^^^^^^^^^^^^^^^ Prefer `change(user, :name)`.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it do
+          expect { run }.to change(user, :name).to('Jack')
+        end
+      RUBY
+    end
+
+    it 'ignores multiple chained method calls' do
+      expect_no_offenses(<<-RUBY)
+        it do
+          expect { run }.to change { user.reload.name }
+        end
+      RUBY
+    end
+
+    it 'ignores a variable/method' do
+      expect_no_offenses(<<-RUBY)
+        it do
+          expect { run }.to change { results }.to([])
         end
       RUBY
     end
