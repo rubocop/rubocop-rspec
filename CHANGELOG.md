@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.11.1 (2022-05-18)
+
 * Fix a regression in `RSpec/ExpectChange` flagging chained method calls. ([@pirj][])
 
 ## 2.11.0 (2022-05-18)
