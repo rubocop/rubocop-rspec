@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # This cop checks void `expect()`.
+      # Checks void `expect()`.
       #
       # @example
       #   # bad

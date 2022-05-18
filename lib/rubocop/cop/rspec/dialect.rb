@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # This cop enforces custom RSpec dialects.
+      # Enforces custom RSpec dialects.
       #
       # A dialect can be based on the following RSpec methods:
       #

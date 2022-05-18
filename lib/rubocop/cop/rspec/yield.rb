@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # This cop checks for calling a block within a stub.
+      # Checks for calling a block within a stub.
       #
       # @example
       #   # bad
