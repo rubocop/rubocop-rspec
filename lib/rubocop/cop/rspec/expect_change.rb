@@ -47,7 +47,13 @@ module RuboCop
           (block
             (send nil? :change)
             (args)
-            (send $_ $_)
+            (send
+              ${
+                (send nil? _)  # change { user.name }
+                const          # change { User.count }
+              }
+              $_
+            )
           )
         PATTERN
 
