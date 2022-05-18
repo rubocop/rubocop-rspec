@@ -810,7 +810,7 @@ end
 | -
 |===
 
-This cop enforces custom RSpec dialects.
+Enforces custom RSpec dialects.
 
 A dialect can be based on the following RSpec methods:
 
@@ -4508,7 +4508,7 @@ end
 | -
 |===
 
-This cop checks void `expect()`.
+Checks void `expect()`.
 
 === Examples
 
@@ -4537,7 +4537,7 @@ expect(something).to be(1)
 | -
 |===
 
-This cop checks for calling a block within a stub.
+Checks for calling a block within a stub.
 
 === Examples
 

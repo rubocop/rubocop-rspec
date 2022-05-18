@@ -262,7 +262,7 @@ RSpec/DescribedClassModuleWrapping:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
 
 RSpec/Dialect:
-  Description: This cop enforces custom RSpec dialects.
+  Description: Enforces custom RSpec dialects.
   Enabled: false
   PreferredMethods: {}
   VersionAdded: '1.33'
@@ -793,13 +793,13 @@ RSpec/VerifiedDoubles:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 
 RSpec/VoidExpect:
-  Description: This cop checks void `expect()`.
+  Description: Checks void `expect()`.
   Enabled: true
   VersionAdded: '1.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
 
 RSpec/Yield:
-  Description: This cop checks for calling a block within a stub.
+  Description: Checks for calling a block within a stub.
   Enabled: true
   VersionAdded: '1.32'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
