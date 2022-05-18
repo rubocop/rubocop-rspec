@@ -42,8 +42,9 @@ RSpec.describe 'config/default.yml' do
     end
   end
 
-  it 'has configuration for all cops' do
-    expect(default_config.keys).to match_array(config_keys)
+  it 'has configuration for all cops and amendments' do
+    expect(default_config.keys)
+      .to match_array([*config_keys, 'Metrics/BlockLength'])
   end
 
   it 'sorts configuration keys alphabetically', :pending do
