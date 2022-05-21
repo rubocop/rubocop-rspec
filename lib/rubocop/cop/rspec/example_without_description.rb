@@ -14,7 +14,7 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option
       #
-      # @example `EnforcedStyle: always_allow`
+      # @example `EnforcedStyle: always_allow` (default)
       #   # bad
       #   it('') { is_expected.to be_good }
       #   it '' do

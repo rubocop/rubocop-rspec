@@ -69,7 +69,7 @@ This cop can be configured using the `EnforcedStyle` option
 
 === Examples
 
-==== `EnforcedStyle: create_list`
+==== `EnforcedStyle: create_list` (default)
 
 [source,ruby]
 ----

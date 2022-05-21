@@ -8,7 +8,7 @@ module RuboCop
       # This cop can be configured using the `EnforcedStyle` option
       # and supports the `--auto-gen-config` flag.
       #
-      # @example `EnforcedStyle: is_expected`
+      # @example `EnforcedStyle: is_expected` (default)
       #
       #   # bad
       #   it { should be_truthy }

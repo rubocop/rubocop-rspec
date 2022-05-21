@@ -5,14 +5,14 @@ module RuboCop
     module RSpec
       # Checks that only one `it_behaves_like` style is used.
       #
-      # @example when configuration is `EnforcedStyle: it_behaves_like`
+      # @example `EnforcedStyle: it_behaves_like` (default)
       #   # bad
       #   it_should_behave_like 'a foo'
       #
       #   # good
       #   it_behaves_like 'a foo'
       #
-      # @example when configuration is `EnforcedStyle: it_should_behave_like`
+      # @example `EnforcedStyle: it_should_behave_like`
       #   # bad
       #   it_behaves_like 'a foo'
       #

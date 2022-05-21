@@ -8,7 +8,7 @@ module RuboCop
         #
         # This cop can be configured using the `EnforcedStyle` option
         #
-        # @example `EnforcedStyle: create_list`
+        # @example `EnforcedStyle: create_list` (default)
         #   # bad
         #   3.times { create :user }
         #

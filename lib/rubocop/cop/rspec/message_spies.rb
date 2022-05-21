@@ -8,7 +8,7 @@ module RuboCop
       # This cop can be configured in your configuration using the
       # `EnforcedStyle` option and supports `--auto-gen-config`.
       #
-      # @example `EnforcedStyle: have_received`
+      # @example `EnforcedStyle: have_received` (default)
       #
       #   # bad
       #   expect(foo).to receive(:bar)

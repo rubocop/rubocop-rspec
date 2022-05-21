@@ -5,7 +5,8 @@ module RuboCop
     module RSpec
       # Checks for consistent method usage for negating expectations.
       #
-      # @example
+      # @example `EnforcedStyle: not_to` (default)
+      #
       #   # bad
       #   it '...' do
       #     expect(false).to_not be_true
@@ -14,6 +15,18 @@ module RuboCop
       #   # good
       #   it '...' do
       #     expect(false).not_to be_true
+      #   end
+      #
+      # @example `EnforcedStyle: to_not`
+      #
+      #   # bad
+      #   it '...' do
+      #     expect(false).not_to be_true
+      #   end
+      #
+      #   # good
+      #   it '...' do
+      #     expect(false).to_not be_true
       #   end
       class NotToNot < Base
         extend AutoCorrector
