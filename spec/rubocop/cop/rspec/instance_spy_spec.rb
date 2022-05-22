@@ -47,7 +47,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
   end
 
   context 'when not used with `have_received`' do
-    it 'does not add an offence' do
+    it 'does not add an offense' do
       expect_no_offenses(<<-RUBY)
         it do
           foo = instance_double(Foo).as_null_object

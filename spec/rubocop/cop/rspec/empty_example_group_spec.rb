@@ -370,7 +370,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
       end
 
       describe Foo do
-        skip 'undefined behaviour'
+        skip 'undefined behavior'
       end
 
       xdescribe Foo

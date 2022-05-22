@@ -280,7 +280,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
-  it 'does not register an offence for subject in arbitrary code' do
+  it 'does not register an offense for subject in arbitrary code' do
     expect_no_offenses(<<-RUBY)
       module Support
         subject do
