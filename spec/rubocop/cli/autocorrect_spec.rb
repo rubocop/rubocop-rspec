@@ -26,7 +26,7 @@ RSpec.describe 'RuboCop::CLI --autocorrect', :isolated_environment do # rubocop:
       RUBY
     end
 
-    it 'rubocop terminates with a succsess' do
+    it 'rubocop terminates with a success' do
       expect(cli.run(['-A', '--only',
                       'RSpec/Capybara/CurrentPathExpectation,' \
                       'Style/TrailingCommaInArguments'])).to eq(0)

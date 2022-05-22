@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
-  it 'flags one-line expectcation syntax' do
+  it 'flags one-line expectation syntax' do
     expect_offense(<<-RUBY)
       describe Foo do
         subject(:foo) { described_class.new }

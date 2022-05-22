@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
-  it 'registers an offense for overwriten `let`' do
+  it 'registers an offense for overwritten `let`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
     RUBY
   end
 
-  it 'registers an offense for overwriten `subject`' do
+  it 'registers an offense for overwritten `subject`' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         subject(:a) { a }
