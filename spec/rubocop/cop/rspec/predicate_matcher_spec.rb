@@ -64,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         RUBY
       end
 
-      it 'accepts a predicate method that is not ckeced true/false' do
+      it 'accepts a predicate method that is not checked true/false' do
         expect_no_offenses(<<-RUBY)
           expect(foo.something?).to eq "something"
           expect(foo.has_something?).to eq "something"
