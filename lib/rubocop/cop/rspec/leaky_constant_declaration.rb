@@ -10,7 +10,7 @@ module RuboCop
       #
       # If several examples may define a `DummyClass`, instead of being a
       # blank slate class as it will be in the first example, subsequent
-      # examples will be reopening it and modifying its behaviour in
+      # examples will be reopening it and modifying its behavior in
       # unpredictable ways.
       # Even worse when a class that exists in the codebase is reopened.
       #

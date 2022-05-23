@@ -6,7 +6,7 @@ module RuboCop
       # Checks for long examples.
       #
       # A long example is usually more difficult to understand. Consider
-      # extracting out some behaviour, e.g. with a `let` block, or a helper
+      # extracting out some behavior, e.g. with a `let` block, or a helper
       # method.
       #
       # @example

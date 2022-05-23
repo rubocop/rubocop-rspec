@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
-  it 'does not register an offence for example groups '\
+  it 'does not register an offense for example groups '\
      'do not describe a class / method' do
     expect_no_offenses(<<-RUBY, 'some/class/spec.rb')
       describe 'Test something' do; end
@@ -184,14 +184,14 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
-  it 'does not register an offence for an arbitrary spec suffix' do
+  it 'does not register an offense for an arbitrary spec suffix' do
     filename = 'some/class/thing_predicate_spec.rb'
     expect_no_offenses(<<-RUBY, filename)
       describe Some::Class, '#thing?' do; end
     RUBY
   end
 
-  it 'does not register an offence for an arbitrary spec name '\
+  it 'does not register an offense for an arbitrary spec name '\
      'for an operator method' do
     filename = 'my_little_class/spaceship_operator_spec.rb'
     expect_no_offenses(<<-RUBY, filename)

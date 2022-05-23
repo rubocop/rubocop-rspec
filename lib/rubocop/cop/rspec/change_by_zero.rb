@@ -52,17 +52,17 @@ module RuboCop
 
         def on_send(node)
           expect_change_with_arguments(node.parent) do
-            check_offence(node.parent)
+            check_offense(node.parent)
           end
 
           expect_change_with_block(node.parent.parent) do
-            check_offence(node.parent.parent)
+            check_offense(node.parent.parent)
           end
         end
 
         private
 
-        def check_offence(node)
+        def check_offense(node)
           expression = node.loc.expression
           if compound_expectations?(node)
             add_offense(expression, message: MSG_COMPOUND)

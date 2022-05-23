@@ -56,6 +56,17 @@ Naming/FileName:
   Exclude:
     - lib/rubocop-rspec.rb
 
+Naming/InclusiveLanguage:
+  Enabled: true
+  CheckStrings: true
+  FlaggedTerms:
+    behaviour:
+      Suggestions:
+        - behavior
+    offence:
+      Suggestions:
+        - offense
+
 RSpec/ExampleLength:
   CountAsOne:
     - heredoc
