@@ -206,6 +206,13 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
+  it 'registers an offense for path with incorrect namespace' do
+    expect_offense(<<-RUBY, '/home/foo/spec/very/long/my_class_spec.rb')
+      describe Very::Medium::MyClass do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `very/medium/my_class*_spec.rb`.
+    RUBY
+  end
+
   it 'registers an offense for path based on a class name with long module' do
     expect_offense(<<-RUBY, '/home/foo/spec/very/my_class_spec.rb')
       describe Very::Long::Namespace::MyClass do; end
