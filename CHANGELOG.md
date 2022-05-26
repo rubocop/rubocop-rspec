@@ -1,6 +1,7 @@
 # Changelog
 
 ## Master (Unreleased)
+* Fix incorrect path suggested by `RSpec/FilePath` cop when second argument contains spaces. ([@tejasbubane][])
 
 ## 2.11.1 (2022-05-18)
 

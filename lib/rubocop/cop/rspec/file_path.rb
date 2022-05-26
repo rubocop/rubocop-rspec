@@ -117,8 +117,9 @@ module RuboCop
 
         def name_pattern(method_name)
           return unless method_name&.str_type?
+          return if ignore_methods?
 
-          ".*#{method_name.str_content.gsub(/\W/, '')}" unless ignore_methods?
+          ".*#{method_name.str_content.gsub(/\s/, '_').gsub(/\W/, '')}"
         end
 
         def expected_path(constant)
