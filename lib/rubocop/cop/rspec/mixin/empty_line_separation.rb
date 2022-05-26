@@ -4,7 +4,10 @@ module RuboCop
   module Cop
     module RSpec
       # Helps determine the offending location if there is not an empty line
-      # following the node. Allows comments to follow directly after.
+      # following the node. Allows comments to follow directly after
+      # in the following cases.
+      # - `rubocop:enable` directive
+      # - followed by empty line(s)
       module EmptyLineSeparation
         include FinalEndLocation
         include RangeHelp
@@ -21,13 +24,19 @@ module RuboCop
         end
 
         def missing_separating_line(node)
-          line = final_end_location(node).line
+          line = final_end_line = final_end_location(node).line
 
-          line += 1 while comment_line?(processed_source[line])
+          while comment_line?(processed_source[line])
+            line += 1
+            comment = processed_source.comment_at_line(line)
+            if DirectiveComment.new(comment).enabled?
+              enable_directive_line = line
+            end
+          end
 
           return if processed_source[line].blank?
 
-          yield offending_loc(line)
+          yield offending_loc(enable_directive_line || final_end_line)
         end
 
         def offending_loc(last_line)

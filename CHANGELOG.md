@@ -1,7 +1,9 @@
 # Changelog
 
 ## Master (Unreleased)
+
 * Fix incorrect path suggested by `RSpec/FilePath` cop when second argument contains spaces. ([@tejasbubane][])
+* Fix autocorrect for EmptyLineSeparation. ([@johnny-miyake][])
 
 ## 2.11.1 (2022-05-18)
 
@@ -695,3 +697,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@t3h2mas]: https://github.com/t3h2mas
 [@M-Yamashita01]: https://github.com/M-Yamashita01
 [@luke-hill]: https://github.com/luke-hill
+[@johnny-miyake]: https://github.com/johnny-miyake
