@@ -6,6 +6,7 @@
 * Fix autocorrect for EmptyLineSeparation. ([@johnny-miyake][])
 * Add new `RSpec/Capybara/SpecificMatcher` cop. ([@ydah][])
 * Fixed false offense detection in `FactoryBot/CreateList` when a n.times block is including method calls in the factory create arguments. ([@ngouy][])
+* Fix error in `RSpec/RSpec/FactoryBot/CreateList` cop for empty block. ([@tejasbubane][])
 
 ## 2.11.1 (2022-05-18)
 

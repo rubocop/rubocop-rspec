@@ -76,6 +76,7 @@ module RuboCop
 
             return unless n_times_block?(node)
             return if n_times_block_with_arg_and_used?(node)
+            return unless node.body
             return if arguments_include_method_call?(node.body)
             return unless contains_only_factory?(node.body)
 
