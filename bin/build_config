@@ -17,6 +17,7 @@ glob = File.join('lib', 'rubocop', 'cop', 'rspec',
 # are detected as RuboCop::Cop::Base, and that complicates the detection
 # of their relation with RuboCop RSpec.
 rspec_cop_path = File.join('lib', 'rubocop', 'cop', 'rspec', 'base.rb')
+YARD::Tags::Library.define_tag('Cop Safety Information', :safety)
 YARD.parse(Dir[glob].prepend(rspec_cop_path), [])
 
 descriptions = RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all).to_h
