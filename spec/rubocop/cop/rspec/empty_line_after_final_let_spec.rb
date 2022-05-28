@@ -89,14 +89,13 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'registers an offense for missing empty line after the comment '\
-     'that comes after last let' do
+  it 'flags a missing empty line before a comment' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
-        # end of setup
-        ^^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        ^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        # comment
         it { expect(a).to eq(b) }
       end
     RUBY
@@ -105,23 +104,70 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
-        # end of setup
+
+        # comment
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line before a multiline comment' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+        ^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        # multiline comment
+        # multiline comment
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        let(:a) { a }
+        let(:b) { b }
+
+        # multiline comment
+        # multiline comment
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a `rubocop:enable` directive' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        # rubocop:disable RSpec/Foo
+        let(:a) { a }
+        let(:b) { b }
+        # rubocop:enable RSpec/Foo
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        it { expect(a).to eq(b) }
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        # rubocop:disable RSpec/Foo
+        let(:a) { a }
+        let(:b) { b }
+        # rubocop:enable RSpec/Foo
 
         it { expect(a).to eq(b) }
       end
     RUBY
   end
 
-  it 'registers an offense for missing empty line after a multiline comment '\
-     'after last let' do
+  it 'flags a missing empty line before a `rubocop:disable` directive' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
-        # a multiline comment marking
-        # the end of setup
-        ^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        ^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        # rubocop:disable RSpec/Foo
         it { expect(a).to eq(b) }
+        # rubocop:enable RSpec/Foo
       end
     RUBY
 
@@ -129,10 +175,39 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
-        # a multiline comment marking
-        # the end of setup
 
+        # rubocop:disable RSpec/Foo
         it { expect(a).to eq(b) }
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a `rubocop:enable` directive '\
+      'when it is followed by a `rubocop:disable` directive' do
+    expect_offense(<<-RUBY)
+      RSpec.describe User do
+        # rubocop:disable RSpec/Foo
+        let(:a) { a }
+        let(:b) { b }
+        # rubocop:enable RSpec/Foo
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after the last `let`.
+        # rubocop:disable RSpec/Foo
+        it { expect(a).to eq(b) }
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe User do
+        # rubocop:disable RSpec/Foo
+        let(:a) { a }
+        let(:b) { b }
+        # rubocop:enable RSpec/Foo
+
+        # rubocop:disable RSpec/Foo
+        it { expect(a).to eq(b) }
+        # rubocop:enable RSpec/Foo
       end
     RUBY
   end

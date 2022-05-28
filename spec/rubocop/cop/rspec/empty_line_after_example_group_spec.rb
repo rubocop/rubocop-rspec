@@ -116,4 +116,150 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
   end
+
+  it 'does not register an offense for a comment followed by an empty line' do
+    expect_no_offenses(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+        # comment
+
+        describe 'baz' do
+        end
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line before a comment' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+        ^^^ Add an empty line after `describe`.
+        # comment
+        describe 'baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+
+        # comment
+        describe 'baz' do
+        end
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line before a multiline comment' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+        ^^^ Add an empty line after `describe`.
+        # multiline comment
+        # multiline comment
+        describe 'baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+
+        # multiline comment
+        # multiline comment
+        describe 'baz' do
+        end
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a `rubocop:enable` directive' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        # rubocop:disable RSpec/Foo
+        describe 'bar' do
+        end
+        # rubocop:enable RSpec/Foo
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
+        describe 'baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        # rubocop:disable RSpec/Foo
+        describe 'bar' do
+        end
+        # rubocop:enable RSpec/Foo
+
+        describe 'baz' do
+        end
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line before a `rubocop:disable` directive' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+        ^^^ Add an empty line after `describe`.
+        # rubocop:disable RSpec/Foo
+        describe 'baz' do
+        end
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        describe 'bar' do
+        end
+
+        # rubocop:disable RSpec/Foo
+        describe 'baz' do
+        end
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a `rubocop:enable` directive '\
+      'when it is followed by a `rubocop:disable` directive' do
+    expect_offense(<<-RUBY)
+      RSpec.describe Foo do
+        # rubocop:disable RSpec/Foo
+        describe 'bar' do
+        end
+        # rubocop:enable RSpec/Foo
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
+        # rubocop:disable RSpec/Foo
+        describe 'baz' do
+        end
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.describe Foo do
+        # rubocop:disable RSpec/Foo
+        describe 'bar' do
+        end
+        # rubocop:enable RSpec/Foo
+
+        # rubocop:disable RSpec/Foo
+        describe 'baz' do
+        end
+        # rubocop:enable RSpec/Foo
+      end
+    RUBY
+  end
 end
