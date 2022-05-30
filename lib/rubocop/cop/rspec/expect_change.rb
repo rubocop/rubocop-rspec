@@ -10,13 +10,6 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option.
       #
-      # @example `EnforcedStyle: block`
-      #   # bad
-      #   expect { run }.to change(Foo, :bar)
-      #
-      #   # good
-      #   expect { run }.to change { Foo.bar }
-      #
       # @example `EnforcedStyle: method_call` (default)
       #   # bad
       #   expect { run }.to change { Foo.bar }
@@ -28,6 +21,13 @@ module RuboCop
       #   # also good when there are arguments or chained method calls
       #   expect { run }.to change { Foo.bar(:count) }
       #   expect { run }.to change { user.reload.name }
+      #
+      # @example `EnforcedStyle: block`
+      #   # bad
+      #   expect { run }.to change(Foo, :bar)
+      #
+      #   # good
+      #   expect { run }.to change { Foo.bar }
       #
       class ExpectChange < Base
         extend AutoCorrector

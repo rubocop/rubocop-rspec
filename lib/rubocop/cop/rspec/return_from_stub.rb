@@ -11,17 +11,6 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option
       #
-      # @example `EnforcedStyle: block`
-      #   # bad
-      #   allow(Foo).to receive(:bar).and_return("baz")
-      #   expect(Foo).to receive(:bar).and_return("baz")
-      #
-      #   # good
-      #   allow(Foo).to receive(:bar) { "baz" }
-      #   expect(Foo).to receive(:bar) { "baz" }
-      #   # also good as the returned value is dynamic
-      #   allow(Foo).to receive(:bar).and_return(bar.baz)
-      #
       # @example `EnforcedStyle: and_return` (default)
       #   # bad
       #   allow(Foo).to receive(:bar) { "baz" }
@@ -32,6 +21,17 @@ module RuboCop
       #   expect(Foo).to receive(:bar).and_return("baz")
       #   # also good as the returned value is dynamic
       #   allow(Foo).to receive(:bar) { bar.baz }
+      #
+      # @example `EnforcedStyle: block`
+      #   # bad
+      #   allow(Foo).to receive(:bar).and_return("baz")
+      #   expect(Foo).to receive(:bar).and_return("baz")
+      #
+      #   # good
+      #   allow(Foo).to receive(:bar) { "baz" }
+      #   expect(Foo).to receive(:bar) { "baz" }
+      #   # also good as the returned value is dynamic
+      #   allow(Foo).to receive(:bar).and_return(bar.baz)
       #
       class ReturnFromStub < Base
         extend AutoCorrector
