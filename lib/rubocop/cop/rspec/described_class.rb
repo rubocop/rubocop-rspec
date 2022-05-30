@@ -11,7 +11,7 @@ module RuboCop
       # This cop can be configured using the `EnforcedStyle` and `SkipBlocks`
       # options.
       #
-      # @example `EnforcedStyle: described_class`
+      # @example `EnforcedStyle: described_class` (default)
       #   # bad
       #   describe MyClass do
       #     subject { MyClass.do_something }

@@ -10,7 +10,7 @@ module RuboCop
       # styles: "implicit", "each", and "example." All styles have
       # the same behavior.
       #
-      # @example when configuration is `EnforcedStyle: implicit`
+      # @example `EnforcedStyle: implicit` (default)
       #   # bad
       #   before(:each) do
       #     # ...
@@ -26,7 +26,7 @@ module RuboCop
       #     # ...
       #   end
       #
-      # @example when configuration is `EnforcedStyle: each`
+      # @example `EnforcedStyle: each`
       #   # bad
       #   before(:example) do
       #     # ...
@@ -42,7 +42,7 @@ module RuboCop
       #     # ...
       #   end
       #
-      # @example when configuration is `EnforcedStyle: example`
+      # @example `EnforcedStyle: example`
       #   # bad
       #   before(:each) do
       #     # ...

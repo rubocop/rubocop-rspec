@@ -22,7 +22,7 @@ module RuboCop
       #   # also good as the returned value is dynamic
       #   allow(Foo).to receive(:bar).and_return(bar.baz)
       #
-      # @example `EnforcedStyle: and_return`
+      # @example `EnforcedStyle: and_return` (default)
       #   # bad
       #   allow(Foo).to receive(:bar) { "baz" }
       #   expect(Foo).to receive(:bar) { "baz" }

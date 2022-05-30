@@ -17,7 +17,7 @@ module RuboCop
       #   # good
       #   expect { run }.to change { Foo.bar }
       #
-      # @example `EnforcedStyle: method_call`
+      # @example `EnforcedStyle: method_call` (default)
       #   # bad
       #   expect { run }.to change { Foo.bar }
       #   expect { run }.to change { foo.baz }

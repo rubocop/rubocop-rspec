@@ -699,7 +699,7 @@ directory.
 
 === Examples
 
-==== `EnforcedStyle: described_class`
+==== `EnforcedStyle: described_class` (default)
 
 [source,ruby]
 ----
@@ -1300,7 +1300,7 @@ This cop can be configured using the `EnforcedStyle` option
 
 === Examples
 
-==== `EnforcedStyle: always_allow`
+==== `EnforcedStyle: always_allow` (default)
 
 [source,ruby]
 ----
@@ -1539,7 +1539,7 @@ expect { run }.to change(Foo, :bar)
 expect { run }.to change { Foo.bar }
 ----
 
-==== `EnforcedStyle: method_call`
+==== `EnforcedStyle: method_call` (default)
 
 [source,ruby]
 ----
@@ -1800,7 +1800,7 @@ the same behavior.
 
 === Examples
 
-==== when configuration is `EnforcedStyle: implicit`
+==== `EnforcedStyle: implicit` (default)
 
 [source,ruby]
 ----
@@ -1820,7 +1820,7 @@ before do
 end
 ----
 
-==== when configuration is `EnforcedStyle: each`
+==== `EnforcedStyle: each`
 
 [source,ruby]
 ----
@@ -1840,7 +1840,7 @@ before(:each) do
 end
 ----
 
-==== when configuration is `EnforcedStyle: example`
+==== `EnforcedStyle: example`
 
 [source,ruby]
 ----
@@ -2000,7 +2000,7 @@ and supports the `--auto-gen-config` flag.
 
 === Examples
 
-==== `EnforcedStyle: is_expected`
+==== `EnforcedStyle: is_expected` (default)
 
 [source,ruby]
 ----
@@ -2244,7 +2244,7 @@ Checks that only one `it_behaves_like` style is used.
 
 === Examples
 
-==== when configuration is `EnforcedStyle: it_behaves_like`
+==== `EnforcedStyle: it_behaves_like` (default)
 
 [source,ruby]
 ----
@@ -2255,7 +2255,7 @@ it_should_behave_like 'a foo'
 it_behaves_like 'a foo'
 ----
 
-==== when configuration is `EnforcedStyle: it_should_behave_like`
+==== `EnforcedStyle: it_should_behave_like`
 
 [source,ruby]
 ----
@@ -2617,7 +2617,7 @@ This cop can be configured in your configuration using the
 
 === Examples
 
-==== `EnforcedStyle: allow`
+==== `EnforcedStyle: allow` (default)
 
 [source,ruby]
 ----
@@ -2672,7 +2672,7 @@ This cop can be configured in your configuration using the
 
 === Examples
 
-==== `EnforcedStyle: have_received`
+==== `EnforcedStyle: have_received` (default)
 
 [source,ruby]
 ----
@@ -3230,6 +3230,8 @@ Checks for consistent method usage for negating expectations.
 
 === Examples
 
+==== `EnforcedStyle: not_to` (default)
+
 [source,ruby]
 ----
 # bad
@@ -3240,6 +3242,21 @@ end
 # good
 it '...' do
   expect(false).not_to be_true
+end
+----
+
+==== `EnforcedStyle: to_not`
+
+[source,ruby]
+----
+# bad
+it '...' do
+  expect(false).not_to be_true
+end
+
+# good
+it '...' do
+  expect(false).to_not be_true
 end
 ----
 
@@ -3808,7 +3825,7 @@ expect(Foo).to receive(:bar) { "baz" }
 allow(Foo).to receive(:bar).and_return(bar.baz)
 ----
 
-==== `EnforcedStyle: and_return`
+==== `EnforcedStyle: and_return` (default)
 
 [source,ruby]
 ----
