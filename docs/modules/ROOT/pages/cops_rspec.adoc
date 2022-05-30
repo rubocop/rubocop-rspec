@@ -1528,17 +1528,6 @@ This cop can be configured using the `EnforcedStyle` option.
 
 === Examples
 
-==== `EnforcedStyle: block`
-
-[source,ruby]
-----
-# bad
-expect { run }.to change(Foo, :bar)
-
-# good
-expect { run }.to change { Foo.bar }
-----
-
 ==== `EnforcedStyle: method_call` (default)
 
 [source,ruby]
@@ -1553,6 +1542,17 @@ expect { run }.to change(foo, :baz)
 # also good when there are arguments or chained method calls
 expect { run }.to change { Foo.bar(:count) }
 expect { run }.to change { user.reload.name }
+----
+
+==== `EnforcedStyle: block`
+
+[source,ruby]
+----
+# bad
+expect { run }.to change(Foo, :bar)
+
+# good
+expect { run }.to change { Foo.bar }
 ----
 
 === Configurable attributes
@@ -3810,21 +3810,6 @@ This cop can be configured using the `EnforcedStyle` option
 
 === Examples
 
-==== `EnforcedStyle: block`
-
-[source,ruby]
-----
-# bad
-allow(Foo).to receive(:bar).and_return("baz")
-expect(Foo).to receive(:bar).and_return("baz")
-
-# good
-allow(Foo).to receive(:bar) { "baz" }
-expect(Foo).to receive(:bar) { "baz" }
-# also good as the returned value is dynamic
-allow(Foo).to receive(:bar).and_return(bar.baz)
-----
-
 ==== `EnforcedStyle: and_return` (default)
 
 [source,ruby]
@@ -3838,6 +3823,21 @@ allow(Foo).to receive(:bar).and_return("baz")
 expect(Foo).to receive(:bar).and_return("baz")
 # also good as the returned value is dynamic
 allow(Foo).to receive(:bar) { bar.baz }
+----
+
+==== `EnforcedStyle: block`
+
+[source,ruby]
+----
+# bad
+allow(Foo).to receive(:bar).and_return("baz")
+expect(Foo).to receive(:bar).and_return("baz")
+
+# good
+allow(Foo).to receive(:bar) { "baz" }
+expect(Foo).to receive(:bar) { "baz" }
+# also good as the returned value is dynamic
+allow(Foo).to receive(:bar).and_return(bar.baz)
 ----
 
 === Configurable attributes
