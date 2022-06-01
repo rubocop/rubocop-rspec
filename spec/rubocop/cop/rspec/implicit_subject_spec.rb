@@ -85,6 +85,15 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
         end
       RUBY
     end
+
+    it 'allows `is_expected` with an alias' do
+      other_cops.dig('RSpec', 'Language', 'Includes', 'Examples')
+        .push('epic')
+
+      expect_no_offenses(<<-RUBY)
+        epic { is_expected.to be_good }
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `single_statement_only`' do
@@ -93,6 +102,17 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
     it 'allows `is_expected` in multi-line example with single statement' do
       expect_no_offenses(<<-RUBY)
         it 'expect subject to be used' do
+          is_expected.to be_good
+        end
+      RUBY
+    end
+
+    it 'allows `is_expected` in single statement with an alias' do
+      other_cops.dig('RSpec', 'Language', 'Includes', 'Examples')
+        .push('epic')
+
+      expect_no_offenses(<<-RUBY)
+        epic do
           is_expected.to be_good
         end
       RUBY

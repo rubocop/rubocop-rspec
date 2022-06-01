@@ -54,6 +54,10 @@ module RuboCop
           (send nil? {:should :should_not :is_expected} ...)
         PATTERN
 
+        # @!method include_examples?(node)
+        def_node_matcher :include_examples?,
+                         block_pattern('#Includes.examples')
+
         def on_send(node)
           return unless implicit_subject?(node)
           return if valid_usage?(node)
@@ -78,7 +82,9 @@ module RuboCop
         end
 
         def valid_usage?(node)
-          example = node.ancestors.find { |parent| example?(parent) }
+          example = node.ancestors.find do |parent|
+            example?(parent) || include_examples?(parent)
+          end
           return false if example.nil?
 
           example.method?(:its) || allowed_by_style?(example)
