@@ -12,17 +12,22 @@ module RuboCop
       #
       #   # bad
       #   expect(foo).to receive(:bar)
+      #   subject
       #
       #   # good
+      #   allow(foo).to receive(:bar) # or use instance_spy
+      #   subject
       #   expect(foo).to have_received(:bar)
       #
       # @example `EnforcedStyle: receive`
       #
       #   # bad
+      #   subject
       #   expect(foo).to have_received(:bar)
       #
       #   # good
       #   expect(foo).to receive(:bar)
+      #   subject
       #
       class MessageSpies < Base
         include ConfigurableEnforcedStyle
