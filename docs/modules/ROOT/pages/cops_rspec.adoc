@@ -2678,8 +2678,11 @@ This cop can be configured in your configuration using the
 ----
 # bad
 expect(foo).to receive(:bar)
+do_something
 
 # good
+allow(foo).to receive(:bar) # or use instance_spy
+do_something
 expect(foo).to have_received(:bar)
 ----
 
@@ -2688,10 +2691,13 @@ expect(foo).to have_received(:bar)
 [source,ruby]
 ----
 # bad
+allow(foo).to receive(:bar)
+do_something
 expect(foo).to have_received(:bar)
 
 # good
 expect(foo).to receive(:bar)
+do_something
 ----
 
 === Configurable attributes
