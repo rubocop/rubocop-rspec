@@ -9,6 +9,8 @@ module RuboCop
       #   # bad
       #   expect { run }.to change(Foo, :bar).by(0)
       #   expect { run }.to change { Foo.bar }.by(0)
+      #
+      #   # bad - compound expectations
       #   expect { run }
       #     .to change(Foo, :bar).by(0)
       #     .and change(Foo, :baz).by(0)
@@ -19,6 +21,9 @@ module RuboCop
       #   # good
       #   expect { run }.not_to change(Foo, :bar)
       #   expect { run }.not_to change { Foo.bar }
+      #
+      #   # good - compound expectations
+      #   define_negated_matcher :not_change, :change
       #   expect { run }
       #     .to not_change(Foo, :bar)
       #     .and not_change(Foo, :baz)
