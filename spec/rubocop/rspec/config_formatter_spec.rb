@@ -6,7 +6,7 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
   let(:config) do
     {
       'AllCops' => {
-        'Setting' => 'fourty two'
+        'Setting' => 'forty two'
       },
       'RSpec/Foo' => {
         'Config'      => 2,
@@ -42,7 +42,7 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
     expect(formatter.dump).to eql(<<-YAML.gsub(/^\s+\|/, ''))
       |---
       |AllCops:
-      |  Setting: fourty two
+      |  Setting: forty two
       |
       |RSpec/Foo:
       |  Config: 2

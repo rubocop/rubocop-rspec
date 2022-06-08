@@ -193,7 +193,7 @@ module RuboCop
               if node.body.begin_type?
                 format_multiline_block(node)
               else
-                format_singeline_block(node)
+                format_singleline_block(node)
               end
             end
 
@@ -205,7 +205,7 @@ module RuboCop
               "#{indent_end}end"
             end
 
-            def format_singeline_block(node)
+            def format_singleline_block(node)
               " { #{node.arguments.source} #{node.body.source} }"
             end
           end
