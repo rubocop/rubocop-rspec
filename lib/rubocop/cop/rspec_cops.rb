@@ -2,6 +2,7 @@
 
 require_relative 'rspec/capybara/current_path_expectation'
 require_relative 'rspec/capybara/feature_methods'
+require_relative 'rspec/capybara/specific_matcher'
 require_relative 'rspec/capybara/visibility_matcher'
 
 require_relative 'rspec/factory_bot/attribute_defined_statically'

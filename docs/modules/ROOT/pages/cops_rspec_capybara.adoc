@@ -106,6 +106,45 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+== RSpec/Capybara/SpecificMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| 2.12
+| -
+|===
+
+Checks for there is a more specific matcher offered by Capybara.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(page).to have_selector('button')
+expect(page).to have_no_selector('button.cls')
+expect(page).to have_css('button')
+expect(page).to have_no_css('a.cls', exact_text: 'foo')
+expect(page).to have_css('table.cls')
+expect(page).to have_css('select')
+
+# good
+expect(page).to have_button
+expect(page).to have_no_button(class: 'cls')
+expect(page).to have_button
+expect(page).to have_no_link('foo', class: 'cls')
+expect(page).to have_table(class: 'cls')
+expect(page).to have_select
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificMatcher
+
 == RSpec/Capybara/VisibilityMatcher
 
 |===

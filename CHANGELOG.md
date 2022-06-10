@@ -4,6 +4,7 @@
 
 * Fix incorrect path suggested by `RSpec/FilePath` cop when second argument contains spaces. ([@tejasbubane][])
 * Fix autocorrect for EmptyLineSeparation. ([@johnny-miyake][])
+* Add new `RSpec/Capybara/SpecificMatcher` cop. ([@ydah][])
 
 ## 2.11.1 (2022-05-18)
 
