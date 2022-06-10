@@ -832,6 +832,12 @@ RSpec/Capybara/FeatureMethods:
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+RSpec/Capybara/SpecificMatcher:
+  Description: Checks for there is a more specific matcher offered by Capybara.
+  Enabled: pending
+  VersionAdded: '2.12'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificMatcher
+
 RSpec/Capybara/VisibilityMatcher:
   Description: Checks for boolean visibility in Capybara finders.
   Enabled: true

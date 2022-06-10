@@ -93,6 +93,7 @@
 
 * xref:cops_rspec_capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
+* xref:cops_rspec_capybara.adoc#rspeccapybara/specificmatcher[RSpec/Capybara/SpecificMatcher]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/visibilitymatcher[RSpec/Capybara/VisibilityMatcher]
 
 === Department xref:cops_rspec_factorybot.adoc[RSpec/FactoryBot]
