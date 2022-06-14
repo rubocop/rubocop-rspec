@@ -7,7 +7,7 @@ module RuboCop
         # Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
         #
         # @safety
-        #   The auto-correction is marked as unsafe because the cop
+        #   The autocorrection is marked as unsafe because the cop
         #   cannot verify whether you already include
         #   `FactoryBot::Syntax::Methods` in your test suite.
         #
