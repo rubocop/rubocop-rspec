@@ -53,9 +53,26 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
       RUBY
     end
 
-    it 'ignores n.times with argument' do
+    it 'ignores n.times with n as argument' do
       expect_no_offenses(<<~RUBY)
-        3.times { |n| create :user, created_at: n.days.ago }
+        3.times { |n| create :user, position: n }
+      RUBY
+    end
+
+    it 'flags n.times when create call doesn\'t have method calls' do
+      expect_offense(<<~RUBY)
+        3.times { |n| create :user, :active }
+        ^^^^^^^ Prefer create_list.
+        3.times { |n| create :user, password: '123' }
+        ^^^^^^^ Prefer create_list.
+        3.times { |n| create :user, :active, password: '123' }
+        ^^^^^^^ Prefer create_list.
+      RUBY
+    end
+
+    it 'ignores n.times when create call does have method calls' do
+      expect_no_offenses(<<~RUBY)
+        3.times { |n| create :user, repositories_count: rand }
       RUBY
     end
 
