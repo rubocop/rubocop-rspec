@@ -82,6 +82,12 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
       RUBY
     end
 
+    it 'ignores empty n.times' do
+      expect_no_offenses(<<~RUBY)
+        3.times {}
+      RUBY
+    end
+
     it 'ignores n.times when there is other calls but create' do
       expect_no_offenses(<<~RUBY)
         used_passwords = []
