@@ -17,10 +17,10 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::SyntaxMethods, :config do
     end
 
     it "registers an offense for `FactoryBot.#{method}`" do
-      expect_offense(<<~RUBY)
+      expect_offense(<<~RUBY, method: method)
         describe Foo do
-          let(:bar) { FactoryBot.#{method}(:bar) }
-                      ^^^^^^^^^^^#{'^' * method.length} Use `#{method}` from `FactoryBot::Syntax::Methods`.
+          let(:bar) { FactoryBot.%{method}(:bar) }
+                      ^^^^^^^^^^^^{method} Use `%{method}` from `FactoryBot::Syntax::Methods`.
         end
       RUBY
 
@@ -32,10 +32,10 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::SyntaxMethods, :config do
     end
 
     it "registers an offense for `FactoryBot.#{method}` in a shared group" do
-      expect_offense(<<~RUBY)
+      expect_offense(<<~RUBY, method: method)
         shared_examples_for Foo do
-          let(:bar) { FactoryBot.#{method}(:bar) }
-                      ^^^^^^^^^^^#{'^' * method.length} Use `#{method}` from `FactoryBot::Syntax::Methods`.
+          let(:bar) { FactoryBot.%{method}(:bar) }
+                      ^^^^^^^^^^^^{method} Use `%{method}` from `FactoryBot::Syntax::Methods`.
         end
       RUBY
 
@@ -47,10 +47,10 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::SyntaxMethods, :config do
     end
 
     it "registers an offense for `::FactoryBot.#{method}`" do
-      expect_offense(<<~RUBY)
+      expect_offense(<<~RUBY, method: method)
         RSpec.describe Foo do
-          let(:bar) { ::FactoryBot.#{method}(:bar) }
-                      ^^^^^^^^^^^^^#{'^' * method.length} Use `#{method}` from `FactoryBot::Syntax::Methods`.
+          let(:bar) { ::FactoryBot.%{method}(:bar) }
+                      ^^^^^^^^^^^^^^{method} Use `%{method}` from `FactoryBot::Syntax::Methods`.
         end
       RUBY
 
