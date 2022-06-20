@@ -31,6 +31,26 @@ module RuboCop
       #     end
       #   end
       #
+      # @example `aggregate_failures: true` (default)
+      #
+      #  # good - the cop ignores when RSpec aggregates failures
+      #   describe UserCreator do
+      #     it 'builds a user', :aggregate_failures do
+      #       expect(user.name).to eq("John")
+      #       expect(user.age).to eq(22)
+      #     end
+      #   end
+      #
+      # @example `aggregate_failures: false`
+      #
+      #  # Detected as an offense
+      #   describe UserCreator do
+      #     it 'builds a user', aggregate_failures: false do
+      #       expect(user.name).to eq("John")
+      #       expect(user.age).to eq(22)
+      #     end
+      #   end
+      #
       # @example configuration
       #
       #   # .rubocop.yml
