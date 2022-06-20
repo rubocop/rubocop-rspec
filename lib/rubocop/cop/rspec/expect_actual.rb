@@ -5,6 +5,8 @@ module RuboCop
     module RSpec
       # Checks for `expect(...)` calls containing literal values.
       #
+      # Autocorrection is performed when the expected is not a literal.
+      #
       # @example
       #   # bad
       #   expect(5).to eq(price)

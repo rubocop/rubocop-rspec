@@ -1483,6 +1483,8 @@ end
 
 Checks for `expect(...)` calls containing literal values.
 
+Autocorrection is performed when the expected is not a literal.
+
 === Examples
 
 [source,ruby]
