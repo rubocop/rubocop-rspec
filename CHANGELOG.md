@@ -7,6 +7,7 @@
 * Add new `RSpec/Capybara/SpecificMatcher` cop. ([@ydah][])
 * Fixed false offense detection in `FactoryBot/CreateList` when a n.times block is including method calls in the factory create arguments. ([@ngouy][])
 * Fix error in `RSpec/RSpec/FactoryBot/CreateList` cop for empty block. ([@tejasbubane][])
+* Update `RSpec/MultipleExpectations` cop documentation with examples of aggregate_failures use. ([@edgibbs][])
 
 ## 2.11.1 (2022-05-18)
 
@@ -702,3 +703,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@luke-hill]: https://github.com/luke-hill
 [@johnny-miyake]: https://github.com/johnny-miyake
 [@ngouy]: https://github.com/ngouy
+[@edgibbs]: https://github.com/edgibbs
