@@ -84,3 +84,26 @@ RSpec/DescribeClass:
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
+
+# Enable our own pending cops.
+
+RSpec/BeEq:
+  Enabled: true
+RSpec/BeNil:
+  Enabled: true
+RSpec/ChangeByZero:
+  Enabled: true
+RSpec/ExcessiveDocstringSpacing:
+  Enabled: true
+RSpec/IdenticalEqualityAssertion:
+  Enabled: true
+RSpec/SubjectDeclaration:
+  Enabled: true
+RSpec/VerifiedDoubleReference:
+  Enabled: true
+RSpec/Capybara/SpecificMatcher:
+  Enabled: true
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: true
+RSpec/Rails/AvoidSetupHook:
+  Enabled: true

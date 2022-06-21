@@ -39,7 +39,7 @@ RSpec.describe RuboCop::RSpec::Example, :config do
   end
 
   it 'returns nil for examples without doc strings' do
-    expect(example('it { foo }').doc_string).to be(nil)
+    expect(example('it { foo }').doc_string).to be_nil
   end
 
   it 'extracts keywords' do
@@ -58,12 +58,14 @@ RSpec.describe RuboCop::RSpec::Example, :config do
   end
 
   describe 'value object semantics' do
+    # rubocop:disable RSpec/IdenticalEqualityAssertion
     it 'compares by value' do
       aggregate_failures 'equality semantics' do
         expect(example('it("foo")')).to eq(example('it("foo")'))
         expect(example('it("foo")')).not_to eq(example('it("bar")'))
       end
     end
+    # rubocop:enable RSpec/IdenticalEqualityAssertion
 
     it 'can be used as a key in a hash' do
       hash = {}
