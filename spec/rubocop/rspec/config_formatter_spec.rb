@@ -9,15 +9,15 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
         'Setting' => 'forty two'
       },
       'RSpec/Foo' => {
-        'Config'      => 2,
-        'Enabled'     => true
+        'Config' => 2,
+        'Enabled' => true
       },
       'RSpec/Bar' => {
-        'Enabled'     => true
+        'Enabled' => true
       },
       'RSpec/Baz' => {
-        'Enabled'     => true,
-        'StyleGuide'  => '#buzz'
+        'Enabled' => true,
+        'StyleGuide' => '#buzz'
       }
     }
   end

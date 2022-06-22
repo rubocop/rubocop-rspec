@@ -14,9 +14,13 @@ AllCops:
     - 'tmp/**/*'
     - 'spec/smoke_tests/**/*.rb'
 
-# See https://github.com/rubocop/rubocop/issues/6410
 Layout/HashAlignment:
-  Enabled: false
+  EnforcedHashRocketStyle:
+    - key
+    - table
+  EnforcedColonStyle:
+    - key
+    - table
 
 Layout/LineLength:
   Max: 80 # default: 120
@@ -28,11 +32,6 @@ Layout/MultilineMethodCallIndentation:
 
 Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
-
-Lint/BooleanSymbol:
-  Exclude:
-    - lib/rubocop/cop/rspec/expect_actual.rb
-    - lib/rubocop/cop/rspec/focus.rb
 
 Lint/InterpolationCheck:
   Exclude:
@@ -85,3 +84,26 @@ RSpec/DescribeClass:
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
+
+# Enable our own pending cops.
+
+RSpec/BeEq:
+  Enabled: true
+RSpec/BeNil:
+  Enabled: true
+RSpec/ChangeByZero:
+  Enabled: true
+RSpec/ExcessiveDocstringSpacing:
+  Enabled: true
+RSpec/IdenticalEqualityAssertion:
+  Enabled: true
+RSpec/SubjectDeclaration:
+  Enabled: true
+RSpec/VerifiedDoubleReference:
+  Enabled: true
+RSpec/Capybara/SpecificMatcher:
+  Enabled: true
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: true
+RSpec/Rails/AvoidSetupHook:
+  Enabled: true

@@ -35,7 +35,7 @@ module RuboCop
             occurrences.each do |occurrence|
               lines_except_current = lines - [occurrence.first_line]
               message = format(MSG, hook_name: occurrences.first.method_name,
-                               lines: lines_msg(lines_except_current))
+                                    lines: lines_msg(lines_except_current))
               add_offense(occurrence, message: message)
             end
           end
