@@ -36,11 +36,9 @@ module RuboCop
         def on_block(node)
           empty_hook?(node) do |hook|
             add_offense(hook) do |corrector|
-              range = range_with_surrounding_space(
-                range: node.loc.expression,
-                side: :left
+              corrector.remove(
+                range_with_surrounding_space(node.loc.expression, side: :left)
               )
-              corrector.remove(range)
             end
           end
         end

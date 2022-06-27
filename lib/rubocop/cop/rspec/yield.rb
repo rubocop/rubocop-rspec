@@ -44,7 +44,7 @@ module RuboCop
 
         def autocorrect(corrector, node, range)
           corrector.replace(
-            range_with_surrounding_space(range: range, side: :left),
+            range_with_surrounding_space(range, side: :left),
             generate_replacement(node.body)
           )
         end

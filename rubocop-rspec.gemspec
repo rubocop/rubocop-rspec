@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
     'rubygems_mfa_required' => 'true'
   }
 
-  spec.add_runtime_dependency 'rubocop', '~> 1.19'
+  spec.add_runtime_dependency 'rubocop', '~> 1.31'
 
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'rake'
