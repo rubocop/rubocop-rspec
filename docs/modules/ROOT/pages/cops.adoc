@@ -106,6 +106,7 @@
 === Department xref:cops_rspec_rails.adoc[RSpec/Rails]
 
 * xref:cops_rspec_rails.adoc#rspecrails/avoidsetuphook[RSpec/Rails/AvoidSetupHook]
+* xref:cops_rspec_rails.adoc#rspecrails/havehttpstatus[RSpec/Rails/HaveHttpStatus]
 * xref:cops_rspec_rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
 
 // END_COP_LIST

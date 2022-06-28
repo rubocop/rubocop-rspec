@@ -107,3 +107,5 @@ RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 RSpec/Rails/AvoidSetupHook:
   Enabled: true
+RSpec/Rails/HaveHttpStatus:
+  Enabled: true
