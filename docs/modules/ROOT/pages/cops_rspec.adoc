@@ -4429,9 +4429,9 @@ let(:userFood_2) { 'fettuccine' }
 
 | Pending
 | Yes
-| Yes
+| Yes (Unsafe)
 | 2.10.0
-| -
+| 2.12
 |===
 
 Checks for consistent verified double reference style.

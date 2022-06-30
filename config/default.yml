@@ -783,11 +783,13 @@ RSpec/VariableName:
 RSpec/VerifiedDoubleReference:
   Description: Checks for consistent verified double reference style.
   Enabled: pending
+  SafeAutoCorrect: false
   EnforcedStyle: constant
   SupportedStyles:
     - constant
     - string
   VersionAdded: 2.10.0
+  VersionChanged: '2.12'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
 
 RSpec/VerifiedDoubles:
