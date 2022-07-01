@@ -33,6 +33,35 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
 
+== RSpec/Rails/HaveHttpStatus
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes (Unsafe)
+| <<next>>
+| -
+|===
+
+Checks that tests use `have_http_status` instead of equality matchers.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(response.status).to be(200)
+
+# good
+expect(response).to have_http_status(200)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
+
 == RSpec/Rails/HttpStatus
 
 |===

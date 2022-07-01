@@ -9,6 +9,7 @@
 * Fix error in `RSpec/RSpec/FactoryBot/CreateList` cop for empty block. ([@tejasbubane][])
 * Update `RSpec/MultipleExpectations` cop documentation with examples of aggregate_failures use. ([@edgibbs][])
 * Declare autocorrect as unsafe for `RSpec/VerifiedDoubleReference`. ([@Drowze][])
+* Add new `RSpec/Rails/HaveHttpStatus` cop. ([@akiomik][])
 
 ## 2.11.1 (2022-05-18)
 
@@ -706,3 +707,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ngouy]: https://github.com/ngouy
 [@edgibbs]: https://github.com/edgibbs
 [@Drowze]: https://github.com/Drowze
+[@akiomik]: https://github.com/akiomik

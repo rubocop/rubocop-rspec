@@ -909,6 +909,13 @@ RSpec/Rails/AvoidSetupHook:
   VersionAdded: '2.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
 
+RSpec/Rails/HaveHttpStatus:
+  Description: Checks that tests use `have_http_status` instead of equality matchers.
+  Enabled: pending
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
+
 RSpec/Rails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
