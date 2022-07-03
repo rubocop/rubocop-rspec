@@ -56,7 +56,7 @@ module RuboCop
           end
 
           def acceptable_pattern?(arg)
-            arg.match?(/\[.+=\w+\]/)
+            arg.match?(/\[.+=\w+\]/) || arg.match?(/[ >,+]/)
           end
 
           def message(node, matcher)
