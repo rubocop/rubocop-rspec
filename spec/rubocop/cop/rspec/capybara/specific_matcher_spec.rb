@@ -78,6 +78,16 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense for abstract matcher when ' \
+  'first argument is element with sub matcher' do
+    expect_no_offenses(<<-RUBY)
+      expect(page).to have_css('button body')
+      expect(page).to have_css('a,h1')
+      expect(page).to have_css('table>tr')
+      expect(page).to have_css('select+option')
+    RUBY
+  end
+
+  it 'does not register an offense for abstract matcher when ' \
     'first argument is dstr' do
     expect_no_offenses(<<-'RUBY')
       expect(page).to have_css(%{a[href="#{foo}"]}, text: "bar")
