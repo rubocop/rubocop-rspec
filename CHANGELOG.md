@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.12.1 (2022-07-03)
+
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher`. ([@ydah][])
 
 ## 2.12.0 (2022-07-02)
