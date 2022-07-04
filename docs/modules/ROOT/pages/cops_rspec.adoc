@@ -879,9 +879,9 @@ end
 
 | Enabled
 | Yes
-| No
+| Yes (Unsafe)
 | 1.7
-| 2.0
+| 2.13
 |===
 
 Checks if an example group does not include any tests.

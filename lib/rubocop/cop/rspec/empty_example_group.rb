@@ -36,6 +36,10 @@ module RuboCop
       #     pending 'will add tests later'
       #   end
       class EmptyExampleGroup < Base
+        extend AutoCorrector
+
+        include RangeHelp
+
         MSG = 'Empty example group detected.'
 
         # @!method example_group_body(node)
@@ -135,7 +139,11 @@ module RuboCop
           return if node.each_ancestor(:block).any? { |block| example?(block) }
 
           example_group_body(node) do |body|
-            add_offense(node.send_node) if offensive?(body)
+            next unless offensive?(body)
+
+            add_offense(node.send_node) do |corrector|
+              corrector.remove(removed_range(node))
+            end
           end
         end
 
@@ -162,6 +170,13 @@ module RuboCop
 
         def examples_in_branches?(condition_node)
           condition_node.branches.any? { |branch| examples?(branch) }
+        end
+
+        def removed_range(node)
+          range_by_whole_lines(
+            node.location.expression,
+            include_final_newline: true
+          )
         end
       end
     end

@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add new `AllowConsecutiveOneLiners` (default true) option for `Rspec/EmptyLineAfterHook` cop. ([@ngouy][])
+* Add autocorrect support for `RSpec/EmptyExampleGroup`. ([@r7kamura][])
 
 ## 2.12.1 (2022-07-03)
 
