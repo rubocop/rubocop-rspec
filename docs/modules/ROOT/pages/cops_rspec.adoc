@@ -1123,10 +1123,13 @@ it { does_something }
 | Yes
 | Yes
 | 1.27
-| -
+| 2.13
 |===
 
 Checks if there is an empty line after hook blocks.
+
+`AllowConsecutiveOneLiners` configures whether adjacent
+one-line definitions are considered an offense.
 
 === Examples
 
@@ -1145,11 +1148,27 @@ around { |test| test.run }
 it { does_something }
 
 # good
-before { do_something }
+after { do_something }
 
 it { does_something }
 
-# good
+# fair - it's ok to have non-separated one-liners hooks
+around { |test| test.run }
+after { do_something }
+
+it { does_something }
+----
+
+==== with AllowConsecutiveOneLiners configuration
+
+[source,ruby]
+----
+# rubocop.yml
+# RSpec/EmptyLineAfterHook:
+#   AllowConsecutiveOneLiners: false
+
+# bad
+around { |test| test.run }
 after { do_something }
 
 it { does_something }
@@ -1157,8 +1176,20 @@ it { does_something }
 # good
 around { |test| test.run }
 
+after { do_something }
+
 it { does_something }
 ----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| AllowConsecutiveOneLiners
+| `true`
+| Boolean
+|===
 
 === References
 
