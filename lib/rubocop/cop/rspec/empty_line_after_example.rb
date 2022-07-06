@@ -65,19 +65,15 @@ module RuboCop
         end
 
         def consecutive_one_liner?(node)
-          node.line_count == 1 && next_one_line_example?(node)
+          node.single_line? && next_one_line_example?(node)
         end
 
         def next_one_line_example?(node)
-          next_sibling = next_sibling(node)
+          next_sibling = node.right_sibling
           return unless next_sibling
           return unless example?(next_sibling)
 
-          next_sibling.line_count == 1
-        end
-
-        def next_sibling(node)
-          node.parent.children[node.sibling_index + 1]
+          next_sibling.single_line?
         end
       end
     end

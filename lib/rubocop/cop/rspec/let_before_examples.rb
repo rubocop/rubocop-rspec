@@ -59,12 +59,11 @@ module RuboCop
           first_example = find_first_example(node)
           return unless first_example
 
-          node.each_child_node do |child|
-            next if child.sibling_index < first_example.sibling_index
-            next unless let?(child)
+          first_example.right_siblings.each do |sibling|
+            next unless let?(sibling)
 
-            add_offense(child) do |corrector|
-              autocorrect(corrector, child, first_example)
+            add_offense(sibling) do |corrector|
+              autocorrect(corrector, sibling, first_example)
             end
           end
         end
