@@ -315,8 +315,10 @@ RSpec/EmptyLineAfterHook:
   Description: Checks if there is an empty line after hook blocks.
   Enabled: true
   VersionAdded: '1.27'
+  VersionChanged: '2.13'
   StyleGuide: https://rspec.rubystyle.guide/#empty-line-after-let
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
+  AllowConsecutiveOneLiners: true
 
 RSpec/EmptyLineAfterSubject:
   Description: Checks if there is an empty line after subject block.
