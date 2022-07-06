@@ -19,6 +19,19 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         it { should be_true }
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+
+        describe '#thingy?' do
+          specify do
+            expect(whatever.thingy?).to be(true)
+          end
+        end
+
+        it { should be_true }
+      end
+    RUBY
   end
 
   it 'flags an empty top level describe' do
@@ -26,6 +39,9 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
       describe Foo do
       ^^^^^^^^^^^^ Empty example group detected.
       end
+    RUBY
+
+    expect_correction(<<~RUBY)
     RUBY
   end
 
