@@ -61,9 +61,14 @@ RSpec:
       Pending:
         - pending
     Expectations:
+      - are_expected
       - expect
-      - is_expected
       - expect_any_instance_of
+      - is_expected
+      - should
+      - should_not
+      - should_not_receive
+      - should_receive
     Helpers:
       - let
       - let!
@@ -613,6 +618,13 @@ RSpec/NestedGroups:
   VersionAdded: '1.7'
   VersionChanged: '1.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
+
+RSpec/NoExpectationExample:
+  Description: Checks if an example includes any expectation.
+  Enabled: pending
+  Safe: false
+  VersionAdded: '2.13'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NoExpectationExample
 
 RSpec/NotToNot:
   Description: Checks for consistent method usage for negating expectations.
