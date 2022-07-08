@@ -52,13 +52,12 @@ module RuboCop
           first_example = find_first_example(node)
           return unless first_example
 
-          node.each_child_node do |child|
-            next if child.sibling_index < first_example.sibling_index
-            next unless hook?(child)
+          first_example.right_siblings.each do |sibling|
+            next unless hook?(sibling)
 
-            msg = format(MSG, hook: child.method_name)
-            add_offense(child, message: msg) do |corrector|
-              autocorrect(corrector, child, first_example)
+            msg = format(MSG, hook: sibling.method_name)
+            add_offense(sibling, message: msg) do |corrector|
+              autocorrect(corrector, sibling, first_example)
             end
           end
         end

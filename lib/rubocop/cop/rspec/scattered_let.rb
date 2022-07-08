@@ -53,10 +53,6 @@ module RuboCop
             end
           end
         end
-
-        def find_first_let(node)
-          node.children.find { |child| let?(child) }
-        end
       end
     end
   end
