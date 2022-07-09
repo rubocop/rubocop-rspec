@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe 'RuboCop::CLI --autocorrect', :isolated_environment do # rubocop:disable RSpec/DescribeClass
+RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeClass
   subject(:cli) { RuboCop::CLI.new }
+
+  include_context 'isolated environment'
 
   include_context 'when cli spec behavior'
 

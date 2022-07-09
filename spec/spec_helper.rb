@@ -38,6 +38,10 @@ RSpec.configure do |config|
   config.raise_on_warning = true
 
   config.include(ExpectOffense)
+
+  config.include_context 'with default RSpec/Language config', :config
+  config.include_context 'config', :config
+  config.include_context 'smoke test', type: :cop_spec
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
