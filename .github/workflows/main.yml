@@ -32,22 +32,30 @@ jobs:
         task:
           - internal_investigation
           - spec
-        rubocop_version:
-          - gem
-        include:
-          - rubocop_version: edge
-            ruby: 2.7
-            task: internal_investigation
-          - rubocop_version: edge
-            ruby: 2.7
-            task: spec
-    name: ${{ matrix.task }}, Ruby ${{ matrix.ruby }} (${{ matrix.rubocop_version }})
+    name: ${{ matrix.task }}, Ruby ${{ matrix.ruby }} (gem)
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "${{ matrix.ruby }}"
+          bundler-cache: true
+      - run: bundle exec rake ${{ matrix.task }}
+
+  edge-rubocop:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 2.7
+        task:
+          - internal_investigation
+          - spec
+    name: ${{ matrix.task }} Ruby ${{ matrix.ruby }} (edge)
     steps:
       - uses: actions/checkout@v2
       - name: Use latest RuboCop from `master`
         run: |
           echo "gem 'rubocop', github: 'rubocop-hq/rubocop'" > Gemfile.local
-        if: matrix.rubocop_version == 'edge'
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
