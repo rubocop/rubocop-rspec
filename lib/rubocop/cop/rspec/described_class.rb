@@ -57,6 +57,7 @@ module RuboCop
       class DescribedClass < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
+        include Namespace
 
         DESCRIBED_CLASS = 'described_class'
         MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'
@@ -160,7 +161,8 @@ module RuboCop
         end
 
         def full_const_name(node)
-          collapse_namespace(namespace(node), const_name(node))
+          symbolized_namespace = namespace(node).map(&:to_sym)
+          collapse_namespace(symbolized_namespace, const_name(node))
         end
 
         # @param namespace [Array<Symbol>]
@@ -199,18 +201,6 @@ module RuboCop
           elsif %i[lvar cbase send].include?(namespace.type)
             [nil, name]
           end
-        end
-
-        # @param node [RuboCop::AST::Node]
-        # @return [Array<Symbol>]
-        # @example
-        #   namespace(node) # => [:A, :B, :C]
-        def namespace(node)
-          node
-            .each_ancestor(:class, :module)
-            .reverse_each
-            .flat_map { |ancestor| ancestor.defined_module_name.split('::') }
-            .map(&:to_sym)
         end
       end
     end

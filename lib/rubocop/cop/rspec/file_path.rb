@@ -58,6 +58,7 @@ module RuboCop
       #
       class FilePath < Base
         include TopLevelGroup
+        include Namespace
 
         MSG = 'Spec path should end with `%<suffix>s`.'
 
@@ -101,7 +102,7 @@ module RuboCop
 
         def pattern_for(example_group, method_name)
           if spec_suffix_only? || !example_group.const_type?
-            return pattern_for_spec_suffix_only?
+            return pattern_for_spec_suffix_only
           end
 
           [
@@ -111,7 +112,7 @@ module RuboCop
           ].join
         end
 
-        def pattern_for_spec_suffix_only?
+        def pattern_for_spec_suffix_only
           '.*_spec\.rb'
         end
 
@@ -123,8 +124,10 @@ module RuboCop
         end
 
         def expected_path(constant)
+          constants = namespace(constant) + constant.const_name.split('::')
+
           File.join(
-            constant.const_name.split('::').map do |name|
+            constants.map do |name|
               custom_transform.fetch(name) { camel_to_snake_case(name) }
             end
           )
