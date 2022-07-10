@@ -35,11 +35,11 @@ module RuboCop
 
         MSG = 'No expectation found in this example.'
 
-        # @!method expectation_method_call?(node)
+        # @!method including_any_expectation?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
-        def_node_matcher(
-          :expectation_method_call?,
+        def_node_search(
+          :including_any_expectation?,
           send_pattern('#Expectations.all')
         )
 
@@ -59,21 +59,6 @@ module RuboCop
         # @return [Boolean]
         def example_method_call?(node)
           Examples.all(node.method_name)
-        end
-
-        # Recursively checks if the given node includes any expectation.
-        # @param [RuboCop::AST::Node] node
-        # @return [Boolean]
-        def including_any_expectation?(node)
-          if !node.is_a?(::RuboCop::AST::Node)
-            false
-          elsif expectation_method_call?(node)
-            true
-          else
-            node.children.any? do |child|
-              including_any_expectation?(child)
-            end
-          end
         end
 
         # @param [RuboCop::AST::Node] node
