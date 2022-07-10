@@ -620,7 +620,7 @@ RSpec/NestedGroups:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
 
 RSpec/NoExpectationExample:
-  Description: Checks if an example includes any expectation.
+  Description: Checks if an example contains any expectation.
   Enabled: pending
   Safe: false
   VersionAdded: '2.13'

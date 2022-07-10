@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks if an example includes any expectation.
+      # Checks if an example contains any expectation.
       #
       # All RSpec's example and expectation methods are covered by default.
       # If you are using your own custom methods,
