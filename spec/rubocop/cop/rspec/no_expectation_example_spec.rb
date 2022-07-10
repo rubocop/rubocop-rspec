@@ -11,13 +11,6 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
           it { expect(baz).to be_truthy }
         end
       RUBY
-
-      expect_correction(<<~RUBY)
-        RSpec.describe Foo do
-
-          it { expect(baz).to be_truthy }
-        end
-      RUBY
     end
   end
 
@@ -26,9 +19,6 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       expect_offense(<<~RUBY)
         specify { bar }
         ^^^^^^^^^^^^^^^ No expectation found in this example.
-      RUBY
-
-      expect_correction(<<~RUBY)
       RUBY
     end
   end
@@ -49,9 +39,6 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
         it { baz }
         ^^^^^^^^^^ No expectation found in this example.
       RUBY
-
-      expect_correction(<<~RUBY)
-      RUBY
     end
   end
 
@@ -60,9 +47,6 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       expect_offense(<<~RUBY)
         it { custom_expect(bar) }
         ^^^^^^^^^^^^^^^^^^^^^^^^^ No expectation found in this example.
-      RUBY
-
-      expect_correction(<<~RUBY)
       RUBY
     end
   end
@@ -101,9 +85,6 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       expect_offense(<<~RUBY)
         custom_it { foo }
         ^^^^^^^^^^^^^^^^^ No expectation found in this example.
-      RUBY
-
-      expect_correction(<<~RUBY)
       RUBY
     end
   end

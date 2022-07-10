@@ -29,10 +29,6 @@ module RuboCop
       #     expect(a?).to be(true)
       #   end
       class NoExpectationExample < Base
-        extend AutoCorrector
-
-        include RangeHelp
-
         MSG = 'No expectation found in this example.'
 
         # @!method including_any_expectation?(node)
@@ -48,9 +44,7 @@ module RuboCop
           return unless example_method_call?(node)
           return if including_any_expectation?(node)
 
-          add_offense(node) do |corrector|
-            corrector.remove(removed_range(node))
-          end
+          add_offense(node)
         end
 
         private
@@ -59,15 +53,6 @@ module RuboCop
         # @return [Boolean]
         def example_method_call?(node)
           Examples.all(node.method_name)
-        end
-
-        # @param [RuboCop::AST::Node] node
-        # @return [Parser::Source::Range]
-        def removed_range(node)
-          range_by_whole_lines(
-            node.location.expression,
-            include_final_newline: true
-          )
         end
       end
     end

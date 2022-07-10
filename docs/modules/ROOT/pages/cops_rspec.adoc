@@ -3291,7 +3291,7 @@ end
 
 | Pending
 | No
-| Yes (Unsafe)
+| No
 | 2.13
 | -
 |===
