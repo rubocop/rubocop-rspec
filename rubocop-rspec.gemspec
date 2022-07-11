@@ -38,11 +38,4 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_runtime_dependency 'rubocop', '~> 1.31'
-
-  spec.add_development_dependency 'rack'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec', '>= 3.4'
-  spec.add_development_dependency 'rubocop-performance', '~> 1.7'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.6'
-  spec.add_development_dependency 'yard'
 end

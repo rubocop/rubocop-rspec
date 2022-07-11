@@ -86,7 +86,7 @@ RSpec.describe 'Weirdness' do
   end
 
   it_behaves_like :something
-  it_should_behave_like :something
+  it_should_behave_like :something if RSpec::Core::Version::STRING < '4.0'
 
   it_behaves_like :something do
     let(:foo) { 'bar' }

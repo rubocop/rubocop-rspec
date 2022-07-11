@@ -24,11 +24,7 @@ RSpec.configure do |config|
   config.order = :random
 
   # Run focused tests with `fdescribe`, `fit`, `:focus` etc.
-  config.filter_run focus: true
-  config.run_all_when_everything_filtered = true
-
-  # Forbid RSpec from monkey patching any of our objects
-  config.disable_monkey_patching!
+  config.filter_run_when_matching :focus
 
   # We should address configuration warnings when we upgrade
   config.raise_errors_for_deprecations!
@@ -38,6 +34,10 @@ RSpec.configure do |config|
   config.raise_on_warning = true
 
   config.include(ExpectOffense)
+
+  config.include_context 'with default RSpec/Language config', :config
+  config.include_context 'config', :config
+  config.include_context 'smoke test', type: :cop_spec
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

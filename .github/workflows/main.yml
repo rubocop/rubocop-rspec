@@ -32,24 +32,53 @@ jobs:
         task:
           - internal_investigation
           - spec
-        rubocop_version:
-          - gem
-        include:
-          - rubocop_version: edge
-            ruby: 2.7
-            task: internal_investigation
-          - rubocop_version: edge
-            ruby: 2.7
-            task: spec
-    name: ${{ matrix.task }}, Ruby ${{ matrix.ruby }} (${{ matrix.rubocop_version }})
+    name: ${{ matrix.task }}, Ruby ${{ matrix.ruby }} (gem)
     steps:
       - uses: actions/checkout@v2
-      - name: Use latest RuboCop from `master`
-        run: |
-          echo "gem 'rubocop', github: 'rubocop-hq/rubocop'" > Gemfile.local
-        if: matrix.rubocop_version == 'edge'
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
       - run: bundle exec rake ${{ matrix.task }}
+
+  edge-rubocop:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 2.7
+        task:
+          - internal_investigation
+          - spec
+    name: ${{ matrix.task }} Ruby ${{ matrix.ruby }} (edge)
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use latest RuboCop from `master`
+        run: |
+          echo "gem 'rubocop', github: 'rubocop-hq/rubocop'" > Gemfile.local
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "${{ matrix.ruby }}"
+          bundler-cache: true
+      - run: bundle exec rake ${{ matrix.task }}
+
+  rspec4:
+    runs-on: ubuntu-latest
+    name: RSpec 4
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use latest RSpec 4 from `4-0-dev` branch
+        run: |
+          sed -e '/rspec/d' -i Gemfile
+          cat << EOF > Gemfile.local
+            gem 'rspec', github: 'rspec/rspec', branch: '4-0-dev'
+            gem 'rspec-core', github: 'rspec/rspec-core', branch: '4-0-dev'
+            gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: '4-0-dev'
+            gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: '4-0-dev'
+            gem 'rspec-support', github: 'rspec/rspec-support', branch: '4-0-dev'
+          EOF
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+      - run: bundle exec rake spec
