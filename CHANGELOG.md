@@ -5,6 +5,7 @@
 * Fix `RSpec/FilePath` cop missing mismatched expanded namespace. ([@sl4vr][])
 * Add new `AllowConsecutiveOneLiners` (default true) option for `Rspec/EmptyLineAfterHook` cop. ([@ngouy][])
 * Add autocorrect support for `RSpec/EmptyExampleGroup`. ([@r7kamura][])
+* Fix `RSpec/ChangeByZero` with compound expressions using `&` or `|` operators. ([@BrianHawley][])
 
 ## 2.12.1 (2022-07-03)
 
@@ -718,3 +719,4 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@edgibbs]: https://github.com/edgibbs
 [@Drowze]: https://github.com/Drowze
 [@akiomik]: https://github.com/akiomik
+[@BrianHawley]: https://github.com/BrianHawley
