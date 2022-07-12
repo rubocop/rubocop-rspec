@@ -41,18 +41,10 @@ module RuboCop
 
         # @param [RuboCop::AST::BlockNode] node
         def on_block(node)
-          return unless example_method_call?(node)
+          return unless example?(node)
           return if including_any_expectation?(node)
 
           add_offense(node)
-        end
-
-        private
-
-        # @param [RuboCop::AST::BlockNode] node
-        # @return [Boolean]
-        def example_method_call?(node)
-          Examples.all(node.method_name)
         end
       end
     end
