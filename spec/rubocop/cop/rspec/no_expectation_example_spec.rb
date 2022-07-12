@@ -93,8 +93,24 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     it 'registers no offenses' do
       expect_no_offenses(<<~RUBY)
         RSpec.describe Foo do
-          pending 'not implemented'
+          it 'not implemented'
         end
+      RUBY
+    end
+  end
+
+  context 'with no expectation pending example' do
+    it 'registers no offenses' do
+      expect_no_offenses(<<~RUBY)
+        pending { bar }
+      RUBY
+    end
+  end
+
+  context 'with no expectation skipped example' do
+    it 'registers no offenses' do
+      expect_no_offenses(<<~RUBY)
+        skip { bar }
       RUBY
     end
   end

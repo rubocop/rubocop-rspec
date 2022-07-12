@@ -31,6 +31,14 @@ module RuboCop
       class NoExpectationExample < Base
         MSG = 'No expectation found in this example.'
 
+        # @!method regular_or_focused_example?(node)
+        # @param [RuboCop::AST::Node] node
+        # @return [Boolean]
+        def_node_matcher(
+          :regular_or_focused_example?,
+          block_pattern('{#Examples.regular | #Examples.focused}')
+        )
+
         # @!method including_any_expectation?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
@@ -41,7 +49,7 @@ module RuboCop
 
         # @param [RuboCop::AST::BlockNode] node
         def on_block(node)
-          return unless example?(node)
+          return unless regular_or_focused_example?(node)
           return if including_any_expectation?(node)
 
           add_offense(node)
