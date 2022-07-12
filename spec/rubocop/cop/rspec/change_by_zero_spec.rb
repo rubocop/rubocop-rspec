@@ -40,6 +40,16 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
           .and change { Foo.baz }.by(0)
                ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
         expect { foo }
+          .to change(Foo, :bar).by(0) &
+              ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+              change(Foo, :baz).by(0)
+              ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+        expect { foo }
+          .to change { Foo.bar }.by(0) &
+              ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+              change { Foo.baz }.by(0)
+              ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+        expect { foo }
           .to change(Foo, :bar).by(0)
               ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
           .or change(Foo, :baz).by(0)
@@ -49,8 +59,20 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
               ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
           .or change { Foo.baz }.by(0)
               ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+        expect { foo }
+          .to change(Foo, :bar).by(0) |
+              ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+              change(Foo, :baz).by(0)
+              ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+        expect { foo }
+          .to change { Foo.bar }.by(0) |
+              ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+              change { Foo.baz }.by(0)
+              ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'does not register an offense when the argument to `by` is not zero' do

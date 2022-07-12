@@ -79,7 +79,7 @@ module RuboCop
         end
 
         def compound_expectations?(node)
-          %i[and or].include?(node.parent.method_name)
+          %i[and or & |].include?(node.parent.method_name)
         end
 
         def autocorrect(corrector, node)
