@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
-  context 'with empty example with it' do
+  context 'with no expectation example with it' do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         RSpec.describe Foo do
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with empty example with specify' do
+  context 'with no expectation example with specify' do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         specify { bar }
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with non-empty example with should' do
+  context 'with expectation example with should' do
     it 'registers no offenses' do
       expect_no_offenses(<<~RUBY)
         it { should be_truthy }
@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with empty examples' do
+  context 'with multi no expectation examples' do
     it 'registers offenses' do
       expect_offense(<<~RUBY)
         it { bar }
@@ -42,7 +42,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with non-empty example with custom expectation' do
+  context 'with custom expectation example' do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         it { custom_expect(bar) }
@@ -51,7 +51,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with non-empty example with configured custom expectation' do
+  context 'with configured custom expectation example' do
     before do
       other_cops.dig('RSpec', 'Language', 'Expectations').push('custom_expect')
     end
@@ -63,7 +63,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with empty example with custom example method' do
+  context 'with no expectation custom example' do
     it 'registers no offenses' do
       expect_no_offenses(<<~RUBY)
         custom_it { foo }
@@ -71,7 +71,7 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
-  context 'with empty example with configured custom example method' do
+  context 'with no expectation configured custom example' do
     before do
       other_cops.dig(
         'RSpec',
