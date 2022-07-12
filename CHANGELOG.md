@@ -7,6 +7,7 @@
 * Add autocorrect support for `RSpec/EmptyExampleGroup`. ([@r7kamura][])
 * Fix `RSpec/ChangeByZero` with compound expressions using `&` or `|` operators. ([@BrianHawley][])
 * Add `RSpec/NoExpectationExample`. ([@r7kamura][])
+* Add some expectation methods to default configuration. ([@r7kamura][])
 
 ## 2.12.1 (2022-07-03)
 
