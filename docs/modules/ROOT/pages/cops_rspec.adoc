@@ -4145,6 +4145,39 @@ allow(foo).to receive("bar.baz")
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
+== RSpec/SortMetadata
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.13.0
+| -
+|===
+
+Sort RSpec metadata alphabetically.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+describe 'Something', :b, :a
+context 'Something', foo: 'bar', baz: true
+it 'works', :b, :a, foo: 'bar', baz: true
+
+# good
+describe 'Something', :a, :b
+context 'Something', baz: true, foo: 'bar'
+it 'works', :a, :b, baz: true, foo: 'bar'
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
+
 == RSpec/StubbedMock
 
 |===
