@@ -770,6 +770,12 @@ RSpec/SingleArgumentMessageChain:
   VersionChanged: '1.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
+RSpec/SortMetadata:
+  Description: Sort RSpec metadata alphabetically.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
+
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.
   Enabled: true

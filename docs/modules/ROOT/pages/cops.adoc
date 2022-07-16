@@ -80,6 +80,7 @@
 * xref:cops_rspec.adoc#rspecsharedcontext[RSpec/SharedContext]
 * xref:cops_rspec.adoc#rspecsharedexamples[RSpec/SharedExamples]
 * xref:cops_rspec.adoc#rspecsingleargumentmessagechain[RSpec/SingleArgumentMessageChain]
+* xref:cops_rspec.adoc#rspecsortmetadata[RSpec/SortMetadata]
 * xref:cops_rspec.adoc#rspecstubbedmock[RSpec/StubbedMock]
 * xref:cops_rspec.adoc#rspecsubjectdeclaration[RSpec/SubjectDeclaration]
 * xref:cops_rspec.adoc#rspecsubjectstub[RSpec/SubjectStub]
