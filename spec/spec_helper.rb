@@ -36,7 +36,6 @@ RSpec.configure do |config|
   config.include(ExpectOffense)
 
   config.include_context 'with default RSpec/Language config', :config
-  config.include_context 'config', :config
   config.include_context 'smoke test', type: :cop_spec
 end
 
