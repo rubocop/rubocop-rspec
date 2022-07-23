@@ -10,13 +10,18 @@ RSpec.describe 'CHANGELOG.md' do
     end
   end
 
-  describe 'contributors' do
+  describe 'contributors list' do
     let(:contributors) do
-      changelog.partition("<!-- Contributors -->\n\n").last.lines
+      changelog.partition("<!-- Contributors (alphabetically) -->\n\n").last
+        .lines
     end
 
     it 'does not contain duplicates' do
       expect(contributors.uniq).to eq(contributors)
+    end
+
+    it 'is alphabetically sorted (case insensitive)' do
+      expect(contributors.sort_by(&:downcase)).to eq(contributors)
     end
 
     it 'links to github profiles' do
