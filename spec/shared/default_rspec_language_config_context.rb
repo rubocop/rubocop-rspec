@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'with default RSpec/Language config', :config do
+RSpec.shared_context 'with default RSpec/Language config' do
+  include_context 'config'
+
   # Deep duplication is needed to prevent config leakage between examples
   let(:other_cops) do
     default_language = RuboCop::ConfigLoader
