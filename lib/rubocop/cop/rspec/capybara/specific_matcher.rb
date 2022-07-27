@@ -28,6 +28,24 @@ module RuboCop
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
           RESTRICT_ON_SEND = %i[have_selector have_no_selector have_css
                                 have_no_css].freeze
+          COMMON_OPTIONS = %w[
+            above below left_of right_of near count minimum maximum between text
+            id class style visible obscured exact exact_text normalize_ws match
+            wait filter_set focused
+          ].freeze
+          HAVE_BUTTON_OPTIONS = COMMON_OPTIONS + %w[
+            disabled name value title type
+          ].freeze
+          HAVE_LINK_OPTIONS = COMMON_OPTIONS + %w[
+            href alt title download
+          ].freeze
+          HAVE_TABLE_OPTIONS = COMMON_OPTIONS + %w[
+            caption with_cols cols with_rows rows
+          ].freeze
+          HAVE_SELECT_OPTIONS = COMMON_OPTIONS + %w[
+            disabled name placeholder options enabled_options disabled_options
+            selected with_selected multiple with_options
+          ].freeze
           SPECIFIC_MATCHER = {
             'button' => 'button',
             'a' => 'link',
@@ -44,6 +62,7 @@ module RuboCop
             return unless (arg = first_argument(node))
             return unless (matcher = specific_matcher(arg))
             return if acceptable_pattern?(arg)
+            return unless specific_matcher_option?(arg, matcher)
 
             add_offense(node, message: message(node, matcher))
           end
@@ -56,7 +75,28 @@ module RuboCop
           end
 
           def acceptable_pattern?(arg)
-            arg.match?(/\[.+=\w+\]/) || arg.match?(/[ >,+]/)
+            arg.match?(/[ >,+]/)
+          end
+
+          def specific_matcher_option?(arg, matcher)
+            # If `button[foo-bar_baz=foo][bar][baz]`:
+            # extract ["foo-bar_baz", "bar", "baz"]
+            attributes = arg.scan(/\[(.*?)(?:=.*?)?\]/).flatten
+            return true if attributes.empty?
+
+            attributes.all? do |attr|
+              specific_matcher_options(matcher).include?(attr)
+            end
+          end
+
+          def specific_matcher_options(matcher)
+            case matcher
+            when 'button' then HAVE_BUTTON_OPTIONS
+            when 'link' then HAVE_LINK_OPTIONS
+            when 'table' then HAVE_TABLE_OPTIONS
+            when 'select' then HAVE_SELECT_OPTIONS
+            else []
+            end
           end
 
           def message(node, matcher)

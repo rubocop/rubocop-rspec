@@ -8,6 +8,7 @@
 * Fix `RSpec/ChangeByZero` with compound expressions using `&` or `|` operators. ([@BrianHawley][])
 * Add `RSpec/NoExpectationExample`. ([@r7kamura][])
 * Add some expectation methods to default configuration. ([@r7kamura][])
+* Fix a false positive for `RSpec/Capybara/SpecificMatcher`. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 
