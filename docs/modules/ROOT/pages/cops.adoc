@@ -61,6 +61,7 @@
 * xref:cops_rspec.adoc#rspecmultiplesubjects[RSpec/MultipleSubjects]
 * xref:cops_rspec.adoc#rspecnamedsubject[RSpec/NamedSubject]
 * xref:cops_rspec.adoc#rspecnestedgroups[RSpec/NestedGroups]
+* xref:cops_rspec.adoc#rspecnoexpectationexample[RSpec/NoExpectationExample]
 * xref:cops_rspec.adoc#rspecnottonot[RSpec/NotToNot]
 * xref:cops_rspec.adoc#rspecoverwritingsetup[RSpec/OverwritingSetup]
 * xref:cops_rspec.adoc#rspecpending[RSpec/Pending]

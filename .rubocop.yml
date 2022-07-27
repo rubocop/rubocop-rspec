@@ -72,6 +72,13 @@ Naming/InclusiveLanguage:
       Suggestions:
         - offense
 
+RSpec:
+  Language:
+    Expectations:
+      - expect_correction
+      - expect_no_offenses
+      - expect_offense
+
 RSpec/ExampleLength:
   CountAsOne:
     - heredoc
@@ -80,6 +87,12 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
+
+RSpec/MultipleExpectations:
+  Max: 2
+
+RSpec/NoExpectationExample:
+  Enabled: true
 
 Style/FormatStringToken:
   Exclude:

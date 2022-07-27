@@ -3284,6 +3284,51 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
 
+== RSpec/NoExpectationExample
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| No
+| No
+| 2.13
+| -
+|===
+
+Checks if an example contains any expectation.
+
+All RSpec's example and expectation methods are covered by default.
+If you are using your own custom methods,
+add the following configuration:
+
+  RSpec:
+    Language:
+      Examples:
+        Regular:
+          - custom_it
+      Expectations:
+        - custom_expect
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it do
+  a?
+end
+
+# good
+it do
+  expect(a?).to be(true)
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NoExpectationExample
+
 == RSpec/NotToNot
 
 |===
