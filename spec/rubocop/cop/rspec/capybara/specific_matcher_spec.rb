@@ -60,6 +60,24 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
     RUBY
   end
 
+  it 'registers an offense when using abstract matcher with class selector' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_css('a.cls')
+                      ^^^^^^^^^^^^^^^^^ Prefer `have_link` over `have_css`.
+      expect(page).to have_css('a.cls', text: 'foo')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_link` over `have_css`.
+    RUBY
+  end
+
+  it 'registers an offense when using abstract matcher with id selector' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_css('a#id')
+                      ^^^^^^^^^^^^^^^^ Prefer `have_link` over `have_css`.
+      expect(page).to have_css('a#id', text: 'foo')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_link` over `have_css`.
+    RUBY
+  end
+
   %i[above below left_of right_of near count minimum maximum between
      text id class style visible obscured exact exact_text normalize_ws
      match wait filter_set focused disabled name value
