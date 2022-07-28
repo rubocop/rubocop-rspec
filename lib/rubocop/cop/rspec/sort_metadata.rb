@@ -38,15 +38,17 @@ module RuboCop
 
         # @!method metadata_in_block(node)
         def_node_search :metadata_in_block, <<~PATTERN
-          (send (lvar $_) #Hooks.all _ ${send str sym}* (hash $...)?)
+          (send (lvar %) #Hooks.all _ ${send str sym}* (hash $...)?)
         PATTERN
 
         def on_block(node)
-          if (block_var = rspec_configure(node))
-            metadata_in_block(node).each do |receiver, symbols, pairs|
-              investigate(symbols, pairs.flatten) if receiver == block_var
+          rspec_configure(node) do |block_var|
+            metadata_in_block(node, block_var) do |symbols, pairs|
+              investigate(symbols, pairs.flatten)
             end
-          elsif (symbols, pairs = rspec_metadata(node))
+          end
+
+          rspec_metadata(node) do |symbols, pairs|
             investigate(symbols, pairs.flatten)
           end
         end
@@ -55,8 +57,8 @@ module RuboCop
 
         def investigate(symbols, pairs)
           return if sorted?(symbols, pairs)
-          return unless (crime_scene = crime_scene(symbols, pairs))
 
+          crime_scene = crime_scene(symbols, pairs)
           add_offense(crime_scene) do |corrector|
             corrector.replace(crime_scene, replacement(symbols, pairs))
           end
@@ -65,12 +67,10 @@ module RuboCop
         def crime_scene(symbols, pairs)
           metadata = symbols + pairs
 
-          range = range_between(
+          range_between(
             metadata.first.loc.expression.begin_pos,
             metadata.last.loc.expression.end_pos
           )
-
-          range if range.last_line == range.first_line
         end
 
         def replacement(symbols, pairs)
