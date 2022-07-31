@@ -131,6 +131,7 @@ expect(page).to have_css('button')
 expect(page).to have_no_css('a.cls', exact_text: 'foo')
 expect(page).to have_css('table.cls')
 expect(page).to have_css('select')
+expect(page).to have_css('input', exact_text: 'foo')
 
 # good
 expect(page).to have_button
@@ -139,6 +140,7 @@ expect(page).to have_button
 expect(page).to have_no_link('foo', class: 'cls')
 expect(page).to have_table(class: 'cls')
 expect(page).to have_select
+expect(page).to have_field('foo')
 ----
 
 === References

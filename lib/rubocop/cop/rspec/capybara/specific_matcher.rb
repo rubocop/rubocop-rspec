@@ -15,6 +15,7 @@ module RuboCop
         #   expect(page).to have_no_css('a.cls', exact_text: 'foo')
         #   expect(page).to have_css('table.cls')
         #   expect(page).to have_css('select')
+        #   expect(page).to have_css('input', exact_text: 'foo')
         #
         #   # good
         #   expect(page).to have_button
@@ -23,6 +24,7 @@ module RuboCop
         #   expect(page).to have_no_link('foo', class: 'cls')
         #   expect(page).to have_table(class: 'cls')
         #   expect(page).to have_select
+        #   expect(page).to have_field('foo')
         #
         class SpecificMatcher < Base
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
@@ -32,7 +34,8 @@ module RuboCop
             'button' => 'button',
             'a' => 'link',
             'table' => 'table',
-            'select' => 'select'
+            'select' => 'select',
+            'input' => 'field'
           }.freeze
           COMMON_OPTIONS = %w[
             above below left_of right_of near count minimum maximum between text
@@ -53,6 +56,12 @@ module RuboCop
               COMMON_OPTIONS + %w[
                 disabled name placeholder options enabled_options
                 disabled_options selected with_selected multiple with_options
+              ]
+            ).freeze,
+            'field' => (
+              COMMON_OPTIONS + %w[
+                checked unchecked disabled valid name placeholder
+                validation_message readonly with type multiple
               ]
             ).freeze
           }.freeze
