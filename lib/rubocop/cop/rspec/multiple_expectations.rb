@@ -90,16 +90,13 @@ module RuboCop
 
         def on_block(node)
           return unless example?(node)
-
           return if example_with_aggregate_failures?(node)
 
-          expectations_count = to_enum(:find_expectation, node).count
+          total = expectation_count(node)
+          return if total <= max_expectations
 
-          return if expectations_count <= max_expectations
-
-          self.max = expectations_count
-
-          flag_example(node, expectation_count: expectations_count)
+          self.max = total
+          flag_example(node, total: total)
         end
 
         private
@@ -116,23 +113,40 @@ module RuboCop
             .find { |block_node| aggregate_failures?(block_node, ANYTHING) }
         end
 
-        def find_expectation(node, &block)
-          yield if expect?(node) || aggregate_failures_block?(node)
+        def expectation_count(node, count = 0)
+          # do not search  inside of aggregate_failures blocks
+          return count if aggregate_failures_block?(node)
 
-          # do not search inside of aggregate_failures block
-          return if aggregate_failures_block?(node)
-
-          node.each_child_node do |child|
-            find_expectation(child, &block)
+          if node.if_type? || node.case_type?
+            return expectation_count_max(node, count)
           end
+
+          expectation_count_aggregate(node, count)
         end
 
-        def flag_example(node, expectation_count:)
+        def expectation_count_max(node, count)
+          node.each_child_node.map do |child|
+            expectation_count(child, count)
+          end.max
+        end
+
+        def expectation_count_aggregate(node, count)
+          node.each_child_node do |child|
+            count = if expect?(child) || aggregate_failures_block?(child)
+                      expectation_count(child, count + 1)
+                    else
+                      expectation_count(child, count)
+                    end
+          end
+          count
+        end
+
+        def flag_example(node, total:)
           add_offense(
             node.send_node,
             message: format(
               MSG,
-              total: expectation_count,
+              total: total,
               max: max_expectations
             )
           )

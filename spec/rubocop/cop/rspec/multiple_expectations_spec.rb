@@ -30,6 +30,171 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
       RUBY
     end
 
+    it 'approves of some expectation examples defined in `if` branches' do
+      expect_no_offenses(<<~RUBY)
+        describe Foo do
+          it 'some expectation examples defined in `if` branches' do
+            if foo
+              expect(foo).to be(true)
+            elsif bar
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'approves of some expectation examples defined in `unless` branches' do
+      expect_no_offenses(<<~RUBY)
+        describe Foo do
+          it 'some expectation examples defined in `unless` branches' do
+            unless foo
+              expect(foo).to be(true)
+            else
+              expect(bar).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'approves of some expectation examples defined in `case` branches' do
+      expect_no_offenses(<<~RUBY)
+        describe Foo do
+          it 'some expectation examples defined in `case` branches' do
+            case foo
+            when foo
+              expect(foo).to be(true)
+            when bar
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in `if` branches' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in `if` branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            if foo
+              expect(foo).to be(true)
+              expect(bar).to be(true)
+            elsif bar
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in `elsif` branches' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in `elsif` branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            if foo
+              expect(foo).to be(true)
+            elsif bar
+              expect(foo).to be(true)
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in `else` branches' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in `else` branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            if foo
+              expect(foo).to be(true)
+            elsif bar
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+              expect(bar).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in `unless` branches' do
+      expect_offense(<<-RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in `unless` branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+          unless foo
+            expect(foo).to be(true)
+            expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in `when` branches' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in `when` branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            case foo
+            when foo
+              expect(foo).to be(true)
+              expect(foo).to be(true)
+            when bar
+              expect(bar).to be(true)
+            else
+              expect(baz).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags multiple expectation examples defined in ' \
+      'nested conditional branches' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it 'multiple expectation examples defined in nested conditional branches' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [5/1].
+            expect(one).to be(true)
+            if foo
+              expect(two).to be(true)
+              unless bar
+                expect(other).to be(true)
+              else
+                expect(three).to be(true)
+                case baz
+                when baz
+                  expect(four).to be(true)
+                else
+                  do_something
+                end
+              end
+            else
+              expect(other).to be(true)
+            end
+            expect(five).to be(true)
+          end
+        end
+      RUBY
+    end
+
     it 'flags multiple expect_any_instance_of' do
       expect_offense(<<-RUBY)
         describe Foo do
