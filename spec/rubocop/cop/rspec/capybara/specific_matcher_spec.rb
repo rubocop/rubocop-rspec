@@ -142,6 +142,22 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
     end
   end
 
+  %i[above below left_of right_of near count minimum maximum between
+     text id class style visible obscured exact exact_text normalize_ws
+     match wait filter_set checked unchecked disabled valid name
+     placeholder validation_message ].each do |attr|
+    it 'registers an offense for abstract matcher when ' \
+       "first argument is element with replaceable attributes #{attr} " \
+       'for `have_field`' do
+      expect_offense(<<-RUBY, attr: attr)
+        expect(page).to have_css("input[#{attr}=foo]")
+                        ^^^^^^^^^^^^^^^^^^{attr}^^^^^^ Prefer `have_field` over `have_css`.
+        expect(page).to have_css("input[#{attr}]")
+                        ^^^^^^^^^^^^^^^^^^{attr}^^ Prefer `have_field` over `have_css`.
+      RUBY
+    end
+  end
+
   it 'registers an offense when using abstract matcher with ' \
      'first argument is element with multiple replaceable attributes' do
     expect_offense(<<-RUBY)
