@@ -14,14 +14,20 @@ module RuboCop
         # which ensures that preceding actions (like `click_link`) have
         # completed.
         #
+        # This cop does not support autocorrection in some cases.
+        #
         # @example
         #   # bad
         #   expect(current_path).to eq('/callback')
-        #   expect(page.current_path).to match(/widgets/)
         #
         #   # good
-        #   expect(page).to have_current_path("/callback")
-        #   expect(page).to have_current_path(/widgets/)
+        #   expect(page).to have_current_path('/callback')
+        #
+        #   # bad (does not support autocorrection)
+        #   expect(page.current_path).to match(variable)
+        #
+        #   # good
+        #   expect(page).to have_current_path('/callback')
         #
         class CurrentPathExpectation < Base
           extend AutoCorrector

@@ -18,6 +18,9 @@ module RuboCop
       #   expect(pattern).to eq(/foo/)
       #   expect(name).to eq("John")
       #
+      #   # bad (not supported autocorrection)
+      #   expect(false).to eq(true)
+      #
       class ExpectActual < Base
         extend AutoCorrector
 

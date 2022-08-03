@@ -19,6 +19,21 @@ module RuboCop
       #     subject(:post) { Post.new }
       #   end
       #
+      #   # bad (does not support autocorrection)
+      #   describe Foo do
+      #     subject!(:user) { User.new }
+      #     subject!(:post) { Post.new }
+      #   end
+      #
+      #   # good
+      #   describe Foo do
+      #     before do
+      #       User.new
+      #       Post.new
+      #     end
+      #   end
+      #
+      # This cop does not support autocorrection in some cases.
       # The autocorrect behavior for this cop depends on the type of
       # duplication:
       #
@@ -33,6 +48,7 @@ module RuboCop
       #   - If subjects are defined with `subject!` then we don't autocorrect.
       #     This is enough of an edge case that people can just move this to
       #     a `before` hook on their own
+      #
       class MultipleSubjects < Base
         extend AutoCorrector
         include RangeHelp

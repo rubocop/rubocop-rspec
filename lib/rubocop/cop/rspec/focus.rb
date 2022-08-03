@@ -5,6 +5,8 @@ module RuboCop
     module RSpec
       # Checks if examples are focused.
       #
+      # This cop does not support autocorrection in some cases.
+      #
       # @example
       #   # bad
       #   describe MyClass, focus: true do
@@ -19,6 +21,22 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #   end
+      #
+      #   # bad
+      #   fdescribe 'test' do; end
+      #
+      #   # good
+      #   describe 'test' do; end
+      #
+      #   # bad
+      #   fdescribe 'test' do; end
+      #
+      #   # good
+      #   describe 'test' do; end
+      #
+      #   # bad (does not support autocorrection)
+      #   focus 'test' do; end
+      #
       class Focus < Base
         extend AutoCorrector
         include RangeHelp

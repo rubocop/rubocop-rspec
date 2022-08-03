@@ -5,12 +5,14 @@ module RuboCop
     module RSpec
       # Prefer negated matchers over `to change.by(0)`.
       #
+      # This cop does not support autocorrection in some cases.
+      #
       # @example
       #   # bad
       #   expect { run }.to change(Foo, :bar).by(0)
       #   expect { run }.to change { Foo.bar }.by(0)
       #
-      #   # bad - compound expectations
+      #   # bad - compound expectations (does not support autocorrection)
       #   expect { run }
       #     .to change(Foo, :bar).by(0)
       #     .and change(Foo, :baz).by(0)

@@ -397,6 +397,8 @@ end
 
 Prefer negated matchers over `to change.by(0)`.
 
+This cop does not support autocorrection in some cases.
+
 === Examples
 
 [source,ruby]
@@ -405,7 +407,7 @@ Prefer negated matchers over `to change.by(0)`.
 expect { run }.to change(Foo, :bar).by(0)
 expect { run }.to change { Foo.bar }.by(0)
 
-# bad - compound expectations
+# bad - compound expectations (does not support autocorrection)
 expect { run }
   .to change(Foo, :bar).by(0)
   .and change(Foo, :baz).by(0)
@@ -1529,6 +1531,9 @@ expect("John").to eq(name)
 expect(price).to eq(5)
 expect(pattern).to eq(/foo/)
 expect(name).to eq("John")
+
+# bad (not supported autocorrection)
+expect(false).to eq(true)
 ----
 
 === Configurable attributes
@@ -1794,6 +1799,8 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 Checks if examples are focused.
 
+This cop does not support autocorrection in some cases.
+
 === Examples
 
 [source,ruby]
@@ -1811,6 +1818,21 @@ end
 # good
 describe MyClass do
 end
+
+# bad
+fdescribe 'test' do; end
+
+# good
+describe 'test' do; end
+
+# bad
+fdescribe 'test' do; end
+
+# good
+describe 'test' do; end
+
+# bad (does not support autocorrection)
+focus 'test' do; end
 ----
 
 === References
@@ -3063,6 +3085,7 @@ end
 
 Checks if an example group defines `subject` multiple times.
 
+This cop does not support autocorrection in some cases.
 The autocorrect behavior for this cop depends on the type of
 duplication:
 
@@ -3092,6 +3115,20 @@ end
 describe Foo do
   let(:user) { User.new }
   subject(:post) { Post.new }
+end
+
+# bad (does not support autocorrection)
+describe Foo do
+  subject!(:user) { User.new }
+  subject!(:post) { Post.new }
+end
+
+# good
+describe Foo do
+  before do
+    User.new
+    Post.new
+  end
 end
 ----
 
