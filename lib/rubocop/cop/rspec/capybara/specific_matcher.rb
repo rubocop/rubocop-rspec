@@ -12,7 +12,7 @@ module RuboCop
         #   expect(page).to have_selector('button')
         #   expect(page).to have_no_selector('button.cls')
         #   expect(page).to have_css('button')
-        #   expect(page).to have_no_css('a.cls', exact_text: 'foo')
+        #   expect(page).to have_no_css('a.cls', href: 'http://example.com')
         #   expect(page).to have_css('table.cls')
         #   expect(page).to have_css('select')
         #   expect(page).to have_css('input', exact_text: 'foo')
@@ -21,7 +21,7 @@ module RuboCop
         #   expect(page).to have_button
         #   expect(page).to have_no_button(class: 'cls')
         #   expect(page).to have_button
-        #   expect(page).to have_no_link('foo', class: 'cls')
+        #   expect(page).to have_no_link('foo', class: 'cls', href: 'http://example.com')
         #   expect(page).to have_table(class: 'cls')
         #   expect(page).to have_select
         #   expect(page).to have_field('foo')
@@ -71,11 +71,16 @@ module RuboCop
             (send nil? _ (str $_) ... )
           PATTERN
 
+          # @!method option?(node)
+          def_node_search :option?, <<-PATTERN
+            (pair (sym %) _)
+          PATTERN
+
           def on_send(node)
             return unless (arg = first_argument(node))
             return unless (matcher = specific_matcher(arg))
             return if acceptable_pattern?(arg)
-            return unless specific_matcher_option?(arg, matcher)
+            return unless specific_matcher_option?(node, arg, matcher)
 
             add_offense(node, message: message(node, matcher))
           end
@@ -91,15 +96,27 @@ module RuboCop
             arg.match?(/[ >,+]/)
           end
 
-          def specific_matcher_option?(arg, matcher)
+          def specific_matcher_option?(node, arg, matcher)
             # If `button[foo-bar_baz=foo][bar][baz]`:
             # extract ["foo-bar_baz", "bar", "baz"]
             attributes = arg.scan(/\[(.*?)(?:=.*?)?\]/).flatten
             return true if attributes.empty?
+            return false unless replaceable_matcher?(node, matcher, attributes)
 
             attributes.all? do |attr|
               SPECIFIC_MATCHER_OPTIONS.fetch(matcher, []).include?(attr)
             end
+          end
+
+          def replaceable_matcher?(node, matcher, attributes)
+            case matcher
+            when 'link' then replaceable_to_have_link?(node, attributes)
+            else true
+            end
+          end
+
+          def replaceable_to_have_link?(node, attributes)
+            option?(node, :href) || attributes.include?('href')
           end
 
           def message(node, matcher)

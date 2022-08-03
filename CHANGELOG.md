@@ -10,6 +10,7 @@
 * Add some expectation methods to default configuration. ([@r7kamura][])
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher`. ([@ydah][])
 * Fix a false negative for `RSpec/Capybara/SpecificMatcher` for `have_field`. ([@ydah][])
+* Fix a false positive for `RSpec/Capybara/SpecificMatcher` when may not have a `href` by `have_link`. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 
