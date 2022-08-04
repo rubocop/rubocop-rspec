@@ -42,7 +42,7 @@ module RuboCop
       def replace(cop, unified)
         replace_nil(unified[cop])
         unified[cop].merge!(descriptions.fetch(cop))
-        unified[cop]['Reference'] = refarence(cop)
+        unified[cop]['Reference'] = reference(cop)
       end
 
       def replace_nil(config)
