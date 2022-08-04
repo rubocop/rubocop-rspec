@@ -21,6 +21,7 @@ module RuboCop
           .gsub(EXTENSION_ROOT_DEPARTMENT, "\n\\1")
           .gsub(*AMENDMENTS, "\n\\0")
           .gsub(/^(\s+)- /, '\1  - ')
+          .gsub('"~"', '~')
       end
 
       private
@@ -30,13 +31,28 @@ module RuboCop
           next if SUBDEPARTMENTS.include?(cop)
           next if AMENDMENTS.include?(cop)
 
-          unified[cop].merge!(descriptions.fetch(cop))
-          unified[cop]['Reference'] = COP_DOC_BASE_URL + cop.sub('RSpec/', '')
+          replace(cop, unified)
         end
       end
 
       def cops
         (descriptions.keys | config.keys).grep(EXTENSION_ROOT_DEPARTMENT)
+      end
+
+      def replace(cop, unified)
+        replace_nil(unified[cop])
+        unified[cop].merge!(descriptions.fetch(cop))
+        unified[cop]['Reference'] = reference(cop)
+      end
+
+      def replace_nil(config)
+        config.each do |key, value|
+          config[key] = '~' if value.nil?
+        end
+      end
+
+      def reference(cop)
+        COP_DOC_BASE_URL + cop.sub('RSpec/', '')
       end
 
       attr_reader :config, :descriptions

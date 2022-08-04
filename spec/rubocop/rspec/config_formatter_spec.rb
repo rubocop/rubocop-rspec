@@ -13,7 +13,8 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
         'Enabled' => true
       },
       'RSpec/Bar' => {
-        'Enabled' => true
+        'Enabled' => true,
+        'Nullable' => nil
       },
       'RSpec/Baz' => {
         'Enabled' => true,
@@ -52,6 +53,7 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       |
       |RSpec/Bar:
       |  Enabled: true
+      |  Nullable: ~
       |  Description: Wow
       |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
       |
