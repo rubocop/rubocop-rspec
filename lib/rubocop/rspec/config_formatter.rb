@@ -28,21 +28,16 @@ module RuboCop
 
       def unified_config
         cops.each_with_object(config.dup) do |cop, unified|
-          next if SUBDEPARTMENTS.include?(cop)
-          next if AMENDMENTS.include?(cop)
+          next if SUBDEPARTMENTS.include?(cop) || AMENDMENTS.include?(cop)
 
-          replace(cop, unified)
+          replace_nil(unified[cop])
+          unified[cop].merge!(descriptions.fetch(cop))
+          unified[cop]['Reference'] = reference(cop)
         end
       end
 
       def cops
         (descriptions.keys | config.keys).grep(EXTENSION_ROOT_DEPARTMENT)
-      end
-
-      def replace(cop, unified)
-        replace_nil(unified[cop])
-        unified[cop].merge!(descriptions.fetch(cop))
-        unified[cop]['Reference'] = reference(cop)
       end
 
       def replace_nil(config)
