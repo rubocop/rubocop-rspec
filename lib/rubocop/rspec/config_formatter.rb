@@ -51,7 +51,7 @@ module RuboCop
         end
       end
 
-      def refarence(cop)
+      def reference(cop)
         COP_DOC_BASE_URL + cop.sub('RSpec/', '')
       end
 
