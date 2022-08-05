@@ -473,6 +473,63 @@ expect { run }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
 
+== RSpec/ClassCheck
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.13
+| -
+|===
+
+Enforces consistent use of `be_a` or `be_kind_of`.
+
+=== Examples
+
+==== EnforcedStyle: be_a (default)
+
+[source,ruby]
+----
+# bad
+expect(object).to be_kind_of(String)
+expect(object).to be_a_kind_of(String)
+
+# good
+expect(object).to be_a(String)
+expect(object).to be_an(String)
+----
+
+==== EnforcedStyle: be_kind_of
+
+[source,ruby]
+----
+# bad
+expect(object).to be_a(String)
+expect(object).to be_an(String)
+
+# good
+expect(object).to be_kind_of(String)
+expect(object).to be_a_kind_of(String)
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `be_a`
+| `be_a`, `be_kind_of`
+|===
+
+=== References
+
+* https://rubystyle.guide#is-a-vs-kind-of
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
+
 == RSpec/ContextMethod
 
 |===
