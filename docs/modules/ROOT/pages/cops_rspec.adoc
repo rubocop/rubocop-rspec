@@ -391,15 +391,23 @@ end
 | Pending
 | Yes
 | Yes
-| 2.11.0
-| -
+| 2.11
+| 2.13
 |===
 
 Prefer negated matchers over `to change.by(0)`.
 
-This cop does not support autocorrection in some cases.
+In the case of composite expectations, cop suggest using the
+negation matchers of `RSpec::Matchers#change`.
+
+By default the cop does not support autocorrect of
+compound expectations, but if you set the
+negated matcher for `change`, e.g. `not_change` with
+the `NegatedMatcher` option, the cop will perform the autocorrection.
 
 === Examples
+
+==== NegatedMatcher: ~ (default)
 
 [source,ruby]
 ----
@@ -428,6 +436,38 @@ expect { run }
   .to not_change { Foo.bar }
   .and not_change { Foo.baz }
 ----
+
+==== NegatedMatcher: not_change
+
+[source,ruby]
+----
+# bad (support autocorrection to good case)
+expect { run }
+  .to change(Foo, :bar).by(0)
+  .and change(Foo, :baz).by(0)
+expect { run }
+  .to change { Foo.bar }.by(0)
+  .and change { Foo.baz }.by(0)
+
+# good
+define_negated_matcher :not_change, :change
+expect { run }
+  .to not_change(Foo, :bar)
+  .and not_change(Foo, :baz)
+expect { run }
+  .to not_change { Foo.bar }
+  .and not_change { Foo.baz }
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| NegatedMatcher
+| `<none>`
+| 
+|===
 
 === References
 

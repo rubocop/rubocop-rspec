@@ -192,8 +192,10 @@ RSpec/BeforeAfterAll:
 RSpec/ChangeByZero:
   Description: Prefer negated matchers over `to change.by(0)`.
   Enabled: pending
-  VersionAdded: 2.11.0
+  VersionAdded: '2.11'
+  VersionChanged: '2.13'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
+  NegatedMatcher: ~
 
 RSpec/ContextMethod:
   Description: "`context` should not be used for specifying methods."
