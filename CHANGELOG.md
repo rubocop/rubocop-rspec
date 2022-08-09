@@ -12,6 +12,7 @@
 * Fix a false negative for `RSpec/Capybara/SpecificMatcher` for `have_field`. ([@ydah][])
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher` when may not have a `href` by `have_link`. ([@ydah][])
 * Add `NegatedMatcher` configuration option to `RSpec/ChangeByZero`. ([@ydah][])
+* Add new `RSpec/Capybara/SpecificFinders` cop. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 

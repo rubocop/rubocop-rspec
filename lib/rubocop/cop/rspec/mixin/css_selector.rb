@@ -14,6 +14,24 @@ module RuboCop
         module_function
 
         # @param selector [String]
+        # @return [Boolean]
+        # @example
+        #   id?('#some-id') # => true
+        #   id?('.some-class') # => false
+        def id?(selector)
+          selector.start_with?('#')
+        end
+
+        # @param selector [String]
+        # @return [Boolean]
+        # @example
+        #   attribute?('[attribute]') # => true
+        #   attribute?('attribute') # => false
+        def attribute?(selector)
+          selector.start_with?('[')
+        end
+
+        # @param selector [String]
         # @return [Array<String>]
         # @example
         #   attributes('a[foo-bar_baz]') # => {"foo-bar_baz=>true}
@@ -24,6 +42,17 @@ module RuboCop
             key, value = attr.split('=')
             [key, normalize_value(value)]
           end
+        end
+
+        # @param selector [String]
+        # @return [Boolean]
+        # @example
+        #   common_attributes?('a[focused]') # => true
+        #   common_attributes?('button[focused][visible]') # => true
+        #   common_attributes?('table[id=some-id]') # => true
+        #   common_attributes?('h1[invalid]') # => false
+        def common_attributes?(selector)
+          attributes(selector).keys.difference(COMMON_OPTIONS).none?
         end
 
         # @param selector [String]

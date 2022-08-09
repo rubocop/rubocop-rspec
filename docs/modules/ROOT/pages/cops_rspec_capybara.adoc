@@ -112,6 +112,37 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+== RSpec/Capybara/SpecificFinders
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.13
+| -
+|===
+
+Checks if there is a more specific finder offered by Capybara.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('#some-id')
+find('[visible][id=some-id]')
+
+# good
+find_by_id('some-id')
+find_by_id('some-id', visible: true)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificFinders
+
 == RSpec/Capybara/SpecificMatcher
 
 |===
