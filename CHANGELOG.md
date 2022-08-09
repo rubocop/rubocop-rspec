@@ -4,6 +4,7 @@
 
 * Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura][])
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah][])
+* Update `RSpec/ExampleWording` cop to raise error for insufficient descriptions. ([@akrox58][])
 
 ## 2.13.2 (2022-09-23)
 
@@ -650,6 +651,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@abrom]: https://github.com/abrom
 [@ahukkanen]: https://github.com/ahukkanen
 [@akiomik]: https://github.com/akiomik
+[@akrox58]: https://github.com/akrox58
 [@AlexWayfer]: https://github.com/AlexWayfer
 [@andrykonchin]: https://github.com/andrykonchin
 [@andyw8]: https://github.com/andyw8
