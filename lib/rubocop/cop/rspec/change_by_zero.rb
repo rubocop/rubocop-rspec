@@ -5,9 +5,15 @@ module RuboCop
     module RSpec
       # Prefer negated matchers over `to change.by(0)`.
       #
-      # This cop does not support autocorrection in some cases.
+      # In the case of composite expectations, cop suggest using the
+      # negation matchers of `RSpec::Matchers#change`.
       #
-      # @example
+      # By default the cop does not support autocorrect of
+      # compound expectations, but if you set the
+      # negated matcher for `change`, e.g. `not_change` with
+      # the `NegatedMatcher` option, the cop will perform the autocorrection.
+      #
+      # @example NegatedMatcher: ~ (default)
       #   # bad
       #   expect { run }.to change(Foo, :bar).by(0)
       #   expect { run }.to change { Foo.bar }.by(0)
@@ -33,10 +39,28 @@ module RuboCop
       #     .to not_change { Foo.bar }
       #     .and not_change { Foo.baz }
       #
+      # @example NegatedMatcher: not_change
+      #   # bad (support autocorrection to good case)
+      #   expect { run }
+      #     .to change(Foo, :bar).by(0)
+      #     .and change(Foo, :baz).by(0)
+      #   expect { run }
+      #     .to change { Foo.bar }.by(0)
+      #     .and change { Foo.baz }.by(0)
+      #
+      #   # good
+      #   define_negated_matcher :not_change, :change
+      #   expect { run }
+      #     .to not_change(Foo, :bar)
+      #     .and not_change(Foo, :baz)
+      #   expect { run }
+      #     .to not_change { Foo.bar }
+      #     .and not_change { Foo.baz }
+      #
       class ChangeByZero < Base
         extend AutoCorrector
         MSG = 'Prefer `not_to change` over `to change.by(0)`.'
-        MSG_COMPOUND = 'Prefer negated matchers with compound expectations ' \
+        MSG_COMPOUND = 'Prefer %<preferred>s with compound expectations ' \
                           'over `change.by(0)`.'
         RESTRICT_ON_SEND = %i[change].freeze
 
@@ -57,6 +81,11 @@ module RuboCop
             (int 0))
         PATTERN
 
+        # @!method change_nodes(node)
+        def_node_search :change_nodes, <<-PATTERN
+          $(send nil? :change ...)
+        PATTERN
+
         def on_send(node)
           expect_change_with_arguments(node.parent) do
             check_offense(node.parent)
@@ -72,7 +101,9 @@ module RuboCop
         def check_offense(node)
           expression = node.loc.expression
           if compound_expectations?(node)
-            add_offense(expression, message: MSG_COMPOUND)
+            add_offense(expression, message: message_compound) do |corrector|
+              autocorrect_compound(corrector, node)
+            end
           else
             add_offense(expression) do |corrector|
               autocorrect(corrector, node)
@@ -88,6 +119,28 @@ module RuboCop
           corrector.replace(node.parent.loc.selector, 'not_to')
           range = node.loc.dot.with(end_pos: node.loc.expression.end_pos)
           corrector.remove(range)
+        end
+
+        def autocorrect_compound(corrector, node)
+          return unless negated_matcher
+
+          change_nodes(node) do |change_node|
+            corrector.replace(change_node.loc.selector, negated_matcher)
+            range = node.loc.dot.with(end_pos: node.loc.expression.end_pos)
+            corrector.remove(range)
+          end
+        end
+
+        def negated_matcher
+          cop_config['NegatedMatcher']
+        end
+
+        def message_compound
+          format(MSG_COMPOUND, preferred: preferred_method)
+        end
+
+        def preferred_method
+          negated_matcher ? "`#{negated_matcher}`" : 'negated matchers'
         end
       end
     end
