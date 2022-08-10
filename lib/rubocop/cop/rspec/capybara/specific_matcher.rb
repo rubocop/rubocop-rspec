@@ -37,29 +37,26 @@ module RuboCop
             'select' => 'select',
             'input' => 'field'
           }.freeze
-          COMMON_OPTIONS = %w[
-            above below left_of right_of near count minimum maximum between text
-            id class style visible obscured exact exact_text normalize_ws match
-            wait filter_set focused
-          ].freeze
           SPECIFIC_MATCHER_OPTIONS = {
             'button' => (
-              COMMON_OPTIONS + %w[disabled name value title type]
+              CssSelector::COMMON_OPTIONS + %w[disabled name value title type]
             ).freeze,
             'link' => (
-              COMMON_OPTIONS + %w[href alt title download]
+              CssSelector::COMMON_OPTIONS + %w[href alt title download]
             ).freeze,
             'table' => (
-              COMMON_OPTIONS + %w[caption with_cols cols with_rows rows]
+              CssSelector::COMMON_OPTIONS + %w[
+                caption with_cols cols with_rows rows
+              ]
             ).freeze,
             'select' => (
-              COMMON_OPTIONS + %w[
+              CssSelector::COMMON_OPTIONS + %w[
                 disabled name placeholder options enabled_options
                 disabled_options selected with_selected multiple with_options
               ]
             ).freeze,
             'field' => (
-              COMMON_OPTIONS + %w[
+              CssSelector::COMMON_OPTIONS + %w[
                 checked unchecked disabled valid name placeholder
                 validation_message readonly with type multiple
               ]
@@ -77,12 +74,13 @@ module RuboCop
           PATTERN
 
           def on_send(node)
-            return unless (arg = first_argument(node))
-            return unless (matcher = specific_matcher(arg))
-            return if acceptable_pattern?(arg)
-            return unless specific_matcher_option?(node, arg, matcher)
+            first_argument(node) do |arg|
+              next unless (matcher = specific_matcher(arg))
+              next if CssSelector.multiple_selectors?(arg)
+              next unless specific_matcher_option?(node, arg, matcher)
 
-            add_offense(node, message: message(node, matcher))
+              add_offense(node, message: message(node, matcher))
+            end
           end
 
           private
@@ -97,26 +95,24 @@ module RuboCop
           end
 
           def specific_matcher_option?(node, arg, matcher)
-            # If `button[foo-bar_baz=foo][bar][baz]`:
-            # extract ["foo-bar_baz", "bar", "baz"]
-            attributes = arg.scan(/\[(.*?)(?:=.*?)?\]/).flatten
-            return true if attributes.empty?
-            return false unless replaceable_matcher?(node, matcher, attributes)
+            attrs = CssSelector.attributes(arg).keys
+            return true if attrs.empty?
+            return false unless replaceable_matcher?(node, matcher, attrs)
 
-            attributes.all? do |attr|
+            attrs.all? do |attr|
               SPECIFIC_MATCHER_OPTIONS.fetch(matcher, []).include?(attr)
             end
           end
 
-          def replaceable_matcher?(node, matcher, attributes)
+          def replaceable_matcher?(node, matcher, attrs)
             case matcher
-            when 'link' then replaceable_to_have_link?(node, attributes)
+            when 'link' then replaceable_to_have_link?(node, attrs)
             else true
             end
           end
 
-          def replaceable_to_have_link?(node, attributes)
-            option?(node, :href) || attributes.include?('href')
+          def replaceable_to_have_link?(node, attrs)
+            option?(node, :href) || attrs.include?('href')
           end
 
           def message(node, matcher)

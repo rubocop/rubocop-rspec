@@ -851,6 +851,12 @@ RSpec/Capybara/FeatureMethods:
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+RSpec/Capybara/SpecificFinders:
+  Description: Checks if there is a more specific finder offered by Capybara.
+  Enabled: pending
+  VersionAdded: '2.13'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificFinders
+
 RSpec/Capybara/SpecificMatcher:
   Description: Checks for there is a more specific matcher offered by Capybara.
   Enabled: pending
