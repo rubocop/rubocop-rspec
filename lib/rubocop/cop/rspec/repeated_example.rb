@@ -18,7 +18,7 @@ module RuboCop
       class RepeatedExample < Base
         MSG = "Don't repeat examples within an example group."
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group?(node)
 
           repeated_examples(node).each do |repeated_example|
