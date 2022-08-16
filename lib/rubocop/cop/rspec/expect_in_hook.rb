@@ -26,7 +26,7 @@ module RuboCop
         # @!method expectation(node)
         def_node_search :expectation, send_pattern('#Expectations.all')
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless hook?(node)
           return if node.body.nil?
 
@@ -35,6 +35,8 @@ module RuboCop
                         message: message(expect, node))
           end
         end
+
+        alias on_numblock on_block
 
         private
 
