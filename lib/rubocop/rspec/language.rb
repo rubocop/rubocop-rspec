@@ -41,7 +41,12 @@ module RuboCop
       def_node_matcher :example?, block_pattern('#Examples.all')
 
       # @!method hook?(node)
-      def_node_matcher :hook?, block_pattern('#Hooks.all')
+      def_node_matcher :hook?, <<-PATTERN
+        {
+          #{block_pattern('#Hooks.all')}
+          #{numblock_pattern('#Hooks.all')}
+        }
+      PATTERN
 
       # @!method let?(node)
       def_node_matcher :let?, <<-PATTERN
