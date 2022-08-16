@@ -66,11 +66,13 @@ module RuboCop
 
         # @!method scoped_hook(node)
         def_node_matcher :scoped_hook, <<-PATTERN
-          (block $(send _ #Hooks.all (sym ${:each :example})) ...)
+          ({block numblock} $(send _ #Hooks.all (sym ${:each :example})) ...)
         PATTERN
 
         # @!method unscoped_hook(node)
-        def_node_matcher :unscoped_hook, '(block $(send _ #Hooks.all) ...)'
+        def_node_matcher :unscoped_hook, <<-PATTERN
+          ({block numblock} $(send _ #Hooks.all) ...)
+        PATTERN
 
         def on_block(node)
           hook(node) do |method_send, scope_name|
@@ -85,6 +87,8 @@ module RuboCop
             end
           end
         end
+
+        alias on_numblock on_block
 
         private
 
