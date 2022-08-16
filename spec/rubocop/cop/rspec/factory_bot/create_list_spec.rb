@@ -230,5 +230,13 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
         SomeFactory.create_list :user, 3
       RUBY
     end
+
+    context 'when Ruby 2.7', :ruby27 do
+      it 'ignores n.times with numblock' do
+        expect_no_offenses(<<~RUBY)
+          3.times { create :user, position: _1 }
+        RUBY
+      end
+    end
   end
 end
