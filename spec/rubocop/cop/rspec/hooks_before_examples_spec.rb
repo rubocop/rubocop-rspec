@@ -166,4 +166,65 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
   end
+
+  context 'when Ruby 2.7', :ruby27 do
+    it 'flags `around` after `it`' do
+      expect_offense(<<-RUBY)
+        RSpec.describe User do
+          it { is_expected.to be_after_around_hook }
+          around { _1 }
+          ^^^^^^^^^^^^^ Move `around` above the examples in the group.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        RSpec.describe User do
+          around { _1 }
+          it { is_expected.to be_after_around_hook }
+        end
+      RUBY
+    end
+
+    it 'flags `around` after `context`' do
+      expect_offense(<<-RUBY)
+        RSpec.describe User do
+          context 'a context' do
+            it { is_expected.to be_after_around_hook }
+          end
+
+          around { _1 }
+          ^^^^^^^^^^^^^ Move `around` above the examples in the group.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        RSpec.describe User do
+          around { _1 }
+          context 'a context' do
+            it { is_expected.to be_after_around_hook }
+          end
+
+        end
+      RUBY
+    end
+
+    it 'flags `around` after `include_examples`' do
+      expect_offense(<<-RUBY)
+        RSpec.describe User do
+          include_examples('should be after around-hook')
+
+          around { _1 }
+          ^^^^^^^^^^^^^ Move `around` above the examples in the group.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        RSpec.describe User do
+          around { _1 }
+          include_examples('should be after around-hook')
+
+        end
+      RUBY
+    end
+  end
 end
