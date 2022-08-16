@@ -79,7 +79,7 @@ module RuboCop
         def_node_matcher :shared_example,
                          block_pattern('#SharedGroups.examples')
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_with_only_examples(node) do
             add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
               corrector.replace(node.send_node.loc.selector, 'shared_examples')
