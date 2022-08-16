@@ -21,7 +21,7 @@ module RuboCop
 
         MSG = 'Add an empty line after `%<subject>s`.'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless subject?(node)
           return unless inside_example_group?(node)
 
