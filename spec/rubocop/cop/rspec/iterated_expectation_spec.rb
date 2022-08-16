@@ -85,4 +85,83 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
       end
     RUBY
   end
+
+  context 'when Ruby 2.7', :ruby27 do
+    it 'flags `each` with an expectation' do
+      expect_offense(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each { expect(_1).to be_valid }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+        end
+      RUBY
+    end
+
+    it 'flags `each` when expectation calls method with arguments' do
+      expect_offense(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each { expect(_1).to be_a(User) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+        end
+      RUBY
+    end
+
+    it 'ignores `each` without expectation' do
+      expect_no_offenses(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each { allow(_1).to receive(:method) }
+        end
+      RUBY
+    end
+
+    it 'flags `each` with multiple expectations' do
+      expect_offense(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+            expect(_1).to receive(:method)
+            expect(_1).to receive(:other_method)
+          end
+        end
+      RUBY
+    end
+
+    it 'ignore `each` when the body does not contain only expectations' do
+      expect_no_offenses(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each do
+            allow(Something).to receive(:method).and_return(_1)
+            expect(_1).to receive(:method)
+            expect(_1).to receive(:other_method)
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores `each` with expectation on property' do
+      expect_no_offenses(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each { expect(_1.name).to be }
+        end
+      RUBY
+    end
+
+    it 'ignores assignments in the iteration' do
+      expect_no_offenses(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each { array = array.concat(_1) }
+        end
+      RUBY
+    end
+
+    it 'ignores `each` when there is a negative expectation' do
+      expect_no_offenses(<<-RUBY)
+        it 'validates users' do
+          [user1, user2, user3].each do
+            expect(_1).not_to receive(:method)
+            expect(_1).to receive(:other_method)
+          end
+        end
+      RUBY
+    end
+  end
 end
