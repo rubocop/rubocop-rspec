@@ -26,7 +26,7 @@ module RuboCop
         MSG = 'Do not define multiple `%<hook_name>s` hooks in the same ' \
               'example group (also defined on %<lines>s).'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group?(node)
 
           repeated_hooks(node).each do |occurrences|
