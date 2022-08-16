@@ -33,7 +33,7 @@ module RuboCop
           (block $#{send_pattern('#Hooks.all')} _ nil?)
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           empty_hook?(node) do |hook|
             add_offense(hook) do |corrector|
               corrector.remove(
