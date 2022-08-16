@@ -49,7 +49,7 @@ module RuboCop
         # @!method method_called?(node)
         def_node_search :method_called?, '(send nil? %)'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_or_shared_group_or_including?(node)
 
           unused_let_bang(node) do |let|
