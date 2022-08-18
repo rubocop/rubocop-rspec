@@ -11,7 +11,7 @@ module RuboCop
       # when subject is also defined in parent example groups.
       #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
-      # @see https://samphippen.com/introducing-rspec-smells-and-where-to-find-them#smell-1-stubject
+      # @see https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
       # @see https://github.com/rubocop-hq/rspec-style-guide#dont-stub-subject
       #
       # @example
