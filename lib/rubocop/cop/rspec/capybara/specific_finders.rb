@@ -42,7 +42,7 @@ module RuboCop
           def on_attr(node, arg)
             return unless (id = CssSelector.attributes(arg)['id'])
 
-            register_offense(node, replaced_argments(arg, id))
+            register_offense(node, replaced_arguments(arg, id))
           end
 
           def on_id(node, arg)
@@ -54,15 +54,15 @@ module RuboCop
               CssSelector.common_attributes?(arg)
           end
 
-          def register_offense(node, arg_replacemenet)
+          def register_offense(node, arg_replacement)
             add_offense(offense_range(node)) do |corrector|
               corrector.replace(node.loc.selector, 'find_by_id')
               corrector.replace(node.first_argument.loc.expression,
-                                arg_replacemenet)
+                                arg_replacement)
             end
           end
 
-          def replaced_argments(arg, id)
+          def replaced_arguments(arg, id)
             options = to_options(CssSelector.attributes(arg))
             options.empty? ? id : "#{id}, #{options}"
           end
