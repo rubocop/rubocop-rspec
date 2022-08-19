@@ -113,5 +113,6 @@
 * xref:cops_rspec_rails.adoc#rspecrails/avoidsetuphook[RSpec/Rails/AvoidSetupHook]
 * xref:cops_rspec_rails.adoc#rspecrails/havehttpstatus[RSpec/Rails/HaveHttpStatus]
 * xref:cops_rspec_rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
+* xref:cops_rspec_rails.adoc#rspecrails/inferredspectype[RSpec/Rails/InferredSpecType]
 
 // END_COP_LIST
