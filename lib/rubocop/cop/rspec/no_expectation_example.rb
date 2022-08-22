@@ -18,7 +18,6 @@ module RuboCop
       #         - custom_expect
       #
       # @example
-      #
       #   # bad
       #   it do
       #     a?
@@ -28,6 +27,7 @@ module RuboCop
       #   it do
       #     expect(a?).to be(true)
       #   end
+      #
       class NoExpectationExample < Base
         MSG = 'No expectation found in this example.'
 

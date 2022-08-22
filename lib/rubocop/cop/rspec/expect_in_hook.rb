@@ -20,6 +20,7 @@ module RuboCop
       #   it do
       #     expect(something).to eq 'foo'
       #   end
+      #
       class ExpectInHook < Base
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 

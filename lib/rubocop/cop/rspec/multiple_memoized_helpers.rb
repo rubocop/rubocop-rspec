@@ -56,7 +56,6 @@ module RuboCop
       #   end
       #
       # @example when disabling AllowSubject configuration
-      #
       #   # rubocop.yml
       #   # RSpec/MultipleMemoizedHelpers:
       #   #   AllowSubject: false
@@ -72,7 +71,6 @@ module RuboCop
       #   end
       #
       # @example with Max configuration
-      #
       #   # rubocop.yml
       #   # RSpec/MultipleMemoizedHelpers:
       #   #   Max: 1

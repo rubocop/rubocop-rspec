@@ -11,7 +11,6 @@ module RuboCop
       # and works with `--auto-gen-config`.
       #
       # @example
-      #
       #   # bad
       #   describe UserCreator do
       #     it 'builds a user' do
@@ -32,7 +31,6 @@ module RuboCop
       #   end
       #
       # @example `aggregate_failures: true` (default)
-      #
       #  # good - the cop ignores when RSpec aggregates failures
       #   describe UserCreator do
       #     it 'builds a user', :aggregate_failures do
@@ -42,7 +40,6 @@ module RuboCop
       #   end
       #
       # @example `aggregate_failures: false`
-      #
       #  # Detected as an offense
       #   describe UserCreator do
       #     it 'builds a user', aggregate_failures: false do
@@ -52,7 +49,6 @@ module RuboCop
       #   end
       #
       # @example configuration
-      #
       #   # .rubocop.yml
       #   # RSpec/MultipleExpectations:
       #   #   Max: 2

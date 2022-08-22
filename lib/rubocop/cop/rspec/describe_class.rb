@@ -10,7 +10,6 @@ module RuboCop
       # Ignores Rails and Aruba `type` metadata by default.
       #
       # @example `IgnoredMetadata` configuration
-      #
       #   # .rubocop.yml
       #   # RSpec/DescribeClass:
       #   #   IgnoredMetadata:
@@ -34,6 +33,7 @@ module RuboCop
       #
       #   describe "A feature example", type: :feature do
       #   end
+      #
       class DescribeClass < Base
         include TopLevelGroup
 

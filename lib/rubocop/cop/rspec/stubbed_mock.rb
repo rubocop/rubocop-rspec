@@ -6,7 +6,6 @@ module RuboCop
       # Checks that message expectations do not have a configured response.
       #
       # @example
-      #
       #   # bad
       #   expect(foo).to receive(:bar).with(42).and_return("hello world")
       #

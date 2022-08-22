@@ -24,7 +24,6 @@ module RuboCop
       #   end
       #
       # @example with AssignmentOnly configuration
-      #
       #   # rubocop.yml
       #   # RSpec/InstanceVariable:
       #   #   AssignmentOnly: false

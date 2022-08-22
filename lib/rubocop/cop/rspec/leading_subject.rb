@@ -7,29 +7,29 @@ module RuboCop
       #
       # @example
       #   # bad
-      #     let(:params) { blah }
-      #     subject { described_class.new(params) }
+      #   let(:params) { blah }
+      #   subject { described_class.new(params) }
       #
-      #     before { do_something }
-      #     subject { described_class.new(params) }
+      #   before { do_something }
+      #   subject { described_class.new(params) }
       #
-      #     it { expect_something }
-      #     subject { described_class.new(params) }
-      #     it { expect_something_else }
+      #   it { expect_something }
+      #   subject { described_class.new(params) }
+      #   it { expect_something_else }
       #
-      #
-      #   # good
-      #     subject { described_class.new(params) }
-      #     let(:params) { blah }
       #
       #   # good
-      #     subject { described_class.new(params) }
-      #     before { do_something }
+      #   subject { described_class.new(params) }
+      #   let(:params) { blah }
       #
       #   # good
-      #     subject { described_class.new(params) }
-      #     it { expect_something }
-      #     it { expect_something_else }
+      #   subject { described_class.new(params) }
+      #   before { do_something }
+      #
+      #   # good
+      #   subject { described_class.new(params) }
+      #   it { expect_something }
+      #   it { expect_something_else }
       #
       class LeadingSubject < Base
         extend AutoCorrector

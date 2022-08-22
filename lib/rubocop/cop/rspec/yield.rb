@@ -11,6 +11,7 @@ module RuboCop
       #
       #   # good
       #   expect(foo).to receive(:bar).and_yield(1)
+      #
       class Yield < Base
         extend AutoCorrector
         include RangeHelp

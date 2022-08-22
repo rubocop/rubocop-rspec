@@ -16,6 +16,7 @@ module RuboCop
       #
       #   describe MyClass, '.my_class_method' do
       #   end
+      #
       class DescribeMethod < Base
         include TopLevelGroup
 

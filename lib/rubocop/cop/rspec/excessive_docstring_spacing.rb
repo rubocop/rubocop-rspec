@@ -22,6 +22,7 @@ module RuboCop
       #   # good
       #   context 'when a condition is met' do
       #   end
+      #
       class ExcessiveDocstringSpacing < Base
         extend AutoCorrector
 

@@ -47,6 +47,7 @@ module RuboCop
       #     result = service.call
       #     expect(result).to be(true)
       #   end
+      #
       class ExampleWithoutDescription < Base
         include ConfigurableEnforcedStyle
 

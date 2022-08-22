@@ -9,7 +9,6 @@ module RuboCop
       # and supports the `--auto-gen-config` flag.
       #
       # @example `EnforcedStyle: is_expected` (default)
-      #
       #   # bad
       #   it { should be_truthy }
       #
@@ -17,7 +16,6 @@ module RuboCop
       #   it { is_expected.to be_truthy }
       #
       # @example `EnforcedStyle: should`
-      #
       #   # bad
       #   it { is_expected.to be_truthy }
       #

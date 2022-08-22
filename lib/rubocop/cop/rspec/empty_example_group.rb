@@ -6,7 +6,6 @@ module RuboCop
       # Checks if an example group does not include any tests.
       #
       # @example usage
-      #
       #   # bad
       #   describe Bacon do
       #     let(:bacon)      { Bacon.new(chunkiness) }
@@ -35,6 +34,7 @@ module RuboCop
       #   describe Bacon do
       #     pending 'will add tests later'
       #   end
+      #
       class EmptyExampleGroup < Base
         extend AutoCorrector
 

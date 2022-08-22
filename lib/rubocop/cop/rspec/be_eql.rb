@@ -11,7 +11,6 @@ module RuboCop
       # preferable as it is a more strict test.
       #
       # @example
-      #
       #   # bad
       #   expect(foo).to eql(1)
       #   expect(foo).to eql(1.0)

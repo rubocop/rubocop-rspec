@@ -6,7 +6,6 @@ module RuboCop
       # Checks if an example group defines `subject` multiple times.
       #
       # @example
-      #
       #   # bad
       #   describe Foo do
       #     subject(:user) { User.new }

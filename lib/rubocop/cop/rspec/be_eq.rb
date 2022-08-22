@@ -10,7 +10,6 @@ module RuboCop
       # the `be` matcher is preferable as it is a more strict test.
       #
       # @example
-      #
       #   # bad
       #   expect(foo).to eq(true)
       #   expect(foo).to eq(false)

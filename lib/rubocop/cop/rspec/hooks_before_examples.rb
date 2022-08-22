@@ -6,8 +6,7 @@ module RuboCop
       # Checks for before/around/after hooks that come after an example.
       #
       # @example
-      #   # Bad
-      #
+      #   # bad
       #   it 'checks what foo does' do
       #     expect(foo).to be
       #   end
@@ -15,7 +14,7 @@ module RuboCop
       #   before { prepare }
       #   after { clean_up }
       #
-      #   # Good
+      #   # good
       #   before { prepare }
       #   after { clean_up }
       #

@@ -24,6 +24,7 @@ module RuboCop
         #
         #   # good
         #   count { 1 }
+        #
         class AttributeDefinedStatically < Base
           extend AutoCorrector
 

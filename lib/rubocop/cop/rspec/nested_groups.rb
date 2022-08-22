@@ -36,7 +36,7 @@ module RuboCop
       #     end
       #   end
       #
-      #   # better
+      #   # good
       #   context 'using some feature as an admin' do
       #     let(:some)    { :various }
       #     let(:feature) { :setup   }

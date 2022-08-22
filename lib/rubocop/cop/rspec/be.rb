@@ -10,7 +10,6 @@ module RuboCop
       # cases it's better to specify what exactly is the expected value.
       #
       # @example
-      #
       #   # bad
       #   expect(foo).to be
       #

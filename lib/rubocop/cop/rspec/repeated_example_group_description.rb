@@ -6,42 +6,41 @@ module RuboCop
       # Check for repeated example group descriptions.
       #
       # @example
+      #   # bad
+      #   describe 'cool feature' do
+      #     # example group
+      #   end
       #
-      #    # bad
-      #    describe 'cool feature' do
-      #      # example group
-      #    end
+      #   describe 'cool feature' do
+      #     # example group
+      #   end
       #
-      #    describe 'cool feature' do
-      #      # example group
-      #    end
+      #   # bad
+      #   context 'when case x' do
+      #     # example group
+      #   end
       #
-      #    # bad
-      #    context 'when case x' do
-      #      # example group
-      #    end
+      #   describe 'when case x' do
+      #     # example group
+      #   end
       #
-      #    describe 'when case x' do
-      #      # example group
-      #    end
+      #   # good
+      #   describe 'cool feature' do
+      #     # example group
+      #   end
       #
-      #    # good
-      #    describe 'cool feature' do
-      #      # example group
-      #    end
+      #   describe 'another cool feature' do
+      #     # example group
+      #   end
       #
-      #    describe 'another cool feature' do
-      #      # example group
-      #    end
+      #   # good
+      #   context 'when case x' do
+      #     # example group
+      #   end
       #
-      #    # good
-      #    context 'when case x' do
-      #      # example group
-      #    end
-      #
-      #    context 'when another case' do
-      #      # example group
-      #    end
+      #   context 'when another case' do
+      #     # example group
+      #   end
       #
       class RepeatedExampleGroupDescription < Base
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'

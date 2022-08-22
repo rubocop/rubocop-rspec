@@ -6,7 +6,6 @@ module RuboCop
       # Checks for consistent method usage for negating expectations.
       #
       # @example `EnforcedStyle: not_to` (default)
-      #
       #   # bad
       #   it '...' do
       #     expect(false).to_not be_true
@@ -18,7 +17,6 @@ module RuboCop
       #   end
       #
       # @example `EnforcedStyle: to_not`
-      #
       #   # bad
       #   it '...' do
       #     expect(false).not_to be_true
@@ -28,6 +26,7 @@ module RuboCop
       #   it '...' do
       #     expect(false).to_not be_true
       #   end
+      #
       class NotToNot < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
