@@ -618,8 +618,9 @@ RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
   Max: 3
+  AllowedGroups: []
   VersionAdded: '1.7'
-  VersionChanged: '1.10'
+  VersionChanged: '2.13'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
 
 RSpec/NoExpectationExample:

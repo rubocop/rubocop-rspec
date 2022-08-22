@@ -15,6 +15,7 @@
 * Add new `RSpec/Capybara/SpecificFinders` cop. ([@ydah][])
 * Add support for numblocks to `RSpec/AroundBlock`, `RSpec/EmptyLineAfterHook`, `RSpec/ExpectInHook`, `RSpec/HookArgument`, `RSpec/HooksBeforeExamples`, `RSpec/IteratedExpectation`, and `RSpec/NoExpectationExample`. ([@ydah][])
 * Fix incorrect documentation URLs when using `rubocop --show-docs-url`. ([@r7kamura][])
+* Add `AllowedGroups` configuration option to `RSpec/NestedGroups`. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 

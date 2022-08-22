@@ -53,34 +53,40 @@ module RuboCop
       #     it 'yada yada'
       #   end
       #
-      # @example configuration
-      #
-      #   # .rubocop.yml
-      #   # RSpec/NestedGroups:
-      #   #   Max: 2
-      #
-      #   context 'when using some feature' do
-      #     let(:some)    { :various }
-      #     let(:feature) { :setup   }
-      #
-      #     context 'when user is signed in' do
-      #       let(:user) do
-      #         UserCreate.call(user_attributes)
+      # @example `Max: 3` (default)
+      #   # bad
+      #   describe Foo do
+      #     context 'foo' do
+      #       context 'bar' do
+      #         context 'baz' do # flagged by rubocop
+      #         end
       #       end
+      #     end
+      #   end
       #
-      #       let(:user_attributes) do
-      #         {
-      #           name: 'John',
-      #           age:  22,
-      #           role: role
-      #         }
+      # @example `Max: 2`
+      #   # bad
+      #   describe Foo do
+      #     context 'foo' do
+      #       context 'bar' do # flagged by rubocop
+      #         context 'baz' do # flagged by rubocop
+      #         end
       #       end
+      #     end
+      #   end
       #
-      #       context 'when user is an admin' do # flagged by rubocop
-      #         let(:role) { 'admin' }
+      # @example `AllowedGroups: [] (default)`
+      #   describe Foo do # <-- nested groups 1
+      #     context 'foo' do # <-- nested groups 2
+      #       context 'bar' do # <-- nested groups 3
+      #       end
+      #     end
+      #   end
       #
-      #         it 'blah blah'
-      #         it 'yada yada'
+      # @example `AllowedGroups: [path]`
+      #   describe Foo do # <-- nested groups 1
+      #     path '/foo' do # <-- nested groups 1 (not counted)
+      #       context 'bar' do # <-- nested groups 2
       #       end
       #     end
       #   end
@@ -113,11 +119,21 @@ module RuboCop
           example_group = example_group?(node)
           yield node, nesting if example_group && nesting > max_nesting
 
-          next_nesting = example_group ? nesting + 1 : nesting
+          next_nesting = if count_up_nesting?(node, example_group)
+                           nesting + 1
+                         else
+                           nesting
+                         end
 
           node.each_child_node(:block, :begin) do |child|
             find_nested_example_groups(child, nesting: next_nesting, &block)
           end
+        end
+
+        def count_up_nesting?(node, example_group)
+          example_group &&
+            (node.block_type? &&
+            !allowed_groups.include?(node.method_name))
         end
 
         def message(nesting)
@@ -135,6 +151,10 @@ module RuboCop
           else
             cop_config.fetch('Max', 3)
           end
+        end
+
+        def allowed_groups
+          @allowed_groups ||= cop_config.fetch('AllowedGroups', [])
         end
       end
     end
