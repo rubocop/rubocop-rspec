@@ -43,7 +43,7 @@ module RuboCop
       class RepeatedDescription < Base
         MSG = "Don't repeat descriptions within an example group."
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group?(node)
 
           repeated_descriptions(node).each do |repeated_description|

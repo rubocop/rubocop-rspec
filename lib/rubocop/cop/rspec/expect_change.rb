@@ -69,7 +69,7 @@ module RuboCop
           end
         end
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless style == :method_call
 
           expect_change_with_block(node) do |receiver, message|

@@ -39,7 +39,7 @@ module RuboCop
             (block (send _ #attribute_defining_method? ...) _ { (begin $...) $(send ...) } )
           PATTERN
 
-          def on_block(node)
+          def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             attributes = factory_attributes(node) || []
             attributes = [attributes] unless attributes.is_a?(Array) # rubocop:disable Style/ArrayCoercion, Lint/RedundantCopDisableDirective
 

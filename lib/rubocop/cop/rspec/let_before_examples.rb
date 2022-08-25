@@ -43,7 +43,7 @@ module RuboCop
           }
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group_with_body?(node)
 
           check_let_declarations(node.body) if multiline_block?(node.body)

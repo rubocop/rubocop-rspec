@@ -12,6 +12,10 @@ module RuboCop
         def block_pattern(string)
           "(block #{send_pattern(string)} ...)"
         end
+
+        def numblock_pattern(string)
+          "(numblock #{send_pattern(string)} ...)"
+        end
       end
     end
   end

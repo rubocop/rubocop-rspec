@@ -134,7 +134,7 @@ module RuboCop
           }
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return if node.each_ancestor(:def, :defs).any?
           return if node.each_ancestor(:block).any? { |block| example?(block) }
 

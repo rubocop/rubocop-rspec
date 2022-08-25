@@ -37,7 +37,7 @@ module RuboCop
 
         MSG = 'Declare `subject` above any other `%<offending>s` declarations.'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless subject?(node)
           return unless inside_example_group?(node)
 

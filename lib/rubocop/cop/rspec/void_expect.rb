@@ -32,7 +32,7 @@ module RuboCop
           check_expect(node)
         end
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless expect_block?(node)
 
           check_expect(node)

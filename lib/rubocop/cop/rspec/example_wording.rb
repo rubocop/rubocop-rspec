@@ -46,7 +46,7 @@ module RuboCop
           } ...) ...)
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           it_description(node) do |description_node, message|
             if message.match?(SHOULD_PREFIX)
               add_wording_offense(description_node, MSG_SHOULD)

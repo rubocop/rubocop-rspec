@@ -30,7 +30,7 @@ module RuboCop
               (args) _)
           PATTERN
 
-          def on_block(node)
+          def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             setup_call(node) do |setup|
               add_offense(node) do |corrector|
                 corrector.replace setup, 'before'

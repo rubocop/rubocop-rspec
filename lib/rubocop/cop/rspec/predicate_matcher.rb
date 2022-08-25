@@ -291,7 +291,7 @@ module RuboCop
           end
         end
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           check_explicit(node) if style == :explicit
         end
 

@@ -43,7 +43,7 @@ module RuboCop
           (block (send #rspec? { :context :shared_context } $(str #bad_prefix?) ...) ...)
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_wording(node) do |context|
             add_offense(context,
                         message: format(MSG, prefixes: joined_prefixes))

@@ -26,7 +26,7 @@ module RuboCop
         # @!method block_call?(node)
         def_node_matcher :block_call?, '(send (lvar %) :call ...)'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless method_on_stub?(node.send_node)
 
           block_arg(node.arguments) do |block|

@@ -451,5 +451,37 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
         end
       RUBY
     end
+
+    context 'when Ruby 2.7', :ruby27 do
+      it 'registers an offense for empty line after `around` hook' do
+        expect_offense(<<-RUBY)
+          RSpec.describe User do
+            around { _1.run }
+            ^^^^^^^^^^^^^^^^^ Add an empty line after `around`.
+            it { does_something }
+          end
+        RUBY
+
+        expect_correction(<<-RUBY)
+          RSpec.describe User do
+            around { _1.run }
+
+            it { does_something }
+          end
+        RUBY
+      end
+
+      it 'does not register an offense for multiline `around` block' do
+        expect_no_offenses(<<-RUBY)
+          RSpec.describe User do
+            around do
+              _1.run
+            end
+
+            it { does_something }
+          end
+        RUBY
+      end
+    end
   end
 end

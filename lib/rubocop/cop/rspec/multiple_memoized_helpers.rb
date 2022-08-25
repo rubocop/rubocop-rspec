@@ -89,7 +89,7 @@ module RuboCop
 
         MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless spec_group?(node)
 
           count = all_helpers(node).uniq.count

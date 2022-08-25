@@ -71,7 +71,7 @@ module RuboCop
             (send {nil? #factory_bot?} :create_list (sym _) (int $_) ...)
           PATTERN
 
-          def on_block(node)
+          def on_block(node) # rubocop:todo InternalAffairs/NumblockHandler
             return unless style == :create_list
 
             return unless n_times_block?(node)

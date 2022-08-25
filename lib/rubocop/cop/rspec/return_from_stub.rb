@@ -59,7 +59,7 @@ module RuboCop
           check_and_return_call(node)
         end
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless style == :and_return
           return unless stub_with_block?(node)
 

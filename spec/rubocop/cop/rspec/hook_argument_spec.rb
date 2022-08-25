@@ -88,6 +88,36 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     include_examples 'an example hook'
+
+    context 'when Ruby 2.7', :ruby27 do
+      it 'detects :each for hooks' do
+        expect_offense(<<-RUBY)
+          around(:each) { _1 }
+          ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around { _1 }
+        RUBY
+      end
+
+      it 'detects :example for hooks' do
+        expect_offense(<<-RUBY)
+          around(:example) { _1 }
+          ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around { _1 }
+        RUBY
+      end
+
+      it 'does not flag hooks without default scopes' do
+        expect_no_offenses(<<-RUBY)
+          around { _1 }
+        RUBY
+      end
+    end
   end
 
   context 'when EnforcedStyle is :each' do
@@ -143,6 +173,36 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     include_examples 'an example hook'
+
+    context 'when Ruby 2.7', :ruby27 do
+      it 'does not flag :each for hooks' do
+        expect_no_offenses(<<-RUBY)
+          around(:each) { _1 }
+        RUBY
+      end
+
+      it 'detects :example for hooks' do
+        expect_offense(<<-RUBY)
+          around(:example) { _1 }
+          ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around(:each) { _1 }
+        RUBY
+      end
+
+      it 'detects hooks without default scopes' do
+        expect_offense(<<-RUBY)
+          around { _1 }
+          ^^^^^^ Use `:each` for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around(:each) { _1 }
+        RUBY
+      end
+    end
   end
 
   context 'when EnforcedStyle is :example' do
@@ -198,5 +258,35 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     include_examples 'an example hook'
+
+    context 'when Ruby 2.7', :ruby27 do
+      it 'does not flag :example for hooks' do
+        expect_no_offenses(<<-RUBY)
+          around(:example) { _1 }
+        RUBY
+      end
+
+      it 'detects :each for hooks' do
+        expect_offense(<<-RUBY)
+          around(:each) { _1 }
+          ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around(:example) { _1 }
+        RUBY
+      end
+
+      it 'detects hooks without default scopes' do
+        expect_offense(<<-RUBY)
+          around { _1 }
+          ^^^^^^ Use `:example` for RSpec hooks.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          around(:example) { _1 }
+        RUBY
+      end
+    end
   end
 end

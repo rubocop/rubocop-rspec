@@ -76,4 +76,21 @@ RSpec.describe RuboCop::Cop::RSpec::Yield do
       end
     RUBY
   end
+
+  context 'when Ruby 2.7', :ruby27 do
+    it 'ignores `receive` with no block arguments' do
+      expect_no_offenses(<<-RUBY)
+        allow(foo).to receive(:bar) { _1.call }
+      RUBY
+    end
+
+    it 'ignores stub when `block.call` is not the only statement' do
+      expect_no_offenses(<<-RUBY)
+        allow(foo).to receive(:bar) do
+          result = _1.call
+          transform(result)
+        end
+      RUBY
+    end
+  end
 end

@@ -74,4 +74,20 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
       end
     RUBY
   end
+
+  context 'when Ruby 2.7', :ruby27 do
+    it 'adds an offense for `expect` in `around` hook' do
+      expect_offense(<<-RUBY)
+        around do
+          expect(something).to eq('foo')
+          ^^^^^^ Do not use `expect` in `around` hook
+          is_expected(something).to eq('foo')
+          ^^^^^^^^^^^ Do not use `is_expected` in `around` hook
+          expect_any_instance_of(Something).to receive(:foo)
+          ^^^^^^^^^^^^^^^^^^^^^^ Do not use `expect_any_instance_of` in `around` hook
+          _1.run
+        end
+      RUBY
+    end
+  end
 end

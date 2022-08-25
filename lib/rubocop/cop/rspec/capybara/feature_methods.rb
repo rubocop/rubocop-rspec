@@ -68,7 +68,7 @@ module RuboCop
             ...)
           PATTERN
 
-          def on_block(node)
+          def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             return unless inside_example_group?(node)
 
             feature_method(node) do |send_node, match|
