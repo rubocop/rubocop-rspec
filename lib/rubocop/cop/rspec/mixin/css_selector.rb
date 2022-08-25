@@ -64,7 +64,7 @@ module RuboCop
           selector.match?(/[ >,+]/)
         end
 
-        # @param selector [String]
+        # @param value [String]
         # @return [Boolean, String]
         # @example
         #   normalize_value('true') # => true

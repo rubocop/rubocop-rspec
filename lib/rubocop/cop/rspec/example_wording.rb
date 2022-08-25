@@ -29,6 +29,7 @@ module RuboCop
       #   # good
       #   it 'does things' do
       #   end
+      #
       class ExampleWording < Base
         extend AutoCorrector
 

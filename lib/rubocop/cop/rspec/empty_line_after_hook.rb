@@ -49,6 +49,7 @@ module RuboCop
       #   after { do_something }
       #
       #   it { does_something }
+      #
       class EmptyLineAfterHook < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle

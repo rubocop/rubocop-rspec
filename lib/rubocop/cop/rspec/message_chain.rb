@@ -9,7 +9,7 @@ module RuboCop
       #   # bad
       #   allow(foo).to receive_message_chain(:bar, :baz).and_return(42)
       #
-      #   # better
+      #   # good
       #   thing = Thing.new(baz: 42)
       #   allow(foo).to receive(:bar).and_return(thing)
       #

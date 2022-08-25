@@ -6,7 +6,6 @@ module RuboCop
       # Ensure that subject is defined using subject helper.
       #
       # @example
-      #
       #   # bad
       #   let(:subject) { foo }
       #   let!(:subject) { foo }

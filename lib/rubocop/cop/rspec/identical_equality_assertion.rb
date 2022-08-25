@@ -6,7 +6,6 @@ module RuboCop
       # Checks for equality assertions with identical expressions on both sides.
       #
       # @example
-      #
       #   # bad
       #   expect(foo.bar).to eq(foo.bar)
       #   expect(foo.bar).to eql(foo.bar)

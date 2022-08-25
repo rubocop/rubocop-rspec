@@ -16,7 +16,6 @@ module RuboCop
         # https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all[the documentation].
         #
         # @example
-        #
         #   # bad
         #   expect(page).to have_selector('.foo', visible: false)
         #   expect(page).to have_css('.foo', visible: true)

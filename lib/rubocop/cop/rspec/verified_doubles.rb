@@ -22,6 +22,7 @@ module RuboCop
       #   let(:foo) do
       #     instance_double("ClassName", method_name: 'returned value')
       #   end
+      #
       class VerifiedDoubles < Base
         MSG = 'Prefer using verifying doubles over normal doubles.'
         RESTRICT_ON_SEND = %i[double spy].freeze

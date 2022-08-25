@@ -10,26 +10,26 @@ module RuboCop
       # to `raise_error`
       #
       # @example
+      #   # bad
+      #   expect {
+      #     raise StandardError.new('error')
+      #   }.to raise_error
       #
-      #     # bad
-      #     expect {
-      #       raise StandardError.new('error')
-      #     }.to raise_error
+      #   # good
+      #   expect {
+      #     raise StandardError.new('error')
+      #   }.to raise_error(StandardError)
       #
-      #     # good
-      #     expect {
-      #       raise StandardError.new('error')
-      #     }.to raise_error(StandardError)
+      #   expect {
+      #     raise StandardError.new('error')
+      #   }.to raise_error('error')
       #
-      #     expect {
-      #       raise StandardError.new('error')
-      #     }.to raise_error('error')
+      #   expect {
+      #     raise StandardError.new('error')
+      #   }.to raise_error(/err/)
       #
-      #     expect {
-      #       raise StandardError.new('error')
-      #     }.to raise_error(/err/)
+      #   expect { do_something }.not_to raise_error
       #
-      #     expect { do_something }.not_to raise_error
       class UnspecifiedException < Base
         MSG = 'Specify the exception being captured'
         RESTRICT_ON_SEND = %i[to].freeze

@@ -7,7 +7,6 @@ module RuboCop
         # Checks that tests use RSpec `before` hook over Rails `setup` method.
         #
         # @example
-        #
         #   # bad
         #   setup do
         #     allow(foo).to receive(:bar)

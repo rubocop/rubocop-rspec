@@ -6,39 +6,38 @@ module RuboCop
       # Check for repeated description strings in example groups.
       #
       # @example
-      #
-      #     # bad
-      #     RSpec.describe User do
-      #       it 'is valid' do
-      #         # ...
-      #       end
-      #
-      #       it 'is valid' do
-      #         # ...
-      #       end
+      #   # bad
+      #   RSpec.describe User do
+      #     it 'is valid' do
+      #       # ...
       #     end
       #
-      #     # good
-      #     RSpec.describe User do
-      #       it 'is valid when first and last name are present' do
-      #         # ...
-      #       end
+      #     it 'is valid' do
+      #       # ...
+      #     end
+      #   end
       #
-      #       it 'is valid when last name only is present' do
-      #         # ...
-      #       end
+      #   # good
+      #   RSpec.describe User do
+      #     it 'is valid when first and last name are present' do
+      #       # ...
       #     end
       #
-      #     # good
-      #     RSpec.describe User do
-      #       it 'is valid' do
-      #         # ...
-      #       end
-      #
-      #       it 'is valid', :flag do
-      #         # ...
-      #       end
+      #     it 'is valid when last name only is present' do
+      #       # ...
       #     end
+      #   end
+      #
+      #   # good
+      #   RSpec.describe User do
+      #     it 'is valid' do
+      #       # ...
+      #     end
+      #
+      #     it 'is valid', :flag do
+      #       # ...
+      #     end
+      #   end
       #
       class RepeatedDescription < Base
         MSG = "Don't repeat descriptions within an example group."

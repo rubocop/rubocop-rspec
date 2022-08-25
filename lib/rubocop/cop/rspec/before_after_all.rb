@@ -23,6 +23,7 @@ module RuboCop
       #     before(:each) { Widget.create }
       #     after(:each) { Widget.delete_all }
       #   end
+      #
       class BeforeAfterAll < Base
         MSG = 'Beware of using `%<hook>s` as it may cause state to leak ' \
               'between tests. If you are using `rspec-rails`, and ' \

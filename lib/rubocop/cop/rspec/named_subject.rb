@@ -41,6 +41,7 @@ module RuboCop
       #
       #     it { is_expected.to be_valid }
       #   end
+      #
       class NamedSubject < Base
         MSG = 'Name your test subject if you need to reference it explicitly.'
 

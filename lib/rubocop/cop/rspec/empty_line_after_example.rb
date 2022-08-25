@@ -30,7 +30,6 @@ module RuboCop
       #   end
       #
       # @example with AllowConsecutiveOneLiners configuration
-      #
       #   # rubocop.yml
       #   # RSpec/EmptyLineAfterExample:
       #   #   AllowConsecutiveOneLiners: false

@@ -6,20 +6,20 @@ module RuboCop
       # Checks unreferenced `let!` calls being used for test setup.
       #
       # @example
-      #   # Bad
+      #   # bad
       #   let!(:my_widget) { create(:widget) }
       #
       #   it 'counts widgets' do
       #     expect(Widget.count).to eq(1)
       #   end
       #
-      #   # Good
+      #   # good
       #   it 'counts widgets' do
       #     create(:widget)
       #     expect(Widget.count).to eq(1)
       #   end
       #
-      #   # Good
+      #   # good
       #   before { create(:widget) }
       #
       #   it 'counts widgets' do

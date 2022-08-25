@@ -19,6 +19,7 @@ module RuboCop
         #   # good
         #   factory :foo, class: 'Foo' do
         #   end
+        #
         class FactoryClassName < Base
           extend AutoCorrector
 

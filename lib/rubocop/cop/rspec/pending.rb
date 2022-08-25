@@ -31,6 +31,7 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #   end
+      #
       class Pending < Base
         MSG = 'Pending spec found.'
 

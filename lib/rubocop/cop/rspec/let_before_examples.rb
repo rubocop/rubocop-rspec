@@ -6,7 +6,7 @@ module RuboCop
       # Checks for `let` definitions that come after an example.
       #
       # @example
-      #   # Bad
+      #   # bad
       #   let(:foo) { bar }
       #
       #   it 'checks what foo does' do
@@ -19,7 +19,7 @@ module RuboCop
       #     expect(some).to be
       #   end
       #
-      #   # Good
+      #   # good
       #   let(:foo) { bar }
       #   let(:some) { other }
       #

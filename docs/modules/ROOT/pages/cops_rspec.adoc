@@ -1993,8 +1993,7 @@ Checks for before/around/after hooks that come after an example.
 
 [source,ruby]
 ----
-# Bad
-
+# bad
 it 'checks what foo does' do
   expect(foo).to be
 end
@@ -2002,7 +2001,7 @@ end
 before { prepare }
 after { clean_up }
 
-# Good
+# good
 before { prepare }
 after { clean_up }
 
@@ -2432,28 +2431,28 @@ Enforce that subject is the first definition in the test.
 [source,ruby]
 ----
 # bad
-  let(:params) { blah }
-  subject { described_class.new(params) }
+let(:params) { blah }
+subject { described_class.new(params) }
 
-  before { do_something }
-  subject { described_class.new(params) }
+before { do_something }
+subject { described_class.new(params) }
 
-  it { expect_something }
-  subject { described_class.new(params) }
-  it { expect_something_else }
-
-# good
-  subject { described_class.new(params) }
-  let(:params) { blah }
+it { expect_something }
+subject { described_class.new(params) }
+it { expect_something_else }
 
 # good
-  subject { described_class.new(params) }
-  before { do_something }
+subject { described_class.new(params) }
+let(:params) { blah }
 
 # good
-  subject { described_class.new(params) }
-  it { expect_something }
-  it { expect_something_else }
+subject { described_class.new(params) }
+before { do_something }
+
+# good
+subject { described_class.new(params) }
+it { expect_something }
+it { expect_something_else }
 ----
 
 === References
@@ -2595,7 +2594,7 @@ Checks for `let` definitions that come after an example.
 
 [source,ruby]
 ----
-# Bad
+# bad
 let(:foo) { bar }
 
 it 'checks what foo does' do
@@ -2608,7 +2607,7 @@ it 'checks what some does' do
   expect(some).to be
 end
 
-# Good
+# good
 let(:foo) { bar }
 let(:some) { other }
 
@@ -2643,20 +2642,20 @@ Checks unreferenced `let!` calls being used for test setup.
 
 [source,ruby]
 ----
-# Bad
+# bad
 let!(:my_widget) { create(:widget) }
 
 it 'counts widgets' do
   expect(Widget.count).to eq(1)
 end
 
-# Good
+# good
 it 'counts widgets' do
   create(:widget)
   expect(Widget.count).to eq(1)
 end
 
-# Good
+# good
 before { create(:widget) }
 
 it 'counts widgets' do
@@ -2689,7 +2688,7 @@ Check that chains of messages are not being stubbed.
 # bad
 allow(foo).to receive_message_chain(:bar, :baz).and_return(42)
 
-# better
+# good
 thing = Thing.new(baz: 42)
 allow(foo).to receive(:bar).and_return(thing)
 ----
@@ -3294,7 +3293,7 @@ context 'when using some feature' do
   end
 end
 
-# better
+# good
 context 'using some feature as an admin' do
   let(:some)    { :various }
   let(:feature) { :setup   }

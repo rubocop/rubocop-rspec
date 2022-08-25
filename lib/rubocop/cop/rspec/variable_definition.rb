@@ -22,6 +22,7 @@ module RuboCop
       #   # good
       #   subject('user') { create_user }
       #   let('user_name') { 'Adam' }
+      #
       class VariableDefinition < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle

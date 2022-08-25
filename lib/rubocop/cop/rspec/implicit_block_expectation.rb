@@ -16,6 +16,7 @@ module RuboCop
       #   it 'changes something to a new value' do
       #     expect { do_something }.to change(something).to(new_value)
       #   end
+      #
       class ImplicitBlockExpectation < Base
         MSG = 'Avoid implicit block expectations.'
         RESTRICT_ON_SEND = %i[is_expected should should_not].freeze

@@ -6,16 +6,15 @@ module RuboCop
       # Checks that left braces for adjacent single line lets are aligned.
       #
       # @example
+      #   # bad
+      #   let(:foobar) { blahblah }
+      #   let(:baz) { bar }
+      #   let(:a) { b }
       #
-      #     # bad
-      #     let(:foobar) { blahblah }
-      #     let(:baz) { bar }
-      #     let(:a) { b }
-      #
-      #     # good
-      #     let(:foobar) { blahblah }
-      #     let(:baz)    { bar }
-      #     let(:a)      { b }
+      #   # good
+      #   let(:foobar) { blahblah }
+      #   let(:baz)    { bar }
+      #   let(:a)      { b }
       #
       class AlignLeftLetBrace < Base
         extend AutoCorrector

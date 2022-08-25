@@ -27,7 +27,6 @@ module RuboCop
       #   let(:userName2) { 'Adam' }
       #
       # @example IgnoredPatterns configuration
-      #
       #   # rubocop.yml
       #   # RSpec/VariableName:
       #   #   EnforcedStyle: snake_case

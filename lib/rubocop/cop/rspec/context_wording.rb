@@ -14,7 +14,6 @@ module RuboCop
       # @see http://www.betterspecs.org/#contexts
       #
       # @example `Prefixes` configuration
-      #
       #   # .rubocop.yml
       #   # RSpec/ContextWording:
       #   #   Prefixes:
@@ -35,6 +34,7 @@ module RuboCop
       #   context 'when the display name is not present' do
       #     # ...
       #   end
+      #
       class ContextWording < Base
         MSG = 'Start context description with %<prefixes>s.'
 

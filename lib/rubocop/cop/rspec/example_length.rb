@@ -47,6 +47,7 @@ module RuboCop
       #       content.
       #     HEREDOC
       #   end                 # 5 points
+      #
       class ExampleLength < Base
         include CodeLength
 

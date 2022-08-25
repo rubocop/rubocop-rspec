@@ -6,12 +6,11 @@ module RuboCop
       # Prefer `not_to receive(...)` over `receive(...).never`.
       #
       # @example
+      #   # bad
+      #   expect(foo).to receive(:bar).never
       #
-      #     # bad
-      #     expect(foo).to receive(:bar).never
-      #
-      #     # good
-      #     expect(foo).not_to receive(:bar)
+      #   # good
+      #   expect(foo).not_to receive(:bar)
       #
       class ReceiveNever < Base
         extend AutoCorrector

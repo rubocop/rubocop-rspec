@@ -23,6 +23,7 @@ module RuboCop
       #   describe '.foo_bar' do
       #     # ...
       #   end
+      #
       class ContextMethod < Base
         extend AutoCorrector
 

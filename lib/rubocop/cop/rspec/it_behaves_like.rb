@@ -18,6 +18,7 @@ module RuboCop
       #
       #   # good
       #   it_should_behave_like 'a foo'
+      #
       class ItBehavesLike < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle

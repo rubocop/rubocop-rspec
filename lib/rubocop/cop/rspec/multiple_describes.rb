@@ -22,6 +22,7 @@ module RuboCop
       #     describe '.do_something_else' do
       #     end
       #   end
+      #
       class MultipleDescribes < Base
         include TopLevelGroup
 

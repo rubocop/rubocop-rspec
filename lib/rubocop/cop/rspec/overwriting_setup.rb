@@ -21,6 +21,7 @@ module RuboCop
       #   let(:foo) { bar }
       #   let(:baz) { baz }
       #   let!(:other) { other }
+      #
       class OverwritingSetup < Base
         MSG = '`%<name>s` is already defined.'
 

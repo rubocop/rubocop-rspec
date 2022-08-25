@@ -40,6 +40,7 @@ module RuboCop
         #       # ...
         #     end
         #   end
+        #
         class FeatureMethods < Base
           extend AutoCorrector
           include InsideExampleGroup

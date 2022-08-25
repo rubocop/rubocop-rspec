@@ -30,6 +30,7 @@ module RuboCop
         #
         #   # good
         #   3.times { create :user }
+        #
         class CreateList < Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle

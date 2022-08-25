@@ -22,6 +22,7 @@ module RuboCop
       #       allow(my_instance).to receive(:foo)
       #     end
       #   end
+      #
       class AnyInstance < Base
         MSG = 'Avoid stubbing using `%<method>s`.'
         RESTRICT_ON_SEND = %i[
