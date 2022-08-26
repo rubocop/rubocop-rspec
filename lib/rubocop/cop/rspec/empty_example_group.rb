@@ -123,7 +123,7 @@ module RuboCop
         #     describe { it { i_run_as_well } }
         #
         #   @example source that does not match
-        #     before { it { whatever here wont run anyway } }
+        #     before { it { whatever here won't run anyway } }
         #
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes

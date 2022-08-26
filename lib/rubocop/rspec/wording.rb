@@ -31,8 +31,8 @@ module RuboCop
       attr_reader :text, :ignores, :replacements
 
       def replace_prefix(pattern, replacement)
-        text.sub(pattern) do |shouldnt|
-          uppercase?(shouldnt) ? replacement.upcase : replacement
+        text.sub(pattern) do |matched|
+          uppercase?(matched) ? replacement.upcase : replacement
         end
       end
 
