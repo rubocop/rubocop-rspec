@@ -2232,7 +2232,7 @@ it { should be_truthy }
 | Yes
 | Yes
 | 1.29
-| 1.30
+| 2.13
 |===
 
 Checks for usage of implicit subject (`is_expected` / `should`).
@@ -2288,6 +2288,30 @@ it { is_expected.to be_truthy }
 it { expect(subject).to be_truthy }
 ----
 
+==== `EnforcedStyle: require_implicit`
+
+[source,ruby]
+----
+# bad
+it { expect(subject).to be_truthy }
+
+# good
+it { is_expected.to be_truthy }
+
+# bad
+it do
+  expect(subject).to be_truthy
+end
+
+# good
+it do
+  is_expected.to be_truthy
+end
+
+# good
+it { expect(named_subject).to be_truthy }
+----
+
 === Configurable attributes
 
 |===
@@ -2295,7 +2319,7 @@ it { expect(subject).to be_truthy }
 
 | EnforcedStyle
 | `single_line_only`
-| `single_line_only`, `single_statement_only`, `disallow`
+| `single_line_only`, `single_statement_only`, `disallow`, `require_implicit`
 |===
 
 === References

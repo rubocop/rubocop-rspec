@@ -42,12 +42,45 @@ module RuboCop
       #   # good
       #   it { expect(subject).to be_truthy }
       #
+      # @example `EnforcedStyle: require_implicit`
+      #   # bad
+      #   it { expect(subject).to be_truthy }
+      #
+      #   # good
+      #   it { is_expected.to be_truthy }
+      #
+      #   # bad
+      #   it do
+      #     expect(subject).to be_truthy
+      #   end
+      #
+      #   # good
+      #   it do
+      #     is_expected.to be_truthy
+      #   end
+      #
+      #   # good
+      #   it { expect(named_subject).to be_truthy }
+      #
       class ImplicitSubject < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
-        MSG = "Don't use implicit subject."
-        RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
+        MSG_REQUIRE_EXPLICIT = "Don't use implicit subject."
+
+        MSG_REQUIRE_IMPLICIT = "Don't use explicit subject."
+
+        RESTRICT_ON_SEND = %i[
+          expect
+          is_expected
+          should
+          should_not
+        ].freeze
+
+        # @!method explicit_unnamed_subject?(node)
+        def_node_matcher :explicit_unnamed_subject?, <<-PATTERN
+          (send nil? :expect (send nil? :subject))
+        PATTERN
 
         # @!method implicit_subject?(node)
         def_node_matcher :implicit_subject?, <<-PATTERN
@@ -55,8 +88,7 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless implicit_subject?(node)
-          return if valid_usage?(node)
+          return unless invalid?(node)
 
           add_offense(node) do |corrector|
             autocorrect(corrector, node)
@@ -66,32 +98,67 @@ module RuboCop
         private
 
         def autocorrect(corrector, node)
-          replacement = 'expect(subject)'
           case node.method_name
+          when :expect
+            corrector.replace(node, 'is_expected')
+          when :is_expected
+            corrector.replace(node.location.selector, 'expect(subject)')
           when :should
-            replacement += '.to'
+            corrector.replace(node.location.selector, 'expect(subject).to')
           when :should_not
-            replacement += '.not_to'
+            corrector.replace(node.location.selector, 'expect(subject).not_to')
           end
-
-          corrector.replace(node.loc.selector, replacement)
         end
 
-        def valid_usage?(node)
-          example = node.ancestors.find { |parent| example?(parent) }
-          return false if example.nil?
-
-          example.method?(:its) || allowed_by_style?(example)
-        end
-
-        def allowed_by_style?(example)
+        def message(_node)
           case style
-          when :single_line_only
-            example.single_line?
-          when :single_statement_only
-            !example.body.begin_type?
+          when :require_implicit
+            MSG_REQUIRE_IMPLICIT
           else
-            false
+            MSG_REQUIRE_EXPLICIT
+          end
+        end
+
+        def invalid?(node)
+          case style
+          when :require_implicit
+            explicit_unnamed_subject?(node)
+          when :disallow
+            implicit_subject_in_non_its?(node)
+          when :single_line_only
+            implicit_subject_in_non_its_and_non_single_line?(node)
+          when :single_statement_only
+            implicit_subject_in_non_its_and_non_single_statement?(node)
+          end
+        end
+
+        def implicit_subject_in_non_its?(node)
+          implicit_subject?(node) && !its?(node)
+        end
+
+        def implicit_subject_in_non_its_and_non_single_line?(node)
+          implicit_subject_in_non_its?(node) && !single_line?(node)
+        end
+
+        def implicit_subject_in_non_its_and_non_single_statement?(node)
+          implicit_subject_in_non_its?(node) && !single_statement?(node)
+        end
+
+        def its?(node)
+          example_of(node)&.method?(:its)
+        end
+
+        def single_line?(node)
+          example_of(node)&.single_line?
+        end
+
+        def single_statement?(node)
+          !example_of(node)&.body&.begin_type?
+        end
+
+        def example_of(node)
+          node.each_ancestor.find do |ancestor|
+            example?(ancestor)
           end
         end
       end

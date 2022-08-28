@@ -183,4 +183,72 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
       RUBY
     end
   end
+
+  context 'with EnforcedStyle `require_implicit`' do
+    let(:enforced_style) { 'require_implicit' }
+
+    context 'with `is_expected`' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<-RUBY)
+          it { is_expected.to be_good }
+        RUBY
+      end
+    end
+
+    context 'with `expect { subject }`' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<-RUBY)
+          it { expect { subject }.to change(goodness, :count) }
+        RUBY
+      end
+    end
+
+    context 'with `its`' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<-RUBY)
+          its(:quality) { is_expected.to be(:high) }
+        RUBY
+      end
+    end
+
+    context 'with named subject' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<-RUBY)
+          subject(:instance) { described_class.new }
+
+          it { expect(instance).to be_good }
+        RUBY
+      end
+    end
+
+    context 'with `expect(subject)` in one-line' do
+      it 'registers and autocorrects an offense' do
+        expect_offense(<<-RUBY)
+          it { expect(subject).to be_good }
+               ^^^^^^^^^^^^^^^ Don't use explicit subject.
+        RUBY
+
+        expect_correction(<<-RUBY)
+          it { is_expected.to be_good }
+        RUBY
+      end
+    end
+
+    context 'with `expect(subject)` in multi-lines' do
+      it 'registers and autocorrects an offense' do
+        expect_offense(<<-RUBY)
+          it do
+            expect(subject).to be_good
+            ^^^^^^^^^^^^^^^ Don't use explicit subject.
+          end
+        RUBY
+
+        expect_correction(<<-RUBY)
+          it do
+            is_expected.to be_good
+          end
+        RUBY
+      end
+    end
+  end
 end

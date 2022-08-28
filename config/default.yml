@@ -492,8 +492,9 @@ RSpec/ImplicitSubject:
     - single_line_only
     - single_statement_only
     - disallow
+    - require_implicit
   VersionAdded: '1.29'
-  VersionChanged: '1.30'
+  VersionChanged: '2.13'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
 
 RSpec/InstanceSpy:

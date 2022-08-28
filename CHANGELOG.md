@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura][])
+
 ## 2.13.2 (2022-09-23)
 
 * Fix an error for `RSpec/Capybara/SpecificFinders` with no parentheses. ([@ydah][])
