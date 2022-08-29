@@ -794,9 +794,10 @@ RSpec/VariableName:
   SupportedStyles:
     - snake_case
     - camelCase
+  AllowedPatterns: []
   IgnoredPatterns: []
   VersionAdded: '1.40'
-  VersionChanged: '1.43'
+  VersionChanged: '2.13'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
 
 RSpec/VerifiedDoubleReference:

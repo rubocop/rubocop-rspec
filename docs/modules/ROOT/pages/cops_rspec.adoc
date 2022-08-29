@@ -4527,12 +4527,12 @@ let('user_name') { 'Adam' }
 | Yes
 | No
 | 1.40
-| 1.43
+| 2.13
 |===
 
 Checks that memoized helper names use the configured style.
 
-Variables can be excluded from checking using the `IgnoredPatterns`
+Variables can be excluded from checking using the `AllowedPatterns`
 option.
 
 === Examples
@@ -4563,20 +4563,20 @@ subject(:userName1) { 'Adam' }
 let(:userName2) { 'Adam' }
 ----
 
-==== IgnoredPatterns configuration
+==== AllowedPatterns configuration
 
 [source,ruby]
 ----
 # rubocop.yml
 # RSpec/VariableName:
 #   EnforcedStyle: snake_case
-#   IgnoredPatterns:
+#   AllowedPatterns:
 #     - ^userFood
 ----
 
 [source,ruby]
 ----
-# okay because it matches the `^userFood` regex in `IgnoredPatterns`
+# okay because it matches the `^userFood` regex in `AllowedPatterns`
 subject(:userFood_1) { 'spaghetti' }
 let(:userFood_2) { 'fettuccine' }
 ----
@@ -4589,6 +4589,10 @@ let(:userFood_2) { 'fettuccine' }
 | EnforcedStyle
 | `snake_case`
 | `snake_case`, `camelCase`
+
+| AllowedPatterns
+| `[]`
+| Array
 
 | IgnoredPatterns
 | `[]`

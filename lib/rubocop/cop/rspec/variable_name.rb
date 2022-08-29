@@ -5,7 +5,7 @@ module RuboCop
     module RSpec
       # Checks that memoized helper names use the configured style.
       #
-      # Variables can be excluded from checking using the `IgnoredPatterns`
+      # Variables can be excluded from checking using the `AllowedPatterns`
       # option.
       #
       # @example EnforcedStyle: snake_case (default)
@@ -26,21 +26,21 @@ module RuboCop
       #   subject(:userName1) { 'Adam' }
       #   let(:userName2) { 'Adam' }
       #
-      # @example IgnoredPatterns configuration
+      # @example AllowedPatterns configuration
       #   # rubocop.yml
       #   # RSpec/VariableName:
       #   #   EnforcedStyle: snake_case
-      #   #   IgnoredPatterns:
+      #   #   AllowedPatterns:
       #   #     - ^userFood
       #
       # @example
-      #   # okay because it matches the `^userFood` regex in `IgnoredPatterns`
+      #   # okay because it matches the `^userFood` regex in `AllowedPatterns`
       #   subject(:userFood_1) { 'spaghetti' }
       #   let(:userFood_2) { 'fettuccine' }
       #
       class VariableName < Base
         include ConfigurableNaming
-        include IgnoredPattern
+        include AllowedPattern
         include Variable
 
         MSG = 'Use %<style>s for variable names.'
@@ -48,7 +48,7 @@ module RuboCop
         def on_send(node)
           variable_definition?(node) do |variable|
             return if variable.dstr_type? || variable.dsym_type?
-            return if matches_ignored_pattern?(variable.value)
+            return if matches_allowed_pattern?(variable.value)
 
             check_name(node, variable.value, variable.loc.expression)
           end
