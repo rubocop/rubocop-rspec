@@ -3254,7 +3254,7 @@ end
 | Yes
 | No
 | 1.7
-| 1.10
+| 2.13
 |===
 
 Checks for nested example groups.
@@ -3311,36 +3311,55 @@ context 'using some feature as an admin' do
 end
 ----
 
-==== configuration
+==== `Max: 3` (default)
 
 [source,ruby]
 ----
-# .rubocop.yml
-# RSpec/NestedGroups:
-#   Max: 2
-
-context 'when using some feature' do
-  let(:some)    { :various }
-  let(:feature) { :setup   }
-
-  context 'when user is signed in' do
-    let(:user) do
-      UserCreate.call(user_attributes)
+# bad
+describe Foo do
+  context 'foo' do
+    context 'bar' do
+      context 'baz' do # flagged by rubocop
+      end
     end
+  end
+end
+----
 
-    let(:user_attributes) do
-      {
-        name: 'John',
-        age:  22,
-        role: role
-      }
+==== `Max: 2`
+
+[source,ruby]
+----
+# bad
+describe Foo do
+  context 'foo' do
+    context 'bar' do # flagged by rubocop
+      context 'baz' do # flagged by rubocop
+      end
     end
+  end
+end
+----
 
-    context 'when user is an admin' do # flagged by rubocop
-      let(:role) { 'admin' }
+==== `AllowedGroups: [] (default)`
 
-      it 'blah blah'
-      it 'yada yada'
+[source,ruby]
+----
+describe Foo do # <-- nested groups 1
+  context 'foo' do # <-- nested groups 2
+    context 'bar' do # <-- nested groups 3
+    end
+  end
+end
+----
+
+==== `AllowedGroups: [path]`
+
+[source,ruby]
+----
+describe Foo do # <-- nested groups 1
+  path '/foo' do # <-- nested groups 1 (not counted)
+    context 'bar' do # <-- nested groups 2
     end
   end
 end
@@ -3354,6 +3373,10 @@ end
 | Max
 | `3`
 | Integer
+
+| AllowedGroups
+| `[]`
+| Array
 |===
 
 === References

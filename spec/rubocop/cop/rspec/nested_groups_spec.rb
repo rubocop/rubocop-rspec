@@ -143,4 +143,39 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
       end
     RUBY
   end
+
+  context 'when AllowedGroups is configured as' do
+    let(:cop_config) { { 'AllowedGroups' => ['path'] } }
+
+    it 'accept nested example groups defined inside `describe`' \
+       'path is not counted' do
+      expect_no_offenses(<<-RUBY)
+        describe MyClass do
+          path '/users' do
+            context 'when foo' do
+              context 'when bar' do
+              end
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'flags nested example groups defined inside `describe`' \
+       'path is not counted but exceeded max' do
+      expect_offense(<<-RUBY)
+        describe MyClass do
+          path '/users' do
+            context 'when foo' do
+              context 'when bar' do
+                context 'when baz' do
+                ^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+                end
+              end
+            end
+          end
+        end
+      RUBY
+    end
+  end
 end
