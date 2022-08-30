@@ -21,6 +21,7 @@
 * Add `RSpec/ClassCheck` cop. ([@r7kamura][])
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher` when pseudo-classes. ([@ydah][])
 * Fix a false negative for `RSpec/SubjectStub` when the subject is declared with the `subject!` method and called by name. ([@eikes][])
+* Support `Array.new(n)` on `RSpec/FactoryBot/CreateList` cop. ([@r7kamura][])
 
 ## 2.12.1 (2022-07-03)
 
