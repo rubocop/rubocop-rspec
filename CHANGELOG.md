@@ -14,6 +14,7 @@
 * Add `NegatedMatcher` configuration option to `RSpec/ChangeByZero`. ([@ydah][])
 * Add new `RSpec/Capybara/SpecificFinders` cop. ([@ydah][])
 * Add support for numblocks to `RSpec/AroundBlock`, `RSpec/EmptyLineAfterHook`, `RSpec/ExpectInHook`, `RSpec/HookArgument`, `RSpec/HooksBeforeExamples`, `RSpec/IteratedExpectation`, and `RSpec/NoExpectationExample`. ([@ydah][])
+* Fix incorrect documentation URLs when using `rubocop --show-docs-url`. ([@r7kamura][])
 
 ## 2.12.1 (2022-07-03)
 
