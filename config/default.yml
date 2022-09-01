@@ -212,8 +212,9 @@ RSpec/ContextWording:
     - when
     - with
     - without
+  AllowedPatterns: []
   VersionAdded: '1.20'
-  VersionChanged: 1.20.1
+  VersionChanged: '2.13'
   StyleGuide: https://rspec.rubystyle.guide/#context-descriptions
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 

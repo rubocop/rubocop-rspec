@@ -17,6 +17,7 @@
 * Fix incorrect documentation URLs when using `rubocop --show-docs-url`. ([@r7kamura][])
 * Add `AllowedGroups` configuration option to `RSpec/NestedGroups`. ([@ydah][])
 * Deprecate `IgnoredPatterns` option in favor of the `AllowedPatterns` options. ([@ydah][])
+* Add `AllowedPatterns` configuration option to `RSpec/ContextWording`. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 
