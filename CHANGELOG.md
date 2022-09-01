@@ -16,6 +16,7 @@
 * Add support for numblocks to `RSpec/AroundBlock`, `RSpec/EmptyLineAfterHook`, `RSpec/ExpectInHook`, `RSpec/HookArgument`, `RSpec/HooksBeforeExamples`, `RSpec/IteratedExpectation`, and `RSpec/NoExpectationExample`. ([@ydah][])
 * Fix incorrect documentation URLs when using `rubocop --show-docs-url`. ([@r7kamura][])
 * Add `AllowedGroups` configuration option to `RSpec/NestedGroups`. ([@ydah][])
+* Deprecate `IgnoredPatterns` option in favor of the `AllowedPatterns` options. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 
@@ -666,7 +667,6 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@hosamaly]: https://github.com/hosamaly
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
-[@jawshooah]: https://github.com/jawshooah
 [@jeffreyc]: https://github.com/jeffreyc
 [@jfragoulis]: https://github.com/jfragoulis
 [@johnny-miyake]: https://github.com/johnny-miyake

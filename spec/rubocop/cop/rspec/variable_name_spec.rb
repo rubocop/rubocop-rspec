@@ -189,7 +189,7 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     end
   end
 
-  context 'when configured to ignore certain patterns' do
+  context 'when configured to ignore certain patterns (deprecated key)' do
     let(:cop_config) do
       { 'EnforcedStyle' => 'snake_case',
         'IgnoredPatterns' => ['^userFood$', '^userPet$'] }
@@ -203,6 +203,26 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     end
 
     it 'does not register an offense when matching any ignored pattern' do
+      expect_no_offenses(<<~RUBY)
+        let(:userFood) { 'Adam' }
+      RUBY
+    end
+  end
+
+  context 'when configured to allow certain patterns' do
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'snake_case',
+        'AllowedPatterns' => ['^userFood$', '^userPet$'] }
+    end
+
+    it 'registers an offense when not matching any allowed patterns' do
+      expect_offense(<<~RUBY)
+        let(:userName) { 'Adam' }
+            ^^^^^^^^^ Use snake_case for variable names.
+      RUBY
+    end
+
+    it 'does not register an offense when matching any allowed pattern' do
       expect_no_offenses(<<~RUBY)
         let(:userFood) { 'Adam' }
       RUBY

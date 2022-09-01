@@ -5,6 +5,7 @@ require 'yaml'
 
 require 'rubocop'
 
+require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/version'
 require_relative 'rubocop/rspec/inject'
 require_relative 'rubocop/rspec/node'
