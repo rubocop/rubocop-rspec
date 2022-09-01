@@ -524,7 +524,7 @@ end
 | Yes
 | No
 | 1.20
-| 1.20.1
+| 2.13
 |===
 
 Checks that `context` docstring starts with an allowed prefix.
@@ -533,6 +533,9 @@ The default list of prefixes is minimal. Users are encouraged to tailor
 the configuration to meet project needs. Other acceptable prefixes may
 include `if`, `unless`, `for`, `before`, `after`, or `during`.
 They may consist of multiple words if desired.
+
+This cop can be customized allowed context description pattern
+with `AllowedPatterns`. By default, there are no checking by pattern.
 
 === Examples
 
@@ -564,6 +567,29 @@ context 'when the display name is not present' do
 end
 ----
 
+==== `AllowedPatterns` configuration
+
+[source,ruby]
+----
+# .rubocop.yml
+# RSpec/ContextWording:
+#   AllowedPatterns:
+#     - /とき$/
+----
+
+[source,ruby]
+----
+# bad
+context '条件を満たす' do
+  # ...
+end
+
+# good
+context '条件を満たすとき' do
+  # ...
+end
+----
+
 === Configurable attributes
 
 |===
@@ -571,6 +597,10 @@ end
 
 | Prefixes
 | `when`, `with`, `without`
+| Array
+
+| AllowedPatterns
+| `[]`
 | Array
 |===
 

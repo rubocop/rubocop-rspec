@@ -35,41 +35,72 @@ module RuboCop
       #     # ...
       #   end
       #
+      # This cop can be customized allowed context description pattern
+      # with `AllowedPatterns`. By default, there are no checking by pattern.
+      #
+      # @example `AllowedPatterns` configuration
+      #
+      #   # .rubocop.yml
+      #   # RSpec/ContextWording:
+      #   #   AllowedPatterns:
+      #   #     - /とき$/
+      #
+      # @example
+      #   # bad
+      #   context '条件を満たす' do
+      #     # ...
+      #   end
+      #
+      #   # good
+      #   context '条件を満たすとき' do
+      #     # ...
+      #   end
+      #
       class ContextWording < Base
-        MSG = 'Start context description with %<prefixes>s.'
+        include AllowedPattern
+
+        MSG = 'Context description should match %<patterns>s.'
 
         # @!method context_wording(node)
         def_node_matcher :context_wording, <<-PATTERN
-          (block (send #rspec? { :context :shared_context } $(str #bad_prefix?) ...) ...)
+          (block (send #rspec? { :context :shared_context } $(str $_) ...) ...)
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          context_wording(node) do |context|
-            add_offense(context,
-                        message: format(MSG, prefixes: joined_prefixes))
+          context_wording(node) do |context, description|
+            if bad_pattern?(description)
+              message = format(MSG, patterns: expect_patterns)
+              add_offense(context, message: message)
+            end
           end
         end
 
         private
 
-        def bad_prefix?(description)
-          !prefix_regex.match?(description)
+        def allowed_patterns
+          super + prefix_regexes
         end
 
-        def joined_prefixes
-          quoted = prefixes.map { |prefix| "'#{prefix}'" }
-          return quoted.first if quoted.size == 1
+        def prefix_regexes
+          @prefix_regexes ||= prefixes.map { |pre| /^#{Regexp.escape(pre)}\b/ }
+        end
 
-          quoted << "or #{quoted.pop}"
-          quoted.join(', ')
+        def bad_pattern?(description)
+          return false if allowed_patterns.empty?
+
+          !matches_allowed_pattern?(description)
+        end
+
+        def expect_patterns
+          inspected = allowed_patterns.map(&:inspect)
+          return inspected.first if inspected.size == 1
+
+          inspected << "or #{inspected.pop}"
+          inspected.join(', ')
         end
 
         def prefixes
-          cop_config['Prefixes'] || []
-        end
-
-        def prefix_regex
-          /^#{Regexp.union(prefixes)}\b/
+          Array(cop_config.fetch('Prefixes', []))
         end
       end
     end
