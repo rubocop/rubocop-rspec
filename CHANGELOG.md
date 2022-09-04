@@ -19,6 +19,7 @@
 * Deprecate `IgnoredPatterns` option in favor of the `AllowedPatterns` options. ([@ydah][])
 * Add `AllowedPatterns` configuration option to `RSpec/ContextWording`. ([@ydah][])
 * Add `RSpec/ClassCheck` cop. ([@r7kamura][])
+* Fix a false positive for `RSpec/Capybara/SpecificMatcher` when pseudo-classes. ([@ydah][])
 
 ## 2.12.1 (2022-07-03)
 
