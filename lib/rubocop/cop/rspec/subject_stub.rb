@@ -72,7 +72,7 @@ module RuboCop
         def_node_matcher :subject?, <<-PATTERN
           (block
             (send nil?
-              {:subject (sym $_) | $:subject}
+              { #Subjects.all (sym $_) | $#Subjects.all }
             ) args ...)
         PATTERN
 
