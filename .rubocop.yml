@@ -106,6 +106,8 @@ RSpec/BeNil:
   Enabled: true
 RSpec/ChangeByZero:
   Enabled: true
+RSpec/ClassCheck:
+  Enabled: true
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:

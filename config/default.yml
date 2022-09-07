@@ -198,6 +198,17 @@ RSpec/ChangeByZero:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
   NegatedMatcher: ~
 
+RSpec/ClassCheck:
+  Description: Enforces consistent use of `be_a` or `be_kind_of`.
+  StyleGuide: "#is-a-vs-kind-of"
+  Enabled: pending
+  VersionAdded: '2.13'
+  EnforcedStyle: be_a
+  SupportedStyles:
+    - be_a
+    - be_kind_of
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
+
 RSpec/ContextMethod:
   Description: "`context` should not be used for specifying methods."
   Enabled: true

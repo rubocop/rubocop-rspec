@@ -18,6 +18,7 @@
 * Add `AllowedGroups` configuration option to `RSpec/NestedGroups`. ([@ydah][])
 * Deprecate `IgnoredPatterns` option in favor of the `AllowedPatterns` options. ([@ydah][])
 * Add `AllowedPatterns` configuration option to `RSpec/ContextWording`. ([@ydah][])
+* Add `RSpec/ClassCheck` cop. ([@r7kamura][])
 
 ## 2.12.1 (2022-07-03)
 
