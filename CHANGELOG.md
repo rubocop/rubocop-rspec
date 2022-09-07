@@ -20,6 +20,7 @@
 * Add `AllowedPatterns` configuration option to `RSpec/ContextWording`. ([@ydah][])
 * Add `RSpec/ClassCheck` cop. ([@r7kamura][])
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher` when pseudo-classes. ([@ydah][])
+* Fix a false negative for `RSpec/SubjectStub` when the subject is declared with the `subject!` method and called by name. ([@eikes][])
 
 ## 2.12.1 (2022-07-03)
 
@@ -656,6 +657,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@dswij]: https://github.com/dswij
 [@dvandersluis]: https://github.com/dvandersluis
 [@edgibbs]: https://github.com/edgibbs
+[@eikes]: https://github.com/eikes
 [@eitoball]: https://github.com/eitoball
 [@elebow]: https://github.com/elebow
 [@EliseFitz15]: https://github.com/EliseFitz15
