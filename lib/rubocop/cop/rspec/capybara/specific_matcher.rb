@@ -26,7 +26,7 @@ module RuboCop
         #   expect(page).to have_select
         #   expect(page).to have_field('foo')
         #
-        class SpecificMatcher < Base
+        class SpecificMatcher < Base # rubocop:disable Metrics/ClassLength
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
           RESTRICT_ON_SEND = %i[have_selector have_no_selector have_css
                                 have_no_css].freeze
@@ -62,6 +62,9 @@ module RuboCop
               ]
             ).freeze
           }.freeze
+          SPECIFIC_MATCHER_PSEUDO_CLASSES = %w[
+            not() disabled enabled checked unchecked
+          ].freeze
 
           # @!method first_argument(node)
           def_node_matcher :first_argument, <<-PATTERN
@@ -78,6 +81,7 @@ module RuboCop
               next unless (matcher = specific_matcher(arg))
               next if CssSelector.multiple_selectors?(arg)
               next unless specific_matcher_option?(node, arg, matcher)
+              next unless specific_matcher_pseudo_classes?(arg)
 
               add_offense(node, message: message(node, matcher))
             end
@@ -90,10 +94,6 @@ module RuboCop
             SPECIFIC_MATCHER[splitted_arg]
           end
 
-          def acceptable_pattern?(arg)
-            arg.match?(/[ >,+]/)
-          end
-
           def specific_matcher_option?(node, arg, matcher)
             attrs = CssSelector.attributes(arg).keys
             return true if attrs.empty?
@@ -101,6 +101,31 @@ module RuboCop
 
             attrs.all? do |attr|
               SPECIFIC_MATCHER_OPTIONS.fetch(matcher, []).include?(attr)
+            end
+          end
+
+          def specific_matcher_pseudo_classes?(arg)
+            CssSelector.pseudo_classes(arg).all? do |pseudo_class|
+              replaceable_pseudo_class?(pseudo_class, arg)
+            end
+          end
+
+          def replaceable_pseudo_class?(pseudo_class, arg)
+            unless SPECIFIC_MATCHER_PSEUDO_CLASSES.include?(pseudo_class)
+              return false
+            end
+
+            case pseudo_class
+            when 'not()' then replaceable_pseudo_class_not?(arg)
+            else true
+            end
+          end
+
+          def replaceable_pseudo_class_not?(arg)
+            arg.scan(/not\(.*?\)/).all? do |not_arg|
+              CssSelector.attributes(not_arg).values.all? do |v|
+                v.is_a?(TrueClass) || v.is_a?(FalseClass)
+              end
             end
           end
 

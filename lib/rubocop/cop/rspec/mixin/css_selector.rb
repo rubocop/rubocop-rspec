@@ -56,6 +56,20 @@ module RuboCop
         end
 
         # @param selector [String]
+        # @return [Array<String>]
+        # @example
+        #   pseudo_classes('button:not([disabled])') # => ['not()']
+        #   pseudo_classes('a:enabled:not([valid])') # => ['enabled', 'not()']
+        def pseudo_classes(selector)
+          # Attributes must be excluded or else the colon in the `href`s URL
+          # will also be picked up as pseudo classes.
+          # "a:not([href='http://example.com']):enabled" => "a:not():enabled"
+          ignored_attribute = selector.gsub(/\[.*?\]/, '')
+          # "a:not():enabled" => ["not()", "enabled"]
+          ignored_attribute.scan(/:([^:]*)/).flatten
+        end
+
+        # @param selector [String]
         # @return [Boolean]
         # @example
         #   multiple_selectors?('a.cls b#id') # => true

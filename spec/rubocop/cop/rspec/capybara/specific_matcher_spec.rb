@@ -194,8 +194,6 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
     expect_offense(<<-RUBY)
       expect(page).to have_css('button[disabled][name="foo"]', exact_text: 'foo')
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
-      expect(page).to have_css('button:not([name="foo"][disabled])', exact_text: 'bar')
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
     RUBY
   end
 
@@ -203,8 +201,49 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
     expect_offense(<<-RUBY)
       expect(page).to have_css('button[disabled]', exact_text: 'foo')
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+    RUBY
+  end
+
+  it 'registers an offense when using abstract matcher with ' \
+      'first argument is element with replaceable pseudo-classes' do
+    expect_offense(<<-RUBY)
       expect(page).to have_css('button:not([disabled])', exact_text: 'bar')
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+      expect(page).to have_css('button:not([disabled][visible])')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+    RUBY
+  end
+
+  it 'registers an offense when using abstract matcher with ' \
+      'first argument is element with multiple replaceable pseudo-classes' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_css('button:not([disabled]):enabled')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+      expect(page).to have_css('button:not([disabled=false]):disabled')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+      expect(page).to have_css('button:not([disabled]):not([disabled])')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
+      expect(page).to have_css('input:not([unchecked]):checked')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_field` over `have_css`.
+      expect(page).to have_css('input:not([unchecked=false]):unchecked')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_field` over `have_css`.
+      expect(page).to have_css('input:not([unchecked]):not([unchecked])')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_field` over `have_css`.
+    RUBY
+  end
+
+  it 'does not register an offense when using abstract matcher with ' \
+      'first argument is element with replaceable pseudo-classes' \
+      'and not boolean attributes' do
+    expect_no_offenses(<<-RUBY)
+      expect(page).to have_css('button:not([name="foo"][disabled])')
+    RUBY
+  end
+
+  it 'does not register an offense when using abstract matcher with ' \
+      'first argument is element with multiple nonreplaceable pseudo-classes' do
+    expect_no_offenses(<<-RUBY)
+      expect(page).to have_css('button:first-of-type:not([disabled])')
     RUBY
   end
 
