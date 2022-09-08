@@ -7,8 +7,11 @@ module SpecHelper
   ROOT = Pathname.new(__dir__).parent.freeze
 end
 
-spec_helper_glob = File.expand_path('{support,shared}/*.rb', __dir__)
-Dir.glob(spec_helper_glob).sort.each(&method(:require))
+spec_helper_glob = '{support,shared,../lib/rubocop/rspec/shared_contexts}/*.rb'
+Dir
+  .glob(File.expand_path(spec_helper_glob, __dir__))
+  .sort
+  .each(&method(:require))
 
 RSpec.configure do |config|
   # Set metadata so smoke tests are run on all cop specs
