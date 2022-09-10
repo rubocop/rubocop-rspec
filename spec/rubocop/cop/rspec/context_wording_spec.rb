@@ -184,7 +184,7 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
 
       it "skips descriptions beginning with 'when'" do
         expect_no_offenses(<<-RUBY)
-          context 'when this is vaild context' do
+          context 'when this is valid context' do
           end
         RUBY
       end
