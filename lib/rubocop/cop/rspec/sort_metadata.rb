@@ -38,15 +38,17 @@ module RuboCop
 
         # @!method metadata_in_block(node)
         def_node_search :metadata_in_block, <<~PATTERN
-          (send (lvar $_) #Hooks.all _ ${send str sym}* (hash $...)?)
+          (send (lvar %) #Hooks.all _ ${send str sym}* (hash $...)?)
         PATTERN
 
         def on_block(node)
-          if (block_var = rspec_configure(node))
-            metadata_in_block(node).each do |receiver, symbols, pairs|
-              investigate(symbols, pairs.flatten) if receiver == block_var
+          rspec_configure(node) do |block_var|
+            metadata_in_block(node, block_var) do |symbols, pairs|
+              investigate(symbols, pairs.flatten)
             end
-          elsif (symbols, pairs = rspec_metadata(node))
+          end
+
+          rspec_metadata(node) do |symbols, pairs|
             investigate(symbols, pairs.flatten)
           end
         end
