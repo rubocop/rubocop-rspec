@@ -57,8 +57,8 @@ module RuboCop
 
         def investigate(symbols, pairs)
           return if sorted?(symbols, pairs)
-          return unless (crime_scene = crime_scene(symbols, pairs))
 
+          crime_scene = crime_scene(symbols, pairs)
           add_offense(crime_scene) do |corrector|
             corrector.replace(crime_scene, replacement(symbols, pairs))
           end
@@ -67,12 +67,10 @@ module RuboCop
         def crime_scene(symbols, pairs)
           metadata = symbols + pairs
 
-          range = range_between(
+          range_between(
             metadata.first.loc.expression.begin_pos,
             metadata.last.loc.expression.end_pos
           )
-
-          range if range.last_line == range.first_line
         end
 
         def replacement(symbols, pairs)

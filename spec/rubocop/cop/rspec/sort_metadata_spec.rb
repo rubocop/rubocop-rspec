@@ -127,11 +127,16 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
     RUBY
   end
 
-  it 'does not register an offense ' \
-     'when the metadata is not on one single line' do
-    expect_no_offenses(<<~RUBY)
+  it 'registers an offense also when the metadata is not on one single line' do
+    expect_offense(<<~RUBY)
       RSpec.describe 'Something', :foo, :bar,
+                                  ^^^^^^^^^^^ Sort metadata alphabetically.
                                    baz: 'goo' do
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe 'Something', :bar, :foo, baz: 'goo' do
       end
     RUBY
   end
