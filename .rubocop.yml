@@ -91,9 +91,6 @@ RSpec/DescribeClass:
 RSpec/MultipleExpectations:
   Max: 2
 
-RSpec/NoExpectationExample:
-  Enabled: true
-
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
@@ -111,6 +108,8 @@ RSpec/ClassCheck:
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:
+  Enabled: true
+RSpec/NoExpectationExample:
   Enabled: true
 RSpec/SubjectDeclaration:
   Enabled: true

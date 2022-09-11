@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.13.0 (2022-09-12)
+
 * Fix `RSpec/FilePath` cop missing mismatched expanded namespace. ([@sl4vr][])
 * Add new `AllowConsecutiveOneLiners` (default true) option for `Rspec/EmptyLineAfterHook` cop. ([@ngouy][])
 * Add autocorrect support for `RSpec/EmptyExampleGroup`. ([@r7kamura][])
