@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.files = Dir[
     'lib/**/*',
-    'config/default.yml',
+    'config/*',
     '*.md'
   ]
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
