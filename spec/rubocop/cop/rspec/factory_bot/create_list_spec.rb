@@ -165,6 +165,30 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
         end
       RUBY
     end
+
+    it 'flags usage of Array.new(n) with no arguments' do
+      expect_offense(<<~RUBY)
+        Array.new(3) { create(:user) }
+        ^^^^^^^^^^^^ Prefer create_list.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        create_list(:user, 3)
+      RUBY
+    end
+
+    it 'flags usage of Array.new(n) with block argument' do
+      expect_offense(<<~RUBY)
+        Array.new(3) do
+        ^^^^^^^^^^^^ Prefer create_list.
+          create(:user) { |user| create(:account, user: user) }
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        create_list(:user, 3) { |user| create(:account, user: user) }
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :n_times' do

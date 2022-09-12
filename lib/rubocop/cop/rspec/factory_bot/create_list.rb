@@ -40,20 +40,23 @@ module RuboCop
           MSG_N_TIMES = 'Prefer %<number>s.times.'
           RESTRICT_ON_SEND = %i[create_list].freeze
 
-          # @!method n_times_block?(node)
-          def_node_matcher :n_times_block?, <<-PATTERN
+          # @!method array_new_or_n_times_block?(node)
+          def_node_matcher :array_new_or_n_times_block?, <<-PATTERN
             (block
-              (send (int _) :times)
+              {
+                (send (const {nil? | cbase} :Array) :new (int _)) |
+                (send (int _) :times)
+              }
               ...
             )
           PATTERN
 
-          # @!method n_times_block_with_arg_and_used?(node)
-          def_node_matcher :n_times_block_with_arg_and_used?, <<-PATTERN
+          # @!method block_with_arg_and_used?(node)
+          def_node_matcher :block_with_arg_and_used?, <<-PATTERN
             (block
-              (send (int _) :times)
+              _
               (args (arg _value))
-                `_value
+              `_value
             )
           PATTERN
 
@@ -75,8 +78,8 @@ module RuboCop
           def on_block(node) # rubocop:todo InternalAffairs/NumblockHandler
             return unless style == :create_list
 
-            return unless n_times_block?(node)
-            return if n_times_block_with_arg_and_used?(node)
+            return unless array_new_or_n_times_block?(node)
+            return if block_with_arg_and_used?(node)
             return unless node.body
             return if arguments_include_method_call?(node.body)
             return unless contains_only_factory?(node.body)
@@ -184,7 +187,7 @@ module RuboCop
 
             def call_with_block_replacement(node)
               block = node.body
-              arguments = build_arguments(block, node.receiver.source)
+              arguments = build_arguments(block, count_from(node))
               replacement = format_receiver(block.receiver)
               replacement += format_method_call(block, 'create_list', arguments)
               replacement += format_block(block)
@@ -204,13 +207,23 @@ module RuboCop
               block = node.body
               factory, *options = *block.arguments
 
-              arguments = "#{factory.source}, #{node.receiver.source}"
+              arguments = "#{factory.source}, #{count_from(node)}"
               options = build_options_string(options)
               arguments += ", #{options}" unless options.empty?
 
               replacement = format_receiver(block.receiver)
               replacement += format_method_call(block, 'create_list', arguments)
               replacement
+            end
+
+            def count_from(node)
+              count_node =
+                if node.receiver.int_type?
+                  node.receiver
+                else
+                  node.send_node.first_argument
+                end
+              count_node.source
             end
 
             def format_block(node)
