@@ -12,6 +12,17 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
     RUBY
   end
 
+  it 'registers an offense when using `find` with no parentheses' do
+    expect_offense(<<~RUBY)
+      find "#some-id"
+      ^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id 'some-id'
+    RUBY
+  end
+
   it 'registers an offense when using `find` and other args' do
     expect_offense(<<~RUBY)
       find('#some-id', exact_text: 'foo')
@@ -20,6 +31,18 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
 
     expect_correction(<<~RUBY)
       find_by_id('some-id', exact_text: 'foo')
+    RUBY
+  end
+
+  it 'registers an offense when using `find` and other args ' \
+    'with no parentheses' do
+    expect_offense(<<~RUBY)
+      find '#some-id', exact_text: 'foo'
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      find_by_id 'some-id', exact_text: 'foo'
     RUBY
   end
 
