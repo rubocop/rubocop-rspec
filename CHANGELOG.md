@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Fix an error for `RSpec/Capybara/SpecificFinders` with no parentheses. ([@ydah][])
+
 ## 2.13.1 (2022-09-12)
 
 * Include config/obsoletion.yml in the gemspec. ([@hosamaly][])
