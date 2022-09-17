@@ -49,10 +49,18 @@ module RuboCop
           send_pattern('#Expectations.all')
         )
 
+        # @!method including_any_skip_example?(node)
+        # @param [RuboCop::AST::Node] node
+        # @return [Boolean]
+        def_node_search :including_any_skip_example?, <<~PATTERN
+          (send nil? {:pending :skip} ...)
+        PATTERN
+
         # @param [RuboCop::AST::BlockNode] node
         def on_block(node)
           return unless regular_or_focused_example?(node)
           return if including_any_expectation?(node)
+          return if including_any_skip_example?(node)
 
           add_offense(node)
         end
