@@ -53,6 +53,8 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectDeclaration do
 
   include_examples 'flag unclear subject declaration', :subject
   include_examples 'flag unclear subject declaration', 'subject'
+  include_examples 'flag unclear subject declaration', :subject!
+  include_examples 'flag unclear subject declaration', 'subject!'
 
   context 'when subject helper is used directly' do
     it 'does not register an offense on named subject' do
