@@ -40,8 +40,6 @@ module RuboCop
             have_table
             have_checked_field
             have_unchecked_field
-            have_text
-            have_content
           ].freeze
 
           RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS

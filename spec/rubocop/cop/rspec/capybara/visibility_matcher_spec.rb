@@ -35,10 +35,6 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::VisibilityMatcher do
                                                 ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
       expect(page).to have_unchecked_field('cat', visible: false)
                                                   ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
-      expect(page).to have_text('My homepage', visible: false)
-                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
-      expect(page).to have_content('Success', visible: false)
-                                              ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
   end
 
