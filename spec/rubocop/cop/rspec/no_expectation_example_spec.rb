@@ -115,6 +115,28 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
+  context 'with no expectation pending example when using `pending` ' \
+          'inside an example' do
+    it 'registers no offenses' do
+      expect_no_offenses(<<~RUBY)
+        it "is implemented but waiting" do
+          pending "something else getting finished"
+        end
+      RUBY
+    end
+  end
+
+  context 'with no expectation skipped example when using `skip` ' \
+          'inside an example' do
+    it 'registers no offenses' do
+      expect_no_offenses(<<~RUBY)
+        it "is skipped" do
+          skip
+        end
+      RUBY
+    end
+  end
+
   context 'when Ruby 2.7', :ruby27 do
     context 'with no expectation example with it' do
       it 'registers an offense' do
