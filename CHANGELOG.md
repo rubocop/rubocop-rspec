@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.13.2 (2022-09-23)
+
 * Fix an error for `RSpec/Capybara/SpecificFinders` with no parentheses. ([@ydah][])
 * Fix a false positive for `RSpec/NoExpectationExample` with pending using `skip` or `pending` inside an example. ([@ydah][])
 * Exclude `have_text` and `have_content` that raise `ArgumentError` with `RSpec/Capybara/VisibilityMatcher` where `:visible` is an invalid option. ([@ydah][])
