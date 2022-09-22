@@ -35,10 +35,29 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::VisibilityMatcher do
                                                 ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
       expect(page).to have_unchecked_field('cat', visible: false)
                                                   ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
-      expect(page).to have_text('My homepage', visible: false)
-                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
-      expect(page).to have_content('Success', visible: false)
+    RUBY
+  end
+
+  it 'recognizes multiple negative matchers' do
+    expect_offense(<<-RUBY)
+      expect(page).to have_no_css('.profile', visible: false)
                                               ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_xpath('.//profile', visible: false)
+                                                  ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_link('news', visible: false)
+                                           ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_button('login', visible: false)
+                                              ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_field('name', visible: false)
+                                            ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_select('sauce', visible: false)
+                                              ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_table('arrivals', visible: false)
+                                                ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_checked_field('cat', visible: false)
+                                                   ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
+      expect(page).to have_no_unchecked_field('cat', visible: false)
+                                                     ^^^^^^^^^^^^^^ Use `:all` or `:hidden` instead of `false`.
     RUBY
   end
 

@@ -29,20 +29,20 @@ module RuboCop
         class VisibilityMatcher < Base
           MSG_FALSE = 'Use `:all` or `:hidden` instead of `false`.'
           MSG_TRUE = 'Use `:visible` instead of `true`.'
-          CAPYBARA_MATCHER_METHODS = %i[
-            have_selector
-            have_css
-            have_xpath
-            have_link
-            have_button
-            have_field
-            have_select
-            have_table
-            have_checked_field
-            have_unchecked_field
-            have_text
-            have_content
-          ].freeze
+          CAPYBARA_MATCHER_METHODS = %w[
+            button
+            checked_field
+            css
+            field
+            link
+            select
+            selector
+            table
+            unchecked_field
+            xpath
+          ].flat_map do |element|
+            ["have_#{element}".to_sym, "have_no_#{element}".to_sym]
+          end
 
           RESTRICT_ON_SEND = CAPYBARA_MATCHER_METHODS
 
