@@ -29,6 +29,7 @@ jobs:
           - "3.1"
           - ruby-head
           - jruby
+          - truffleruby-head
         task:
           - internal_investigation
           - spec
