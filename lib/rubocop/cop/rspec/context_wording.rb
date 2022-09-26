@@ -43,7 +43,7 @@ module RuboCop
       #   # .rubocop.yml
       #   # RSpec/ContextWording:
       #   #   AllowedPatterns:
-      #   #     - /とき$/
+      #   #     - とき$
       #
       # @example
       #   # bad
@@ -92,7 +92,9 @@ module RuboCop
         end
 
         def expect_patterns
-          inspected = allowed_patterns.map(&:inspect)
+          inspected = allowed_patterns.map do |pattern|
+            pattern.inspect.gsub(/\A"|"\z/, '/')
+          end
           return inspected.first if inspected.size == 1
 
           inspected << "or #{inspected.pop}"
