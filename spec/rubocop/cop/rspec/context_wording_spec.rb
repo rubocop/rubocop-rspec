@@ -130,9 +130,9 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       end
     end
 
-    context 'when `AllowedPatterns: [/とき$/]`' do
+    context 'when `AllowedPatterns: [とき$]`' do
       let(:cop_config) do
-        { 'Prefixes' => [], 'AllowedPatterns' => [/とき$/] }
+        { 'Prefixes' => [], 'AllowedPatterns' => ['とき$'] }
       end
 
       it 'finds context without `とき` at the ending' do
@@ -159,9 +159,9 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       end
     end
 
-    context 'when `Prefixes: [when]` and `AllowedPatterns: [/patterns/]`' do
+    context 'when `Prefixes: [when]` and `AllowedPatterns: [patterns]`' do
       let(:cop_config) do
-        { 'Prefixes' => %w[when], 'AllowedPatterns' => [/patterns/] }
+        { 'Prefixes' => %w[when], 'AllowedPatterns' => ['patterns'] }
       end
 
       it 'finds context without `when` at the beginning and not included ' \

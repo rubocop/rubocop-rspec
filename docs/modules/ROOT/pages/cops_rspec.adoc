@@ -631,7 +631,7 @@ end
 # .rubocop.yml
 # RSpec/ContextWording:
 #   AllowedPatterns:
-#     - /とき$/
+#     - とき$
 ----
 
 [source,ruby]
