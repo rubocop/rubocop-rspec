@@ -725,11 +725,12 @@ RSpec/ReturnFromStub:
   Description: Checks for consistent style of stub's return setting.
   Enabled: true
   EnforcedStyle: and_return
+  SafeAutoCorrect: false
   SupportedStyles:
     - and_return
     - block
   VersionAdded: '1.16'
-  VersionChanged: '1.22'
+  VersionChanged: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
 
 RSpec/ScatteredLet:

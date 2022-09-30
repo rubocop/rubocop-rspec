@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+* Declare autocorrect as unsafe for `RSpec/ReturnFromStub`. ([@ryanfb][])
 * Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura][])
 
 ## 2.13.2 (2022-09-23)
@@ -731,6 +732,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rrosenblum]: https://github.com/rrosenblum
 [@rspeicher]: https://github.com/rspeicher
 [@RST-J]: https://github.com/RST-J
+[@ryanfb]: https://github.com/ryanfb
 [@schmijos]: https://github.com/schmijos
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
