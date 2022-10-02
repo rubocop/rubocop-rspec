@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 * Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura][])
+* Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah][])
 
 ## 2.13.2 (2022-09-23)
 

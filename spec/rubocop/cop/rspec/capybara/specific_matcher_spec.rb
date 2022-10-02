@@ -101,6 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
        "first argument is element with replaceable attributes #{attr} " \
        'for `have_link` without `href`' do
       expect_no_offenses(<<-RUBY, attr: attr)
+        expect(page).to have_css("a")
         expect(page).to have_css("a[#{attr}=foo]")
         expect(page).to have_css("a[#{attr}]")
       RUBY

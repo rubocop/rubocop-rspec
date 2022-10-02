@@ -96,7 +96,6 @@ module RuboCop
 
           def specific_matcher_option?(node, arg, matcher)
             attrs = CssSelector.attributes(arg).keys
-            return true if attrs.empty?
             return false unless replaceable_matcher?(node, matcher, attrs)
 
             attrs.all? do |attr|
