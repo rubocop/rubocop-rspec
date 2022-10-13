@@ -6,11 +6,16 @@ module RuboCop
       # Checks for common mistakes in example descriptions.
       #
       # This cop will correct docstrings that begin with 'should' and 'it'.
+      # This cop will also look for insufficient examples and call them out.
       #
       # @see http://betterspecs.org/#should
       #
       # The autocorrect is experimental - use with care! It can be configured
       # with CustomTransform (e.g. have => has) and IgnoredWords (e.g. only).
+      #
+      # Use the DisallowedExamples setting to prevent unclear or insufficient
+      # descriptions. Please note that this config will not be treated as
+      # case sensitive.
       #
       # @example
       #   # bad
@@ -30,11 +35,21 @@ module RuboCop
       #   it 'does things' do
       #   end
       #
+      # @example `DisallowedExamples: ['works']` (default)
+      #   # bad
+      #   it 'works' do
+      #   end
+      #
+      #   # good
+      #   it 'marks the task as done' do
+      #   end
       class ExampleWording < Base
         extend AutoCorrector
 
         MSG_SHOULD = 'Do not use should when describing your tests.'
         MSG_IT     = "Do not repeat 'it' when describing your tests."
+        MSG_INSUFFICIENT_DESCRIPTION = 'Your example description is ' \
+                                       'insufficient.'
 
         SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze
@@ -53,11 +68,19 @@ module RuboCop
               add_wording_offense(description_node, MSG_SHOULD)
             elsif message.match?(IT_PREFIX)
               add_wording_offense(description_node, MSG_IT)
+            else
+              check_and_handle_insufficient_examples(description_node)
             end
           end
         end
 
         private
+
+        def check_and_handle_insufficient_examples(description)
+          if insufficient_examples.include?(preprocess(text(description)))
+            add_wording_offense(description, MSG_INSUFFICIENT_DESCRIPTION)
+          end
+        end
 
         def add_wording_offense(node, message)
           docstring = docstring(node)
@@ -112,6 +135,15 @@ module RuboCop
 
         def ignored_words
           cop_config.fetch('IgnoredWords', [])
+        end
+
+        def insufficient_examples
+          examples = cop_config.fetch('DisallowedExamples', [])
+          examples.map! { |example| preprocess(example) }
+        end
+
+        def preprocess(message)
+          message.strip.squeeze(' ').downcase
         end
       end
     end

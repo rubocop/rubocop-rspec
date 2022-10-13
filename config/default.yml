@@ -194,7 +194,7 @@ RSpec/ChangeByZero:
   Description: Prefer negated matchers over `to change.by(0)`.
   Enabled: pending
   VersionAdded: '2.11'
-  VersionChanged: '2.13'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
   NegatedMatcher: ~
 
@@ -383,8 +383,10 @@ RSpec/ExampleWording:
     have: has
     HAVE: HAS
   IgnoredWords: []
+  DisallowedExamples:
+    - works
   VersionAdded: '1.0'
-  VersionChanged: '1.2'
+  VersionChanged: '2.13'
   StyleGuide: https://rspec.rubystyle.guide/#should-in-example-docstrings
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
 

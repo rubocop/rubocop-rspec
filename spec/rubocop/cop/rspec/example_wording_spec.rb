@@ -187,4 +187,65 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
       end
     RUBY
   end
+
+  it 'flags an unclear description' do
+    expect_offense(<<-'RUBY')
+      it "works" do
+          ^^^^^ Your example description is insufficient.
+      end
+    RUBY
+  end
+
+  it 'flags an unclear description despite extra spaces' do
+    expect_offense(<<-'RUBY')
+      it "  works    " do
+          ^^^^^^^^^^^ Your example description is insufficient.
+      end
+    RUBY
+  end
+
+  it 'flags an unclear description despite uppercase and lowercase strings' do
+    expect_offense(<<-'RUBY')
+      it "WOrKs " do
+          ^^^^^^ Your example description is insufficient.
+      end
+    RUBY
+  end
+
+  context 'when `DisallowedExamples: Workz`' do
+    let(:cop_config) { { 'DisallowedExamples' => ['Workz'] } }
+
+    it 'finds a valid sentence across two lines' do
+      expect_no_offenses(<<-'RUBY')
+        it "workz " \
+          "totally fine " do
+        end
+      RUBY
+    end
+
+    it 'finds an invalid example across two lines' do
+      expect_offense(<<-'RUBY')
+        it "workz" \
+            ^^^^^^^^ Your example description is insufficient.
+          " " do
+        end
+      RUBY
+    end
+
+    it 'flags an unclear description' do
+      expect_offense(<<-'RUBY')
+        it "workz" do
+            ^^^^^ Your example description is insufficient.
+        end
+      RUBY
+    end
+
+    it 'flags an unclear description despite uppercase and lowercase strings' do
+      expect_offense(<<-'RUBY')
+        it "WOrKz " do
+            ^^^^^^ Your example description is insufficient.
+        end
+      RUBY
+    end
+  end
 end
