@@ -76,7 +76,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'does not register an offense for comment '\
+  it 'does not register an offense for comment ' \
      'followed by an empty line after let' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe User do
@@ -183,7 +183,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
-  it 'flags a missing empty line after a `rubocop:enable` directive '\
+  it 'flags a missing empty line after a `rubocop:enable` directive ' \
       'when it is followed by a `rubocop:disable` directive' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
