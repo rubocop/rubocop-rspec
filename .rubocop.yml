@@ -99,6 +99,8 @@ Style/FormatStringToken:
 
 Layout/LineContinuationSpacing:
   Enabled: true
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
 
 # Enable our own pending cops.
 

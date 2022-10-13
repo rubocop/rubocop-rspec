@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   it 'does not register an offense for abstract matcher when ' \
-    'first argument is not a replaceable element' do
+     'first argument is not a replaceable element' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_selector('article')
       expect(page).to have_no_selector('body')
@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense for abstract matcher when ' \
-    'first argument is not an element' do
+     'first argument is not an element' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_no_css('.a')
       expect(page).to have_selector('#button')
@@ -206,7 +206,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'registers an offense when using abstract matcher with ' \
-      'first argument is element with replaceable pseudo-classes' do
+     'first argument is element with replaceable pseudo-classes' do
     expect_offense(<<-RUBY)
       expect(page).to have_css('button:not([disabled])', exact_text: 'bar')
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
@@ -216,7 +216,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'registers an offense when using abstract matcher with ' \
-      'first argument is element with multiple replaceable pseudo-classes' do
+     'first argument is element with multiple replaceable pseudo-classes' do
     expect_offense(<<-RUBY)
       expect(page).to have_css('button:not([disabled]):enabled')
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `have_button` over `have_css`.
@@ -234,22 +234,22 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense when using abstract matcher with ' \
-      'first argument is element with replaceable pseudo-classes' \
-      'and not boolean attributes' do
+     'first argument is element with replaceable pseudo-classes' \
+     'and not boolean attributes' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_css('button:not([name="foo"][disabled])')
     RUBY
   end
 
   it 'does not register an offense when using abstract matcher with ' \
-      'first argument is element with multiple nonreplaceable pseudo-classes' do
+     'first argument is element with multiple nonreplaceable pseudo-classes' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_css('button:first-of-type:not([disabled])')
     RUBY
   end
 
   it 'does not register an offense for abstract matcher when ' \
-    'first argument is element with nonreplaceable attributes' do
+     'first argument is element with nonreplaceable attributes' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_css('button[data-disabled]')
       expect(page).to have_css('button[foo=bar]')
@@ -258,7 +258,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense for abstract matcher when ' \
-    'first argument is element with multiple nonreplaceable attributes' do
+     'first argument is element with multiple nonreplaceable attributes' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_css('button[disabled][foo]')
       expect(page).to have_css('button[foo][disabled]')
@@ -269,7 +269,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense for abstract matcher when ' \
-  'first argument is element with sub matcher' do
+     'first argument is element with sub matcher' do
     expect_no_offenses(<<-RUBY)
       expect(page).to have_css('button body')
       expect(page).to have_css('a,h1')
@@ -279,7 +279,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
   end
 
   it 'does not register an offense for abstract matcher when ' \
-    'first argument is dstr' do
+     'first argument is dstr' do
     expect_no_offenses(<<-'RUBY')
       expect(page).to have_css(%{a[href="#{foo}"]}, text: "bar")
     RUBY

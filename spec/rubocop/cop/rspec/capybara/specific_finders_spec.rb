@@ -35,7 +35,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
   end
 
   it 'registers an offense when using `find` and other args ' \
-    'with no parentheses' do
+     'with no parentheses' do
     expect_offense(<<~RUBY)
       find '#some-id', exact_text: 'foo'
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
   end
 
   it 'registers an offense when using `find ' \
-    'with argument is attribute specified id' do
+     'with argument is attribute specified id' do
     expect_offense(<<~RUBY)
       find('[id=some-id]')
       ^^^^^^^^^^^^^^^^^^^^ Prefer `find_by` over `find`.
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
   end
 
   it 'does not register an offense when using `find ' \
-    'with argument is attribute not specified id' do
+     'with argument is attribute not specified id' do
     expect_no_offenses(<<~RUBY)
       find('[visible]')
       find('[class=some-cls][visible]')
@@ -86,21 +86,21 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
   end
 
   it 'does not register an offense when using `find ' \
-    'with argument is element with id' do
+     'with argument is element with id' do
     expect_no_offenses(<<~RUBY)
       find('h1#some-id')
     RUBY
   end
 
   it 'does not register an offense when using `find ' \
-    'with argument is element with attribute specified id' do
+     'with argument is element with attribute specified id' do
     expect_no_offenses(<<~RUBY)
       find('h1[id=some-id]')
     RUBY
   end
 
   it 'does not register an offense when using `find` ' \
-    'with argument is not id' do
+     'with argument is not id' do
     expect_no_offenses(<<~RUBY)
       find('a.some-id')
       find('.some-id')
@@ -114,7 +114,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
   end
 
   it 'does not register an offense when using `find` ' \
-    'with argument is id with multiple matcher' do
+     'with argument is id with multiple matcher' do
     expect_no_offenses(<<~RUBY)
       find('#some-id body')
       find('#some-id>h1')

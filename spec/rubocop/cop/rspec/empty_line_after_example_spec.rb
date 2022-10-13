@@ -217,7 +217,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line after a `rubocop:enable` directive ' \
-      'when it is followed by a `rubocop:disable` directive' do
+     'when it is followed by a `rubocop:disable` directive' do
     expect_offense(<<-RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo

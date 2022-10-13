@@ -8,7 +8,7 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
   include_context 'when cli spec behavior'
 
   context 'when corrects `RSpec/Capybara/CurrentPathExpectation` with ' \
-    '`Style/TrailingCommaInArguments`' do
+          '`Style/TrailingCommaInArguments`' do
     before do
       RuboCop::ConfigLoader
         .default_configuration

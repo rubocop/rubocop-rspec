@@ -61,7 +61,7 @@ module RuboCop
         extend AutoCorrector
         MSG = 'Prefer `not_to change` over `to change.by(0)`.'
         MSG_COMPOUND = 'Prefer %<preferred>s with compound expectations ' \
-                          'over `change.by(0)`.'
+                       'over `change.by(0)`.'
         RESTRICT_ON_SEND = %i[change].freeze
 
         # @!method expect_change_with_arguments(node)

@@ -27,7 +27,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
 
   context 'when `NegatedMatcher` is not defined (default)' do
     it 'registers an offense when the argument to `by` is zero ' \
-      'with compound expectations by `and`' do
+       'with compound expectations by `and`' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }.to change(Foo, :bar).by(0).and change(Foo, :baz).by(0)
@@ -43,7 +43,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
     end
 
     it 'registers an offense when the argument to `by` is zero ' \
-      'with compound expectations by `&`' do
+       'with compound expectations by `&`' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }.to change(Foo, :bar).by(0) & change(Foo, :baz).by(0)
@@ -59,7 +59,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
     end
 
     it 'registers an offense when the argument to `by` is zero ' \
-      'with compound expectations by `or`' do
+       'with compound expectations by `or`' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }.to change(Foo, :bar).by(0).or change(Foo, :baz).by(0)
@@ -75,7 +75,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
     end
 
     it 'registers an offense when the argument to `by` is zero ' \
-      'with compound expectations by `|`' do
+       'with compound expectations by `|`' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }.to change(Foo, :bar).by(0) | change(Foo, :baz).by(0)
@@ -92,7 +92,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
 
     context 'when with a line break' do
       it 'registers an offense when the argument to `by` is zero ' \
-        'with compound expectations by `and`' do
+         'with compound expectations by `and`' do
         expect_offense(<<-RUBY)
           it do
             expect { foo }
@@ -112,7 +112,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
       end
 
       it 'registers an offense when the argument to `by` is zero ' \
-        'with compound expectations by `&`' do
+         'with compound expectations by `&`' do
         expect_offense(<<-RUBY)
           it do
             expect { foo }
@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
       end
 
       it 'registers an offense when the argument to `by` is zero ' \
-        'with compound expectations by `or`' do
+         'with compound expectations by `or`' do
         expect_offense(<<-RUBY)
           it do
             expect { foo }
@@ -152,7 +152,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
       end
 
       it 'registers an offense when the argument to `by` is zero ' \
-        'with compound expectations by `|`' do
+         'with compound expectations by `|`' do
         expect_offense(<<-RUBY)
           it do
             expect { foo }
@@ -177,7 +177,7 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
     let(:cop_config) { { 'NegatedMatcher' => 'not_change' } }
 
     it 'registers an offense and autocorrect when ' \
-      'the argument to `by` is zero with compound expectations' do
+       'the argument to `by` is zero with compound expectations' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }.to change(Foo, :bar).by(0).and change(Foo, :baz).by(0)
@@ -198,8 +198,8 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
     end
 
     it 'registers an offense and autocorrect when ' \
-      'the argument to `by` is zero with compound expectations ' \
-      'with line break' do
+       'the argument to `by` is zero with compound expectations ' \
+       'with line break' do
       expect_offense(<<-RUBY)
         it do
           expect { foo }
