@@ -101,6 +101,8 @@ Layout/LineContinuationSpacing:
   Enabled: true
 Layout/LineEndStringConcatenationIndentation:
   Enabled: true
+Style/EmptyHeredoc:
+  Enabled: true
 
 # Enable our own pending cops.
 

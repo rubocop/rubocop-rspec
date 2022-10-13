@@ -41,8 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
       end
     RUBY
 
-    expect_correction(<<~RUBY)
-    RUBY
+    expect_correction('')
   end
 
   it 'flags example group with examples defined in hooks' do
