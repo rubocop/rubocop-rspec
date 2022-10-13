@@ -238,8 +238,8 @@ module RuboCop
               indent = ' ' * node.body.loc.column
               indent_end = ' ' * node.parent.loc.column
               " do #{node.arguments.source}\n" \
-              "#{indent}#{node.body.source}\n" \
-              "#{indent_end}end"
+                "#{indent}#{node.body.source}\n" \
+                "#{indent_end}end"
             end
 
             def format_singleline_block(node)

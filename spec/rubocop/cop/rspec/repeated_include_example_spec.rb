@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
         end
 
         it "registers an offense for repeated #{include_method} " \
-          'with parentheses' do
+           'with parentheses' do
           expect_offense(<<~RUBY, include_method: include_method)
             describe 'foo' do
               %{include_method}('an x')
@@ -70,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
         end
 
         it "registers an offense for repeated #{include_method} " \
-          'with parentheses' do
+           'with parentheses' do
           expect_offense(<<~RUBY, include_method: include_method)
             describe 'foo' do
               %{include_method}('an x', 'y')
@@ -107,7 +107,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
         end
 
         it "accepts repeated #{include_method} with different parameters " \
-          'with parentheses' do
+           'with parentheses' do
           expect_no_offenses(<<~RUBY)
             describe 'foo' do
               #{include_method}('an x', 'y')

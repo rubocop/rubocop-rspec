@@ -183,8 +183,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
-  it 'flags a missing empty line after a `rubocop:enable` directive '\
-      'when it is followed by a `rubocop:disable` directive' do
+  it 'flags a missing empty line after a `rubocop:enable` directive ' \
+     'when it is followed by a `rubocop:disable` directive' do
     expect_offense(<<-RUBY)
       RSpec.describe User do
         # rubocop:disable RSpec/Foo

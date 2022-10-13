@@ -47,7 +47,7 @@ module RuboCop
       #
       class RepeatedIncludeExample < Base
         MSG = 'Repeated include of shared_examples %<name>s ' \
-          'on line(s) %<repeat>s'
+              'on line(s) %<repeat>s'
 
         # @!method several_include_examples?(node)
         def_node_matcher :several_include_examples?, <<-PATTERN

@@ -95,6 +95,15 @@ Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
 
+# Enable some of RuboCop's pending cops.
+
+Layout/LineContinuationSpacing:
+  Enabled: true
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+Style/EmptyHeredoc:
+  Enabled: true
+
 # Enable our own pending cops.
 
 RSpec/BeEq:

@@ -41,8 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
       end
     RUBY
 
-    expect_correction(<<~RUBY)
-    RUBY
+    expect_correction('')
   end
 
   it 'flags example group with examples defined in hooks' do
@@ -160,7 +159,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
   end
 
   it 'flags an empty example group with no examples defined in `case`' \
-    'branches' do
+     'branches' do
     expect_offense(<<~RUBY)
       describe Foo do
       ^^^^^^^^^^^^ Empty example group detected.
