@@ -37,34 +37,6 @@ module RuboCop
             'select' => 'select',
             'input' => 'field'
           }.freeze
-          SPECIFIC_MATCHER_OPTIONS = {
-            'button' => (
-              CssSelector::COMMON_OPTIONS + %w[disabled name value title type]
-            ).freeze,
-            'link' => (
-              CssSelector::COMMON_OPTIONS + %w[href alt title download]
-            ).freeze,
-            'table' => (
-              CssSelector::COMMON_OPTIONS + %w[
-                caption with_cols cols with_rows rows
-              ]
-            ).freeze,
-            'select' => (
-              CssSelector::COMMON_OPTIONS + %w[
-                disabled name placeholder options enabled_options
-                disabled_options selected with_selected multiple with_options
-              ]
-            ).freeze,
-            'field' => (
-              CssSelector::COMMON_OPTIONS + %w[
-                checked unchecked disabled valid name placeholder
-                validation_message readonly with type multiple
-              ]
-            ).freeze
-          }.freeze
-          SPECIFIC_MATCHER_PSEUDO_CLASSES = %w[
-            not() disabled enabled checked unchecked
-          ].freeze
 
           # @!method first_argument(node)
           def_node_matcher :first_argument, <<-PATTERN
@@ -99,7 +71,7 @@ module RuboCop
             return false unless replaceable_matcher?(node, matcher, attrs)
 
             attrs.all? do |attr|
-              SPECIFIC_MATCHER_OPTIONS.fetch(matcher, []).include?(attr)
+              CssSelector.specific_options?(matcher, attr)
             end
           end
 
@@ -110,7 +82,7 @@ module RuboCop
           end
 
           def replaceable_pseudo_class?(pseudo_class, arg)
-            unless SPECIFIC_MATCHER_PSEUDO_CLASSES.include?(pseudo_class)
+            unless CssSelector.specific_pesudo_classes?(pseudo_class)
               return false
             end
 

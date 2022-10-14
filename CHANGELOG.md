@@ -10,6 +10,7 @@
 * Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metatada.  ([@pirj][])
 * Add `RSpec/FactoryBot/ConsistentParenthesesStyle` cop. ([@Liberatys][])
 * Add `RSpec/Rails/InferredSpecType` cop. ([@r7kamura][])
+* Add new `RSpec/Capybara/SpecificActions` cop. ([@ydah][])
 
 ## 2.13.2 (2022-09-23)
 

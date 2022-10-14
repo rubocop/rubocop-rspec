@@ -883,6 +883,12 @@ RSpec/Capybara/NegationMatcher:
     - not_to
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
 
+RSpec/Capybara/SpecificActions:
+  Description: Checks for there is a more specific actions offered by Capybara.
+  Enabled: pending
+  VersionAdded: '2.14'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificActions
+
 RSpec/Capybara/SpecificFinders:
   Description: Checks if there is a more specific finder offered by Capybara.
   Enabled: pending

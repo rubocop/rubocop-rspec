@@ -10,8 +10,55 @@ module RuboCop
           id class style visible obscured exact exact_text normalize_ws match
           wait filter_set focused
         ].freeze
+        SPECIFIC_OPTIONS = {
+          'button' => (
+            COMMON_OPTIONS + %w[disabled name value title type]
+          ).freeze,
+          'link' => (
+            COMMON_OPTIONS + %w[href alt title download]
+          ).freeze,
+          'table' => (
+            COMMON_OPTIONS + %w[
+              caption with_cols cols with_rows rows
+            ]
+          ).freeze,
+          'select' => (
+            COMMON_OPTIONS + %w[
+              disabled name placeholder options enabled_options
+              disabled_options selected with_selected multiple with_options
+            ]
+          ).freeze,
+          'field' => (
+            COMMON_OPTIONS + %w[
+              checked unchecked disabled valid name placeholder
+              validation_message readonly with type multiple
+            ]
+          ).freeze
+        }.freeze
+        SPECIFIC_PSEUDO_CLASSES = %w[
+          not() disabled enabled checked unchecked
+        ].freeze
 
         module_function
+
+        # @param element [String]
+        # @param attribute [String]
+        # @return [Boolean]
+        # @example
+        #   specific_pesudo_classes?('button', 'name') # => true
+        #   specific_pesudo_classes?('link', 'invalid') # => false
+        def specific_options?(element, attribute)
+          SPECIFIC_OPTIONS.fetch(element, []).include?(attribute)
+        end
+
+        # @param pseudo_class [String]
+        # @return [Boolean]
+        # @example
+        #   specific_pesudo_classes?('disabled') # => true
+        #   specific_pesudo_classes?('first-of-type') # => false
+        def specific_pesudo_classes?(pseudo_class)
+          SPECIFIC_PSEUDO_CLASSES.include?(pseudo_class)
+        end
 
         # @param selector [String]
         # @return [Boolean]
@@ -75,7 +122,7 @@ module RuboCop
         #   multiple_selectors?('a.cls b#id') # => true
         #   multiple_selectors?('a.cls') # => false
         def multiple_selectors?(selector)
-          selector.match?(/[ >,+]/)
+          selector.match?(/[ >,+~]/)
         end
 
         # @param value [String]
