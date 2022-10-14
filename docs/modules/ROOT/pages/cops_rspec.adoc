@@ -4768,10 +4768,6 @@ let(:userFood_2) { 'fettuccine' }
 | AllowedPatterns
 | `[]`
 | Array
-
-| IgnoredPatterns
-| `[]`
-| Array
 |===
 
 === References

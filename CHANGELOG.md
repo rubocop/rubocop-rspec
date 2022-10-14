@@ -11,6 +11,7 @@
 * Add `RSpec/FactoryBot/ConsistentParenthesesStyle` cop. ([@Liberatys][])
 * Add `RSpec/Rails/InferredSpecType` cop. ([@r7kamura][])
 * Add new `RSpec/Capybara/SpecificActions` cop. ([@ydah][])
+* Update `config/default.yml` removing deprecated option to make the config correctable by users. ([@ignaciovillaverde][])
 
 ## 2.13.2 (2022-09-23)
 
@@ -695,6 +696,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@harry-graham]: https://github.com/harry-graham
 [@harrylewis]: https://github.com/harrylewis
 [@hosamaly]: https://github.com/hosamaly
+[@ignaciovillaverde]: https://github.com/ignaciovillaverde
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
 [@jeffreyc]: https://github.com/jeffreyc
