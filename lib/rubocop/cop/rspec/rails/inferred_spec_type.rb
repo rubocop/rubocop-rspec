@@ -73,14 +73,9 @@ module RuboCop
           #   @return [RuboCop::AST::PairNode, nil]
           def_node_matcher :describe_with_type, <<~PATTERN
             (block
-              (send
-                { (const nil? :RSpec) | nil? }
-                _
-                _
-                _*
-                ({ hash | kwargs }
-                  <$(pair (sym :type) (sym _)) ...>
-                )
+              (send #rspec? #ExampleGroups.all
+                ...
+                (hash <$(pair (sym :type) sym) ...>)
               )
               ...
             )
