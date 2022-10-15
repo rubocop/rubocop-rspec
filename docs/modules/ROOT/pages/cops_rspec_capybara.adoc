@@ -112,6 +112,62 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+== RSpec/Capybara/NegationMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| 2.14
+| -
+|===
+
+Enforces use of `have_no_*` or `not_to` for negated expectations.
+
+=== Examples
+
+==== EnforcedStyle: not_to (default)
+
+[source,ruby]
+----
+# bad
+expect(page).to have_no_selector
+expect(page).to have_no_css('a')
+
+# good
+expect(page).not_to have_selector
+expect(page).not_to have_css('a')
+----
+
+==== EnforcedStyle: have_no
+
+[source,ruby]
+----
+# bad
+expect(page).not_to have_selector
+expect(page).not_to have_css('a')
+
+# good
+expect(page).to have_no_selector
+expect(page).to have_no_css('a')
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `not_to`
+| `have_no`, `not_to`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
+
 == RSpec/Capybara/SpecificFinders
 
 |===
