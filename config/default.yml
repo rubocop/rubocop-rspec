@@ -643,7 +643,11 @@ RSpec/NoExpectationExample:
   Enabled: pending
   Safe: false
   VersionAdded: '2.13'
+  VersionChanged: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NoExpectationExample
+  AllowedPatterns:
+    - "^expect_"
+    - "^assert_"
 
 RSpec/NotToNot:
   Description: Checks for consistent method usage for negating expectations.

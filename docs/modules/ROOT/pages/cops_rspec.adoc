@@ -3525,7 +3525,7 @@ end
 | No
 | No
 | 2.13
-| -
+| 2.14
 |===
 
 Checks if an example contains any expectation.
@@ -3542,6 +3542,10 @@ add the following configuration:
       Expectations:
         - custom_expect
 
+This cop can be customized with an allowed expectation methods pattern
+with an `AllowedPatterns` option. ^expect_ and ^assert_ are allowed
+by default.
+
 === Examples
 
 [source,ruby]
@@ -3556,6 +3560,44 @@ it do
   expect(a?).to be(true)
 end
 ----
+
+==== `AllowedPatterns` configuration
+
+[source,ruby]
+----
+# .rubocop.yml
+# RSpec/NoExpectationExample:
+#   AllowedPatterns:
+#     - ^expect_
+#     - ^assert_
+----
+
+[source,ruby]
+----
+# bad
+it do
+  not_expect_something
+end
+
+# good
+it do
+  expect_something
+end
+
+it do
+  assert_something
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| AllowedPatterns
+| `^expect_`, `^assert_`
+| Array
+|===
 
 === References
 

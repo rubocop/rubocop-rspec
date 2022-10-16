@@ -137,6 +137,53 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
+  context 'when `AllowedPatterns: [^expect_]`' do
+    let(:cop_config) { { 'AllowedPatterns' => ['^expect_'] } }
+
+    context 'when only allowed pattern methods are used' do
+      it 'registers no offenses' do
+        expect_no_offenses(<<~RUBY)
+          it { expect_something }
+        RUBY
+      end
+    end
+
+    context 'when allowed pattern methods and other method are used' do
+      it 'registers no offenses' do
+        expect_no_offenses(<<~RUBY)
+          it do
+            do_something
+            expect_something
+            do_something
+          end
+        RUBY
+      end
+    end
+
+    context 'when nested allowed pattern methods and other method are used' do
+      it 'registers no offenses' do
+        expect_no_offenses(<<~RUBY)
+          it do
+            do_something
+            some_patterns.each do
+              expect_something
+            end
+            do_something
+          end
+        RUBY
+      end
+    end
+
+    context 'when only not allowed pattern methods are used' do
+      it 'does something' do
+        expect_offense(<<~RUBY)
+          it { not_expect_something }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ No expectation found in this example.
+        RUBY
+      end
+    end
+  end
+
   context 'when Ruby 2.7', :ruby27 do
     context 'with no expectation example with it' do
       it 'registers an offense' do
