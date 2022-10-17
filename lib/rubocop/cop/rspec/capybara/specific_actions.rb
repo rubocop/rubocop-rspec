@@ -33,18 +33,18 @@ module RuboCop
             (send _ :find (str $_) ...)
           PATTERN
 
-          # @!method option?(node)
-          def_node_search :option?, <<-PATTERN
-            (pair (sym %) _)
-          PATTERN
-
           def on_send(node)
             click_on_selector(node.receiver) do |arg|
               next unless supported_selector?(arg)
+              # Always check the last selector in the case of multiple selectors
+              # separated by whitespace.
+              # because the `.click` is executed on the element to
+              # which the last selector points.
               next unless (selector = last_selector(arg))
               next unless (action = specific_action(selector))
-              next unless specific_action_option?(node.receiver, arg, action)
-              next unless specific_action_pseudo_classes?(arg)
+              next unless CapybaraHelp.specific_option?(node.receiver, arg,
+                                                        action)
+              next unless CapybaraHelp.specific_pseudo_classes?(arg)
 
               range = offense_range(node, node.receiver)
               add_offense(range, message: message(action, selector))
@@ -55,51 +55,6 @@ module RuboCop
 
           def specific_action(selector)
             SPECIFIC_ACTION[last_selector(selector)]
-          end
-
-          def specific_action_option?(node, arg, action)
-            attrs = CssSelector.attributes(arg).keys
-            return false unless replaceable_action?(node, action, attrs)
-
-            attrs.all? do |attr|
-              CssSelector.specific_options?(action, attr)
-            end
-          end
-
-          def specific_action_pseudo_classes?(arg)
-            CssSelector.pseudo_classes(arg).all? do |pseudo_class|
-              replaceable_pseudo_class?(pseudo_class, arg)
-            end
-          end
-
-          def replaceable_pseudo_class?(pseudo_class, arg)
-            unless CssSelector.specific_pesudo_classes?(pseudo_class)
-              return false
-            end
-
-            case pseudo_class
-            when 'not()' then replaceable_pseudo_class_not?(arg)
-            else true
-            end
-          end
-
-          def replaceable_pseudo_class_not?(arg)
-            arg.scan(/not\(.*?\)/).all? do |not_arg|
-              CssSelector.attributes(not_arg).values.all? do |v|
-                v.is_a?(TrueClass) || v.is_a?(FalseClass)
-              end
-            end
-          end
-
-          def replaceable_action?(node, action, attrs)
-            case action
-            when 'link' then replaceable_to_click_link?(node, attrs)
-            else true
-            end
-          end
-
-          def replaceable_to_click_link?(node, attrs)
-            option?(node, :href) || attrs.include?('href')
           end
 
           def supported_selector?(selector)
