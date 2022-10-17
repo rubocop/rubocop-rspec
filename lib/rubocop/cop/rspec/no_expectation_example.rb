@@ -28,7 +28,35 @@ module RuboCop
       #     expect(a?).to be(true)
       #   end
       #
+      # This cop can be customized with an allowed expectation methods pattern
+      # with an `AllowedPatterns` option. ^expect_ and ^assert_ are allowed
+      # by default.
+      #
+      # @example `AllowedPatterns` configuration
+      #
+      #   # .rubocop.yml
+      #   # RSpec/NoExpectationExample:
+      #   #   AllowedPatterns:
+      #   #     - ^expect_
+      #   #     - ^assert_
+      #
+      # @example
+      #   # bad
+      #   it do
+      #     not_expect_something
+      #   end
+      #
+      #   # good
+      #   it do
+      #     expect_something
+      #   end
+      #
+      #   it do
+      #     assert_something
+      #   end
+      #
       class NoExpectationExample < Base
+        include AllowedPattern
         MSG = 'No expectation found in this example.'
 
         # @!method regular_or_focused_example?(node)
@@ -41,26 +69,28 @@ module RuboCop
           }
         PATTERN
 
-        # @!method including_any_expectation?(node)
+        # @!method includes_expectation?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
-        def_node_search(
-          :including_any_expectation?,
-          send_pattern('#Expectations.all')
-        )
+        def_node_search :includes_expectation?, <<~PATTERN
+          {
+            #{send_pattern('#Expectations.all')}
+            (send nil? `#matches_allowed_pattern?)
+          }
+        PATTERN
 
-        # @!method including_any_skip_example?(node)
+        # @!method includes_skip_example?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
-        def_node_search :including_any_skip_example?, <<~PATTERN
+        def_node_search :includes_skip_example?, <<~PATTERN
           (send nil? {:pending :skip} ...)
         PATTERN
 
         # @param [RuboCop::AST::BlockNode] node
         def on_block(node)
           return unless regular_or_focused_example?(node)
-          return if including_any_expectation?(node)
-          return if including_any_skip_example?(node)
+          return if includes_expectation?(node)
+          return if includes_skip_example?(node)
 
           add_offense(node)
         end

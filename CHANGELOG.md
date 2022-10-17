@@ -6,6 +6,7 @@
 * Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah][])
 * Update `RSpec/ExampleWording` cop to raise error for insufficient descriptions. ([@akrox58][])
 * Add new `RSpec/Capybara/NegationMatcher` cop. ([@ydah][])
+* Add `AllowedPatterns` configuration option to `RSpec/NoExpectationExample`.  ([@ydah][])
 
 ## 2.13.2 (2022-09-23)
 
