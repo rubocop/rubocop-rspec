@@ -57,6 +57,8 @@ module RuboCop
       #
       class NoExpectationExample < Base
         include AllowedPattern
+        include SkipOrPending
+
         MSG = 'No expectation found in this example.'
 
         # @!method regular_or_focused_example?(node)
@@ -91,6 +93,7 @@ module RuboCop
           return unless regular_or_focused_example?(node)
           return if includes_expectation?(node)
           return if includes_skip_example?(node)
+          return if skipped_in_metadata?(node.send_node)
 
           add_offense(node)
         end
