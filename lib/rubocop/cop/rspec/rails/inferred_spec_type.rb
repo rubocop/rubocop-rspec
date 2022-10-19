@@ -6,6 +6,11 @@ module RuboCop
       module Rails
         # Identifies redundant spec type.
         #
+        # After setting up rspec-rails, you will have enabled
+        # `config.infer_spec_type_from_file_location!` by default in
+        # spec/rails_helper.rb. This cop works in conjunction with this config.
+        # If you disable this config, disable this cop as well.
+        #
         # @safety
         #   This cop is marked as unsafe because
         #   `config.infer_spec_type_from_file_location!` may not be enabled.
