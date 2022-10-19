@@ -33,6 +33,8 @@ module RuboCop
       #   end
       #
       class Pending < Base
+        include SkipOrPending
+
         MSG = 'Pending spec found.'
 
         # @!method skippable?(node)
@@ -40,17 +42,6 @@ module RuboCop
                          send_pattern(<<~PATTERN)
                            {#ExampleGroups.regular #Examples.regular}
                          PATTERN
-
-        # @!method skipped_in_metadata?(node)
-        def_node_matcher :skipped_in_metadata?, <<-PATTERN
-          {
-            (send _ _ <#skip_or_pending? ...>)
-            (send _ _ ... (hash <(pair #skip_or_pending? { true str }) ...>))
-          }
-        PATTERN
-
-        # @!method skip_or_pending?(node)
-        def_node_matcher :skip_or_pending?, '{(sym :skip) (sym :pending)}'
 
         # @!method pending_block?(node)
         def_node_matcher :pending_block?,

@@ -137,6 +137,23 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
     end
   end
 
+  it 'registers no offense for skipped/pending with metadata' do
+    expect_no_offenses(<<~RUBY)
+      it 'is skipped', :skip do
+        foo
+      end
+      it 'is skipped', skip: true do
+        foo
+      end
+      it 'is pending', :pending do
+        foo
+      end
+      it 'is pending', pending: true do
+        foo
+      end
+    RUBY
+  end
+
   context 'when `AllowedPatterns: [^expect_]`' do
     let(:cop_config) { { 'AllowedPatterns' => ['^expect_'] } }
 

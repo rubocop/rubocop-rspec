@@ -23,6 +23,7 @@ require_relative 'rubocop/cop/rspec/mixin/empty_line_separation'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
 require_relative 'rubocop/cop/rspec/mixin/namespace'
 require_relative 'rubocop/cop/rspec/mixin/css_selector'
+require_relative 'rubocop/cop/rspec/mixin/skip_or_pending'
 
 require_relative 'rubocop/rspec/concept'
 require_relative 'rubocop/rspec/example_group'
