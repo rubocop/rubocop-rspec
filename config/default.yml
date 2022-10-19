@@ -913,6 +913,22 @@ RSpec/FactoryBot:
   Include: *1
   Language: *2
 
+RSpec/FactoryBot/AssociationStyle:
+  Description: Use consistent style to define associations.
+  Enabled: pending
+  Safe: false
+  Include:
+    - spec/factories.rb
+    - spec/factories/**/*.rb
+    - features/support/factories/**/*.rb
+  VersionAdded: "<<next>>"
+  EnforcedStyle: implicit
+  SupportedStyles:
+    - explicit
+    - implicit
+  NonImplicitAssociationMethodNames: ~
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AssociationStyle
+
 RSpec/FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true

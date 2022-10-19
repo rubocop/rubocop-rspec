@@ -1,5 +1,74 @@
 = RSpec/FactoryBot
 
+== RSpec/FactoryBot/AssociationStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| No
+| Yes (Unsafe)
+| <<next>>
+| -
+|===
+
+Use consistent style to define associations.
+
+=== Safety
+
+This cop may cause false-positives in `EnforcedStyle: explicit`
+case. It recognizes any method call that has no arguments as an
+implicit association but it might be a user-defined trait call.
+
+=== Examples
+
+==== EnforcedStyle: implicit (default)
+
+[source,ruby]
+----
+# bad
+association :user
+
+# good
+user
+----
+
+==== EnforcedStyle: explicit
+
+[source,ruby]
+----
+# bad
+user
+
+# good
+association :user
+
+# good (NonImplicitAssociationMethodNames: ['email'])
+email
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Include
+| `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
+| Array
+
+| EnforcedStyle
+| `implicit`
+| `explicit`, `implicit`
+
+| NonImplicitAssociationMethodNames
+| `<none>`
+| 
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AssociationStyle
+
 == RSpec/FactoryBot/AttributeDefinedStatically
 
 |===

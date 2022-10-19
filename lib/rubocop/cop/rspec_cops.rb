@@ -8,6 +8,7 @@ require_relative 'rspec/capybara/specific_finders'
 require_relative 'rspec/capybara/specific_matcher'
 require_relative 'rspec/capybara/visibility_matcher'
 
+require_relative 'rspec/factory_bot/association_style'
 require_relative 'rspec/factory_bot/attribute_defined_statically'
 require_relative 'rspec/factory_bot/consistent_parentheses_style'
 require_relative 'rspec/factory_bot/create_list'
