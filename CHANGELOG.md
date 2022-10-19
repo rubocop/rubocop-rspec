@@ -7,11 +7,12 @@
 * Update `RSpec/ExampleWording` cop to raise error for insufficient descriptions. ([@akrox58][])
 * Add new `RSpec/Capybara/NegationMatcher` cop. ([@ydah][])
 * Add `AllowedPatterns` configuration option to `RSpec/NoExpectationExample`.  ([@ydah][])
-* Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metatada.  ([@pirj][])
+* Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metadata.  ([@pirj][])
 * Add `RSpec/FactoryBot/ConsistentParenthesesStyle` cop. ([@Liberatys][])
 * Add `RSpec/Rails/InferredSpecType` cop. ([@r7kamura][])
 * Add new `RSpec/Capybara/SpecificActions` cop. ([@ydah][])
 * Update `config/default.yml` removing deprecated option to make the config correctable by users. ([@ignaciovillaverde][])
+* Do not attempt to auto-correct example groups with `include_examples` in `RSpec/LetBeforeExamples`. ([@pirj][])
 
 ## 2.13.2 (2022-09-23)
 
