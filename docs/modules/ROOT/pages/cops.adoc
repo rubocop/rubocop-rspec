@@ -103,6 +103,7 @@
 === Department xref:cops_rspec_factorybot.adoc[RSpec/FactoryBot]
 
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
+* xref:cops_rspec_factorybot.adoc#rspecfactorybot/consistentparenthesesstyle[RSpec/FactoryBot/ConsistentParenthesesStyle]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/syntaxmethods[RSpec/FactoryBot/SyntaxMethods]

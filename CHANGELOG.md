@@ -8,6 +8,7 @@
 * Add new `RSpec/Capybara/NegationMatcher` cop. ([@ydah][])
 * Add `AllowedPatterns` configuration option to `RSpec/NoExpectationExample`.  ([@ydah][])
 * Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metatada.  ([@pirj][])
+* Add `RSpec/FactoryBot/ConsistentParenthesesStyle` cop. ([@Liberatys][])
 
 ## 2.13.2 (2022-09-23)
 
@@ -704,6 +705,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@koic]: https://github.com/koic
 [@lazycoder9]: https://github.com/lazycoder9
 [@leoarnold]: https://github.com/leoarnold
+[@Liberatys]: https://github.com/Liberatys
 [@lokhi]: https://github.com/lokhi
 [@luke-hill]: https://github.com/luke-hill
 [@M-Yamashita01]: https://github.com/M-Yamashita01
