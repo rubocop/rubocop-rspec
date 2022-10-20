@@ -12,7 +12,4 @@ gem 'rubocop-rake', '~> 0.6'
 gem 'yard'
 
 local_gemfile = 'Gemfile.local'
-
-if File.exist?(local_gemfile)
-  eval(File.read(local_gemfile)) # rubocop:disable Security/Eval
-end
+eval_gemfile(local_gemfile) if File.exist?(local_gemfile)
