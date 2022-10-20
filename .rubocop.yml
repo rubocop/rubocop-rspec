@@ -126,6 +126,8 @@ RSpec/VerifiedDoubleReference:
   Enabled: true
 RSpec/Capybara/NegationMatcher:
   Enabled: true
+RSpec/Capybara/SpecificActions:
+  Enabled: true
 RSpec/Capybara/SpecificFinders:
   Enabled: true
 RSpec/Capybara/SpecificMatcher:

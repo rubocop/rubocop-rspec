@@ -168,6 +168,41 @@ expect(page).to have_no_css('a')
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
 
+== RSpec/Capybara/SpecificActions
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| 2.14
+| -
+|===
+
+Checks for there is a more specific actions offered by Capybara.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+find('a').click
+find('button.cls').click
+find('a', exact_text: 'foo').click
+find('div button').click
+
+# good
+click_link
+click_button(class: 'cls')
+click_link(exact_text: 'foo')
+find('div').click_button
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificActions
+
 == RSpec/Capybara/SpecificFinders
 
 |===
