@@ -43,6 +43,14 @@ module RuboCop
           }
         PATTERN
 
+        # @!method include_examples?(node)
+        def_node_matcher :include_examples?, <<~PATTERN
+          {
+            #{block_pattern(':include_examples')}
+            #{send_pattern(':include_examples')}
+          }
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group_with_body?(node)
 
@@ -50,6 +58,10 @@ module RuboCop
         end
 
         private
+
+        def example_group_with_include_examples?(body)
+          body.children.any? { |sibling| include_examples?(sibling) }
+        end
 
         def multiline_block?(block)
           block.begin_type?
@@ -59,11 +71,13 @@ module RuboCop
           first_example = find_first_example(node)
           return unless first_example
 
+          correct = !example_group_with_include_examples?(node)
+
           first_example.right_siblings.each do |sibling|
             next unless let?(sibling)
 
             add_offense(sibling) do |corrector|
-              autocorrect(corrector, sibling, first_example)
+              autocorrect(corrector, sibling, first_example) if correct
             end
           end
         end
