@@ -13,6 +13,7 @@
 * Add new `RSpec/Capybara/SpecificActions` cop. ([@ydah][])
 * Update `config/default.yml` removing deprecated option to make the config correctable by users. ([@ignaciovillaverde][])
 * Do not attempt to auto-correct example groups with `include_examples` in `RSpec/LetBeforeExamples`. ([@pirj][])
+* Add new `RSpec/SortMetadata` cop. ([@leoarnold][])
 
 ## 2.13.2 (2022-09-23)
 
