@@ -1,5 +1,4 @@
-The MIT License (MIT)
-=====================
+# The MIT License (MIT)
 
 Copyright (c) 2014 Ian MacLeod <ian@nevir.net>
 
