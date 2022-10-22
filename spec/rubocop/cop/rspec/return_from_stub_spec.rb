@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
   end
 
   context 'with EnforcedStyle `and_return`' do
-    let(:enforced_style) { 'and_return' }
+    let(:enforced_style) do
+      'and_return'
+    end
 
     it 'finds static values returned from block' do
       expect_offense(<<-RUBY)
@@ -194,7 +196,9 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
   end
 
   context 'with EnforcedStyle `block`' do
-    let(:enforced_style) { 'block' }
+    let(:enforced_style) do
+      'block'
+    end
 
     it 'registers an offense for static values returned from method' do
       expect_offense(<<-RUBY)

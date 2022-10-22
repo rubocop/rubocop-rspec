@@ -81,7 +81,9 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
   end
 
   context 'when configured' do
-    let(:cop_config) { { 'Prefixes' => %w[if], 'AllowedPatterns' => [] } }
+    let(:cop_config) do
+      { 'Prefixes' => %w[if], 'AllowedPatterns' => [] }
+    end
 
     it 'finds context without allowed prefixes at the beginning' do
       expect_offense(<<-RUBY)
@@ -112,7 +114,9 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
     end
 
     context 'with special regex characters' do
-      let(:cop_config) { { 'Prefixes' => ['a$b\d'], 'AllowedPatterns' => [] } }
+      let(:cop_config) do
+        { 'Prefixes' => ['a$b\d'], 'AllowedPatterns' => [] }
+      end
 
       it 'matches the full prefix' do
         expect_offense(<<-RUBY)

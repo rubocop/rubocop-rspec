@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ExampleLength do
-  let(:cop_config) { { 'Max' => 3 } }
+  let(:cop_config) do
+    { 'Max' => 3 }
+  end
 
   it 'ignores non-spec blocks' do
     expect_no_offenses(<<-RUBY)

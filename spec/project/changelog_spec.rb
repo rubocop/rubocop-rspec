@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe 'CHANGELOG.md' do
-  subject(:changelog) { SpecHelper::ROOT.join('CHANGELOG.md').read }
+  subject(:changelog) do
+    SpecHelper::ROOT.join('CHANGELOG.md').read
+  end
 
   it 'has link definitions for all implicit links' do
     implicit_link_names = changelog.scan(/\[([^\]]+)\]\[\]/).flatten.uniq
@@ -32,9 +34,13 @@ RSpec.describe 'CHANGELOG.md' do
   end
 
   describe 'entry' do
-    subject(:entries) { lines.grep(/^\*/).map(&:chomp) }
+    subject(:entries) do
+      lines.grep(/^\*/).map(&:chomp)
+    end
 
-    let(:lines) { changelog.each_line }
+    let(:lines) do
+      changelog.each_line
+    end
 
     it 'has a whitespace between the * and the body' do
       expect(entries).to all(match(/^\* \S/))

@@ -174,7 +174,9 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
   end
 
   context "with `NegatedMatcher: 'not_change'`" do
-    let(:cop_config) { { 'NegatedMatcher' => 'not_change' } }
+    let(:cop_config) do
+      { 'NegatedMatcher' => 'not_change' }
+    end
 
     it 'registers an offense and autocorrect when ' \
        'the argument to `by` is zero with compound expectations' do

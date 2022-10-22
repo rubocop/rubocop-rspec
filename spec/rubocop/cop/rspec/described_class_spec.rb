@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
-  let(:cop_config) { {} }
+  let(:cop_config) do
+    {}
+  end
 
   context 'when SkipBlocks is `true`' do
-    let(:cop_config) { { 'SkipBlocks' => true } }
+    let(:cop_config) do
+      { 'SkipBlocks' => true }
+    end
 
     it 'ignores violations within non-rspec blocks' do
       expect_offense(<<-RUBY)
@@ -50,7 +54,9 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   context 'when EnforcedStyle is :described_class' do
-    let(:cop_config) { { 'EnforcedStyle' => :described_class } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => :described_class }
+    end
 
     it 'flags for the use of the described class' do
       expect_offense(<<-RUBY)
@@ -291,7 +297,9 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   context 'when EnforcedStyle is :explicit' do
-    let(:cop_config) { { 'EnforcedStyle' => :explicit } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => :explicit }
+    end
 
     it 'flags the use of the described_class' do
       expect_offense(<<-RUBY)

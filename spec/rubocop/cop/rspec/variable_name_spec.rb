@@ -2,7 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::VariableName do
   context 'when configured for `snake_case`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'snake_case' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'snake_case' }
+    end
 
     context 'when `let` with symbol names' do
       it 'registers an offense for camelCase' do
@@ -126,7 +128,9 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
   end
 
   context 'when configured for `camelCase`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'camelCase' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'camelCase' }
+    end
 
     context 'when `let`' do
       it 'registers an offense for snake_case' do

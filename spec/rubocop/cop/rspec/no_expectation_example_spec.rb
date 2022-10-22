@@ -155,7 +155,9 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
   end
 
   context 'when `AllowedPatterns: [^expect_]`' do
-    let(:cop_config) { { 'AllowedPatterns' => ['^expect_'] } }
+    let(:cop_config) do
+      { 'AllowedPatterns' => ['^expect_'] }
+    end
 
     context 'when only allowed pattern methods are used' do
       it 'registers no offenses' do

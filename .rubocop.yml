@@ -118,6 +118,8 @@ RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
+RSpec/MemoizedHelperBlockDelimiter:
+  Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/SortMetadata:

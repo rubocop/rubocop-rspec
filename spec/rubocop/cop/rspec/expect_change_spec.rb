@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
   end
 
   context 'with EnforcedStyle `method_call`' do
-    let(:enforced_style) { 'method_call' }
+    let(:enforced_style) do
+      'method_call'
+    end
 
     it 'flags blocks that contain simple message sending' do
       expect_offense(<<-RUBY)
@@ -119,7 +121,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
   end
 
   context 'with EnforcedStyle `block`' do
-    let(:enforced_style) { 'block' }
+    let(:enforced_style) do
+      'block'
+    end
 
     it 'flags change matcher without block' do
       expect_offense(<<-RUBY)

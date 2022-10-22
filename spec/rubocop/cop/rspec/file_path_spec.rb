@@ -249,7 +249,9 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
   end
 
   context 'when configured with CustomTransform' do
-    let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
+    let(:cop_config) do
+      { 'CustomTransform' => { 'FooFoo' => 'foofoo' } }
+    end
 
     it 'does not register an offense for custom module name transformation' do
       expect_no_offenses(<<-RUBY, 'foofoo/some/class/bar_spec.rb')
@@ -265,7 +267,9 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
   end
 
   context 'when configured with IgnoreMethods' do
-    let(:cop_config) { { 'IgnoreMethods' => true } }
+    let(:cop_config) do
+      { 'IgnoreMethods' => true }
+    end
 
     it 'does not register an offense for the described method' do
       expect_no_offenses(<<-RUBY, 'my_class_spec.rb')
@@ -275,7 +279,9 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
   end
 
   context 'when configured with SpecSuffixOnly' do
-    let(:cop_config) { { 'SpecSuffixOnly' => true } }
+    let(:cop_config) do
+      { 'SpecSuffixOnly' => true }
+    end
 
     it 'does not register an offense for the described class' do
       expect_no_offenses(<<-RUBY, 'whatever_spec.rb')

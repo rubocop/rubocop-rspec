@@ -2800,6 +2800,78 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+== RSpec/MemoizedHelperBlockDelimiter
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Use consistent style block delimiters for memoized helpers.
+
+=== Examples
+
+==== EnforcedStyle: do_end (default)
+
+[source,ruby]
+----
+# bad
+let(:foo) { 'bar' }
+
+# good
+let(:foo) do
+  'bar'
+end
+
+# bad
+subject(:foo) { 'bar' }
+
+# good
+subject(:foo) do
+  'bar'
+end
+----
+
+==== EnforcedStyle: braces
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  'bar'
+end
+
+# good
+let(:foo) { 'bar' }
+
+# bad
+subject(:foo) do
+  'bar'
+end
+
+# good
+subject(:foo) { 'bar' }
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `do_end`
+| `braces`, `do_end`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedHelperBlockDelimiter
+
 == RSpec/MessageChain
 
 |===

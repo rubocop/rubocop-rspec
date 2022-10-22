@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Base do
-  let(:cop_class) { RuboCop::RSpec::FakeCop }
-  let(:cop_config) { { 'Exclude' => %w[bar_spec.rb] } }
+  let(:cop_class) do
+    RuboCop::RSpec::FakeCop
+  end
+  let(:cop_config) do
+    { 'Exclude' => %w[bar_spec.rb] }
+  end
 
   before do
     stub_const('RuboCop::RSpec::FakeCop',
@@ -89,7 +93,9 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
                  end)
     end
 
-    let(:cop_class) { RuboCop::RSpec::ExampleGroupHaterCop }
+    let(:cop_class) do
+      RuboCop::RSpec::ExampleGroupHaterCop
+    end
 
     shared_examples_for 'it detects `describe`' do
       it 'detects `describe` as an example group' do

@@ -6,7 +6,9 @@ RSpec.shared_examples 'smoke test', type: :cop_spec do
     # (so it is referenced in the 'config' shared context) but do not define
     # all of the dependent configuration options until inside of a context
     # that is out of scope, causing a NameError.
-    let(:cop_config) { {} }
+    let(:cop_config) do
+      {}
+    end
 
     stress_tests = Pathname.glob('spec/smoke_tests/*.rb')
 

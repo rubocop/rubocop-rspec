@@ -318,7 +318,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
   end
 
   context 'when inspecting rspec-rails routing specs' do
-    let(:cop_config) { {} }
+    let(:cop_config) do
+      {}
+    end
 
     it 'ignores rspec-rails routing specs' do
       expect_no_offenses(

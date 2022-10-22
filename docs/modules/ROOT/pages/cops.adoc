@@ -52,6 +52,7 @@
 * xref:cops_rspec.adoc#rspecleakyconstantdeclaration[RSpec/LeakyConstantDeclaration]
 * xref:cops_rspec.adoc#rspecletbeforeexamples[RSpec/LetBeforeExamples]
 * xref:cops_rspec.adoc#rspecletsetup[RSpec/LetSetup]
+* xref:cops_rspec.adoc#rspecmemoizedhelperblockdelimiter[RSpec/MemoizedHelperBlockDelimiter]
 * xref:cops_rspec.adoc#rspecmessagechain[RSpec/MessageChain]
 * xref:cops_rspec.adoc#rspecmessageexpectation[RSpec/MessageExpectation]
 * xref:cops_rspec.adoc#rspecmessagespies[RSpec/MessageSpies]

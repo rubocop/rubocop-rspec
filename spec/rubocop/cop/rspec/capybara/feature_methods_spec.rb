@@ -133,7 +133,9 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
   end
 
   context 'with configured `EnabledMethods`' do
-    let(:cop_config) { { 'EnabledMethods' => %w[feature] } }
+    let(:cop_config) do
+      { 'EnabledMethods' => %w[feature] }
+    end
 
     it 'ignores usage of the enabled method' do
       expect_no_offenses(<<-RUBY)

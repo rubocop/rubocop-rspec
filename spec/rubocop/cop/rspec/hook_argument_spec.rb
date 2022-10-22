@@ -36,7 +36,9 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   end
 
   context 'when EnforcedStyle is :implicit' do
-    let(:enforced_style) { :implicit }
+    let(:enforced_style) do
+      :implicit
+    end
 
     it 'detects :each for hooks' do
       expect_offense(<<-RUBY)
@@ -121,7 +123,9 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   end
 
   context 'when EnforcedStyle is :each' do
-    let(:enforced_style) { :each }
+    let(:enforced_style) do
+      :each
+    end
 
     it 'does not flag :each for hooks' do
       expect_no_offenses(<<-RUBY)
@@ -206,7 +210,9 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   end
 
   context 'when EnforcedStyle is :example' do
-    let(:enforced_style) { :example }
+    let(:enforced_style) do
+      :example
+    end
 
     it 'does not flag :example for hooks' do
       expect_no_offenses(<<-RUBY)

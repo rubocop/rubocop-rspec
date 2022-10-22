@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
   end
 
   context 'when EnforcedStyle is :enforce_parentheses' do
-    let(:enforced_style) { :require_parentheses }
+    let(:enforced_style) do
+      :require_parentheses
+    end
 
     context 'with create' do
       it 'flags the call to use parentheses' do
@@ -134,7 +136,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
   end
 
   context 'when EnforcedStyle is :omit_parentheses' do
-    let(:enforced_style) { :omit_parentheses }
+    let(:enforced_style) do
+      :omit_parentheses
+    end
 
     context 'with create' do
       it 'flags the call to not use parentheses' do

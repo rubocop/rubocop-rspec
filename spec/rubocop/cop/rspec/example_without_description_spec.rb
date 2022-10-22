@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
   end
 
   context 'with EnforcedStyle `always_allow`' do
-    let(:enforced_style) { 'always_allow' }
+    let(:enforced_style) do
+      'always_allow'
+    end
 
     it 'flags empty strings for description' do
       expect_offense(<<-RUBY)
@@ -35,7 +37,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
   end
 
   context 'with EnforcedStyle `single_line_only`' do
-    let(:enforced_style) { 'single_line_only' }
+    let(:enforced_style) do
+      'single_line_only'
+    end
 
     it 'flags missing description in multi-line examples' do
       expect_offense(<<-RUBY)
@@ -61,7 +65,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
   end
 
   context 'with EnforcedStyle `disallow`' do
-    let(:enforced_style) { 'disallow' }
+    let(:enforced_style) do
+      'disallow'
+    end
 
     it 'flags missing description in multi-line examples' do
       expect_offense(<<-RUBY)

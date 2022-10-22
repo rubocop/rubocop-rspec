@@ -2,7 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
   context 'without configuration' do
-    let(:cop_config) { {} }
+    let(:cop_config) do
+      {}
+    end
 
     it 'flags multiple expectations' do
       expect_offense(<<-RUBY)

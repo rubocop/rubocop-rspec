@@ -3,7 +3,9 @@
 RSpec.describe RuboCop::RSpec::Hook, :config do
   include RuboCop::AST::Sexp
 
-  let(:cop_class) { RuboCop::Cop::RSpec::Base }
+  let(:cop_class) do
+    RuboCop::Cop::RSpec::Base
+  end
 
   # Trigger setting of the `Language` in the case when this spec
   # runs before cops' specs that set it.

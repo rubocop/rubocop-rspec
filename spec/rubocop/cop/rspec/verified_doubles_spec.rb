@@ -11,7 +11,9 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
   end
 
   context 'when configuration does not specify IgnoreSymbolicNames' do
-    let(:cop_config) { {} }
+    let(:cop_config) do
+      {}
+    end
 
     it 'find doubles whose name is a symbol' do
       expect_offense(<<-RUBY)
@@ -33,7 +35,9 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
   end
 
   context 'when configured to ignore symbolic names' do
-    let(:cop_config) { { 'IgnoreSymbolicNames' => true } }
+    let(:cop_config) do
+      { 'IgnoreSymbolicNames' => true }
+    end
 
     it 'ignores doubles whose name is a symbol' do
       expect_no_offenses(<<-RUBY)
@@ -54,7 +58,9 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
   end
 
   context 'when configured not to ignore nameless doubles' do
-    let(:cop_config) { { 'IgnoreNameless' => false } }
+    let(:cop_config) do
+      { 'IgnoreNameless' => false }
+    end
 
     it 'flags doubles that have no name specified' do
       expect_offense(<<-RUBY)

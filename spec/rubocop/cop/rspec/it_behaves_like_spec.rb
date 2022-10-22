@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::ItBehavesLike do
   end
 
   context 'when the enforced style is `it_behaves_like`' do
-    let(:enforced_style) { :it_behaves_like }
+    let(:enforced_style) do
+      :it_behaves_like
+    end
 
     it 'flags a violation for it_should_behave_like' do
       expect_offense(<<-RUBY)
@@ -25,7 +27,9 @@ RSpec.describe RuboCop::Cop::RSpec::ItBehavesLike do
   end
 
   context 'when the enforced style is `it_should_behave_like`' do
-    let(:enforced_style) { :it_should_behave_like }
+    let(:enforced_style) do
+      :it_should_behave_like
+    end
 
     it 'flags a violation for it_behaves_like' do
       expect_offense(<<-RUBY)

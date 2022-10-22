@@ -558,6 +558,16 @@ RSpec/LetSetup:
   VersionAdded: '1.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+RSpec/MemoizedHelperBlockDelimiter:
+  Description: Use consistent style block delimiters for memoized helpers.
+  Enabled: pending
+  EnforcedStyle: do_end
+  SupportedStyles:
+    - braces
+    - do_end
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MemoizedHelperBlockDelimiter
+
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
   Enabled: true

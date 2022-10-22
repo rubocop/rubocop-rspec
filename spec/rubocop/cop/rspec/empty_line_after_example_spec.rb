@@ -248,7 +248,9 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   context 'when AllowConsecutiveOneLiners is false' do
-    let(:cop_config) { { 'AllowConsecutiveOneLiners' => false } }
+    let(:cop_config) do
+      { 'AllowConsecutiveOneLiners' => false }
+    end
 
     it 'ignores consecutive one-liners' do
       expect_offense(<<-RUBY)

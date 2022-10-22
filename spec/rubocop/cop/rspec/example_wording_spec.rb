@@ -213,7 +213,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   context 'when `DisallowedExamples: Workz`' do
-    let(:cop_config) { { 'DisallowedExamples' => ['Workz'] } }
+    let(:cop_config) do
+      { 'DisallowedExamples' => ['Workz'] }
+    end
 
     it 'finds a valid sentence across two lines' do
       expect_no_offenses(<<-'RUBY')

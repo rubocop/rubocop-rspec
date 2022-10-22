@@ -2,7 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
   context 'when EnforcedStyle is `symbolic`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'symbolic' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'symbolic' }
+    end
 
     it 'registers an offense when using numeric value' do
       expect_offense(<<-RUBY)
@@ -42,7 +44,9 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
   end
 
   context 'when EnforcedStyle is `numeric`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'numeric' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'numeric' }
+    end
 
     it 'registers an offense when using symbolic value' do
       expect_offense(<<-RUBY)

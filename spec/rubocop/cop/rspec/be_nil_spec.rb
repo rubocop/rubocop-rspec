@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::BeNil do
   end
 
   context 'with EnforcedStyle `be_nil`' do
-    let(:enforced_style) { 'be_nil' }
+    let(:enforced_style) do
+      'be_nil'
+    end
 
     it 'registers an offense when using `#be` for `nil` value' do
       expect_offense(<<~RUBY)
@@ -37,7 +39,9 @@ RSpec.describe RuboCop::Cop::RSpec::BeNil do
   end
 
   context 'with EnforcedStyle `be`' do
-    let(:enforced_style) { 'be' }
+    let(:enforced_style) do
+      'be'
+    end
 
     it 'does not register an offense when using `#be` for `nil` value' do
       expect_no_offenses(<<~RUBY)

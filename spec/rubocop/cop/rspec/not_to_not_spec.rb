@@ -2,7 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::NotToNot do
   context 'when EnforcedStyle is `not_to`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'not_to' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'not_to' }
+    end
 
     it 'detects the `to_not` offense' do
       expect_offense(<<-RUBY)
@@ -38,7 +40,9 @@ RSpec.describe RuboCop::Cop::RSpec::NotToNot do
   end
 
   context 'when AcceptedMethod is `to_not`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'to_not' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'to_not' }
+    end
 
     it 'detects the `not_to` offense' do
       expect_offense(<<-RUBY)

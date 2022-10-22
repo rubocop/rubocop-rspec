@@ -61,7 +61,9 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   end
 
   context 'when IgnoreSharedExamples is false' do
-    let(:cop_config) { { 'IgnoreSharedExamples' => false } }
+    let(:cop_config) do
+      { 'IgnoreSharedExamples' => false }
+    end
 
     it_behaves_like 'checking subject outside of shared examples'
 
@@ -92,7 +94,9 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   end
 
   context 'when IgnoreSharedExamples is true' do
-    let(:cop_config) { { 'IgnoreSharedExamples' => true } }
+    let(:cop_config) do
+      { 'IgnoreSharedExamples' => true }
+    end
 
     it_behaves_like 'checking subject outside of shared examples'
 

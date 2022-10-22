@@ -379,7 +379,9 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
   end
 
   context 'when AllowConsecutiveOneLiners option `false`' do
-    let(:cop_config) { { 'AllowConsecutiveOneLiners' => false } }
+    let(:cop_config) do
+      { 'AllowConsecutiveOneLiners' => false }
+    end
 
     include_examples 'always require empty line after hook groups'
     include_examples 'never allows consecutive multiline blocks'

@@ -3,9 +3,13 @@
 RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
   include RuboCop::AST::Sexp
 
-  subject(:group) { described_class.new(parse_source(source).ast) }
+  subject(:group) do
+    described_class.new(parse_source(source).ast)
+  end
 
-  let(:cop_class) { RuboCop::Cop::RSpec::Base }
+  let(:cop_class) do
+    RuboCop::Cop::RSpec::Base
+  end
 
   let(:source) do
     <<-RUBY

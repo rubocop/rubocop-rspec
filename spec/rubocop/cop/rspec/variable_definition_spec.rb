@@ -2,7 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
   context 'when EnforcedStyle is `symbols`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'symbols' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'symbols' }
+    end
 
     it 'registers an offense for string name' do
       expect_offense(<<~RUBY)
@@ -36,7 +38,9 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
   end
 
   context 'when EnforcedStyle is `strings`' do
-    let(:cop_config) { { 'EnforcedStyle' => 'strings' } }
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'strings' }
+    end
 
     it 'registers an offense for symbol name' do
       expect_offense(<<~RUBY)

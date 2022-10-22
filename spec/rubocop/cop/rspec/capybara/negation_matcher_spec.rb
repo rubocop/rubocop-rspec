@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Capybara::NegationMatcher, :config do
-  let(:cop_config) { { 'EnforcedStyle' => enforced_style } }
+  let(:cop_config) do
+    { 'EnforcedStyle' => enforced_style }
+  end
 
   context 'with EnforcedStyle `have_no`' do
-    let(:enforced_style) { 'have_no' }
+    let(:enforced_style) do
+      'have_no'
+    end
 
     %i[selector css xpath text title current_path link button
        field checked_field unchecked_field select table
@@ -50,7 +54,9 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::NegationMatcher, :config do
   end
 
   context 'with EnforcedStyle `not_to`' do
-    let(:enforced_style) { 'not_to' }
+    let(:enforced_style) do
+      'not_to'
+    end
 
     %i[selector css xpath text title current_path link button
        field checked_field unchecked_field select table

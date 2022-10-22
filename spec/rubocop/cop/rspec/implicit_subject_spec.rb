@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
   end
 
   context 'with EnforcedStyle `single_line_only`' do
-    let(:enforced_style) { 'single_line_only' }
+    let(:enforced_style) do
+      'single_line_only'
+    end
 
     it 'flags `is_expected` in multi-line examples' do
       expect_offense(<<-RUBY)
@@ -88,7 +90,9 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
   end
 
   context 'with EnforcedStyle `single_statement_only`' do
-    let(:enforced_style) { 'single_statement_only' }
+    let(:enforced_style) do
+      'single_statement_only'
+    end
 
     it 'allows `is_expected` in multi-line example with single statement' do
       expect_no_offenses(<<-RUBY)
@@ -117,7 +121,9 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
   end
 
   context 'with EnforcedStyle `disallow`' do
-    let(:enforced_style) { 'disallow' }
+    let(:enforced_style) do
+      'disallow'
+    end
 
     it 'flags `is_expected` in multi-line examples' do
       expect_offense(<<-RUBY)
@@ -185,7 +191,9 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
   end
 
   context 'with EnforcedStyle `require_implicit`' do
-    let(:enforced_style) { 'require_implicit' }
+    let(:enforced_style) do
+      'require_implicit'
+    end
 
     context 'with `is_expected`' do
       it 'does not register an offense' do

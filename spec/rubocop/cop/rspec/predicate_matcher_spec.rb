@@ -6,10 +6,14 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       'Strict' => strict,
       'AllowedExplicitMatchers' => allowed_explicit_matchers }
   end
-  let(:allowed_explicit_matchers) { [] }
+  let(:allowed_explicit_matchers) do
+    []
+  end
 
   context 'when enforced style is `inflected`' do
-    let(:enforced_style) { 'inflected' }
+    let(:enforced_style) do
+      'inflected'
+    end
 
     shared_examples 'inflected common' do
       it 'registers an offense for a predicate method in actual' do
@@ -164,7 +168,9 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
     end
 
     context 'when strict is true' do
-      let(:strict) { true }
+      let(:strict) do
+        true
+      end
 
       include_examples 'inflected common'
 
@@ -180,7 +186,9 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
     end
 
     context 'when strict is false' do
-      let(:strict) { false }
+      let(:strict) do
+        false
+      end
 
       include_examples 'inflected common'
 
@@ -221,7 +229,9 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
   end
 
   context 'when enforced style is `explicit`' do
-    let(:enforced_style) { 'explicit' }
+    let(:enforced_style) do
+      'explicit'
+    end
 
     shared_examples 'explicit common' do
       it 'registers an offense for a predicate mather' do
@@ -271,7 +281,9 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       end
 
       context 'when custom matchers are allowed' do
-        let(:allowed_explicit_matchers) { ['have_http_status'] }
+        let(:allowed_explicit_matchers) do
+          ['have_http_status']
+        end
 
         it 'accepts custom allowed explicit matchers' do
           expect_no_offenses(<<-RUBY)
@@ -348,14 +360,18 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
     end
 
     context 'when strict is true' do
-      let(:strict) { true }
+      let(:strict) do
+        true
+      end
 
       include_examples 'explicit common'
       include_examples 'explicit autocorrect', 'be(true)', 'be(false)'
     end
 
     context 'when strict is false' do
-      let(:strict) { false }
+      let(:strict) do
+        false
+      end
 
       include_examples 'explicit common'
       include_examples 'explicit autocorrect', 'be_truthy', 'be_falsey'

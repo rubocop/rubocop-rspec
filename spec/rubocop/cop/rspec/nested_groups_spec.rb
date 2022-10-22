@@ -98,7 +98,9 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   context 'when Max is configured as 2' do
-    let(:cop_config) { { 'Max' => '2' } }
+    let(:cop_config) do
+      { 'Max' => '2' }
+    end
 
     it 'flags two levels of nesting' do
       expect_offense(<<-RUBY)
@@ -117,7 +119,9 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   context 'when configured with MaxNesting' do
-    let(:cop_config) { { 'MaxNesting' => '1' } }
+    let(:cop_config) do
+      { 'MaxNesting' => '1' }
+    end
 
     it 'emits a deprecation warning' do
       expect { inspect_source('describe(Foo) { }', 'foo_spec.rb') }
@@ -145,7 +149,9 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   context 'when AllowedGroups is configured as' do
-    let(:cop_config) { { 'AllowedGroups' => ['path'] } }
+    let(:cop_config) do
+      { 'AllowedGroups' => ['path'] }
+    end
 
     it 'accept nested example groups defined inside `describe`' \
        'path is not counted' do

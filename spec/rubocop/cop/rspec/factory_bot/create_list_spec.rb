@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
   end
 
   context 'when EnforcedStyle is :create_list' do
-    let(:enforced_style) { :create_list }
+    let(:enforced_style) do
+      :create_list
+    end
 
     it 'flags usage of n.times with no arguments' do
       expect_offense(<<~RUBY)
@@ -192,7 +194,9 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
   end
 
   context 'when EnforcedStyle is :n_times' do
-    let(:enforced_style) { :n_times }
+    let(:enforced_style) do
+      :n_times
+    end
 
     it 'flags usage of create_list' do
       expect_offense(<<~RUBY)
