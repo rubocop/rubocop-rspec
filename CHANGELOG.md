@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
+
 ## 2.14.0 (2022-10-23)
 
 - Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura])
@@ -712,6 +714,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@kellysutton]: https://github.com/kellysutton
 [@koic]: https://github.com/koic
+[@kuahyeow]: https://github.com/kuahyeow
 [@lazycoder9]: https://github.com/lazycoder9
 [@leoarnold]: https://github.com/leoarnold
 [@liberatys]: https://github.com/Liberatys
