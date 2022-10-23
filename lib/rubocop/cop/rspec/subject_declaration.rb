@@ -25,7 +25,7 @@ module RuboCop
 
         # @!method offensive_subject_declaration?(node)
         def_node_matcher :offensive_subject_declaration?, <<~PATTERN
-          (send nil? ${#Subjects.all #Helpers.all} {(sym #Subjects.all) (str #Subjects.all)} ...)
+          (send nil? ${#Subjects.all #Helpers.all} ({sym str} #Subjects.all) ...)
         PATTERN
 
         def on_send(node)
