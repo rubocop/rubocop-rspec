@@ -59,7 +59,7 @@ count { 1 }
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.14
 | -
 |===
 

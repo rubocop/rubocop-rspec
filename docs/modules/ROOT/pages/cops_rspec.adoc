@@ -392,7 +392,7 @@ end
 | Yes
 | Yes
 | 2.11
-| <<next>>
+| 2.14
 |===
 
 Prefer negated matchers over `to change.by(0)`.
@@ -4472,7 +4472,7 @@ allow(foo).to receive("bar.baz")
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.14
 | -
 |===
 
