@@ -13,7 +13,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
     shared_examples 'inflected common' do
       it 'registers an offense for a predicate method in actual' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo.empty?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).not_to be_truthy
@@ -22,145 +22,130 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be_falsey
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).not_to be_falsey
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).not_to a_truthy_value
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo).to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).to be_empty
+          expect(foo).not_to be_empty
         RUBY
       end
 
       it 'registers an offense for a predicate method with built-in equiv' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo.exist?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exist?`.
           expect(foo.exists?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exists?`.
           expect(foo.has_something?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_something` matcher over `has_something?`.
+          expect(foo.has_something?).not_to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_something` matcher over `has_something?`.
           expect(foo.include?(something)).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include` matcher over `include?`.
           expect(foo.respond_to?(:bar)).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `respond_to` matcher over `respond_to?`.
+          expect(foo.something?()).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo).to exist
+          expect(foo).to exist
+          expect(foo).to have_something
+          expect(foo).not_to have_something
+          expect(foo).to include(something)
+          expect(foo).to respond_to(:bar)
+          expect(foo).to be_something()
         RUBY
       end
 
       it 'registers an offense for a predicate method with argument' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo.something?('foo')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
           expect(foo.something?('foo', 'bar')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
+          expect(foo.something? 1, 2).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
           expect(foo.has_key?('foo')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_key` matcher over `has_key?`.
+          expect(foo.is_a?(Array)).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_a` matcher over `is_a?`.
+          expect(foo.instance_of?(Array)).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_an_instance_of` matcher over `instance_of?`.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo).to be_something('foo')
+          expect(foo).to be_something('foo', 'bar')
+          expect(foo).to be_something 1, 2
+          expect(foo).to have_key('foo')
+          expect(foo).to be_a(Array)
+          expect(foo).to be_an_instance_of(Array)
         RUBY
       end
 
       it 'registers an offense for a predicate method with a block' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo.all?(&:present?)).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
           expect(foo.all? { |x| x.present? }).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
+          expect(foo.all?(n) { |x| x.present? }).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
           expect(foo.all? { present }).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
           expect(foo.something?(x) { |y| y.present? }).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
+          expect(foo.all? { }).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
+          expect(foo.all? do; end).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
+
+          expect(foo.all? do |x|
+          ^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
+            x + 1
+            x >= 2
+          end).to be_truthy
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo).to be_all(&:present?)
+          expect(foo).to be_all { |x| x.present? }
+          expect(foo).to be_all(n) { |x| x.present? }
+          expect(foo).to be_all { present }
+          expect(foo).to be_something(x) { |y| y.present? }
+          expect(foo).to be_all { }
+          expect(foo).to be_all do; end
+
+          expect(foo).to be_all do |x|
+            x + 1
+            x >= 2
+          end
         RUBY
       end
 
       it 'accepts a predicate method that is not checked true/false' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           expect(foo.something?).to eq "something"
           expect(foo.has_something?).to eq "something"
         RUBY
       end
 
       it 'accepts non-predicate method' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           expect(foo.something).to be(true)
           expect(foo.has_something).to be(true)
         RUBY
       end
-
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to be_truthy',
-                       'expect(foo).to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be_truthy',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to_not be_truthy',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to be_falsey',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be_falsey',
-                       'expect(foo).to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to a_truthy_value',
-                       'expect(foo).not_to be_empty'
-
-      include_examples 'autocorrect',
-                       'expect(foo.is_a?(Array)).to be_truthy',
-                       'expect(foo).to be_a(Array)'
-
-      include_examples 'autocorrect',
-                       'expect(foo.instance_of?(Array)).to be_truthy',
-                       'expect(foo).to be_an_instance_of(Array)'
-
-      include_examples 'autocorrect',
-                       'expect(foo.has_something?).to be_truthy',
-                       'expect(foo).to have_something'
-      include_examples 'autocorrect',
-                       'expect(foo.has_something?).not_to be_truthy',
-                       'expect(foo).not_to have_something'
-      include_examples 'autocorrect',
-                       'expect(foo.include?(something)).to be_truthy',
-                       'expect(foo).to include(something)'
-      include_examples 'autocorrect',
-                       'expect(foo.respond_to?(:bar)).to be_truthy',
-                       'expect(foo).to respond_to(:bar)'
-      include_examples 'autocorrect',
-                       'expect(foo.exists?).to be_truthy',
-                       'expect(foo).to exist'
-
-      include_examples 'autocorrect',
-                       'expect(foo.something?()).to be_truthy',
-                       'expect(foo).to be_something()'
-      include_examples 'autocorrect',
-                       'expect(foo.something? 1, 2).to be_truthy',
-                       'expect(foo).to be_something 1, 2'
-      include_examples 'autocorrect',
-                       'expect(foo.has_key?("foo")).to be_truthy',
-                       'expect(foo).to have_key("foo")'
-      include_examples 'autocorrect',
-                       'expect(foo.something?(1, 2)).to be_truthy',
-                       'expect(foo).to be_something(1, 2)'
-
-      include_examples 'autocorrect',
-                       'expect(foo.all? { |x| x.present? }).to be_truthy',
-                       'expect(foo).to be_all { |x| x.present? }'
-      include_examples 'autocorrect',
-                       'expect(foo.all?(n) { |x| x.present? }).to be_truthy',
-                       'expect(foo).to be_all(n) { |x| x.present? }'
-      include_examples 'autocorrect',
-                       'expect(foo.all? { present }).to be_truthy',
-                       'expect(foo).to be_all { present }'
-      include_examples 'autocorrect',
-                       'expect(foo.all? { }).to be_truthy',
-                       'expect(foo).to be_all { }'
-      include_examples 'autocorrect',
-                       <<-BEFORE, <<-AFTER
-                         expect(foo.all? do |x|
-                           x + 1
-                           x >= 2
-                         end).to be_truthy
-                       BEFORE
-                         expect(foo).to be_all do |x|
-                           x + 1
-                           x >= 2
-                         end
-                       AFTER
-      include_examples 'autocorrect',
-                       'expect(foo.all? do; end).to be_truthy',
-                       'expect(foo).to be_all do; end'
     end
 
     context 'when strict is true' do
@@ -169,7 +154,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       include_examples 'inflected common'
 
       it 'accepts strict checking boolean matcher' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           expect(foo.empty?).to eq(true)
           expect(foo.empty?).to be(true)
           expect(foo.empty?).to be(false)
@@ -185,9 +170,11 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       include_examples 'inflected common'
 
       it 'registers an offense for a predicate method in actual' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo.empty?).to eq(true)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).not_to be(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be(true)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be(false)
@@ -197,35 +184,25 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           expect(foo.empty?).not_to be false
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
         RUBY
-      end
 
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to eq(true)',
-                       'expect(foo).to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to eq(false)',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to be(true)',
-                       'expect(foo).to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).to be(false)',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be(true)',
-                       'expect(foo).not_to be_empty'
-      include_examples 'autocorrect',
-                       'expect(foo.empty?).not_to be(false)',
-                       'expect(foo).to be_empty'
+        expect_correction(<<~RUBY)
+          expect(foo).to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).not_to be_empty
+          expect(foo).to be_empty
+        RUBY
+      end
     end
   end
 
   context 'when enforced style is `explicit`' do
     let(:enforced_style) { 'explicit' }
 
-    shared_examples 'explicit common' do
+    shared_examples 'explicit' do |matcher_true, matcher_false|
       it 'registers an offense for a predicate mather' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo).to be_empty
           ^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
           expect(foo).not_to be_empty
@@ -236,7 +213,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       end
 
       it 'registers an offense for a predicate mather with argument' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo).to be_something(1, 2)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
           expect(foo).to have_key(1)
@@ -245,7 +222,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       end
 
       it 'registers an offense for a predicate matcher with a block' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           expect(foo).to be_all(&:present?)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
           expect(foo).to be_all { |x| x.present? }
@@ -258,7 +235,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       end
 
       it 'accepts built in matchers' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           expect(foo).to be_truthy
           expect(foo).to be_falsey
           expect(foo).to be_falsy
@@ -274,91 +251,106 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         let(:allowed_explicit_matchers) { ['have_http_status'] }
 
         it 'accepts custom allowed explicit matchers' do
-          expect_no_offenses(<<-RUBY)
+          expect_no_offenses(<<~RUBY)
             expect(foo).to have_http_status(:ok)
           RUBY
         end
       end
 
       it 'accepts non-predicate matcher' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           expect(foo).to be(true)
         RUBY
       end
-    end
 
-    shared_examples 'explicit autocorrect' do |matcher_true, matcher_false|
-      include_examples 'autocorrect',
-                       'expect(foo).to be_something',
-                       "expect(foo.something?).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).not_to be_something',
-                       "expect(foo.something?).to #{matcher_false}"
-      include_examples 'autocorrect',
-                       'expect(foo).to have_something',
-                       "expect(foo.has_something?).to #{matcher_true}"
+      it 'registers an offense for a predicate method with built-in equiv' do
+        expect_offense(<<~RUBY)
+          expect(foo).to be_something
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+          expect(foo).not_to be_something
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+          expect(foo).to have_something
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `has_something?` over `have_something` matcher.
+          expect(foo).to be_a(Array)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `is_a?` over `be_a` matcher.
+          expect(foo).to be_instance_of(Array)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `instance_of?` over `be_instance_of` matcher.
+          expect(foo).to be_something()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+        RUBY
 
-      include_examples 'autocorrect',
-                       'expect(foo).to be_a(Array)',
-                       "expect(foo.is_a?(Array)).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_instance_of(Array)',
-                       "expect(foo.instance_of?(Array)).to #{matcher_true}"
+        expect_correction(<<~RUBY)
+          expect(foo.something?).to #{matcher_true}
+          expect(foo.something?).to #{matcher_false}
+          expect(foo.has_something?).to #{matcher_true}
+          expect(foo.is_a?(Array)).to #{matcher_true}
+          expect(foo.instance_of?(Array)).to #{matcher_true}
+          expect(foo.something?()).to #{matcher_true}
+        RUBY
+      end
 
-      include_examples 'autocorrect',
-                       'expect(foo).to be_something()',
-                       "expect(foo.something?()).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_something(1)',
-                       "expect(foo.something?(1)).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_something(1, 2)',
-                       "expect(foo.something?(1, 2)).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_something 1, 2',
-                       "expect(foo.something? 1, 2).to #{matcher_true}"
+      it 'registers an offense for a predicate method with argument' do
+        expect_offense(<<~RUBY)
+          expect(foo).to be_something(1)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+          expect(foo).to be_something(1, 2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+          expect(foo).to be_something 1, 2
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+        RUBY
 
-      include_examples 'autocorrect',
-                       'expect(foo).to be_all { |x| x.present? }',
-                       "expect(foo.all? { |x| x.present? }).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_all(n) { |x| x.ok? }',
-                       "expect(foo.all?(n) { |x| x.ok? }).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_all { present }',
-                       "expect(foo.all? { present }).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       'expect(foo).to be_all { }',
-                       "expect(foo.all? { }).to #{matcher_true}"
-      include_examples 'autocorrect',
-                       <<-BEFORE, <<-AFTER
-                         expect(foo).to be_all do |x|
-                           x + 1
-                           x >= 2
-                         end
-                       BEFORE
-                         expect(foo.all? do |x|
-                           x + 1
-                           x >= 2
-                         end).to #{matcher_true}
-                       AFTER
-      include_examples 'autocorrect',
-                       'expect(foo).to be_all do; end',
-                       "expect(foo.all? do; end).to #{matcher_true}"
+        expect_correction(<<~RUBY)
+          expect(foo.something?(1)).to #{matcher_true}
+          expect(foo.something?(1, 2)).to #{matcher_true}
+          expect(foo.something? 1, 2).to #{matcher_true}
+        RUBY
+      end
+
+      it 'registers an offense for a predicate method with a block' do
+        expect_offense(<<~RUBY)
+          expect(foo).to be_all { |x| x.present? }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+          expect(foo).to be_all(n) { |x| x.ok? }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+          expect(foo).to be_all { present }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+          expect(foo).to be_all { }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+          expect(foo).to be_all do; end
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+
+          expect(foo).to be_all do |x|
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
+            x + 1
+            x >= 2
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo.all? { |x| x.present? }).to #{matcher_true}
+          expect(foo.all?(n) { |x| x.ok? }).to #{matcher_true}
+          expect(foo.all? { present }).to #{matcher_true}
+          expect(foo.all? { }).to #{matcher_true}
+          expect(foo.all? do; end).to #{matcher_true}
+
+          expect(foo.all? do |x|
+            x + 1
+            x >= 2
+          end).to #{matcher_true}
+        RUBY
+      end
     end
 
     context 'when strict is true' do
       let(:strict) { true }
 
-      include_examples 'explicit common'
-      include_examples 'explicit autocorrect', 'be(true)', 'be(false)'
+      include_examples 'explicit', 'be(true)', 'be(false)'
     end
 
     context 'when strict is false' do
       let(:strict) { false }
 
-      include_examples 'explicit common'
-      include_examples 'explicit autocorrect', 'be_truthy', 'be_falsey'
+      include_examples 'explicit', 'be_truthy', 'be_falsey'
     end
   end
 end
