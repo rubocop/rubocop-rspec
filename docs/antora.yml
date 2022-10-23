@@ -1,5 +1,5 @@
 name: rubocop-rspec
 title: RuboCop RSpec
-version: '2.14'
+version: ~
 nav:
   - modules/ROOT/nav.adoc
