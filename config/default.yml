@@ -194,7 +194,7 @@ RSpec/ChangeByZero:
   Description: Prefer negated matchers over `to change.by(0)`.
   Enabled: pending
   VersionAdded: '2.11'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
   NegatedMatcher: ~
 
@@ -773,7 +773,7 @@ RSpec/SingleArgumentMessageChain:
 RSpec/SortMetadata:
   Description: Sort RSpec metadata alphabetically.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
 RSpec/StubbedMock:
@@ -936,7 +936,7 @@ RSpec/FactoryBot/ConsistentParenthesesStyle:
   SupportedStyles:
     - require_parentheses
     - omit_parentheses
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/ConsistentParenthesesStyle
 
 RSpec/FactoryBot/CreateList:
