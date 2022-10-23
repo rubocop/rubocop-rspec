@@ -1,7 +1,3 @@
-# Changelog
-
-## Master (Unreleased)
-
 - Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura])
 - Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah])
 - Update `RSpec/ExampleWording` cop to raise error for insufficient descriptions. ([@akrox58])
