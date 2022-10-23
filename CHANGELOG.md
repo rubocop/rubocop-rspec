@@ -14,9 +14,7 @@
 - Update `config/default.yml` removing deprecated option to make the config correctable by users. ([@ignaciovillaverde])
 - Do not attempt to auto-correct example groups with `include_examples` in `RSpec/LetBeforeExamples`. ([@pirj])
 - Add new `RSpec/SortMetadata` cop. ([@leoarnold])
-* Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura][])
-* Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah][])
-* Add support for subject! method to `RSpec/SubjectDeclaration`. ([@ydah][])
+- Add support for subject! method to `RSpec/SubjectDeclaration`. ([@ydah][])
 
 ## 2.13.2 (2022-09-23)
 
