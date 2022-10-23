@@ -24,9 +24,11 @@ RSpec.describe 'CHANGELOG.md' do
       expect(contributors.sort_by(&:downcase)).to eq(contributors)
     end
 
-    it 'links to github profiles', :pending do
+    it 'links to github profiles' do
       expect(contributors).to all(
-        match(%r{\A\[@([^\]]+)\]: https://github.com/\1\n\z})
+        # The footnote reference will be lowercase, but the github path can be
+        # mixed case.
+        match(%r{\A\[@([^\]]+)\]: https://github.com/(?i)\1\n\z})
       )
     end
   end
