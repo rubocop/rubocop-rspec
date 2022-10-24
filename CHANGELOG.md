@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.14.1 (2022-10-24)
+
 - Fix an error for `RSpec/Rails/InferredSpecType` with redundant type before other Hash metadata. ([@ydah])
 
 ## 2.14.0 (2022-10-23)

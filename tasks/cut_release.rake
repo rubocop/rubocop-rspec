@@ -49,7 +49,7 @@ namespace :cut_release do
 
     update_cop_versions(new_version)
     `bundle exec rake generate_cops_documentation`
-    update_docs(new_version)
+    update_docs(new_version) if %w[major minor].include?(release_type)
     add_header_to_changelog(new_version)
 
     puts "Changed version from #{old_version} to #{new_version}."
