@@ -18,7 +18,7 @@
 - Update `config/default.yml` removing deprecated option to make the config correctable by users. ([@ignaciovillaverde])
 - Do not attempt to auto-correct example groups with `include_examples` in `RSpec/LetBeforeExamples`. ([@pirj])
 - Add new `RSpec/SortMetadata` cop. ([@leoarnold])
-- Add support for subject! method to `RSpec/SubjectDeclaration`. ([@ydah][])
+- Add support for subject! method to `RSpec/SubjectDeclaration`. ([@ydah])
 
 ## 2.13.2 (2022-09-23)
 
