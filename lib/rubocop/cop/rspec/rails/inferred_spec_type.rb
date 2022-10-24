@@ -11,6 +11,10 @@ module RuboCop
         # spec/rails_helper.rb. This cop works in conjunction with this config.
         # If you disable this config, disable this cop as well.
         #
+        # NOTE: `type: :routing` is a special case, as RSpec Rails' controller
+        #       and scaffold generators add "routing" to the file name, and
+        #       this triggers RSpec/FilePath cop.
+        #
         # @safety
         #   This cop is marked as unsafe because
         #   `config.infer_spec_type_from_file_location!` may not be enabled.

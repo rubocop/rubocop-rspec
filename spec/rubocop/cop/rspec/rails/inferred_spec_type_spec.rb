@@ -119,6 +119,24 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::InferredSpecType do
     end
   end
 
+  describe 'with a type not on the list' do
+    it 'register and corrects an offense' do
+      expect_no_offenses(<<~RUBY, '/path/to/project/spec/alerts/red_spec.rb')
+        RSpec.describe Red, type: :alert do
+        end
+      RUBY
+    end
+  end
+
+  describe 'with a Rails routing type' do
+    it 'register and corrects an offense' do
+      expect_no_offenses(<<~RUBY, '/project/spec/routing/my_routing_spec.rb')
+        RSpec.describe Red, type: :routing do
+        end
+      RUBY
+    end
+  end
+
   describe 'with Inferences configuration' do
     let(:cop_config) do
       {

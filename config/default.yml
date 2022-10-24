@@ -1016,7 +1016,6 @@ RSpec/Rails/InferredSpecType:
     requests: request
     integration: request
     api: request
-    routing: routing
     system: system
     views: view
 
