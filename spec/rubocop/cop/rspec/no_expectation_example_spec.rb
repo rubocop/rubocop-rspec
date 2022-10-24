@@ -165,6 +165,15 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       end
     end
 
+    context 'when only allowed pattern methods with arguments are used' do
+      it 'registers no offenses' do
+        expect_no_offenses(<<~RUBY)
+          it { expect_something(foo, bar) }
+          it { expect_something(foo, bar, baz) }
+        RUBY
+      end
+    end
+
     context 'when allowed pattern methods and other method are used' do
       it 'registers no offenses' do
         expect_no_offenses(<<~RUBY)

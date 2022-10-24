@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/NoExpectationExample` when allowed pattern methods with arguments. ([@ydah])
+
 ## 2.14.1 (2022-10-24)
 
 - Fix an error for `RSpec/Rails/InferredSpecType` with redundant type before other Hash metadata. ([@ydah])
