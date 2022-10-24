@@ -77,7 +77,7 @@ module RuboCop
         def_node_search :includes_expectation?, <<~PATTERN
           {
             #{send_pattern('#Expectations.all')}
-            (send nil? `#matches_allowed_pattern?)
+            (send nil? `#matches_allowed_pattern? ...)
           }
         PATTERN
 
