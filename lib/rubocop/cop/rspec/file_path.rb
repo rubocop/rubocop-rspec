@@ -76,8 +76,6 @@ module RuboCop
           return unless top_level_groups.one?
 
           example_group(node) do |send_node, example_group, arguments|
-            next if routing_spec?(arguments)
-
             ensure_correct_file_path(send_node, example_group, arguments)
           end
         end
@@ -85,7 +83,7 @@ module RuboCop
         private
 
         def ensure_correct_file_path(send_node, example_group, arguments)
-          pattern = pattern_for(example_group, arguments.first)
+          pattern = pattern_for(example_group, arguments)
           return if filename_ends_with?(pattern)
 
           # For the suffix shown in the offense message, modify the regular
@@ -97,11 +95,13 @@ module RuboCop
         end
 
         def routing_spec?(args)
-          args.any?(&method(:routing_metadata?))
+          args.any?(&method(:routing_metadata?)) || routing_spec_path?
         end
 
-        def pattern_for(example_group, method_name)
-          if spec_suffix_only? || !example_group.const_type?
+        def pattern_for(example_group, arguments)
+          method_name = arguments.first
+          if spec_suffix_only? || !example_group.const_type? ||
+              routing_spec?(arguments)
             return pattern_for_spec_suffix_only
           end
 
@@ -149,8 +149,7 @@ module RuboCop
         end
 
         def filename_ends_with?(pattern)
-          filename = File.expand_path(processed_source.buffer.name)
-          filename.match?("#{pattern}$")
+          expanded_file_path.match?("#{pattern}$")
         end
 
         def relevant_rubocop_rspec_file?(_file)
@@ -159,6 +158,14 @@ module RuboCop
 
         def spec_suffix_only?
           cop_config['SpecSuffixOnly']
+        end
+
+        def routing_spec_path?
+          expanded_file_path.include?('spec/routing/')
+        end
+
+        def expanded_file_path
+          File.expand_path(processed_source.buffer.name)
         end
       end
     end
