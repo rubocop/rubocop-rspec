@@ -68,19 +68,14 @@ module RuboCop
               add_wording_offense(description_node, MSG_SHOULD)
             elsif message.match?(IT_PREFIX)
               add_wording_offense(description_node, MSG_IT)
-            else
-              check_and_handle_insufficient_examples(description_node)
+            elsif insufficient_docstring?(description_node)
+              add_offense(docstring(description_node),
+                          message: MSG_INSUFFICIENT_DESCRIPTION)
             end
           end
         end
 
         private
-
-        def check_and_handle_insufficient_examples(description)
-          if insufficient_examples.include?(preprocess(text(description)))
-            add_wording_offense(description, MSG_INSUFFICIENT_DESCRIPTION)
-          end
-        end
 
         def add_wording_offense(node, message)
           docstring = docstring(node)
@@ -135,6 +130,10 @@ module RuboCop
 
         def ignored_words
           cop_config.fetch('IgnoredWords', [])
+        end
+
+        def insufficient_docstring?(description_node)
+          insufficient_examples.include?(preprocess(text(description_node)))
         end
 
         def insufficient_examples
