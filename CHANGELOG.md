@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
+- Fix a false positive for `RSpec/NoExpectationExample` when allowed pattern methods with arguments. ([@ydah])
 
 ## 2.14.1 (2022-10-24)
 
