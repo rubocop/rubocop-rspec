@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
+
 ## 2.14.1 (2022-10-24)
 
 - Fix an error for `RSpec/Rails/InferredSpecType` with redundant type before other Hash metadata. ([@ydah])
@@ -716,6 +718,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@kellysutton]: https://github.com/kellysutton
 [@koic]: https://github.com/koic
+[@kuahyeow]: https://github.com/kuahyeow
 [@lazycoder9]: https://github.com/lazycoder9
 [@leoarnold]: https://github.com/leoarnold
 [@liberatys]: https://github.com/Liberatys
