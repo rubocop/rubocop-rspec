@@ -26,8 +26,7 @@ module RuboCop
         def_node_matcher :rspec_metadata, <<~PATTERN
           (block
             (send
-              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all #Includes.all}
-              _ ${send str sym}* (hash $...)?)
+              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ ${send str sym}* (hash $...)?)
             ...)
         PATTERN
 
