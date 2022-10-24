@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix an error for `RSpec/Rails/InferredSpecType` with redundant type before other Hash metadata. ([@ydah])
+
 ## 2.14.0 (2022-10-23)
 
 - Add `require_implicit` style to `RSpec/ImplicitSubject`. ([@r7kamura])
