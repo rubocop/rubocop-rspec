@@ -40,7 +40,22 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::InferredSpecType do
     end
   end
 
-  describe 'with redundant type and other Hash metadata' do
+  describe 'with redundant type before other Hash metadata' do
+    it 'register and corrects an offense' do
+      expect_offense(<<~RUBY, '/path/to/project/spec/models/user_spec.rb')
+        RSpec.describe User, type: :model, other: true do
+                             ^^^^^^^^^^^^ Remove redundant spec type.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describe User, other: true do
+        end
+      RUBY
+    end
+  end
+
+  describe 'with redundant type after other Hash metadata' do
     it 'register and corrects an offense' do
       expect_offense(<<~RUBY, '/path/to/project/spec/models/user_spec.rb')
         RSpec.describe User, other: true, type: :model do

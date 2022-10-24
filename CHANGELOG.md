@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
+- Fix an error for `RSpec/Rails/InferredSpecType` with redundant type before other Hash metadata. ([@ydah])
 
 ## 2.14.0 (2022-10-23)
 
