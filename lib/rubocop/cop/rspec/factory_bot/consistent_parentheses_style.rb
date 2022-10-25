@@ -30,6 +30,16 @@ module RuboCop
         #   create :login
         #   create :login
         #
+        #   # also good
+        #   # when method name and first argument are not on same line
+        #   create(
+        #     :user
+        #   )
+        #   build(
+        #     :user,
+        #     name: 'foo'
+        #   )
+        #
         class ConsistentParenthesesStyle < Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
@@ -66,6 +76,7 @@ module RuboCop
 
           def process_with_parentheses(node)
             return unless style == :omit_parentheses
+            return unless same_line?(node, node.first_argument)
 
             add_offense(node.loc.selector,
                         message: MSG_OMIT_PARENS) do |corrector|

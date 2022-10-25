@@ -275,5 +275,43 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
         end
       RUBY
     end
+
+    context 'when create and first argument are on same line' do
+      it 'register an offense' do
+        expect_offense(<<~RUBY)
+          create(:user,
+          ^^^^^^ Prefer method call without parentheses
+            name: 'foo'
+          )
+        RUBY
+
+        expect_correction(<<~RUBY)
+          create :user,
+            name: 'foo'
+
+        RUBY
+      end
+    end
+
+    context 'when create and first argument are not on same line' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          create(
+            :user
+          )
+        RUBY
+      end
+    end
+
+    context 'when create and some argument are not on same line' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          create(
+            :user,
+            name: 'foo'
+          )
+        RUBY
+      end
+    end
   end
 end
