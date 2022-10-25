@@ -2,10 +2,13 @@
 
 ## Master (Unreleased)
 
+- Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
+
+## 2.14.2 (2022-10-25)
+
 - Fix an incorrect autocorrect for `FactoryBot/ConsistentParenthesesStyle` with `omit_parentheses` option when method name and first argument are not on same line. ([@ydah])
 - Fix autocorrection loop in `RSpec/ExampleWording` for insufficient example wording. ([@pirj])
 - Fix `RSpec/SortMetadata` not to reorder arguments of `include_`/`it_behaves_like`. ([@pirj])
-- Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
 - Fix a false positive for `RSpec/NoExpectationExample` when allowed pattern methods with arguments. ([@ydah])
 - Change `RSpec/FilePath` so that it only checks suffix when path is under spec/routing or type is defined as routing. ([@r7kamura])
 
