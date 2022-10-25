@@ -160,6 +160,17 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
     RUBY
   end
 
+  it "ignores includes' positional arguments" do
+    expect_no_offenses(<<~RUBY)
+      include_examples 'z', 'a' do
+      end
+      it_behaves_like 'z', 'a' do
+      end
+      include_context 'z', 'a' do
+      end
+    RUBY
+  end
+
   context 'when using custom RSpec language ' \
           'without adjusting the RuboCop RSpec language configuration' do
     it 'does not register an offense' do
@@ -179,29 +190,11 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
           'and adjusting the RuboCop RSpec language configuration' do
     before do
       other_cops.tap do |config|
-        config.dig('RSpec', 'Language', 'Includes', 'Context').push(
+        config.dig('RSpec', 'Language', 'ExampleGroups', 'Regular').push(
           'describan', 'contexto_compartido'
         )
-        config.dig('RSpec', 'Language', 'Includes', 'Examples').push('ejemplo')
+        config.dig('RSpec', 'Language', 'Examples', 'Regular').push('ejemplo')
       end
-    end
-
-    let(:language_config) do
-      <<~YAML
-        RSpec:
-          Language:
-            ExampleGroups:
-              Regular:
-                - describan
-            Examples:
-              Regular:
-                - ejemplo
-            Hooks:
-              - antes
-            SharedGroups:
-              Context:
-                - contexto_compartido
-      YAML
     end
 
     it 'registers an offense' do
