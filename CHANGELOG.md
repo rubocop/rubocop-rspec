@@ -6,6 +6,7 @@
 - Fix autocorrection loop in `RSpec/ExampleWording` for insufficient example wording. ([@pirj])
 - Fix `RSpec/SortMetadata` not to reorder arguments of `include_`/`it_behaves_like`. ([@pirj])
 - Fix a false positive for `RSpec/NoExpectationExample` when allowed pattern methods with arguments. ([@ydah])
+- Change `RSpec/FilePath` so that it only checks suffix when path is under spec/routing or type is defined as routing. ([@r7kamura])
 
 ## 2.14.1 (2022-10-24)
 
