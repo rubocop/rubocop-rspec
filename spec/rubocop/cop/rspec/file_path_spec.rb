@@ -248,6 +248,40 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
     RUBY
   end
 
+  context 'when path is under spec/routing and it ends with _spec.rb' do
+    it 'does not register an offense' do
+      expect_no_offenses(<<~RUBY, 'spec/routing/foo_spec.rb')
+        describe 'routes to the foo controller' do; end
+      RUBY
+    end
+  end
+
+  context 'when path is under spec/routing and it does not end with _spec.rb' do
+    it 'registers an offense' do
+      expect_offense(<<~RUBY, 'spec/routing/foo.rb')
+        describe 'routes to the foo controller' do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+      RUBY
+    end
+  end
+
+  context 'when `type: :routing` is used and it ends with _spec.rb' do
+    it 'does not register an offense' do
+      expect_no_offenses(<<~RUBY, 'spec/foo_spec.rb')
+        describe 'routes to the foo controller', type: :routing do; end
+      RUBY
+    end
+  end
+
+  context 'when `type: :routing` is used and it does not end with _spec.rb' do
+    it 'registers an offense' do
+      expect_offense(<<~RUBY, 'spec/foo.rb')
+        describe 'routes to the foo controller', type: :routing do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `*_spec.rb`.
+      RUBY
+    end
+  end
+
   context 'when configured with CustomTransform' do
     let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
 
