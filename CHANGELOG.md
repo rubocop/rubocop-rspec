@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix an incorrect autocorrect for `FactoryBot/ConsistentParenthesesStyle` with `omit_parentheses` option when method name and first argument are not on same line. ([@ydah])
 - Fix autocorrection loop in `RSpec/ExampleWording` for insufficient example wording. ([@pirj])
 - Fix `RSpec/SortMetadata` not to reorder arguments of `include_`/`it_behaves_like`. ([@pirj])
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])

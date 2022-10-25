@@ -96,6 +96,16 @@ create :user
 build :user
 create :login
 create :login
+
+# also good
+# when method name and first argument are not on same line
+create(
+  :user
+)
+build(
+  :user,
+  name: 'foo'
+)
 ----
 
 === Configurable attributes
