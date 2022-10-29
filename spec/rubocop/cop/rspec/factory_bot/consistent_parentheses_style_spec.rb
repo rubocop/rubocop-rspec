@@ -64,6 +64,8 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
           ^^^^^^^^^^^^^ Prefer method call with parentheses
           build_stubbed_list :user, 10
           ^^^^^^^^^^^^^^^^^^ Prefer method call with parentheses
+          build factory
+          ^^^^^ Prefer method call with parentheses
         RUBY
 
         expect_correction(<<~RUBY)
@@ -72,6 +74,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
           create_list(:user, 10)
           build_stubbed(:user)
           build_stubbed_list(:user, 10)
+          build(factory)
         RUBY
       end
     end
@@ -131,6 +134,20 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
         RUBY
       end
     end
+
+    it 'flags the call with an explicit receiver' do
+      expect_offense(<<~RUBY)
+        FactoryBot.create :user
+                   ^^^^^^ Prefer method call with parentheses
+      RUBY
+    end
+
+    it 'ignores FactoryBot DSL methods without a first positional argument' do
+      expect_no_offenses(<<~RUBY)
+        create
+        create foo: :bar
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :omit_parentheses' do
@@ -187,6 +204,8 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
           ^^^^^^^^^^^^^ Prefer method call without parentheses
           build_stubbed_list(:user, 10)
           ^^^^^^^^^^^^^^^^^^ Prefer method call without parentheses
+          build(factory)
+          ^^^^^ Prefer method call without parentheses
         RUBY
 
         expect_correction(<<~RUBY)
@@ -195,6 +214,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
           create_list :user, 10
           build_stubbed :user
           build_stubbed_list :user, 10
+          build factory
         RUBY
       end
     end
@@ -312,6 +332,20 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
           )
         RUBY
       end
+    end
+
+    it 'flags the call with an explicit receiver' do
+      expect_offense(<<~RUBY)
+        FactoryBot.create(:user)
+                   ^^^^^^ Prefer method call without parentheses
+      RUBY
+    end
+
+    it 'ignores FactoryBot DSL methods without a first positional argument' do
+      expect_no_offenses(<<~RUBY)
+        create()
+        create(foo: :bar)
+      RUBY
     end
   end
 end
