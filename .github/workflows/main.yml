@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Confirm config and documentation
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.1"
@@ -34,7 +34,7 @@ jobs:
           - spec
     name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
@@ -50,7 +50,7 @@ jobs:
           - spec
     name: "Edge RuboCop: ${{ matrix.task }}"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use latest RuboCop from `master`
         run: |
           echo "gem 'rubocop', github: 'rubocop-hq/rubocop'" > Gemfile.local
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     name: RSpec 4
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use latest RSpec 4 from `4-0-dev` branch
         run: |
           sed -e '/rspec/d' -i Gemfile
