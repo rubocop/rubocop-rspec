@@ -4,6 +4,7 @@
 
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls without the first positional argument. ([@pirj])
+- Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls inside a Hash or an Array. ([@pirj])
 
 ## 2.14.2 (2022-10-25)
 

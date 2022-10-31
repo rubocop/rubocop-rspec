@@ -55,6 +55,8 @@ module RuboCop
 
           FACTORY_CALLS = RuboCop::RSpec::FactoryBot::Language::METHODS
 
+          RESTRICT_ON_SEND = FACTORY_CALLS
+
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
             (send
@@ -64,7 +66,7 @@ module RuboCop
           PATTERN
 
           def on_send(node)
-            return if nested_call?(node) # prevent from nested matching
+            return if ambiguous_without_parentheses?(node)
 
             factory_call(node) do
               if node.parenthesized?
@@ -94,8 +96,10 @@ module RuboCop
             end
           end
 
-          def nested_call?(node)
-            node.parent&.send_type?
+          def ambiguous_without_parentheses?(node)
+            node.parent&.send_type? ||
+              node.parent&.pair_type? ||
+              node.parent&.array_type?
           end
 
           private
