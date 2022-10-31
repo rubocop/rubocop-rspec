@@ -45,8 +45,12 @@ module RuboCop
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group?(node)
 
-          repeated_descriptions(node).each do |repeated_description|
-            add_offense(repeated_description)
+          repeated_descriptions(node).each do |description|
+            add_offense(description)
+          end
+
+          repeated_its(node).each do |its|
+            add_offense(its)
           end
         end
 
@@ -57,6 +61,7 @@ module RuboCop
           grouped_examples =
             RuboCop::RSpec::ExampleGroup.new(node)
               .examples
+              .reject { |n| n.definition.method?(:its) }
               .group_by { |example| example_signature(example) }
 
           grouped_examples
@@ -66,8 +71,26 @@ module RuboCop
             .map(&:definition)
         end
 
+        def repeated_its(node)
+          grouped_its =
+            RuboCop::RSpec::ExampleGroup.new(node)
+              .examples
+              .select { |n| n.definition.method?(:its) }
+              .group_by { |example| its_signature(example) }
+
+          grouped_its
+            .select { |signatures, group| signatures.any? && group.size > 1 }
+            .values
+            .flatten
+            .map(&:to_node)
+        end
+
         def example_signature(example)
           [example.metadata, example.doc_string]
+        end
+
+        def its_signature(example)
+          [example.doc_string, example]
         end
       end
     end

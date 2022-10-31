@@ -45,11 +45,31 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
     RUBY
   end
 
+  it 'registers an offense when repeated its are used' do
+    expect_offense(<<-RUBY)
+      describe 'doing x' do
+        its(:x) { is_expected.to be_present }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat examples within an example group.
+        its(:x) { is_expected.to be_present }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat examples within an example group.
+      end
+    RUBY
+  end
+
   it 'does not flag examples when different its arguments are used' do
     expect_no_offenses(<<-RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         its(:y) { is_expected.to be_present }
+      end
+    RUBY
+  end
+
+  it 'does not flag examples when different its block expectations are used' do
+    expect_no_offenses(<<-RUBY)
+      describe 'doing x' do
+        its(:x) { is_expected.to be_present }
+        its(:x) { is_expected.to be_blank }
       end
     RUBY
   end
