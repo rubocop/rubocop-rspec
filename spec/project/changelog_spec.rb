@@ -4,15 +4,20 @@ RSpec.describe 'CHANGELOG.md' do
   subject(:changelog) { SpecHelper::ROOT.join('CHANGELOG.md').read }
 
   it 'has link definitions for all implicit links' do
-    implicit_link_names = changelog.scan(/\[([^\]]+)\]\[\]/).flatten.uniq
-    implicit_link_names.each do |name|
-      expect(changelog).to include("[#{name}]: http")
-    end
+    entries, contributors =
+      changelog.split("<!-- Contributors (alphabetically) -->\n\n")
+
+    implicit_link_names = entries.scan(/\[@(.+?)\]/).flatten.uniq
+    expected_links = implicit_link_names.sort_by(&:downcase).map do |name|
+      "[@#{name.downcase}]: https://github.com/#{name}\n"
+    end.join
+
+    expect(contributors).to eq(expected_links)
   end
 
   describe 'contributors list' do
     let(:contributors) do
-      changelog.partition("<!-- Contributors (alphabetically) -->\n\n").last
+      changelog.split("<!-- Contributors (alphabetically) -->\n\n").last
         .lines
     end
 
@@ -22,14 +27,6 @@ RSpec.describe 'CHANGELOG.md' do
 
     it 'is alphabetically sorted (case insensitive)' do
       expect(contributors.sort_by(&:downcase)).to eq(contributors)
-    end
-
-    it 'links to github profiles' do
-      expect(contributors).to all(
-        # The footnote reference will be lowercase, but the github path can be
-        # mixed case.
-        match(%r{\A\[@([^\]]+)\]: https://github.com/(?i)\1\n\z})
-      )
     end
   end
 
