@@ -133,7 +133,7 @@ module RuboCop
         def count_up_nesting?(node, example_group)
           example_group &&
             (node.block_type? &&
-            !allowed_groups.include?(node.method_name))
+            !allowed_groups.include?(node.method_name.to_s))
         end
 
         def message(nesting)
