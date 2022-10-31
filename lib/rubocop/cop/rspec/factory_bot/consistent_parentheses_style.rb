@@ -98,7 +98,8 @@ module RuboCop
 
           def ambiguous_without_parentheses?(node)
             node.parent&.send_type? ||
-              node.parent&.pair_type?
+              node.parent&.pair_type? ||
+              node.parent&.array_type?
           end
 
           private

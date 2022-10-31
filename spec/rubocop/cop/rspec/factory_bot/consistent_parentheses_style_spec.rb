@@ -261,6 +261,17 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
       end
     end
 
+    context 'when is a part of an array' do
+      it 'does not flag the call' do
+        expect_no_offenses(<<~RUBY)
+          users = [
+            build(:user),
+            build(:user)
+          ]
+        RUBY
+      end
+    end
+
     context 'with already valid usage of parentheses' do
       it 'does not flag as invalid - create' do
         expect_no_offenses(<<~RUBY)
