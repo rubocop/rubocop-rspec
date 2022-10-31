@@ -55,6 +55,8 @@ module RuboCop
 
           FACTORY_CALLS = RuboCop::RSpec::FactoryBot::Language::METHODS
 
+          RESTRICT_ON_SEND = FACTORY_CALLS
+
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
             (send
