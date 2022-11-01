@@ -2,14 +2,15 @@
 
 == RSpec/Rails/AvoidSetupHook
 
+[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
-| Yes
-| Yes
-| 2.4
-| -
+¦ Pending
+¦ Yes
+¦ Yes
+¦ 2.4
+¦ -
 |===
 
 Checks that tests use RSpec `before` hook over Rails `setup` method.
@@ -35,14 +36,15 @@ end
 
 == RSpec/Rails/HaveHttpStatus
 
+[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
-| Yes
-| Yes (Unsafe)
-| 2.12
-| -
+¦ Pending
+¦ Yes
+¦ Yes (Unsafe)
+¦ 2.12
+¦ -
 |===
 
 Checks that tests use `have_http_status` instead of equality matchers.
@@ -64,14 +66,15 @@ expect(response).to have_http_status(200)
 
 == RSpec/Rails/HttpStatus
 
+[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Enabled
-| Yes
-| Yes
-| 1.23
-| 2.0
+¦ Enabled
+¦ Yes
+¦ Yes
+¦ 1.23
+¦ 2.0
 |===
 
 Enforces use of symbolic or numeric value to describe HTTP status.
@@ -110,12 +113,13 @@ it { is_expected.to have_http_status :error }
 
 === Configurable attributes
 
+[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-| EnforcedStyle
-| `symbolic`
-| `numeric`, `symbolic`
+¦ EnforcedStyle
+¦ `symbolic`
+¦ `numeric`, `symbolic`
 |===
 
 === References
@@ -124,14 +128,15 @@ it { is_expected.to have_http_status :error }
 
 == RSpec/Rails/InferredSpecType
 
+[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
-| No
-| Yes (Unsafe)
-| 2.14
-| -
+¦ Pending
+¦ No
+¦ Yes (Unsafe)
+¦ 2.14
+¦ -
 |===
 
 Identifies redundant spec type.
@@ -193,12 +198,13 @@ end
 
 === Configurable attributes
 
+[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-| Inferences
-| `{"channels"=>"channel", "controllers"=>"controller", "features"=>"feature", "generator"=>"generator", "helpers"=>"helper", "jobs"=>"job", "mailboxes"=>"mailbox", "mailers"=>"mailer", "models"=>"model", "requests"=>"request", "integration"=>"request", "api"=>"request", "routing"=>"routing", "system"=>"system", "views"=>"view"}`
-| 
+¦ Inferences
+¦ `{"channels"=>"channel", "controllers"=>"controller", "features"=>"feature", "generator"=>"generator", "helpers"=>"helper", "jobs"=>"job", "mailboxes"=>"mailbox", "mailers"=>"mailer", "models"=>"model", "requests"=>"request", "integration"=>"request", "api"=>"request", "routing"=>"routing", "system"=>"system", "views"=>"view"}`
+¦ 
 |===
 
 === References
