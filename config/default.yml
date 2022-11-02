@@ -12,8 +12,6 @@ RSpec:
         - Expectations
         - Helpers
         - Hooks
-        - HookScopes
-        - Runners
         - Subjects
     ExampleGroups:
       inherit_mode:
@@ -81,12 +79,6 @@ RSpec:
       - prepend_after
       - after
       - append_after
-    HookScopes:
-      - each
-      - example
-      - context
-      - all
-      - suite
     Includes:
       inherit_mode:
         merge:
@@ -98,10 +90,6 @@ RSpec:
         - include_examples
       Context:
         - include_context
-    Runners:
-      - to
-      - to_not
-      - not_to
     SharedGroups:
       inherit_mode:
         merge:
