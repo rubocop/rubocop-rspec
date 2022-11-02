@@ -147,6 +147,12 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   context 'when AllowedGroups is configured as' do
     let(:cop_config) { { 'AllowedGroups' => ['path'] } }
 
+    before do
+      other_cops
+        .dig('RSpec', 'Language', 'ExampleGroups', 'Regular')
+        .push('path')
+    end
+
     it 'accept nested example groups defined inside `describe`' \
        'path is not counted' do
       expect_no_offenses(<<-RUBY)

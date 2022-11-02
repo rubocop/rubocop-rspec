@@ -5,6 +5,7 @@
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls without the first positional argument. ([@pirj])
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls inside a Hash or an Array. ([@pirj])
+- Fix `RSpec/NestedGroups` to correctly use `AllowedGroups` config. ([@samrjenkins])
 
 ## 2.14.2 (2022-10-25)
 
@@ -765,6 +766,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rrosenblum]: https://github.com/rrosenblum
 [@rspeicher]: https://github.com/rspeicher
 [@rst-j]: https://github.com/RST-J
+[@samrjenkins]: https://github.com/samrjenkins
 [@schmijos]: https://github.com/schmijos
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
