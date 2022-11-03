@@ -1,0 +1,32 @@
+= Development
+
+This page describes considerations when developing RSpec-specific cops. It is intended to be a complement to the general https://docs.rubocop.org/rubocop/development.html[RuboCop development documentation].
+
+== Base class
+
+The `RuboCop::Cop::RSpec::Base` class includes convenient https://docs.rubocop.org/rubocop-ast/node_pattern.html[node pattern DSL] matchers that will automatically account for any xref:usage.adoc#rspec-dsl-configuration[custom RSpec DSL configuration].
+
+For example, if the project defines https://github.com/test-prof/test-prof/blob/master/docs/recipes/let_it_be.md[`let_it_be`] as a `Helper`, then all cops will find `let_it_be` when using the `let?` matcher.
+
+== Writing specs
+
+When working on RSpec-specific cops, ensure that the https://github.com/rubocop/rubocop-rspec/blob/master/config/default.yml[default language config] is loaded for all RSpec specs. For example:
+
+[source,ruby]
+----
+require 'rubocop/rspec/shared_contexts/default_rspec_language_config_context'
+
+RSpec.config do |config|
+  # Set metadata on all cop specs
+  config.define_derived_metadata(file_path: %r{/spec/rubocop/cop/}) do |meta|
+    meta[:type] = :cop_spec
+  end
+
+  # Include RuboCop's config shared context for all cop specs
+  config.define_derived_metadata(type: :cop_spec) do |meta|
+    meta[:config] = true
+  end
+
+  config.include_context 'with default RSpec/Language config', :config
+end
+----

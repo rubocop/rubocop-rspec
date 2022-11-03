@@ -8,6 +8,7 @@
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls inside a Hash or an Array. ([@pirj])
 - Fix `RSpec/NestedGroups` to correctly use `AllowedGroups` config. ([@samrjenkins])
 - Remove `Runners` and `HookScopes` RSpec DSL elements from configuration. ([@pirj])
+- Add `with default RSpec/Language config` helper to `lib` (under `rubocop/rspec/shared_contexts/default_rspec_language_config_context`), to allow use for downstream cops based on `RuboCop::Cop::RSpec::Base`. ([@smcgivern])
 
 ## 2.14.2 (2022-10-25)
 
@@ -772,6 +773,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@schmijos]: https://github.com/schmijos
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
+[@smcgivern]: https://github.com/smcgivern
 [@stephannv]: https://github.com/stephannv
 [@t3h2mas]: https://github.com/t3h2mas
 [@tdeo]: https://github.com/tdeo

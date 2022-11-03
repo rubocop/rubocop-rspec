@@ -4,6 +4,7 @@
 * xref:cops.adoc[Cops]
 * xref:upgrade_to_version_2.adoc[Upgrade to 2.x]
 * xref:third_party_rspec_syntax_extensions.adoc[RSpec syntax extensions in third-party gems]
+* xref:development.adoc[Development]
 * Cops Documentation
 ** xref:cops_rspec_capybara.adoc[Capybara]
 ** xref:cops_rspec_factorybot.adoc[FactoryBot]
