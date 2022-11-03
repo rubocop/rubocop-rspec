@@ -618,7 +618,7 @@ RSpec/NamedSubject:
     - named_only
   IgnoreSharedExamples: true
   VersionAdded: 1.5.3
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.15'
   StyleGuide: https://rspec.rubystyle.guide/#use-subject
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.15.0 (2022-11-03)
+
 - Fix a false positive for `RSpec/RepeatedDescription` when different its block expectations are used. ([@ydah])
 - Add `named_only` style to `RSpec/NamedSubject`. ([@kuahyeow])
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls without the first positional argument. ([@pirj])
