@@ -54,6 +54,7 @@ module RuboCop
           MSG_OMIT_PARENS = 'Prefer method call without parentheses'
 
           FACTORY_CALLS = RuboCop::RSpec::FactoryBot::Language::METHODS
+          RESTRICT_ON_SEND = FACTORY_CALLS
 
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
