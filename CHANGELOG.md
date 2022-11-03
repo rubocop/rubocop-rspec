@@ -7,6 +7,7 @@
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls without the first positional argument. ([@pirj])
 - Fix `RSpec/FactoryBot/ConsistentParenthesesStyle` to ignore calls inside a Hash or an Array. ([@pirj])
 - Fix `RSpec/NestedGroups` to correctly use `AllowedGroups` config. ([@samrjenkins])
+- Remove `Runners` and `HookScopes` RSpec DSL elements from configuration. ([@pirj])
 
 ## 2.14.2 (2022-10-25)
 

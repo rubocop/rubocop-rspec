@@ -135,8 +135,9 @@ module RuboCop
       end
 
       module HookScopes # :nodoc:
+        ALL = %i[each example context all suite].freeze
         def self.all(element)
-          Language.config['HookScopes'].include?(element.to_s)
+          ALL.include?(element)
         end
       end
 
@@ -158,8 +159,9 @@ module RuboCop
       end
 
       module Runners # :nodoc:
+        ALL = %i[to to_not not_to].freeze
         def self.all(element)
-          Language.config['Runners'].include?(element.to_s)
+          ALL.include?(element)
         end
       end
 
