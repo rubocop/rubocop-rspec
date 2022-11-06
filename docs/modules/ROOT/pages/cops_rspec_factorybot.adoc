@@ -146,6 +146,7 @@ This cop can be configured using the `EnforcedStyle` option
 ----
 # bad
 3.times { create :user }
+[create(:user), create(:user), create(:user)]
 
 # good
 create_list :user, 3
@@ -166,6 +167,7 @@ create_list :user, 3
 ----
 # bad
 create_list :user, 3
+[create(:user), create(:user), create(:user)]
 
 # good
 3.times { create :user }

@@ -11,6 +11,7 @@ module RuboCop
         # @example `EnforcedStyle: create_list` (default)
         #   # bad
         #   3.times { create :user }
+        #   [create(:user), create(:user), create(:user)]
         #
         #   # good
         #   create_list :user, 3
@@ -27,6 +28,7 @@ module RuboCop
         # @example `EnforcedStyle: n_times`
         #   # bad
         #   create_list :user, 3
+        #   [create(:user), create(:user), create(:user)]
         #
         #   # good
         #   3.times { create :user }
@@ -75,6 +77,22 @@ module RuboCop
             (send {nil? #factory_bot?} :create_list (sym _) (int $_) ...)
           PATTERN
 
+          # @!method factory_calls_in_array?(node)
+          def_node_search :factory_calls_in_array?, <<-PATTERN
+              (array #factory_call+)
+          PATTERN
+
+          def on_array(node)
+            return unless same_factory_calls_in_array?(node)
+
+            add_offense(
+              node,
+              message: preferred_message_for_array(node)
+            ) do |corrector|
+              autocorrect_same_factory_calls_in_array(corrector, node)
+            end
+          end
+
           def on_block(node) # rubocop:todo InternalAffairs/NumblockHandler
             return unless style == :create_list
 
@@ -102,12 +120,40 @@ module RuboCop
 
           private
 
+          # For ease of modification, it is replaced with the `n_times` style,
+          # but if it is not appropriate for the configured style,
+          # it will be replaced in the subsequent autocorrection.
+          def autocorrect_same_factory_calls_in_array(corrector, node)
+            corrector.replace(
+              node,
+              format(
+                '%<count>s.times { %<factory_call>s }',
+                count: node.children.count,
+                factory_call: node.children.first.source
+              )
+            )
+          end
+
           def contains_only_factory?(node)
             if node.block_type?
               factory_call(node.send_node)
             else
               factory_call(node)
             end
+          end
+
+          def preferred_message_for_array(node)
+            if style == :create_list &&
+                !arguments_include_method_call?(node.children.first)
+              MSG_CREATE_LIST
+            else
+              format(MSG_N_TIMES, number: node.children.count)
+            end
+          end
+
+          def same_factory_calls_in_array?(node)
+            factory_calls_in_array?(node) &&
+              node.children.map(&:source).uniq.one?
           end
 
           # :nodoc
