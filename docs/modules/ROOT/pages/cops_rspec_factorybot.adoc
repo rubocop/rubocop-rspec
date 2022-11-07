@@ -146,6 +146,8 @@ This cop can be configured using the `EnforcedStyle` option
 ----
 # bad
 3.times { create :user }
+3.times.map { create :user }
+Array.new(3) { create :user }
 
 # good
 create_list :user, 3
@@ -168,7 +170,7 @@ create_list :user, 3
 create_list :user, 3
 
 # good
-3.times { create :user }
+3.times.map { create :user }
 ----
 
 === Configurable attributes

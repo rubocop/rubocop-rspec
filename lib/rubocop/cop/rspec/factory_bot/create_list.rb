@@ -11,6 +11,8 @@ module RuboCop
         # @example `EnforcedStyle: create_list` (default)
         #   # bad
         #   3.times { create :user }
+        #   3.times.map { create :user }
+        #   Array.new(3) { create :user }
         #
         #   # good
         #   create_list :user, 3
@@ -29,7 +31,7 @@ module RuboCop
         #   create_list :user, 3
         #
         #   # good
-        #   3.times { create :user }
+        #   3.times.map { create :user }
         #
         class CreateList < Base
           extend AutoCorrector
@@ -37,18 +39,27 @@ module RuboCop
           include RuboCop::RSpec::FactoryBot::Language
 
           MSG_CREATE_LIST = 'Prefer create_list.'
-          MSG_N_TIMES = 'Prefer %<number>s.times.'
+          MSG_N_TIMES = 'Prefer %<number>s.times.map.'
           RESTRICT_ON_SEND = %i[create_list].freeze
 
-          # @!method array_new_or_n_times_block?(node)
-          def_node_matcher :array_new_or_n_times_block?, <<-PATTERN
-            (block
-              {
-                (send (const {nil? | cbase} :Array) :new (int _)) |
-                (send (int _) :times)
-              }
-              ...
-            )
+          # @!method repetition_block?(node)
+          def_node_matcher :repetition_block?, <<-PATTERN
+            (block {#array_new? #n_times? #n_times_map?} ...)
+          PATTERN
+
+          # @!method array_new?(node)
+          def_node_matcher :array_new?, <<-PATTERN
+            (send (const {nil? cbase} :Array) :new (int _))
+          PATTERN
+
+          # @!method n_times?(node)
+          def_node_matcher :n_times?, <<-PATTERN
+            (send (int _) :times)
+          PATTERN
+
+          # @!method n_times_map?(node)
+          def_node_matcher :n_times_map?, <<-PATTERN
+            (send #n_times? :map)
           PATTERN
 
           # @!method block_with_arg_and_used?(node)
@@ -78,7 +89,7 @@ module RuboCop
           def on_block(node) # rubocop:todo InternalAffairs/NumblockHandler
             return unless style == :create_list
 
-            return unless array_new_or_n_times_block?(node)
+            return unless repetition_block?(node)
             return if block_with_arg_and_used?(node)
             return unless node.body
             return if arguments_include_method_call?(node.body)
@@ -160,7 +171,7 @@ module RuboCop
               replacement = format_receiver(node.receiver)
               replacement += format_method_call(node, 'create', arguments)
               replacement += " #{factory_call_block_source}" if node.block_node
-              "#{count.source}.times { #{replacement} }"
+              "#{count.source}.times.map { #{replacement} }"
             end
 
             def factory_call_block_source
@@ -225,10 +236,13 @@ module RuboCop
 
             def count_from(node)
               count_node =
-                if node.receiver.int_type?
-                  node.receiver
-                else
+                case node.method_name
+                when :map
+                  node.receiver.receiver
+                when :new
                   node.send_node.first_argument
+                when :times
+                  node.receiver
                 end
               count_node.source
             end

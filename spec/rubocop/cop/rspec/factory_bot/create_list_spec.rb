@@ -166,6 +166,17 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
       RUBY
     end
 
+    it 'flags usage of n.times.map' do
+      expect_offense(<<~RUBY)
+        3.times.map { create :user }
+        ^^^^^^^^^^^ Prefer create_list.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        create_list :user, 3
+      RUBY
+    end
+
     it 'flags usage of Array.new(n) with no arguments' do
       expect_offense(<<~RUBY)
         Array.new(3) { create(:user) }
@@ -197,55 +208,55 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
     it 'flags usage of create_list' do
       expect_offense(<<~RUBY)
         create_list :user, 3
-        ^^^^^^^^^^^ Prefer 3.times.
+        ^^^^^^^^^^^ Prefer 3.times.map.
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { create :user }
+        3.times.map { create :user }
       RUBY
     end
 
     it 'flags usage of create_list with argument' do
       expect_offense(<<~RUBY)
         create_list(:user, 3, :trait)
-        ^^^^^^^^^^^ Prefer 3.times.
+        ^^^^^^^^^^^ Prefer 3.times.map.
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { create(:user, :trait) }
+        3.times.map { create(:user, :trait) }
       RUBY
     end
 
     it 'flags usage of create_list with keyword arguments' do
       expect_offense(<<~RUBY)
         create_list :user, 3, :trait, key: val
-        ^^^^^^^^^^^ Prefer 3.times.
+        ^^^^^^^^^^^ Prefer 3.times.map.
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { create :user, :trait, key: val }
+        3.times.map { create :user, :trait, key: val }
       RUBY
     end
 
     it 'flags usage of FactoryGirl.create_list' do
       expect_offense(<<~RUBY)
         FactoryGirl.create_list :user, 3
-                    ^^^^^^^^^^^ Prefer 3.times.
+                    ^^^^^^^^^^^ Prefer 3.times.map.
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { FactoryGirl.create :user }
+        3.times.map { FactoryGirl.create :user }
       RUBY
     end
 
     it 'flags usage of FactoryGirl.create_list with a block' do
       expect_offense(<<~RUBY)
         FactoryGirl.create_list(:user, 3) { |user| user.points = rand(1000) }
-                    ^^^^^^^^^^^ Prefer 3.times.
+                    ^^^^^^^^^^^ Prefer 3.times.map.
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { FactoryGirl.create(:user) { |user| user.points = rand(1000) } }
+        3.times.map { FactoryGirl.create(:user) { |user| user.points = rand(1000) } }
       RUBY
     end
 
