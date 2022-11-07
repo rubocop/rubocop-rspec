@@ -40,7 +40,7 @@ module RuboCop
         #     name: 'foo'
         #   )
         #
-        class ConsistentParenthesesStyle < Base
+        class ConsistentParenthesesStyle < ::RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
           include RuboCop::RSpec::FactoryBot::Language

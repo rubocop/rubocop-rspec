@@ -25,7 +25,7 @@ module RuboCop
         #   # good
         #   count { 1 }
         #
-        class AttributeDefinedStatically < Base
+        class AttributeDefinedStatically < ::RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG = 'Use a block to declare attribute values.'

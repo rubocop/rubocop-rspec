@@ -26,7 +26,7 @@ module RuboCop
         #   expect(page).to have_select
         #   expect(page).to have_field('foo')
         #
-        class SpecificMatcher < Base
+        class SpecificMatcher < ::RuboCop::Cop::Base
           include CapybaraHelp
 
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'

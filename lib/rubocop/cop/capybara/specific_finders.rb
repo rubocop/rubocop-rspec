@@ -15,7 +15,7 @@ module RuboCop
         #   find_by_id('some-id')
         #   find_by_id('some-id', visible: true)
         #
-        class SpecificFinders < Base
+        class SpecificFinders < ::RuboCop::Cop::Base
           extend AutoCorrector
 
           include RangeHelp

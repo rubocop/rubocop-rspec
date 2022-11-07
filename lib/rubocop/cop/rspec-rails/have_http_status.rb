@@ -13,7 +13,7 @@ module RuboCop
         #   # good
         #   expect(response).to have_http_status(200)
         #
-        class HaveHttpStatus < Base
+        class HaveHttpStatus < ::RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG =
@@ -26,7 +26,7 @@ module RuboCop
               (send nil? :expect
                 $(send (send nil? :response) :status)
               )
-              $#Runners.all
+              ${:to :not_to :to_not}
               $(send nil? {:be :eq :eql :equal} (int $_))
             )
           PATTERN

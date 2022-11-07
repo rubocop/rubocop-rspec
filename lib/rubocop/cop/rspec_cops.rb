@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require_relative 'rspec/capybara/current_path_expectation'
+require_relative 'capybara/current_path_expectation'
 require_relative 'rspec/capybara/feature_methods'
-require_relative 'rspec/capybara/negation_matcher'
-require_relative 'rspec/capybara/specific_actions'
-require_relative 'rspec/capybara/specific_finders'
-require_relative 'rspec/capybara/specific_matcher'
-require_relative 'rspec/capybara/visibility_matcher'
+require_relative 'capybara/negation_matcher'
+require_relative 'capybara/specific_actions'
+require_relative 'capybara/specific_finders'
+require_relative 'capybara/specific_matcher'
+require_relative 'capybara/visibility_matcher'
 
-require_relative 'rspec/factory_bot/attribute_defined_statically'
-require_relative 'rspec/factory_bot/consistent_parentheses_style'
-require_relative 'rspec/factory_bot/create_list'
-require_relative 'rspec/factory_bot/factory_class_name'
+require_relative 'factory_bot/attribute_defined_statically'
+require_relative 'factory_bot/consistent_parentheses_style'
+require_relative 'factory_bot/create_list'
+require_relative 'factory_bot/factory_class_name'
 require_relative 'rspec/factory_bot/syntax_methods'
 
-require_relative 'rspec/rails/avoid_setup_hook'
-require_relative 'rspec/rails/have_http_status'
+require_relative 'rspec-rails/avoid_setup_hook'
+require_relative 'rspec-rails/have_http_status'
 begin
-  require_relative 'rspec/rails/http_status'
+  require_relative 'rspec-rails/http_status'
 rescue LoadError
   # Rails/HttpStatus cannot be loaded if rack/utils is unavailable.
 end
