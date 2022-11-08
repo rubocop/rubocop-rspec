@@ -245,7 +245,7 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
       RUBY
 
       expect_correction(<<~RUBY)
-        3.times { FactoryGirl.create(:user) } { |user| user.points = rand(1000) }
+        3.times { FactoryGirl.create(:user) { |user| user.points = rand(1000) } }
       RUBY
     end
 

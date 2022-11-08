@@ -143,7 +143,7 @@ module RuboCop
 
             def call(corrector)
               replacement = generate_n_times_block(node)
-              corrector.replace(node, replacement)
+              corrector.replace(node.block_node || node, replacement)
             end
 
             private
@@ -159,7 +159,14 @@ module RuboCop
 
               replacement = format_receiver(node.receiver)
               replacement += format_method_call(node, 'create', arguments)
+              replacement += " #{factory_call_block_source}" if node.block_node
               "#{count.source}.times { #{replacement} }"
+            end
+
+            def factory_call_block_source
+              node.block_node.location.begin.with(
+                end_pos: node.block_node.location.end.end_pos
+              ).source
             end
           end
 
