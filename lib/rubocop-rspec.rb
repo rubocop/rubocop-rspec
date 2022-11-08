@@ -37,7 +37,10 @@ require_relative 'rubocop/rspec/corrector/move_node'
 
 RuboCop::RSpec::Inject.defaults!
 
-require_relative 'rubocop/cop/rspec_cops'
+require_relative 'rubocop/cop/capybara/cops'
+require_relative 'rubocop/cop/factory_bot/cops'
+require_relative 'rubocop/cop/rspec/cops'
+require_relative 'rubocop/cop/rspec-rails/cops'
 
 # We have to register our autocorrect incompatibilities in RuboCop's cops
 # as well so we do not hit infinite loops

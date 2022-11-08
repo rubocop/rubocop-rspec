@@ -15,7 +15,8 @@ RSpec.describe 'config/default.yml' do
   end
 
   let(:cop_names) do
-    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec',
+    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop',
+                                 '{capybara,factory_bot,rspec,rspec-rails}',
                                  '{,capybara,factory_bot,rails}', '*.rb')
     cop_names =
       Pathname.glob(glob).map do |file|
