@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryClassName do
+RSpec.describe RuboCop::Cop::FactoryBot::FactoryClassName do
   def inspected_source_filename
     'spec/factories.rb'
   end

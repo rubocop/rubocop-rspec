@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificFinders, :config do
+RSpec.describe RuboCop::Cop::Capybara::SpecificFinders, :config do
   it 'registers an offense when using `find`' do
     expect_offense(<<~RUBY)
       find('#some-id')

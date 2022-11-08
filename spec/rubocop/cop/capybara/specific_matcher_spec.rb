@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificMatcher do
+RSpec.describe RuboCop::Cop::Capybara::SpecificMatcher do
   it 'does not register an offense for abstract matcher when ' \
      'first argument is not a replaceable element' do
     expect_no_offenses(<<-RUBY)

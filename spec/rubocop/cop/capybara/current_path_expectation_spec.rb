@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation do
+RSpec.describe RuboCop::Cop::Capybara::CurrentPathExpectation do
   it 'flags violations for `expect(current_path)`' do
     expect_offense(<<~RUBY)
       expect(current_path).to eq "/callback"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
+RSpec.describe RuboCop::Cop::Capybara::SpecificActions, :config do
   it 'does not register an offense for find and click action when ' \
      'first argument is link' do
     expect_no_offenses(<<~RUBY)
