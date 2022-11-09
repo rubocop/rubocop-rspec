@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix wrong autocorrection in `n_times` style on `RSpec/FactoryBot/CreateList`. ([@r7kamura])
+
 ## 2.15.0 (2022-11-03)
 
 - Fix a false positive for `RSpec/RepeatedDescription` when different its block expectations are used. ([@ydah])
