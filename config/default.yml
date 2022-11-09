@@ -893,12 +893,14 @@ Capybara:
   Include:
     - "**/*_spec.rb"
     - "**/spec/**/*"
+
 Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true
   VersionAdded: '1.18'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/CurrentPathExpectation
+
 Capybara/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.
   Enabled: pending
@@ -907,33 +909,38 @@ Capybara/NegationMatcher:
   SupportedStyles:
     - have_no
     - not_to
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/NegationMatcher
+
 Capybara/SpecificActions:
   Description: Checks for there is a more specific actions offered by Capybara.
   Enabled: pending
   VersionAdded: '2.14'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificActions
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/SpecificActions
+
 Capybara/SpecificFinders:
   Description: Checks if there is a more specific finder offered by Capybara.
   Enabled: pending
   VersionAdded: '2.13'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificFinders
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/SpecificFinders
+
 Capybara/SpecificMatcher:
   Description: Checks for there is a more specific matcher offered by Capybara.
   Enabled: pending
   VersionAdded: '2.12'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/SpecificMatcher
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/SpecificMatcher
+
 Capybara/VisibilityMatcher:
   Description: Checks for boolean visibility in Capybara finders.
   Enabled: true
   VersionAdded: '1.39'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/VisibilityMatcher
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/Capybara/VisibilityMatcher
 FactoryBot:
   Enabled: true
   Include:
     - "**/*_spec.rb"
     - "**/spec/**/*"
+
 FactoryBot/AttributeDefinedStatically:
   Description: Always declare attribute values as blocks.
   Enabled: true
@@ -943,7 +950,8 @@ FactoryBot/AttributeDefinedStatically:
     - features/support/factories/**/*.rb
   VersionAdded: '1.28'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryBot/AttributeDefinedStatically
+
 FactoryBot/ConsistentParenthesesStyle:
   Description: Use a consistent style for parentheses in factory bot calls.
   Enabled: pending
@@ -952,7 +960,8 @@ FactoryBot/ConsistentParenthesesStyle:
     - require_parentheses
     - omit_parentheses
   VersionAdded: '2.14'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/ConsistentParenthesesStyle
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryBot/ConsistentParenthesesStyle
+
 FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
@@ -968,7 +977,8 @@ FactoryBot/CreateList:
     - n_times
   VersionAdded: '1.25'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryBot/CreateList
+
 FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true
@@ -978,23 +988,26 @@ FactoryBot/FactoryClassName:
     - features/support/factories/**/*.rb
   VersionAdded: '1.37'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/FactoryBot/FactoryClassName
 RSpecRails:
   Enabled: true
   Include:
     - "**/*_spec.rb"
     - "**/spec/**/*"
+
 RSpecRails/AvoidSetupHook:
   Description: Checks that tests use RSpec `before` hook over Rails `setup` method.
   Enabled: pending
   VersionAdded: '2.4'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/AvoidSetupHook
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpecRails/AvoidSetupHook
+
 RSpecRails/HaveHttpStatus:
   Description: Checks that tests use `have_http_status` instead of equality matchers.
   Enabled: pending
   SafeAutoCorrect: false
   VersionAdded: '2.12'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpecRails/HaveHttpStatus
+
 RSpecRails/HttpStatus:
   Description: Enforces use of symbolic or numeric value to describe HTTP status.
   Enabled: true
@@ -1004,4 +1017,4 @@ RSpecRails/HttpStatus:
     - symbolic
   VersionAdded: '1.23'
   VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpecRails/HttpStatus

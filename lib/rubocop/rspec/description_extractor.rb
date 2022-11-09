@@ -23,7 +23,6 @@ module RuboCop
       class CodeObject
         RSPEC_COP_CLASS_NAME = 'RuboCop::Cop::RSpec::Base'
         RUBOCOP_COP_CLASS_NAME = 'RuboCop::Cop::Base'
-        RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'
 
         def initialize(yardoc)
           @yardoc = yardoc
@@ -33,10 +32,7 @@ module RuboCop
         #
         # @return [Boolean]
         def rspec_cop?
-          class_documentation? &&
-            # rspec_cop_namespace? &&
-            cop_subclass? &&
-            !abstract?
+          cop_subclass? && !abstract?
         end
 
         # Configuration for the documented cop that would live in default.yml
@@ -56,21 +52,11 @@ module RuboCop
           yardoc.docstring.split("\n\n").first.to_s
         end
 
-        def class_documentation?
-          yardoc.type.equal?(:class)
-        end
-
-        def rspec_cop_namespace?
-          documented_constant.start_with?(RSPEC_NAMESPACE)
-        end
-
         def documented_constant
           yardoc.to_s
         end
 
         def cop_subclass?
-          require 'pry'; binding.pry unless yardoc.superclass.path == RSPEC_COP_CLASS_NAME
-
           yardoc.superclass.path == RSPEC_COP_CLASS_NAME ||
             yardoc.superclass.path == RUBOCOP_COP_CLASS_NAME
         end
