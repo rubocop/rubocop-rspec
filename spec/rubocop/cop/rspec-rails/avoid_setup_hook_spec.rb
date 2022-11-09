@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Rails::AvoidSetupHook do
+RSpec.describe RuboCop::Cop::RSpecRails::AvoidSetupHook do
   it 'registers an offense for `setup`' do
     expect_offense(<<~RUBY)
       setup do

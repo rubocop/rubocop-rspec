@@ -90,6 +90,10 @@ RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
 
+RSpec/FilePath:
+  CustomTransform:
+    RSpecRails: rspec-rails
+
 RSpec/MultipleExpectations:
   Max: 2
 

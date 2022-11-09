@@ -55,7 +55,7 @@ RuboCop::Cop::Layout::ExtraSpacing.singleton_class.prepend(
 RuboCop::Cop::Style::TrailingCommaInArguments.singleton_class.prepend(
   Module.new do
     def autocorrect_incompatible_with
-      super.push(RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation)
+      super.push(RuboCop::Cop::Capybara::CurrentPathExpectation)
     end
   end
 )

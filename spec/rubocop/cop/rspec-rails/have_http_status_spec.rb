@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Rails::HaveHttpStatus do
+RSpec.describe RuboCop::Cop::RSpecRails::HaveHttpStatus do
   it 'registers an offense for `expect(response.status).to be(200)`' do
     expect_offense(<<~RUBY)
       it { expect(response.status).to be(200) }

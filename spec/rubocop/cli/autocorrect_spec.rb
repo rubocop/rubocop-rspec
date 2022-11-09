@@ -7,7 +7,7 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
 
   include_context 'when cli spec behavior'
 
-  context 'when corrects `RSpec/Capybara/CurrentPathExpectation` with ' \
+  context 'when corrects `Capybara/CurrentPathExpectation` with ' \
           '`Style/TrailingCommaInArguments`' do
     before do
       RuboCop::ConfigLoader
@@ -30,13 +30,13 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
 
     it 'rubocop terminates with a success' do
       expect(cli.run(['-A', '--only',
-                      'RSpec/Capybara/CurrentPathExpectation,' \
+                      'Capybara/CurrentPathExpectation,' \
                       'Style/TrailingCommaInArguments'])).to eq(0)
     end
 
     it 'autocorrects be compatible with each other' do
       cli.run(['-A', '--only',
-               'RSpec/Capybara/CurrentPathExpectation,' \
+               'Capybara/CurrentPathExpectation,' \
                'Style/TrailingCommaInArguments'])
 
       expect(File.read('spec/example.rb')).to eq(<<-RUBY)

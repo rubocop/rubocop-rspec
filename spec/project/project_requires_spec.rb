@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Project requires' do
-  shared_examples 'alphabetizes cop requires' do
+  shared_examples 'alphabetizes cop requires' do |*path|
+    let(:source) { SpecHelper::ROOT.join('lib', 'rubocop', 'cop', *path) }
+
     it 'alphabetizes cop requires' do
       captures = source.read.scan(%r{^(require_relative '(.*?/)?(.*?)')$})
 
@@ -19,19 +21,8 @@ RSpec.describe 'Project requires' do
     end
   end
 
-  it_behaves_like 'alphabetizes cop requires' do
-    let(:source) { SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'capybara', 'cops.rb') }
-  end
-
-  it_behaves_like 'alphabetizes cop requires' do
-    let(:source) { SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'factory_bot', 'cops.rb') }
-  end
-
-  it_behaves_like 'alphabetizes cop requires' do
-    let(:source) { SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec', 'cops.rb') }
-  end
-
-  it_behaves_like 'alphabetizes cop requires' do
-    let(:source) { SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec-rails', 'cops.rb') }
-  end
+  it_behaves_like 'alphabetizes cop requires', 'capybara', 'cops.rb'
+  it_behaves_like 'alphabetizes cop requires', 'factory_bot', 'cops.rb'
+  it_behaves_like 'alphabetizes cop requires', 'rspec', 'cops.rb'
+  it_behaves_like 'alphabetizes cop requires', 'rspec-rails', 'cops.rb'
 end
