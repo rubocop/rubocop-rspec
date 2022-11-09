@@ -70,16 +70,7 @@ task :new_cop, [:cop] do |_task, args|
     exit!
   end
 
-  # FIXME: Remove the condition when requiring RuboCop 1.22 or higher.
-  #        See: https://github.com/rubocop/rubocop/pull/10109
-  if RuboCop::Version::STRING >= '1.22.0'
-    generator = RuboCop::Cop::Generator.new(cop_name)
-  else
-    github_user = `git config github.user`.chop
-    github_user = 'your_id' if github_user.empty?
-    generator = RuboCop::Cop::Generator.new(cop_name, github_user)
-  end
-
+  generator = RuboCop::Cop::Generator.new(cop_name)
   generator.write_source
   generator.write_spec
   generator.inject_require(root_file_path: 'lib/rubocop/cop/rspec_cops.rb')
