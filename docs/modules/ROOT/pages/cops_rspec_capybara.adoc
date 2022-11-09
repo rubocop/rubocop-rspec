@@ -217,9 +217,9 @@ find('div').click_button
 
 ¦ Pending
 ¦ Yes
-¦ Yes
+¦ Yes (Unsafe)
 ¦ 2.13
-¦ -
+¦ 2.16
 |===
 
 Checks if there is a more specific finder offered by Capybara.

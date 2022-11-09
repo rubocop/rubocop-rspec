@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Declare autocorrect as unsafe for `RSpec/Capybara/SpecificFinders`. ([@Tietew])
+
 ## 2.15.0 (2022-11-03)
 
 - Fix a false positive for `RSpec/RepeatedDescription` when different its block expectations are used. ([@ydah])
