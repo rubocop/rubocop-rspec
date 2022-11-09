@@ -21,7 +21,8 @@ rspec_cop_path = File.join('lib', 'rubocop', 'cop', 'rspec', 'base.rb')
 YARD::Tags::Library.define_tag('Cop Safety Information', :safety)
 YARD.parse(Dir[glob].prepend(rspec_cop_path), [])
 
-descriptions = RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all(:class)).to_h
+descriptions =
+  RuboCop::RSpec::DescriptionExtractor.new(YARD::Registry.all(:class)).to_h
 current_config = if Psych::VERSION >= '4.0.0' # RUBY_VERSION >= '3.1.0'
                    YAML.unsafe_load_file('config/default.yml')
                  else
