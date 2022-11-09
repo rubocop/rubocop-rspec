@@ -21,7 +21,8 @@ module RuboCop
 
       # Decorator of a YARD code object for working with documented rspec cops
       class CodeObject
-        COP_CLASS_NAME = 'RuboCop::Cop::RSpec::Base'
+        RSPEC_COP_CLASS_NAME = 'RuboCop::Cop::RSpec::Base'
+        RUBOCOP_COP_CLASS_NAME = 'RuboCop::Cop::Base'
         RSPEC_NAMESPACE = 'RuboCop::Cop::RSpec'
 
         def initialize(yardoc)
@@ -33,7 +34,7 @@ module RuboCop
         # @return [Boolean]
         def rspec_cop?
           class_documentation? &&
-            rspec_cop_namespace? &&
+            # rspec_cop_namespace? &&
             cop_subclass? &&
             !abstract?
         end
@@ -68,7 +69,10 @@ module RuboCop
         end
 
         def cop_subclass?
-          yardoc.superclass.path == COP_CLASS_NAME
+          require 'pry'; binding.pry unless yardoc.superclass.path == RSPEC_COP_CLASS_NAME
+
+          yardoc.superclass.path == RSPEC_COP_CLASS_NAME ||
+            yardoc.superclass.path == RUBOCOP_COP_CLASS_NAME
         end
 
         def abstract?
