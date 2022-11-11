@@ -144,3 +144,5 @@ RSpec/Rails/HaveHttpStatus:
   Enabled: true
 RSpec/Rails/InferredSpecType:
   Enabled: true
+RSpec/FactoryBot/FactoryNameStyle:
+  Enabled: true

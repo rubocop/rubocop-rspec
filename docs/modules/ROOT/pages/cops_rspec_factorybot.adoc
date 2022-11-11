@@ -243,6 +243,64 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
+== RSpec/FactoryBot/FactoryNameStyle
+
+[separator=¦]
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+¦ Pending
+¦ Yes
+¦ Yes
+¦ <<next>>
+¦ -
+|===
+
+Checks for name style for argument of FactoryBot::Syntax::Methods.
+
+=== Examples
+
+==== EnforcedStyle: symbol (default)
+
+[source,ruby]
+----
+# bad
+create('user')
+build "user", username: "NAME"
+
+# good
+create(:user)
+build :user, username: "NAME"
+----
+
+==== EnforcedStyle: string
+
+[source,ruby]
+----
+# bad
+create(:user)
+build :user, username: "NAME"
+
+# good
+create('user')
+build "user", username: "NAME"
+----
+
+=== Configurable attributes
+
+[separator=¦]
+|===
+| Name | Default value | Configurable values
+
+¦ EnforcedStyle
+¦ `symbol`
+¦ `symbol`, `string`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryNameStyle
+
 == RSpec/FactoryBot/SyntaxMethods
 
 [separator=¦]
