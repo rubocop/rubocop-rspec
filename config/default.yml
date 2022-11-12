@@ -1018,3 +1018,13 @@ RSpec/Rails/HttpStatus:
   VersionAdded: '1.23'
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
+
+RSpec/Rails/ResponseParsedBody:
+  Description: Prefer `response.parsed_body` to `JSON.parse(response.body)`.
+  Enabled: pending
+  Safe: false
+  Include:
+    - spec/controllers/**/*
+    - spec/requests/**/*
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/ResponseParsedBody

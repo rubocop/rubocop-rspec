@@ -144,3 +144,5 @@ RSpec/Rails/HaveHttpStatus:
   Enabled: true
 RSpec/Rails/InferredSpecType:
   Enabled: true
+RSpec/Rails/ResponseParsedBody:
+  Enabled: true

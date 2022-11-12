@@ -210,3 +210,49 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/InferredSpecType
+
+== RSpec/Rails/ResponseParsedBody
+
+[separator=¦]
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+¦ Pending
+¦ No
+¦ Yes (Unsafe)
+¦ <<next>>
+¦ -
+|===
+
+Prefer `response.parsed_body` to `JSON.parse(response.body)`.
+
+=== Safety
+
+This cop is unsafe because Content-Type may not be
+`application/json`.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+JSON.parse(response.body)
+
+# good
+response.parsed_body
+----
+
+=== Configurable attributes
+
+[separator=¦]
+|===
+| Name | Default value | Configurable values
+
+¦ Include
+¦ `+spec/controllers/**/*+`, `+spec/requests/**/*+`
+¦ Array
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/ResponseParsedBody
