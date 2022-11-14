@@ -27,8 +27,6 @@ module RuboCop
         #   expect(page).to have_field('foo')
         #
         class SpecificMatcher < Base
-          include CapybaraHelp
-
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
           RESTRICT_ON_SEND = %i[have_selector have_no_selector have_css
                                 have_no_css].freeze
@@ -49,8 +47,8 @@ module RuboCop
             first_argument(node) do |arg|
               next unless (matcher = specific_matcher(arg))
               next if CssSelector.multiple_selectors?(arg)
-              next unless specific_option?(node, arg, matcher)
-              next unless specific_pseudo_classes?(arg)
+              next unless CapybaraHelp.specific_option?(node, arg, matcher)
+              next unless CapybaraHelp.specific_pseudo_classes?(arg)
 
               add_offense(node, message: message(node, matcher))
             end

@@ -960,6 +960,16 @@ RSpec/FactoryBot/FactoryClassName:
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
+RSpec/FactoryBot/FactoryNameStyle:
+  Description: Checks for name style for argument of FactoryBot::Syntax::Methods.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  EnforcedStyle: symbol
+  SupportedStyles:
+    - symbol
+    - string
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryNameStyle
+
 RSpec/FactoryBot/SyntaxMethods:
   Description: Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
   Enabled: pending

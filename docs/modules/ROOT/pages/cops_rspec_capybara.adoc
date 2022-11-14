@@ -2,15 +2,14 @@
 
 == RSpec/Capybara/CurrentPathExpectation
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ Yes
-¦ 1.18
-¦ 2.0
+| Enabled
+| Yes
+| Yes
+| 1.18
+| 2.0
 |===
 
 Checks that no expectations are set on Capybara's `current_path`.
@@ -48,15 +47,14 @@ expect(page).to have_current_path('/callback')
 
 == RSpec/Capybara/FeatureMethods
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ Yes
-¦ 1.17
-¦ 2.0
+| Enabled
+| Yes
+| Yes
+| 1.17
+| 2.0
 |===
 
 Checks for consistent method usage in feature specs.
@@ -102,13 +100,12 @@ end
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ EnabledMethods
-¦ `[]`
-¦ Array
+| EnabledMethods
+| `[]`
+| Array
 |===
 
 === References
@@ -117,15 +114,14 @@ end
 
 == RSpec/Capybara/NegationMatcher
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ Yes
-¦ 2.14
-¦ -
+| Pending
+| Yes
+| Yes
+| 2.14
+| -
 |===
 
 Enforces use of `have_no_*` or `not_to` for negated expectations.
@@ -160,13 +156,12 @@ expect(page).to have_no_css('a')
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ EnforcedStyle
-¦ `not_to`
-¦ `have_no`, `not_to`
+| EnforcedStyle
+| `not_to`
+| `have_no`, `not_to`
 |===
 
 === References
@@ -175,15 +170,14 @@ expect(page).to have_no_css('a')
 
 == RSpec/Capybara/SpecificActions
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ No
-¦ 2.14
-¦ -
+| Pending
+| Yes
+| No
+| 2.14
+| -
 |===
 
 Checks for there is a more specific actions offered by Capybara.
@@ -211,15 +205,14 @@ find('div').click_button
 
 == RSpec/Capybara/SpecificFinders
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ Yes
-¦ 2.13
-¦ -
+| Pending
+| Yes
+| Yes
+| 2.13
+| -
 |===
 
 Checks if there is a more specific finder offered by Capybara.
@@ -243,15 +236,14 @@ find_by_id('some-id', visible: true)
 
 == RSpec/Capybara/SpecificMatcher
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ No
-¦ 2.12
-¦ -
+| Pending
+| Yes
+| No
+| 2.12
+| -
 |===
 
 Checks for there is a more specific matcher offered by Capybara.
@@ -285,15 +277,14 @@ expect(page).to have_field('foo')
 
 == RSpec/Capybara/VisibilityMatcher
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ No
-¦ 1.39
-¦ 2.0
+| Enabled
+| Yes
+| No
+| 1.39
+| 2.0
 |===
 
 Checks for boolean visibility in Capybara finders.
