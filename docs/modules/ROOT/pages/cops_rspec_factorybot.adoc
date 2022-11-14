@@ -2,15 +2,14 @@
 
 == RSpec/FactoryBot/AttributeDefinedStatically
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ Yes
-¦ 1.28
-¦ 2.0
+| Enabled
+| Yes
+| Yes
+| 1.28
+| 2.0
 |===
 
 Always declare attribute values as blocks.
@@ -40,13 +39,12 @@ count { 1 }
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ Include
-¦ `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
-¦ Array
+| Include
+| `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
+| Array
 |===
 
 === References
@@ -55,15 +53,14 @@ count { 1 }
 
 == RSpec/FactoryBot/ConsistentParenthesesStyle
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ Yes
-¦ 2.14
-¦ -
+| Pending
+| Yes
+| Yes
+| 2.14
+| -
 |===
 
 Use a consistent style for parentheses in factory bot calls.
@@ -113,13 +110,12 @@ build(
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ EnforcedStyle
-¦ `require_parentheses`
-¦ `require_parentheses`, `omit_parentheses`
+| EnforcedStyle
+| `require_parentheses`
+| `require_parentheses`, `omit_parentheses`
 |===
 
 === References
@@ -128,15 +124,14 @@ build(
 
 == RSpec/FactoryBot/CreateList
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ Yes
-¦ 1.25
-¦ 2.0
+| Enabled
+| Yes
+| Yes
+| 1.25
+| 2.0
 |===
 
 Checks for create_list usage.
@@ -178,17 +173,16 @@ create_list :user, 3
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ Include
-¦ `+**/*_spec.rb+`, `+**/spec/**/*+`, `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
-¦ Array
+| Include
+| `+**/*_spec.rb+`, `+**/spec/**/*+`, `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
+| Array
 
-¦ EnforcedStyle
-¦ `create_list`
-¦ `create_list`, `n_times`
+| EnforcedStyle
+| `create_list`
+| `create_list`, `n_times`
 |===
 
 === References
@@ -197,15 +191,14 @@ create_list :user, 3
 
 == RSpec/FactoryBot/FactoryClassName
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Enabled
-¦ Yes
-¦ Yes
-¦ 1.37
-¦ 2.0
+| Enabled
+| Yes
+| Yes
+| 1.37
+| 2.0
 |===
 
 Use string value when setting the class attribute explicitly.
@@ -230,13 +223,12 @@ end
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ Include
-¦ `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
-¦ Array
+| Include
+| `spec/factories.rb`, `+spec/factories/**/*.rb+`, `+features/support/factories/**/*.rb+`
+| Array
 |===
 
 === References
@@ -245,15 +237,14 @@ end
 
 == RSpec/FactoryBot/FactoryNameStyle
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ Yes
-¦ <<next>>
-¦ -
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
 |===
 
 Checks for name style for argument of FactoryBot::Syntax::Methods.
@@ -288,13 +279,12 @@ build "user", username: "NAME"
 
 === Configurable attributes
 
-[separator=¦]
 |===
 | Name | Default value | Configurable values
 
-¦ EnforcedStyle
-¦ `symbol`
-¦ `symbol`, `string`
+| EnforcedStyle
+| `symbol`
+| `symbol`, `string`
 |===
 
 === References
@@ -303,15 +293,14 @@ build "user", username: "NAME"
 
 == RSpec/FactoryBot/SyntaxMethods
 
-[separator=¦]
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-¦ Pending
-¦ Yes
-¦ Yes (Unsafe)
-¦ 2.7
-¦ -
+| Pending
+| Yes
+| Yes (Unsafe)
+| 2.7
+| -
 |===
 
 Use shorthands from `FactoryBot::Syntax::Methods` in your specs.
