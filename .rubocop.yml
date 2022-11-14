@@ -128,21 +128,3 @@ RSpec/SubjectDeclaration:
   Enabled: true
 RSpec/VerifiedDoubleReference:
   Enabled: true
-RSpec/Capybara/NegationMatcher:
-  Enabled: true
-RSpec/Capybara/SpecificActions:
-  Enabled: true
-RSpec/Capybara/SpecificFinders:
-  Enabled: true
-RSpec/Capybara/SpecificMatcher:
-  Enabled: true
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: true
-RSpec/Rails/AvoidSetupHook:
-  Enabled: true
-RSpec/Rails/HaveHttpStatus:
-  Enabled: true
-RSpec/Rails/InferredSpecType:
-  Enabled: true
-RSpec/FactoryBot/FactoryNameStyle:
-  Enabled: true
