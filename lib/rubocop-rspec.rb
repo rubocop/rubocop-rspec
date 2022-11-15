@@ -25,6 +25,7 @@ require_relative 'rubocop/cop/rspec/mixin/namespace'
 require_relative 'rubocop/cop/rspec/mixin/css_selector'
 require_relative 'rubocop/cop/rspec/mixin/skip_or_pending'
 require_relative 'rubocop/cop/rspec/mixin/capybara_help'
+require_relative 'rubocop/cop/rspec/mixin/metadata'
 
 require_relative 'rubocop/rspec/concept'
 require_relative 'rubocop/rspec/example_group'

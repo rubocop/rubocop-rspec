@@ -286,6 +286,12 @@ RSpec/Dialect:
   VersionAdded: '1.33'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
+RSpec/DuplicatedMetadata:
+  Description: Avoid duplicated metadata.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
+
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: true
