@@ -41,6 +41,8 @@ module RuboCop
           end
         end
 
+        private
+
         def repeated_hooks(node)
           hooks = RuboCop::RSpec::ExampleGroup.new(node)
             .hooks

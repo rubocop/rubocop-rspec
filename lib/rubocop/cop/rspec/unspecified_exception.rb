@@ -50,6 +50,8 @@ module RuboCop
           add_offense(node.children.last)
         end
 
+        private
+
         def empty_exception_matcher?(node)
           empty_raise_error_or_exception(node) && !block_with_args?(node.parent)
         end

@@ -44,6 +44,8 @@ module RuboCop
           check_previous_nodes(node)
         end
 
+        private
+
         def check_previous_nodes(node)
           offending_node(node) do |offender|
             msg = format(MSG, offending: offender.method_name)
@@ -52,8 +54,6 @@ module RuboCop
             end
           end
         end
-
-        private
 
         def offending_node(node)
           parent(node).each_child_node.find do |sibling|
