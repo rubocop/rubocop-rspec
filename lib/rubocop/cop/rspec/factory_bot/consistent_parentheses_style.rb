@@ -77,6 +77,8 @@ module RuboCop
             end
           end
 
+          private
+
           def process_with_parentheses(node)
             return unless style == :omit_parentheses
             return unless same_line?(node, node.first_argument)
@@ -101,8 +103,6 @@ module RuboCop
               node.parent&.pair_type? ||
               node.parent&.array_type?
           end
-
-          private
 
           def remove_parentheses(corrector, node)
             corrector.replace(node.location.begin, ' ')

@@ -55,6 +55,8 @@ module RuboCop
           end
         end
 
+        private
+
         def allowed_one_liner?(node)
           consecutive_one_liner?(node) && allow_consecutive_one_liners?
         end
