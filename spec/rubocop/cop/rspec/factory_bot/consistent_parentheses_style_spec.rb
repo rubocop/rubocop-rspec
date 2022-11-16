@@ -148,6 +148,14 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
         create foo: :bar
       RUBY
     end
+
+    it 'dose not register an offense when using `generate` ' \
+       'with not a one argument' do
+      expect_no_offenses(<<~RUBY)
+        generate
+        generate :foo, :bar
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :omit_parentheses' do
@@ -364,6 +372,14 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
       expect_no_offenses(<<~RUBY)
         create()
         create(foo: :bar)
+      RUBY
+    end
+
+    it 'dose not register an offense when using `generate` ' \
+       'with not a one argument' do
+      expect_no_offenses(<<~RUBY)
+        generate()
+        generate(:foo, :bar)
       RUBY
     end
   end

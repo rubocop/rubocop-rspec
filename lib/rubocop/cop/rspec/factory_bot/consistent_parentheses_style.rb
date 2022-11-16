@@ -69,6 +69,8 @@ module RuboCop
             return if ambiguous_without_parentheses?(node)
 
             factory_call(node) do
+              return if node.method?(:generate) && node.arguments.count > 1
+
               if node.parenthesized?
                 process_with_parentheses(node)
               else
