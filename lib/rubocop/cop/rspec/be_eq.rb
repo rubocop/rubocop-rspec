@@ -9,6 +9,9 @@ module RuboCop
       # using `==`. Booleans and nil can be compared by identity and therefore
       # the `be` matcher is preferable as it is a more strict test.
       #
+      # @safety
+      #   This cop is unsafe because it changes how values are compared.
+      #
       # @example
       #   # bad
       #   expect(foo).to eq(true)

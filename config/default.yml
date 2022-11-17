@@ -147,7 +147,9 @@ RSpec/Be:
 RSpec/BeEq:
   Description: Check for expectations where `be(...)` can replace `eq(...)`.
   Enabled: pending
+  Safe: false
   VersionAdded: 2.9.0
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
 
 RSpec/BeEql:
