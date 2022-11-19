@@ -18,8 +18,8 @@ If you have created a new cop:
 - [ ] The cop is configured as `Enabled: true` in `.rubocop.yml`.
 - [ ] The cop documents examples of good and bad code.
 - [ ] The tests assert both that bad code is reported and that good code is not reported.
-- [ ] Set `VersionAdded` in `default/config.yml` to the next minor version.
+- [ ] Set `VersionAdded: "<<next>>"` in `default/config.yml`.
 
 If you have modified an existing cop's configuration options:
 
-- [ ] Set `VersionChanged` in `config/default.yml` to the next major version.
+- [ ] Set `VersionChanged: "<<next>>"` in `config/default.yml`.
