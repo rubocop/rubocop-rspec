@@ -192,10 +192,10 @@ expect(foo).to be(true)
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
-| Yes
-| Yes
+| No
+| Yes (Unsafe)
 | 2.9.0
-| -
+| <<next>>
 |===
 
 Check for expectations where `be(...)` can replace `eq(...)`.
@@ -203,6 +203,10 @@ Check for expectations where `be(...)` can replace `eq(...)`.
 The `be` matcher compares by identity while the `eq` matcher compares
 using `==`. Booleans and nil can be compared by identity and therefore
 the `be` matcher is preferable as it is a more strict test.
+
+=== Safety
+
+This cop is unsafe because it changes how values are compared.
 
 === Examples
 
