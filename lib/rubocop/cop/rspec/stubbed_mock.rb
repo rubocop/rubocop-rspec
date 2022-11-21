@@ -133,6 +133,8 @@ module RuboCop
           }
         PATTERN
 
+        RESTRICT_ON_SEND = %i[to].freeze
+
         def on_send(node)
           expectation(node, &method(:on_expectation))
         end

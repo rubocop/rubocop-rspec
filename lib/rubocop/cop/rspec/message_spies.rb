@@ -41,6 +41,8 @@ module RuboCop
 
         SUPPORTED_STYLES = %w[have_received receive].freeze
 
+        RESTRICT_ON_SEND = Runners.all
+
         # @!method message_expectation(node)
         def_node_matcher :message_expectation, %(
           (send (send nil? :expect $_) #Runners.all ...)

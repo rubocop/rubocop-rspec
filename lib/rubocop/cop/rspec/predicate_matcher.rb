@@ -283,6 +283,8 @@ module RuboCop
         include InflectedHelper
         include ExplicitHelper
 
+        RESTRICT_ON_SEND = Runners.all
+
         def on_send(node)
           case style
           when :inflected

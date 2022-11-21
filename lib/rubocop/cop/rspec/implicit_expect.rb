@@ -28,6 +28,8 @@ module RuboCop
 
         MSG = 'Prefer `%<good>s` over `%<bad>s`.'
 
+        RESTRICT_ON_SEND = Runners.all + %i[should should_not]
+
         # @!method implicit_expect(node)
         def_node_matcher :implicit_expect, <<-PATTERN
           {
