@@ -26,6 +26,8 @@ module RuboCop
 
         MSG = 'Provide the actual you are testing to `expect(...)`.'
 
+        RESTRICT_ON_SEND = Runners.all
+
         SIMPLE_LITERALS = %i[
           true
           false

@@ -21,6 +21,8 @@ module RuboCop
       class Be < Base
         MSG = "Don't use `be` without an argument."
 
+        RESTRICT_ON_SEND = Runners.all
+
         # @!method be_without_args(node)
         def_node_matcher :be_without_args, <<-PATTERN
           (send _ #Runners.all $(send nil? :be))

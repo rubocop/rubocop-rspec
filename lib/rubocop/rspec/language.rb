@@ -160,8 +160,12 @@ module RuboCop
 
       module Runners # :nodoc:
         ALL = %i[to to_not not_to].freeze
-        def self.all(element)
-          ALL.include?(element)
+        class << self
+          def all(element = nil)
+            return ALL if element.nil?
+
+            ALL.include?(element)
+          end
         end
       end
 

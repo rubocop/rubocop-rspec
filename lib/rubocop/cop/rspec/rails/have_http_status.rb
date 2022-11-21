@@ -20,6 +20,8 @@ module RuboCop
             'Prefer `expect(response).%<to>s have_http_status(%<status>i)` ' \
             'over `expect(response.status).%<to>s %<match>s`.'
 
+          RESTRICT_ON_SEND = Runners.all
+
           # @!method match_status(node)
           def_node_matcher :match_status, <<-PATTERN
             (send
