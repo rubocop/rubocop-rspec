@@ -73,6 +73,9 @@ Naming/InclusiveLanguage:
     offence:
       Suggestions:
         - offense
+    'does not registers':
+      Suggestions:
+        - does not register
 
 RSpec:
   Language:
