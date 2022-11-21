@@ -21,6 +21,7 @@
 * xref:cops_rspec.adoc#rspecdescribedclass[RSpec/DescribedClass]
 * xref:cops_rspec.adoc#rspecdescribedclassmodulewrapping[RSpec/DescribedClassModuleWrapping]
 * xref:cops_rspec.adoc#rspecdialect[RSpec/Dialect]
+* xref:cops_rspec.adoc#rspecduplicatedmetadata[RSpec/DuplicatedMetadata]
 * xref:cops_rspec.adoc#rspecemptyexamplegroup[RSpec/EmptyExampleGroup]
 * xref:cops_rspec.adoc#rspecemptyhook[RSpec/EmptyHook]
 * xref:cops_rspec.adoc#rspecemptylineafterexample[RSpec/EmptyLineAfterExample]

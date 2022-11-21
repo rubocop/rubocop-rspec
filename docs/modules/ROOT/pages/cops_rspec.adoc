@@ -1005,6 +1005,35 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
+== RSpec/DuplicatedMetadata
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Avoid duplicated metadata.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+describe 'Something', :a, :a
+
+# good
+describe 'Something', :a
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
+
 == RSpec/EmptyExampleGroup
 
 |===

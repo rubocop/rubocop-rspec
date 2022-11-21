@@ -7,6 +7,7 @@
 - Fix wrong autocorrection in `n_times` style on `RSpec/FactoryBot/CreateList`. ([@r7kamura])
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` when using `generate` with multiple arguments. ([@ydah])
 - Mark `RSpec/BeEq` as `Safe: false` ([@r7kamura])
+- Add `RSpec/DuplicatedMetadata` cop. ([@r7kamura])
 
 ## 2.15.0 (2022-11-03)
 

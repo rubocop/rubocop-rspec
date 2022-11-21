@@ -119,6 +119,8 @@ RSpec/ChangeByZero:
   Enabled: true
 RSpec/ClassCheck:
   Enabled: true
+RSpec/DuplicatedMetadata:
+  Enabled: true
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:

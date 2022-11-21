@@ -18,45 +18,12 @@ module RuboCop
       #
       class SortMetadata < Base
         extend AutoCorrector
+        include Metadata
         include RangeHelp
 
         MSG = 'Sort metadata alphabetically.'
 
-        # @!method rspec_metadata(node)
-        def_node_matcher :rspec_metadata, <<~PATTERN
-          (block
-            (send
-              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ ${send str sym}* (hash $...)?)
-            ...)
-        PATTERN
-
-        # @!method rspec_configure(node)
-        def_node_matcher :rspec_configure, <<~PATTERN
-          (block (send #rspec? :configure) (args (arg $_)) ...)
-        PATTERN
-
-        # @!method metadata_in_block(node)
-        def_node_search :metadata_in_block, <<~PATTERN
-          (send (lvar %) #Hooks.all _ ${send str sym}* (hash $...)?)
-        PATTERN
-
-        def on_block(node)
-          rspec_configure(node) do |block_var|
-            metadata_in_block(node, block_var) do |symbols, pairs|
-              investigate(symbols, pairs.flatten)
-            end
-          end
-
-          rspec_metadata(node) do |symbols, pairs|
-            investigate(symbols, pairs.flatten)
-          end
-        end
-
-        alias on_numblock on_block
-
-        private
-
-        def investigate(symbols, pairs)
+        def on_metadata(symbols, pairs)
           return if sorted?(symbols, pairs)
 
           crime_scene = crime_scene(symbols, pairs)
@@ -64,6 +31,8 @@ module RuboCop
             corrector.replace(crime_scene, replacement(symbols, pairs))
           end
         end
+
+        private
 
         def crime_scene(symbols, pairs)
           metadata = symbols + pairs
