@@ -233,10 +233,10 @@ expect(foo).to be(nil)
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
-| Yes
-| Yes
+| No
+| Yes (Unsafe)
 | 1.7
-| -
+| <<next>>
 |===
 
 Check for expectations where `be(...)` can replace `eql(...)`.
@@ -252,6 +252,10 @@ than `!equal?`. We also do not try to flag `eq` because if
 `a == b`, and `b` is comparable by identity, `a` is still not
 necessarily the same type as `b` since the `#==` operator can
 coerce objects for comparison.
+
+=== Safety
+
+This cop is unsafe because it changes how values are compared.
 
 === Examples
 
