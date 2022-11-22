@@ -8,6 +8,7 @@
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` when using `generate` with multiple arguments. ([@ydah])
 - Mark `RSpec/BeEq` as `Safe: false` ([@r7kamura])
 - Add `RSpec/DuplicatedMetadata` cop. ([@r7kamura])
+- Mark `RSpec/BeEql` as `Safe: false`. ([@r7kamura])
 
 ## 2.15.0 (2022-11-03)
 

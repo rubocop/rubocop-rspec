@@ -155,7 +155,9 @@ RSpec/BeEq:
 RSpec/BeEql:
   Description: Check for expectations where `be(...)` can replace `eql(...)`.
   Enabled: true
+  Safe: false
   VersionAdded: '1.7'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
 RSpec/BeNil:
