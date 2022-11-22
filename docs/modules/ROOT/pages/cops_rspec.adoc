@@ -1464,6 +1464,37 @@ let(:foo) { bar }
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
+== RSpec/EmptyMetadata
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Avoid empty metadata hash.
+
+=== Examples
+
+==== EnforcedStyle: symbol (default)
+
+[source,ruby]
+----
+# bad
+describe 'Something', {}
+
+# good
+describe 'Something'
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
+
 == RSpec/Eq
 
 |===
@@ -3226,6 +3257,62 @@ do_something
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
+
+== RSpec/MetadataStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Use consistent metadata style.
+
+This cop does not support autocorrection in the case of
+`EnforcedStyle: hash` where the trailing metadata type is ambiguous.
+(e.g. `describe 'Something', :a, b`)
+
+=== Examples
+
+==== EnforcedStyle: symbol (default)
+
+[source,ruby]
+----
+# bad
+describe 'Something', a: true
+
+# good
+describe 'Something', :a
+----
+
+==== EnforcedStyle: hash
+
+[source,ruby]
+----
+# bad
+describe 'Something', :a
+
+# good
+describe 'Something', a: true
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `symbol`
+| `hash`, `symbol`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MetadataStyle
 
 == RSpec/MissingExampleGroupArgument
 

@@ -146,6 +146,8 @@ RSpec/ContainExactly:
   Enabled: true
 RSpec/DuplicatedMetadata:
   Enabled: true
+RSpec/EmptyMetadata:
+  Enabled: true
 RSpec/Eq:
   Enabled: true
 RSpec/ExcessiveDocstringSpacing:
@@ -155,6 +157,8 @@ RSpec/IdenticalEqualityAssertion:
 RSpec/IndexedLet:
   Enabled: true
 RSpec/MatchArray:
+  Enabled: true
+RSpec/MetadataStyle:
   Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
