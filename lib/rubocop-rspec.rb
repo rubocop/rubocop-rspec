@@ -18,6 +18,7 @@ require_relative 'rubocop/rspec/language'
 
 require_relative 'rubocop/rspec/factory_bot/language'
 
+require_relative 'rubocop/cop/rspec/mixin/configurable_explicit_only'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
 require_relative 'rubocop/cop/rspec/mixin/metadata'
