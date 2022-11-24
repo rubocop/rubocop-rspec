@@ -18,7 +18,7 @@ module RuboCop
         #
         #   # good
         #   create(:user)
-        #   create(:user)
+        #   build(:user)
         #   create(:login)
         #   build(:login)
         #
@@ -40,49 +40,67 @@ module RuboCop
         #     name: 'foo'
         #   )
         #
+        # @example `ExplicitOnly: false` (default)
+        #
+        #   # bad - with `EnforcedStyle: require_parentheses`
+        #   FactoryBot.create :user
+        #   build :user
+        #
+        #   # good - with `EnforcedStyle: require_parentheses`
+        #   FactoryBot.create(:user)
+        #   build(:user)
+        #
+        # @example `ExplicitOnly: true`
+        #
+        #   # bad - with `EnforcedStyle: require_parentheses`
+        #   FactoryBot.create :user
+        #   FactoryBot.build :user
+        #
+        #   # good - with `EnforcedStyle: require_parentheses`
+        #   FactoryBot.create(:user)
+        #   FactoryBot.build(:user)
+        #   create :user
+        #   build :user
+        #
         class ConsistentParenthesesStyle < ::RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
-          include RuboCop::RSpec::FactoryBot::Language
-          include RuboCop::Cop::Util
-
-          def self.autocorrect_incompatible_with
-            [Style::MethodCallWithArgsParentheses]
-          end
+          include ConfigurableExplicitOnly
 
           MSG_REQUIRE_PARENS = 'Prefer method call with parentheses'
           MSG_OMIT_PARENS = 'Prefer method call without parentheses'
-
           FACTORY_CALLS = RuboCop::RSpec::FactoryBot::Language::METHODS
-
           RESTRICT_ON_SEND = FACTORY_CALLS
 
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
             (send
-              {#factory_bot? nil?} %FACTORY_CALLS
+              #factory_call? %FACTORY_CALLS
               {sym str send lvar} _*
             )
           PATTERN
 
+          def self.autocorrect_incompatible_with
+            [Style::MethodCallWithArgsParentheses]
+          end
+
           def on_send(node)
             return if ambiguous_without_parentheses?(node)
 
-            factory_call(node) do
-              return if node.method?(:generate) && node.arguments.count > 1
-
-              if node.parenthesized?
-                process_with_parentheses(node)
-              else
-                process_without_parentheses(node)
-              end
-            end
+            factory_call(node) { register_offense(node) }
           end
 
           private
 
-          def process_with_parentheses(node)
-            return unless style == :omit_parentheses
+          def register_offense(node)
+            return if node.method?(:generate) && node.arguments.count > 1
+
+            register_offense_with_parentheses(node)
+            register_offense_without_parentheses(node)
+          end
+
+          def register_offense_with_parentheses(node)
+            return if style == :require_parentheses || !node.parenthesized?
             return unless same_line?(node, node.first_argument)
 
             add_offense(node.loc.selector,
@@ -91,8 +109,8 @@ module RuboCop
             end
           end
 
-          def process_without_parentheses(node)
-            return unless style == :require_parentheses
+          def register_offense_without_parentheses(node)
+            return if style == :omit_parentheses || node.parenthesized?
 
             add_offense(node.loc.selector,
                         message: MSG_REQUIRE_PARENS) do |corrector|

@@ -60,7 +60,7 @@ count { 1 }
 | Yes
 | Yes
 | 2.14
-| -
+| <<next>>
 |===
 
 Use a consistent style for parentheses in factory bot calls.
@@ -82,7 +82,7 @@ create :login
 ----
 # good
 create(:user)
-create(:user)
+build(:user)
 create(:login)
 build(:login)
 ----
@@ -108,6 +108,34 @@ build(
 )
 ----
 
+==== `ExplicitOnly: false` (default)
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: require_parentheses`
+FactoryBot.create :user
+build :user
+
+# good - with `EnforcedStyle: require_parentheses`
+FactoryBot.create(:user)
+build(:user)
+----
+
+==== `ExplicitOnly: true`
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: require_parentheses`
+FactoryBot.create :user
+FactoryBot.build :user
+
+# good - with `EnforcedStyle: require_parentheses`
+FactoryBot.create(:user)
+FactoryBot.build(:user)
+create :user
+build :user
+----
+
 === Configurable attributes
 
 |===
@@ -116,6 +144,10 @@ build(
 | EnforcedStyle
 | `require_parentheses`
 | `require_parentheses`, `omit_parentheses`
+
+| ExplicitOnly
+| `false`
+| Boolean
 |===
 
 === References

@@ -951,7 +951,9 @@ RSpec/FactoryBot/ConsistentParenthesesStyle:
   SupportedStyles:
     - require_parentheses
     - omit_parentheses
+  ExplicitOnly: false
   VersionAdded: '2.14'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/ConsistentParenthesesStyle
 
 RSpec/FactoryBot/CreateList:
