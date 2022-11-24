@@ -969,8 +969,9 @@ RSpec/FactoryBot/CreateList:
   SupportedStyles:
     - create_list
     - n_times
+  ExplicitOnly: false
   VersionAdded: '1.25'
-  VersionChanged: '2.0'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
 RSpec/FactoryBot/FactoryClassName:

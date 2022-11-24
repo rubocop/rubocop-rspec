@@ -31,10 +31,30 @@ module RuboCop
         #   # good
         #   3.times { create :user }
         #
+        # @example `ExplicitOnly: false` (default)
+        #
+        #   # bad - with `EnforcedStyle: create_list`
+        #   3.times { FactoryBot.create :user }
+        #   3.times { create :user }
+        #
+        #   # good - with `EnforcedStyle: create_list`
+        #   FactoryBot.create_list :user, 3
+        #   create_list :user, 3
+        #
+        # @example `ExplicitOnly: true`
+        #
+        #   # bad - with `EnforcedStyle: create_list`
+        #   3.times { FactoryBot.create :user }
+        #
+        #   # good - with `EnforcedStyle: create_list`
+        #   FactoryBot.create_list :user, 3
+        #   create_list :user, 3
+        #   3.times { create :user }
+        #
         class CreateList < ::RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
-          include RuboCop::RSpec::FactoryBot::Language
+          include ConfigurableExplicitOnly
 
           MSG_CREATE_LIST = 'Prefer create_list.'
           MSG_N_TIMES = 'Prefer %<number>s.times.'
@@ -62,17 +82,17 @@ module RuboCop
 
           # @!method arguments_include_method_call?(node)
           def_node_matcher :arguments_include_method_call?, <<-PATTERN
-            (send ${nil? #factory_bot?} :create (sym $_) `$(send ...))
+            (send #factory_call? :create (sym _) `(send ...))
           PATTERN
 
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
-            (send ${nil? #factory_bot?} :create (sym $_) $...)
+            (send #factory_call? :create (sym _) ...)
           PATTERN
 
           # @!method factory_list_call(node)
           def_node_matcher :factory_list_call, <<-PATTERN
-            (send {nil? #factory_bot?} :create_list (sym _) (int $_) ...)
+            (send #factory_call? :create_list (sym _) (int $_) ...)
           PATTERN
 
           def on_block(node) # rubocop:todo InternalAffairs/NumblockHandler

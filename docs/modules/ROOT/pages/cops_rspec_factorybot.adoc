@@ -163,7 +163,7 @@ build :user
 | Yes
 | Yes
 | 1.25
-| 2.0
+| <<next>>
 |===
 
 Checks for create_list usage.
@@ -203,6 +203,32 @@ create_list :user, 3
 3.times { create :user }
 ----
 
+==== `ExplicitOnly: false` (default)
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: create_list`
+3.times { FactoryBot.create :user }
+3.times { create :user }
+
+# good - with `EnforcedStyle: create_list`
+FactoryBot.create_list :user, 3
+create_list :user, 3
+----
+
+==== `ExplicitOnly: true`
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: create_list`
+3.times { FactoryBot.create :user }
+
+# good - with `EnforcedStyle: create_list`
+FactoryBot.create_list :user, 3
+create_list :user, 3
+3.times { create :user }
+----
+
 === Configurable attributes
 
 |===
@@ -215,6 +241,10 @@ create_list :user, 3
 | EnforcedStyle
 | `create_list`
 | `create_list`, `n_times`
+
+| ExplicitOnly
+| `false`
+| Boolean
 |===
 
 === References

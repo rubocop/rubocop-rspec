@@ -2,8 +2,9 @@
 
 RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
   let(:cop_config) do
-    { 'EnforcedStyle' => enforced_style }
+    { 'EnforcedStyle' => enforced_style, 'ExplicitOnly' => explicit_only }
   end
+  let(:explicit_only) { false }
 
   context 'when EnforcedStyle is :create_list' do
     let(:enforced_style) { :create_list }
@@ -189,6 +190,57 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
         create_list(:user, 3) { |user| create(:account, user: user) }
       RUBY
     end
+
+    context 'when ExplicitOnly is false' do
+      let(:explicit_only) { false }
+
+      it 'register an offense when using n.times with no arguments ' \
+         'and an explicit receiver' do
+        expect_offense(<<~RUBY)
+          3.times { FactoryBot.create :user }
+          ^^^^^^^ Prefer create_list.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.create_list :user, 3
+        RUBY
+      end
+
+      it 'register an offense when using n.times with no arguments ' \
+         'and no explicit receiver' do
+        expect_offense(<<~RUBY)
+          3.times { create :user }
+          ^^^^^^^ Prefer create_list.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          create_list :user, 3
+        RUBY
+      end
+    end
+
+    context 'when ExplicitOnly is true' do
+      let(:explicit_only) { true }
+
+      it 'register an offense when using n.times with no arguments ' \
+         'and an explicit receiver' do
+        expect_offense(<<~RUBY)
+          3.times { FactoryBot.create :user }
+          ^^^^^^^ Prefer create_list.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.create_list :user, 3
+        RUBY
+      end
+
+      it 'dose not register an offense when using n.times with no arguments ' \
+         'and no explicit receiver' do
+        expect_no_offenses(<<~RUBY)
+          3.times { create :user }
+        RUBY
+      end
+    end
   end
 
   context 'when EnforcedStyle is :n_times' do
@@ -253,6 +305,57 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::CreateList do
       expect_no_offenses(<<~RUBY)
         SomeFactory.create_list :user, 3
       RUBY
+    end
+
+    context 'when ExplicitOnly is false' do
+      let(:explicit_only) { false }
+
+      it 'register an offense when using create_list ' \
+         'with no arguments and an explicit receiver' do
+        expect_offense(<<~RUBY)
+          FactoryBot.create_list :user, 3
+                     ^^^^^^^^^^^ Prefer 3.times.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          3.times { FactoryBot.create :user }
+        RUBY
+      end
+
+      it 'register an offense when using create_list ' \
+         'with no arguments and no explicit receiver' do
+        expect_offense(<<~RUBY)
+          create_list :user, 3
+          ^^^^^^^^^^^ Prefer 3.times.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          3.times { create :user }
+        RUBY
+      end
+    end
+
+    context 'when ExplicitOnly is true' do
+      let(:explicit_only) { true }
+
+      it 'register an offense when using create_list ' \
+         'with no arguments and an explicit receiver' do
+        expect_offense(<<~RUBY)
+          FactoryBot.create_list :user, 3
+                     ^^^^^^^^^^^ Prefer 3.times.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          3.times { FactoryBot.create :user }
+        RUBY
+      end
+
+      it 'dose not register an offense when using create_list ' \
+         'with no arguments and no explicit receiver' do
+        expect_no_offenses(<<~RUBY)
+          create_list :user, 3
+        RUBY
+      end
     end
 
     context 'when Ruby 2.7', :ruby27 do
