@@ -33,21 +33,25 @@ module RuboCop
       end
 
       def let_group_for(let)
-        adjacent_let_chunks.detect do |chunk|
+        chunked_let_array.detect do |chunk|
           chunk.any? do |member|
             member == let && same_line?(member, let)
           end
         end
       end
 
-      def adjacent_let_chunks
+      def chunked_let_array
+        chunked_let.map { |_, array| array }
+      end
+
+      def chunked_let
         last_line = nil
 
         single_line_lets.chunk do |node|
-          line      = node.loc.line
+          line = node.loc.line
           last_line = (line if last_line.nil? || last_line + 1 == line)
           last_line.nil?
-        end.map(&:last)
+        end
       end
 
       def single_line_lets
