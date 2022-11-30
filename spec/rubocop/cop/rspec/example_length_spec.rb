@@ -56,6 +56,36 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleLength do
     end
   end
 
+  context 'given skipped nested examples' do
+    it 'does not flag the example' do
+      expect_no_offenses(<<-RUBY)
+        skip do
+          line 1
+          it do
+            line 1
+            line 2
+            line 3
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'given pending nested examples' do
+    it 'does not flag the example' do
+      expect_no_offenses(<<-RUBY)
+        pending do
+          line 1
+          it do
+            line 1
+            line 2
+            line 3
+          end
+        end
+      RUBY
+    end
+  end
+
   context 'with CountComments enabled' do
     let(:cop_config) do
       { 'Max' => 3, 'CountComments' => true }

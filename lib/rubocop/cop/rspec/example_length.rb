@@ -54,8 +54,7 @@ module RuboCop
         LABEL = 'Example'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example?(node)
-
+          return unless example?(node) && !example_group?(node)
           check_code_length(node)
         end
 

@@ -19,6 +19,7 @@ RSpec:
           - Regular
           - Skipped
           - Focused
+          - Pending
       Regular:
         - describe
         - context
@@ -28,10 +29,13 @@ RSpec:
         - xdescribe
         - xcontext
         - xfeature
+        - skip
       Focused:
         - fdescribe
         - fcontext
         - ffeature
+      Pending:
+        - pending
     Examples:
       inherit_mode:
         merge:

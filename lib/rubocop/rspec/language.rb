@@ -72,7 +72,8 @@ module RuboCop
           def all(element)
             regular(element) ||
               skipped(element) ||
-              focused(element)
+              focused(element) ||
+              pending(element)
           end
 
           def regular(element)
@@ -85,6 +86,10 @@ module RuboCop
 
           def skipped(element)
             Language.config['ExampleGroups']['Skipped'].include?(element.to_s)
+          end
+
+          def pending(element)
+            Language.config['ExampleGroups']['Pending'].include?(element.to_s)
           end
         end
       end
