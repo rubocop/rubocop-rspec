@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/ExampleLength` when using `pending` and `skip` on example group. ([@morissetcl])
 - Add new `RSpec/FactoryBot/FactoryNameStyle` cop. ([@ydah])
 - Improved processing speed for `RSpec/Be`, `RSpec/ExpectActual`, `RSpec/ImplicitExpect`, `RSpec/MessageSpies`, `RSpec/PredicateMatcher` and `RSpec/Rails/HaveHttpStatus`. ([@ydah])
 - Fix wrong autocorrection in `n_times` style on `RSpec/FactoryBot/CreateList`. ([@r7kamura])
