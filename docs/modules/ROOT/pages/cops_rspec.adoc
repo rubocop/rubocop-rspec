@@ -4375,14 +4375,23 @@ end
 
 | Enabled
 | Yes
-| No
+| Yes (Unsafe)
 | 1.10
-| -
+| <<next>>
 |===
 
 Checks for setup scattered across multiple hooks in an example group.
 
 Unify `before`, `after`, and `around` hooks when possible.
+
+Autocorrection is not supported when `around` is used because it can
+be difficult to unify them.
+
+=== Safety
+
+This cop's autocorrection is unsafe because it could change the order
+of processing if there is another hook between them.
+(e.g. `let!` between `before`s)
 
 === Examples
 

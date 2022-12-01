@@ -751,7 +751,9 @@ RSpec/ScatteredLet:
 RSpec/ScatteredSetup:
   Description: Checks for setup scattered across multiple hooks in an example group.
   Enabled: true
+  SafeAutoCorrect: false
   VersionAdded: '1.10'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 RSpec/SharedContext:

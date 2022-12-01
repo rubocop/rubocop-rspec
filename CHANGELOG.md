@@ -9,6 +9,7 @@
 - Mark `RSpec/BeEq` as `Safe: false` ([@r7kamura])
 - Add `RSpec/DuplicatedMetadata` cop. ([@r7kamura])
 - Mark `RSpec/BeEql` as `Safe: false`. ([@r7kamura])
+- Add autocorrect support for `RSpec/ScatteredSetup`. ([@r7kamura])
 
 ## 2.15.0 (2022-11-03)
 
