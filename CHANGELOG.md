@@ -8,6 +8,7 @@
 - Fix a false positive for `RSpec/VariableDefinition` when inside non-spec code. ([@ydah])
 - Add new `RSpec/PendingBlockInsideExample` cop. ([@ydah])
 - Add `RSpec/RedundantAround` cop. ([@r7kamura])
+- Add `RSpec/Rails/TravelAround` cop. ([@r7kamura])
 
 ## 2.18.1 (2023-01-19)
 

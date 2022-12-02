@@ -123,5 +123,6 @@
 * xref:cops_rspec_rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
 * xref:cops_rspec_rails.adoc#rspecrails/inferredspectype[RSpec/Rails/InferredSpecType]
 * xref:cops_rspec_rails.adoc#rspecrails/minitestassertions[RSpec/Rails/MinitestAssertions]
+* xref:cops_rspec_rails.adoc#rspecrails/travelaround[RSpec/Rails/TravelAround]
 
 // END_COP_LIST

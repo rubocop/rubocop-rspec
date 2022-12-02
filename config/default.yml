@@ -1068,3 +1068,10 @@ RSpec/Rails/MinitestAssertions:
   Enabled: pending
   VersionAdded: '2.17'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
+
+RSpec/Rails/TravelAround:
+  Description: Prefer to travel in `before` rather than `around`.
+  Enabled: pending
+  Safe: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/TravelAround
