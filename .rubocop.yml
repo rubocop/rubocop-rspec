@@ -127,6 +127,8 @@ RSpec/IdenticalEqualityAssertion:
   Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
+RSpec/PendingWithoutReason:
+  Enabled: true
 RSpec/SortMetadata:
   Enabled: true
 RSpec/SubjectDeclaration:

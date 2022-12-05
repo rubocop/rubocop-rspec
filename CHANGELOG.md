@@ -9,6 +9,7 @@
 - Mark `RSpec/BeEq` as `Safe: false` ([@r7kamura])
 - Add `RSpec/DuplicatedMetadata` cop. ([@r7kamura])
 - Mark `RSpec/BeEql` as `Safe: false`. ([@r7kamura])
+- Add `RSpec/PendingWithoutReason` cop. ([@r7kamura])
 
 ## 2.15.0 (2022-11-03)
 
