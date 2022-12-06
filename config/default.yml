@@ -366,12 +366,6 @@ RSpec/ExampleWithoutDescription:
   VersionAdded: '1.22'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
-RSpec/ExcessiveDocstringSpacing:
-  Description: Checks for excessive whitespace in example descriptions.
-  Enabled: pending
-  VersionAdded: '2.5'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
-
 RSpec/ExampleWording:
   Description: Checks for common mistakes in example descriptions.
   Enabled: true
@@ -387,6 +381,12 @@ RSpec/ExampleWording:
   VersionChanged: '2.13'
   StyleGuide: https://rspec.rubystyle.guide/#should-in-example-docstrings
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
+
+RSpec/ExcessiveDocstringSpacing:
+  Description: Checks for excessive whitespace in example descriptions.
+  Enabled: pending
+  VersionAdded: '2.5'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
 
 RSpec/ExpectActual:
   Description: Checks for `expect(...)` calls containing literal values.
@@ -1005,6 +1005,17 @@ RSpec/Rails/HaveHttpStatus:
   VersionAdded: '2.12'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
 
+RSpec/Rails/HttpStatus:
+  Description: Enforces use of symbolic or numeric value to describe HTTP status.
+  Enabled: true
+  EnforcedStyle: symbolic
+  SupportedStyles:
+    - numeric
+    - symbolic
+  VersionAdded: '1.23'
+  VersionChanged: '2.0'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
+
 RSpec/Rails/InferredSpecType:
   Description: Identifies redundant spec type.
   Enabled: pending
@@ -1027,14 +1038,3 @@ RSpec/Rails/InferredSpecType:
     routing: routing
     system: system
     views: view
-
-RSpec/Rails/HttpStatus:
-  Description: Enforces use of symbolic or numeric value to describe HTTP status.
-  Enabled: true
-  EnforcedStyle: symbolic
-  SupportedStyles:
-    - numeric
-    - symbolic
-  VersionAdded: '1.23'
-  VersionChanged: '2.0'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus

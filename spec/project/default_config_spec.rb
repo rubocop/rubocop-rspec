@@ -29,7 +29,7 @@ RSpec.describe 'config/default.yml' do
   end
 
   let(:config_keys) do
-    cop_names + %w[RSpec RSpec/Capybara RSpec/FactoryBot RSpec/Rails]
+    cop_names + namespaces.values
   end
 
   def cop_configuration(config_key)
@@ -47,13 +47,19 @@ RSpec.describe 'config/default.yml' do
       .to match_array([*config_keys, 'Metrics/BlockLength'])
   end
 
-  it 'sorts configuration keys alphabetically', :pending do
-    namespaces.each do |_path, prefix|
-      expected = config_keys.select { |key| key.start_with?(prefix) }.sort
-      actual = default_config.keys.select { |key| key.start_with?(prefix) }
-      actual.each_with_index do |key, idx|
-        expect(key).to eq expected[idx]
-      end
+  it 'sorts configuration keys alphabetically with nested namespaces last' do
+    rspec_keys = default_config.keys.select { |key| key.start_with?('RSpec') }
+    namespaced_rspec_keys = rspec_keys.select do |key|
+      key.start_with?(*(namespaces.values - ['RSpec']))
+    end
+
+    expected = rspec_keys.sort_by do |key|
+      namespaced = namespaced_rspec_keys.include?(key) ? 1 : 0
+      "#{namespaced} #{key}"
+    end
+
+    rspec_keys.each_with_index do |key, idx|
+      expect(key).to eq expected[idx]
     end
   end
 
