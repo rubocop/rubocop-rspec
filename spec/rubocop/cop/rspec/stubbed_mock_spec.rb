@@ -63,7 +63,7 @@ RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
     RUBY
   end
 
-  it 'flags with order and count constraints', :pending do
+  it 'flags with order and count constraints', pending: 'Not implemented yet' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar) { 'hello world' }.ordered
       ^^^^^^^^^^^ Prefer `allow` over `expect` when configuring a response.
