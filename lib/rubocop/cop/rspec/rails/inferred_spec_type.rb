@@ -33,7 +33,7 @@ module RuboCop
         #
         # @example `Inferences` configuration
         #   # .rubocop.yml
-        #   # RSpec/InferredSpecType:
+        #   # RSpec/Rails/InferredSpecType:
         #   #   Inferences:
         #   #     services: service
         #
