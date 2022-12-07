@@ -171,7 +171,7 @@ end
 [source,ruby]
 ----
 # .rubocop.yml
-# RSpec/InferredSpecType:
+# RSpec/Rails/InferredSpecType:
 #   Inferences:
 #     services: service
 
