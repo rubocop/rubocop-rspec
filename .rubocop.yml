@@ -100,6 +100,9 @@ Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
 
+Style/RequireOrder:
+  Enabled: true
+
 # Enable some of RuboCop's pending cops.
 
 Layout/LineContinuationSpacing:
