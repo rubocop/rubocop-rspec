@@ -232,6 +232,8 @@ RSpec.describe RuboCop::Cop::RSpec::FilePath do
   end
 
   it 'does not register offense for absolute file path' do
+    # RuboCop's Commissioner is calling it, too
+    allow(File).to receive(:expand_path).and_call_original
     allow(File).to receive(:expand_path).with('my_class_spec.rb').and_return(
       '/home/foo/spec/very/long/namespace/my_class_spec.rb'
     )
