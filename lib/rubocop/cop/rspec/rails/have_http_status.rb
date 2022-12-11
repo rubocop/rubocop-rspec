@@ -13,7 +13,7 @@ module RuboCop
         #   # good
         #   expect(response).to have_http_status(200)
         #
-        class HaveHttpStatus < Base
+        class HaveHttpStatus < ::RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG =

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryNameStyle,
-               :config do
+RSpec.describe RuboCop::Cop::RSpec::FactoryBot::FactoryNameStyle, :config do
   let(:cop_config) do
     { 'EnforcedStyle' => enforced_style }
   end

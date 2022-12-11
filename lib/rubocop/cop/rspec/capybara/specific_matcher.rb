@@ -26,7 +26,7 @@ module RuboCop
         #   expect(page).to have_select
         #   expect(page).to have_field('foo')
         #
-        class SpecificMatcher < Base
+        class SpecificMatcher < ::RuboCop::Cop::Base
           MSG = 'Prefer `%<good_matcher>s` over `%<bad_matcher>s`.'
           RESTRICT_ON_SEND = %i[have_selector have_no_selector have_css
                                 have_no_css].freeze

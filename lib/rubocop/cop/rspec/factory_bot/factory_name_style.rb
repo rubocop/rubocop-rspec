@@ -24,7 +24,7 @@ module RuboCop
         #   create('user')
         #   build "user", username: "NAME"
         #
-        class FactoryNameStyle < Base
+        class FactoryNameStyle < ::RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
           include RuboCop::RSpec::FactoryBot::Language
