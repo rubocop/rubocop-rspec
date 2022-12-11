@@ -47,14 +47,14 @@ module RuboCop
           # @!method as_is_matcher(node)
           def_node_matcher :as_is_matcher, <<-PATTERN
             (send
-              #expectation_set_on_current_path $#Runners.all
+              #expectation_set_on_current_path ${:to :to_not :not_to}
               ${(send nil? :eq ...) (send nil? :match (regexp ...))})
           PATTERN
 
           # @!method regexp_str_matcher(node)
           def_node_matcher :regexp_str_matcher, <<-PATTERN
             (send
-              #expectation_set_on_current_path $#Runners.all
+              #expectation_set_on_current_path ${:to :to_not :not_to}
               $(send nil? :match (str $_)))
           PATTERN
 
