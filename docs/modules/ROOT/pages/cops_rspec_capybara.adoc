@@ -223,6 +223,102 @@ expect(page).to have_no_css('a')
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
 
+== RSpec/Capybara/PredicateMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Prefer using predicate matcher over using predicate method directly.
+
+Capybara defines magic matchers for predicate methods.
+This cop recommends to use the predicate matcher instead of using
+predicate method directly.
+
+=== Examples
+
+==== Strict: true, EnforcedStyle: inflected (default)
+
+[source,ruby]
+----
+# bad
+expect(foo.matches_css?(bar: 'baz')).to be_truthy
+expect(foo.matches_selector?(bar: 'baz')).to be_truthy
+expect(foo.matches_style?(bar: 'baz')).to be_truthy
+expect(foo.matches_xpath?(bar: 'baz')).to be_truthy
+
+# good
+expect(foo).to match_css(bar: 'baz')
+expect(foo).to match_selector(bar: 'baz')
+expect(foo).to match_style(bar: 'baz')
+expect(foo).to match_xpath(bar: 'baz')
+
+# also good - It checks "true" strictly.
+expect(foo.matches_style?(bar: 'baz')).to be(true)
+----
+
+==== Strict: false, EnforcedStyle: inflected
+
+[source,ruby]
+----
+# bad
+expect(foo.matches_style?(bar: 'baz')).to be_truthy
+expect(foo.matches_style?(bar: 'baz')).to be(true)
+
+# good
+expect(foo).to match_style(bar: 'baz')
+----
+
+==== Strict: true, EnforcedStyle: explicit
+
+[source,ruby]
+----
+# bad
+expect(foo).to match_style(bar: 'baz')
+
+# good - the above code is rewritten to it by this cop
+expect(foo.matches_style?(bar: 'baz')).to be(true)
+----
+
+==== Strict: false, EnforcedStyle: explicit
+
+[source,ruby]
+----
+# bad
+expect(foo).to match_style(bar: 'baz')
+
+# good - the above code is rewritten to it by this cop
+expect(foo.matches_style?(bar: 'baz')).to be_truthy
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Strict
+| `true`
+| Boolean
+
+| EnforcedStyle
+| `inflected`
+| `inflected`, `explicit`
+
+| AllowedExplicitMatchers
+| `[]`
+| Array
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/PredicateMatcher
+
 == RSpec/Capybara/SpecificActions
 
 |===

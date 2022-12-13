@@ -903,6 +903,18 @@ RSpec/Capybara/NegationMatcher:
     - not_to
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/NegationMatcher
 
+RSpec/Capybara/PredicateMatcher:
+  Description: Prefer using predicate matcher over using predicate method directly.
+  Enabled: pending
+  Strict: true
+  EnforcedStyle: inflected
+  AllowedExplicitMatchers: []
+  SupportedStyles:
+    - inflected
+    - explicit
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/PredicateMatcher
+
 RSpec/Capybara/SpecificActions:
   Description: Checks for there is a more specific actions offered by Capybara.
   Enabled: pending
