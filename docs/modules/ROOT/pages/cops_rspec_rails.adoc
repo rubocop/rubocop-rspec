@@ -204,3 +204,36 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/InferredSpecType
+
+== RSpec/Rails/MinitestAssertions
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Check if using Minitest matchers.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+assert_equal(a, b)
+assert_equal a, b, "must be equal"
+refute_equal(a, b)
+
+# good
+expect(a).to eq(b)
+expect(a).to(eq(b), "must be equal")
+expect(a).not_to eq(b)
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions

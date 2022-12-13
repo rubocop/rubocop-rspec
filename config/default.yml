@@ -1050,3 +1050,9 @@ RSpec/Rails/InferredSpecType:
     routing: routing
     system: system
     views: view
+
+RSpec/Rails/MinitestAssertions:
+  Description: Check if using Minitest matchers.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
