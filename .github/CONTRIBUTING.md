@@ -23,6 +23,34 @@ If you encounter problems or have ideas for improvements or new features, please
 7. Push to the branch.
 8. Create new Pull Request.
 
+### Spell Checking
+
+We are running [codespell](https://github.com/codespell-project/codespell) with [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/codespell.yml) to check spelling and
+[codespell](https://pypi.org/project/codespell/).
+`codespell` is written in [Python](https://www.python.org/) and you can run it with:
+
+```console
+$ codespell --ignore-words=.codespellignore
+```
+
+### Linting YAML files
+
+We are running [yamllint](https://github.com/adrienverge/yamllint) for linting YAML files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/linting.yml).
+`yamllint` is written in [Python](https://www.python.org/) and you can run it with:
+
+```console
+$ yamllint .
+```
+
+### Formatting Markdown files
+
+We are running [mdformat](https://github.com/executablebooks/mdformat) for formatting Markdown files. This is also run by [GitHub Actions](https://github.com/rubocop/rubocop-rspec/blob/master/.github/workflows/linting.yml).
+`mdformat` is written in [Python](https://www.python.org/) and you can run it with:
+
+```console
+$ mdformat . --number
+```
+
 ## Creating new cops
 
 - Document examples of good and bad code in your cop.
