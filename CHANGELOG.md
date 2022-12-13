@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.16.0 (2022-12-13)
+
 - Add new `RSpec/FactoryBot/FactoryNameStyle` cop. ([@ydah])
 - Improved processing speed for `RSpec/Be`, `RSpec/ExpectActual`, `RSpec/ImplicitExpect`, `RSpec/MessageSpies`, `RSpec/PredicateMatcher` and `RSpec/Rails/HaveHttpStatus`. ([@ydah])
 - Fix wrong autocorrection in `n_times` style on `RSpec/FactoryBot/CreateList`. ([@r7kamura])

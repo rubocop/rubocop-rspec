@@ -195,7 +195,7 @@ expect(foo).to be(true)
 | No
 | Yes (Unsafe)
 | 2.9.0
-| <<next>>
+| 2.16
 |===
 
 Check for expectations where `be(...)` can replace `eq(...)`.
@@ -236,7 +236,7 @@ expect(foo).to be(nil)
 | No
 | Yes (Unsafe)
 | 1.7
-| <<next>>
+| 2.16
 |===
 
 Check for expectations where `be(...)` can replace `eql(...)`.
@@ -1017,7 +1017,7 @@ end
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.16
 | -
 |===
 
@@ -3841,7 +3841,7 @@ end
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.16
 | -
 |===
 
