@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])
+
 ## 2.16.0 (2022-12-13)
 
 - Add new `RSpec/FactoryBot/FactoryNameStyle` cop. ([@ydah])
