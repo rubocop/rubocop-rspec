@@ -13,8 +13,6 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
     expect_offense(<<~RUBY)
       find('a', href: 'http://example.com').click
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
-      find("a[href]").click
-      ^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
       find("a[href='http://example.com']").click
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
     RUBY
@@ -92,25 +90,18 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
     RUBY
   end
 
-  %i[above below left_of right_of near count minimum maximum between
-     text id class style visible obscured exact exact_text normalize_ws
-     match wait filter_set focused disabled name value
-     title type].each do |attr|
+  %i[id class style disabled name value title type].each do |attr|
     it 'registers an offense for abstract action when ' \
        "first argument is element with replaceable attributes #{attr} " \
        'for `click_button`' do
       expect_offense(<<-RUBY, attr: attr)
         find("button[#{attr}=foo]").click
         ^^^^^^^^^^^^^^{attr}^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
-        find("button[#{attr}]").click
-        ^^^^^^^^^^^^^^{attr}^^^^^^^^^ Prefer `click_button` over `find('button').click`.
       RUBY
     end
   end
 
-  %i[above below left_of right_of near count minimum maximum between text id
-     class style visible obscured exact exact_text normalize_ws match wait
-     filter_set focused alt title download].each do |attr|
+  %i[id class style alt title download].each do |attr|
     it 'does not register an offense for abstract action when ' \
        "first argument is element with replaceable attributes #{attr} " \
        'for `click_link` without `href`' do
@@ -124,10 +115,8 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
        "first argument is element with replaceable attributes #{attr} " \
        'for `click_link` with attribute `href`' do
       expect_offense(<<-RUBY, attr: attr)
-        find("a[#{attr}=foo][href]").click
-        ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
-        find("a[#{attr}][href='http://example.com']").click
-        ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
+        find("a[#{attr}=foo][href='http://example.com']").click
+        ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
       RUBY
     end
 
@@ -137,8 +126,8 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
       expect_offense(<<-RUBY, attr: attr)
         find("a[#{attr}=foo]", href: 'http://example.com').click
         ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
-        find("a[#{attr}]", text: 'foo', href: 'http://example.com').click
-        ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
+        find("a[#{attr}=foo]", text: 'foo', href: 'http://example.com').click
+        ^^^^^^^^^{attr}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_link` over `find('a').click`.
       RUBY
     end
   end
@@ -146,37 +135,42 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
   it 'registers an offense when using abstract action with ' \
      'first argument is element with multiple replaceable attributes' do
     expect_offense(<<-RUBY)
-      find('button[disabled][name="foo"]', exact_text: 'foo').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+      find('button[disabled=true][name="foo"]', exact_text: 'foo').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
     RUBY
   end
 
   it 'registers an offense when using abstract action with state' do
     expect_offense(<<-RUBY)
-      find('button[disabled]', exact_text: 'foo').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+      find('button[disabled=false]', exact_text: 'foo').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
     RUBY
   end
 
   it 'registers an offense when using abstract action with ' \
      'first argument is element with replaceable pseudo-classes' do
     expect_offense(<<-RUBY)
-      find('button:not([disabled])', exact_text: 'bar').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
-      find('button:not([disabled][visible])').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+      find('button:not([disabled=true])', exact_text: 'bar').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
     RUBY
   end
 
   it 'registers an offense when using abstract action with ' \
      'first argument is element with multiple replaceable pseudo-classes' do
     expect_offense(<<-RUBY)
-      find('button:not([disabled]):enabled').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+      find('button:not([disabled=true]):enabled').click
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
       find('button:not([disabled=false]):disabled').click
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
-      find('button:not([disabled]):not([disabled])').click
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `click_button` over `find('button').click`.
+    RUBY
+  end
+
+  it 'does not register an offense when using abstract action with' \
+     'first argument is element with not replaceable attributes' do
+    expect_no_offenses(<<-RUBY)
+      find('button[disabled]').click
+      find('button[id=some-id][disabled]').click
+      find('button[visible]').click
     RUBY
   end
 
@@ -184,21 +178,21 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
      'first argument is element with replaceable pseudo-classes' \
      'and not boolean attributes' do
     expect_no_offenses(<<-RUBY)
-      find('button:not([name="foo"][disabled])').click
+      find('button:not([name="foo"][disabled=true])').click
     RUBY
   end
 
   it 'does not register an offense when using abstract action with ' \
      'first argument is element with multiple nonreplaceable pseudo-classes' do
     expect_no_offenses(<<-RUBY)
-      find('button:first-of-type:not([disabled])').click
+      find('button:first-of-type:not([disabled=true])').click
     RUBY
   end
 
   it 'does not register an offense for abstract action when ' \
      'first argument is element with nonreplaceable attributes' do
     expect_no_offenses(<<-RUBY)
-      find('button[data-disabled]').click
+      find('button[data-disabled=true]').click
       find('button[foo=bar]').click
       find('button[foo-bar=baz]', exact_text: 'foo').click
     RUBY
@@ -207,11 +201,11 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::SpecificActions, :config do
   it 'does not register an offense for abstract action when ' \
      'first argument is element with multiple nonreplaceable attributes' do
     expect_no_offenses(<<-RUBY)
-      find('button[disabled][foo]').click
-      find('button[foo][disabled]').click
-      find('button[foo][disabled][bar]').click
-      find('button[disabled][foo=bar]').click
-      find('button[disabled=foo][bar]', exact_text: 'foo').click
+      find('button[disabled=true][foo=bar]').click
+      find('button[foo=bar][disabled=true]').click
+      find('button[foo=bar][disabled=true][bar=baz]').click
+      find('button[disabled=true][foo=bar]').click
+      find('button[disabled=foo][bar=bar]', exact_text: 'foo').click
     RUBY
   end
 

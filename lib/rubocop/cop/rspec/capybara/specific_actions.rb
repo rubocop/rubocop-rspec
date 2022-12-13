@@ -42,9 +42,7 @@ module RuboCop
               # which the last selector points.
               next unless (selector = last_selector(arg))
               next unless (action = specific_action(selector))
-              next unless CapybaraHelp.specific_option?(node.receiver, arg,
-                                                        action)
-              next unless CapybaraHelp.specific_pseudo_classes?(arg)
+              next unless replaceable?(node, arg, action)
 
               range = offense_range(node, node.receiver)
               add_offense(range, message: message(action, selector))
@@ -55,6 +53,18 @@ module RuboCop
 
           def specific_action(selector)
             SPECIFIC_ACTION[last_selector(selector)]
+          end
+
+          def replaceable?(node, arg, action)
+            replaceable_attributes?(arg) &&
+              CapybaraHelp.replaceable_option?(node.receiver, arg, action) &&
+              CapybaraHelp.replaceable_pseudo_classes?(arg)
+          end
+
+          def replaceable_attributes?(selector)
+            CapybaraHelp.replaceable_attributes?(
+              CssSelector.attributes(selector)
+            )
           end
 
           def supported_selector?(selector)

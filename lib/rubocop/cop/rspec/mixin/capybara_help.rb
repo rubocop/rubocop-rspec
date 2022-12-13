@@ -5,24 +5,69 @@ module RuboCop
     module RSpec
       # Help methods for capybara.
       module CapybaraHelp
+        COMMON_OPTIONS = %w[
+          id class style
+        ].freeze
+        SPECIFIC_OPTIONS = {
+          'button' => (
+            COMMON_OPTIONS + %w[disabled name value title type]
+          ).freeze,
+          'link' => (
+            COMMON_OPTIONS + %w[href alt title download]
+          ).freeze,
+          'table' => (
+            COMMON_OPTIONS + %w[cols rows]
+          ).freeze,
+          'select' => (
+            COMMON_OPTIONS + %w[
+              disabled name placeholder
+              selected multiple
+            ]
+          ).freeze,
+          'field' => (
+            COMMON_OPTIONS + %w[
+              checked disabled name placeholder
+              readonly type multiple
+            ]
+          ).freeze
+        }.freeze
+        SPECIFIC_PSEUDO_CLASSES = %w[
+          not() disabled enabled checked unchecked
+        ].freeze
+
         module_function
 
         # @param node [RuboCop::AST::SendNode]
         # @param locator [String]
         # @param element [String]
         # @return [Boolean]
-        def specific_option?(node, locator, element)
+        def replaceable_option?(node, locator, element)
           attrs = CssSelector.attributes(locator).keys
           return false unless replaceable_element?(node, element, attrs)
 
           attrs.all? do |attr|
-            CssSelector.specific_options?(element, attr)
+            SPECIFIC_OPTIONS.fetch(element, []).include?(attr)
           end
+        end
+
+        # @param selector [String]
+        # @return [Boolean]
+        # @example
+        #   common_attributes?('a[focused]') # => true
+        #   common_attributes?('button[focused][visible]') # => true
+        #   common_attributes?('table[id=some-id]') # => true
+        #   common_attributes?('h1[invalid]') # => false
+        def common_attributes?(selector)
+          CssSelector.attributes(selector).keys.difference(COMMON_OPTIONS).none?
+        end
+
+        def replaceable_attributes?(attrs)
+          attrs.values.none?(&:nil?)
         end
 
         # @param locator [String]
         # @return [Boolean]
-        def specific_pseudo_classes?(locator)
+        def replaceable_pseudo_classes?(locator)
           CssSelector.pseudo_classes(locator).all? do |pseudo_class|
             replaceable_pseudo_class?(pseudo_class, locator)
           end
@@ -32,7 +77,7 @@ module RuboCop
         # @param locator [String]
         # @return [Boolean]
         def replaceable_pseudo_class?(pseudo_class, locator)
-          return false unless CssSelector.specific_pesudo_classes?(pseudo_class)
+          return false unless SPECIFIC_PSEUDO_CLASSES.include?(pseudo_class)
 
           case pseudo_class
           when 'not()' then replaceable_pseudo_class_not?(locator)

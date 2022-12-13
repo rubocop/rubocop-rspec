@@ -47,8 +47,7 @@ module RuboCop
             first_argument(node) do |arg|
               next unless (matcher = specific_matcher(arg))
               next if CssSelector.multiple_selectors?(arg)
-              next unless CapybaraHelp.specific_option?(node, arg, matcher)
-              next unless CapybaraHelp.specific_pseudo_classes?(arg)
+              next unless replaceable?(node, arg, matcher)
 
               add_offense(node, message: message(node, matcher))
             end
@@ -59,6 +58,18 @@ module RuboCop
           def specific_matcher(arg)
             splitted_arg = arg[/^\w+/, 0]
             SPECIFIC_MATCHER[splitted_arg]
+          end
+
+          def replaceable?(node, arg, matcher)
+            replaceable_attributes?(arg) &&
+              CapybaraHelp.replaceable_option?(node, arg, matcher) &&
+              CapybaraHelp.replaceable_pseudo_classes?(arg)
+          end
+
+          def replaceable_attributes?(selector)
+            CapybaraHelp.replaceable_attributes?(
+              CssSelector.attributes(selector)
+            )
           end
 
           def message(node, matcher)

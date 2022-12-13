@@ -7,6 +7,7 @@
 - Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])
 - Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])
 - Fix a false negative for `RSpec/PredicateMatcher` when using `include` and `respond_to`. ([@ydah])
+- Fix a false positive and incorrect autocorrect for `RSpec/Capybara/SpecificActions`, `RSpec/Capybara/SpecificFinders` and `RSpec/Capybara/SpecificMatcher`. ([@ydah])
 
 ## 2.16.0 (2022-12-13)
 
