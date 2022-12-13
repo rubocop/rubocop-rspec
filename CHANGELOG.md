@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])
+- Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])
 
 ## 2.16.0 (2022-12-13)
 

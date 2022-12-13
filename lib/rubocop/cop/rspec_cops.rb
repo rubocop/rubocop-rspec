@@ -24,6 +24,7 @@ rescue LoadError
   # Rails/HttpStatus cannot be loaded if rack/utils is unavailable.
 end
 require_relative 'rspec/rails/inferred_spec_type'
+require_relative 'rspec/rails/minitest_assertions'
 
 require_relative 'rspec/align_left_let_brace'
 require_relative 'rspec/align_right_let_brace'
