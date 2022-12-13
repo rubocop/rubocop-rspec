@@ -149,7 +149,7 @@ RSpec/BeEq:
   Enabled: pending
   Safe: false
   VersionAdded: 2.9.0
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
 
 RSpec/BeEql:
@@ -157,7 +157,7 @@ RSpec/BeEql:
   Enabled: true
   Safe: false
   VersionAdded: '1.7'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
 RSpec/BeNil:
@@ -291,7 +291,7 @@ RSpec/Dialect:
 RSpec/DuplicatedMetadata:
   Description: Avoid duplicated metadata.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
 
 RSpec/EmptyExampleGroup:
@@ -677,7 +677,7 @@ RSpec/Pending:
 RSpec/PendingWithoutReason:
   Description: Checks for pending or skipped examples without reason.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingWithoutReason
 
 RSpec/PredicateMatcher:
@@ -979,7 +979,7 @@ RSpec/FactoryBot/FactoryClassName:
 RSpec/FactoryBot/FactoryNameStyle:
   Description: Checks for name style for argument of FactoryBot::Syntax::Methods.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.16'
   EnforcedStyle: symbol
   SupportedStyles:
     - symbol
