@@ -887,6 +887,12 @@ RSpec/Capybara/FeatureMethods:
   VersionChanged: '2.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+RSpec/Capybara/MatchStyle:
+  Description: Checks for usage of deprecated style methods.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/MatchStyle
+
 RSpec/Capybara/NegationMatcher:
   Description: Enforces use of `have_no_*` or `not_to` for negated expectations.
   Enabled: pending

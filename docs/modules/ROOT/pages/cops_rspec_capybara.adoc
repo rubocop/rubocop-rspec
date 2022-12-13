@@ -112,6 +112,61 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
+== RSpec/Capybara/MatchStyle
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Checks for usage of deprecated style methods.
+
+=== Examples
+
+==== when using `assert_style`
+
+[source,ruby]
+----
+# bad
+page.find(:css, '#first').assert_style(display: 'block')
+
+# good
+page.find(:css, '#first').assert_matches_style(display: 'block')
+----
+
+==== when using `has_style?`
+
+[source,ruby]
+----
+# bad
+expect(page.find(:css, 'first')
+  .has_style?(display: 'block')).to be true
+
+# good
+expect(page.find(:css, 'first')
+  .matches_style?(display: 'block')).to be true
+----
+
+==== when using `have_style`
+
+[source,ruby]
+----
+# bad
+expect(page).to have_style(display: 'block')
+
+# good
+expect(page).to match_style(display: 'block')
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/MatchStyle
+
 == RSpec/Capybara/NegationMatcher
 
 |===

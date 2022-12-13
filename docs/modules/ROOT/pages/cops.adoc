@@ -98,6 +98,7 @@
 
 * xref:cops_rspec_capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
+* xref:cops_rspec_capybara.adoc#rspeccapybara/matchstyle[RSpec/Capybara/MatchStyle]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/negationmatcher[RSpec/Capybara/NegationMatcher]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/specificactions[RSpec/Capybara/SpecificActions]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/specificfinders[RSpec/Capybara/SpecificFinders]
