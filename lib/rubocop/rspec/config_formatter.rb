@@ -9,7 +9,7 @@ module RuboCop
       EXTENSION_ROOT_DEPARTMENT = %r{^(RSpec/)}.freeze
       SUBDEPARTMENTS = %(RSpec/Capybara RSpec/FactoryBot RSpec/Rails)
       AMENDMENTS = %(Metrics/BlockLength)
-      COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/'
+      COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/'
 
       def initialize(config, descriptions)
         @config       = config
@@ -47,7 +47,7 @@ module RuboCop
       end
 
       def reference(cop)
-        COP_DOC_BASE_URL + cop.sub('RSpec/', '')
+        COP_DOC_BASE_URL + cop
       end
 
       attr_reader :config, :descriptions

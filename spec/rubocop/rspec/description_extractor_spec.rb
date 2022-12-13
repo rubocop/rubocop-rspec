@@ -39,7 +39,7 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
       end
     RUBY
 
-    YARD::Registry.all
+    YARD::Registry.all(:class)
   end
 
   let(:temp_class) do

@@ -13,14 +13,15 @@ module RuboCop
         #   # good
         #   expect(response).to have_http_status(200)
         #
-        class HaveHttpStatus < Base
+        class HaveHttpStatus < ::RuboCop::Cop::Base
           extend AutoCorrector
 
           MSG =
             'Prefer `expect(response).%<to>s have_http_status(%<status>i)` ' \
             'over `expect(response.status).%<to>s %<match>s`.'
 
-          RESTRICT_ON_SEND = Runners.all
+          RUNNERS = %i[to to_not not_to].to_set
+          RESTRICT_ON_SEND = RUNNERS
 
           # @!method match_status(node)
           def_node_matcher :match_status, <<-PATTERN
@@ -28,7 +29,7 @@ module RuboCop
               (send nil? :expect
                 $(send (send nil? :response) :status)
               )
-              $#Runners.all
+              $RUNNERS
               $(send nil? {:be :eq :eql :equal} (int $_))
             )
           PATTERN

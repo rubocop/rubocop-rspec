@@ -20,7 +20,7 @@ module RuboCop
         #   click_link(exact_text: 'foo')
         #   find('div').click_button
         #
-        class SpecificActions < Base
+        class SpecificActions < ::RuboCop::Cop::Base
           MSG = "Prefer `%<good_action>s` over `find('%<selector>s').click`."
           RESTRICT_ON_SEND = %i[click].freeze
           SPECIFIC_ACTION = {
