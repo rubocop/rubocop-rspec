@@ -98,7 +98,10 @@ module RuboCop
         private
 
         def pending_by_pending_step_without_reason?(node)
-          node.method?(:pending) && node.first_argument.nil?
+          node.method?(:pending) &&
+            node.first_argument.nil? &&
+            inside_example?(node) &&
+            !node.receiver
         end
 
         def pending_without_reason?(node)
@@ -108,7 +111,10 @@ module RuboCop
         end
 
         def skipped_by_skip_step_without_reason?(node)
-          node.method?(:skip) && node.first_argument.nil?
+          node.method?(:skip) &&
+            node.first_argument.nil? &&
+            inside_example?(node) &&
+            !node.receiver
         end
 
         def skipped_without_reason?(node)
@@ -116,6 +122,10 @@ module RuboCop
             skipped_by_example_method?(node.block_node) ||
             skipped_by_metadata_without_reason?(node) ||
             skipped_by_skip_step_without_reason?(node)
+        end
+
+        def inside_example?(node)
+          node.ancestors.find { |parent| example?(parent) }
         end
       end
     end

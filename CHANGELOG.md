@@ -4,6 +4,7 @@
 
 - Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])
 - Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])
+- Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])
 
 ## 2.16.0 (2022-12-13)
 
