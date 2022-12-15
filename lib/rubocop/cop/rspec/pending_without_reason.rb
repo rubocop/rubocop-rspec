@@ -87,41 +87,33 @@ module RuboCop
           (send #rspec? {#ExampleGroups.all #Examples.all} ... {<(sym :skip) ...> (hash <(pair (sym :skip) true) ...>)})
         PATTERN
 
+        # @!method without_reason?(node)
+        def_node_matcher :without_reason?, <<~PATTERN
+          (send nil? ${:pending :skip})
+        PATTERN
+
         def on_send(node)
           if pending_without_reason?(node)
             add_offense(node, message: 'Give the reason for pending.')
           elsif skipped_without_reason?(node)
             add_offense(node, message: 'Give the reason for skip.')
+          elsif without_reason?(node) && inside_example?(node)
+            add_offense(node,
+                        message: "Give the reason for #{node.method_name}.")
           end
         end
 
         private
 
-        def pending_by_pending_step_without_reason?(node)
-          node.method?(:pending) &&
-            node.first_argument.nil? &&
-            inside_example?(node) &&
-            !node.receiver
-        end
-
         def pending_without_reason?(node)
           pending_by_example_method?(node.block_node) ||
-            pending_by_metadata_without_reason?(node) ||
-            pending_by_pending_step_without_reason?(node)
-        end
-
-        def skipped_by_skip_step_without_reason?(node)
-          node.method?(:skip) &&
-            node.first_argument.nil? &&
-            inside_example?(node) &&
-            !node.receiver
+            pending_by_metadata_without_reason?(node)
         end
 
         def skipped_without_reason?(node)
           skipped_by_example_group_method?(node.block_node) ||
             skipped_by_example_method?(node.block_node) ||
-            skipped_by_metadata_without_reason?(node) ||
-            skipped_by_skip_step_without_reason?(node)
+            skipped_by_metadata_without_reason?(node)
         end
 
         def inside_example?(node)
