@@ -29,95 +29,9 @@ module RuboCop
         #   # good
         #   expect(page).to have_current_path('/callback')
         #
-        class CurrentPathExpectation < ::RuboCop::Cop::Base
-          extend AutoCorrector
-
-          MSG = 'Do not set an RSpec expectation on `current_path` in ' \
-                'Capybara feature specs - instead, use the ' \
-                '`have_current_path` matcher on `page`'
-
-          RESTRICT_ON_SEND = %i[expect].freeze
-
-          # @!method expectation_set_on_current_path(node)
-          def_node_matcher :expectation_set_on_current_path, <<-PATTERN
-            (send nil? :expect (send {(send nil? :page) nil?} :current_path))
-          PATTERN
-
-          # Supported matchers: eq(...) / match(/regexp/) / match('regexp')
-          # @!method as_is_matcher(node)
-          def_node_matcher :as_is_matcher, <<-PATTERN
-            (send
-              #expectation_set_on_current_path ${:to :to_not :not_to}
-              ${(send nil? :eq ...) (send nil? :match (regexp ...))})
-          PATTERN
-
-          # @!method regexp_str_matcher(node)
-          def_node_matcher :regexp_str_matcher, <<-PATTERN
-            (send
-              #expectation_set_on_current_path ${:to :to_not :not_to}
-              $(send nil? :match (str $_)))
-          PATTERN
-
-          def self.autocorrect_incompatible_with
-            [Style::TrailingCommaInArguments]
-          end
-
-          def on_send(node)
-            expectation_set_on_current_path(node) do
-              add_offense(node.loc.selector) do |corrector|
-                next unless node.chained?
-
-                autocorrect(corrector, node)
-              end
-            end
-          end
-
-          private
-
-          def autocorrect(corrector, node)
-            as_is_matcher(node.parent) do |to_sym, matcher_node|
-              rewrite_expectation(corrector, node, to_sym, matcher_node)
-            end
-
-            regexp_str_matcher(node.parent) do |to_sym, matcher_node, regexp|
-              rewrite_expectation(corrector, node, to_sym, matcher_node)
-              convert_regexp_str_to_literal(corrector, matcher_node, regexp)
-            end
-          end
-
-          def rewrite_expectation(corrector, node, to_symbol, matcher_node)
-            current_path_node = node.first_argument
-            corrector.replace(current_path_node, 'page')
-            corrector.replace(node.parent.loc.selector, 'to')
-            matcher_method = if to_symbol == :to
-                               'have_current_path'
-                             else
-                               'have_no_current_path'
-                             end
-            corrector.replace(matcher_node.loc.selector, matcher_method)
-            add_ignore_query_options(corrector, node)
-          end
-
-          def convert_regexp_str_to_literal(corrector, matcher_node, regexp_str)
-            str_node = matcher_node.first_argument
-            regexp_expr = Regexp.new(regexp_str).inspect
-            corrector.replace(str_node, regexp_expr)
-          end
-
-          # `have_current_path` with no options will include the querystring
-          # while `page.current_path` does not.
-          # This ensures the option `ignore_query: true` is added
-          # except when the expectation is a regexp or string
-          def add_ignore_query_options(corrector, node)
-            expectation_node = node.parent.last_argument
-            expectation_last_child = expectation_node.children.last
-            return if %i[regexp str].include?(expectation_last_child.type)
-
-            corrector.insert_after(
-              expectation_last_child,
-              ', ignore_query: true'
-            )
-          end
+        # @!parse class CurrentPathExpectation < ::RuboCop::Cop::Base; end
+        class CurrentPathExpectation <
+          ::RuboCop::Cop::Capybara::CurrentPathExpectation
         end
       end
     end

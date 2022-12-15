@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_runtime_dependency 'rubocop', '~> 1.33'
+  spec.add_runtime_dependency 'rubocop-capybara'
 end

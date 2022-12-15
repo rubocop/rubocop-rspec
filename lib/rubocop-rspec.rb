@@ -4,6 +4,7 @@ require 'pathname'
 require 'yaml'
 
 require 'rubocop'
+require 'rubocop-capybara'
 
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/inject'
@@ -17,8 +18,6 @@ require_relative 'rubocop/rspec/language'
 
 require_relative 'rubocop/rspec/factory_bot/language'
 
-require_relative 'rubocop/cop/rspec/mixin/capybara_help'
-require_relative 'rubocop/cop/rspec/mixin/css_selector'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
 require_relative 'rubocop/cop/rspec/mixin/metadata'
