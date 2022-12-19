@@ -6,8 +6,6 @@ require 'yaml'
 require 'rubocop'
 require 'rubocop-capybara'
 
-require_relative 'rubocop/rspec'
-require_relative 'rubocop/rspec/inject'
 require_relative 'rubocop/rspec/language/node_pattern'
 require_relative 'rubocop/rspec/node'
 require_relative 'rubocop/rspec/version'
@@ -39,9 +37,12 @@ require_relative 'rubocop/rspec/example_group'
 require_relative 'rubocop/rspec/factory_bot'
 require_relative 'rubocop/rspec/hook'
 
-RuboCop::RSpec::Inject.defaults!
-
 require_relative 'rubocop/cop/rspec_cops'
+
+project_root = File.join(__dir__, '..')
+RuboCop::ConfigLoader.inject_defaults!(project_root)
+obsoletion = File.join(project_root, 'config', 'obsoletion.yml')
+RuboCop::ConfigObsoletion.files << obsoletion
 
 # We have to register our autocorrect incompatibilities in RuboCop's cops
 # as well so we do not hit infinite loops
