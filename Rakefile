@@ -23,7 +23,7 @@ end
 
 desc 'Run RuboCop over this gem'
 task :internal_investigation do
-  sh('bundle exec rubocop --require rubocop-rspec')
+  sh('bundle exec rubocop')
 end
 
 desc 'Build config/default.yml'
