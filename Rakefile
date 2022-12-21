@@ -14,6 +14,7 @@ rescue Bundler::BundlerError => e
 end
 
 require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
 Dir['tasks/**/*.rake'].each { |t| load t }
 
@@ -22,9 +23,7 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
 end
 
 desc 'Run RuboCop over this gem'
-task :internal_investigation do
-  sh('bundle exec rubocop')
-end
+RuboCop::RakeTask.new(:internal_investigation)
 
 desc 'Build config/default.yml'
 task :build_config do
