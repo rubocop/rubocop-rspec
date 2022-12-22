@@ -97,7 +97,7 @@ module RuboCop
             add_offense(node, message: 'Give the reason for pending.')
           elsif skipped_without_reason?(node)
             add_offense(node, message: 'Give the reason for skip.')
-          elsif without_reason?(node) && inside_example?(node)
+          elsif without_reason?(node) && example?(node.parent)
             add_offense(node,
                         message: "Give the reason for #{node.method_name}.")
           end
@@ -114,10 +114,6 @@ module RuboCop
           skipped_by_example_group_method?(node.block_node) ||
             skipped_by_example_method?(node.block_node) ||
             skipped_by_metadata_without_reason?(node)
-        end
-
-        def inside_example?(node)
-          node.ancestors.find { |parent| example?(parent) }
         end
       end
     end

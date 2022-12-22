@@ -85,6 +85,43 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason do
     end
   end
 
+  context 'when pending is argument of methods' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        it 'does something' do
+          expect('foo').to eq pending
+          foo(bar, pending)
+          foo(bar, pending: pending)
+          is_expected.to match_array [foo, pending, bar]
+        end
+      RUBY
+    end
+  end
+
+  context 'when skip is argument of methods' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        it 'does something' do
+          expect('foo').to eq skip
+          foo(bar, skip)
+          foo(bar, skip: skip)
+          is_expected.to match_array [foo, skip, bar]
+        end
+      RUBY
+    end
+  end
+
+  context 'when pending/skip is argument of methods' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        it 'does something' do
+          list = [skip, pending]
+          foo(list)
+        end
+      RUBY
+    end
+  end
+
   context 'when pending by example method' do
     it 'registers offense' do
       expect_offense(<<~RUBY)
@@ -131,6 +168,19 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason do
         it 'does something' do
           pending
           ^^^^^^^ Give the reason for pending.
+        end
+      RUBY
+    end
+  end
+
+  context 'when pending/skip inside conditional' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        it 'does something' do
+          pending if RUBY_VERSION < '3.0'
+          if RUBY_VERSION < '3.0'
+            skip
+          end
         end
       RUBY
     end
