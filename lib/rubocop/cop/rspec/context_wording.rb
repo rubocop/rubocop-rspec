@@ -10,7 +10,6 @@ module RuboCop
       # include `if`, `unless`, `for`, `before`, `after`, or `during`.
       # They may consist of multiple words if desired.
       #
-      # @see https://rspec.rubystyle.guide/#context-descriptions
       # @see http://www.betterspecs.org/#contexts
       #
       # @example `Prefixes` configuration

@@ -673,6 +673,7 @@ end
 
 * https://rspec.rubystyle.guide/#context-descriptions
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
+* http://www.betterspecs.org/#contexts
 
 == RSpec/DescribeClass
 
@@ -809,6 +810,7 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
+* https://github.com/rspec/rspec-core/issues/1610
 
 == RSpec/DescribedClass
 
@@ -939,6 +941,7 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
+* https://github.com/rubocop/rubocop-rspec/issues/735
 
 == RSpec/Dialect
 
@@ -1645,6 +1648,7 @@ end
 
 * https://rspec.rubystyle.guide/#should-in-example-docstrings
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
+* http://betterspecs.org/#should
 
 == RSpec/ExcessiveDocstringSpacing
 
@@ -2745,6 +2749,7 @@ end
 
 * https://rspec.rubystyle.guide/#declare-constants
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
+* https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants
 
 == RSpec/LetBeforeExamples
 
@@ -3158,6 +3163,7 @@ end
 
 * https://rspec.rubystyle.guide/#expectation-per-example
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
+* http://betterspecs.org/#single
 
 == RSpec/MultipleMemoizedHelpers
 
@@ -4778,6 +4784,8 @@ end
 
 * https://rspec.rubystyle.guide/#dont-stub-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
+* https://robots.thoughtbot.com/don-t-stub-the-system-under-test
+* https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
 
 == RSpec/UnspecifiedException
 
@@ -5037,6 +5045,7 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
+* https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
 
 == RSpec/VerifiedDoubles
 
@@ -5090,6 +5099,7 @@ end
 
 * https://rspec.rubystyle.guide/#doubles
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
+* https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
 
 == RSpec/VoidExpect
 
