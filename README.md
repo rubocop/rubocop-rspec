@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/rubocop-rspec/Lobby](https://badges.gitter.im/rubocop-rspec/Lobby.svg)](https://gitter.im/rubocop-rspec/Lobby)
 [![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
-![CI](https://github.com/rubocop-hq/rubocop-rspec/workflows/CI/badge.svg)
+![CI](https://github.com/rubocop/rubocop-rspec/workflows/CI/badge.svg)
 
 RSpec-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/rubocop/rubocop).
