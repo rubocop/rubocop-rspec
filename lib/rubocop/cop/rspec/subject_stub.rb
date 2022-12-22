@@ -12,7 +12,6 @@ module RuboCop
       #
       # @see https://robots.thoughtbot.com/don-t-stub-the-system-under-test
       # @see https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
-      # @see https://github.com/rubocop-hq/rspec-style-guide#dont-stub-subject
       #
       # @example
       #   # bad
