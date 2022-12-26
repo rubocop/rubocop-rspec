@@ -275,6 +275,10 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `is_a?` over `be_a` matcher.
           expect(foo).to be_instance_of(Array)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `instance_of?` over `be_instance_of` matcher.
+          expect(foo).to include('bar')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+          expect(foo).to respond_to(:method)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `respond_to?` over `respond_to` matcher.
           expect(foo).to be_something()
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
         RUBY
@@ -285,6 +289,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           expect(foo.has_something?).to #{matcher_true}
           expect(foo.is_a?(Array)).to #{matcher_true}
           expect(foo.instance_of?(Array)).to #{matcher_true}
+          expect(foo.include?('bar')).to #{matcher_true}
+          expect(foo.respond_to?(:method)).to #{matcher_true}
           expect(foo.something?()).to #{matcher_true}
         RUBY
       end
