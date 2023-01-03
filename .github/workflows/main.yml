@@ -70,7 +70,7 @@ jobs:
         with:
           ruby-version: "3.2"
           bundler-cache: true
-      - run: bundle exec rake ${{ matrix.task }}
+      - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
   rspec4:
     runs-on: ubuntu-latest
@@ -91,4 +91,4 @@ jobs:
         with:
           ruby-version: "3.2"
           bundler-cache: true
-      - run: bundle exec rake spec
+      - run: NO_COVERAGE=true bundle exec rake spec
