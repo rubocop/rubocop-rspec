@@ -17,3 +17,6 @@ pkg
 
 .ruby-gemset
 .ruby-version
+
+# simplecov generated
+coverage

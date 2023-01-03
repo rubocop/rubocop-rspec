@@ -3,6 +3,8 @@
 require 'rubocop'
 require 'rubocop/rspec/support'
 
+require 'simplecov' unless ENV['NO_COVERAGE']
+
 module SpecHelper
   ROOT = Pathname.new(__dir__).parent.freeze
 end
