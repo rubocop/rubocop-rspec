@@ -98,6 +98,34 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
+  it 'flags blocks with pending: string metadata and line break by `\`' do
+    expect_offense(<<-'RUBY')
+      it "test", pending: 'test' \
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Pending spec found.
+                          'foo' do
+      end
+    RUBY
+  end
+
+  it 'flags blocks with pending: string metadata and line break by `,`' do
+    expect_offense(<<-RUBY)
+      it "test", pending: 'test ,
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Pending spec found.
+                          foo' do
+      end
+    RUBY
+  end
+
+  it 'flags blocks with pending: surrounded by `%()` stringg metadata ' \
+     'and line break' do
+    expect_offense(<<-RUBY)
+      it "test", pending: %(test ,
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Pending spec found.
+                          foo) do
+      end
+    RUBY
+  end
+
   it 'flags blocks with skip: true metadata' do
     expect_offense(<<-RUBY)
       it 'test', skip: true do
