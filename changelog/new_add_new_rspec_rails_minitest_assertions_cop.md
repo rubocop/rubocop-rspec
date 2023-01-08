@@ -1,0 +1,1 @@
+- [#1485](https://github.com/rubocop/rubocop-rspec/issue/1485): Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])

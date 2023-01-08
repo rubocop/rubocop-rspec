@@ -1,0 +1,1 @@
+- [#1456](https://github.com/rubocop/rubocop-rspec/pull/1456): Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])

@@ -2,12 +2,6 @@
 
 ## Master (Unreleased)
 
-- Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip is argument of methods. ([@ydah])
-- Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])
-- Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])
-- Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])
-- Fix a false negative for `RSpec/PredicateMatcher` when using `include` and `respond_to`. ([@ydah])
-
 ## 2.16.0 (2022-12-13)
 
 - Add new `RSpec/FactoryBot/FactoryNameStyle` cop. ([@ydah])

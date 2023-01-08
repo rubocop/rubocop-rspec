@@ -1,0 +1,1 @@
+- [#1532](https://github.com/rubocop/rubocop-rspec/pull/1532): Fix a false negative for `RSpec/PredicateMatcher` when using `include` and `respond_to`. ([@ydah])

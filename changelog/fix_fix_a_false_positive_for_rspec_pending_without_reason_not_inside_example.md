@@ -1,0 +1,1 @@
+- [#1514](https://github.com/rubocop/rubocop-rspec/issue/1514): Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])

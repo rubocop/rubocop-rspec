@@ -1,0 +1,1 @@
+- [#1516](https://github.com/rubocop/rubocop-rspec/pull/1516): Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip is argument of methods. ([@ydah])
