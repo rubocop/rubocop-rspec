@@ -18,10 +18,25 @@ If you encounter problems or have ideas for improvements or new features, please
 2. Create a feature branch.
 3. Make sure to add tests.
 4. Make sure the test suite passes (run `rake`).
-5. Add a [changelog](https://github.com/rubocop/rubocop-rspec/blob/master/CHANGELOG.md) entry.
+5. Add an entry to the [Changelog](CHANGELOG.md) by creating a file `changelog/{type}_{some_description}.md`. See [changelog entry format](#changelog-entry-format) for details.
 6. Commit your changes.
 7. Push to the branch.
 8. Create new Pull Request.
+
+### Changelog entry format
+
+Here are a few examples:
+
+```
+- [#1514](https://github.com/rubocop/rubocop-rspec/issue/1514): Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])
+```
+
+- Create one file `changelog/{type}_{some_description}.md`, where `type` is `new` (New feature), `fix` or `change`, and `some_description` is unique to avoid conflicts. Task `changelog:fix` (or `:new` or `:change`) can help you.
+- Mark it up in [Markdown syntax][1].
+- The entry line should start with `- ` (an hyphen and a space).
+- If the change has a related GitHub issue (e.g. a bug fix for a reported issue), put a link to the issue as `[#1514](https://github.com/rubocop/rubocop-rspec/issues/1514): `.
+- Describe the brief of the change. The sentence should end with a punctuation.
+- At the end of the entry, add an implicit link to your GitHub user page as `([@username])`.
 
 ### Spell Checking
 
@@ -60,3 +75,5 @@ $ mdformat . --number
 - Common pitfalls:
   - If your cop inspects code outside of an example, check for false positives when similarly named variables are used inside of the example.
   - If your cop inspects code inside of an example, check that it works when the example is empty (empty `describe`, `it`, etc.).
+
+[1]: https://daringfireball.net/projects/markdown/syntax

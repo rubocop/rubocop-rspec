@@ -8,7 +8,7 @@ Before submitting the PR make sure the following are checked:
 - [ ] Squashed related commits together.
 - [ ] Added tests.
 - [ ] Updated documentation.
-- [ ] Added an entry to the `CHANGELOG.md` if the new code introduces user-observable changes.
+- [ ] Added an entry (file) to the [changelog folder](https://github.com/rubocop/rubocop-committee/blob/master/changelog/) named `{change_type}_{change_description}.md` if the new code introduces user-observable changes. See [changelog entry format](https://github.com/rubocop/rubocop/blob/master/CONTRIBUTING.md#changelog-entry-format) for details.
 - [ ] The build (`bundle exec rake`) passes (be sure to run this locally, since it may produce updated documentation that you will need to commit).
 
 If you have created a new cop:
