@@ -120,8 +120,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'skips \-separated multiline strings whose trailing whitespace ' \
        'makes sense' do
-      expect_no_offenses(<<-RUBY)
-        describe '#mymethod ' \\
+      expect_no_offenses(<<-'RUBY')
+        describe '#mymethod ' \
             '(is cool)' do
         end
       RUBY
@@ -129,8 +129,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'flags \-separated multiline strings whose trailing whitespace ' \
        'does not make sense' do
-      expect_offense(<<-RUBY)
-        describe '#mymethod   ' \\
+      expect_offense(<<-'RUBY')
+        describe '#mymethod   ' \
                   ^^^^^^^^^^^^^^^ Excessive whitespace.
             '(is cool)' do
         end
@@ -287,8 +287,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'skips \-separated multiline strings whose trailing whitespace ' \
        'makes sense' do
-      expect_no_offenses(<<-RUBY)
-        context 'when doing something ' \\
+      expect_no_offenses(<<-'RUBY')
+        context 'when doing something ' \
             'like this' do
         end
       RUBY
@@ -296,8 +296,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'flags \-separated multiline strings whose trailing whitespace ' \
        'does not make sense' do
-      expect_offense(<<-RUBY)
-        context 'when doing something   ' \\
+      expect_offense(<<-'RUBY')
+        context 'when doing something   ' \
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ Excessive whitespace.
             'like this' do
         end
@@ -479,8 +479,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'skips \-separated multiline strings whose trailing whitespace ' \
        'makes sense' do
-      expect_no_offenses(<<-RUBY)
-        it 'should do something ' \\
+      expect_no_offenses(<<-'RUBY')
+        it 'should do something ' \
             'and correctly fix' do
         end
       RUBY
@@ -488,8 +488,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'flags \-separated multiline strings whose trailing whitespace ' \
        'does not make sense' do
-      expect_offense(<<-RUBY)
-        it 'does something   ' \\
+      expect_offense(<<-'RUBY')
+        it 'does something   ' \
             ^^^^^^^^^^^^^^^^^^^^ Excessive whitespace.
             'and correctly fix' do
         end
@@ -556,8 +556,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     end
 
     it 'supports `skip` (with a block)' do
-      expect_offense(<<-RUBY)
-        skip '  this   please   ' \\
+      expect_offense(<<-'RUBY')
+        skip '  this   please   ' \
               ^^^^^^^^^^^^^^^^^^^^^ Excessive whitespace.
             '  and thank you  !' do
         end
@@ -570,8 +570,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     end
 
     it 'supports `skip` (without a block)' do
-      expect_offense(<<-RUBY)
-        skip '  this   please   ' \\
+      expect_offense(<<-'RUBY')
+        skip '  this   please   ' \
               ^^^^^^^^^^^^^^^^^^^^^ Excessive whitespace.
             '  and thank you  !'
       RUBY
