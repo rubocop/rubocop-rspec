@@ -272,14 +272,14 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
     end
 
     it 'finds concatenated strings with no variables' do
-      expect_offense(<<-RUBY)
-        allow(Foo).to receive(:bar).and_return('You called ' \\
+      expect_offense(<<-'RUBY')
+        allow(Foo).to receive(:bar).and_return('You called ' \
                                     ^^^^^^^^^^ Use block for static values.
           'me')
       RUBY
 
-      expect_correction(<<-RUBY)
-        allow(Foo).to receive(:bar) { 'You called ' \\
+      expect_correction(<<-'RUBY')
+        allow(Foo).to receive(:bar) { 'You called ' \
           'me' }
       RUBY
     end

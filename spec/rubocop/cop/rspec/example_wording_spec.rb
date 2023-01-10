@@ -151,8 +151,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   it 'flags \-separated multiline strings' do
-    expect_offense(<<-RUBY)
-      it 'should do something ' \\
+    expect_offense(<<-'RUBY')
+      it 'should do something ' \
           ^^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
           'and correctly fix' do
       end
