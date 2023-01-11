@@ -15,6 +15,12 @@ RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
     RUBY
   end
 
+  it 'ignores stubbed message expectation with a block and block parameter' do
+    expect_no_offenses(<<-RUBY)
+      expect(foo).to receive(:bar) { |x| bar }
+    RUBY
+  end
+
   it 'flags stubbed message expectation with argument matching' do
     expect_offense(<<-RUBY)
       expect(foo).to receive(:bar).with(42).and_return('hello world')
