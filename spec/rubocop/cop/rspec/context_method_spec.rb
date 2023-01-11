@@ -11,6 +11,13 @@ RSpec.describe RuboCop::Cop::RSpec::ContextMethod do
     RUBY
   end
 
+  it 'ignores context without `.` or `#` at the beginning' do
+    expect_no_offenses(<<-RUBY)
+      context "when it's sunny" do
+      end
+    RUBY
+  end
+
   it 'flags context with `.` at the beginning' do
     expect_offense(<<-RUBY)
       context '.foo_bar' do
