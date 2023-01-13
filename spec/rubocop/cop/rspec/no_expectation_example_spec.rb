@@ -145,10 +145,24 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       it 'is skipped', skip: true do
         foo
       end
+      it 'is skipped', skip: "test" do
+        foo
+      end
+      it 'is skipped', skip: "test" \\
+                             "foo" do
+        foo
+      end
       it 'is pending', :pending do
         foo
       end
       it 'is pending', pending: true do
+        foo
+      end
+      it 'is pending', pending: "test" do
+        foo
+      end
+      it 'is pending', pending: "test" \\
+                                "foo" do
         foo
       end
     RUBY
