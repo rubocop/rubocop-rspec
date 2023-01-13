@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.17.0 (2023-01-13)
+
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip is argument of methods. ([@ydah])
 - Add new `RSpec/Capybara/MatchStyle` cop. ([@ydah])
 - Add new `RSpec/Rails/MinitestAssertions` cop. ([@ydah])
