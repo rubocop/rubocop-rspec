@@ -890,7 +890,7 @@ RSpec/Capybara/FeatureMethods:
 RSpec/Capybara/MatchStyle:
   Description: Checks for usage of deprecated style methods.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.17'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/MatchStyle
 
 RSpec/Capybara/NegationMatcher:
@@ -1054,5 +1054,5 @@ RSpec/Rails/InferredSpecType:
 RSpec/Rails/MinitestAssertions:
   Description: Check if using Minitest matchers.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.17'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
