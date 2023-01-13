@@ -2,6 +2,9 @@
 
 ## Master (Unreleased)
 
+- Fix a false negative for `RSpec/Pending` when using skipped in metadata is multiline string. ([@ydah])
+- Fix a false positive for `RSpec/NoExpectationExample` when using skipped in metadata is multiline string. ([@ydah])
+
 ## 2.17.0 (2023-01-13)
 
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip is argument of methods. ([@ydah])
@@ -10,8 +13,6 @@
 - Fix a false positive for `RSpec/PendingWithoutReason` when not inside example. ([@ydah])
 - Fix a false negative for `RSpec/PredicateMatcher` when using `include` and `respond_to`. ([@ydah])
 - Fix a false positive for `RSpec/StubbedMock` when stubbed message expectation with a block and block parameter. ([@ydah])
-- Fix a false negative for `RSpec/Pending` when using skipped in metadata is multiline string. ([@ydah])
-- Fix a false positive for `RSpec/NoExpectationExample` when using skipped in metadata is multiline string. ([@ydah])
 
 ## 2.16.0 (2022-12-13)
 
