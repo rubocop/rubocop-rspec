@@ -43,4 +43,19 @@ RSpec.describe RuboCop::Cop::RSpec::ContextMethod do
       end
     RUBY
   end
+
+  it 'flags multi-line context with `#` at the beginning' do
+    expect_offense(<<-'RUBY')
+      context '#foo_bar' \
+              ^^^^^^^^^^^^ Use `describe` for testing methods.
+              '.baz'do
+      end
+    RUBY
+
+    expect_correction(<<-'RUBY')
+      describe '#foo_bar' \
+              '.baz'do
+      end
+    RUBY
+  end
 end

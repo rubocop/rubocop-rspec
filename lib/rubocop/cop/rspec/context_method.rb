@@ -31,7 +31,11 @@ module RuboCop
 
         # @!method context_method(node)
         def_node_matcher :context_method, <<-PATTERN
-          (block (send #rspec? :context $(str #method_name?) ...) ...)
+          (block
+            (send #rspec? :context
+              ${(str #method_name?) (dstr (str #method_name?) ...)}
+            ...)
+          ...)
         PATTERN
 
         def on_block(node)  # rubocop:disable InternalAffairs/NumblockHandler
