@@ -12,3 +12,12 @@ changed_parameters:
     parameters: IgnoredPatterns
     alternative: AllowedPatterns
     severity: warning
+
+renamed:
+  RSpec/Capybara/CurrentPathExpectation: Capybara/CurrentPathExpectation
+  RSpec/Capybara/MatchStyle: Capybara/MatchStyle
+  RSpec/Capybara/NegationMatcher: Capybara/NegationMatcher
+  RSpec/Capybara/SpecificActions: Capybara/SpecificActions
+  RSpec/Capybara/SpecificFinders: Capybara/SpecificFinders
+  RSpec/Capybara/SpecificMatcher: Capybara/SpecificMatcher
+  RSpec/Capybara/VisibilityMatcher: Capybara/VisibilityMatcher

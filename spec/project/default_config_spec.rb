@@ -2,7 +2,7 @@
 
 RSpec.describe 'config/default.yml' do
   subject(:default_config) do
-    RuboCop::ConfigLoader.load_file('config/default.yml')
+    RuboCop::ConfigLoader.load_yaml_configuration('config/default.yml')
   end
 
   let(:namespaces) do

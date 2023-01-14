@@ -344,12 +344,13 @@ expect(page).to have_field('foo')
 
 Checks for boolean visibility in Capybara finders.
 
-Capybara lets you find elements that match a certain visibility using
-the `:visible` option. `:visible` accepts both boolean and symbols as
-values, however using booleans can have unwanted effects. `visible:
-false` does not find just invisible elements, but both visible and
-invisible elements. For expressiveness and clarity, use one of the
-symbol values, `:all`, `:hidden` or `:visible`.
+Capybara lets you find elements that match a certain visibility
+using the `:visible` option. `:visible` accepts both boolean and
+symbols as values, however using booleans can have unwanted
+effects. `visible: false` does not find just invisible elements,
+but both visible and invisible elements. For expressiveness and
+clarity, use one of the # symbol values, `:all`, `:hidden` or
+`:visible`.
 Read more in
 https://www.rubydoc.info/gems/capybara/Capybara%2FNode%2FFinders:all[the documentation].
 
