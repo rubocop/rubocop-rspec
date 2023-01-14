@@ -93,6 +93,21 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         RUBY
       end
 
+      it 'registers an offense for a predicate method with heredoc' do
+        expect_offense(<<~RUBY)
+          expect(foo.include?(<<~TEXT)).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include` matcher over `include?`.
+            bar
+          TEXT
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo).to include(<<~TEXT)
+            bar
+          TEXT
+        RUBY
+      end
+
       it 'registers an offense for a predicate method with a block' do
         expect_offense(<<~RUBY)
           expect(foo.all?(&:present?)).to be_truthy
@@ -310,6 +325,78 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           expect(foo.something?(1, 2)).to #{matcher_true}
           expect(foo.something? 1, 2).to #{matcher_true}
         RUBY
+      end
+
+      it 'registers an offense for a predicate method with heredoc' do
+        expect_offense(<<~RUBY)
+          expect(foo).to include(<<~TEXT)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            bar
+          TEXT
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo.include?(<<~TEXT)).to #{matcher_true}
+            bar
+          TEXT
+        RUBY
+      end
+
+      it 'registers an offense for a predicate method with ' \
+         'heredoc and multiline expect' do
+        expect_offense(<<~RUBY)
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(<<~TEXT)
+              bar
+            TEXT
+
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(bar, <<~TEXT, 'baz')
+              bar
+            TEXT
+        RUBY
+
+        expect_no_corrections
+      end
+
+      it 'registers an offense for a predicate method with ' \
+         'heredoc include #{} and multiline expect' do
+        expect_offense(<<~'RUBY')
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(<<~TEXT)
+              #{bar}
+            TEXT
+
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(bar, <<~TEXT, 'baz')
+              #{bar}
+            TEXT
+        RUBY
+
+        expect_no_corrections
+      end
+
+      it 'registers an offense for a predicate method with ' \
+         'heredoc surrounded by back ticks and multiline expect' do
+        expect_offense(<<~'RUBY')
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(<<~`COMMAND`)
+              pwd
+            COMMAND
+
+          expect(foo)
+          ^^^^^^^^^^^ Prefer using `include?` over `include` matcher.
+            .to include(bar, <<~COMMAND, 'baz')
+              pwd
+            COMMAND
+        RUBY
+
+        expect_no_corrections
       end
 
       it 'registers an offense for a predicate method with a block' do
