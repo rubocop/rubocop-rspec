@@ -3968,6 +3968,17 @@ expect(foo).to be_something
 
 # good - the above code is rewritten to it by this cop
 expect(foo.something?).to be(true)
+
+# bad - no autocorrect
+expect(foo)
+  .to be_something(<<~TEXT)
+    bar
+  TEXT
+
+# good
+expect(foo.something?(<<~TEXT)).to be(true)
+  bar
+TEXT
 ----
 
 ==== Strict: false, EnforcedStyle: explicit
