@@ -118,7 +118,7 @@ module RuboCop
       end
 
       # A helper for `explicit` style
-      module ExplicitHelper
+      module ExplicitHelper # rubocop:disable Metrics/ModuleLength
         include RuboCop::RSpec::Language
         extend NodePattern::Macros
 
@@ -150,9 +150,21 @@ module RuboCop
 
           predicate_matcher?(node) do |actual, matcher|
             add_offense(node, message: message_explicit(matcher)) do |corrector|
+              next if uncorrectable_matcher?(node, matcher)
+
               corrector_explicit(corrector, node, actual, matcher, matcher)
             end
           end
+        end
+
+        def uncorrectable_matcher?(node, matcher)
+          heredoc_argument?(matcher) && !same_line?(node, matcher)
+        end
+
+        def heredoc_argument?(matcher)
+          matcher.arguments.select do |arg|
+            %i[str dstr xstr].include?(arg.type)
+          end.any?(&:heredoc?)
         end
 
         # @!method predicate_matcher?(node)
@@ -270,6 +282,17 @@ module RuboCop
       #
       #   # good - the above code is rewritten to it by this cop
       #   expect(foo.something?).to be(true)
+      #
+      #   # bad - no autocorrect
+      #   expect(foo)
+      #     .to be_something(<<~TEXT)
+      #       bar
+      #     TEXT
+      #
+      #   # good
+      #   expect(foo.something?(<<~TEXT)).to be(true)
+      #     bar
+      #   TEXT
       #
       # @example Strict: false, EnforcedStyle: explicit
       #   # bad

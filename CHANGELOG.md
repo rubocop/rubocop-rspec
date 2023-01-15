@@ -6,6 +6,7 @@
 - Fix a false positive for `RSpec/NoExpectationExample` when using skipped in metadata is multiline string. ([@ydah])
 - Fix a false positive for `RSpec/ContextMethod` when multi-line context with `#` at the beginning. ([@ydah])
 - Extract Capybara cops to a separate repository. ([@pirj])
+- Fix an incorrect autocorrect for `RSpec/PredicateMatcher` when multiline expect and predicate method with heredoc. ([@ydah])
 
 ## 2.17.0 (2023-01-13)
 
