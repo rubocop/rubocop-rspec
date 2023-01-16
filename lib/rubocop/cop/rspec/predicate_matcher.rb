@@ -149,11 +149,22 @@ module RuboCop
           return if part_of_ignored_node?(node)
 
           predicate_matcher?(node) do |actual, matcher|
+            next unless replaceable_matcher?(matcher)
+
             add_offense(node, message: message_explicit(matcher)) do |corrector|
               next if uncorrectable_matcher?(node, matcher)
 
               corrector_explicit(corrector, node, actual, matcher, matcher)
             end
+          end
+        end
+
+        def replaceable_matcher?(matcher)
+          case matcher.method_name.to_s
+          when 'include'
+            matcher.arguments.one?
+          else
+            true
           end
         end
 
