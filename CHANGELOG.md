@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.18.0 (2023-01-16)
+
 - Extract Capybara cops to a separate repository. ([@pirj])
 
 ## 2.17.1 (2023-01-16)
