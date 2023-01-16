@@ -12,10 +12,41 @@ end
 
 desc 'Generate docs of all cops departments'
 task generate_cops_documentation: :yard_for_generate_documentation do
-  generator = CopsDocumentationGenerator.new(
-    departments: %w[RSpec/Capybara RSpec/FactoryBot RSpec/Rails RSpec]
-  )
-  generator.call
+  RuboCop::Cop::Registry.with_temporary_global do
+    global = RuboCop::Cop::Registry.global
+    # We set a constant for the old cop class, and this skips the
+    # `Base.inherited` hook that enlists those old cops.
+    %w[
+      RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation
+      RuboCop::Cop::RSpec::Capybara::MatchStyle
+      RuboCop::Cop::RSpec::Capybara::NegationMatcher
+      RuboCop::Cop::RSpec::Capybara::SpecificActions
+      RuboCop::Cop::RSpec::Capybara::SpecificFinders
+      RuboCop::Cop::RSpec::Capybara::SpecificMatcher
+      RuboCop::Cop::RSpec::Capybara::VisibilityMatcher
+    ].each do |extracted_cop|
+      cop = Class.const_get(extracted_cop)
+      class << cop
+        def badge
+          RuboCop::Cop::Badge.for(name)
+        end
+
+        def name
+          super.sub('::Capybara::', '::RSpec::Capybara::')
+        end
+
+        def department
+          :'RSpec/Capybara'
+        end
+      end
+      global.enlist(cop)
+    end
+
+    generator = CopsDocumentationGenerator.new(
+      departments: %w[RSpec/Capybara RSpec/FactoryBot RSpec/Rails RSpec]
+    )
+    generator.call
+  end
 end
 
 desc 'Syntax check for the documentation comments'

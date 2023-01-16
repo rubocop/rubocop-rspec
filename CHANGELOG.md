@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Extract Capybara cops to a separate repository. ([@pirj])
+
 ## 2.17.1 (2023-01-16)
 
 - Fix a false negative for `RSpec/Pending` when using skipped in metadata is multiline string. ([@ydah])
