@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.17.1 (2023-01-16)
+
 - Fix a false negative for `RSpec/Pending` when using skipped in metadata is multiline string. ([@ydah])
 - Fix a false positive for `RSpec/NoExpectationExample` when using skipped in metadata is multiline string. ([@ydah])
 - Fix a false positive for `RSpec/ContextMethod` when multi-line context with `#` at the beginning. ([@ydah])
