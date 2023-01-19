@@ -62,12 +62,12 @@ module RuboCop
 
         # @!method context_wording(node)
         def_node_matcher :context_wording, <<-PATTERN
-          (block (send #rspec? { :context :shared_context } $(str $_) ...) ...)
+          (block (send #rspec? { :context :shared_context } $({str dstr xstr} ...) ...) ...)
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          context_wording(node) do |context, description|
-            if bad_pattern?(description)
+          context_wording(node) do |context|
+            if bad_pattern?(context)
               message = format(MSG, patterns: expect_patterns)
               add_offense(context, message: message)
             end
@@ -84,10 +84,18 @@ module RuboCop
           @prefix_regexes ||= prefixes.map { |pre| /^#{Regexp.escape(pre)}\b/ }
         end
 
-        def bad_pattern?(description)
+        def bad_pattern?(node)
           return false if allowed_patterns.empty?
 
-          !matches_allowed_pattern?(description)
+          !matches_allowed_pattern?(description(node))
+        end
+
+        def description(context)
+          if context.xstr_type?
+            context.value.value
+          else
+            context.value
+          end
         end
 
         def expect_patterns
