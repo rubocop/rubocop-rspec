@@ -2,9 +2,13 @@
 
 ## Master (Unreleased)
 
+## 2.18.1 (2023-01-19)
+
+- Add `rubocop-capybara` version constraint to prevent sudden cop enabling when it hits 3.0. ([@pirj])
+
 ## 2.18.0 (2023-01-16)
 
-- Extract Capybara cops to a separate repository. ([@pirj])
+- Extract Capybara cops to a separate repository, [`rubocop-capybara`](https://github.com/rubocop/rubocop-capybara). The `rubocop-capybara` repository is a dependency of `rubocop-rspec` and the Capybara cops are aliased (`RSpec/Capybara/Foo` == `Capybara/Foo`) until v3.0 is released, so the change will be invisible to users until then. ([@pirj])
 
 ## 2.17.1 (2023-01-16)
 
