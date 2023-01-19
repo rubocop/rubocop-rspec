@@ -20,6 +20,23 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
     RUBY
   end
 
+  it 'finds context without `when` at the beginning and contains `#{}`' do
+    expect_offense(<<-'RUBY')
+      context "the #{display} name not present" do
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Context description should match /^when\b/, /^with\b/, or /^without\b/.
+      end
+    RUBY
+  end
+
+  it 'finds context without `when` at the beginning ' \
+     'and command surrounded by back ticks' do
+    expect_offense(<<-'RUBY')
+      context `pwd` do
+              ^^^^^ Context description should match /^when\b/, /^with\b/, or /^without\b/.
+      end
+    RUBY
+  end
+
   it 'finds shared_context without `when` at the beginning' do
     expect_offense(<<-'RUBY')
       shared_context 'the display name not present' do

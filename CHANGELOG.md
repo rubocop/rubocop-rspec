@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/ContextWording` when context is interpolated string literal or execute string. ([@ydah])
+
 ## 2.18.1 (2023-01-19)
 
 - Add `rubocop-capybara` version constraint to prevent sudden cop enabling when it hits 3.0. ([@pirj])
