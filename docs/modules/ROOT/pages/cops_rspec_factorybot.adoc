@@ -339,6 +339,34 @@ create('user')
 build "user", username: "NAME"
 ----
 
+==== `ExplicitOnly: false` (default)
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: symbol`
+FactoryBot.create('user')
+create('user')
+
+# good - with `EnforcedStyle: symbol`
+FactoryBot.create(:user)
+create(:user)
+----
+
+==== `ExplicitOnly: true`
+
+[source,ruby]
+----
+# bad - with `EnforcedStyle: symbol`
+FactoryBot.create(:user)
+FactoryBot.build "user", username: "NAME"
+
+# good - with `EnforcedStyle: symbol`
+FactoryBot.create('user')
+FactoryBot.build "user", username: "NAME"
+FactoryBot.create(:user)
+create(:user)
+----
+
 === Configurable attributes
 
 |===
@@ -347,6 +375,10 @@ build "user", username: "NAME"
 | EnforcedStyle
 | `symbol`
 | `symbol`, `string`
+
+| ExplicitOnly
+| `false`
+| Boolean
 |===
 
 === References

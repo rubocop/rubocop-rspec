@@ -1,8 +1,8 @@
 # Changelog
 
 ## Master (Unreleased)
-- Add `ExplicitOnly` configuration option to `RSpec/FactoryBot/ConsistentParenthesesStyle` and `RSpec/FactoryBot/CreateList`. ([@ydah])
 
+- Add `ExplicitOnly` configuration option to `RSpec/FactoryBot/ConsistentParenthesesStyle`, `RSpec/FactoryBot/CreateList` and `RSpec/FactoryBot/FactoryNameStyle`. ([@ydah])
 - Fix a false positive for `RSpec/ContextWording` when context is interpolated string literal or execute string. ([@ydah])
 
 ## 2.18.1 (2023-01-19)

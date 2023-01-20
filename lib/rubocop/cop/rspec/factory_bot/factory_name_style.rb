@@ -24,10 +24,32 @@ module RuboCop
         #   create('user')
         #   build "user", username: "NAME"
         #
+        # @example `ExplicitOnly: false` (default)
+        #
+        #   # bad - with `EnforcedStyle: symbol`
+        #   FactoryBot.create('user')
+        #   create('user')
+        #
+        #   # good - with `EnforcedStyle: symbol`
+        #   FactoryBot.create(:user)
+        #   create(:user)
+        #
+        # @example `ExplicitOnly: true`
+        #
+        #   # bad - with `EnforcedStyle: symbol`
+        #   FactoryBot.create(:user)
+        #   FactoryBot.build "user", username: "NAME"
+        #
+        #   # good - with `EnforcedStyle: symbol`
+        #   FactoryBot.create('user')
+        #   FactoryBot.build "user", username: "NAME"
+        #   FactoryBot.create(:user)
+        #   create(:user)
+        #
         class FactoryNameStyle < ::RuboCop::Cop::Base
           extend AutoCorrector
           include ConfigurableEnforcedStyle
-          include RuboCop::RSpec::FactoryBot::Language
+          include ConfigurableExplicitOnly
 
           MSG = 'Use %<prefer>s to refer to a factory.'
           FACTORY_CALLS = RuboCop::RSpec::FactoryBot::Language::METHODS
@@ -36,7 +58,7 @@ module RuboCop
           # @!method factory_call(node)
           def_node_matcher :factory_call, <<-PATTERN
           (send
-            {#factory_bot? nil?} %FACTORY_CALLS
+            #factory_call? %FACTORY_CALLS
             ${str sym} ...
           )
           PATTERN
