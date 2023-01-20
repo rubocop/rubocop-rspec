@@ -26,17 +26,25 @@ module RuboCop
         # @!method second_argument(node)
         def_node_matcher :second_argument, <<~PATTERN
           (block
-            (send #rspec? :describe _first_argument $(str _) ...) ...
-          )
+            (send #rspec? :describe _first_argument $_ ...)
+          ...)
+        PATTERN
+
+        # @!method not_method_name?(node)
+        def_node_matcher :not_method_name?, <<~PATTERN
+          {(str !#method_name?) (dstr (str !#method_name?) ...)}
         PATTERN
 
         def on_top_level_group(node)
-          second_argument = second_argument(node)
+          second_argument(node) do |argument|
+            add_offense(argument) if not_method_name?(argument)
+          end
+        end
 
-          return unless second_argument
-          return if second_argument.str_content.start_with?('#', '.')
+        private
 
-          add_offense(second_argument)
+        def method_name?(description)
+          description.start_with?('.', '#')
         end
       end
     end
