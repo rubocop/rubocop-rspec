@@ -23,20 +23,28 @@ module RuboCop
         MSG = 'The second argument to describe should be the method ' \
               "being tested. '#instance' or '.class'."
 
-        # @!method second_argument(node)
-        def_node_matcher :second_argument, <<~PATTERN
+        # @!method second_string_literal_argument(node)
+        def_node_matcher :second_string_literal_argument, <<~PATTERN
           (block
-            (send #rspec? :describe _first_argument $(str _) ...) ...
-          )
+            (send #rspec? :describe _first_argument ${str dstr} ...)
+          ...)
+        PATTERN
+
+        # @!method method_name?(node)
+        def_node_matcher :method_name?, <<~PATTERN
+          {(str #method_name_prefix?) (dstr (str #method_name_prefix?) ...)}
         PATTERN
 
         def on_top_level_group(node)
-          second_argument = second_argument(node)
+          second_string_literal_argument(node) do |argument|
+            add_offense(argument) unless method_name?(argument)
+          end
+        end
 
-          return unless second_argument
-          return if second_argument.str_content.start_with?('#', '.')
+        private
 
-          add_offense(second_argument)
+        def method_name_prefix?(description)
+          description.start_with?('.', '#')
         end
       end
     end
