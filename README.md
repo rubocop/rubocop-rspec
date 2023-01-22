@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/rubocop-rspec.svg)](https://rubygems.org/gems/rubocop-rspec)
 ![CI](https://github.com/rubocop/rubocop-rspec/workflows/CI/badge.svg)
 
-RSpec-specific analysis for your projects, as an extension to
+[RSpec](https://rspec.info/)-specific analysis for your projects, as an extension to
 [RuboCop](https://github.com/rubocop/rubocop).
 
 ## Installation
