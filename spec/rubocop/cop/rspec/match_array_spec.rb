@@ -1,10 +1,14 @@
-RSpec.describe RuboCop::Cop::RSpec::MatchArray do
-  subject(:cop) { described_class.new }
+# frozen_string_literal: true
 
+RSpec.describe RuboCop::Cop::RSpec::MatchArray do
   it 'flags `match_array` with array literal arguments' do
     expect_offense(<<-RUBY)
       it { is_expected.to match_array([content1, content2]) }
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `contain_exactly` when matching an array literal.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it { is_expected.to contain_exactly(content1, content2) }
     RUBY
   end
 
@@ -19,8 +23,4 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
       it { is_expected.to match_array([content] + array) }
     RUBY
   end
-
-  include_examples 'autocorrect',
-                   'it { is_expected.to match_array([content1, content2]) }',
-                   'it { is_expected.to contain_exactly(content1, content2) }'
 end

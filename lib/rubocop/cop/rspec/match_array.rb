@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -12,18 +14,16 @@ module RuboCop
       #
       #   # good
       #   it { is_expected.to match_array([content] + array) }
-      class MatchArray < Cop
-        MSG = 'Prefer `contain_exactly` when matching an array literal.'.freeze
+      class MatchArray < Base
+        extend AutoCorrector
+
+        MSG = 'Prefer `contain_exactly` when matching an array literal.'
 
         def on_send(node)
-          return unless node.method_name == :match_array
+          return unless node.method?(:match_array)
           return unless node.first_argument.array_type?
 
-          add_offense(node)
-        end
-
-        def autocorrect(node)
-          lambda do |corrector|
+          add_offense(node) do |corrector|
             array_contents = node.arguments.flat_map(&:to_a)
             corrector.replace(
               node.source_range,

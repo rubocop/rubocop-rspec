@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module RSpec
@@ -12,26 +14,30 @@ module RuboCop
       #
       #   # good
       #   it { is_expected.to contain_exactly(content, *array) }
-      class ContainExactly < Cop
-        MSG = 'Prefer `match_array` when matching array values.'.freeze
+      class ContainExactly < Base
+        extend AutoCorrector
+
+        MSG = 'Prefer `match_array` when matching array values.'
 
         def on_send(node)
-          return unless node.method_name == :contain_exactly
+          return unless node.method?(:contain_exactly)
           return unless node.each_child_node.all?(&:splat_type?)
 
-          add_offense(node)
+          add_offense(node) do |corrector|
+            autocorrect(node, corrector)
+          end
         end
 
-        def autocorrect(node)
-          lambda do |corrector|
-            arrays = node.arguments.map do |splat_node|
-              splat_node.children.first
-            end
-            corrector.replace(
-              node.source_range,
-              "match_array(#{arrays.map(&:source).join(' + ')})"
-            )
+        private
+
+        def autocorrect(node, corrector)
+          arrays = node.arguments.map do |splat_node|
+            splat_node.children.first
           end
+          corrector.replace(
+            node.source_range,
+            "match_array(#{arrays.map(&:source).join(' + ')})"
+          )
         end
       end
     end

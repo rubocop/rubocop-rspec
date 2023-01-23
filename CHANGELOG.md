@@ -760,7 +760,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@elebow]: https://github.com/elebow
 [@elisefitz15]: https://github.com/EliseFitz15
 [@elliterate]: https://github.com/elliterate
-[@faucct]: https:/github.com/faucct
+[@faucct]: https://github.com/faucct
 [@foton]: https://github.com/foton
 [@francois-ferrandis]: https://github.com/francois-ferrandis
 [@g-rath]: https://github.com/G-Rath
