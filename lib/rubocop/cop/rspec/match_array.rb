@@ -21,6 +21,7 @@ module RuboCop
         extend AutoCorrector
 
         MSG = 'Prefer `contain_exactly` when matching an array literal.'
+        RESTRICT_ON_SEND = %i[match_array].freeze
 
         def on_send(node)
           return unless node.method?(:match_array)
