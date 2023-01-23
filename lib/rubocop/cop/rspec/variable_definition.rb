@@ -27,10 +27,13 @@ module RuboCop
         extend AutoCorrector
         include ConfigurableEnforcedStyle
         include Variable
+        include InsideExampleGroup
 
         MSG = 'Use %<style>s for variable names.'
 
         def on_send(node)
+          return unless inside_example_group?(node)
+
           variable_definition?(node) do |variable|
             next unless style_violation?(variable)
 
