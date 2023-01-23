@@ -23,4 +23,11 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
       it { is_expected.to match_array([content] + array) }
     RUBY
   end
+
+  it 'does not flag `match_array` with a percent array' do
+    expect_no_offenses(<<-RUBY)
+      it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
+      it { is_expected.to match_array(%i(foo bar baz)) }
+    RUBY
+  end
 end

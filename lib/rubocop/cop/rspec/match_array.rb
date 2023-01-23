@@ -14,6 +14,9 @@ module RuboCop
       #
       #   # good
       #   it { is_expected.to match_array([content] + array) }
+      #
+      #   # good
+      #   it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
       class MatchArray < Base
         extend AutoCorrector
 
@@ -22,6 +25,7 @@ module RuboCop
         def on_send(node)
           return unless node.method?(:match_array)
           return unless node.first_argument.array_type?
+          return if node.first_argument.percent_literal?
 
           add_offense(node) do |corrector|
             array_contents = node.arguments.flat_map(&:to_a)
