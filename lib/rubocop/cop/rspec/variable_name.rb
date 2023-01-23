@@ -42,10 +42,13 @@ module RuboCop
         include ConfigurableNaming
         include AllowedPattern
         include Variable
+        include InsideExampleGroup
 
         MSG = 'Use %<style>s for variable names.'
 
         def on_send(node)
+          return unless inside_example_group?(node)
+
           variable_definition?(node) do |variable|
             return if variable.dstr_type? || variable.dsym_type?
             return if matches_allowed_pattern?(variable.value)

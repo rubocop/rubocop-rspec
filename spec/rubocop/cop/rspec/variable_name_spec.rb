@@ -7,37 +7,47 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let` with symbol names' do
       it 'registers an offense for camelCase' do
         expect_offense(<<~RUBY)
-          let(:userName) { 'Adam' }
-              ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let(:userName) { 'Adam' }
+                ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'registers an offense for PascalCase' do
         expect_offense(<<~RUBY)
-          let(:UserName) { 'Adam' }
-              ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let(:UserName) { 'Adam' }
+                ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'registers offense with multiple lets' do
         expect_offense(<<~RUBY)
-          let(:userName) { 'Adam' }
-              ^^^^^^^^^ Use snake_case for variable names.
-          let(:user_email) { 'adam@example.com' }
-          let(:userAge) { 20 }
-              ^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let(:userName) { 'Adam' }
+                ^^^^^^^^^ Use snake_case for variable names.
+            let(:user_email) { 'adam@example.com' }
+            let(:userAge) { 20 }
+                ^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'does not register an offense for snake_case' do
         expect_no_offenses(<<~RUBY)
-          let(:user_name) { 'Adam' }
+          RSpec.describe Foo do
+            let(:user_name) { 'Adam' }
+          end
         RUBY
       end
 
       it 'does not register offense for interpolated symbol' do
         expect_no_offenses(<<~'RUBY')
-          let(:"user#{name}") { 'Adam' }
+          RSpec.describe Foo do
+            let(:"user#{name}") { 'Adam' }
+          end
         RUBY
       end
     end
@@ -45,27 +55,35 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let` with string names' do
       it 'registers an offense for camelCase' do
         expect_offense(<<~RUBY)
-          let('userName') { 'Adam' }
-              ^^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let('userName') { 'Adam' }
+                ^^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'registers an offense for kebab-case' do
         expect_offense(<<~RUBY)
-          let('user-name') { 'Adam' }
-              ^^^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let('user-name') { 'Adam' }
+                ^^^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'does not register an offense for snake_case' do
         expect_no_offenses(<<~RUBY)
-          let('user_name') { 'Adam' }
+          RSpec.describe Foo do
+            let('user_name') { 'Adam' }
+          end
         RUBY
       end
 
       it 'does not register offense for interpolated string' do
         expect_no_offenses(<<~'RUBY')
-          let("user#{name}") { 'Adam' }
+          RSpec.describe Foo do
+            let("user#{name}") { 'Adam' }
+          end
         RUBY
       end
     end
@@ -73,8 +91,10 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let` with proc' do
       it 'registers offense' do
         expect_offense(<<~RUBY)
-          let(:userName, &create_user)
-              ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let(:userName, &create_user)
+                ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
     end
@@ -82,14 +102,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let!`' do
       it 'registers an offense for camelCase' do
         expect_offense(<<~RUBY)
-          let!(:userName) { 'Adam' }
-               ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            let!(:userName) { 'Adam' }
+                 ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for snake_case' do
         expect_no_offenses(<<~RUBY)
-          let!(:user_name) { 'Adam' }
+          RSpec.describe Foo do
+            let!(:user_name) { 'Adam' }
+          end
         RUBY
       end
     end
@@ -97,14 +121,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `subject`' do
       it 'registers an offense for camelCase' do
         expect_offense(<<~RUBY)
-          subject(:userName) { 'Adam' }
-                  ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            subject(:userName) { 'Adam' }
+                    ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for snake_case' do
         expect_no_offenses(<<~RUBY)
-          subject(:user_name) { 'Adam' }
+          RSpec.describe Foo do
+            subject(:user_name) { 'Adam' }
+          end
         RUBY
       end
     end
@@ -112,14 +140,46 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `subject!`' do
       it 'registers an offense for camelCase' do
         expect_offense(<<~RUBY)
-          subject!(:userName) { 'Adam' }
-                   ^^^^^^^^^ Use snake_case for variable names.
+          RSpec.describe Foo do
+            subject!(:userName) { 'Adam' }
+                     ^^^^^^^^^ Use snake_case for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for snake_case' do
         expect_no_offenses(<<~RUBY)
-          subject!(:user_name) { 'Adam' }
+          RSpec.describe Foo do
+            subject!(:user_name) { 'Adam' }
+          end
+        RUBY
+      end
+    end
+
+    context 'when `let` inside spec group' do
+      it 'registers an offense when describe' do
+        expect_offense(<<~RUBY)
+          RSpec.describe Foo do
+            let(:userName) { 'Adam' }
+                ^^^^^^^^^ Use snake_case for variable names.
+          end
+        RUBY
+      end
+
+      it 'registers an offense when shared_examples' do
+        expect_offense(<<~RUBY)
+          RSpec.shared_examples 'foo example' do
+            let(:userName) { 'Adam' }
+                ^^^^^^^^^ Use snake_case for variable names.
+          end
+        RUBY
+      end
+    end
+
+    context 'when `let` not inside spec group' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          let(:userName) { 'Adam' }
         RUBY
       end
     end
@@ -131,14 +191,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let`' do
       it 'registers an offense for snake_case' do
         expect_offense(<<~RUBY)
-          let(:user_name) { 'Adam' }
-              ^^^^^^^^^^ Use camelCase for variable names.
+          RSpec.describe Foo do
+            let(:user_name) { 'Adam' }
+                ^^^^^^^^^^ Use camelCase for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for camelCase' do
         expect_no_offenses(<<~RUBY)
-          let(:userName) { 'Adam' }
+          RSpec.describe Foo do
+            let(:userName) { 'Adam' }
+          end
         RUBY
       end
     end
@@ -146,14 +210,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `let!`' do
       it 'registers an offense for snake_case' do
         expect_offense(<<~RUBY)
-          let!(:user_name) { 'Adam' }
-               ^^^^^^^^^^ Use camelCase for variable names.
+          RSpec.describe Foo do
+            let!(:user_name) { 'Adam' }
+                 ^^^^^^^^^^ Use camelCase for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for camelCase' do
         expect_no_offenses(<<~RUBY)
-          let!(:userName) { 'Adam' }
+          RSpec.describe Foo do
+            let!(:userName) { 'Adam' }
+          end
         RUBY
       end
     end
@@ -161,14 +229,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `subject`' do
       it 'registers an offense for snake_case' do
         expect_offense(<<~RUBY)
-          subject(:user_name) { 'Adam' }
-                  ^^^^^^^^^^ Use camelCase for variable names.
+          RSpec.describe Foo do
+            subject(:user_name) { 'Adam' }
+                    ^^^^^^^^^^ Use camelCase for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for camelCase' do
         expect_no_offenses(<<~RUBY)
-          subject(:userName) { 'Adam' }
+          RSpec.describe Foo do
+            subject(:userName) { 'Adam' }
+          end
         RUBY
       end
     end
@@ -176,14 +248,46 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
     context 'when `subject!`' do
       it 'registers an offense for snake_case' do
         expect_offense(<<~RUBY)
-          subject!(:user_name) { 'Adam' }
-                   ^^^^^^^^^^ Use camelCase for variable names.
+          RSpec.describe Foo do
+            subject!(:user_name) { 'Adam' }
+                     ^^^^^^^^^^ Use camelCase for variable names.
+          end
         RUBY
       end
 
       it 'does not register offense for camelCase' do
         expect_no_offenses(<<~RUBY)
-          subject!(:userName) { 'Adam' }
+          RSpec.describe Foo do
+            subject!(:userName) { 'Adam' }
+          end
+        RUBY
+      end
+    end
+
+    context 'when `let` inside spec group' do
+      it 'registers an offense when describe' do
+        expect_offense(<<~RUBY)
+          RSpec.describe Foo do
+            let(:user_name) { 'Adam' }
+                ^^^^^^^^^^ Use camelCase for variable names.
+          end
+        RUBY
+      end
+
+      it 'registers an offense when shared_examples' do
+        expect_offense(<<~RUBY)
+          RSpec.shared_examples 'foo example' do
+            let(:user_name) { 'Adam' }
+                ^^^^^^^^^^ Use camelCase for variable names.
+          end
+        RUBY
+      end
+    end
+
+    context 'when `let` not inside spec group' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          let(:user_name) { 'Adam' }
         RUBY
       end
     end
@@ -197,14 +301,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
 
     it 'registers an offense when not matching any ignored patterns' do
       expect_offense(<<~RUBY)
-        let(:userName) { 'Adam' }
-            ^^^^^^^^^ Use snake_case for variable names.
+        RSpec.describe Foo do
+          let(:userName) { 'Adam' }
+              ^^^^^^^^^ Use snake_case for variable names.
+        end
       RUBY
     end
 
     it 'does not register an offense when matching any ignored pattern' do
       expect_no_offenses(<<~RUBY)
-        let(:userFood) { 'Adam' }
+        RSpec.describe Foo do
+          let(:userFood) { 'Adam' }
+        end
       RUBY
     end
   end
@@ -217,14 +325,18 @@ RSpec.describe RuboCop::Cop::RSpec::VariableName do
 
     it 'registers an offense when not matching any allowed patterns' do
       expect_offense(<<~RUBY)
-        let(:userName) { 'Adam' }
-            ^^^^^^^^^ Use snake_case for variable names.
+        RSpec.describe Foo do
+          let(:userName) { 'Adam' }
+              ^^^^^^^^^ Use snake_case for variable names.
+        end
       RUBY
     end
 
     it 'does not register an offense when matching any allowed pattern' do
       expect_no_offenses(<<~RUBY)
-        let(:userFood) { 'Adam' }
+        RSpec.describe Foo do
+          let(:userFood) { 'Adam' }
+        end
       RUBY
     end
   end
