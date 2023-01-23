@@ -3839,6 +3839,59 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
 
+== RSpec/PendingBlockInsideExample
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for passing a block by `pending` or `skip` within examples.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it 'does something' do
+  pending 'not yet implemented' do
+    do_something
+  end
+end
+
+# good
+it 'does something' do
+  pending 'not yet implemented'
+  do_something
+end
+
+# bad
+it 'does something' do
+  skip 'not yet implemented' do
+    do_something
+  end
+end
+
+# good
+it 'does something' do
+  skip 'not yet implemented'
+  do_something
+end
+
+# good - when outside example
+pending 'not yet implemented' do
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingBlockInsideExample
+
 == RSpec/PendingWithoutReason
 
 |===

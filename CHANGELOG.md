@@ -4,6 +4,7 @@
 
 - Fix a false positive for `RSpec/ContextWording` when context is interpolated string literal or execute string. ([@ydah])
 - Fix a false positive for `RSpec/DescribeMethod` when multi-line describe without `#` and `.` at the beginning. ([@ydah], [@pirj])
+- Add new `RSpec/PendingBlockInsideExample` cop. ([@ydah])
 
 ## 2.18.1 (2023-01-19)
 
