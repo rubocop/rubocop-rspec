@@ -67,6 +67,7 @@
 * xref:cops_rspec.adoc#rspecnottonot[RSpec/NotToNot]
 * xref:cops_rspec.adoc#rspecoverwritingsetup[RSpec/OverwritingSetup]
 * xref:cops_rspec.adoc#rspecpending[RSpec/Pending]
+* xref:cops_rspec.adoc#rspecpendingblockinsideexample[RSpec/PendingBlockInsideExample]
 * xref:cops_rspec.adoc#rspecpendingwithoutreason[RSpec/PendingWithoutReason]
 * xref:cops_rspec.adoc#rspecpredicatematcher[RSpec/PredicateMatcher]
 * xref:cops_rspec.adoc#rspecreceivecounts[RSpec/ReceiveCounts]
