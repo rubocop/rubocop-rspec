@@ -132,6 +132,8 @@ RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
   Enabled: true
+RSpec/RedundantAround:
+  Enabled: true
 RSpec/SortMetadata:
   Enabled: true
 RSpec/SubjectDeclaration:

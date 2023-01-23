@@ -4136,6 +4136,36 @@ expect(foo).not_to receive(:bar)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever
 
+== RSpec/RedundantAround
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Remove redundant `around` hook.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+around do |example|
+  example.run
+end
+
+# good
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
+
 == RSpec/RepeatedDescription
 
 |===

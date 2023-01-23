@@ -712,6 +712,12 @@ RSpec/ReceiveNever:
   VersionAdded: '1.28'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever
 
+RSpec/RedundantAround:
+  Description: Remove redundant `around` hook.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
+
 RSpec/RepeatedDescription:
   Description: Check for repeated description strings in example groups.
   Enabled: true
@@ -1062,3 +1068,10 @@ RSpec/Rails/MinitestAssertions:
   Enabled: pending
   VersionAdded: '2.17'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
+
+RSpec/Rails/TravelAround:
+  Description: Prefer to travel in `before` rather than `around`.
+  Enabled: pending
+  Safe: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/TravelAround

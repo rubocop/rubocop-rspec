@@ -25,6 +25,7 @@ rescue LoadError
 end
 require_relative 'rspec/rails/inferred_spec_type'
 require_relative 'rspec/rails/minitest_assertions'
+require_relative 'rspec/rails/travel_around'
 
 require_relative 'rspec/align_left_let_brace'
 require_relative 'rspec/align_right_let_brace'
@@ -96,6 +97,7 @@ require_relative 'rspec/pending_without_reason'
 require_relative 'rspec/predicate_matcher'
 require_relative 'rspec/receive_counts'
 require_relative 'rspec/receive_never'
+require_relative 'rspec/redundant_around'
 require_relative 'rspec/repeated_description'
 require_relative 'rspec/repeated_example'
 require_relative 'rspec/repeated_example_group_body'
