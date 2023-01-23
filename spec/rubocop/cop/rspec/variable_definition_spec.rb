@@ -6,31 +6,47 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
 
     it 'registers an offense for string name' do
       expect_offense(<<~RUBY)
-        let('user_name') { 'Adam' }
-            ^^^^^^^^^^^ Use symbols for variable names.
+        RSpec.describe Foo do
+          let('user_name') { 'Adam' }
+              ^^^^^^^^^^^ Use symbols for variable names.
+        end
       RUBY
 
       expect_correction(<<~RUBY)
-        let(:user_name) { 'Adam' }
+        RSpec.describe Foo do
+          let(:user_name) { 'Adam' }
+        end
       RUBY
     end
 
     it 'does not register offense for interpolated string' do
       expect_no_offenses(<<~'RUBY')
-        let("user-#{id}") { 'Adam' }
+        RSpec.describe Foo do
+          let("user-#{id}") { 'Adam' }
+        end
       RUBY
     end
 
     it 'does not register offense for multiline string' do
       expect_no_offenses(<<~'RUBY')
-        let("user" \
-            "-foo") { 'Adam' }
+        RSpec.describe Foo do
+          let("user" \
+              "-foo") { 'Adam' }
+        end
       RUBY
     end
 
     it 'does not register offense for symbol names' do
       expect_no_offenses(<<~RUBY)
-        let(:user_name) { 'Adam' }
+        RSpec.describe Foo do
+          let(:user_name) { 'Adam' }
+        end
+      RUBY
+    end
+
+    it 'does not register offense when not inside spec group' do
+      expect_no_offenses(<<~RUBY)
+        let('user_name') { 'Adam' }
       RUBY
     end
   end
@@ -40,29 +56,45 @@ RSpec.describe RuboCop::Cop::RSpec::VariableDefinition do
 
     it 'registers an offense for symbol name' do
       expect_offense(<<~RUBY)
-        let(:user_name) { 'Adam' }
-            ^^^^^^^^^^ Use strings for variable names.
+        RSpec.describe Foo do
+          let(:user_name) { 'Adam' }
+              ^^^^^^^^^^ Use strings for variable names.
+        end
       RUBY
 
       expect_correction(<<~RUBY)
-        let("user_name") { 'Adam' }
+        RSpec.describe Foo do
+          let("user_name") { 'Adam' }
+        end
       RUBY
     end
 
     it 'registers an offense for interpolated symbol' do
       expect_offense(<<~'RUBY')
-        let(:"user-#{id}") { 'Adam' }
-            ^^^^^^^^^^^^^ Use strings for variable names.
+        RSpec.describe Foo do
+          let(:"user-#{id}") { 'Adam' }
+              ^^^^^^^^^^^^^ Use strings for variable names.
+        end
       RUBY
 
       expect_correction(<<~'RUBY')
-        let("user-#{id}") { 'Adam' }
+        RSpec.describe Foo do
+          let("user-#{id}") { 'Adam' }
+        end
       RUBY
     end
 
     it 'does not register offense for string names' do
       expect_no_offenses(<<~RUBY)
-        let('user_name') { 'Adam' }
+        RSpec.describe Foo do
+          let('user_name') { 'Adam' }
+        end
+      RUBY
+    end
+
+    it 'does not register offense when not inside spec group' do
+      expect_no_offenses(<<~RUBY)
+        let(:user_name) { 'Adam' }
       RUBY
     end
   end
