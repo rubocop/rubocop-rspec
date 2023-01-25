@@ -21,7 +21,6 @@ module RuboCop
         RESTRICT_ON_SEND = %i[contain_exactly].freeze
 
         def on_send(node)
-          return unless node.method?(:contain_exactly)
           return unless node.each_child_node.all?(&:splat_type?)
 
           add_offense(node) do |corrector|

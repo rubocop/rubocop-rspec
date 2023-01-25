@@ -24,7 +24,6 @@ module RuboCop
         RESTRICT_ON_SEND = %i[match_array].freeze
 
         def on_send(node)
-          return unless node.method?(:match_array)
           return unless node.first_argument.array_type?
           return if node.first_argument.percent_literal?
 
