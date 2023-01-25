@@ -538,6 +538,38 @@ expect(object).to be_a_kind_of(String)
 * https://rubystyle.guide#is-a-vs-kind-of
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
 
+== RSpec/ContainExactly
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Enabled
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Prefer `match_array` when matching array values.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it { is_expected.to contain_exactly(*array1, *array2) }
+
+# good
+it { is_expected.to match_array(array1 + array2) }
+
+# good
+it { is_expected.to contain_exactly(content, *array) }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
+
 == RSpec/ContextMethod
 
 |===
@@ -2841,6 +2873,41 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
+
+== RSpec/MatchArray
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Enabled
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Prefer `contain_exactly` when matching an array literal.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it { is_expected.to match_array([content1, content2]) }
+
+# good
+it { is_expected.to contain_exactly(content1, content2) }
+
+# good
+it { is_expected.to match_array([content] + array) }
+
+# good
+it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
 == RSpec/MessageChain
 

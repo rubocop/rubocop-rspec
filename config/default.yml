@@ -201,6 +201,12 @@ RSpec/ClassCheck:
     - be_kind_of
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
 
+RSpec/ContainExactly:
+  Description: Prefer `match_array` when matching array values.
+  Enabled: true
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
+
 RSpec/ContextMethod:
   Description: "`context` should not be used for specifying methods."
   Enabled: true
@@ -555,6 +561,12 @@ RSpec/LetSetup:
   Enabled: true
   VersionAdded: '1.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
+
+RSpec/MatchArray:
+  Description: Prefer `contain_exactly` when matching an array literal.
+  Enabled: true
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.

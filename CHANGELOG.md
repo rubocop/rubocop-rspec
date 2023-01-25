@@ -9,6 +9,7 @@
 - Add new `RSpec/PendingBlockInsideExample` cop. ([@ydah])
 - Add `RSpec/RedundantAround` cop. ([@r7kamura])
 - Add `RSpec/Rails/TravelAround` cop. ([@r7kamura])
+- Add `RSpec/ContainExactly` and `RSpec/MatchArray` cops. ([@faucct])
 
 ## 2.18.1 (2023-01-19)
 
@@ -759,6 +760,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@elebow]: https://github.com/elebow
 [@elisefitz15]: https://github.com/EliseFitz15
 [@elliterate]: https://github.com/elliterate
+[@faucct]: https://github.com/faucct
 [@foton]: https://github.com/foton
 [@francois-ferrandis]: https://github.com/francois-ferrandis
 [@g-rath]: https://github.com/G-Rath
