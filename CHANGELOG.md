@@ -10,6 +10,7 @@
 - Add `RSpec/RedundantAround` cop. ([@r7kamura])
 - Add `RSpec/Rails/TravelAround` cop. ([@r7kamura])
 - Add `RSpec/ContainExactly` and `RSpec/MatchArray` cops. ([@faucct])
+- Fix a false positive for `RSpec/PendingWithoutReason` when not inside example and pending/skip with block. ([@ydah])
 
 ## 2.18.1 (2023-01-19)
 

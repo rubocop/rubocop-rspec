@@ -29,8 +29,12 @@ module RuboCop
       def_node_matcher :shared_group?, block_pattern('#SharedGroups.all')
 
       # @!method spec_group?(node)
-      def_node_matcher :spec_group?,
-                       block_pattern('{#SharedGroups.all #ExampleGroups.all}')
+      def_node_matcher :spec_group?, <<~PATTERN
+        {
+          #{block_pattern('{#SharedGroups.all #ExampleGroups.all}')}
+          #{numblock_pattern('{#SharedGroups.all #ExampleGroups.all}')}
+        }
+      PATTERN
 
       # @!method example_group_with_body?(node)
       def_node_matcher :example_group_with_body?, <<-PATTERN
