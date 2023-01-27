@@ -20,10 +20,18 @@ module RuboCop
       end
 
       # @!method rspec?(node)
-      def_node_matcher :rspec?, '{(const {nil? cbase} :RSpec) nil?}'
+      def_node_matcher :rspec?, '{#explicit_rspec? nil?}'
+
+      # @!method explicit_rspec?(node)
+      def_node_matcher :explicit_rspec?, '(const {nil? cbase} :RSpec)'
 
       # @!method example_group?(node)
-      def_node_matcher :example_group?, block_pattern('#ExampleGroups.all')
+      def_node_matcher :example_group?, <<~PATTERN
+        {
+          #{block_pattern('{#ExampleGroups.all}')}
+          #{numblock_pattern('{#ExampleGroups.all}')}
+        }
+      PATTERN
 
       # @!method shared_group?(node)
       def_node_matcher :shared_group?, block_pattern('#SharedGroups.all')

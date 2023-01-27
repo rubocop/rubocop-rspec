@@ -57,12 +57,20 @@ module RuboCop
       #   it 'does something', skip: 'reason' do
       #   end
       class PendingWithoutReason < Base
-        include InsideExampleGroup
         MSG = 'Give the reason for pending or skip.'
+
+        # @!method skipped_in_example?(node)
+        def_node_matcher :skipped_in_example?, <<~PATTERN
+          {
+            (send nil? ${#Examples.skipped #Examples.pending})
+            (block (send nil? ${#Examples.skipped}) ...)
+            (numblock (send nil? ${#Examples.skipped}) ...)
+          }
+        PATTERN
 
         # @!method skipped_by_example_method?(node)
         def_node_matcher :skipped_by_example_method?, <<~PATTERN
-          ({block numblock} (send nil? $#Examples.skipped ...) ...)
+          (send nil? ${#Examples.skipped #Examples.pending} ...)
         PATTERN
 
         # @!method metadata_without_reason?(node)
@@ -78,10 +86,7 @@ module RuboCop
 
         # @!method skipped_by_example_group_method?(node)
         def_node_matcher :skipped_by_example_group_method?, <<~PATTERN
-          {
-            #{block_pattern('{#ExampleGroups.skipped}')}
-            #{numblock_pattern('{#ExampleGroups.skipped}')}
-          }
+          (send #rspec? ${#ExampleGroups.skipped} ...)
         PATTERN
 
         # @!method pending_step_without_reason?(node)
@@ -90,21 +95,37 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless inside_example_group?(node)
-
           on_pending_by_metadata(node)
-          on_skipped_by_example_method(node)
-          on_skipped_by_example_group_method(node)
-        end
+          return unless (parent = parent_node(node))
 
-        def on_block(node)
-          return unless inside_example_group?(node)
-
-          on_pending_step(node)
+          if example_group?(parent) || block_node_example_group?(node)
+            on_skipped_by_example_method(node)
+            on_skipped_by_example_group_method(node)
+          elsif example?(parent)
+            on_skipped_by_in_example_method(node, parent)
+          end
         end
-        alias on_numblock on_block
 
         private
+
+        def parent_node(node)
+          node_or_block = node.block_node || node
+          return unless (parent = node_or_block.parent)
+
+          parent.begin_type? && parent.parent ? parent.parent : parent
+        end
+
+        def block_node_example_group?(node)
+          node.block_node &&
+            example_group?(node.block_node) &&
+            explicit_rspec?(node.receiver)
+        end
+
+        def on_skipped_by_in_example_method(node, _direct_parent)
+          skipped_in_example?(node) do |pending|
+            add_offense(node, message: "Give the reason for #{pending}.")
+          end
+        end
 
         def on_pending_by_metadata(node)
           metadata_without_reason?(node) do |pending|
@@ -113,33 +134,14 @@ module RuboCop
         end
 
         def on_skipped_by_example_method(node)
-          skipped_by_example_method?(node.block_node) do |pending|
+          skipped_by_example_method?(node) do |pending|
             add_offense(node, message: "Give the reason for #{pending}.")
           end
         end
 
         def on_skipped_by_example_group_method(node)
-          skipped_by_example_group_method?(node.block_node) do
+          skipped_by_example_group_method?(node) do
             add_offense(node, message: 'Give the reason for skip.')
-          end
-        end
-
-        def on_pending_step(node)
-          block_node_bodys(node).each do |body|
-            if pending_step_without_reason?(body)
-              add_offense(body,
-                          message: "Give the reason for #{body.method_name}.")
-            end
-          end
-        end
-
-        def block_node_bodys(node)
-          return [] unless (body = node.body)
-
-          if body.begin_type?
-            body.child_nodes
-          else
-            [body]
           end
         end
       end
