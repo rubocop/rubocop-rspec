@@ -59,61 +59,90 @@ module RuboCop
       class PendingWithoutReason < Base
         MSG = 'Give the reason for pending or skip.'
 
-        # @!method pending_by_example_method?(node)
-        def_node_matcher :pending_by_example_method?, block_pattern(<<~PATTERN)
-          #Examples.pending
-        PATTERN
-
-        # @!method pending_by_metadata_without_reason?(node)
-        def_node_matcher :pending_by_metadata_without_reason?, <<~PATTERN
-          (send #rspec? {#ExampleGroups.all #Examples.all} ... {<(sym :pending) ...> (hash <(pair (sym :pending) true) ...>)})
+        # @!method skipped_in_example?(node)
+        def_node_matcher :skipped_in_example?, <<~PATTERN
+          {
+            (send nil? ${#Examples.skipped #Examples.pending})
+            (block (send nil? ${#Examples.skipped}) ...)
+            (numblock (send nil? ${#Examples.skipped}) ...)
+          }
         PATTERN
 
         # @!method skipped_by_example_method?(node)
-        def_node_matcher :skipped_by_example_method?, block_pattern(<<~PATTERN)
-          #Examples.skipped
+        def_node_matcher :skipped_by_example_method?, <<~PATTERN
+          (send nil? ${#Examples.skipped #Examples.pending} ...)
+        PATTERN
+
+        # @!method metadata_without_reason?(node)
+        def_node_matcher :metadata_without_reason?, <<~PATTERN
+          (send #rspec?
+            {#ExampleGroups.all #Examples.all} ...
+            {
+              <(sym ${:pending :skip}) ...>
+              (hash <(pair (sym ${:pending :skip}) true) ...>)
+            }
+          )
         PATTERN
 
         # @!method skipped_by_example_group_method?(node)
-        def_node_matcher(
-          :skipped_by_example_group_method?,
-          block_pattern(<<~PATTERN)
-            #ExampleGroups.skipped
-          PATTERN
-        )
-
-        # @!method skipped_by_metadata_without_reason?(node)
-        def_node_matcher :skipped_by_metadata_without_reason?, <<~PATTERN
-          (send #rspec? {#ExampleGroups.all #Examples.all} ... {<(sym :skip) ...> (hash <(pair (sym :skip) true) ...>)})
+        def_node_matcher :skipped_by_example_group_method?, <<~PATTERN
+          (send #rspec? ${#ExampleGroups.skipped} ...)
         PATTERN
 
-        # @!method without_reason?(node)
-        def_node_matcher :without_reason?, <<~PATTERN
-          (send nil? ${:pending :skip})
+        # @!method pending_step_without_reason?(node)
+        def_node_matcher :pending_step_without_reason?, <<~PATTERN
+          (send nil? {:skip :pending})
         PATTERN
 
         def on_send(node)
-          if pending_without_reason?(node)
-            add_offense(node, message: 'Give the reason for pending.')
-          elsif skipped_without_reason?(node)
-            add_offense(node, message: 'Give the reason for skip.')
-          elsif without_reason?(node) && example?(node.parent)
-            add_offense(node,
-                        message: "Give the reason for #{node.method_name}.")
+          on_pending_by_metadata(node)
+          return unless (parent = parent_node(node))
+
+          if example_group?(parent) || block_node_example_group?(node)
+            on_skipped_by_example_method(node)
+            on_skipped_by_example_group_method(node)
+          elsif example?(parent)
+            on_skipped_by_in_example_method(node, parent)
           end
         end
 
         private
 
-        def pending_without_reason?(node)
-          pending_by_example_method?(node.block_node) ||
-            pending_by_metadata_without_reason?(node)
+        def parent_node(node)
+          node_or_block = node.block_node || node
+          return unless (parent = node_or_block.parent)
+
+          parent.begin_type? && parent.parent ? parent.parent : parent
         end
 
-        def skipped_without_reason?(node)
-          skipped_by_example_group_method?(node.block_node) ||
-            skipped_by_example_method?(node.block_node) ||
-            skipped_by_metadata_without_reason?(node)
+        def block_node_example_group?(node)
+          node.block_node &&
+            example_group?(node.block_node) &&
+            explicit_rspec?(node.receiver)
+        end
+
+        def on_skipped_by_in_example_method(node, _direct_parent)
+          skipped_in_example?(node) do |pending|
+            add_offense(node, message: "Give the reason for #{pending}.")
+          end
+        end
+
+        def on_pending_by_metadata(node)
+          metadata_without_reason?(node) do |pending|
+            add_offense(node, message: "Give the reason for #{pending}.")
+          end
+        end
+
+        def on_skipped_by_example_method(node)
+          skipped_by_example_method?(node) do |pending|
+            add_offense(node, message: "Give the reason for #{pending}.")
+          end
+        end
+
+        def on_skipped_by_example_group_method(node)
+          skipped_by_example_group_method?(node) do
+            add_offense(node, message: 'Give the reason for skip.')
+          end
         end
       end
     end
