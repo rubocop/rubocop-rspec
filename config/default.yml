@@ -686,12 +686,6 @@ RSpec/Pending:
   VersionAdded: '1.25'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
 
-RSpec/PendingBlockInsideExample:
-  Description: Checks for passing a block by `pending` or `skip` within examples.
-  Enabled: pending
-  VersionAdded: "<<next>>"
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingBlockInsideExample
-
 RSpec/PendingWithoutReason:
   Description: Checks for pending or skipped examples without reason.
   Enabled: pending
@@ -802,6 +796,12 @@ RSpec/SingleArgumentMessageChain:
   VersionAdded: '1.9'
   VersionChanged: '1.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
+
+RSpec/SkipBlockInsideExample:
+  Description: Checks for passing a block to `skip` within examples.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SkipBlockInsideExample
 
 RSpec/SortMetadata:
   Description: Sort RSpec metadata alphabetically.
