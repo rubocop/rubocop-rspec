@@ -25,8 +25,7 @@ module RuboCop
 
         def missing_separating_line(node)
           line = final_end_line = final_end_location(node).line
-
-          while comment_line?(processed_source[line])
+          while processed_source.line_with_comment?(line + 1)
             line += 1
             comment = processed_source.comment_at_line(line)
             if DirectiveComment.new(comment).enabled?
