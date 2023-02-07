@@ -30,8 +30,7 @@ module RuboCop
         # @!method example_or_group?(node)
         def_node_matcher :example_or_group?, <<-PATTERN
           {
-            #{block_pattern('{#ExampleGroups.all #Examples.all}')}
-            #{numblock_pattern('{#ExampleGroups.all #Examples.all}')}
+            #{block_or_numblock_pattern('{#ExampleGroups.all #Examples.all}')}
             #{send_pattern('#Includes.examples')}
           }
         PATTERN
