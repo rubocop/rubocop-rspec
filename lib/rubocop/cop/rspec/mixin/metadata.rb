@@ -6,20 +6,18 @@ module RuboCop
       # Helper methods to find RSpec metadata.
       module Metadata
         extend RuboCop::NodePattern::Macros
+        extend RuboCop::RSpec::Language::NodePattern
 
         include RuboCop::RSpec::Language
 
         # @!method rspec_metadata(node)
-        def_node_matcher :rspec_metadata, <<~PATTERN
-          (block
-            (send
-              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ ${send str sym}* (hash $...)?)
-            ...)
+        def_node_matcher :rspec_metadata, block_pattern(<<~PATTERN)
+          {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ ${send str sym}* (hash $...)?
         PATTERN
 
         # @!method rspec_configure(node)
         def_node_matcher :rspec_configure, <<~PATTERN
-          (block (send #rspec? :configure) (args (arg $_)) ...)
+          (block #{send_pattern(':configure')} (args (arg $_)) ...)
         PATTERN
 
         # @!method metadata_in_block(node)

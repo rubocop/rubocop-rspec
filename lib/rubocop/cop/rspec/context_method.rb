@@ -30,12 +30,8 @@ module RuboCop
         MSG = 'Use `describe` for testing methods.'
 
         # @!method context_method(node)
-        def_node_matcher :context_method, <<-PATTERN
-          (block
-            (send #rspec? :context
-              ${(str #method_name?) (dstr (str #method_name?) ...)}
-            ...)
-          ...)
+        def_node_matcher :context_method, block_pattern(<<-PATTERN)
+          :context ${(str #method_name?) (dstr (str #method_name?) ...)}
         PATTERN
 
         def on_block(node)  # rubocop:disable InternalAffairs/NumblockHandler

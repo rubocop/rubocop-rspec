@@ -74,20 +74,17 @@ module RuboCop
         PATTERN
 
         # @!method metadata_without_reason?(node)
-        def_node_matcher :metadata_without_reason?, <<~PATTERN
-          (send #rspec?
-            {#ExampleGroups.all #Examples.all} ...
-            {
-              <(sym ${:pending :skip}) ...>
-              (hash <(pair (sym ${:pending :skip}) true) ...>)
-            }
-          )
+        def_node_matcher :metadata_without_reason?, send_pattern(<<~PATTERN)
+          {#ExampleGroups.all #Examples.all} ...
+          {
+            <(sym ${:pending :skip}) ...>
+            (hash <(pair (sym ${:pending :skip}) true) ...>)
+          }
         PATTERN
 
         # @!method skipped_by_example_group_method?(node)
-        def_node_matcher :skipped_by_example_group_method?, <<~PATTERN
-          (send #rspec? ${#ExampleGroups.skipped} ...)
-        PATTERN
+        def_node_matcher :skipped_by_example_group_method?,
+                         send_pattern('${#ExampleGroups.skipped} ...')
 
         # @!method pending_step_without_reason?(node)
         def_node_matcher :pending_step_without_reason?, <<~PATTERN

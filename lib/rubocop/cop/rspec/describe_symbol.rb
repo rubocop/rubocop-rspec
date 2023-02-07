@@ -22,9 +22,8 @@ module RuboCop
         RESTRICT_ON_SEND = %i[describe].freeze
 
         # @!method describe_symbol?(node)
-        def_node_matcher :describe_symbol?, <<-PATTERN
-          (send #rspec? :describe $sym ...)
-        PATTERN
+        def_node_matcher :describe_symbol?,
+                         send_pattern(':describe $sym ...')
 
         def on_send(node)
           describe_symbol?(node) do |match|

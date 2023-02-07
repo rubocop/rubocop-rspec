@@ -41,13 +41,14 @@ module RuboCop
               'the class or module being tested.'
 
         # @!method example_group_with_ignored_metadata?(node)
-        def_node_matcher :example_group_with_ignored_metadata?, <<~PATTERN
-          (send #rspec? :describe ... (hash <#ignored_metadata? ...>))
-        PATTERN
+        def_node_matcher :example_group_with_ignored_metadata?,
+                         send_pattern(<<~PATTERN)
+                           :describe ... (hash <#ignored_metadata? ...>)
+                         PATTERN
 
         # @!method not_a_const_described(node)
-        def_node_matcher :not_a_const_described, <<~PATTERN
-          (send #rspec? :describe $[!const !#string_constant?] ...)
+        def_node_matcher :not_a_const_described, send_pattern(<<~PATTERN)
+          :describe $[!const !#string_constant?] ...
         PATTERN
 
         # @!method sym_pair(node)

@@ -63,11 +63,8 @@ module RuboCop
           PATTERN
 
           # @!method feature_method(node)
-          def_node_matcher :feature_method, <<-PATTERN
-            (block
-              $(send #rspec? $#capybara_speak ...)
-            ...)
-          PATTERN
+          def_node_matcher :feature_method,
+                           "(block $#{send_pattern('$#capybara_speak')} ...)"
 
           def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
             return unless inside_example_group?(node)

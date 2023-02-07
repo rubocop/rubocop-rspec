@@ -24,11 +24,8 @@ module RuboCop
               "being tested. '#instance' or '.class'."
 
         # @!method second_string_literal_argument(node)
-        def_node_matcher :second_string_literal_argument, <<~PATTERN
-          (block
-            (send #rspec? :describe _first_argument ${str dstr} ...)
-          ...)
-        PATTERN
+        def_node_matcher :second_string_literal_argument,
+                         block_pattern(':describe _first_argument ${str dstr}')
 
         # @!method method_name?(node)
         def_node_matcher :method_name?, <<~PATTERN

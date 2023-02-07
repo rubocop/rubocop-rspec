@@ -56,8 +56,10 @@ module RuboCop
 
         # @!method metadata(node)
         def_node_matcher :metadata, <<-PATTERN
-          {(send #rspec? #focusable_selector? <$(sym :focus) ...>)
-           (send #rspec? #focusable_selector? ... (hash <$(pair (sym :focus) true) ...>))}
+          {
+            #{send_pattern('#focusable_selector? <$(sym :focus) ...>')}
+            #{send_pattern('#focusable_selector? ... (hash <$(pair (sym :focus) true) ...>)')}
+          }
         PATTERN
 
         # @!method focused_block?(node)

@@ -54,7 +54,7 @@ module RuboCop
       def_node_matcher :let?, <<-PATTERN
         {
           #{block_pattern('#Helpers.all')}
-          (send #rspec? #Helpers.all _ block_pass)
+          #{send_pattern('#Helpers.all _ block_pass')}
         }
       PATTERN
 

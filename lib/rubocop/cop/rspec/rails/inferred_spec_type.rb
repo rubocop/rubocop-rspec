@@ -76,15 +76,10 @@ module RuboCop
           # @!method describe_with_type(node)
           #   @param [RuboCop::AST::BlockNode] node
           #   @return [RuboCop::AST::PairNode, nil]
-          def_node_matcher :describe_with_type, <<~PATTERN
-            (block
-              (send #rspec? #ExampleGroups.all
-                ...
-                (hash <$(pair (sym :type) sym) ...>)
-              )
-              ...
-            )
-          PATTERN
+          def_node_matcher :describe_with_type,
+                           block_pattern(<<~PATTERN)
+                             #ExampleGroups.all ... (hash <$(pair (sym :type) sym) ...>)
+                           PATTERN
 
           # @param [RuboCop::AST::Corrector] corrector
           # @param [RuboCop::AST::Node] node
