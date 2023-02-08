@@ -20,6 +20,7 @@ require_relative 'rubocop/rspec/factory_bot/language'
 
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
+require_relative 'rubocop/cop/rspec/mixin/location_help'
 require_relative 'rubocop/cop/rspec/mixin/metadata'
 require_relative 'rubocop/cop/rspec/mixin/namespace'
 require_relative 'rubocop/cop/rspec/mixin/skip_or_pending'

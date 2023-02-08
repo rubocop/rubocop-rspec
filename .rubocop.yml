@@ -106,6 +106,10 @@ Style/FormatStringToken:
 Style/RequireOrder:
   Enabled: true
 
+RSpec/FilePath:
+  Exclude:
+    - spec/rubocop/cop/rspec/mixin/**/*.rb
+
 # Enable some of RuboCop's pending cops.
 
 Layout/LineContinuationSpacing:
