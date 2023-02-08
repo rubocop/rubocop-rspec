@@ -83,8 +83,7 @@ module RuboCop
             style_detected(scope_name)
             msg = explicit_message(scope_name)
             add_offense(method_send, message: msg) do |corrector|
-              scope = implicit_style? ? '' : "(#{style.inspect})"
-              corrector.replace(argument_range(method_send), scope)
+              autocorrect(corrector, node, method_send)
             end
           end
         end
@@ -93,6 +92,13 @@ module RuboCop
 
         private
 
+        def autocorrect(corrector, _node, method_send)
+          scope = implicit_style? ? '' : "(#{style.inspect})"
+          corrector.replace(
+            LocationHelp.arguments_with_whitespace(method_send), scope
+          )
+        end
+
         def check_implicit(method_send)
           style_detected(:implicit)
           return if implicit_style?
@@ -100,7 +106,10 @@ module RuboCop
           msg = explicit_message(nil)
           add_offense(method_send.loc.selector, message: msg) do |corrector|
             scope = "(#{style.inspect})"
-            corrector.replace(argument_range(method_send), scope)
+            corrector.replace(
+              LocationHelp.arguments_with_whitespace(method_send),
+              scope
+            )
           end
         end
 
@@ -118,12 +127,6 @@ module RuboCop
 
         def hook(node, &block)
           scoped_hook(node, &block) || unscoped_hook(node, &block)
-        end
-
-        def argument_range(send_node)
-          send_node.loc.selector.end.with(
-            end_pos: send_node.loc.expression.end_pos
-          )
         end
       end
     end

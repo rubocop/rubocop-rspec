@@ -89,13 +89,13 @@ module RuboCop
 
           corrector.remove(range)
 
-          block_range = block_loc(predicate)
+          block_range = LocationHelp.block_with_whitespace(predicate)
           corrector.remove(block_range) if block_range
         end
 
         def rewrite_matcher(corrector, predicate, matcher)
-          args = args_loc(predicate).source
-          block_loc = block_loc(predicate)
+          args = LocationHelp.arguments_with_whitespace(predicate).source
+          block_loc = LocationHelp.block_with_whitespace(predicate)
           block = block_loc ? block_loc.source : ''
 
           corrector.replace(
@@ -221,8 +221,8 @@ module RuboCop
 
         def move_predicate(corrector, actual, matcher, block_child)
           predicate = to_predicate_method(matcher.method_name)
-          args = args_loc(matcher).source
-          block_loc = block_loc(block_child)
+          args = LocationHelp.arguments_with_whitespace(matcher).source
+          block_loc = LocationHelp.block_with_whitespace(block_child)
           block = block_loc ? block_loc.source : ''
 
           corrector.remove(block_loc) if block_loc
@@ -331,31 +331,6 @@ module RuboCop
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           check_explicit(node) if style == :explicit
-        end
-
-        private
-
-        # returns args location with whitespace
-        # @example
-        #   foo 1, 2
-        #      ^^^^^
-        def args_loc(send_node)
-          send_node.loc.selector.end.with(
-            end_pos: send_node.loc.expression.end_pos
-          )
-        end
-
-        # returns block location with whitespace
-        # @example
-        #   foo { bar }
-        #      ^^^^^^^^
-        def block_loc(send_node)
-          parent = send_node.parent
-          return unless parent.block_type?
-
-          send_node.loc.expression.end.with(
-            end_pos: parent.loc.expression.end_pos
-          )
         end
       end
     end
