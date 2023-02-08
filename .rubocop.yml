@@ -114,6 +114,10 @@ Layout/LineEndStringConcatenationIndentation:
   Enabled: true
 Style/EmptyHeredoc:
   Enabled: true
+Style/RedundantHeredocDelimiterQuotes:
+  Enabled: true
+Style/RedundantStringEscape:
+  Enabled: true
 
 # Enable our own pending cops.
 
