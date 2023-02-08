@@ -386,13 +386,13 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     end
 
     it 'handles one-word descriptions' do
-      expect_offense(<<-'RUBY')
+      expect_offense(<<-RUBY)
         it "tests  " do
             ^^^^^^^ Excessive whitespace.
         end
       RUBY
 
-      expect_correction(<<-'RUBY')
+      expect_correction(<<-RUBY)
         it "tests" do
         end
       RUBY
@@ -519,13 +519,13 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
   context 'when using other common example groups' do
     it 'supports `xcontext`' do
-      expect_offense(<<-'RUBY')
+      expect_offense(<<-RUBY)
         xcontext "when testing  " do
                   ^^^^^^^^^^^^^^ Excessive whitespace.
         end
       RUBY
 
-      expect_correction(<<-'RUBY')
+      expect_correction(<<-RUBY)
         xcontext "when testing" do
         end
       RUBY
@@ -545,12 +545,12 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     end
 
     it 'supports `its`' do
-      expect_offense(<<-'RUBY')
+      expect_offense(<<-RUBY)
         its("  length  ") { should eq(1) }
              ^^^^^^^^^^ Excessive whitespace.
       RUBY
 
-      expect_correction(<<-'RUBY')
+      expect_correction(<<-RUBY)
         its("length") { should eq(1) }
       RUBY
     end
@@ -563,7 +563,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<-'RUBY')
+      expect_correction(<<-RUBY)
         skip 'this please and thank you !' do
         end
       RUBY
@@ -576,7 +576,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
             '  and thank you  !'
       RUBY
 
-      expect_correction(<<-'RUBY')
+      expect_correction(<<-RUBY)
         skip 'this please and thank you !'
       RUBY
     end
@@ -598,7 +598,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
   end
 
   it 'ignores heredocs' do
-    expect_no_offenses(<<-'RUBY')
+    expect_no_offenses(<<-RUBY)
       it <<~DESC do
         does not remove
           another comments reports,

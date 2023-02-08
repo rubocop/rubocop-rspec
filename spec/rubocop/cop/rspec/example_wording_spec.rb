@@ -179,7 +179,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   it 'ignores heredocs' do
-    expect_offense(<<-'RUBY')
+    expect_offense(<<-RUBY)
       it <<~DESC do
           ^^^^^ Do not use should when describing your tests.
         should not start with this word
@@ -189,7 +189,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   it 'flags an unclear description' do
-    expect_offense(<<-'RUBY')
+    expect_offense(<<-RUBY)
       it "works" do
           ^^^^^ Your example description is insufficient.
       end
@@ -197,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   it 'flags an unclear description despite extra spaces' do
-    expect_offense(<<-'RUBY')
+    expect_offense(<<-RUBY)
       it "  works    " do
           ^^^^^^^^^^^ Your example description is insufficient.
       end
@@ -205,7 +205,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   end
 
   it 'flags an unclear description despite uppercase and lowercase strings' do
-    expect_offense(<<-'RUBY')
+    expect_offense(<<-RUBY)
       it "WOrKs " do
           ^^^^^^ Your example description is insufficient.
       end
@@ -233,7 +233,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     end
 
     it 'flags an unclear description' do
-      expect_offense(<<-'RUBY')
+      expect_offense(<<-RUBY)
         it "workz" do
             ^^^^^ Your example description is insufficient.
         end
@@ -241,7 +241,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     end
 
     it 'flags an unclear description despite uppercase and lowercase strings' do
-      expect_offense(<<-'RUBY')
+      expect_offense(<<-RUBY)
         it "WOrKz " do
             ^^^^^^ Your example description is insufficient.
         end

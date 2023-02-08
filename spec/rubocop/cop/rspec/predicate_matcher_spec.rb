@@ -382,7 +382,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
       it 'registers an offense for a predicate method with ' \
          'heredoc surrounded by back ticks and multiline expect' do
-        expect_offense(<<~'RUBY')
+        expect_offense(<<~RUBY)
           expect(foo)
           ^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
             .to be_something(<<~`COMMAND`)
