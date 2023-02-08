@@ -44,30 +44,34 @@ module RuboCop
       PATTERN
 
       # @!method example?(node)
-      def_node_matcher :example?, block_pattern('#Examples.all')
+      def_node_matcher :example?, '(block (send nil? #Examples.all ...) ...)'
 
       # @!method hook?(node)
-      def_node_matcher :hook?,
-                       block_or_numblock_pattern('#Hooks.all')
+      def_node_matcher :hook?, <<-PATTERN
+        {
+          (numblock (send nil? #Hooks.all ...) ...)
+          (block (send nil? #Hooks.all ...) ...)
+        }
+      PATTERN
 
       # @!method let?(node)
       def_node_matcher :let?, <<-PATTERN
         {
-          #{block_pattern('#Helpers.all')}
-          (send #rspec? #Helpers.all _ block_pass)
+          (block (send nil? #Helpers.all ...) ...)
+          (send nil? #Helpers.all _ block_pass)
         }
       PATTERN
 
       # @!method include?(node)
       def_node_matcher :include?, <<-PATTERN
         {
-          #{send_pattern('#Includes.all')}
-          #{block_pattern('#Includes.all')}
+          (block (send nil? #Includes.all ...) ...)
+          (send nil? #Includes.all ...)
         }
       PATTERN
 
       # @!method subject?(node)
-      def_node_matcher :subject?, block_pattern('#Subjects.all')
+      def_node_matcher :subject?, '(block (send nil? #Subjects.all ...) ...)'
 
       module ExampleGroups # :nodoc:
         class << self
