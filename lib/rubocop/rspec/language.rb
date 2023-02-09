@@ -26,21 +26,24 @@ module RuboCop
       def_node_matcher :explicit_rspec?, '(const {nil? cbase} :RSpec)'
 
       # @!method example_group?(node)
-      def_node_matcher :example_group?,
-                       block_or_numblock_pattern('#ExampleGroups.all')
+      def_node_matcher :example_group?, <<~PATTERN
+        ({block numblock} (send #rspec? #ExampleGroups.all ...) ...)
+      PATTERN
 
       # @!method shared_group?(node)
-      def_node_matcher :shared_group?, block_pattern('#SharedGroups.all')
+      def_node_matcher :shared_group?,
+                       '(block (send #rspec? #SharedGroups.all ...) ...)'
 
       # @!method spec_group?(node)
-      def_node_matcher :spec_group?,
-                       block_or_numblock_pattern(
-                         '{#SharedGroups.all #ExampleGroups.all}'
-                       )
+      def_node_matcher :spec_group?, <<~PATTERN
+        ({block numblock} (send #rspec?
+             {#SharedGroups.all #ExampleGroups.all}
+          ...) ...)
+      PATTERN
 
       # @!method example_group_with_body?(node)
       def_node_matcher :example_group_with_body?, <<-PATTERN
-        (block #{send_pattern('#ExampleGroups.all')} args !nil?)
+        (block (send #rspec? #ExampleGroups.all ...) args !nil?)
       PATTERN
 
       # @!method example?(node)

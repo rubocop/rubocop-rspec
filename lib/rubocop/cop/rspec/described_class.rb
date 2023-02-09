@@ -68,7 +68,8 @@ module RuboCop
         PATTERN
 
         # @!method rspec_block?(node)
-        def_node_matcher :rspec_block?, block_pattern('#ALL.all')
+        def_node_matcher :rspec_block?,
+                         '({block numblock} (send #rspec? #ALL.all ...) ...)'
 
         # @!method scope_changing_syntax?(node)
         def_node_matcher :scope_changing_syntax?, '{def class module}'

@@ -38,16 +38,16 @@ module RuboCop
         # @!method example_or_group?(node)
         def_node_matcher :example_or_group?, <<-PATTERN
           {
-            #{block_pattern('{#ExampleGroups.all #Examples.all}')}
-            #{send_pattern('#Includes.examples')}
+            (block (send nil? {#ExampleGroups.all #Examples.all} ...) ...)
+            (send nil? #Includes.examples ...)
           }
         PATTERN
 
         # @!method include_examples?(node)
         def_node_matcher :include_examples?, <<~PATTERN
           {
-            #{block_pattern(':include_examples')}
-            #{send_pattern(':include_examples')}
+            (block (send nil? :include_examples ...) ...)
+            (send nil? :include_examples ...)
           }
         PATTERN
 

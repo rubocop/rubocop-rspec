@@ -162,7 +162,7 @@ def_node_matcher :shared_context,
 
 # After
 def_node_matcher :shared_context,
-                 block_pattern('#SharedGroups.context')
+                 '(block (send #rspec? #SharedGroups.context ...) ...)'
 ----
 
 [source,ruby]
@@ -173,7 +173,7 @@ def_node_search :examples?,
 
 # After
 def_node_search :examples?,
-                send_pattern('{#Includes.examples #Examples.all}')
+                '(send nil? {#Includes.examples #Examples.all} ...)'
 ----
 
 [source,ruby]
@@ -184,7 +184,7 @@ def_node_search :find_rspec_blocks,
 
 # After
 def_node_search :find_rspec_blocks,
-                block_pattern('#ExampleGroups.all')
+                '(block (send #rspec? #ExampleGroups.all ...) ...)'
 ----
 
 If you were calling Language elements directly, you have to make the same adjustments:

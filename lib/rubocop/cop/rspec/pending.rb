@@ -38,20 +38,20 @@ module RuboCop
         MSG = 'Pending spec found.'
 
         # @!method skippable?(node)
-        def_node_matcher :skippable?,
-                         send_pattern(<<~PATTERN)
-                           {#ExampleGroups.regular #Examples.regular}
-                         PATTERN
+        def_node_matcher :skippable?, <<~PATTERN
+          {
+            (send #rspec? #ExampleGroups.regular ...)
+            (send nil? #Examples.regular ...)
+          }
+        PATTERN
 
         # @!method pending_block?(node)
-        def_node_matcher :pending_block?,
-                         send_pattern(<<~PATTERN)
-                           {
-                             #ExampleGroups.skipped
-                             #Examples.skipped
-                             #Examples.pending
-                           }
-                         PATTERN
+        def_node_matcher :pending_block?, <<~PATTERN
+          {
+            (send #rspec? #ExampleGroups.skipped ...)
+            (send nil? {#Examples.skipped #Examples.pending} ...)
+          }
+        PATTERN
 
         def on_send(node)
           return unless pending_block?(node) || skipped?(node)

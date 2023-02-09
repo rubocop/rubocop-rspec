@@ -31,7 +31,7 @@ module RuboCop
 
         # @!method empty_hook?(node)
         def_node_matcher :empty_hook?, <<~PATTERN
-          (block $#{send_pattern('#Hooks.all')} _ nil?)
+          (block $(send nil? #Hooks.all ...) _ nil?)
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler

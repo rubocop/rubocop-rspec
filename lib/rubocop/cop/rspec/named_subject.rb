@@ -82,12 +82,14 @@ module RuboCop
         MSG = 'Name your test subject if you need to reference it explicitly.'
 
         # @!method example_or_hook_block?(node)
-        def_node_matcher :example_or_hook_block?,
-                         block_pattern('{#Examples.all #Hooks.all}')
+        def_node_matcher :example_or_hook_block?, <<~PATTERN
+          (block (send nil? {#Examples.all #Hooks.all} ...) ...)
+        PATTERN
 
         # @!method shared_example?(node)
-        def_node_matcher :shared_example?,
-                         block_pattern('#SharedGroups.examples')
+        def_node_matcher :shared_example?, <<~PATTERN
+          (block (send #rspec? #SharedGroups.examples ...) ...)
+        PATTERN
 
         # @!method subject_usage(node)
         def_node_search :subject_usage, '$(send nil? :subject)'

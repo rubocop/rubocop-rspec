@@ -25,7 +25,7 @@ module RuboCop
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
         # @!method expectation(node)
-        def_node_search :expectation, send_pattern('#Expectations.all')
+        def_node_search :expectation, '(send nil? #Expectations.all ...)'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless hook?(node)
