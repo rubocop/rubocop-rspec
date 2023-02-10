@@ -150,14 +150,6 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
-  it 'flags pending examples when receiver is explicit' do
-    expect_offense(<<-RUBY)
-      RSpec.xit 'test' do
-      ^^^^^^^^^^^^^^^^ Pending spec found.
-      end
-    RUBY
-  end
-
   it 'ignores describe' do
     expect_no_offenses(<<-RUBY)
       describe 'test' do; end

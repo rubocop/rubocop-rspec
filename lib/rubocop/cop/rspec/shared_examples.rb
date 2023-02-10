@@ -24,10 +24,12 @@ module RuboCop
         extend AutoCorrector
 
         # @!method shared_examples(node)
-        def_node_matcher :shared_examples,
-                         send_pattern(
-                           '{#SharedGroups.all #Includes.all}'
-                         )
+        def_node_matcher :shared_examples, <<~PATTERN
+          {
+            (send #rspec? #SharedGroups.all ...)
+            (send nil? #Includes.all ...)
+          }
+        PATTERN
 
         def on_send(node)
           shared_examples(node) do

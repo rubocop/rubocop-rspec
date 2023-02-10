@@ -57,27 +57,26 @@ module RuboCop
         MSG_CONTEXT  = "Use `shared_context` when you don't define examples."
 
         # @!method examples?(node)
-        def_node_search :examples?,
-                        send_pattern('{#Includes.examples #Examples.all}')
+        def_node_search :examples?, <<~PATTERN
+          (send nil? {#Includes.examples #Examples.all} ...)
+        PATTERN
 
         # @!method context?(node)
         def_node_search :context?, <<-PATTERN
-          (
-            send #rspec? {
-              #Subjects.all
-              #Helpers.all
-              #Includes.context
-              #Hooks.all
-            } ...
+          (send nil?
+            {#Subjects.all #Helpers.all #Includes.context #Hooks.all} ...
           )
         PATTERN
 
         # @!method shared_context(node)
-        def_node_matcher :shared_context,
-                         block_pattern('#SharedGroups.context')
+        def_node_matcher :shared_context, <<~PATTERN
+          (block (send #rspec? #SharedGroups.context ...) ...)
+        PATTERN
+
         # @!method shared_example(node)
-        def_node_matcher :shared_example,
-                         block_pattern('#SharedGroups.examples')
+        def_node_matcher :shared_example, <<~PATTERN
+          (block (send #rspec? #SharedGroups.examples ...) ...)
+        PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_with_only_examples(node) do

@@ -78,7 +78,8 @@ module RuboCop
         PATTERN
 
         # @!method expect?(node)
-        def_node_matcher :expect?, send_pattern('#Expectations.all')
+        def_node_matcher :expect?, '(send nil? #Expectations.all ...)'
+
         # @!method aggregate_failures_block?(node)
         def_node_matcher :aggregate_failures_block?, <<-PATTERN
           (block (send nil? :aggregate_failures ...) ...)

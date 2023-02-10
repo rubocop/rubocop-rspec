@@ -10,14 +10,12 @@ module RuboCop
       #
       #   Selectors which indicate that we should stop searching
       #
-      def_node_matcher :scope_change?,
-                       block_pattern(<<~PATTERN)
-                         {
-                           #SharedGroups.all
-                           #ExampleGroups.all
-                           #Includes.all
-                         }
-                       PATTERN
+      def_node_matcher :scope_change?, <<~PATTERN
+        (block {
+          (send #rspec? {#SharedGroups.all #ExampleGroups.all} ...)
+          (send nil? #Includes.all ...)
+        } ...)
+      PATTERN
 
       def lets
         find_all_in_scope(node, :let?)

@@ -26,7 +26,9 @@ module RuboCop
         MSG = '`%<name>s` is already defined.'
 
         # @!method setup?(node)
-        def_node_matcher :setup?, block_pattern('{#Helpers.all #Subjects.all}')
+        def_node_matcher :setup?, <<~PATTERN
+          (block (send nil? {#Helpers.all #Subjects.all} ...) ...)
+        PATTERN
 
         # @!method first_argument_name(node)
         def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'

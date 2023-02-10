@@ -56,12 +56,11 @@ module RuboCop
 
         # @!method include_examples?(node)
         def_node_matcher :include_examples?,
-                         send_pattern('#Includes.examples')
+                         '(send nil? #Includes.examples ...)'
 
         # @!method shared_examples_name(node)
-        def_node_matcher :shared_examples_name, <<-PATTERN
-          (send _ #Includes.examples $_ ...)
-        PATTERN
+        def_node_matcher :shared_examples_name,
+                         '(send nil? #Includes.examples $_name ...)'
 
         def on_begin(node)
           return unless several_include_examples?(node)

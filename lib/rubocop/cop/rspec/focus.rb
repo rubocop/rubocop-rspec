@@ -61,10 +61,9 @@ module RuboCop
         PATTERN
 
         # @!method focused_block?(node)
-        def_node_matcher :focused_block?,
-                         send_pattern(<<~PATTERN)
-                           {#ExampleGroups.focused #Examples.focused}
-                         PATTERN
+        def_node_matcher :focused_block?, <<~PATTERN
+          (send #rspec? {#ExampleGroups.focused #Examples.focused} ...)
+        PATTERN
 
         def on_send(node)
           focus_metadata(node) do |focus|

@@ -64,17 +64,16 @@ module RuboCop
         # @!method regular_or_focused_example?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
-        def_node_matcher :regular_or_focused_example?,
-                         block_or_numblock_pattern(
-                           '{#Examples.regular | #Examples.focused}'
-                         )
+        def_node_matcher :regular_or_focused_example?, <<~PATTERN
+          ({block numblock} (send nil? {#Examples.regular #Examples.focused} ...) ...)
+        PATTERN
 
         # @!method includes_expectation?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
         def_node_search :includes_expectation?, <<~PATTERN
           {
-            #{send_pattern('#Expectations.all')}
+            (send nil? #Expectations.all ...)
             (send nil? `#matches_allowed_pattern? ...)
           }
         PATTERN
