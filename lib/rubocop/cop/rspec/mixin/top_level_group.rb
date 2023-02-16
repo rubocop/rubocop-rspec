@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helper methods for top level example group cops
+      # @api private
       module TopLevelGroup
         extend RuboCop::NodePattern::Macros
 

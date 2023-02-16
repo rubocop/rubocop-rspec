@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helps find the true end location of nodes which might contain heredocs.
+      # @api private
       module FinalEndLocation
         def final_end_location(start_node)
           heredoc_endings =

@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helper methods to location.
+      # @api private
       module LocationHelp
         module_function
 

@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helps check offenses with variable definitions
+      # @api private
       module SkipOrPending
         extend RuboCop::NodePattern::Macros
 

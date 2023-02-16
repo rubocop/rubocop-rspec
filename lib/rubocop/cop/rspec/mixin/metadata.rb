@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helper methods to find RSpec metadata.
+      # @api private
       module Metadata
         extend RuboCop::NodePattern::Macros
 

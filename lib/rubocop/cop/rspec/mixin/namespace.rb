@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Helps to find namespace of the node.
+      # @api private
       module Namespace
         private
 

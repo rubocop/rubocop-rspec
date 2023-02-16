@@ -8,6 +8,7 @@ module RuboCop
       # in the following cases.
       # - `rubocop:enable` directive
       # - followed by empty line(s)
+      # @api private
       module EmptyLineSeparation
         include FinalEndLocation
         include RangeHelp

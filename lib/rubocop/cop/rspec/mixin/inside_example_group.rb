@@ -5,6 +5,7 @@ module RuboCop
     module RSpec
       # Helps you identify whether a given node
       # is within an example group or not.
+      # @api private
       module InsideExampleGroup
         private
 

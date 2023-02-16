@@ -4,6 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # Help methods for working with nodes containing comments.
+      # @api private
       module CommentsHelp
         include FinalEndLocation
 
