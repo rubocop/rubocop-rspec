@@ -165,7 +165,7 @@ module RuboCop
         end
 
         def expanded_file_path
-          File.expand_path(processed_source.buffer.name)
+          File.expand_path(processed_source.file_path)
         end
       end
     end
