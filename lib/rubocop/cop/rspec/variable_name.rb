@@ -53,7 +53,7 @@ module RuboCop
             return if variable.dstr_type? || variable.dsym_type?
             return if matches_allowed_pattern?(variable.value)
 
-            check_name(node, variable.value, variable.loc.expression)
+            check_name(node, variable.value, variable.source_range)
           end
         end
 

@@ -76,7 +76,7 @@ module RuboCop
             break correct_style_detected unless opposing_style?(class_reference)
 
             message = format(MSG, style: style)
-            expression = class_reference.loc.expression
+            expression = class_reference.source_range
 
             add_offense(expression, message: message) do |corrector|
               violation = class_reference.children.last.to_s

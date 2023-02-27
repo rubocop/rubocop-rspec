@@ -38,8 +38,8 @@ module RuboCop
           metadata = symbols + pairs
 
           range_between(
-            metadata.first.loc.expression.begin_pos,
-            metadata.last.loc.expression.end_pos
+            metadata.first.source_range.begin_pos,
+            metadata.last.source_range.end_pos
           )
         end
 

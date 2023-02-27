@@ -174,7 +174,7 @@ module RuboCop
 
         def removed_range(node)
           range_by_whole_lines(
-            node.location.expression,
+            node.source_range,
             include_final_newline: true
           )
         end

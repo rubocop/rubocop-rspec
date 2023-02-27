@@ -87,7 +87,7 @@ module RuboCop
 
         def with_surrounding(focus)
           range_with_space =
-            range_with_surrounding_space(focus.loc.expression, side: :left)
+            range_with_surrounding_space(focus.source_range, side: :left)
 
           range_with_surrounding_comma(range_with_space, :left)
         end

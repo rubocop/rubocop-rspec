@@ -96,7 +96,7 @@ module RuboCop
             left_braces, right_braces = braces(node)
 
             argument = node.first_argument
-            expression = argument.location.expression
+            expression = argument.source_range
             corrector.insert_before(expression, left_braces)
             corrector.insert_after(expression, right_braces)
           end
