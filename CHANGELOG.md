@@ -14,6 +14,7 @@
 - Fix a false positive for `RSpec/PendingWithoutReason` when `skip` is passed a block inside example. ([@ydah], [@pirj])
 - Rename `RSpec/PendingBlockInsideExample` cop to `RSpec/SkipBlockInsideExample`. ([@pirj])
 - Deprecate `send_pattern`/`block_pattern`/`numblock_pattern` helpers in favour of using node pattern explicitly. ([@pirj], [@ydah])
+- Fix an incorrect autocorrect for `RSpec/VerifiedDoubleReference` when namespaced class. ([@ydah])
 
 ## 2.18.1 (2023-01-19)
 

@@ -27,10 +27,16 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
           expect_offense(<<~RUBY, verified_double: verified_double)
             %{verified_double}('ClassName')
             _{verified_double} ^^^^^^^^^^^ Use a constant class reference for verified doubles.
+            %{verified_double}('Foo::Bar::Baz')
+            _{verified_double} ^^^^^^^^^^^^^^^ Use a constant class reference for verified doubles.
+            %{verified_double}('::Foo::Bar')
+            _{verified_double} ^^^^^^^^^^^^ Use a constant class reference for verified doubles.
           RUBY
 
           expect_correction(<<~RUBY)
             #{verified_double}(ClassName)
+            #{verified_double}(Foo::Bar::Baz)
+            #{verified_double}(::Foo::Bar)
           RUBY
         end
 
@@ -52,10 +58,16 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
           expect_offense(<<~RUBY, verified_double: verified_double)
             %{verified_double}(ClassName)
             _{verified_double} ^^^^^^^^^ Use a string class reference for verified doubles.
+            %{verified_double}(Foo::Bar::Baz)
+            _{verified_double} ^^^^^^^^^^^^^ Use a string class reference for verified doubles.
+            %{verified_double}(::Foo::Bar)
+            _{verified_double} ^^^^^^^^^^ Use a string class reference for verified doubles.
           RUBY
 
           expect_correction(<<~RUBY)
             #{verified_double}('ClassName')
+            #{verified_double}('Foo::Bar::Baz')
+            #{verified_double}('::Foo::Bar')
           RUBY
         end
 
