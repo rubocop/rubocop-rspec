@@ -96,12 +96,12 @@ module RuboCop
           # @return [Parser::Source::Range]
           def remove_range(node)
             if node.left_sibling
-              node.loc.expression.with(
-                begin_pos: node.left_sibling.loc.expression.end_pos
+              node.source_range.with(
+                begin_pos: node.left_sibling.source_range.end_pos
               )
             elsif node.right_sibling
-              node.loc.expression.with(
-                end_pos: node.right_sibling.loc.expression.begin_pos
+              node.source_range.with(
+                end_pos: node.right_sibling.source_range.begin_pos
               )
             end
           end

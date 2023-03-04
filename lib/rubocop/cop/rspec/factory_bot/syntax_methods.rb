@@ -71,14 +71,14 @@ module RuboCop
 
           def crime_scene(node)
             range_between(
-              node.loc.expression.begin_pos,
+              node.source_range.begin_pos,
               node.loc.selector.end_pos
             )
           end
 
           def offense(node)
             range_between(
-              node.loc.expression.begin_pos,
+              node.source_range.begin_pos,
               node.loc.selector.begin_pos
             )
           end

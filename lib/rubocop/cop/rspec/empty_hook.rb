@@ -38,7 +38,7 @@ module RuboCop
           empty_hook?(node) do |hook|
             add_offense(hook) do |corrector|
               corrector.remove(
-                range_with_surrounding_space(node.loc.expression, side: :left)
+                range_with_surrounding_space(node.source_range, side: :left)
               )
             end
           end

@@ -88,7 +88,7 @@ module RuboCop
         end
 
         def docstring(node)
-          expr = node.loc.expression
+          expr = node.source_range
 
           Parser::Source::Range.new(
             expr.source_buffer,

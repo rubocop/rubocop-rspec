@@ -14,7 +14,7 @@ module RuboCop
         #      ^^^^^
         def arguments_with_whitespace(node)
           node.loc.selector.end.with(
-            end_pos: node.loc.expression.end_pos
+            end_pos: node.source_range.end_pos
           )
         end
 
@@ -27,8 +27,8 @@ module RuboCop
           return unless (parent = node.parent)
           return unless parent.block_type?
 
-          node.loc.expression.end.with(
-            end_pos: parent.loc.expression.end_pos
+          node.source_range.end.with(
+            end_pos: parent.source_range.end_pos
           )
         end
       end

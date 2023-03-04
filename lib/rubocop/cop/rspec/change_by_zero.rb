@@ -99,7 +99,7 @@ module RuboCop
         private
 
         def check_offense(node)
-          expression = node.loc.expression
+          expression = node.source_range
           if compound_expectations?(node)
             add_offense(expression, message: message_compound) do |corrector|
               autocorrect_compound(corrector, node)
@@ -117,7 +117,7 @@ module RuboCop
 
         def autocorrect(corrector, node)
           corrector.replace(node.parent.loc.selector, 'not_to')
-          range = node.loc.dot.with(end_pos: node.loc.expression.end_pos)
+          range = node.loc.dot.with(end_pos: node.source_range.end_pos)
           corrector.remove(range)
         end
 
@@ -126,7 +126,7 @@ module RuboCop
 
           change_nodes(node) do |change_node|
             corrector.replace(change_node.loc.selector, negated_matcher)
-            range = node.loc.dot.with(end_pos: node.loc.expression.end_pos)
+            range = node.loc.dot.with(end_pos: node.source_range.end_pos)
             corrector.remove(range)
           end
         end

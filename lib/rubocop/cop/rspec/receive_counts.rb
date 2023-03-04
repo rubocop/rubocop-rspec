@@ -80,7 +80,7 @@ module RuboCop
 
         def range(node, offending_node)
           offending_node.loc.dot.with(
-            end_pos: node.loc.expression.end_pos
+            end_pos: node.source_range.end_pos
           )
         end
       end

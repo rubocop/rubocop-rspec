@@ -39,7 +39,7 @@ module RuboCop
           corrector.remove(
             range_with_surrounding_comma(
               range_with_surrounding_space(
-                node.location.expression,
+                node.source_range,
                 side: :left
               ),
               :left
