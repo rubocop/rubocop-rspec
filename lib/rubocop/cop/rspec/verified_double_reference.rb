@@ -79,7 +79,7 @@ module RuboCop
             expression = class_reference.source_range
 
             add_offense(expression, message: message) do |corrector|
-              violation = class_reference.children.last.to_s
+              violation = class_reference.source
               corrector.replace(expression, correct_style(violation))
 
               opposite_style_detected
@@ -102,7 +102,7 @@ module RuboCop
           if style == :string
             "'#{violation}'"
           else
-            violation
+            violation.gsub(/^['"]|['"]$/, '')
           end
         end
       end
