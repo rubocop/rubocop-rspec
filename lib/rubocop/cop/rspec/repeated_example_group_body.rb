@@ -43,6 +43,8 @@ module RuboCop
       #   end
       #
       class RepeatedExampleGroupBody < Base
+        include SkipOrPending
+
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
         # @!method several_example_groups?(node)
@@ -59,11 +61,6 @@ module RuboCop
         # @!method const_arg(node)
         def_node_matcher :const_arg, '(block (send _ _ $const ...) ...)'
 
-        # @!method skip_or_pending?(node)
-        def_node_matcher :skip_or_pending?, <<-PATTERN
-          (block <(send nil? {:skip :pending} ...) ...>)
-        PATTERN
-
         def on_begin(node)
           return unless several_example_groups?(node)
 
@@ -78,7 +75,7 @@ module RuboCop
           node
             .children
             .select { |child| example_group_with_body?(child) }
-            .reject { |child| skip_or_pending?(child) }
+            .reject { |child| skip_or_pending_inside_block?(child) }
             .group_by { |group| signature_keys(group) }
             .values
             .reject(&:one?)

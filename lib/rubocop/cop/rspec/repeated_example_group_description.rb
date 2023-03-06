@@ -43,6 +43,8 @@ module RuboCop
       #   end
       #
       class RepeatedExampleGroupDescription < Base
+        include SkipOrPending
+
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
 
         # @!method several_example_groups?(node)
@@ -53,11 +55,6 @@ module RuboCop
         # @!method doc_string_and_metadata(node)
         def_node_matcher :doc_string_and_metadata, <<-PATTERN
           (block (send _ _ $_ $...) ...)
-        PATTERN
-
-        # @!method skip_or_pending?(node)
-        def_node_matcher :skip_or_pending?, <<-PATTERN
-          (block <(send nil? {:skip :pending}) ...>)
         PATTERN
 
         # @!method empty_description?(node)
@@ -77,7 +74,7 @@ module RuboCop
           node
             .children
             .select { |child| example_group?(child) }
-            .reject { |child| skip_or_pending?(child) }
+            .reject { |child| skip_or_pending_inside_block?(child) }
             .reject { |child| empty_description?(child) }
             .group_by { |group| doc_string_and_metadata(group) }
             .values
