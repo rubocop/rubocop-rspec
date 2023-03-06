@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.19.0 (2023-03-06)
+
 - Fix a false positive for `RSpec/ContextWording` when context is interpolated string literal or execute string. ([@ydah])
 - Fix a false positive for `RSpec/DescribeMethod` when multi-line describe without `#` and `.` at the beginning. ([@ydah], [@pirj])
 - Fix a false positive for `RSpec/VariableName` when inside non-spec code. ([@ydah])

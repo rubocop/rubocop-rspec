@@ -204,7 +204,7 @@ RSpec/ClassCheck:
 RSpec/ContainExactly:
   Description: Prefer `match_array` when matching array values.
   Enabled: true
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
 RSpec/ContextMethod:
@@ -565,7 +565,7 @@ RSpec/LetSetup:
 RSpec/MatchArray:
   Description: Prefer `contain_exactly` when matching an array literal.
   Enabled: true
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
 RSpec/MessageChain:
@@ -721,7 +721,7 @@ RSpec/ReceiveNever:
 RSpec/RedundantAround:
   Description: Remove redundant `around` hook.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
 RSpec/RepeatedDescription:
@@ -800,7 +800,7 @@ RSpec/SingleArgumentMessageChain:
 RSpec/SkipBlockInsideExample:
   Description: Checks for passing a block to `skip` within examples.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SkipBlockInsideExample
 
 RSpec/SortMetadata:
@@ -1085,5 +1085,5 @@ RSpec/Rails/TravelAround:
   Description: Prefer to travel in `before` rather than `around`.
   Enabled: pending
   Safe: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/TravelAround

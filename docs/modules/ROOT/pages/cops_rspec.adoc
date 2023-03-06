@@ -546,7 +546,7 @@ expect(object).to be_a_kind_of(String)
 | Enabled
 | Yes
 | Yes
-| <<next>>
+| 2.19
 | -
 |===
 
@@ -2882,7 +2882,7 @@ end
 | Enabled
 | Yes
 | Yes
-| <<next>>
+| 2.19
 | -
 |===
 
@@ -4158,7 +4158,7 @@ expect(foo).not_to receive(:bar)
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.19
 | -
 |===
 
@@ -4742,7 +4742,7 @@ allow(foo).to receive("bar.baz")
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.19
 | -
 |===
 
