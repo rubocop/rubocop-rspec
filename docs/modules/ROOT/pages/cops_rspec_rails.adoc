@@ -246,7 +246,7 @@ expect(a).not_to eq(b)
 | Pending
 | No
 | Yes (Unsafe)
-| <<next>>
+| 2.19
 | -
 |===
 
