@@ -41,4 +41,18 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
       it { is_expected.to match_array(%i(foo bar baz)) }
     RUBY
   end
+
+  it 'does not flag `match_array` with an empty array' do
+    expect_no_offenses(<<-RUBY)
+      it { is_expected.to match_array([]) }
+      it { is_expected.to match_array(%w()) }
+      it { is_expected.to match_array(%i()) }
+    RUBY
+  end
+
+  it 'does not flag `match_array` with no arguments' do
+    expect_no_offenses(<<-RUBY)
+      it { is_expected.to match_array }
+    RUBY
+  end
 end
