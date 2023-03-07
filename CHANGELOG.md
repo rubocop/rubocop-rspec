@@ -3,8 +3,8 @@
 ## Master (Unreleased)
 
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
-- Add support for `RSpec/ContainExactly` when calling `match_array` with no arguments. ([@ydah])
-- Fix an incorrect autocorrect for `RSpec/MatchArray` when calling `match_array` with an empty array literal. ([@bquorning])
+- Change `RSpec/ContainExactly` to ignore calls with no arguments, and change `RSpec/MatchArray` to ignore calls with an empty array literal argument. ([@ydah], [@bquorning])
+- Add new `RSpec/BeEmpty` cop. ([@ydah], [@bquorning])
 
 ## 2.19.0 (2023-03-06)
 

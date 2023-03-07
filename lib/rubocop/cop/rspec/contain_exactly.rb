@@ -19,37 +19,19 @@ module RuboCop
       #   # good
       #   it { is_expected.to contain_exactly(content, *array) }
       #
-      #   # bad
-      #   it { is_expected.to contain_exactly }
-      #   it { is_expected.to contain_exactly() }
-      #
-      #   # good
-      #   it { is_expected.to be_empty }
-      #   it { is_expected.to be_empty }
-      #
       class ContainExactly < Base
         extend AutoCorrector
 
         MSG = 'Prefer `match_array` when matching array values.'
-        MSG_EMPTY_COLLECTION =
-          'Prefer `be_empty` when matching an empty collection.'
         RESTRICT_ON_SEND = %i[contain_exactly].freeze
 
         def on_send(node)
-          if node.arguments.empty?
-            check_empty_collection(node)
-          else
-            check_populated_collection(node)
-          end
+          return if node.arguments.empty?
+
+          check_populated_collection(node)
         end
 
         private
-
-        def check_empty_collection(node)
-          add_offense(node, message: MSG_EMPTY_COLLECTION) do |corrector|
-            corrector.replace(node, 'be_empty')
-          end
-        end
 
         def check_populated_collection(node)
           return unless node.each_child_node.all?(&:splat_type?)
