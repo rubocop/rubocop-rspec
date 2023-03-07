@@ -144,6 +144,12 @@ RSpec/Be:
   StyleGuide: https://rspec.rubystyle.guide/#be-matcher
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
 
+RSpec/BeEmpty:
+  Description: Prefer using `be_empty` when checking for an empty array.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEmpty
+
 RSpec/BeEq:
   Description: Check for expectations where `be(...)` can replace `eq(...)`.
   Enabled: pending
