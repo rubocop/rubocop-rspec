@@ -3,7 +3,11 @@
 module RuboCop
   module Cop
     module RSpec
-      # Prefer `contain_exactly` when matching an array literal.
+      # Checks where `match_array` is used.
+      #
+      # This cop checks for the following:
+      # - Prefer `contain_exactly` when matching an array with values.
+      # - Prefer `eq` when using `match_array` with an empty array literal.
       #
       # @example
       #   # bad
@@ -17,14 +21,44 @@ module RuboCop
       #
       #   # good
       #   it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
+      #
+      #   # bad
+      #   it { is_expected.to match_array([]) }
+      #   it { is_expected.to match_array(%w[]) }
+      #
+      #   # good
+      #   it { is_expected.to eq([]) }
       class MatchArray < Base
         extend AutoCorrector
 
         MSG = 'Prefer `contain_exactly` when matching an array literal.'
+        MSG_EMPTY_ARRAY = 'Prefer `eq` when matching an empty array literal.'
         RESTRICT_ON_SEND = %i[match_array].freeze
+
+        # @!method match_array_with_empty_array?(node)
+        def_node_matcher :match_array_with_empty_array?, <<~PATTERN
+          (send nil? :match_array (array))
+        PATTERN
 
         def on_send(node)
           return unless node.first_argument.array_type?
+
+          if match_array_with_empty_array?(node)
+            check_empty_array(node)
+          else
+            check_populated_array(node)
+          end
+        end
+
+        private
+
+        def check_empty_array(node)
+          add_offense(node, message: MSG_EMPTY_ARRAY) do |corrector|
+            corrector.replace(node.source_range, 'eq([])')
+          end
+        end
+
+        def check_populated_array(node)
           return if node.first_argument.percent_literal?
 
           add_offense(node) do |corrector|
