@@ -107,7 +107,7 @@ module RuboCop
             on_skipped_by_example_method(node)
             on_skipped_by_example_group_method(node)
           elsif example?(parent)
-            on_skipped_by_in_example_method(node, parent)
+            on_skipped_by_in_example_method(node)
           end
         end
 
@@ -126,7 +126,7 @@ module RuboCop
             explicit_rspec?(node.receiver)
         end
 
-        def on_skipped_by_in_example_method(node, _direct_parent)
+        def on_skipped_by_in_example_method(node)
           skipped_in_example?(node) do |pending|
             add_offense(node, message: "Give the reason for #{pending}.")
           end
