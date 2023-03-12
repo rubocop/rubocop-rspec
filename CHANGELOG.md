@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
+
 ## 2.19.0 (2023-03-06)
 
 - Fix a false positive for `RSpec/ContextWording` when context is interpolated string literal or execute string. ([@ydah])

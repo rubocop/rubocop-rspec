@@ -18,6 +18,17 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
     end
   end
 
+  context 'when pending/skip has a reason inside an example group' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo do
+          skip 'does something'
+          pending 'does something'
+        end
+      RUBY
+    end
+  end
+
   context 'when pending/skip by metadata on example with reason' do
     it 'registers no offense' do
       expect_no_offenses(<<~RUBY)
