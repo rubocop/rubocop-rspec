@@ -563,7 +563,7 @@ RSpec/LetSetup:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
 RSpec/MatchArray:
-  Description: Prefer `contain_exactly` when matching an array literal.
+  Description: Checks where `match_array` is used.
   Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
