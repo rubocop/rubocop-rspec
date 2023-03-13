@@ -44,4 +44,18 @@ RSpec.describe RuboCop::Cop::RSpec::ContainExactly do
       it { is_expected.to contain_exactly(*array, content) }
     RUBY
   end
+
+  it 'flags `contain_exactly` with no arguments' do
+    expect_offense(<<-RUBY)
+      it { is_expected.to contain_exactly }
+                          ^^^^^^^^^^^^^^^ Prefer `be_empty` when matching an empty collection.
+      it { is_expected.to contain_exactly() }
+                          ^^^^^^^^^^^^^^^^^ Prefer `be_empty` when matching an empty collection.
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it { is_expected.to be_empty }
+      it { is_expected.to be_empty }
+    RUBY
+  end
 end
