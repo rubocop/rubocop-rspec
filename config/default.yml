@@ -202,7 +202,7 @@ RSpec/ClassCheck:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
 
 RSpec/ContainExactly:
-  Description: Prefer `match_array` when matching array values.
+  Description: Checks where `contain_exactly` is used.
   Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
