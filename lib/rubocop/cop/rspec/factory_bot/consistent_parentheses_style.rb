@@ -100,10 +100,10 @@ module RuboCop
             end
           end
 
+          AMBIGUOUS_TYPES = %i[send pair array and or if].freeze
+
           def ambiguous_without_parentheses?(node)
-            node.parent&.send_type? ||
-              node.parent&.pair_type? ||
-              node.parent&.array_type?
+            node.parent && AMBIGUOUS_TYPES.include?(node.parent.type)
           end
 
           def remove_parentheses(corrector, node)

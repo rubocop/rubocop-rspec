@@ -199,6 +199,24 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle do
       end
     end
 
+    %w[&& ||].each do |operator|
+      context "with #{operator}" do
+        it 'does not flag the call' do
+          expect_no_offenses(<<~RUBY)
+            can_create_user? #{operator} create(:user)
+          RUBY
+        end
+      end
+    end
+
+    context 'with ternary operator' do
+      it 'does not flag the call' do
+        expect_no_offenses(<<~RUBY)
+          can_create_user? ? create(:user) : nil
+        RUBY
+      end
+    end
+
     context 'with mixed tests' do
       it 'flags the call not to use parentheses' do
         expect_offense(<<~RUBY)
