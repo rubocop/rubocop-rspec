@@ -70,12 +70,7 @@ module RuboCop
 
         # @!method skipped_by_example_method?(node)
         def_node_matcher :skipped_by_example_method?, <<~PATTERN
-          (send nil? ${#Examples.skipped #Examples.pending})
-        PATTERN
-
-        # @!method skipped_by_example_method_with_block?(node)
-        def_node_matcher :skipped_by_example_method_with_block?, <<~PATTERN
-          ({block numblock} (send nil? ${#Examples.skipped #Examples.pending} ...) ...)
+          (send nil? ${#Examples.skipped #Examples.pending} ...)
         PATTERN
 
         # @!method metadata_without_reason?(node)
@@ -140,10 +135,6 @@ module RuboCop
 
         def on_skipped_by_example_method(node)
           skipped_by_example_method?(node) do |pending|
-            add_offense(node, message: "Give the reason for #{pending}.")
-          end
-
-          skipped_by_example_method_with_block?(node.parent) do |pending|
             add_offense(node, message: "Give the reason for #{pending}.")
           end
         end
