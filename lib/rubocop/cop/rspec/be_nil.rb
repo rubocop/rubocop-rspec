@@ -57,7 +57,7 @@ module RuboCop
           return unless be_nil_matcher?(node)
 
           add_offense(node, message: BE_MSG) do |corrector|
-            corrector.replace(node.source_range, 'be(nil)')
+            corrector.replace(node, 'be(nil)')
           end
         end
 
@@ -65,7 +65,7 @@ module RuboCop
           return unless nil_value_expectation?(node)
 
           add_offense(node, message: BE_NIL_MSG) do |corrector|
-            corrector.replace(node.source_range, 'be_nil')
+            corrector.replace(node, 'be_nil')
           end
         end
       end

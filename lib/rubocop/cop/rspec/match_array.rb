@@ -54,7 +54,7 @@ module RuboCop
 
         def check_empty_array(node)
           add_offense(node, message: MSG_EMPTY_ARRAY) do |corrector|
-            corrector.replace(node.source_range, 'eq([])')
+            corrector.replace(node, 'eq([])')
           end
         end
 
@@ -64,7 +64,7 @@ module RuboCop
           add_offense(node) do |corrector|
             array_contents = node.arguments.flat_map(&:to_a)
             corrector.replace(
-              node.source_range,
+              node,
               "contain_exactly(#{array_contents.map(&:source).join(', ')})"
             )
           end
