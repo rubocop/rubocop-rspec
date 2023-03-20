@@ -38,7 +38,7 @@ module RuboCop
             match_status(node) do |response_status, to, match, status|
               message = format(MSG, to: to, match: match.source, status: status)
               add_offense(node, message: message) do |corrector|
-                corrector.replace(response_status.source_range, 'response')
+                corrector.replace(response_status, 'response')
                 corrector.replace(match.loc.selector, 'have_http_status')
               end
             end

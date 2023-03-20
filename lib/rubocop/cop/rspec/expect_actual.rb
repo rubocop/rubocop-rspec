@@ -93,8 +93,8 @@ module RuboCop
         end
 
         def swap(corrector, actual, expected)
-          corrector.replace(actual.source_range, expected.source)
-          corrector.replace(expected.source_range, actual.source)
+          corrector.replace(actual, expected.source)
+          corrector.replace(expected, actual.source)
         end
       end
     end

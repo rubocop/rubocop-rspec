@@ -47,7 +47,7 @@ module RuboCop
 
         def check_empty_collection(node)
           add_offense(node, message: MSG_EMPTY_COLLECTION) do |corrector|
-            corrector.replace(node.source_range, 'be_empty')
+            corrector.replace(node, 'be_empty')
           end
         end
 
@@ -64,7 +64,7 @@ module RuboCop
             splat_node.children.first
           end
           corrector.replace(
-            node.source_range,
+            node,
             "match_array(#{arrays.map(&:source).join(' + ')})"
           )
         end
