@@ -226,8 +226,7 @@ module RuboCop
           block = block_loc ? block_loc.source : ''
 
           corrector.remove(block_loc) if block_loc
-          corrector.insert_after(actual,
-                                 ".#{predicate}" + args + block)
+          corrector.insert_after(actual, ".#{predicate}" + args + block)
         end
 
         # rubocop:disable Metrics/MethodLength
