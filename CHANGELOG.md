@@ -333,7 +333,7 @@
 ## 1.37.0 (2019-11-25)
 
 - Implement `RSpec/DescribedClassModuleWrapping` to disallow RSpec statements within a module. ([@kellysutton])
-- Fix documentation rake task to support Rubocop 0.75. ([@nickcampbell18])
+- Fix documentation rake task to support RuboCop 0.75. ([@nickcampbell18])
 - Fix `RSpec/SubjectStub` to detect implicit subjects stubbed. ([@QQism])
 - Fix `RSpec/Pending` not flagging `skip` with string values. ([@pirj])
 - Add `AllowedExplicitMatchers` config option for `RSpec/PredicateMatcher`. ([@mkrawc])
@@ -664,7 +664,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 - Skip `DescribeClass` cop for view specs. ([@andyw8])
 - Skip `FilePath` cop for Rails routing specs. ([@andyw8])
 - Add cop to check for focused specs. ([@renanborgescampos], [@jaredmoody])
-- Clean-up `RSpec::NotToNot` to use same configuration semantics as other Rubocop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal])
+- Clean-up `RSpec::NotToNot` to use same configuration semantics as other RuboCop cops, add autocorrect support for `RSpec::NotToNot`. ([@baberthal])
 - Update to rubocop 0.40.0. ([@nijikon])
 
 ## 1.4.1 (2016-04-03)

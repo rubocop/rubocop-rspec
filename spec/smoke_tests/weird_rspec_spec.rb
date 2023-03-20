@@ -210,7 +210,7 @@ end
 RSpec.describe Broken do
 end
 
-RSpec.describe 'RubocopBug' do
+RSpec.describe 'RuboCopBug' do
   subject { true }
 
   before do
