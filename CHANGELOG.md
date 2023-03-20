@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
 - Add support for `RSpec/ContainExactly` when calling `match_array` with no arguments. ([@ydah])
 - Fix an incorrect autocorrect for `RSpec/MatchArray` when calling `match_array` with an empty array literal. ([@bquorning])
@@ -762,6 +763,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@dduugg]: https://github.com/dduugg
 [@deivid-rodriguez]: https://github.com/deivid-rodriguez
 [@dgollahon]: https://github.com/dgollahon
+[@dmitrytsepelev]: https://github.com/dmitrytsepelev
 [@drowze]: https://github.com/Drowze
 [@dswij]: https://github.com/dswij
 [@dvandersluis]: https://github.com/dvandersluis
