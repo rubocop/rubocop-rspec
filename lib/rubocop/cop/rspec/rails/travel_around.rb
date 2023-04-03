@@ -68,14 +68,13 @@ module RuboCop
           private
 
           def autocorrect(corrector, node, run_node, around_node)
-            corrector.replace(
-              node,
-              node.body.source
-            )
-            corrector.insert_before(
-              around_node,
-              "before { #{run_node.source} }\n\n"
-            )
+            corrector.replace(node, node.body.source)
+            if (before_node = extract_before_block(around_node))
+              corrector.insert_after(before_node.body, ";#{run_node.source}")
+            else
+              corrector.insert_before(around_node,
+                                      "before { #{run_node.source} }\n\n")
+            end
           end
 
           # @param node [RuboCop::AST::BlockNode]
@@ -83,6 +82,16 @@ module RuboCop
           def extract_surrounding_around_block(node)
             node.each_ancestor(:block).find do |ancestor|
               match_around_each?(ancestor)
+            end
+          end
+
+          # @param node [RuboCop::AST::BlockNode]
+          # @return [RuboCop::AST::BlockNode, nil]
+          def extract_before_block(node)
+            return unless node.parent?
+
+            node.parent.each_child_node(:block).find do |child|
+              child.method?(:before)
             end
           end
         end

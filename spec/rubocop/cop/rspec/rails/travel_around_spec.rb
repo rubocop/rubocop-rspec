@@ -67,6 +67,56 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::TravelAround do
     end
   end
 
+  context 'with `freeze_time` in `around` and other `before` with `{}' do
+    it 'registers offense' do
+      expect_offense(<<~RUBY)
+        before { do_some_preparation }
+
+        around do |example|
+          freeze_time do
+          ^^^^^^^^^^^^^^ Prefer to travel in `before` rather than `around`.
+            example.run
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before { do_some_preparation;freeze_time }
+
+        around do |example|
+          example.run
+        end
+      RUBY
+    end
+  end
+
+  context 'with `freeze_time` in `around` and other multiline `before` block' do
+    it 'registers offense' do
+      expect_offense(<<~RUBY)
+        before do
+          do_some_preparation
+        end
+
+        around do |example|
+          freeze_time do
+          ^^^^^^^^^^^^^^ Prefer to travel in `before` rather than `around`.
+            example.run
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before do
+          do_some_preparation;freeze_time
+        end
+
+        around do |example|
+          example.run
+        end
+      RUBY
+    end
+  end
+
   context 'with `freeze_time` in `around(:each)`' do
     it 'registers offense' do
       expect_offense(<<~RUBY)
