@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add new `RSpec/IndexedLet` cop. ([@dmitrytsepelev])
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
 - Add support for `RSpec/ContainExactly` when calling `match_array` with no arguments. ([@ydah])

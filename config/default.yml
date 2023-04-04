@@ -503,6 +503,16 @@ RSpec/ImplicitSubject:
   VersionChanged: '2.13'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
 
+RSpec/IndexedLet:
+  Description: Do not set up test data using indexes (e.g., `item_1`, `item_2`).
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
+  MaxRepeats: 3
+  LetTypes:
+    - let
+    - let!
+
 RSpec/InstanceSpy:
   Description: Checks for `instance_double` used with `have_received`.
   Enabled: true

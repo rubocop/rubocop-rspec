@@ -2433,6 +2433,68 @@ it { expect(named_subject).to be_truthy }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
 
+== RSpec/IndexedLet
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Do not set up test data using indexes (e.g., `item_1`, `item_2`).
+
+It makers reading the test harder because it's not clear what exactly
+is tested by this particular example.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+let(:item_1) { create(:item) }
+let(:item_2) { create(:item) }
+
+let(:item_1) { create(:item, visible: true) }
+let(:item_2) { create(:item, visible: false) }
+
+before do
+  item_1 = create(:item)
+  item_2 = create(:item)
+end
+
+# good
+let(:items) { create_list(:item, 2) }
+
+let(:visible_item) { create(:item, visible: true) }
+let(:invisible_item) { create(:item, visible: false) }
+
+before do
+  create_list(:item, 2)
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| MaxRepeats
+| `3`
+| Integer
+
+| LetTypes
+| `let`, `let!`
+| Array
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
+
 == RSpec/InstanceSpy
 
 |===

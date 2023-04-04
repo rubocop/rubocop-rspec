@@ -139,6 +139,8 @@ RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
+RSpec/IndexedLet:
+  Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
