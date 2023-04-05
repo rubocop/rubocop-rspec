@@ -23,23 +23,6 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
     RUBY
   end
 
-  it 'flags `match_array` with an empty array literal argument' do
-    expect_offense(<<-RUBY)
-      it { is_expected.to match_array([]) }
-                          ^^^^^^^^^^^^^^^ Prefer `eq` when matching an empty array literal.
-      it { is_expected.to match_array(%w()) }
-                          ^^^^^^^^^^^^^^^^^ Prefer `eq` when matching an empty array literal.
-      it { is_expected.to match_array(%i()) }
-                          ^^^^^^^^^^^^^^^^^ Prefer `eq` when matching an empty array literal.
-    RUBY
-
-    expect_correction(<<-RUBY)
-      it { is_expected.to eq([]) }
-      it { is_expected.to eq([]) }
-      it { is_expected.to eq([]) }
-    RUBY
-  end
-
   it 'does not flag `contain_exactly`' do
     expect_no_offenses(<<-RUBY)
       it { is_expected.to contain_exactly(content1, content2) }
@@ -56,6 +39,13 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
     expect_no_offenses(<<-RUBY)
       it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
       it { is_expected.to match_array(%i(foo bar baz)) }
+    RUBY
+  end
+
+  # Don't do the work of RSpec/BeEmpty
+  it 'does not flag `match_array` with an empty array literal' do
+    expect_no_offenses(<<-RUBY)
+      it { is_expected.to match_array([]) }
     RUBY
   end
 end

@@ -125,6 +125,8 @@ Style/RedundantStringEscape:
 
 # Enable our own pending cops.
 
+RSpec/BeEmpty:
+  Enabled: true
 RSpec/BeEq:
   Enabled: true
 RSpec/BeNil:

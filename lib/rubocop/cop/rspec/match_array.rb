@@ -22,17 +22,10 @@ module RuboCop
       #   # good
       #   it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
       #
-      #   # bad
-      #   it { is_expected.to match_array([]) }
-      #   it { is_expected.to match_array(%w[]) }
-      #
-      #   # good
-      #   it { is_expected.to eq([]) }
       class MatchArray < Base
         extend AutoCorrector
 
         MSG = 'Prefer `contain_exactly` when matching an array literal.'
-        MSG_EMPTY_ARRAY = 'Prefer `eq` when matching an empty array literal.'
         RESTRICT_ON_SEND = %i[match_array].freeze
 
         # @!method match_array_with_empty_array?(node)
@@ -42,21 +35,12 @@ module RuboCop
 
         def on_send(node)
           return unless node.first_argument.array_type?
+          return if match_array_with_empty_array?(node)
 
-          if match_array_with_empty_array?(node)
-            check_empty_array(node)
-          else
-            check_populated_array(node)
-          end
+          check_populated_array(node)
         end
 
         private
-
-        def check_empty_array(node)
-          add_offense(node, message: MSG_EMPTY_ARRAY) do |corrector|
-            corrector.replace(node, 'eq([])')
-          end
-        end
 
         def check_populated_array(node)
           return if node.first_argument.percent_literal?
