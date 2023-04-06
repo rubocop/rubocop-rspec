@@ -209,7 +209,7 @@ RSpec/ClassCheck:
 
 RSpec/ContainExactly:
   Description: Checks where `contain_exactly` is used.
-  Enabled: true
+  Enabled: pending
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
@@ -570,7 +570,7 @@ RSpec/LetSetup:
 
 RSpec/MatchArray:
   Description: Checks where `match_array` is used.
-  Enabled: true
+  Enabled: pending
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
