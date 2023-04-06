@@ -573,7 +573,7 @@ expect(object).to be_a_kind_of(String)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Enabled
+| Pending
 | Yes
 | Yes
 | 2.19
@@ -2913,7 +2913,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Enabled
+| Pending
 | Yes
 | Yes
 | 2.19
