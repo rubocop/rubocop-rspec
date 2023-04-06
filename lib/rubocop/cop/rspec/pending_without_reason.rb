@@ -5,57 +5,54 @@ module RuboCop
     module RSpec
       # Checks for pending or skipped examples without reason.
       #
-      # @example
-      #   # bad
-      #   pending 'does something' do
-      #   end
-      #
-      #   # bad
-      #   it 'does something', :pending do
-      #   end
-      #
+      # @example Strict: false (default)
       #   # bad
       #   it 'does something' do
       #     pending
       #   end
       #
       #   # bad
-      #   xdescribe 'something' do
-      #   end
-      #
-      #   # bad
-      #   skip 'does something' do
-      #   end
-      #
-      #   # bad
       #   it 'does something', :skip do
       #   end
       #
-      #   # bad
-      #   it 'does something' do
-      #     skip
+      #   # good
+      #   it 'does something', skip: 'reason' do
       #   end
-      #
-      #   # bad
-      #   it 'does something'
       #
       #   # good
       #   it 'does something' do
       #     pending 'reason'
       #   end
       #
-      #   # good
-      #   it 'does something' do
-      #     skip 'reason'
+      #   # also good - when pending/skip block with string argument
+      #   pending 'does something' do
       #   end
       #
-      #   # good
-      #   it 'does something', pending: 'reason' do
+      #   # also good - when xdescribe block with string argument
+      #   xdescribe 'something' do
       #   end
       #
-      #   # good
-      #   it 'does something', skip: 'reason' do
+      #   # also good - when pending/skip block with string argument
+      #   #             but not inside an example
+      #   RSpec.describe 'something' do
+      #     pending 'does something'
       #   end
+      #
+      # @example Strict: true
+      #   # bad - when pending/skip block with string argument
+      #   pending 'does something' do
+      #   end
+      #
+      #   # bad - when xdescribe block with string argument
+      #   xdescribe 'something' do
+      #   end
+      #
+      #   # bad - when pending/skip block with string argument
+      #   #       but not inside an example
+      #   RSpec.describe 'something' do
+      #     pending 'does something'
+      #   end
+      #
       class PendingWithoutReason < Base
         MSG = 'Give the reason for pending or skip.'
 
@@ -68,9 +65,9 @@ module RuboCop
           }
         PATTERN
 
-        # @!method skipped_by_example_method?(node)
-        def_node_matcher :skipped_by_example_method?, <<~PATTERN
-          (send nil? ${#Examples.skipped #Examples.pending} ...)
+        # @!method skipped_by_example_method_with_block?(node)
+        def_node_matcher :skipped_by_example_method_with_block?, <<~PATTERN
+          ({block numblock} (send nil? ${#Examples.skipped #Examples.pending} ...) ...)
         PATTERN
 
         # @!method metadata_without_reason?(node)
@@ -134,15 +131,30 @@ module RuboCop
         end
 
         def on_skipped_by_example_method(node)
-          skipped_by_example_method?(node) do |pending|
+          return unless skipped_or_pending_method?(node.method_name)
+          return if (strict? || node.arguments?) && !strict?
+
+          add_offense(node, message: "Give the reason for #{node.method_name}.")
+        end
+
+        def on_skipped_by_example_group_method(node)
+          return unless strict?
+
+          skipped_by_example_group_method?(node) do
+            add_offense(node, message: 'Give the reason for skip.')
+          end
+
+          skipped_by_example_method_with_block?(node.parent) do |pending|
             add_offense(node, message: "Give the reason for #{pending}.")
           end
         end
 
-        def on_skipped_by_example_group_method(node)
-          skipped_by_example_group_method?(node) do
-            add_offense(node, message: 'Give the reason for skip.')
-          end
+        def skipped_or_pending_method?(method_name)
+          Examples.skipped(method_name) || Examples.pending(method_name)
+        end
+
+        def strict?
+          cop_config.fetch('Strict', true)
         end
       end
     end

@@ -695,7 +695,9 @@ RSpec/Pending:
 RSpec/PendingWithoutReason:
   Description: Checks for pending or skipped examples without reason.
   Enabled: pending
+  Strict: false
   VersionAdded: '2.16'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingWithoutReason
 
 RSpec/PredicateMatcher:
