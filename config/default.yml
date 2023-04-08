@@ -508,10 +508,7 @@ RSpec/IndexedLet:
   Enabled: pending
   VersionAdded: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
-  MaxRepeats: 3
-  LetTypes:
-    - let
-    - let!
+  MaxRepeats: 1
 
 RSpec/InstanceSpy:
   Description: Checks for `instance_double` used with `have_received`.
