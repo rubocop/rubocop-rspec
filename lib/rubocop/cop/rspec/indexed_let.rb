@@ -76,7 +76,7 @@ module RuboCop
         end
 
         def indexed_let?(node)
-          let?(node) && let_name(node).to_s.match(INDEX_REGEX)
+          let?(node) && INDEX_REGEX.match?(let_name(node))
         end
       end
     end
