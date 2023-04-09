@@ -5,7 +5,7 @@ module RuboCop
     module RSpec
       # Do not set up test data using indexes (e.g., `item_1`, `item_2`).
       #
-      # It makers reading the test harder because it's not clear what exactly
+      # It makes reading the test harder because it's not clear what exactly
       # is tested by this particular example.
       #
       # @example `MaxRepeats: 1 (default)`
