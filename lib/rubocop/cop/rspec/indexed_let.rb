@@ -71,7 +71,7 @@ module RuboCop
             .filter { |node| indexed_let?(node) }
             .group_by { |node| let_name(node).to_s.gsub(INDEX_REGEX, '') }
             .values
-            .filter { |lets| lets.count > cop_config['MaxRepeats'] }
+            .filter { |lets| lets.length > cop_config['MaxRepeats'] }
             .flatten
         end
 
