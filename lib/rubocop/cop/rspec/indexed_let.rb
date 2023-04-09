@@ -8,9 +8,7 @@ module RuboCop
       # It makers reading the test harder because it's not clear what exactly
       # is tested by this particular example.
       #
-      # This cop is configurable using the `MaxRepeats` option.
-      #
-      # @example
+      # @example `MaxRepeats: 1 (default)`
       #   # bad
       #   let(:item_1) { create(:item) }
       #   let(:item_2) { create(:item) }
@@ -30,6 +28,16 @@ module RuboCop
       #   let(:visible_item) { create(:item, visible: true) }
       #   let(:invisible_item) { create(:item, visible: false) }
       #
+      # @example `MaxRepeats: 2`
+      #   # bad
+      #   let(:item_1) { create(:item) }
+      #   let(:item_2) { create(:item) }
+      #   let(:item_3) { create(:item) }
+      #
+      #   # good
+      #   let(:item_1) { create(:item) }
+      #   let(:item_2) { create(:item) }
+      #
       class IndexedLet < Base
         MSG = 'This `let` statement uses index in its name. Please give it ' \
               'a meaningful names, use create_list or move creation ' \
@@ -43,7 +51,7 @@ module RuboCop
           }
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless spec_group?(node)
 
           children = node.body&.child_nodes
@@ -54,19 +62,21 @@ module RuboCop
           end
         end
 
-        alias on_numblock on_block
-
         private
 
         INDEX_REGEX = /_?\d+/.freeze
 
         def filter_indexed_lets(candidates)
           candidates
-            .filter { |candidate| let?(candidate) }
+            .filter { |node| indexed_let?(node) }
             .group_by { |node| let_name(node).to_s.gsub(INDEX_REGEX, '') }
             .values
             .filter { |lets| lets.count > cop_config['MaxRepeats'] }
             .flatten
+        end
+
+        def indexed_let?(node)
+          let?(node) && let_name(node).to_s.match(INDEX_REGEX)
         end
       end
     end
