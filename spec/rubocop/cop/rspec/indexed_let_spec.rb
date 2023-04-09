@@ -8,9 +8,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let(:item_2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
@@ -19,9 +19,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let("item_1") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let("item_2") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
@@ -30,9 +30,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let(:item2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
@@ -41,9 +41,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1, &block)
-        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let(:item_2, &block)
-        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
@@ -64,11 +64,11 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       context SomeService do
         let(:user_1_item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let(:user_1_item_2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let(:user_2_item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
@@ -95,9 +95,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
         let("item_2") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful names, use create_list or move creation to the `before` block.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name, use create_list or move creation to a `before` block.
       end
     RUBY
   end
