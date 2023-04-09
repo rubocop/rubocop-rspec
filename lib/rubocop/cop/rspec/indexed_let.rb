@@ -40,8 +40,8 @@ module RuboCop
       #
       class IndexedLet < Base
         MSG = 'This `let` statement uses index in its name. Please give it ' \
-              'a meaningful names, use create_list or move creation ' \
-              'to the `before` block.'
+              'a meaningful name, use create_list or move creation ' \
+              'to a `before` block.'
 
         # @!method let_name(node)
         def_node_matcher :let_name, <<~PATTERN
