@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   it 'flags multiple hooks in the same example group' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         before { bar }
         ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
@@ -10,10 +10,17 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
         ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before { bar
+      baz }
+      end
+    RUBY
   end
 
   it 'flags multiple hooks of the same scope with different symbols' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         after { bar }
         ^^^^^^^^^^^^^ Do not define multiple `after` hooks in the same example group (also defined on lines 3, 4).
@@ -23,15 +30,30 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
         ^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `after` hooks in the same example group (also defined on lines 2, 3).
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        after { bar
+      baz
+      baz }
+      end
+    RUBY
   end
 
   it 'flags multiple before(:all) hooks in the same example group' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         before(:all) { bar }
         ^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
         before(:all) { baz }
         ^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before(:all) { bar
+      baz }
       end
     RUBY
   end
@@ -104,7 +126,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'flags hooks with similar metadata' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         before(:each, :special_case) { foo }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 3, 4, 5).
@@ -114,6 +136,16 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 2, 3, 5).
         before(special_case: true) { bar }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 2, 3, 4).
+        before(:example, special_case: false) { bar }
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before(:each, :special_case) { foo
+      bar
+      bar
+      bar }
         before(:example, special_case: false) { bar }
       end
     RUBY
