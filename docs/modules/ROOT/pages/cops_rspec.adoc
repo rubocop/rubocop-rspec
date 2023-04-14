@@ -4601,7 +4601,7 @@ end
 
 | Enabled
 | Yes
-| No
+| Yes
 | 1.10
 | -
 |===
