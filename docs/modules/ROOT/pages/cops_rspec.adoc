@@ -2452,7 +2452,7 @@ is tested by this particular example.
 
 === Examples
 
-==== `MaxRepeats: 1 (default)`
+==== `Max: 1 (default)`
 
 [source,ruby]
 ----
@@ -2460,23 +2460,16 @@ is tested by this particular example.
 let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 
-let("item_1") { create(:item) }
-let("item_2") { create(:item) }
-
 let(:item1) { create(:item) }
 let(:item2) { create(:item) }
 
-let(:item_1) { create(:item, visible: true) }
-let(:item_2) { create(:item, visible: false) }
-
 # good
-let(:items) { create_list(:item, 2) }
 
 let(:visible_item) { create(:item, visible: true) }
 let(:invisible_item) { create(:item, visible: false) }
 ----
 
-==== `MaxRepeats: 2`
+==== `Max: 2`
 
 [source,ruby]
 ----
@@ -2495,7 +2488,7 @@ let(:item_2) { create(:item) }
 |===
 | Name | Default value | Configurable values
 
-| MaxRepeats
+| Max
 | `1`
 | Integer
 |===

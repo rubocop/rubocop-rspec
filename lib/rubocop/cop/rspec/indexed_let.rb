@@ -8,27 +8,20 @@ module RuboCop
       # It makes reading the test harder because it's not clear what exactly
       # is tested by this particular example.
       #
-      # @example `MaxRepeats: 1 (default)`
+      # @example `Max: 1 (default)`
       #   # bad
       #   let(:item_1) { create(:item) }
       #   let(:item_2) { create(:item) }
       #
-      #   let("item_1") { create(:item) }
-      #   let("item_2") { create(:item) }
-      #
       #   let(:item1) { create(:item) }
       #   let(:item2) { create(:item) }
       #
-      #   let(:item_1) { create(:item, visible: true) }
-      #   let(:item_2) { create(:item, visible: false) }
-      #
       #   # good
-      #   let(:items) { create_list(:item, 2) }
       #
       #   let(:visible_item) { create(:item, visible: true) }
       #   let(:invisible_item) { create(:item, visible: false) }
       #
-      # @example `MaxRepeats: 2`
+      # @example `Max: 2`
       #   # bad
       #   let(:item_1) { create(:item) }
       #   let(:item_2) { create(:item) }
@@ -40,8 +33,7 @@ module RuboCop
       #
       class IndexedLet < Base
         MSG = 'This `let` statement uses index in its name. Please give it ' \
-              'a meaningful name, use create_list or move creation ' \
-              'to a `before` block.'
+              'a meaningful name.'
 
         # @!method let_name(node)
         def_node_matcher :let_name, <<~PATTERN
@@ -71,7 +63,7 @@ module RuboCop
             .filter { |node| indexed_let?(node) }
             .group_by { |node| let_name(node).to_s.gsub(INDEX_REGEX, '') }
             .values
-            .filter { |lets| lets.length > cop_config['MaxRepeats'] }
+            .filter { |lets| lets.length > cop_config['Max'] }
             .flatten
         end
 
