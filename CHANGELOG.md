@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add new `RSpec/IndexedLet` cop. ([@dmitrytsepelev])
+- Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions` ([@mvz])
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
 - Change `RSpec/ContainExactly` to ignore calls with no arguments, and change `RSpec/MatchArray` to ignore calls with an empty array literal argument. ([@ydah], [@bquorning])
@@ -809,6 +810,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mlarraz]: https://github.com/mlarraz
 [@mockdeep]: https://github.com/mockdeep
 [@mothonmars]: https://github.com/MothOnMars
+[@mvz]: https://github.com/mvz
 [@nc-holodakg]: https://github.com/nc-holodakg
 [@nevir]: https://github.com/nevir
 [@ngouy]: https://github.com/ngouy

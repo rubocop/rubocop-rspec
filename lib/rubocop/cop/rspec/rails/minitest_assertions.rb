@@ -13,9 +13,9 @@ module RuboCop
         #   refute_equal(a, b)
         #
         #   # good
-        #   expect(a).to eq(b)
-        #   expect(a).to(eq(b), "must be equal")
-        #   expect(a).not_to eq(b)
+        #   expect(b).to eq(a)
+        #   expect(b).to(eq(a), "must be equal")
+        #   expect(b).not_to eq(a)
         #
         class MinitestAssertions < Base
           extend AutoCorrector
@@ -43,9 +43,9 @@ module RuboCop
           def replacement(node, expected, actual, failure_message)
             runner = node.method?(:assert_equal) ? 'to' : 'not_to'
             if failure_message.nil?
-              "expect(#{expected.source}).#{runner} eq(#{actual.source})"
+              "expect(#{actual.source}).#{runner} eq(#{expected.source})"
             else
-              "expect(#{expected.source}).#{runner}(eq(#{actual.source}), " \
+              "expect(#{actual.source}).#{runner}(eq(#{expected.source}), " \
                 "#{failure_message.source})"
             end
           end
