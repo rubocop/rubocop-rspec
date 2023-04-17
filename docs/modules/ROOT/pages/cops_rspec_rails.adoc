@@ -229,9 +229,9 @@ assert_equal a, b, "must be equal"
 refute_equal(a, b)
 
 # good
-expect(a).to eq(b)
-expect(a).to(eq(b), "must be equal")
-expect(a).not_to eq(b)
+expect(b).to eq(a)
+expect(b).to(eq(a), "must be equal")
+expect(b).not_to eq(a)
 ----
 
 === References
