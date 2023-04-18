@@ -194,7 +194,7 @@ expect(foo).to be(true)
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.20
 | -
 |===
 
@@ -2463,7 +2463,7 @@ it { expect(named_subject).to be_truthy }
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.20
 | -
 |===
 
