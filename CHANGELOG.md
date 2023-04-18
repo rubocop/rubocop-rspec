@@ -10,6 +10,7 @@
 - Add new `RSpec/BeEmpty` cop. ([@ydah], [@bquorning])
 - Make `RSpec/MatchArray` and `RSpec/ContainExactly` pending. ([@ydah])
 - Add autocorrect support for `RSpec/ScatteredSetup`. ([@ydah])
+- Fix a false negative for `RSpec/RedundantAround` when redundant numblock `around`. ([@ydah])
 
 ## 2.19.0 (2023-03-06)
 
