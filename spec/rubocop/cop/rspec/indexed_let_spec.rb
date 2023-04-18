@@ -73,6 +73,15 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     RUBY
   end
 
+  it 'ignores names with an index-like and a suffix' do
+    expect_no_offenses(<<~RUBY)
+      context SomeService do
+        let(:user_7_day_average) { 700 }
+        let(:user_30_day_average) { 3000 }
+      end
+    RUBY
+  end
+
   it 'not flags which have different prefixes' do
     expect_no_offenses(<<~RUBY)
       describe SomeService do

@@ -56,19 +56,24 @@ module RuboCop
 
         private
 
-        INDEX_REGEX = /_?\d+/.freeze
+        SUFFIX_INDEX_REGEX = /_?\d+$/.freeze
+        INDEX_REGEX = /\d+/.freeze
 
         def filter_indexed_lets(candidates)
           candidates
             .filter { |node| indexed_let?(node) }
-            .group_by { |node| let_name(node).to_s.gsub(INDEX_REGEX, '') }
+            .group_by { |node| let_name_stripped_index(node) }
             .values
             .filter { |lets| lets.length > cop_config['Max'] }
             .flatten
         end
 
         def indexed_let?(node)
-          let?(node) && INDEX_REGEX.match?(let_name(node))
+          let?(node) && SUFFIX_INDEX_REGEX.match?(let_name(node))
+        end
+
+        def let_name_stripped_index(node)
+          let_name(node).to_s.gsub(INDEX_REGEX, '')
         end
       end
     end
