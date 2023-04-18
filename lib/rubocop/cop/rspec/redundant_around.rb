@@ -27,7 +27,14 @@ module RuboCop
             autocorrect(corrector, node)
           end
         end
-        alias on_numblock on_block
+
+        def on_numblock(node)
+          return unless match_redundant_around_hook_numblock?(node)
+
+          add_offense(node) do |corrector|
+            autocorrect(corrector, node)
+          end
+        end
 
         def on_send(node)
           return unless match_redundant_around_hook_send?(node)
@@ -46,6 +53,11 @@ module RuboCop
             (args _?)
             (send _ :run)
           )
+        PATTERN
+
+        # @!method match_redundant_around_hook_numblock?(node)
+        def_node_matcher :match_redundant_around_hook_numblock?, <<~PATTERN
+          (numblock (send _ :around) ... (send _ :run))
         PATTERN
 
         # @!method match_redundant_around_hook_send?(node)

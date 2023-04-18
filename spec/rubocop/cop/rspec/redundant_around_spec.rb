@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::RedundantAround do
+RSpec.describe RuboCop::Cop::RSpec::RedundantAround, :ruby27 do
   context 'with another node in `around`' do
     it 'registers no offense' do
       expect_no_offenses(<<~RUBY)
@@ -18,6 +18,18 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantAround do
       expect_no_offenses(<<~RUBY)
         around do |example|
           foo { example.run }
+        end
+      RUBY
+    end
+  end
+
+  context 'with another node in numblock `around`' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        around do
+          _1.run
+
+          foo
         end
       RUBY
     end
