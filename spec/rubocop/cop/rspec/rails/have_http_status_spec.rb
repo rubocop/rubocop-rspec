@@ -23,6 +23,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HaveHttpStatus do
     RUBY
   end
 
+  it 'registers an offense for `expect(response.code).to eq("200")`' do
+    expect_offense(<<~RUBY)
+      it { expect(response.code).to eq("200") }
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `expect(response).to have_http_status(200)` over `expect(response.code).to eq("200")`.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it { expect(response).to have_http_status(200) }
+    RUBY
+  end
+
   it 'does not register an offense for `is_expected.to be(200)`' do
     expect_no_offenses(<<~RUBY)
       it { is_expected.to be(200) }

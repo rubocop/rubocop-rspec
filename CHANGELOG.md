@@ -12,6 +12,7 @@
 - Add autocorrect support for `RSpec/ScatteredSetup`. ([@ydah])
 - Fix a false negative for `RSpec/RedundantAround` when redundant numblock `around`. ([@ydah])
 - Add support for shared example groups to `RSpec/EmptyLineAfterExampleGroup`. ([@pirj])
+- Add support for `RSpec/HaveHttpStatus` when using `response.code`. ([@ydah])
 
 ## 2.19.0 (2023-03-06)
 
