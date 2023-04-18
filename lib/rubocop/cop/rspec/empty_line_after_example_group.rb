@@ -30,7 +30,7 @@ module RuboCop
         MSG = 'Add an empty line after `%<example_group>s`.'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example_group?(node)
+          return unless spec_group?(node)
 
           missing_separating_line_offense(node) do |method|
             format(MSG, example_group: method)

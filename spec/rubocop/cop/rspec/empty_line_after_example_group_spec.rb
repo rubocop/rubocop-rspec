@@ -65,6 +65,34 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
     RUBY
   end
 
+  it 'checks for empty line after shared groups' do
+    expect_offense(<<-RUBY)
+      RSpec.context 'foo' do
+        shared_examples 'bar' do
+        end
+        ^^^ Add an empty line after `shared_examples`.
+        shared_context 'baz' do
+        end
+        ^^^ Add an empty line after `shared_context`.
+        it 'does something' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      RSpec.context 'foo' do
+        shared_examples 'bar' do
+        end
+
+        shared_context 'baz' do
+        end
+
+        it 'does something' do
+        end
+      end
+    RUBY
+  end
+
   it 'approves empty line after describe' do
     expect_no_offenses(<<-RUBY)
       RSpec.describe Foo do
