@@ -2,19 +2,21 @@
 
 ## Master (Unreleased)
 
-- Add support `be_status` style for `RSpec/Rails/HttpStatus`. ([@ydah])
-- Fix a false positive for `RSpec/DescribedClassModuleWrapping` when RSpec.describe numblock is nested within a module. ([@ydah])
+## 2.20.0 (2023-04-18)
+
 - Add new `RSpec/IndexedLet` cop. ([@dmitrytsepelev])
-- Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions` ([@mvz])
-- Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
-- Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
-- Change `RSpec/ContainExactly` to ignore calls with no arguments, and change `RSpec/MatchArray` to ignore calls with an empty array literal argument. ([@ydah], [@bquorning])
 - Add new `RSpec/BeEmpty` cop. ([@ydah], [@bquorning])
-- Make `RSpec/MatchArray` and `RSpec/ContainExactly` pending. ([@ydah])
 - Add autocorrect support for `RSpec/ScatteredSetup`. ([@ydah])
-- Fix a false negative for `RSpec/RedundantAround` when redundant numblock `around`. ([@ydah])
+- Add support `be_status` style for `RSpec/Rails/HttpStatus`. ([@ydah])
 - Add support for shared example groups to `RSpec/EmptyLineAfterExampleGroup`. ([@pirj])
 - Add support for `RSpec/HaveHttpStatus` when using `response.code`. ([@ydah])
+- Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions` ([@mvz])
+- Fix a false positive for `RSpec/DescribedClassModuleWrapping` when RSpec.describe numblock is nested within a module. ([@ydah])
+- Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
+- Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
+- Fix a false negative for `RSpec/RedundantAround` when redundant numblock `around`. ([@ydah])
+- Change `RSpec/ContainExactly` to ignore calls with no arguments, and change `RSpec/MatchArray` to ignore calls with an empty array literal argument. ([@ydah], [@bquorning])
+- Make `RSpec/MatchArray` and `RSpec/ContainExactly` pending. ([@ydah])
 
 ## 2.19.0 (2023-03-06)
 
