@@ -1061,8 +1061,9 @@ RSpec/Rails/HttpStatus:
   SupportedStyles:
     - numeric
     - symbolic
+    - be_status
   VersionAdded: '1.23'
-  VersionChanged: '2.0'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus
 
 RSpec/Rails/InferredSpecType:

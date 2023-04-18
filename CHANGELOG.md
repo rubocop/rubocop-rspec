@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add support `be_status` style for `RSpec/Rails/HttpStatus`. ([@ydah])
 - Add new `RSpec/IndexedLet` cop. ([@dmitrytsepelev])
 - Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions` ([@mvz])
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
