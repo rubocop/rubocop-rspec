@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive in `RSpec/IndexedLet` with suffixes after index-like numbers. ([@pirj])
+
 ## 2.20.0 (2023-04-18)
 
 - Add new `RSpec/IndexedLet` cop. ([@dmitrytsepelev])
