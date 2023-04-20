@@ -18,7 +18,7 @@ module RuboCop
           extend AutoCorrector
 
           MSG =
-            'Prefer `expect(response).%<to>s have_http_status(%<status>i)` ' \
+            'Prefer `expect(response).%<to>s have_http_status(%<status>s)` ' \
             'over `%<bad_code>s`.'
 
           RUNNERS = %i[to to_not not_to].to_set
@@ -37,12 +37,14 @@ module RuboCop
 
           def on_send(node)
             match_status(node) do |response_status, to, match, status|
+              return unless status.to_s.match?(/\A\d+\z/)
+
               message = format(MSG, to: to, status: status,
                                     bad_code: node.source)
               add_offense(node, message: message) do |corrector|
                 corrector.replace(response_status, 'response')
                 corrector.replace(match.loc.selector, 'have_http_status')
-                corrector.replace(match.first_argument, status.to_i.to_s)
+                corrector.replace(match.first_argument, status.to_s)
               end
             end
           end
