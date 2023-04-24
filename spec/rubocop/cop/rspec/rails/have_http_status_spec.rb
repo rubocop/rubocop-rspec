@@ -45,4 +45,10 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HaveHttpStatus do
       it { expect(res.status).to be(200) }
     RUBY
   end
+
+  it 'ignores statuses that would not coerce to an integer' do
+    expect_no_offenses(<<~RUBY)
+      it { expect(response.status).to eq("404 Not Found") }
+    RUBY
+  end
 end
