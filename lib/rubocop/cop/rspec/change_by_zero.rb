@@ -77,7 +77,7 @@ module RuboCop
             (block
               (send nil? :change)
               (args)
-              (send (...) $_)) :by
+              (send (...) _)) :by
             (int 0))
         PATTERN
 
