@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
-  it 'registers an offense when the argument to `by` is zero' do
+  it 'registers an offense when using `change` and argument to `by` is zero' do
     expect_offense(<<-RUBY)
       it do
         expect { foo }.to change(Foo, :bar).by(0)
@@ -20,6 +20,38 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
         expect { foo }.not_to change(Foo, :bar)
         expect { foo }.not_to change(::Foo, :bar)
         expect { foo }.not_to change { Foo.bar }
+        expect { foo }.not_to change(Foo, :bar)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when using `a_block_changing` ' \
+     'and argument to `by` is zero' do
+    expect_offense(<<-RUBY)
+      it do
+        expect { foo }.to a_block_changing(Foo, :bar).by(0)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_to change` over `to a_block_changing.by(0)`.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it do
+        expect { foo }.not_to change(Foo, :bar)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when using `changing` ' \
+     'and argument to `by` is zero' do
+    expect_offense(<<-RUBY)
+      it do
+        expect { foo }.to changing(Foo, :bar).by(0)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_to change` over `to changing.by(0)`.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it do
         expect { foo }.not_to change(Foo, :bar)
       end
     RUBY

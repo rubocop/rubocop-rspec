@@ -59,15 +59,16 @@ module RuboCop
       #
       class ChangeByZero < Base
         extend AutoCorrector
-        MSG = 'Prefer `not_to change` over `to change.by(0)`.'
+        MSG = 'Prefer `not_to change` over `to %<method>s.by(0)`.'
         MSG_COMPOUND = 'Prefer %<preferred>s with compound expectations ' \
-                       'over `change.by(0)`.'
-        RESTRICT_ON_SEND = %i[change].freeze
+                       'over `%<method>s.by(0)`.'
+        CHANGE_METHODS = Set[:change, :a_block_changing, :changing].freeze
+        RESTRICT_ON_SEND = CHANGE_METHODS.freeze
 
         # @!method expect_change_with_arguments(node)
         def_node_matcher :expect_change_with_arguments, <<-PATTERN
           (send
-            (send nil? :change ...) :by
+            $(send nil? CHANGE_METHODS ...) :by
             (int 0))
         PATTERN
 
@@ -75,7 +76,7 @@ module RuboCop
         def_node_matcher :expect_change_with_block, <<-PATTERN
           (send
             (block
-              (send nil? :change)
+              $(send nil? CHANGE_METHODS)
               (args)
               (send (...) _)) :by
             (int 0))
@@ -83,40 +84,53 @@ module RuboCop
 
         # @!method change_nodes(node)
         def_node_search :change_nodes, <<-PATTERN
-          $(send nil? :change ...)
+          $(send nil? CHANGE_METHODS ...)
         PATTERN
 
         def on_send(node)
-          expect_change_with_arguments(node.parent) do
-            check_offense(node.parent)
+          expect_change_with_arguments(node.parent) do |change|
+            register_offense(node.parent, change)
           end
 
-          expect_change_with_block(node.parent.parent) do
-            check_offense(node.parent.parent)
+          expect_change_with_block(node.parent.parent) do |change|
+            register_offense(node.parent.parent, change)
           end
         end
 
         private
 
-        def check_offense(node)
-          expression = node.source_range
+        # rubocop:disable Metrics/MethodLength
+        def register_offense(node, change_node)
           if compound_expectations?(node)
-            add_offense(expression, message: message_compound) do |corrector|
+            add_offense(node.source_range,
+                        message: message_compound(change_node)) do |corrector|
               autocorrect_compound(corrector, node)
             end
           else
-            add_offense(expression) do |corrector|
-              autocorrect(corrector, node)
+            add_offense(node.source_range,
+                        message: message(change_node)) do |corrector|
+              autocorrect(corrector, node, change_node)
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         def compound_expectations?(node)
           %i[and or & |].include?(node.parent.method_name)
         end
 
-        def autocorrect(corrector, node)
+        def message(change_node)
+          format(MSG, method: change_node.method_name)
+        end
+
+        def message_compound(change_node)
+          format(MSG_COMPOUND, preferred: preferred_method,
+                               method: change_node.method_name)
+        end
+
+        def autocorrect(corrector, node, change_node)
           corrector.replace(node.parent.loc.selector, 'not_to')
+          corrector.replace(change_node.loc.selector, 'change')
           range = node.loc.dot.with(end_pos: node.source_range.end_pos)
           corrector.remove(range)
         end
@@ -133,10 +147,6 @@ module RuboCop
 
         def negated_matcher
           cop_config['NegatedMatcher']
-        end
-
-        def message_compound
-          format(MSG_COMPOUND, preferred: preferred_method)
         end
 
         def preferred_method
