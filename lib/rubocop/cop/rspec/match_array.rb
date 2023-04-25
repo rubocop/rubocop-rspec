@@ -34,7 +34,7 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless node.first_argument.array_type?
+          return unless node.first_argument&.array_type?
           return if match_array_with_empty_array?(node)
 
           check_populated_array(node)

@@ -48,4 +48,11 @@ RSpec.describe RuboCop::Cop::RSpec::MatchArray do
       it { is_expected.to match_array([]) }
     RUBY
   end
+
+  it 'does not flag `match_array` with no argument' do
+    expect_no_offenses(<<-RUBY)
+      it { is_expected.to match_array }
+      it { is_expected.to match_array() }
+    RUBY
+  end
 end
