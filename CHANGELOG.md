@@ -5,6 +5,7 @@
 - Fix a false positive in `RSpec/IndexedLet` with suffixes after index-like numbers. ([@pirj])
 - Fix an error for `RSpec/Rails/HaveHttpStatus` with comparison with strings containing non-numeric characters. ([@ydah])
 - Fix an error for `RSpec/MatchArray` when `match_array` with no argument. ([@ydah])
+- Add support `a_block_changing` and `changing` for `RSpec/ChangeByZero`. ([@ydah])
 
 ## 2.20.0 (2023-04-18)
 
