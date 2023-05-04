@@ -6,7 +6,7 @@ module RuboCop
       # Checks that spec file paths are consistent and well-formed.
       #
       # By default, this checks that spec file paths are consistent with the
-      # test subject and and enforces that it reflects the described
+      # test subject and enforces that it reflects the described
       # class/module and its optionally called out method.
       #
       # With the configuration option `IgnoreMethods` the called out method will
