@@ -322,7 +322,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
 
     it 'ignores rspec-rails routing specs' do
       expect_no_offenses(
-        'expect(get: "/foo").to be_routeable',
+        'expect(get: "/foo").to be_routable',
         'spec/routing/foo_spec.rb'
       )
     end

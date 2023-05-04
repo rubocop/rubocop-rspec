@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::SkipBlockInsideExample, :config do
     RUBY
   end
 
-  it 'does not register an offense outside exxamples' do
+  it 'does not register an offense outside examples' do
     expect_no_offenses(<<~RUBY)
       skip 'not yet implemented' do
       end

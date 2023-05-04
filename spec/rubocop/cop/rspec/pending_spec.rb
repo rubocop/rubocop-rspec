@@ -116,7 +116,7 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     RUBY
   end
 
-  it 'flags blocks with pending: surrounded by `%()` stringg metadata ' \
+  it 'flags blocks with pending: surrounded by `%()` string metadata ' \
      'and line break' do
     expect_offense(<<-RUBY)
       it "test", pending: %(test ,
