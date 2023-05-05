@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.21.0 (2023-05-05)
+
 - Fix a false positive in `RSpec/IndexedLet` with suffixes after index-like numbers. ([@pirj])
 - Fix an error for `RSpec/Rails/HaveHttpStatus` with comparison with strings containing non-numeric characters. ([@ydah])
 - Fix an error for `RSpec/MatchArray` when `match_array` with no argument. ([@ydah])
