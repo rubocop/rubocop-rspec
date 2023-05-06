@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::ChangeByZero, :config do
+RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
   it 'registers an offense when using `change` and argument to `by` is zero' do
     expect_offense(<<-RUBY)
       it do

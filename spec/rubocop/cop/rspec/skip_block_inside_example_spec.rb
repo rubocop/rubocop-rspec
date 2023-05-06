@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::SkipBlockInsideExample, :config do
+RSpec.describe RuboCop::Cop::RSpec::SkipBlockInsideExample do
   it 'registers an offense when using `skip` with a block' do
     expect_offense(<<~RUBY)
       it 'does something' do
