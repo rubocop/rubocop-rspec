@@ -5,6 +5,7 @@ require 'yaml'
 
 require 'rubocop'
 require 'rubocop-capybara'
+require 'rubocop-factory_bot'
 
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/inject'
@@ -15,8 +16,6 @@ require_relative 'rubocop/rspec/wording'
 
 # Dependent on `RuboCop::RSpec::Language::NodePattern`.
 require_relative 'rubocop/rspec/language'
-
-require_relative 'rubocop/rspec/factory_bot/language'
 
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
@@ -37,7 +36,6 @@ require_relative 'rubocop/rspec/concept'
 require_relative 'rubocop/rspec/corrector/move_node'
 require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/example_group'
-require_relative 'rubocop/rspec/factory_bot'
 require_relative 'rubocop/rspec/hook'
 
 RuboCop::RSpec::Inject.defaults!

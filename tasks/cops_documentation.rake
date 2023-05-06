@@ -41,6 +41,30 @@ task generate_cops_documentation: :yard_for_generate_documentation do
       end
       global.enlist(cop)
     end
+    %w[
+      RuboCop::Cop::RSpec::FactoryBot::AttributeDefinedStatically
+      RuboCop::Cop::RSpec::FactoryBot::ConsistentParenthesesStyle
+      RuboCop::Cop::RSpec::FactoryBot::CreateList
+      RuboCop::Cop::RSpec::FactoryBot::FactoryClassName
+      RuboCop::Cop::RSpec::FactoryBot::FactoryNameStyle
+      RuboCop::Cop::RSpec::FactoryBot::SyntaxMethods
+    ].each do |extracted_cop|
+      cop = Class.const_get(extracted_cop)
+      class << cop
+        def badge
+          RuboCop::Cop::Badge.for(name)
+        end
+
+        def name
+          super.sub('::FactoryBot::', '::RSpec::FactoryBot::')
+        end
+
+        def department
+          :'RSpec/FactoryBot'
+        end
+      end
+      global.enlist(cop)
+    end
 
     generator = CopsDocumentationGenerator.new(
       departments: %w[RSpec/Capybara RSpec/FactoryBot RSpec/Rails RSpec]

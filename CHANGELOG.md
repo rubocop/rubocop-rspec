@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Extract factory_bot cops to a separate repository, [`rubocop-factory_bot`](https://github.com/rubocop/rubocop-factory_bot). The `rubocop-factory_bot` repository is a dependency of `rubocop-rspec` and the factory_bot cops are aliased (`RSpec/FactoryBot/Foo` == `FactoryBot/Foo`) until v3.0 is released, so the change will be invisible to users until then. ([@ydah])
+
 ## 2.21.0 (2023-05-05)
 
 - Fix a false positive in `RSpec/IndexedLet` with suffixes after index-like numbers. ([@pirj])

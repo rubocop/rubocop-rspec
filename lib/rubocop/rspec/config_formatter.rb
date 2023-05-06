@@ -16,6 +16,12 @@ module RuboCop
         RSpec/Capybara/SpecificFinders
         RSpec/Capybara/SpecificMatcher
         RSpec/Capybara/VisibilityMatcher
+        RSpec/FactoryBot/AttributeDefinedStatically
+        RSpec/FactoryBot/ConsistentParenthesesStyle
+        RSpec/FactoryBot/CreateList
+        RSpec/FactoryBot/FactoryClassName
+        RSpec/FactoryBot/FactoryNameStyle
+        RSpec/FactoryBot/SyntaxMethods
       )
       AMENDMENTS = %(Metrics/BlockLength)
       COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/'
