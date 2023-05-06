@@ -21,3 +21,9 @@ renamed:
   RSpec/Capybara/SpecificFinders: Capybara/SpecificFinders
   RSpec/Capybara/SpecificMatcher: Capybara/SpecificMatcher
   RSpec/Capybara/VisibilityMatcher: Capybara/VisibilityMatcher
+  RSpec/FactoryBot/AttributeDefinedStatically: FactoryBot/AttributeDefinedStatically
+  RSpec/FactoryBot/ConsistentParenthesesStyle: FactoryBot/ConsistentParenthesesStyle
+  RSpec/FactoryBot/CreateList: FactoryBot/CreateList
+  RSpec/FactoryBot/FactoryClassName: FactoryBot/FactoryClassName
+  RSpec/FactoryBot/FactoryNameStyle: FactoryBot/FactoryNameStyle
+  RSpec/FactoryBot/SyntaxMethods: FactoryBot/SyntaxMethods
