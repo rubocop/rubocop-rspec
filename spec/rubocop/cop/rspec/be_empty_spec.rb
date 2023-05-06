@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::BeEmpty, :config do
+RSpec.describe RuboCop::Cop::RSpec::BeEmpty do
   it 'registers an offense when using `expect(array).to contain_exactly`' do
     expect_offense(<<~RUBY)
       expect(array).to contain_exactly

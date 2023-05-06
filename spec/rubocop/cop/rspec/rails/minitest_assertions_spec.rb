@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions, :config do
+RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
   it 'registers an offense when using `assert_equal`' do
     expect_offense(<<~RUBY)
       assert_equal(a, b)
