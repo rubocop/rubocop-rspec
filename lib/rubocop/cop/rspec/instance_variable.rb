@@ -48,7 +48,7 @@ module RuboCop
       class InstanceVariable < Base
         include TopLevelGroup
 
-        MSG = 'Avoid instance variables – use let, ' \
+        MSG = 'Avoid instance variables - use let, ' \
               'a method call, or a local variable (if possible).'
 
         # @!method dynamic_class?(node)
