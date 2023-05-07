@@ -23,6 +23,6 @@ Please check with the xref:usage.adoc#rspec-dsl-configuration[RSpec DSL configur
       inherit_gem:
         third-party-gem: .rubocop_rspec_alias_config.yml
 
-3. Include the configuration file to their package by updating their `gemspec`’s `spec.files` to include the aforementioned configuration file.
+3. Include the configuration file to their package by updating their `gemspec`'s `spec.files` to include the aforementioned configuration file.
 
 See pull requests: https://github.com/test-prof/test-prof/pull/199[test-prof], and https://github.com/palkan/action_policy/pull/138[action_policy] for a less trivial example.

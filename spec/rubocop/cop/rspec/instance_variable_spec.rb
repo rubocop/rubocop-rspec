@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
-                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                    ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
       end
     RUBY
   end
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     expect_offense(<<-RUBY)
       shared_examples 'shared example' do
         it { expect(@foo).to be_empty }
-                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                    ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
       end
     RUBY
   end
@@ -34,9 +34,9 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
-                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                    ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
         it { expect(@bar).to be_empty }
-                    ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                    ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
       end
     RUBY
   end
@@ -106,7 +106,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
           end
 
           it { expect(color: 1).to @matcher }
-                                   ^^^^^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                                   ^^^^^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
         end
       RUBY
     end
@@ -138,7 +138,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
         describe MyClass do
           before { @foo = [] }
           it { expect(@foo).to be_empty }
-                      ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                      ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
         end
       RUBY
     end
@@ -160,7 +160,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
           end
 
           it { expect(@foo).to be_empty }
-                      ^^^^ Avoid instance variables – use let, a method call, or a local variable (if possible).
+                      ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
         end
       RUBY
     end
