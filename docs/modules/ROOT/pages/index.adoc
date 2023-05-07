@@ -1,6 +1,6 @@
 = RuboCop RSpec
 
-RSpec-specific analysis for your projects, as an extension to
+https://rspec.info/[RSpec]-specific analysis for your projects, as an extension to
 https://github.com/rubocop/rubocop[RuboCop].
 
 RuboCop RSpec follows the https://docs.rubocop.org/rubocop/versioning.html[RuboCop versioning guide].
