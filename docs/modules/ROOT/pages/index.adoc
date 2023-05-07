@@ -32,7 +32,7 @@ over
 calculator.compute(line_item).should == 5
 ----
 
-is a feature of RSpec itself – you can read about it in the "Disable should syntax" section of https://rspec.info/features/3-12/rspec-expectations/syntax-configuration[RSpec Documentation].
+is a feature of RSpec itself - you can read about it in the "Disable should syntax" section of https://rspec.info/features/3-12/rspec-expectations/syntax-configuration[RSpec Documentation].
 
 === Enforcing an explicit RSpec receiver for top-level methods (disabling monkey patching)
 
