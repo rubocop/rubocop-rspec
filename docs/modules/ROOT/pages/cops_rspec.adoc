@@ -2879,7 +2879,7 @@ end
 
 * https://rspec.rubystyle.guide/#declare-constants
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
-* https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants
+* https://rspec.info/features/3-12/rspec-mocks/mutating-constants
 
 == RSpec/LetBeforeExamples
 
@@ -5295,7 +5295,7 @@ end
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
-* https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
+* https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
 == RSpec/VerifiedDoubles
 
@@ -5349,7 +5349,7 @@ end
 
 * https://rspec.rubystyle.guide/#doubles
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
-* https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
+* https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
 == RSpec/VoidExpect
 

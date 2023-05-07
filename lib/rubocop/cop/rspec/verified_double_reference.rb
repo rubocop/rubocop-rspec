@@ -7,7 +7,7 @@ module RuboCop
       #
       # Only investigates references that are one of the supported styles.
       #
-      # @see https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
+      # @see https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
       #
       # This cop can be configured in your configuration using the
       # `EnforcedStyle` option and supports `--auto-gen-config`.

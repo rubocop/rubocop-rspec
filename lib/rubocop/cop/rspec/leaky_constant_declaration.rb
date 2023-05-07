@@ -17,7 +17,7 @@ module RuboCop
       # Anonymous classes are fine, since they don't result in global
       # namespace name clashes.
       #
-      # @see https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants
+      # @see https://rspec.info/features/3-12/rspec-mocks/mutating-constants
       #
       # @example Constants leak between examples
       #   # bad

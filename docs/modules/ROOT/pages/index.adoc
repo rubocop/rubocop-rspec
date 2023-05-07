@@ -32,7 +32,7 @@ over
 calculator.compute(line_item).should == 5
 ----
 
-is a feature of RSpec itself – you can read about it in the https://relishapp.com/rspec/rspec-expectations/docs/syntax-configuration#disable-should-syntax[RSpec Documentation].
+is a feature of RSpec itself – you can read about it in the "Disable should syntax" section of https://rspec.info/features/3-12/rspec-expectations/syntax-configuration[RSpec Documentation].
 
 === Enforcing an explicit RSpec receiver for top-level methods (disabling monkey patching)
 
@@ -54,6 +54,6 @@ describe MyClass do
 end
 ----
 
-can be achieved using RSpec's `disable_monkey_patching!` method, which you can read more about in the https://relishapp.com/rspec/rspec-core/v/3-7/docs/configuration/zero-monkey-patching-mode#monkey-patched-methods-are-undefined-with-%60disable-monkey-patching!%60[RSpec Documentation]. This will also prevent `should` from being defined on every object in your system.
+can be achieved using RSpec's `disable_monkey_patching!` method, which you can read more about in the https://rspec.info/features/3-12/rspec-core/configuration/zero-monkey-patching-mode[RSpec Documentation]. This will also prevent `should` from being defined on every object in your system.
 
 Before disabling `should` you will need all your specs to use the `expect` syntax. You can use http://yujinakayama.me/transpec/[Transpec], which will do the conversion for you.

@@ -5,7 +5,7 @@ module RuboCop
     module RSpec
       # Prefer using verifying doubles over normal doubles.
       #
-      # @see https://relishapp.com/rspec/rspec-mocks/docs/verifying-doubles
+      # @see https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
       #
       # @example
       #   # bad
