@@ -513,8 +513,10 @@ RSpec/IndexedLet:
   Description: Do not set up test data using indexes (e.g., `item_1`, `item_2`).
   Enabled: pending
   VersionAdded: '2.20'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
   Max: 1
+  AllowedPatterns: []
 
 RSpec/InstanceSpy:
   Description: Checks for `instance_double` used with `have_received`.

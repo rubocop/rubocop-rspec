@@ -31,7 +31,14 @@ module RuboCop
       #   let(:item_1) { create(:item) }
       #   let(:item_2) { create(:item) }
       #
+      # @example `AllowedPatterns: ['item']`
+      #   # good
+      #   let(:item_1) { create(:item) }
+      #   let(:item_2) { create(:item) }
+      #
       class IndexedLet < Base
+        include AllowedPattern
+
         MSG = 'This `let` statement uses index in its name. Please give it ' \
               'a meaningful name.'
 
@@ -69,11 +76,19 @@ module RuboCop
         end
 
         def indexed_let?(node)
-          let?(node) && SUFFIX_INDEX_REGEX.match?(let_name(node))
+          let?(node) &&
+            SUFFIX_INDEX_REGEX.match?(let_name(node)) &&
+            !matches_allowed_pattern?(let_name(node).to_s)
         end
 
         def let_name_stripped_index(node)
           let_name(node).to_s.gsub(INDEX_REGEX, '')
+        end
+
+        def cop_config_patterns_values
+          Array(config.for_cop('Naming/VariableNumber')
+            .fetch('AllowedPatterns', [])) +
+            Array(cop_config.fetch('AllowedPatterns', []))
         end
       end
     end

@@ -2,7 +2,10 @@
 
 RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
   let(:max) { 1 }
-  let(:cop_config) { { 'Max' => max } }
+  let(:allowed_patterns) { [] }
+  let(:cop_config) do
+    { 'Max' => max, 'AllowedPatterns' => allowed_patterns }
+  end
 
   it 'flags repeated symbol names' do
     expect_offense(<<~RUBY)
@@ -123,6 +126,19 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     let(:max) { 2 }
 
     it 'not flags one indexed let because maximum not reached' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeService do
+          let(:item_1) { create(:item) }
+          let(:item_2) { create(:item) }
+        end
+      RUBY
+    end
+  end
+
+  context 'when AllowedPatterns is set' do
+    let(:allowed_patterns) { %w[item] }
+
+    it 'not flags allowed indexed let' do
       expect_no_offenses(<<~RUBY)
         describe SomeService do
           let(:item_1) { create(:item) }
