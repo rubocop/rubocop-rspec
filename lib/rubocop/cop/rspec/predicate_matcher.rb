@@ -74,7 +74,7 @@ module RuboCop
             name[0..-2]
           when 'exist?', 'exists?'
             'exist'
-          when /^has_/
+          when /\Ahas_/
             name.sub('has_', 'have_')[0..-2]
           else
             "be_#{name[0..-2]}"
@@ -240,10 +240,10 @@ module RuboCop
             'include?'
           when 'respond_to'
             'respond_to?'
-          when /^have_(.+)/
+          when /\Ahave_(.+)/
             "has_#{Regexp.last_match(1)}?"
           else
-            "#{matcher[/^be_(.+)/, 1]}?"
+            "#{matcher[/\Abe_(.+)/, 1]}?"
           end
         end
         # rubocop:enable Metrics/MethodLength
