@@ -6,13 +6,13 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(123).to eq(bar)
-                 ^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^ Provide the actual value you are testing to `expect(...)`.
           expect(12.3).to eq(bar)
-                 ^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^ Provide the actual value you are testing to `expect(...)`.
           expect(1i).to eq(bar)
-                 ^^ Provide the actual you are testing to `expect(...)`.
+                 ^^ Provide the actual value you are testing to `expect(...)`.
           expect(1r).to eq(bar)
-                 ^^ Provide the actual you are testing to `expect(...)`.
+                 ^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -34,9 +34,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(true).to eq(bar)
-                 ^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^ Provide the actual value you are testing to `expect(...)`.
           expect(false).to eq(bar)
-                 ^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -56,9 +56,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect("foo").to eq(bar)
-                 ^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^ Provide the actual value you are testing to `expect(...)`.
           expect(:foo).to eq(bar)
-                 ^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(nil).to eq(bar)
-                 ^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -109,9 +109,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect([123]).to eq(bar)
-                 ^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^ Provide the actual value you are testing to `expect(...)`.
           expect([[123]]).to eq(bar)
-                 ^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -131,9 +131,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(foo: 1, bar: 2).to eq(bar)
-                 ^^^^^^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^^^^^^^^ Provide the actual value you are testing to `expect(...)`.
           expect(foo: 1, bar: [{}]).to eq(bar)
-                 ^^^^^^^^^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^^^^^^^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -153,9 +153,9 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(1..2).to eq(bar)
-                 ^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^ Provide the actual value you are testing to `expect(...)`.
           expect(1...2).to eq(bar)
-                 ^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -175,7 +175,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(/foo|bar/).to eq(bar)
-                 ^^^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -220,7 +220,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(true).to be(a)
-                 ^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -239,7 +239,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(1).to be == a
-                 ^ Provide the actual you are testing to `expect(...)`.
+                 ^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -258,7 +258,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(1).to eql(bar)
-                 ^ Provide the actual you are testing to `expect(...)`.
+                 ^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -277,7 +277,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect(1).to equal(bar)
-                 ^ Provide the actual you are testing to `expect(...)`.
+                 ^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -296,7 +296,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect([1,2,3]).to include(a)
-                 ^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY
@@ -309,7 +309,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
       describe Foo do
         it 'uses expect incorrectly' do
           expect([1,2,3]).to eq([1, 2, 3])
-                 ^^^^^^^ Provide the actual you are testing to `expect(...)`.
+                 ^^^^^^^ Provide the actual value you are testing to `expect(...)`.
         end
       end
     RUBY

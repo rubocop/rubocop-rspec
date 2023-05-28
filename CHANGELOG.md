@@ -4,6 +4,7 @@
 
 - Fix a false negative for `RSpec/ExcessiveDocstringSpacing` when finds description with em space. ([@ydah])
 - Fix a false positive for `RSpec/EmptyExampleGroup` when example group with examples defined in `if` branch inside iterator. ([@ydah])
+- Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
 
 ## 2.22.0 (2023-05-06)
 
@@ -784,6 +785,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@cfabianski]: https://github.com/cfabianski
 [@clupprich]: https://github.com/clupprich
 [@composerinteralia]: https://github.com/composerinteralia
+[@corydiamand]: https://github.com/corydiamand
 [@darhazer]: https://github.com/Darhazer
 [@daveworth]: https://github.com/daveworth
 [@dduugg]: https://github.com/dduugg
