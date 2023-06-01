@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false negative for `RSpec/ExcessiveDocstringSpacing` when finds description with em space. ([@ydah])
+
 ## 2.22.0 (2023-05-06)
 
 - Extract factory_bot cops to a separate repository, [`rubocop-factory_bot`](https://github.com/rubocop/rubocop-factory_bot). The `rubocop-factory_bot` repository is a dependency of `rubocop-rspec` and the factory_bot cops are aliased (`RSpec/FactoryBot/Foo` == `FactoryBot/Foo`) until v3.0 is released, so the change will be invisible to users until then. ([@ydah])
