@@ -26,6 +26,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       RUBY
     end
 
+    it 'finds description with leading em space' do
+      expect_offense(<<-RUBY)
+        describe '　　#mymethod' do
+                  ^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe '#mymethod' do
+        end
+      RUBY
+    end
+
     it 'finds interpolated description with leading whitespace' do
       expect_offense(<<-'RUBY')
         describe "  ##{:stuff}" do
@@ -42,6 +55,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     it 'finds description with trailing whitespace' do
       expect_offense(<<-RUBY)
         describe '#mymethod  ' do
+                  ^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe '#mymethod' do
+        end
+      RUBY
+    end
+
+    it 'finds description with trailing em space' do
+      expect_offense(<<-RUBY)
+        describe '#mymethod　　' do
                   ^^^^^^^^^^^ Excessive whitespace.
         end
       RUBY

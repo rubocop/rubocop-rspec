@@ -52,14 +52,21 @@ module RuboCop
 
         # @param text [String]
         def excessive_whitespace?(text)
-          return true if text.start_with?(' ') || text.end_with?(' ')
-
-          text.match?(/[^\n ]  +[^ ]/)
+          text.match?(/
+            # Leading space
+            \A[[:blank:]]
+            |
+            # Trailing space
+            [[:blank:]]\z
+            |
+            # Two or more consecutive spaces, except if they are leading spaces
+            [^[[:space:]]][[:blank:]]{2,}[^[[:blank:]]]
+          /x)
         end
 
         # @param text [String]
         def strip_excessive_whitespace(text)
-          text.strip.gsub(/  +/, ' ')
+          text.strip.gsub(/[[:blank:]]{2,}/, ' ')
         end
 
         # @param node [RuboCop::AST::Node]
