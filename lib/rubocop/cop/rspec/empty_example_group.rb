@@ -36,29 +36,29 @@ module RuboCop
       #   end
       #
       # @example configuration
-      # # .rubocop.yml
-      # RSpec:
-      #   Language:
-      #     Includes:
-      #       Examples:
-      #         - include_tests
-      
-      # # spec_helper.rb
-      # RSpec.configure do |config|
-      #   config.alias_it_behaves_like_to(:include_tests)
-      # end
-      
-      # # bacon_spec.rb
-      # describe Bacon do
-      #   let(:bacon)      { Bacon.new(chunkiness) }
-      #   let(:chunkiness) { false                 }
-      
-      #   context 'extra chunky' do   # not flagged by rubocop
-      #     let(:chunkiness) { true }
-      
-      #     include_tests 'shared tests'
+      #   # .rubocop.yml
+      #   # RSpec:
+      #   #   Language:
+      #   #     Includes:
+      #   #       Examples:
+      #   #         - include_tests
+      #
+      #   # spec_helper.rb
+      #   RSpec.configure do |config|
+      #     config.alias_it_behaves_like_to(:include_tests)
       #   end
-      # end
+      #
+      #   # bacon_spec.rb
+      #   describe Bacon do
+      #     let(:bacon)      { Bacon.new(chunkiness) }
+      #     let(:chunkiness) { false                 }
+      #
+      #     context 'extra chunky' do   # not flagged by rubocop
+      #       let(:chunkiness) { true }
+      #
+      #       include_tests 'shared tests'
+      #     end
+      #   end
       class EmptyExampleGroup < Base
         extend AutoCorrector
 
