@@ -41,8 +41,13 @@ module RuboCop
         def_node_matcher :skippable?, <<~PATTERN
           {
             (send #rspec? #ExampleGroups.regular ...)
-            (send nil? #Examples.regular ...)
+            #skippable_example?
           }
+        PATTERN
+
+        # @!method skippable_example?(node)
+        def_node_matcher :skippable_example?, <<~PATTERN
+          (send nil? #Examples.regular ...)
         PATTERN
 
         # @!method pending_block?(node)
@@ -62,7 +67,12 @@ module RuboCop
         private
 
         def skipped?(node)
-          skippable?(node) && skipped_in_metadata?(node)
+          skippable?(node) && skipped_in_metadata?(node) ||
+            skipped_regular_example_without_body?(node)
+        end
+
+        def skipped_regular_example_without_body?(node)
+          skippable_example?(node) && !node.block_node
         end
       end
     end

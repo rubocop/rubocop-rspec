@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Pending do
+  it 'flags it without body' do
+    expect_offense(<<-RUBY)
+      it 'test'
+      ^^^^^^^^^ Pending spec found.
+    RUBY
+  end
+
+  it 'flags it without body inside describe block' do
+    expect_offense(<<-RUBY)
+      describe 'test' do
+        it 'test'
+        ^^^^^^^^^ Pending spec found.
+      end
+    RUBY
+  end
+
   it 'flags xcontext' do
     expect_offense(<<-RUBY)
       xcontext 'test' do
