@@ -131,6 +131,7 @@ module RuboCop
           {
             #examples_directly_or_in_block?
             (begin <#examples_directly_or_in_block? ...>)
+            (begin <#examples_in_branches? ...>)
           }
         PATTERN
 
@@ -169,6 +170,8 @@ module RuboCop
         end
 
         def examples_in_branches?(condition_node)
+          return if !condition_node.if_type? && !condition_node.case_type?
+
           condition_node.branches.any? { |branch| examples?(branch) }
         end
 

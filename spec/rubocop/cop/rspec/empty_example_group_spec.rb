@@ -224,6 +224,55 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
     RUBY
   end
 
+  it 'ignores example group with examples defined in `if` branch ' \
+     'inside iterator' do
+    expect_no_offenses(<<~RUBY)
+      describe 'RuboCop monthly' do
+        [1, 2, 3].each do |page|
+          version = 2.3
+
+          if RUBY_VERSION >= version
+            it { expect(use_safe_navigation_operator?(code)).to be(true) }
+          else
+            warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in nested iterators' do
+    expect_no_offenses(<<~RUBY)
+      describe 'RuboCop weekly' do
+        some_method
+        [1, 2, 3].each do |page|
+          [4, 5, 6].each do |index|
+            it { expect(newspaper(page)).to have_ads }
+          end
+        end
+        more_surroundings
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in nested `if` branch' do
+    expect_no_offenses(<<~RUBY)
+      describe 'RuboCop monthly' do
+        version = 2.3
+
+        if RUBY_VERSION >= version
+          if RUBY_VERSION <= 3.1
+            it { expect(use_safe_navigation_operator?(code)).to be(true) }
+          else
+            warn 'Ruby > 3.1 is barely supported, please use a newer version for development.'
+          end
+        else
+          warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+        end
+      end
+    RUBY
+  end
+
   it 'ignores example group with examples defined in an custom block' do
     expect_no_offenses(<<~RUBY)
       context 'without arguments' do
