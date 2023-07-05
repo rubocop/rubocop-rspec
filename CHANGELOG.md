@@ -6,6 +6,7 @@
 - Fix a false positive for `RSpec/EmptyExampleGroup` when example group with examples defined in `if` branch inside iterator. ([@ydah])
 - Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
 - Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
+- Add new `RSpec/ReceiveMessages` cop. ([@ydah])
 
 ## 2.22.0 (2023-05-06)
 

@@ -4223,6 +4223,46 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
+== RSpec/ReceiveMessages
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Checks for multiple messages stubbed on the same object.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+before do
+  allow(Service).to receive(:foo).and_return(bar)
+  allow(Service).to receive(:baz).and_return(qux)
+end
+
+# good
+before do
+  allow(Service).to receive_messages(foo: bar, baz: qux)
+end
+
+# good - ignore same message
+before do
+  allow(Service).to receive(:foo).and_return(bar)
+  allow(Service).to receive(:foo).and_return(qux)
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
+
 == RSpec/ReceiveNever
 
 |===
