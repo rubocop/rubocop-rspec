@@ -74,6 +74,7 @@
 * xref:cops_rspec.adoc#rspecpendingwithoutreason[RSpec/PendingWithoutReason]
 * xref:cops_rspec.adoc#rspecpredicatematcher[RSpec/PredicateMatcher]
 * xref:cops_rspec.adoc#rspecreceivecounts[RSpec/ReceiveCounts]
+* xref:cops_rspec.adoc#rspecreceivemessages[RSpec/ReceiveMessages]
 * xref:cops_rspec.adoc#rspecreceivenever[RSpec/ReceiveNever]
 * xref:cops_rspec.adoc#rspecredundantaround[RSpec/RedundantAround]
 * xref:cops_rspec.adoc#rspecrepeateddescription[RSpec/RepeatedDescription]

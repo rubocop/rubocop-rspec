@@ -725,6 +725,12 @@ RSpec/ReceiveCounts:
   VersionAdded: '1.26'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
+RSpec/ReceiveMessages:
+  Description: Checks for multiple messages stubbed on the same object.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
+
 RSpec/ReceiveNever:
   Description: Prefer `not_to receive(...)` over `receive(...).never`.
   Enabled: true
