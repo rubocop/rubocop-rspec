@@ -516,6 +516,7 @@ RSpec/IndexedLet:
   VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
   Max: 1
+  AllowedIdentifiers: []
   AllowedPatterns: []
 
 RSpec/InstanceSpy:

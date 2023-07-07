@@ -7,7 +7,7 @@
 - Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
 - Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
 - Add new `RSpec/ReceiveMessages` cop. ([@ydah])
-- Add `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
+- Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
 
 ## 2.22.0 (2023-05-06)
 

@@ -2505,6 +2505,15 @@ let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 ----
 
+==== `AllowedIdentifiers: ['item_1', 'item_2']`
+
+[source,ruby]
+----
+# good
+let(:item_1) { create(:item) }
+let(:item_2) { create(:item) }
+----
+
 ==== `AllowedPatterns: ['item']`
 
 [source,ruby]
@@ -2522,6 +2531,10 @@ let(:item_2) { create(:item) }
 | Max
 | `1`
 | Integer
+
+| AllowedIdentifiers
+| `[]`
+| Array
 
 | AllowedPatterns
 | `[]`
