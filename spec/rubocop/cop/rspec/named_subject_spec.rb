@@ -153,6 +153,16 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
         end
       RUBY
     end
+
+    it 'ignores subject when block has no body' do
+      expect_no_offenses(<<-RUBY)
+        it "is a User" do
+          subject.each do
+            # empty body
+          end
+        end
+      RUBY
+    end
   end
 
   context 'when IgnoreSharedExamples is false' do
