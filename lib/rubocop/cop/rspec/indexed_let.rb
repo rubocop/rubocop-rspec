@@ -8,6 +8,9 @@ module RuboCop
       # It makes reading the test harder because it's not clear what exactly
       # is tested by this particular example.
       #
+      # The configurable options `AllowedIdentifiers` and `AllowedPatterns`
+      # will also read those set in `Naming/VariableNumber`.
+      #
       # @example `Max: 1 (default)`
       #   # bad
       #   let(:item_1) { create(:item) }
