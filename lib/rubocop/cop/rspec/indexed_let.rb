@@ -8,6 +8,9 @@ module RuboCop
       # It makes reading the test harder because it's not clear what exactly
       # is tested by this particular example.
       #
+      # The configurable options `AllowedIdentifiers` and `AllowedPatterns`
+      # will also read those set in `Naming/VariableNumber`.
+      #
       # @example `Max: 1 (default)`
       #   # bad
       #   let(:item_1) { create(:item) }
@@ -31,7 +34,20 @@ module RuboCop
       #   let(:item_1) { create(:item) }
       #   let(:item_2) { create(:item) }
       #
+      # @example `AllowedIdentifiers: ['item_1', 'item_2']`
+      #   # good
+      #   let(:item_1) { create(:item) }
+      #   let(:item_2) { create(:item) }
+      #
+      # @example `AllowedPatterns: ['item']`
+      #   # good
+      #   let(:item_1) { create(:item) }
+      #   let(:item_2) { create(:item) }
+      #
       class IndexedLet < Base
+        include AllowedIdentifiers
+        include AllowedPattern
+
         MSG = 'This `let` statement uses index in its name. Please give it ' \
               'a meaningful name.'
 
@@ -69,11 +85,26 @@ module RuboCop
         end
 
         def indexed_let?(node)
-          let?(node) && SUFFIX_INDEX_REGEX.match?(let_name(node))
+          let?(node) &&
+            SUFFIX_INDEX_REGEX.match?(let_name(node)) &&
+            !allowed_identifier?(let_name(node).to_s) &&
+            !matches_allowed_pattern?(let_name(node).to_s)
         end
 
         def let_name_stripped_index(node)
           let_name(node).to_s.gsub(INDEX_REGEX, '')
+        end
+
+        def cop_config_patterns_values
+          Array(config.for_cop('Naming/VariableNumber')
+            .fetch('AllowedPatterns', [])) +
+            Array(cop_config.fetch('AllowedPatterns', []))
+        end
+
+        def allowed_identifiers
+          Array(config.for_cop('Naming/VariableNumber')
+            .fetch('AllowedIdentifiers', [])) +
+            Array(cop_config.fetch('AllowedIdentifiers', []))
         end
       end
     end
