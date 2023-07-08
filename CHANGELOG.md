@@ -8,6 +8,7 @@
 - Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
 - Add new `RSpec/ReceiveMessages` cop. ([@ydah])
 - Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
+- Fix `RSpec/LetBeforeExamples` autocorrect incompatible with `RSpec/ScatteredLet` autocorrect. ([@ydah])
 
 ## 2.22.0 (2023-05-06)
 
