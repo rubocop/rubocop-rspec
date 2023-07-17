@@ -2464,13 +2464,16 @@ it { expect(named_subject).to be_truthy }
 | Yes
 | No
 | 2.20
-| -
+| <<next>>
 |===
 
 Do not set up test data using indexes (e.g., `item_1`, `item_2`).
 
 It makes reading the test harder because it's not clear what exactly
 is tested by this particular example.
+
+The configurable options `AllowedIdentifiers` and `AllowedPatterns`
+will also read those set in `Naming/VariableNumber`.
 
 === Examples
 
@@ -2505,6 +2508,24 @@ let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 ----
 
+==== `AllowedIdentifiers: ['item_1', 'item_2']`
+
+[source,ruby]
+----
+# good
+let(:item_1) { create(:item) }
+let(:item_2) { create(:item) }
+----
+
+==== `AllowedPatterns: ['item']`
+
+[source,ruby]
+----
+# good
+let(:item_1) { create(:item) }
+let(:item_2) { create(:item) }
+----
+
 === Configurable attributes
 
 |===
@@ -2513,6 +2534,14 @@ let(:item_2) { create(:item) }
 | Max
 | `1`
 | Integer
+
+| AllowedIdentifiers
+| `[]`
+| Array
+
+| AllowedPatterns
+| `[]`
+| Array
 |===
 
 === References

@@ -145,7 +145,7 @@ module RuboCop
         end
 
         def find_subject(block_node)
-          block_node.body.child_nodes.find { |send_node| subject?(send_node) }
+          block_node.body&.child_nodes&.find { |send_node| subject?(send_node) }
         end
       end
     end
