@@ -8,6 +8,7 @@
 - Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
 - Add new `RSpec/ReceiveMessages` cop. ([@ydah])
 - Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
+- Fix `RSpec/NamedSubject` when block has no body. ([@splattael])
 - Fix `RSpec/LetBeforeExamples` autocorrect incompatible with `RSpec/ScatteredLet` autocorrect. ([@ydah])
 
 ## 2.22.0 (2023-05-06)
@@ -868,6 +869,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
 [@smcgivern]: https://github.com/smcgivern
+[@splattael]: https://github.com/splattael
 [@stephannv]: https://github.com/stephannv
 [@t3h2mas]: https://github.com/t3h2mas
 [@tdeo]: https://github.com/tdeo
