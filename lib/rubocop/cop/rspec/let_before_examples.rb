@@ -51,6 +51,10 @@ module RuboCop
           }
         PATTERN
 
+        def self.autocorrect_incompatible_with
+          [RSpec::ScatteredLet]
+        end
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group_with_body?(node)
 
