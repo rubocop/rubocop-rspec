@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add new `RSpec/Rails/NegationBeValid` cop. ([@ydah])
 - Fix a false negative for `RSpec/ExcessiveDocstringSpacing` when finds description with em space. ([@ydah])
 - Fix a false positive for `RSpec/EmptyExampleGroup` when example group with examples defined in `if` branch inside iterator. ([@ydah])
 - Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
