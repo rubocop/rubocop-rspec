@@ -378,7 +378,7 @@ expect(foo).to be(nil)
 | Yes
 | No
 | 1.12
-| -
+| <<next>>
 |===
 
 Check that before/after(:all) isn't being used.
@@ -412,7 +412,7 @@ end
 | Name | Default value | Configurable values
 
 | Exclude
-| `spec/spec_helper.rb`, `spec/rails_helper.rb`, `+spec/support/**/*.rb+`
+| `+**/spec/spec_helper.rb+`, `+**/spec/rails_helper.rb+`, `+**/spec/support/**/*.rb+`
 | Array
 |===
 
@@ -1767,7 +1767,7 @@ end
 | Yes
 | Yes
 | 1.7
-| -
+| <<next>>
 |===
 
 Checks for `expect(...)` calls containing literal values.
@@ -1798,7 +1798,7 @@ expect(false).to eq(true)
 | Name | Default value | Configurable values
 
 | Exclude
-| `+spec/routing/**/*+`
+| `+**/spec/routing/**/*+`
 | Array
 |===
 

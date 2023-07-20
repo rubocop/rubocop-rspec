@@ -8,6 +8,7 @@
 - Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
 - Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
 - Add new `RSpec/ReceiveMessages` cop. ([@ydah])
+- Change default.yml path to use `**/spec/*` instead of `spec/*`. ([@ydah])
 - Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
 - Fix `RSpec/NamedSubject` when block has no body. ([@splattael])
 - Fix `RSpec/LetBeforeExamples` autocorrect incompatible with `RSpec/ScatteredLet` autocorrect. ([@ydah])
