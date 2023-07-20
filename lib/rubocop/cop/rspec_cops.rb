@@ -18,6 +18,7 @@ require_relative 'rspec/factory_bot/syntax_methods'
 
 require_relative 'rspec/rails/avoid_setup_hook'
 require_relative 'rspec/rails/have_http_status'
+require_relative 'rspec/rails/negation_be_valid'
 begin
   require_relative 'rspec/rails/http_status'
 rescue LoadError

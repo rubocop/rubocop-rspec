@@ -261,6 +261,58 @@ expect(b).not_to eq(a)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
 
+== RSpec/Rails/NegationBeValid
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Enforces use of `be_invalid` or `not_to` for negated be_valid.
+
+=== Examples
+
+==== EnforcedStyle: not_to (default)
+
+[source,ruby]
+----
+# bad
+expect(foo).to be_invalid
+
+# good
+expect(foo).not_to be_valid
+----
+
+==== EnforcedStyle: be_invalid
+
+[source,ruby]
+----
+# bad
+expect(foo).not_to be_valid
+
+# good
+expect(foo).to be_invalid
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| EnforcedStyle
+| `not_to`
+| `not_to`, `be_invalid`
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/NegationBeValid
+
 == RSpec/Rails/TravelAround
 
 |===
