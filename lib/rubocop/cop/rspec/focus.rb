@@ -34,6 +34,18 @@ module RuboCop
       #   # good
       #   describe 'test' do; end
       #
+      #   # bad
+      #   shared_examples 'test', focus: true do; end
+      #
+      #   # good
+      #   shared_examples 'test' do; end
+      #
+      #   # bad
+      #   shared_context 'test', focus: true do; end
+      #
+      #   # good
+      #   shared_context 'test' do; end
+      #
       #   # bad (does not support autocorrection)
       #   focus 'test' do; end
       #
@@ -51,6 +63,7 @@ module RuboCop
             #Examples.regular
             #Examples.skipped
             #Examples.pending
+            #SharedGroups.all
           }
         PATTERN
 

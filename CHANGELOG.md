@@ -12,6 +12,7 @@
 - Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
 - Fix `RSpec/NamedSubject` when block has no body. ([@splattael])
 - Fix `RSpec/LetBeforeExamples` autocorrect incompatible with `RSpec/ScatteredLet` autocorrect. ([@ydah])
+- Update `RSpec/Focus` to support `shared_context` and `shared_examples` ([@tmaier])
 
 ## 2.22.0 (2023-05-06)
 
@@ -879,6 +880,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@telmofcosta]: https://github.com/telmofcosta
 [@tietew]: https://github.com/Tietew
 [@timrogers]: https://github.com/timrogers
+[@tmaier]: https://github.com/tmaier
 [@topalovic]: https://github.com/topalovic
 [@twalpole]: https://github.com/twalpole
 [@vzvu3k6k]: https://github.com/vzvu3k6k
