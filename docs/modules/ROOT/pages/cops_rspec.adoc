@@ -378,7 +378,7 @@ expect(foo).to be(nil)
 | Yes
 | No
 | 1.12
-| <<next>>
+| 2.23
 |===
 
 Check that before/after(:all) isn't being used.
@@ -1767,7 +1767,7 @@ end
 | Yes
 | Yes
 | 1.7
-| <<next>>
+| 2.23
 |===
 
 Checks for `expect(...)` calls containing literal values.
@@ -2476,7 +2476,7 @@ it { expect(named_subject).to be_truthy }
 | Yes
 | No
 | 2.20
-| <<next>>
+| 2.23
 |===
 
 Do not set up test data using indexes (e.g., `item_1`, `item_2`).
@@ -4272,7 +4272,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.23
 | -
 |===
 

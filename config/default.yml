@@ -185,7 +185,7 @@ RSpec/BeforeAfterAll:
     - "**/spec/rails_helper.rb"
     - "**/spec/support/**/*.rb"
   VersionAdded: '1.12'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   StyleGuide: https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
@@ -407,7 +407,7 @@ RSpec/ExpectActual:
   Exclude:
     - "**/spec/routing/**/*"
   VersionAdded: '1.7'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
 RSpec/ExpectChange:
@@ -515,7 +515,7 @@ RSpec/IndexedLet:
   Description: Do not set up test data using indexes (e.g., `item_1`, `item_2`).
   Enabled: pending
   VersionAdded: '2.20'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
   Max: 1
   AllowedIdentifiers: []
@@ -733,7 +733,7 @@ RSpec/ReceiveCounts:
 RSpec/ReceiveMessages:
   Description: Checks for multiple messages stubbed on the same object.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
 
 RSpec/ReceiveNever:
@@ -989,7 +989,7 @@ RSpec/FactoryBot/AttributeDefinedStatically:
     - "**/spec/factories/**/*.rb"
     - "**/features/support/factories/**/*.rb"
   VersionAdded: '1.28'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
 
 RSpec/FactoryBot/ConsistentParenthesesStyle:
@@ -1016,7 +1016,7 @@ RSpec/FactoryBot/CreateList:
     - create_list
     - n_times
   VersionAdded: '1.25'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
 RSpec/FactoryBot/FactoryClassName:
@@ -1027,7 +1027,7 @@ RSpec/FactoryBot/FactoryClassName:
     - "**/spec/factories/**/*.rb"
     - "**/features/support/factories/**/*.rb"
   VersionAdded: '1.37'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/FactoryClassName
 
 RSpec/FactoryBot/FactoryNameStyle:
@@ -1113,7 +1113,7 @@ RSpec/Rails/NegationBeValid:
     - not_to
     - be_invalid
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/NegationBeValid
 
 RSpec/Rails/TravelAround:

@@ -9,7 +9,7 @@
 | Yes
 | Yes
 | 1.28
-| <<next>>
+| 2.23
 |===
 
 Always declare attribute values as blocks.
@@ -131,7 +131,7 @@ build(
 | Yes
 | Yes
 | 1.25
-| <<next>>
+| 2.23
 |===
 
 Checks for create_list usage.
@@ -198,7 +198,7 @@ create_list :user, 3
 | Yes
 | Yes
 | 1.37
-| <<next>>
+| 2.23
 |===
 
 Use string value when setting the class attribute explicitly.
