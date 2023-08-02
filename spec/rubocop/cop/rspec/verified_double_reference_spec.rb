@@ -40,6 +40,12 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
           RUBY
         end
 
+        it 'does not flag a violation when using a non-constant string' do
+          expect_no_offenses(<<~RUBY)
+            #{verified_double}('a b')
+          RUBY
+        end
+
         include_examples 'detects style',
                          "#{verified_double}(ClassName)",
                          'constant'

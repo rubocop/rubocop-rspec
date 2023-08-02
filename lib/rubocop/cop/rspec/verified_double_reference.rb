@@ -73,7 +73,7 @@ module RuboCop
 
         def on_send(node)
           verified_double(node) do |class_reference|
-            break correct_style_detected unless opposing_style?(class_reference)
+            break correct_style_detected if correct_style?(class_reference)
 
             message = format(MSG, style: style)
             expression = class_reference.source_range
@@ -89,6 +89,11 @@ module RuboCop
 
         private
 
+        def correct_style?(class_reference)
+          !opposing_style?(class_reference) ||
+            non_constant_string?(class_reference)
+        end
+
         def opposing_style?(class_reference)
           class_reference_style = REFERENCE_TYPE_STYLES[class_reference.type]
 
@@ -96,6 +101,12 @@ module RuboCop
           return false unless class_reference_style
 
           class_reference_style != style
+        end
+
+        def non_constant_string?(class_reference)
+          return false unless class_reference.str_type?
+
+          !class_reference.value.match?(/\A(?:(?:::)?[A-Z]\w*)+\z/)
         end
 
         def correct_style(violation)
