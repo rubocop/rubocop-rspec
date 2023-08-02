@@ -4009,7 +4009,7 @@ let!(:other) { other }
 | Yes
 | No
 | 1.25
-| -
+| <<next>>
 |===
 
 Checks for any pending or skipped examples.
@@ -4044,6 +4044,42 @@ end
 describe MyClass do
 end
 ----
+
+==== `AllowedIdentifiers: ['run_test!']`
+
+[source,ruby]
+----
+# good
+response '201', 'foo created' do
+  run_test!
+end
+----
+
+==== `AllowedPatterns: ['it']`
+
+[source,ruby]
+----
+# good
+describe SomeService do
+  it
+  xit 'test' do
+  end
+end
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| AllowedIdentifiers
+| `[]`
+| Array
+
+| AllowedPatterns
+| `[]`
+| Array
+|===
 
 === References
 

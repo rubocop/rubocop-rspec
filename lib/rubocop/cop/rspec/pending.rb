@@ -32,8 +32,24 @@ module RuboCop
       #   describe MyClass do
       #   end
       #
+      # @example `AllowedIdentifiers: ['run_test!']`
+      #   # good
+      #   response '201', 'foo created' do
+      #     run_test!
+      #   end
+      #
+      # @example `AllowedPatterns: ['it']`
+      #   # good
+      #   describe SomeService do
+      #     it
+      #     xit 'test' do
+      #     end
+      #   end
+      #
       class Pending < Base
         include SkipOrPending
+        include AllowedIdentifiers
+        include AllowedPattern
 
         MSG = 'Pending spec found.'
 
@@ -60,6 +76,7 @@ module RuboCop
 
         def on_send(node)
           return unless pending_block?(node) || skipped?(node)
+          return if allowed?(node.method_name.to_s)
 
           add_offense(node)
         end
@@ -73,6 +90,11 @@ module RuboCop
 
         def skipped_regular_example_without_body?(node)
           skippable_example?(node) && !node.block_node
+        end
+
+        def allowed?(method_name)
+          allowed_identifier?(method_name) ||
+            matches_allowed_pattern?(method_name)
         end
       end
     end

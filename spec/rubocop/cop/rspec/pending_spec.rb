@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Pending do
+  let(:allowed_patterns) { [] }
+  let(:allowed_identifiers) { [] }
+  let(:cop_config) do
+    {
+      'AllowedIdentifiers' => allowed_identifiers,
+      'AllowedPatterns' => allowed_patterns
+    }
+  end
+
   it 'flags it without body' do
     expect_offense(<<-RUBY)
       it 'test'
@@ -224,5 +233,33 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
     expect_no_offenses(<<-RUBY)
       subject { Project.pending }
     RUBY
+  end
+
+  context 'when AllowedIdentifiers is set' do
+    let(:allowed_identifiers) { %w[it xcontext] }
+
+    it 'ignores allowed indexed let' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeService do
+          it
+          xcontext 'test' do
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'when AllowedPatterns is set' do
+    let(:allowed_patterns) { %w[it] }
+
+    it 'ignores allowed indexed let' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeService do
+          it
+          xit 'test' do
+          end
+        end
+      RUBY
+    end
   end
 end

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/Pending`. ([@ydah])
+
 ## 2.23.0 (2023-07-30)
 
 - Add new `RSpec/Rails/NegationBeValid` cop. ([@ydah])

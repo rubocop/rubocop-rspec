@@ -702,7 +702,10 @@ RSpec/Pending:
   Description: Checks for any pending or skipped examples.
   Enabled: false
   VersionAdded: '1.25'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
+  AllowedIdentifiers: []
+  AllowedPatterns: []
 
 RSpec/PendingWithoutReason:
   Description: Checks for pending or skipped examples without reason.
