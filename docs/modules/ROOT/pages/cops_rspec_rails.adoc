@@ -286,6 +286,9 @@ expect(foo).to be_invalid
 
 # good
 expect(foo).not_to be_valid
+
+# good (with method chain)
+expect(foo).to be_invalid.and be_odd
 ----
 
 ==== EnforcedStyle: be_invalid
@@ -297,6 +300,9 @@ expect(foo).not_to be_valid
 
 # good
 expect(foo).to be_invalid
+
+# good (with method chain)
+expect(foo).to be_invalid.or be_even
 ----
 
 === Configurable attributes

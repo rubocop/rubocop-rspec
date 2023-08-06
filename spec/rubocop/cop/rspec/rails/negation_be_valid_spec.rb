@@ -27,6 +27,14 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::NegationBeValid do
         expect(foo).to be_valid
       RUBY
     end
+
+    it 'does not register an offense when using ' \
+       '`expect(...).to be_invalid` and method chain' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to be_invalid.and be_odd
+        expect(foo).to be_invalid.or be_even
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `be_invalid`' do
@@ -51,6 +59,14 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::NegationBeValid do
        '`expect(...).to be_valid`' do
       expect_no_offenses(<<~RUBY)
         expect(foo).to be_valid
+      RUBY
+    end
+
+    it 'does not register an offense when using ' \
+       '`expect(...).not_to be_valid` and method chain' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).not_to be_valid.and be_odd
+        expect(foo).not_to be_valid.or be_even
       RUBY
     end
   end
