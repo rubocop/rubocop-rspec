@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Mark to `Safe: false` for `RSpec/Rails/NegationBeValid`  cop. ([@ydah])
+
 ## 2.23.0 (2023-07-30)
 
 - Add new `RSpec/Rails/NegationBeValid` cop. ([@ydah])

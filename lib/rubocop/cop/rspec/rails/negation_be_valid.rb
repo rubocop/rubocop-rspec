@@ -6,6 +6,10 @@ module RuboCop
       module Rails
         # Enforces use of `be_invalid` or `not_to` for negated be_valid.
         #
+        # @safety
+        #   This cop is unsafe because it cannot guarantee that
+        #   the test target is an instance of `ActiveModel::Validations``.
+        #
         # @example EnforcedStyle: not_to (default)
         #   # bad
         #   expect(foo).to be_invalid
