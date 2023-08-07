@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.23.1 (2023-08-07)
+
 - Mark to `Safe: false` for `RSpec/Rails/NegationBeValid`  cop. ([@ydah])
 - Declare autocorrect as unsafe for `RSpec/ReceiveMessages`. ([@bquorning])
 
