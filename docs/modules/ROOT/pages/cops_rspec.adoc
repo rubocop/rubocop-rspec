@@ -4273,7 +4273,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 | Yes
 | Yes (Unsafe)
 | 2.23
-| <<next>>
+| -
 |===
 
 Checks for multiple messages stubbed on the same object.
