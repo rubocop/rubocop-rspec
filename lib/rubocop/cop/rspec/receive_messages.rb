@@ -5,6 +5,11 @@ module RuboCop
     module RSpec
       # Checks for multiple messages stubbed on the same object.
       #
+      # @safety
+      #   The autocorrection is marked as unsafe, because it may change the
+      #   order of stubs. This in turn may cause e.g. variables to be called
+      #   before they are defined.
+      #
       # @example
       #   # bad
       #   before do

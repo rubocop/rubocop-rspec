@@ -4271,12 +4271,18 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 | Pending
 | Yes
-| Yes
+| Yes (Unsafe)
 | 2.23
-| -
+| <<next>>
 |===
 
 Checks for multiple messages stubbed on the same object.
+
+=== Safety
+
+The autocorrection is marked as unsafe, because it may change the
+order of stubs. This in turn may cause e.g. variables to be called
+before they are defined.
 
 === Examples
 
