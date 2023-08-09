@@ -40,6 +40,24 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveMessages, :config do
   end
 
   it 'registers an offense when multiple messeages stubbed on the ' \
+     'same object and symbol methods' do
+    expect_offense(<<~RUBY)
+      before do
+        allow(Service).to receive(:`).and_return(true)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [3].
+        allow(Service).to receive(:[]).and_return(true)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [2].
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      before do
+        allow(Service).to receive_messages('`': true, '[]': true)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when multiple messeages stubbed on the ' \
      'same object and return array' do
     expect_offense(<<~RUBY)
       before do
@@ -96,6 +114,26 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveMessages, :config do
         allow(Service).to receive(:foo).and_return(1).once
         allow(Service).to receive(:bar).and_return(2).twice
         allow(Service).to receive(:baz).and_return(3).exactly(3).times
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when multiple messeages stubbed on the ' \
+     'same object and return with splat' do
+    expect_no_offenses(<<~RUBY)
+      before do
+        allow(Service).to receive(:foo).and_return(*array)
+        allow(Service).to receive(:bar).and_return(*array)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when multiple messeages stubbed on the ' \
+     'same object and return multiple' do
+    expect_no_offenses(<<~RUBY)
+      before do
+        allow(Service).to receive(:foo).and_return(1, 2)
+        allow(Service).to receive(:bar).and_return(3, 4)
       end
     RUBY
   end
