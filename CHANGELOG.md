@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when method is only non-word character. ([@marocchino])
 - Fix a false positive for `RSpec/ReceiveMessages` when return with splat. ([@marocchino])
 
 ## 2.23.1 (2023-08-07)

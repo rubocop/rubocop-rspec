@@ -40,6 +40,24 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveMessages, :config do
   end
 
   it 'registers an offense when multiple messeages stubbed on the ' \
+     'same object and symbol methods' do
+    expect_offense(<<~RUBY)
+      before do
+        allow(Service).to receive(:`).and_return(true)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [3].
+        allow(Service).to receive(:[]).and_return(true)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [2].
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      before do
+        allow(Service).to receive_messages('`': true, '[]': true)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when multiple messeages stubbed on the ' \
      'same object and return array' do
     expect_offense(<<~RUBY)
       before do

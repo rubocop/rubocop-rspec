@@ -153,7 +153,7 @@ module RuboCop
         end
 
         def requires_quotes?(value)
-          value.match?(/^:".*?"|=$/)
+          value.match?(/^:".*?"|=$|^\W+$/)
         end
       end
     end
