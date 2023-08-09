@@ -51,7 +51,8 @@ module RuboCop
           parent = expect.parent
           return true unless parent
           return true if parent.begin_type?
-          return true if parent.block_type? && parent.body == expect
+
+          true if parent.block_type? && parent.body == expect
         end
       end
     end
