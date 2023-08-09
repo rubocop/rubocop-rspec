@@ -35,7 +35,7 @@ module RuboCop
           return unless inside_example_group?(node)
 
           variable_definition?(node) do |variable|
-            next unless style_violation?(variable)
+            next unless style_offense?(variable)
 
             add_offense(
               variable,
@@ -59,7 +59,7 @@ module RuboCop
           end
         end
 
-        def style_violation?(variable)
+        def style_offense?(variable)
           style == :symbols && string?(variable) ||
             style == :strings && symbol?(variable)
         end

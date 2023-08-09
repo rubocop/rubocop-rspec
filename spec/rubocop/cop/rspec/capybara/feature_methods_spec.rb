@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
-  it 'flags violations for `background`' do
+  it 'flags offenses for `background`' do
     expect_offense(<<-RUBY)
       describe 'some feature' do
         background do; end
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations for `scenario`' do
+  it 'flags offenses for `scenario`' do
     expect_offense(<<-RUBY)
       RSpec.describe 'some feature' do
         scenario 'Foo' do; end
@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations for `xscenario`' do
+  it 'flags offenses for `xscenario`' do
     expect_offense(<<-RUBY)
       describe 'Foo' do
         RSpec.xscenario 'Baz' do; end
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations for `given`' do
+  it 'flags offenses for `given`' do
     expect_offense(<<-RUBY)
       RSpec.describe 'Foo' do
         given(:foo) { :foo }
@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations for `given!`' do
+  it 'flags offenses for `given!`' do
     expect_offense(<<-RUBY)
       describe 'Foo' do
         given!(:foo) { :foo }
@@ -76,7 +76,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations for `feature`' do
+  it 'flags offenses for `feature`' do
     expect_offense(<<-RUBY)
       RSpec.feature 'Foo' do; end
             ^^^^^^^ Use `describe` instead of `feature`.
@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::RSpec::Capybara::FeatureMethods do
     RUBY
   end
 
-  it 'flags violations inside shared groups' do
+  it 'flags offenses inside shared groups' do
     expect_offense(<<-RUBY)
       RSpec.shared_examples_for 'common scenarios' do
         feature 'Foo' do; end

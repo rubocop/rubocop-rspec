@@ -291,7 +291,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
     RUBY
   end
 
-  it 'flags but does not autocorrect violations for other matchers' do
+  it 'flags but does not autocorrect offenses for other matchers' do
     expect_offense(<<-RUBY)
       describe Foo do
         it 'uses expect incorrectly' do

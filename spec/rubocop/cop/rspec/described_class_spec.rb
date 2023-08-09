@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
   context 'when SkipBlocks is `true`' do
     let(:cop_config) { { 'SkipBlocks' => true } }
 
-    it 'ignores violations within non-rspec blocks' do
+    it 'ignores offenses within non-rspec blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
           controller(ApplicationController) do
@@ -27,7 +27,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
   end
 
   context 'when SkipBlocks is `false`' do
-    it 'flags violations within all blocks' do
+    it 'flags offenses within all blocks' do
       expect_offense(<<-RUBY)
         describe MyClass do
           controller(ApplicationController) do
@@ -194,7 +194,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'ignores violations within a class scope change' do
+    it 'ignores offenses within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -206,7 +206,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'ignores violations within a hook scope change' do
+    it 'ignores offenses within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do
@@ -334,7 +334,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'ignores violations within a class scope change' do
+    it 'ignores offenses within a class scope change' do
       expect_no_offenses(<<-RUBY)
         describe MyNamespace::MyClass do
           before do
@@ -346,7 +346,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'ignores violations within a hook scope change' do
+    it 'ignores offenses within a hook scope change' do
       expect_no_offenses(<<-RUBY)
         describe do
           before do

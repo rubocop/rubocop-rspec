@@ -19,11 +19,11 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
           { 'EnforcedStyle' => 'constant' }
         end
 
-        it 'does not flag a violation when using a constant reference' do
+        it 'does not flag an offense when using a constant reference' do
           expect_no_offenses("#{verified_double}(ClassName)")
         end
 
-        it 'flags a violation when using a string reference' do
+        it 'flags an offense when using a string reference' do
           expect_offense(<<~RUBY, verified_double: verified_double)
             %{verified_double}('ClassName')
             _{verified_double} ^^^^^^^^^^^ Use a constant class reference for verified doubles.
@@ -50,11 +50,11 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
           { 'EnforcedStyle' => 'string' }
         end
 
-        it 'does not flag a violation when using a string reference' do
+        it 'does not flag an offense when using a string reference' do
           expect_no_offenses("#{verified_double}('ClassName')")
         end
 
-        it 'flags a violation when using a constant reference' do
+        it 'flags an offense when using a constant reference' do
           expect_offense(<<~RUBY, verified_double: verified_double)
             %{verified_double}(ClassName)
             _{verified_double} ^^^^^^^^^ Use a string class reference for verified doubles.
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
     end
   end
 
-  it 'does not flag a violation when reference is not a supported style' do
+  it 'does not flag an offense when reference is not a supported style' do
     expect_no_offenses(<<~RUBY)
       klass = Array
       instance_double(klass)
