@@ -37,7 +37,7 @@ module RuboCop
 
         # @!method allow_receive_message?(node)
         def_node_matcher :allow_receive_message?, <<~PATTERN
-          (send (send nil? :allow ...) :to (send (send nil? :receive (sym _)) :and_return !#heredoc?))
+          (send (send nil? :allow ...) :to (send (send nil? :receive (sym _)) :and_return !#heredoc_or_splat?))
         PATTERN
 
         # @!method allow_argument(node)
@@ -147,8 +147,9 @@ module RuboCop
           range_by_whole_lines(item.source_range, include_final_newline: true)
         end
 
-        def heredoc?(node)
-          (node.str_type? || node.dstr_type?) && node.heredoc?
+        def heredoc_or_splat?(node)
+          (node.str_type? || node.dstr_type?) && node.heredoc? ||
+            node.splat_type?
         end
 
         def requires_quotes?(value)

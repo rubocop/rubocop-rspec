@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/ReceiveMessages` when return with splat. ([@marocchino])
+
 ## 2.23.1 (2023-08-07)
 
 - Mark to `Safe: false` for `RSpec/Rails/NegationBeValid`  cop. ([@ydah])
@@ -843,6 +845,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@lokhi]: https://github.com/lokhi
 [@luke-hill]: https://github.com/luke-hill
 [@m-yamashita01]: https://github.com/M-Yamashita01
+[@marocchino]: https://github.com/marocchino
 [@miguelfteixeira]: https://github.com/miguelfteixeira
 [@mkenyon]: https://github.com/mkenyon
 [@mkrawc]: https://github.com/mkrawc
