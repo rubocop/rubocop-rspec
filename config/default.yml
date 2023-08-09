@@ -359,6 +359,12 @@ RSpec/EmptyLineAfterSubject:
   StyleGuide: https://rspec.rubystyle.guide/#empty-line-after-let
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
+RSpec/Eq:
+  Description: Use `eq` instead of `be ==` to compare objects.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
+
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true

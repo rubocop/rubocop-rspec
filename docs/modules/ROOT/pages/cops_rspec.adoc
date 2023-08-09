@@ -1464,6 +1464,35 @@ let(:foo) { bar }
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
+== RSpec/Eq
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Yes
+| <<next>>
+| -
+|===
+
+Use `eq` instead of `be ==` to compare objects.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(foo).to be == true
+
+# good
+expect(foo).to eq true
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
+
 == RSpec/ExampleLength
 
 |===

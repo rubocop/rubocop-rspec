@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
+- Add new `RSpec/Eq` cop. ([@ydah])
 
 ## 2.23.2 (2023-08-09)
 
