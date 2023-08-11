@@ -238,7 +238,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
     end
   end
 
-  it 'generates a todo based on the worst violation' do
+  it 'generates a todo based on the worst offense' do
     inspect_source(<<-RUBY, 'spec/foo_spec.rb')
       describe Foo do
         it 'uses expect twice' do

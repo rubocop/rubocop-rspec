@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
     RUBY
   end
 
-  it 'does not register a violation if rspec tag magic is involved' do
+  it 'does not register an offense if rspec tag magic is involved' do
     expect_no_offenses(<<-RUBY)
       describe 'doing x' do
         it "does x" do

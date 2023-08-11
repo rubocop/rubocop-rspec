@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::DescribeSymbol do
-  it 'flags violations for `describe :symbol`' do
+  it 'flags offenses for `describe :symbol`' do
     expect_offense(<<-RUBY)
       describe(:some_method) { }
                ^^^^^^^^^^^^ Avoid describing symbols.
     RUBY
   end
 
-  it 'flags violations for `describe :symbol` with multiple arguments' do
+  it 'flags offenses for `describe :symbol` with multiple arguments' do
     expect_offense(<<-RUBY)
       describe(:some_method, "description") { }
                ^^^^^^^^^^^^ Avoid describing symbols.
     RUBY
   end
 
-  it 'flags violations for `RSpec.describe :symbol`' do
+  it 'flags offenses for `RSpec.describe :symbol`' do
     expect_offense(<<-RUBY)
       RSpec.describe(:some_method, "description") { }
                      ^^^^^^^^^^^^ Avoid describing symbols.
     RUBY
   end
 
-  it 'flags violations for a nested `describe`' do
+  it 'flags offenses for a nested `describe`' do
     expect_offense(<<-RUBY)
       RSpec.describe Foo do
         describe :to_s do
