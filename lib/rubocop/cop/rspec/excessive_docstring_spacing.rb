@@ -66,7 +66,9 @@ module RuboCop
 
         # @param text [String]
         def strip_excessive_whitespace(text)
-          text.strip.gsub(/[[:blank:]]{2,}/, ' ')
+          text
+            .gsub(/[[:blank:]]{2,}/, ' ')
+            .gsub(/\A[[:blank:]]|[[:blank:]]\z/, '')
         end
 
         # @param node [RuboCop::AST::Node]

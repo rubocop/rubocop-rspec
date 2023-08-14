@@ -28,8 +28,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'finds description with leading em space' do
       expect_offense(<<-RUBY)
-        describe '　　#mymethod' do
+        describe '\u3000\u3000#mymethod' do
                   ^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe '#mymethod' do
+        end
+      RUBY
+    end
+
+    it 'finds description with leading non-breaking space' do
+      expect_offense(<<-RUBY)
+        describe '\u00a0#mymethod' do
+                  ^^^^^^^^^^ Excessive whitespace.
         end
       RUBY
 
@@ -67,7 +80,33 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
     it 'finds description with trailing em space' do
       expect_offense(<<-RUBY)
-        describe '#mymethod　　' do
+        describe '#mymethod\u3000\u3000' do
+                  ^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe '#mymethod' do
+        end
+      RUBY
+    end
+
+    it 'finds description with trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        describe '#mymethod\u00a0' do
+                  ^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        describe '#mymethod' do
+        end
+      RUBY
+    end
+
+    it 'finds description with leading and trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        describe '\u00a0#mymethod\u00a0' do
                   ^^^^^^^^^^^ Excessive whitespace.
         end
       RUBY
@@ -205,6 +244,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       RUBY
     end
 
+    it 'finds description with leading non-breaking space' do
+      expect_offense(<<-RUBY)
+        context '\u00a0#mymethod' do
+                 ^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        context '#mymethod' do
+        end
+      RUBY
+    end
+
     it 'finds interpolated description with leading whitespace' do
       expect_offense(<<-'RUBY')
         context "  when doing something #{:stuff}" do
@@ -227,6 +279,32 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
 
       expect_correction(<<-RUBY)
         context 'when doing something' do
+        end
+      RUBY
+    end
+
+    it 'finds description with trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        context '#mymethod\u00a0' do
+                 ^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        context '#mymethod' do
+        end
+      RUBY
+    end
+
+    it 'finds description with leading and trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        context '\u00a0#mymethod\u00a0' do
+                 ^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        context '#mymethod' do
         end
       RUBY
     end
@@ -372,6 +450,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       RUBY
     end
 
+    it 'finds description with leading non-breaking space' do
+      expect_offense(<<-RUBY)
+        it '\u00a0does something' do
+            ^^^^^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something' do
+        end
+      RUBY
+    end
+
     it 'finds interpolated description with leading whitespace' do
       expect_offense(<<-'RUBY')
         it "  does something #{:stuff}" do
@@ -388,6 +479,32 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
     it 'finds description with trailing whitespace' do
       expect_offense(<<-RUBY)
         it 'does something  ' do
+            ^^^^^^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something' do
+        end
+      RUBY
+    end
+
+    it 'finds description with trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        it 'does something\u00a0' do
+            ^^^^^^^^^^^^^^^ Excessive whitespace.
+        end
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it 'does something' do
+        end
+      RUBY
+    end
+
+    it 'finds description with leading and trailing non-breaking space' do
+      expect_offense(<<-RUBY)
+        it '\u00a0does something\u00a0' do
             ^^^^^^^^^^^^^^^^ Excessive whitespace.
         end
       RUBY
