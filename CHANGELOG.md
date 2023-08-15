@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
+
 ## 2.23.2 (2023-08-09)
 
 - Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when method is only non-word character. ([@marocchino])
@@ -797,6 +799,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@aried3r]: https://github.com/aried3r
 [@baberthal]: https://github.com/baberthal
 [@backus]: https://github.com/backus
+[@bcgraham]: https://github.com/bcgraham
 [@biinari]: https://github.com/biinari
 [@bmorrall]: https://github.com/bmorrall
 [@bquorning]: https://github.com/bquorning
