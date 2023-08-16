@@ -153,6 +153,8 @@ RSpec/IndexedLet:
   Enabled: true
 RSpec/MatchArray:
   Enabled: true
+RSpec/MultipleTestTargetsPerSpecFile:
+  Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:

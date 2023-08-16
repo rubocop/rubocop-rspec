@@ -3561,6 +3561,50 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects
 
+== RSpec/MultipleTestTargetsPerSpecFile
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks that spec files only include one test target object.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+RSpec.describe User do
+  # ...
+  describe User::Admin do
+    # ...
+  end
+end
+
+# bad
+RSpec.describe User do
+  # ...
+end
+RSpec.describe Admin do
+  # ...
+end
+
+# good
+RSpec.describe User do
+  # ...
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleTestTargetsPerSpecFile
+
 == RSpec/NamedSubject
 
 |===

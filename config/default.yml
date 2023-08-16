@@ -649,6 +649,12 @@ RSpec/MultipleSubjects:
   VersionAdded: '1.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects
 
+RSpec/MultipleTestTargetsPerSpecFile:
+  Description: Checks that spec files only include one test target object.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleTestTargetsPerSpecFile
+
 RSpec/NamedSubject:
   Description: Checks for explicitly referenced test subjects.
   Enabled: true
