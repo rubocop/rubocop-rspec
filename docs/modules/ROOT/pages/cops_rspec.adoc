@@ -5078,6 +5078,14 @@ my_class_spec.rb         # describe MyClass, '#method'
 my_class_spec.rb         # describe MyClass, '#method'
 ----
 
+==== `IgnoreMetadata: {type=>routing}` (default)
+
+[source,ruby]
+----
+# good
+whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
 === Configurable attributes
 
 |===
@@ -5098,6 +5106,10 @@ my_class_spec.rb         # describe MyClass, '#method'
 | IgnoreMethods
 | `false`
 | Boolean
+
+| IgnoreMetadata
+| `{"type"=>"routing"}`
+| 
 |===
 
 === References

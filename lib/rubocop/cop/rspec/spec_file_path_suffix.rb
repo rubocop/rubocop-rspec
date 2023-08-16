@@ -19,6 +19,7 @@ module RuboCop
       #
       class SpecFilePathSuffix < Base
         include TopLevelGroup
+        include FileHelp
 
         MSG = 'Spec path should end with `_spec.rb`.'
 
@@ -32,10 +33,6 @@ module RuboCop
 
         def correct_path?
           expanded_file_path.end_with?('_spec.rb')
-        end
-
-        def expanded_file_path
-          File.expand_path(processed_source.file_path)
         end
       end
     end

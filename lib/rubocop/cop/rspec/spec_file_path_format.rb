@@ -28,9 +28,14 @@ module RuboCop
       #   # good
       #   my_class_spec.rb         # describe MyClass, '#method'
       #
+      # @example `IgnoreMetadata: {type=>routing}` (default)
+      #   # good
+      #   whatever_spec.rb         # describe MyClass, type: :routing do; end
+      #
       class SpecFilePathFormat < Base
         include TopLevelGroup
         include Namespace
+        include FileHelp
 
         MSG = 'Spec path should end with `%<suffix>s`.'
 
@@ -39,13 +44,15 @@ module RuboCop
           (block (send #rspec? #ExampleGroups.all $_ $...) ...)
         PATTERN
 
-        # @!method routing_metadata?(node)
-        def_node_search :routing_metadata?, '(pair (sym :type) (sym :routing))'
+        # @!method metadata_key_value(node)
+        def_node_search :metadata_key_value, '(pair (sym $_key) (sym $_value))'
 
         def on_top_level_example_group(node)
           return unless top_level_groups.one?
 
           example_group_arguments(node) do |class_name, arguments|
+            next if !class_name.const_type? || ignore_metadata?(arguments)
+
             ensure_correct_file_path(class_name, arguments)
           end
         end
@@ -53,8 +60,6 @@ module RuboCop
         private
 
         def ensure_correct_file_path(class_name, arguments)
-          return if !class_name.const_type? || routing_spec?(arguments)
-
           pattern = correct_path_pattern(class_name, arguments)
           return if filename_ends_with?(pattern)
 
@@ -65,8 +70,12 @@ module RuboCop
           add_global_offense(format(MSG, suffix: suffix))
         end
 
-        def routing_spec?(arguments)
-          arguments.any?(&method(:routing_metadata?))
+        def ignore_metadata?(arguments)
+          arguments.any? do |argument|
+            metadata_key_value(argument).any? do |key, value|
+              ignore_metadata.values_at(key.to_s).include?(value.to_s)
+            end
+          end
         end
 
         def correct_path_pattern(class_name, arguments)
@@ -111,12 +120,12 @@ module RuboCop
           cop_config['IgnoreMethods']
         end
 
-        def filename_ends_with?(pattern)
-          expanded_file_path.match?("#{pattern}$")
+        def ignore_metadata
+          cop_config.fetch('IgnoreMetadata', {})
         end
 
-        def expanded_file_path
-          File.expand_path(processed_source.file_path)
+        def filename_ends_with?(pattern)
+          expanded_file_path.match?("#{pattern}$")
         end
       end
     end

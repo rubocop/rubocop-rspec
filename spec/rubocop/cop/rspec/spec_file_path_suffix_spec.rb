@@ -1,19 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::SpecFilePathSuffix do
-  def expect_global_offense(source, file = nil, message = '')
-    processed_source = parse_source(source, file)
-    offenses = _investigate(cop, processed_source)
-    expect(offenses.size).to eq(1)
-    expect(offenses.first.message).to eq(message)
-  end
-
-  def expect_no_global_offenses(source, file = nil)
-    processed_source = parse_source(source, file)
-    offenses = _investigate(cop, processed_source)
-    expect(offenses.size).to eq(0)
-  end
-
   let(:message) { 'Spec path should end with `_spec.rb`.' }
 
   it 'registers an offense for a repeated .rb' do

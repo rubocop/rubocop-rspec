@@ -17,6 +17,7 @@ require_relative 'rubocop/rspec/wording'
 # Dependent on `RuboCop::RSpec::Language::NodePattern`.
 require_relative 'rubocop/rspec/language'
 
+require_relative 'rubocop/cop/rspec/mixin/file_help'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
 require_relative 'rubocop/cop/rspec/mixin/location_help'

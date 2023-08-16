@@ -851,6 +851,8 @@ RSpec/SpecFilePathFormat:
     RuboCop: rubocop
     RSpec: rspec
   IgnoreMethods: false
+  IgnoreMetadata:
+    type: routing
   VersionAdded: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 

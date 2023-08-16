@@ -1,19 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
-  def expect_global_offense(source, file = nil, message = '')
-    processed_source = parse_source(source, file)
-    offenses = _investigate(cop, processed_source)
-    expect(offenses.size).to eq(1)
-    expect(offenses.first.message).to eq(message)
-  end
-
-  def expect_no_global_offenses(source, file = nil)
-    processed_source = parse_source(source, file)
-    offenses = _investigate(cop, processed_source)
-    expect(offenses.size).to eq(0)
-  end
-
   let(:message) { "Spec path should end with `#{suffix}`." }
   let(:suffix) { 'my_class*foo*_spec.rb' }
 
@@ -320,12 +307,6 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
         describe FooFoo::Some::Class, '#bar' do; end
       RUBY
     end
-
-    it 'does not register an offense for routing specs' do
-      expect_no_global_offenses(<<-RUBY, 'foofoo/some/class/bar_spec.rb')
-        describe MyController, "#foo", type: :routing do; end
-      RUBY
-    end
   end
 
   context 'when configured with `IgnoreMethods: false`' do
@@ -350,6 +331,16 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
           describe MyClass, '#look_here_a_method' do; end
         RUBY
       end
+    end
+  end
+
+  context 'when configured with `IgnoreMetadata: { "foo" => "bar" }`' do
+    let(:cop_config) { { 'IgnoreMetadata' => { 'foo' => 'bar' } } }
+
+    it 'does not register an offense' do
+      expect_no_global_offenses(<<-RUBY, 'wrong_class_spec.rb')
+        describe MyClass, foo: :bar do; end
+      RUBY
     end
   end
 end
