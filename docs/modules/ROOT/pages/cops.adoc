@@ -91,6 +91,7 @@
 * xref:cops_rspec.adoc#rspecsingleargumentmessagechain[RSpec/SingleArgumentMessageChain]
 * xref:cops_rspec.adoc#rspecskipblockinsideexample[RSpec/SkipBlockInsideExample]
 * xref:cops_rspec.adoc#rspecsortmetadata[RSpec/SortMetadata]
+* xref:cops_rspec.adoc#rspecspecfilepathformat[RSpec/SpecFilePathFormat]
 * xref:cops_rspec.adoc#rspecspecfilepathsuffix[RSpec/SpecFilePathSuffix]
 * xref:cops_rspec.adoc#rspecstubbedmock[RSpec/StubbedMock]
 * xref:cops_rspec.adoc#rspecsubjectdeclaration[RSpec/SubjectDeclaration]

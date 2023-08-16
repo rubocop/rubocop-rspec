@@ -6,6 +6,7 @@
 - Add new `RSpec/Eq` cop. ([@ydah])
 - Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when return values declared between stubs. ([@marocchino])
 - Add `RSpec/SpecFilePathSuffix` cop. ([@ydah])
+- Add `RSpec/SpecFilePathFormat` cop. ([@ydah])
 
 ## 2.23.2 (2023-08-09)
 

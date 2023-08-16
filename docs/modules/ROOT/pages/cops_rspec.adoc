@@ -5025,6 +5025,85 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
+== RSpec/SpecFilePathFormat
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks that spec file paths are consistent and well-formed.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+whatever_spec.rb         # describe MyClass
+my_class_spec.rb         # describe MyClass, '#method'
+
+# good
+my_class_spec.rb         # describe MyClass
+my_class_method_spec.rb  # describe MyClass, '#method'
+my_class/method_spec.rb  # describe MyClass, '#method'
+----
+
+==== `CustomTransform: {RuboCop=>rubocop, RSpec=>rspec}` (default)
+
+[source,ruby]
+----
+# good
+rubocop_spec.rb          # describe RuboCop
+rspec_spec.rb            # describe RSpec
+----
+
+==== `IgnoreMethods: false` (default)
+
+[source,ruby]
+----
+# bad
+my_class_spec.rb         # describe MyClass, '#method'
+----
+
+==== `IgnoreMethods: true`
+
+[source,ruby]
+----
+# good
+my_class_spec.rb         # describe MyClass, '#method'
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Include
+| `+**/*_spec.rb+`
+| Array
+
+| Exclude
+| `+**/spec/routing/**/*+`
+| Array
+
+| CustomTransform
+| `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
+| 
+
+| IgnoreMethods
+| `false`
+| Boolean
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
+
 == RSpec/SpecFilePathSuffix
 
 |===
