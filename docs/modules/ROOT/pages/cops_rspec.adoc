@@ -5025,6 +5025,50 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
+== RSpec/SpecFilePathSuffix
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks that spec file paths suffix are consistent and well-formed.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+my_class/foo_specorb.rb   # describe MyClass
+spec/models/user.rb       # describe User
+spec/models/user_specxrb  # describe User
+
+# good
+my_class_spec.rb          # describe MyClass
+
+# good - shared examples are allowed
+spec/models/user.rb       # shared_examples_for 'foo'
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Include
+| `+**/*_spec*rb*+`, `+**/spec/**/*+`
+| Array
+|===
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
+
 == RSpec/StubbedMock
 
 |===

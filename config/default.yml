@@ -840,6 +840,15 @@ RSpec/SortMetadata:
   VersionAdded: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
+RSpec/SpecFilePathSuffix:
+  Description: Checks that spec file paths suffix are consistent and well-formed.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Include:
+    - "**/*_spec*rb*"
+    - "**/spec/**/*"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
+
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.
   Enabled: true
