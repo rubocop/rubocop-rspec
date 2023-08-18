@@ -124,7 +124,7 @@ module RuboCop
 
         def register_offense(item, repeated_lines, args)
           add_offense(item, message: message(repeated_lines)) do |corrector|
-            if item.loc.line < repeated_lines.min
+            if item.loc.line > repeated_lines.max
               replace_to_receive_messages(corrector, item, args)
             else
               corrector.remove(item_range_by_whole_lines(item))
