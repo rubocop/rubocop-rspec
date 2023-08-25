@@ -1972,11 +1972,11 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Enabled
+| Disabled
 | Yes
 | No
 | 1.2
-| 1.40
+| <<next>>
 |===
 
 Checks that spec file paths are consistent and well-formed.

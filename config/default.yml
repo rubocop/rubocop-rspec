@@ -442,7 +442,7 @@ RSpec/ExpectOutput:
 
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: true
+  Enabled: false
   Include:
     - "**/*_spec*rb*"
     - "**/spec/**/*"
@@ -452,7 +452,7 @@ RSpec/FilePath:
   IgnoreMethods: false
   SpecSuffixOnly: false
   VersionAdded: '1.2'
-  VersionChanged: '1.40'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:

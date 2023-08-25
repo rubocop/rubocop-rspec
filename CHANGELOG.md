@@ -5,8 +5,7 @@
 - Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
 - Add new `RSpec/Eq` cop. ([@ydah])
 - Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when return values declared between stubs. ([@marocchino])
-- Add `RSpec/SpecFilePathSuffix` cop. ([@ydah])
-- Add `RSpec/SpecFilePathFormat` cop. ([@ydah])
+- Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cups are pending and need to be enabled explicitly. ([@ydah])
 
 ## 2.23.2 (2023-08-09)
 
