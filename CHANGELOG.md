@@ -4,6 +4,7 @@
 
 - Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
 - Add new `RSpec/Eq` cop. ([@ydah])
+- Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when return values declared between stubs. ([@marocchino])
 
 ## 2.23.2 (2023-08-09)
 

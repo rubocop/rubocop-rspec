@@ -181,9 +181,31 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveMessages, :config do
 
     expect_correction(<<~RUBY)
       before do
-        allow(Service).to receive_messages(foo: 1, bar: 2)
         calling_some_method
         calling_another_method
+        allow(Service).to receive_messages(foo: 1, bar: 2)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when multiple messeages stubbed on the ' \
+     'same object and initialize return value between stubs' do
+    expect_offense(<<~RUBY)
+      before do
+        foo = Service.new
+        allow(Service).to receive(:foo).and_return(foo)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [5].
+        bar = Service.new
+        allow(Service).to receive(:bar).and_return(bar)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `receive_messages` instead of multiple stubs on lines [3].
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      before do
+        foo = Service.new
+        bar = Service.new
+        allow(Service).to receive_messages(foo: foo, bar: bar)
       end
     RUBY
   end
@@ -267,8 +289,8 @@ RSpec.describe RuboCop::Cop::RSpec::ReceiveMessages, :config do
     expect_correction(<<~RUBY)
       before do
         allow(Service).to receive(:foo).and_return(bar)
-        allow(Service).to receive_messages(bar: qux, baz: qux)
         allow(Service).to receive(:foo).and_return(qux)
+        allow(Service).to receive_messages(bar: qux, baz: qux)
       end
     RUBY
   end
