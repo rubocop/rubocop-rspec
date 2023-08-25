@@ -145,6 +145,8 @@ RSpec/ContainExactly:
   Enabled: true
 RSpec/DuplicatedMetadata:
   Enabled: true
+RSpec/Eq:
+  Enabled: true
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/IdenticalEqualityAssertion:

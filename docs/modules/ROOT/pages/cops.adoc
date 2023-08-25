@@ -31,6 +31,7 @@
 * xref:cops_rspec.adoc#rspecemptylineafterfinallet[RSpec/EmptyLineAfterFinalLet]
 * xref:cops_rspec.adoc#rspecemptylineafterhook[RSpec/EmptyLineAfterHook]
 * xref:cops_rspec.adoc#rspecemptylineaftersubject[RSpec/EmptyLineAfterSubject]
+* xref:cops_rspec.adoc#rspeceq[RSpec/Eq]
 * xref:cops_rspec.adoc#rspecexamplelength[RSpec/ExampleLength]
 * xref:cops_rspec.adoc#rspecexamplewithoutdescription[RSpec/ExampleWithoutDescription]
 * xref:cops_rspec.adoc#rspecexamplewording[RSpec/ExampleWording]
