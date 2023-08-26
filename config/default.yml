@@ -442,7 +442,7 @@ RSpec/ExpectOutput:
 
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: true
+  Enabled: false
   Include:
     - "**/*_spec*rb*"
     - "**/spec/**/*"
@@ -452,7 +452,7 @@ RSpec/FilePath:
   IgnoreMethods: false
   SpecSuffixOnly: false
   VersionAdded: '1.2'
-  VersionChanged: '1.40'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:
@@ -839,6 +839,31 @@ RSpec/SortMetadata:
   Enabled: pending
   VersionAdded: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
+
+RSpec/SpecFilePathFormat:
+  Description: Checks that spec file paths are consistent and well-formed.
+  Enabled: pending
+  Include:
+    - "**/*_spec.rb"
+  Exclude:
+    - "**/spec/routing/**/*"
+  CustomTransform:
+    RuboCop: rubocop
+    RSpec: rspec
+  IgnoreMethods: false
+  IgnoreMetadata:
+    type: routing
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
+
+RSpec/SpecFilePathSuffix:
+  Description: Checks that spec file paths suffix are consistent and well-formed.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Include:
+    - "**/*_spec*rb*"
+    - "**/spec/**/*"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
 
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.

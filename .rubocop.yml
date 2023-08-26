@@ -112,7 +112,8 @@ Style/FormatStringToken:
 Style/RequireOrder:
   Enabled: true
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
+  Enabled: true
   Exclude:
     - spec/rubocop/cop/rspec/mixin/**/*.rb
 
@@ -164,6 +165,8 @@ RSpec/RedundantAround:
 RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:
+  Enabled: true
+RSpec/SpecFilePathSuffix:
   Enabled: true
 RSpec/SubjectDeclaration:
   Enabled: true
