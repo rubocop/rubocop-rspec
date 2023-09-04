@@ -220,4 +220,43 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       describe 'test', js: true do; end
     RUBY
   end
+
+  it 'ignores with chained method calls' do
+    expect_no_offenses(<<-RUBY)
+      let(:fit) { Tax.federal_income_tax }
+      let(:fit_id) { fit.id }
+    RUBY
+  end
+
+  it 'ignores when inside define method' do
+    expect_no_offenses(<<-RUBY)
+      context 'test' do
+        def foo
+          fdescribe 'test'
+          ffeature 'test'
+          fcontext 'test'
+          fit 'test'
+          fscenario 'test'
+          fexample 'test'
+          fspecify 'test'
+          focus 'test'
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores when inside define singleton method' do
+    expect_no_offenses(<<-RUBY)
+      def self.foo
+        fdescribe 'test'
+        ffeature 'test'
+        fcontext 'test'
+        fit 'test'
+        fscenario 'test'
+        fexample 'test'
+        fspecify 'test'
+        focus 'test'
+      end
+    RUBY
+  end
 end

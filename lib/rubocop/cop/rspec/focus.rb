@@ -79,6 +79,8 @@ module RuboCop
         PATTERN
 
         def on_send(node)
+          return if node.chained? || node.each_ancestor(:def, :defs).any?
+
           focus_metadata(node) do |focus|
             add_offense(focus) do |corrector|
               if focus.pair_type? || focus.str_type? || focus.sym_type?
