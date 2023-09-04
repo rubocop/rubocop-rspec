@@ -15,6 +15,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       RUBY
     end
 
+    it 'registers an offense when using string value' do
+      expect_offense(<<-RUBY)
+        it { is_expected.to have_http_status "200" }
+                                             ^^^^^ Prefer `:ok` over `"200"` to describe HTTP status code.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to have_http_status :ok }
+      RUBY
+    end
+
     it 'does not register an offense when using symbolic value' do
       expect_no_offenses(<<-RUBY)
         it { is_expected.to have_http_status :ok }
@@ -48,6 +59,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       expect_offense(<<-RUBY)
         it { is_expected.to have_http_status :ok }
                                              ^^^ Prefer `200` over `:ok` to describe HTTP status code.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to have_http_status 200 }
+      RUBY
+    end
+
+    it 'registers an offense when using string value' do
+      expect_offense(<<-RUBY)
+        it { is_expected.to have_http_status "ok" }
+                                             ^^^^ Prefer `200` over `"ok"` to describe HTTP status code.
       RUBY
 
       expect_correction(<<-RUBY)
@@ -105,6 +127,20 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::HttpStatus do
       RUBY
 
       expect_correction(<<-RUBY)
+        it { is_expected.to be_ok }
+      RUBY
+    end
+
+    it 'registers an offense when using string value' do
+      expect_offense(<<-RUBY)
+        it { is_expected.to have_http_status "200" }
+                            ^^^^^^^^^^^^^^^^^^^^^^ Prefer `be_ok` over `have_http_status "200"` to describe HTTP status code.
+        it { is_expected.to have_http_status "ok" }
+                            ^^^^^^^^^^^^^^^^^^^^^ Prefer `be_ok` over `have_http_status "ok"` to describe HTTP status code.
+      RUBY
+
+      expect_correction(<<-RUBY)
+        it { is_expected.to be_ok }
         it { is_expected.to be_ok }
       RUBY
     end
