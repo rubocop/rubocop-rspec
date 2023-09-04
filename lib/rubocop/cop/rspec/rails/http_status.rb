@@ -17,10 +17,12 @@ module RuboCop
         #   # bad
         #   it { is_expected.to have_http_status 200 }
         #   it { is_expected.to have_http_status 404 }
+        #   it { is_expected.to have_http_status "403" }
         #
         #   # good
         #   it { is_expected.to have_http_status :ok }
         #   it { is_expected.to have_http_status :not_found }
+        #   it { is_expected.to have_http_status :forbidden }
         #   it { is_expected.to have_http_status :success }
         #   it { is_expected.to have_http_status :error }
         #
@@ -28,10 +30,12 @@ module RuboCop
         #   # bad
         #   it { is_expected.to have_http_status :ok }
         #   it { is_expected.to have_http_status :not_found }
+        #   it { is_expected.to have_http_status "forbidden" }
         #
         #   # good
         #   it { is_expected.to have_http_status 200 }
         #   it { is_expected.to have_http_status 404 }
+        #   it { is_expected.to have_http_status 403 }
         #   it { is_expected.to have_http_status :success }
         #   it { is_expected.to have_http_status :error }
         #
@@ -39,8 +43,10 @@ module RuboCop
         #   # bad
         #   it { is_expected.to have_http_status :ok }
         #   it { is_expected.to have_http_status :not_found }
+        #   it { is_expected.to have_http_status "forbidden" }
         #   it { is_expected.to have_http_status 200 }
         #   it { is_expected.to have_http_status 404 }
+        #   it { is_expected.to have_http_status "403" }
         #
         #   # good
         #   it { is_expected.to be_ok }
@@ -55,7 +61,7 @@ module RuboCop
 
           # @!method http_status(node)
           def_node_matcher :http_status, <<-PATTERN
-            (send nil? :have_http_status ${int sym})
+            (send nil? :have_http_status ${int sym str})
           PATTERN
 
           def on_send(node)
@@ -124,7 +130,7 @@ module RuboCop
             end
 
             def current
-              number.inspect
+              node.value.inspect
             end
 
             private
@@ -134,7 +140,7 @@ module RuboCop
             end
 
             def number
-              node.source.to_i
+              node.source.delete('"').to_i
             end
           end
 
@@ -159,7 +165,7 @@ module RuboCop
             end
 
             def number
-              ::Rack::Utils::SYMBOL_TO_STATUS_CODE[symbol]
+              ::Rack::Utils::SYMBOL_TO_STATUS_CODE[symbol.to_sym]
             end
           end
 
@@ -177,8 +183,10 @@ module RuboCop
             def prefer
               if node.sym_type?
                 "be_#{node.value}"
-              else
+              elsif node.int_type?
                 "be_#{symbol}"
+              elsif node.str_type?
+                "be_#{normalize_str}"
               end
             end
 
@@ -194,6 +202,15 @@ module RuboCop
 
             def number
               node.source.to_i
+            end
+
+            def normalize_str
+              normalized = node.source.delete('"')
+              if normalized.match?(/\A\d+\z/)
+                ::Rack::Utils::SYMBOL_TO_STATUS_CODE.key(normalized.to_i)
+              else
+                normalized
+              end
             end
           end
         end
