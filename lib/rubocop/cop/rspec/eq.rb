@@ -7,10 +7,10 @@ module RuboCop
       #
       # @example
       #   # bad
-      #   expect(foo).to be == true
+      #   expect(foo).to be == 42
       #
       #   # good
-      #   expect(foo).to eq true
+      #   expect(foo).to eq 42
       #
       class Eq < Base
         extend AutoCorrector
