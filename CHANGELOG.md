@@ -2,13 +2,15 @@
 
 ## Master (Unreleased)
 
-- Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
+## 2.24.0 (2023-09-08)
+
+- Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cops are pending and need to be enabled explicitly. ([@ydah])
 - Add new `RSpec/Eq` cop. ([@ydah])
-- Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when return values declared between stubs. ([@marocchino])
-- Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cups are pending and need to be enabled explicitly. ([@ydah])
-- Add support `RSpec/Rails/HttpStatus` when `have_http_status` with string argument. ([@ydah])
-- Fix a false positive `RSpec/Focus` when chained method call and inside define method. ([@ydah])
 - Add `RSpec/MetadataStyle` and `RSpec/EmptyMetadata` cops. ([@r7kamura])
+- Add support `RSpec/Rails/HttpStatus` when `have_http_status` with string argument. ([@ydah])
+- Fix an infinite loop error when `RSpec/ExcessiveDocstringSpacing` finds a description with non-ASCII leading/trailing whitespace. ([@bcgraham])
+- Fix an incorrect autocorrect for `RSpec/ReceiveMessages` when return values declared between stubs. ([@marocchino])
+- Fix a false positive `RSpec/Focus` when chained method call and inside define method. ([@ydah])
 
 ## 2.23.2 (2023-08-09)
 
