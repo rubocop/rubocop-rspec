@@ -359,6 +359,12 @@ RSpec/EmptyLineAfterSubject:
   StyleGuide: https://rspec.rubystyle.guide/#empty-line-after-let
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
+RSpec/EmptyMetadata:
+  Description: Avoid empty metadata hash.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
+
 RSpec/Eq:
   Description: Use `eq` instead of `be ==` to compare objects.
   Enabled: pending
@@ -618,6 +624,16 @@ RSpec/MessageSpies:
     - receive
   VersionAdded: '1.9'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
+
+RSpec/MetadataStyle:
+  Description: Use consistent metadata style.
+  Enabled: pending
+  EnforcedStyle: symbol
+  SupportedStyles:
+    - hash
+    - symbol
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MetadataStyle
 
 RSpec/MissingExampleGroupArgument:
   Description: Checks that the first argument to an example group is not empty.

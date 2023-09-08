@@ -8,6 +8,7 @@
 - Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cups are pending and need to be enabled explicitly. ([@ydah])
 - Add support `RSpec/Rails/HttpStatus` when `have_http_status` with string argument. ([@ydah])
 - Fix a false positive `RSpec/Focus` when chained method call and inside define method. ([@ydah])
+- Add `RSpec/MetadataStyle` and `RSpec/EmptyMetadata` cops. ([@r7kamura])
 
 ## 2.23.2 (2023-08-09)
 

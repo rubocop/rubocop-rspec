@@ -13,7 +13,7 @@ module RuboCop
         def_node_matcher :rspec_metadata, <<~PATTERN
           (block
             (send
-              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ ${send str sym}* (hash $...)?)
+              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ $...)
             ...)
         PATTERN
 
@@ -24,24 +24,38 @@ module RuboCop
 
         # @!method metadata_in_block(node)
         def_node_search :metadata_in_block, <<~PATTERN
-          (send (lvar %) #Hooks.all _ ${send str sym}* (hash $...)?)
+          (send (lvar %) #Hooks.all _ $...)
         PATTERN
 
         def on_block(node)
           rspec_configure(node) do |block_var|
-            metadata_in_block(node, block_var) do |symbols, pairs|
-              on_metadata(symbols, pairs.flatten)
+            metadata_in_block(node, block_var) do |metadata_arguments|
+              on_matadata_arguments(metadata_arguments)
             end
           end
 
-          rspec_metadata(node) do |symbols, pairs|
-            on_metadata(symbols, pairs.flatten)
+          rspec_metadata(node) do |metadata_arguments|
+            on_matadata_arguments(metadata_arguments)
           end
         end
         alias on_numblock on_block
 
-        def on_metadata(_symbols, _pairs)
+        def on_metadata(_symbols, _hash)
           raise ::NotImplementedError
+        end
+
+        private
+
+        def on_matadata_arguments(metadata_arguments)
+          *symbols, last = metadata_arguments
+          hash = nil
+          case last&.type
+          when :hash
+            hash = last
+          when :sym
+            symbols << last
+          end
+          on_metadata(symbols, hash)
         end
       end
     end

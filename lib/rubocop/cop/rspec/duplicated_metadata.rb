@@ -19,7 +19,7 @@ module RuboCop
 
         MSG = 'Avoid duplicated metadata.'
 
-        def on_metadata(symbols, _pairs)
+        def on_metadata(symbols, _hash)
           symbols.each do |symbol|
             on_metadata_symbol(symbol)
           end

@@ -23,7 +23,8 @@ module RuboCop
 
         MSG = 'Sort metadata alphabetically.'
 
-        def on_metadata(symbols, pairs)
+        def on_metadata(symbols, hash)
+          pairs = hash&.pairs || []
           return if sorted?(symbols, pairs)
 
           crime_scene = crime_scene(symbols, pairs)
