@@ -1472,7 +1472,7 @@ let(:foo) { bar }
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.24
 | -
 |===
 
@@ -1503,7 +1503,7 @@ describe 'Something'
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.24
 | -
 |===
 
@@ -2007,7 +2007,7 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 | Yes
 | No
 | 1.2
-| <<next>>
+| 2.24
 |===
 
 Checks that spec file paths are consistent and well-formed.
@@ -3266,7 +3266,7 @@ do_something
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.24
 | -
 |===
 
@@ -5120,7 +5120,7 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.24
 | -
 |===
 
@@ -5211,7 +5211,7 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.24
 | -
 |===
 

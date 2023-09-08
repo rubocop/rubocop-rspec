@@ -362,13 +362,13 @@ RSpec/EmptyLineAfterSubject:
 RSpec/EmptyMetadata:
   Description: Avoid empty metadata hash.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
 
 RSpec/Eq:
   Description: Use `eq` instead of `be ==` to compare objects.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
 
 RSpec/ExampleLength:
@@ -458,7 +458,7 @@ RSpec/FilePath:
   IgnoreMethods: false
   SpecSuffixOnly: false
   VersionAdded: '1.2'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
 
 RSpec/Focus:
@@ -632,7 +632,7 @@ RSpec/MetadataStyle:
   SupportedStyles:
     - hash
     - symbol
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MetadataStyle
 
 RSpec/MissingExampleGroupArgument:
@@ -869,13 +869,13 @@ RSpec/SpecFilePathFormat:
   IgnoreMethods: false
   IgnoreMetadata:
     type: routing
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 
 RSpec/SpecFilePathSuffix:
   Description: Checks that spec file paths suffix are consistent and well-formed.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.24'
   Include:
     - "**/*_spec*rb*"
     - "**/spec/**/*"
