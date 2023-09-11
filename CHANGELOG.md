@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix an error when using `inherit_gem: rubocop-rspec: config/default.yml`. ([@ydah])
+
 ## 2.24.0 (2023-09-08)
 
 - Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cops are pending and need to be enabled explicitly. ([@ydah])
