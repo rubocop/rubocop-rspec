@@ -31,53 +31,23 @@ RSpec.describe 'CHANGELOG.md' do
   end
 
   describe 'entry' do
-    subject(:entries) { lines.grep(/^\*/).map(&:chomp) }
+    subject(:entries) { lines.grep(/^-/).map(&:chomp) }
 
     let(:lines) { changelog.each_line }
 
-    it 'has a whitespace between the * and the body' do
-      expect(entries).to all(match(/^\* \S/))
+    it 'has some entries' do
+      expect(entries).not_to be_empty
     end
 
     it 'has a link to the contributors at the end' do
-      expect(entries).to all(match(/\(\[@\S+\]\[\](?:, \[@\S+\]\[\])*\)$/))
-    end
-
-    describe 'link to related issue on github' do
-      let(:issues) do
-        entries.map do |entry|
-          entry.match(/\[(?<number>[#\d]+)\]\((?<url>[^)]+)\)/)
-        end.compact
-      end
-
-      it 'has an issue number prefixed with #' do
-        issues.each do |issue|
-          expect(issue[:number]).to match(/^#\d+$/)
-        end
-      end
-
-      it 'has a valid URL' do
-        issues.each do |issue|
-          number = issue[:number].gsub(/\D/, '')
-          pattern = %r{^https://github\.com/.+/.+/(?:issues|pull)/#{number}$}
-          expect(issue[:url]).to match(pattern)
-        end
-      end
-
-      it 'has a colon and a whitespace at the end' do
-        entries_including_issue_link = entries.select do |entry|
-          entry.match(/^\*\s*\[/)
-        end
-
-        expect(entries_including_issue_link).to all(include('): '))
-      end
+      expect(entries).to all(match(/\(\[@\S+\](?:, \[@\S+\])*\)$/))
     end
 
     describe 'body' do
       let(:bodies) do
         entries.map do |entry|
           entry
-            .sub(/^\*\s*(?:\[.+?\):\s*)?/, '')
+            .sub(/^-\s*(?:\[.+?\):\s*)?/, '')
             .sub(/\s*\([^)]+\)$/, '')
         end
       end
@@ -90,6 +60,12 @@ RSpec.describe 'CHANGELOG.md' do
 
       it 'ends with a punctuation' do
         expect(bodies).to all(match(/[.!]$/))
+      end
+
+      it 'does not use consecutive whitespaces' do
+        entries.each do |entry|
+          expect(entry).not_to match(/\s{2,}/)
+        end
       end
     end
   end

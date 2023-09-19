@@ -19,7 +19,7 @@
 
 ## 2.23.1 (2023-08-07)
 
-- Mark to `Safe: false` for `RSpec/Rails/NegationBeValid`  cop. ([@ydah])
+- Mark to `Safe: false` for `RSpec/Rails/NegationBeValid` cop. ([@ydah])
 - Declare autocorrect as unsafe for `RSpec/ReceiveMessages`. ([@bquorning])
 
 ## 2.23.0 (2023-07-30)
@@ -28,13 +28,13 @@
 - Fix a false negative for `RSpec/ExcessiveDocstringSpacing` when finds description with em space. ([@ydah])
 - Fix a false positive for `RSpec/EmptyExampleGroup` when example group with examples defined in `if` branch inside iterator. ([@ydah])
 - Update the message output of `RSpec/ExpectActual` to include the word 'value'. ([@corydiamand])
-- Fix a false negative for `RSpec/Pending` when  `it` without body. ([@ydah])
+- Fix a false negative for `RSpec/Pending` when `it` without body. ([@ydah])
 - Add new `RSpec/ReceiveMessages` cop. ([@ydah])
 - Change default.yml path to use `**/spec/*` instead of `spec/*`. ([@ydah])
-- Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`.  ([@ydah])
+- Add `AllowedIdentifiers` and `AllowedPatterns` configuration option to `RSpec/IndexedLet`. ([@ydah])
 - Fix `RSpec/NamedSubject` when block has no body. ([@splattael])
 - Fix `RSpec/LetBeforeExamples` autocorrect incompatible with `RSpec/ScatteredLet` autocorrect. ([@ydah])
-- Update `RSpec/Focus` to support `shared_context` and `shared_examples` ([@tmaier])
+- Update `RSpec/Focus` to support `shared_context` and `shared_examples`. ([@tmaier])
 
 ## 2.22.0 (2023-05-06)
 
@@ -56,9 +56,9 @@
 - Add support `be_status` style for `RSpec/Rails/HttpStatus`. ([@ydah])
 - Add support for shared example groups to `RSpec/EmptyLineAfterExampleGroup`. ([@pirj])
 - Add support for `RSpec/HaveHttpStatus` when using `response.code`. ([@ydah])
-- Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions` ([@mvz])
+- Fix order of expected and actual in correction for `RSpec/Rails/MinitestAssertions`. ([@mvz])
 - Fix a false positive for `RSpec/DescribedClassModuleWrapping` when RSpec.describe numblock is nested within a module. ([@ydah])
-- Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on ([@dmitrytsepelev])
+- Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` inside `&&`, `||` and `:?` when `omit_parentheses` is on. ([@dmitrytsepelev])
 - Fix a false positive for `RSpec/PendingWithoutReason` when pending/skip has a reason inside an example group. ([@ydah])
 - Fix a false negative for `RSpec/RedundantAround` when redundant numblock `around`. ([@ydah])
 - Change `RSpec/ContainExactly` to ignore calls with no arguments, and change `RSpec/MatchArray` to ignore calls with an empty array literal argument. ([@ydah], [@bquorning])
@@ -111,7 +111,7 @@
 - Improved processing speed for `RSpec/Be`, `RSpec/ExpectActual`, `RSpec/ImplicitExpect`, `RSpec/MessageSpies`, `RSpec/PredicateMatcher` and `RSpec/Rails/HaveHttpStatus`. ([@ydah])
 - Fix wrong autocorrection in `n_times` style on `RSpec/FactoryBot/CreateList`. ([@r7kamura])
 - Fix a false positive for `RSpec/FactoryBot/ConsistentParenthesesStyle` when using `generate` with multiple arguments. ([@ydah])
-- Mark `RSpec/BeEq` as `Safe: false` ([@r7kamura])
+- Mark `RSpec/BeEq` as `Safe: false`. ([@r7kamura])
 - Add `RSpec/DuplicatedMetadata` cop. ([@r7kamura])
 - Mark `RSpec/BeEql` as `Safe: false`. ([@r7kamura])
 - Add `RSpec/PendingWithoutReason` cop. ([@r7kamura])
@@ -144,8 +144,8 @@
 - Fix a false positive for `RSpec/Capybara/SpecificMatcher` when `have_css("a")` without attribute. ([@ydah])
 - Update `RSpec/ExampleWording` cop to raise error for insufficient descriptions. ([@akrox58])
 - Add new `RSpec/Capybara/NegationMatcher` cop. ([@ydah])
-- Add `AllowedPatterns` configuration option to `RSpec/NoExpectationExample`.  ([@ydah])
-- Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metadata.  ([@pirj])
+- Add `AllowedPatterns` configuration option to `RSpec/NoExpectationExample`. ([@ydah])
+- Improve `RSpec/NoExpectationExample` cop to ignore examples skipped or pending via metadata. ([@pirj])
 - Add `RSpec/FactoryBot/ConsistentParenthesesStyle` cop. ([@Liberatys])
 - Add `RSpec/Rails/InferredSpecType` cop. ([@r7kamura])
 - Add new `RSpec/Capybara/SpecificActions` cop. ([@ydah])
@@ -461,7 +461,7 @@
 - Add config to `RSpec/VerifiedDoubles` to enforcement of verification on unnamed doubles. ([@BrentWheeldon])
 - Fix `FactoryBot/AttributeDefinedStatically` not working when there is a non-symbol key. ([@vzvu3k6k])
 - Fix false positive in `RSpec/ImplicitSubject` when `is_expected` is used inside `its()` block. ([@Darhazer])
-- Add `single_statement_only` style to  `RSpec/ImplicitSubject` as a more relaxed alternative to `single_line_only`. ([@Darhazer])
+- Add `single_statement_only` style to `RSpec/ImplicitSubject` as a more relaxed alternative to `single_line_only`. ([@Darhazer])
 - Add `RSpec/UnspecifiedException` as a default cop to encourage more-specific `expect{}.to raise_error(ExceptionType)`, or `raise_exception` style handling of exceptions. ([@daveworth])
 
 ## 1.29.1 (2018-09-01)
@@ -496,14 +496,14 @@
 
 ## 1.26.0 (2018-06-06)
 
-- Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used.  ([@Darhazer])
+- Fix false positive in `RSpec/EmptyExampleGroup` cop when methods named like a RSpec method are used. ([@Darhazer])
 - Fix `Capybara/FeatureMethods` not working when there is require before the spec. ([@Darhazer])
 - Fix `RSpec/EmptyLineAfterFinalLet`: allow a comment to be placed after latest let, requiring empty line after the comment. ([@Darhazer])
 - Add `RSpec/ReceiveCounts` cop to enforce usage of :once and :twice matchers. ([@Darhazer])
 
 ## 1.25.1 (2018-04-10)
 
-- Fix false positive in `RSpec/Pending` cop when pending is used as a method name.  ([@Darhazer])
+- Fix false positive in `RSpec/Pending` cop when pending is used as a method name. ([@Darhazer])
 - Fix `FactoryBot/DynamicAttributeDefinedStatically` false positive when using symbol proc argument for a sequence. ([@tdeo])
 
 ## 1.25.0 (2018-04-07)
@@ -511,7 +511,7 @@
 - Add `RSpec/SharedExamples` cop to enforce consistent usage of string to titleize shared examples. ([@anthony-robin])
 - Add `RSpec/Be` cop to enforce passing argument to the generic `be` matcher. ([@Darhazer])
 - Fix false positives in `StaticAttributeDefinedDynamically` and `ReturnFromStub` when a const is used in an array or hash. ([@Darhazer])
-- Add `RSpec/Pending` cop to enforce no existing pending or skipped examples.  This is disabled by default. ([@patrickomatic])
+- Add `RSpec/Pending` cop to enforce no existing pending or skipped examples. This is disabled by default. ([@patrickomatic])
 - Fix `RSpec/NestedGroups` cop support --auto-gen-config. ([@walf443])
 - Fix false positives in `Capybara/FeatureMethods` when feature methods are used as property names in a factory. ([@Darhazer])
 - Allow configuring enabled methods in `Capybara/FeatureMethods`. ([@Darhazer])
