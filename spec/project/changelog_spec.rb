@@ -61,6 +61,12 @@ RSpec.describe 'CHANGELOG.md' do
       it 'ends with a punctuation' do
         expect(bodies).to all(match(/[.!]$/))
       end
+
+      it 'does not use consecutive whitespaces' do
+        entries.each do |entry|
+          expect(entry).not_to match(/\s{2,}/)
+        end
+      end
     end
   end
 end
