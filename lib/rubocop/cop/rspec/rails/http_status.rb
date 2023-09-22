@@ -66,6 +66,8 @@ module RuboCop
 
           def on_send(node)
             http_status(node) do |arg|
+              return if arg.str_type? && arg.heredoc?
+
               checker = checker_class.new(arg)
               return unless checker.offensive?
 
@@ -105,6 +107,10 @@ module RuboCop
               format(MSG, prefer: prefer, current: current)
             end
 
+            def current
+              offense_range.source
+            end
+
             def offense_range
               node
             end
@@ -129,10 +135,6 @@ module RuboCop
               symbol.inspect
             end
 
-            def current
-              node.value.inspect
-            end
-
             private
 
             def symbol
@@ -140,7 +142,7 @@ module RuboCop
             end
 
             def number
-              node.source.delete('"').to_i
+              node.value.to_i
             end
           end
 
@@ -152,10 +154,6 @@ module RuboCop
 
             def prefer
               number.to_s
-            end
-
-            def current
-              symbol.inspect
             end
 
             private
@@ -190,10 +188,6 @@ module RuboCop
               end
             end
 
-            def current
-              offense_range.source
-            end
-
             private
 
             def symbol
@@ -201,15 +195,15 @@ module RuboCop
             end
 
             def number
-              node.source.to_i
+              node.value.to_i
             end
 
             def normalize_str
-              normalized = node.source.delete('"')
-              if normalized.match?(/\A\d+\z/)
-                ::Rack::Utils::SYMBOL_TO_STATUS_CODE.key(normalized.to_i)
+              str = node.value.to_s
+              if str.match?(/\A\d+\z/)
+                ::Rack::Utils::SYMBOL_TO_STATUS_CODE.key(str.to_i)
               else
-                normalized
+                str
               end
             end
           end
