@@ -27,9 +27,3 @@ renamed:
   RSpec/FactoryBot/FactoryClassName: FactoryBot/FactoryClassName
   RSpec/FactoryBot/FactoryNameStyle: FactoryBot/FactoryNameStyle
   RSpec/FactoryBot/SyntaxMethods: FactoryBot/SyntaxMethods
-
-split:
-  RSpec/FilePath:
-    alternatives:
-      - RSpec/SpecFilePathFormat
-      - RSpec/SpecFilePathSuffix

@@ -98,6 +98,9 @@ RSpec/ExampleLength:
     - heredoc
   Max: 11
 
+RSpec/FilePath:
+  Enabled: false
+
 RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
