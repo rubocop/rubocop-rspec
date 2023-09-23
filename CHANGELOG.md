@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add support single quoted string and percent string and heredoc for `RSpec/Rails/HttpStatus`. ([@ydah])
+- Change to be inline disable for `RSpec/SpecFilePathFormat` like `RSpec/FilePath`. ([@ydah])
 
 ## 2.24.1 (2023-09-23)
 

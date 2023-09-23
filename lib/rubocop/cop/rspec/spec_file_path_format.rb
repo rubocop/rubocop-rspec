@@ -41,7 +41,7 @@ module RuboCop
 
         # @!method example_group_arguments(node)
         def_node_matcher :example_group_arguments, <<~PATTERN
-          (block (send #rspec? #ExampleGroups.all $_ $...) ...)
+          (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
         PATTERN
 
         # @!method metadata_key_value(node)
@@ -50,16 +50,16 @@ module RuboCop
         def on_top_level_example_group(node)
           return unless top_level_groups.one?
 
-          example_group_arguments(node) do |class_name, arguments|
+          example_group_arguments(node) do |send_node, class_name, arguments|
             next if !class_name.const_type? || ignore_metadata?(arguments)
 
-            ensure_correct_file_path(class_name, arguments)
+            ensure_correct_file_path(send_node, class_name, arguments)
           end
         end
 
         private
 
-        def ensure_correct_file_path(class_name, arguments)
+        def ensure_correct_file_path(send_node, class_name, arguments)
           pattern = correct_path_pattern(class_name, arguments)
           return if filename_ends_with?(pattern)
 
@@ -67,7 +67,7 @@ module RuboCop
           # expression pattern to resemble a glob pattern for clearer error
           # messages.
           suffix = pattern.sub('.*', '*').sub('[^/]*', '*').sub('\.', '.')
-          add_global_offense(format(MSG, suffix: suffix))
+          add_offense(send_node, message: format(MSG, suffix: suffix))
         end
 
         def ignore_metadata?(arguments)
