@@ -5,6 +5,12 @@ module RuboCop
     module RSpec
       # Checks that spec file paths are consistent and well-formed.
       #
+      # This cop is deprecated.
+      # We plan to remove it in the next major version update to 3.0.
+      # The migration targets are `RSpec/SpecFilePathSuffix`
+      # and `RSpec/SpecFilePathFormat`.
+      # If you are using this cop, please plan for migration.
+      #
       # By default, this checks that spec file paths are consistent with the
       # test subject and enforces that it reflects the described
       # class/module and its optionally called out method.

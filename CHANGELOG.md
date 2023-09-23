@@ -2,9 +2,11 @@
 
 ## Master (Unreleased)
 
+- Fix an error when using `RSpec/FilePath` and revert to enabled by default. If you have already moved to `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`, disable `RSpec/FilePath` explicitly as `Enabled: false`. The `RSpec/FilePath` before migration and the `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat` as the target are available respectively. ([@ydah])
+
 ## 2.24.0 (2023-09-08)
 
-- Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is enabled by default, the two new cops are pending and need to be enabled explicitly. ([@ydah])
+- Split `RSpec/FilePath` into `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`. `RSpec/FilePath` cop is disabled by default and the two new cops are pending and need to be enabled explicitly. ([@ydah])
 - Add new `RSpec/Eq` cop. ([@ydah])
 - Add `RSpec/MetadataStyle` and `RSpec/EmptyMetadata` cops. ([@r7kamura])
 - Add support `RSpec/Rails/HttpStatus` when `have_http_status` with string argument. ([@ydah])

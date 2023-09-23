@@ -448,7 +448,7 @@ RSpec/ExpectOutput:
 
 RSpec/FilePath:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: false
+  Enabled: true
   Include:
     - "**/*_spec*rb*"
     - "**/spec/**/*"
