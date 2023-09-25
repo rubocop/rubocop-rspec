@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add support single quoted string and percent string and heredoc for `RSpec/Rails/HttpStatus`. ([@ydah])
+
 ## 2.24.1 (2023-09-23)
 
 - Fix an error when using `RSpec/FilePath` and revert to enabled by default. If you have already moved to `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat`, disable `RSpec/FilePath` explicitly as `Enabled: false`. The `RSpec/FilePath` before migration and the `RSpec/SpecFilePathSuffix` and `RSpec/SpecFilePathFormat` as the target are available respectively. ([@ydah])
