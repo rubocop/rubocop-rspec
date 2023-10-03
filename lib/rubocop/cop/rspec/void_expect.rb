@@ -52,7 +52,7 @@ module RuboCop
           return true unless parent
           return true if parent.begin_type?
 
-          true if parent.block_type? && parent.body == expect
+          parent.block_type? && parent.body == expect
         end
       end
     end
