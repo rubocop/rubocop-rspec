@@ -26,11 +26,12 @@ module RuboCop
       #     expect(result).to be(true)
       #   end
       #
-      # You can set literals you want to fold with `CountAsOne`.
-      # Available are: 'array', 'hash', and 'heredoc'. Each literal
-      # will be counted as one line regardless of its actual size.
+      # You can set constructs you want to fold with `CountAsOne`.
+      # Available are: 'array', 'hash', 'heredoc', and 'method_call'.
+      # Each construct will be counted as one line regardless of
+      # its actual size.
       #
-      # @example CountAsOne: ['array', 'heredoc']
+      # @example CountAsOne: ['array', 'heredoc', 'method_call']
       #
       #   it do
       #     array = [         # +1
@@ -46,7 +47,12 @@ module RuboCop
       #       Heredoc
       #       content.
       #     HEREDOC
-      #   end                 # 5 points
+      #
+      #     foo(            # +1
+      #       1,
+      #       2
+      #     )
+      #   end               # 6 points
       #
       class ExampleLength < Base
         include CodeLength
