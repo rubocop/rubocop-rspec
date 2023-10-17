@@ -30,12 +30,12 @@ module RuboCop
         def on_block(node)
           rspec_configure(node) do |block_var|
             metadata_in_block(node, block_var) do |metadata_arguments|
-              on_matadata_arguments(metadata_arguments)
+              on_metadata_arguments(metadata_arguments)
             end
           end
 
           rspec_metadata(node) do |metadata_arguments|
-            on_matadata_arguments(metadata_arguments)
+            on_metadata_arguments(metadata_arguments)
           end
         end
         alias on_numblock on_block
@@ -46,7 +46,7 @@ module RuboCop
 
         private
 
-        def on_matadata_arguments(metadata_arguments)
+        def on_metadata_arguments(metadata_arguments)
           *symbols, last = metadata_arguments
           hash = nil
           case last&.type
