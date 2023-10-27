@@ -4,6 +4,7 @@
 
 - Add support single quoted string and percent string and heredoc for `RSpec/Rails/HttpStatus`. ([@ydah])
 - Change to be inline disable for `RSpec/SpecFilePathFormat` like `RSpec/FilePath`. ([@ydah])
+- Fix a false positive for `RSpec/MetadataStyle` with example groups having multiple string arguments. ([@franzliedke])
 
 ## 2.24.1 (2023-09-23)
 
@@ -842,6 +843,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@faucct]: https://github.com/faucct
 [@foton]: https://github.com/foton
 [@francois-ferrandis]: https://github.com/francois-ferrandis
+[@franzliedke]: https://github.com/franzliedke
 [@g-rath]: https://github.com/G-Rath
 [@geniou]: https://github.com/geniou
 [@gsamokovarov]: https://github.com/gsamokovarov
