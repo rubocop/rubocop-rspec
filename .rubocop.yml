@@ -126,11 +126,17 @@ Layout/LineContinuationSpacing:
   Enabled: true
 Layout/LineEndStringConcatenationIndentation:
   Enabled: true
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: true
+Lint/NonAtomicFileOperation:
+  Enabled: true
 Style/EmptyHeredoc:
   Enabled: true
 Style/RedundantHeredocDelimiterQuotes:
   Enabled: true
 Style/RedundantStringEscape:
+  Enabled: true
+Style/ReturnNilInPredicateMethodDefinition:
   Enabled: true
 
 # Enable our own pending cops.
@@ -166,6 +172,8 @@ RSpec/MetadataStyle:
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
+  Enabled: true
+RSpec/ReceiveMessages:
   Enabled: true
 RSpec/RedundantAround:
   Enabled: true

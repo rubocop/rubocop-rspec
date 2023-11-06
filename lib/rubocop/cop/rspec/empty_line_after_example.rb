@@ -71,8 +71,8 @@ module RuboCop
 
         def next_one_line_example?(node)
           next_sibling = node.right_sibling
-          return unless next_sibling
-          return unless example?(next_sibling)
+          return false unless next_sibling
+          return false unless example?(next_sibling)
 
           next_sibling.single_line?
         end

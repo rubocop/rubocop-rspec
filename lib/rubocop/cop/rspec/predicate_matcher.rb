@@ -202,7 +202,7 @@ module RuboCop
 
           return false if allowed_explicit_matchers.include?(name)
 
-          name.start_with?('be_', 'have_') && !name.end_with?('?') ||
+          (name.start_with?('be_', 'have_') && !name.end_with?('?')) ||
             %w[include respond_to].include?(name)
         end
 

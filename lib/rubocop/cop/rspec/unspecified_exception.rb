@@ -57,7 +57,7 @@ module RuboCop
         end
 
         def block_with_args?(node)
-          return unless node&.block_type?
+          return false unless node&.block_type?
 
           node.arguments?
         end

@@ -67,7 +67,7 @@ module RuboCop
         private
 
         def skipped?(node)
-          skippable?(node) && skipped_in_metadata?(node) ||
+          (skippable?(node) && skipped_in_metadata?(node)) ||
             skipped_regular_example_without_body?(node)
         end
 

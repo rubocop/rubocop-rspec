@@ -162,7 +162,7 @@ module RuboCop
         end
 
         def conditionals_with_examples?(body)
-          return unless body.begin_type? || body.case_type?
+          return false unless body.begin_type? || body.case_type?
 
           body.each_descendant(:if, :case).any? do |condition_node|
             examples_in_branches?(condition_node)
@@ -170,7 +170,7 @@ module RuboCop
         end
 
         def examples_in_branches?(condition_node)
-          return if !condition_node.if_type? && !condition_node.case_type?
+          return false if !condition_node.if_type? && !condition_node.case_type?
 
           condition_node.branches.any? { |branch| examples?(branch) }
         end

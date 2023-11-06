@@ -148,15 +148,15 @@ module RuboCop
         end
 
         def offensive_described_class?(node)
-          return unless node.const_type?
+          return false unless node.const_type?
 
           # E.g. `described_class::CONSTANT`
-          return if contains_described_class?(node)
+          return false if contains_described_class?(node)
 
           nearest_described_class, = node.each_ancestor(:block)
             .map { |ancestor| described_constant(ancestor) }.find(&:itself)
 
-          return if nearest_described_class.equal?(node)
+          return false if nearest_described_class.equal?(node)
 
           full_const_name(nearest_described_class) == full_const_name(node)
         end

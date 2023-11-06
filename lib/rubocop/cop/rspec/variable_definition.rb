@@ -60,8 +60,8 @@ module RuboCop
         end
 
         def style_offense?(variable)
-          style == :symbols && string?(variable) ||
-            style == :strings && symbol?(variable)
+          (style == :symbols && string?(variable)) ||
+            (style == :strings && symbol?(variable))
         end
 
         def string?(node)
