@@ -1067,6 +1067,13 @@ RSpec/FactoryBot/CreateList:
   VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList
 
+RSpec/FactoryBot/ExcessiveCreateList:
+  Description: Check for create_list FactoryBot declarations higher than configured
+    MaxAmount.
+  Enabled: pending
+  VersionAdded: '2.26'
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/ExcessiveCreateList
+
 RSpec/FactoryBot/FactoryClassName:
   Description: Use string value when setting the class attribute explicitly.
   Enabled: true

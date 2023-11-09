@@ -19,6 +19,7 @@ module RuboCop
         RSpec/FactoryBot/AttributeDefinedStatically
         RSpec/FactoryBot/ConsistentParenthesesStyle
         RSpec/FactoryBot/CreateList
+        RSpec/FactoryBot/ExcessiveCreateList
         RSpec/FactoryBot/FactoryClassName
         RSpec/FactoryBot/FactoryNameStyle
         RSpec/FactoryBot/SyntaxMethods

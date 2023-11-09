@@ -98,6 +98,9 @@ RSpec/ExampleLength:
     - heredoc
   Max: 11
 
+RSpec/FactoryBot/ExcessiveCreateList:
+  Enabled: true
+
 RSpec/FilePath:
   Enabled: false
 

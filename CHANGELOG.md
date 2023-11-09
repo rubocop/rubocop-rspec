@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add new `RSpec/FactoryBot/ExcessiveCreateList` cop. ([@ddieulivol])
+
 ## 2.25.0 (2023-10-27)
 
 - Add support single quoted string and percent string and heredoc for `RSpec/Rails/HttpStatus`. ([@ydah])

@@ -122,6 +122,7 @@
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/consistentparenthesesstyle[RSpec/FactoryBot/ConsistentParenthesesStyle]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
+* xref:cops_rspec_factorybot.adoc#rspecfactorybot/excessivecreatelist[RSpec/FactoryBot/ExcessiveCreateList]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/factorynamestyle[RSpec/FactoryBot/FactoryNameStyle]
 * xref:cops_rspec_factorybot.adoc#rspecfactorybot/syntaxmethods[RSpec/FactoryBot/SyntaxMethods]
