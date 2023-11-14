@@ -38,7 +38,7 @@ module RuboCop
           ...)
         PATTERN
 
-        def on_block(node)  # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_method(node) do |context|
             add_offense(context) do |corrector|
               corrector.replace(node.send_node.loc.selector, 'describe')
