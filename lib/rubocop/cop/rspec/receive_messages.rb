@@ -148,7 +148,7 @@ module RuboCop
         end
 
         def heredoc_or_splat?(node)
-          (node.str_type? || node.dstr_type?) && node.heredoc? ||
+          ((node.str_type? || node.dstr_type?) && node.heredoc?) ||
             node.splat_type?
         end
 

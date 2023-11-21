@@ -19,6 +19,6 @@ module FileHelper
 
   def create_dir(file_path)
     dir_path = File.dirname(file_path)
-    FileUtils.makedirs dir_path unless File.exist?(dir_path)
+    FileUtils.makedirs dir_path
   end
 end
