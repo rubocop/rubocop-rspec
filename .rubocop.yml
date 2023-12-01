@@ -179,6 +179,8 @@ RSpec/RedundantAround:
   Enabled: true
 RSpec/RedundantPredicateMatcher:
   Enabled: true
+RSpec/RemoveConst:
+  Enabled: true
 RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:

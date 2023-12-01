@@ -4525,6 +4525,38 @@ expect(foo).not_to include(bar)
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 
+== RSpec/RemoveConst
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks that `remove_const` is not used in specs.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it 'does something' do
+  Object.send(:remove_const, :SomeConstant)
+end
+
+before do
+  SomeClass.send(:remove_const, :SomeConstant)
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
+
 == RSpec/RepeatedDescription
 
 |===
