@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add new `RSpec/RedundantPredicateMatcher` cop. ([@ydah])
+- Add support for correcting "it will" (future tense) for `RSpec/ExampleWording`. ([@jdufresne])
 
 ## 2.25.0 (2023-10-27)
 
@@ -857,6 +858,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ignaciovillaverde]: https://github.com/ignaciovillaverde
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
+[@jdufresne]: https://github.com/jdufresne
 [@jeffreyc]: https://github.com/jeffreyc
 [@jfragoulis]: https://github.com/jfragoulis
 [@johnny-miyake]: https://github.com/johnny-miyake

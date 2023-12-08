@@ -6,6 +6,8 @@ module RuboCop
     class Wording
       SHOULDNT_PREFIX    = /\Ashould(?:n't| not)\b/i.freeze
       SHOULDNT_BE_PREFIX = /#{SHOULDNT_PREFIX} be\b/i.freeze
+      WILL_NOT_PREFIX    = /\Awill not\b/i.freeze
+      WONT_PREFIX        = /\Awon't\b/i.freeze
       ES_SUFFIX_PATTERN  = /(?:o|s|x|ch|sh|z)\z/i.freeze
       IES_SUFFIX_PATTERN = /[^aeou]y\z/i.freeze
 
@@ -15,16 +17,22 @@ module RuboCop
         @replacements = replace
       end
 
+      # rubocop:disable Metrics/MethodLength
       def rewrite
         case text
         when SHOULDNT_BE_PREFIX
           replace_prefix(SHOULDNT_BE_PREFIX, 'is not')
         when SHOULDNT_PREFIX
           replace_prefix(SHOULDNT_PREFIX, 'does not')
+        when WILL_NOT_PREFIX
+          replace_prefix(WILL_NOT_PREFIX, 'does not')
+        when WONT_PREFIX
+          replace_prefix(WONT_PREFIX, 'does not')
         else
           remove_should_and_pluralize
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 

@@ -96,6 +96,110 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     RUBY
   end
 
+  it 'finds description with `will` at the beginning' do
+    expect_offense(<<-RUBY)
+      it 'will do something' do
+          ^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it 'does something' do
+      end
+    RUBY
+  end
+
+  it 'finds interpolated description with `will` at the beginning' do
+    expect_offense(<<-'RUBY')
+      it "will do #{:stuff}" do
+          ^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-'RUBY')
+      it "does #{:stuff}" do
+      end
+    RUBY
+  end
+
+  it 'finds description with `Will` at the beginning' do
+    expect_offense(<<-RUBY)
+      it 'Will do something' do
+          ^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it 'does something' do
+      end
+    RUBY
+  end
+
+  it "finds description with `won't` at the beginning" do
+    expect_offense(<<-RUBY)
+      it "won't do something" do
+          ^^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it "does not do something" do
+      end
+    RUBY
+  end
+
+  it "finds description with `WON'T` at the beginning" do
+    expect_offense(<<-RUBY)
+      it "WON'T do something" do
+          ^^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it "DOES NOT do something" do
+      end
+    RUBY
+  end
+
+  it 'flags a lone will' do
+    expect_offense(<<-RUBY)
+      it 'will' do
+          ^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it '' do
+      end
+    RUBY
+  end
+
+  it 'flags a lone will not' do
+    expect_offense(<<-RUBY)
+      it 'will not' do
+          ^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it 'does not' do
+      end
+    RUBY
+  end
+
+  it "flags a lone won't" do
+    expect_offense(<<-RUBY)
+      it "won't" do
+          ^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<-RUBY)
+      it "does not" do
+      end
+    RUBY
+  end
+
   it 'finds leading its' do
     expect_offense(<<-RUBY)
       it "it does something" do
