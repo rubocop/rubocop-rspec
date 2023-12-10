@@ -177,6 +177,8 @@ RSpec/ReceiveMessages:
   Enabled: true
 RSpec/RedundantAround:
   Enabled: true
+RSpec/RedundantPredicateMatcher:
+  Enabled: true
 RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:

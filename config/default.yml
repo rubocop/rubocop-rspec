@@ -771,6 +771,12 @@ RSpec/RedundantAround:
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
+RSpec/RedundantPredicateMatcher:
+  Description: Checks for redundant predicate matcher.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
+
 RSpec/RepeatedDescription:
   Description: Check for repeated description strings in example groups.
   Enabled: true
