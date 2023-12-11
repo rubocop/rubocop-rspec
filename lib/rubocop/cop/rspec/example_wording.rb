@@ -22,6 +22,9 @@ module RuboCop
       #   it 'should find nothing' do
       #   end
       #
+      #   it 'will find nothing' do
+      #   end
+      #
       #   # good
       #   it 'finds nothing' do
       #   end
@@ -47,11 +50,13 @@ module RuboCop
         extend AutoCorrector
 
         MSG_SHOULD = 'Do not use should when describing your tests.'
+        MSG_WILL   = 'Do not use the future tense when describing your tests.'
         MSG_IT     = "Do not repeat 'it' when describing your tests."
         MSG_INSUFFICIENT_DESCRIPTION = 'Your example description is ' \
                                        'insufficient.'
 
         SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
+        WILL_PREFIX   = /\A(?:will|won't)\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze
 
         # @!method it_description(node)
@@ -62,10 +67,13 @@ module RuboCop
           } ...) ...)
         PATTERN
 
+        # rubocop:disable Metrics/MethodLength
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           it_description(node) do |description_node, message|
             if message.match?(SHOULD_PREFIX)
               add_wording_offense(description_node, MSG_SHOULD)
+            elsif message.match?(WILL_PREFIX)
+              add_wording_offense(description_node, MSG_WILL)
             elsif message.match?(IT_PREFIX)
               add_wording_offense(description_node, MSG_IT)
             elsif insufficient_docstring?(description_node)
@@ -74,6 +82,7 @@ module RuboCop
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         private
 
@@ -100,7 +109,7 @@ module RuboCop
         def replacement_text(node)
           text = text(node)
 
-          if text.match?(SHOULD_PREFIX)
+          if text.match?(SHOULD_PREFIX) || text.match?(WILL_PREFIX)
             RuboCop::RSpec::Wording.new(
               text,
               ignore:  ignored_words,
