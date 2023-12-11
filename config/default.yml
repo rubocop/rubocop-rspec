@@ -844,9 +844,14 @@ RSpec/SharedContext:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 RSpec/SharedExamples:
-  Description: Enforces use of string to titleize shared examples.
+  Description: Checks for consistent style for shared example names.
   Enabled: true
+  EnforcedStyle: string
+  SupportedStyles:
+    - string
+    - symbol
   VersionAdded: '1.25'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples
 
 RSpec/SingleArgumentMessageChain:
