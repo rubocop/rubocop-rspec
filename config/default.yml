@@ -777,6 +777,12 @@ RSpec/RedundantPredicateMatcher:
   VersionAdded: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 
+RSpec/RemoveConst:
+  Description: Checks that `remove_const` is not used in specs.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
+
 RSpec/RepeatedDescription:
   Description: Check for repeated description strings in example groups.
   Enabled: true

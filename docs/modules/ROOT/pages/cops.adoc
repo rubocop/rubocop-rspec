@@ -81,6 +81,7 @@
 * xref:cops_rspec.adoc#rspecreceivenever[RSpec/ReceiveNever]
 * xref:cops_rspec.adoc#rspecredundantaround[RSpec/RedundantAround]
 * xref:cops_rspec.adoc#rspecredundantpredicatematcher[RSpec/RedundantPredicateMatcher]
+* xref:cops_rspec.adoc#rspecremoveconst[RSpec/RemoveConst]
 * xref:cops_rspec.adoc#rspecrepeateddescription[RSpec/RepeatedDescription]
 * xref:cops_rspec.adoc#rspecrepeatedexample[RSpec/RepeatedExample]
 * xref:cops_rspec.adoc#rspecrepeatedexamplegroupbody[RSpec/RepeatedExampleGroupBody]
