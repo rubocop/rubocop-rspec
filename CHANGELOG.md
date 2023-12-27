@@ -5,6 +5,7 @@
 - Add new `RSpec/RedundantPredicateMatcher` cop. ([@ydah])
 - Add support for correcting "it will" (future tense) for `RSpec/ExampleWording`. ([@jdufresne])
 - Add new `RSpec/RemoveConst` cop. ([@swelther])
+- Ensure `PendingWithoutReason` can detect violations inside shared groups. ([@robinaugh])
 
 ## 2.25.0 (2023-10-27)
 
@@ -902,6 +903,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rafix02]: https://github.com/Rafix02
 [@redross]: https://github.com/redross
 [@renanborgescampos]: https://github.com/renanborgescampos
+[@robinaugh]: https://github.com/robinaugh
 [@robotdana]: https://github.com/robotdana
 [@rolfschmidt]: https://github.com/rolfschmidt
 [@rrosenblum]: https://github.com/rrosenblum
