@@ -29,6 +29,19 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
     end
   end
 
+  context 'when pending/skip has a reason inside a shared example group' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo do
+          shared_examples 'something' do
+            pending 'does something'
+            skip 'does something'
+          end
+        end
+      RUBY
+    end
+  end
+
   context 'when pending/skip by metadata on example with reason' do
     it 'registers no offense' do
       expect_no_offenses(<<~RUBY)
@@ -396,6 +409,20 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
             end
             skip 'does something' do
               _1
+            end
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'when skipped inside a shared example group' do
+    it 'registers offense' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          shared_examples 'something' do
+            xit 'something' do
+            ^^^^^^^^^^^^^^^ Give the reason for xit.
             end
           end
         end
