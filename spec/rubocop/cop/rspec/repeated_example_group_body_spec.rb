@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   it 'registers an offense for repeated describe body' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
       ^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [5]
         it { cool_predicate_method }
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers an offense for repeated context body' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context 'when awesome case' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block body on line(s) [5]
         it { cool_predicate_method }
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers an offense for several repeated context body' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context 'when usual case' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block body on line(s) [5, 9]
         it { cool_predicate_method }
@@ -49,7 +49,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense for different block body implementation' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context 'when awesome case' do
         it { cool_predicate_method }
       end
@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense if metadata is different' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it { cool_predicate_method }
       end
@@ -73,7 +73,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense if module arg is different' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe CSV::Row do
         it { is_expected.to respond_to :headers }
       end
@@ -85,7 +85,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense when module arg namespace is different' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe CSV::Parser do
         it { expect(described_class).to respond_to(:parse) }
       end
@@ -97,7 +97,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers an offense for when module arg and namespace are identical' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context Net::HTTP do
       ^^^^^^^^^^^^^^^^^^^^ Repeated context block body on line(s) [5]
         it { expect(described_class).to respond_to :start }
@@ -111,7 +111,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense with several docstring' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x', :json, 'request' do
         it { cool_predicate_method }
       end
@@ -123,7 +123,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense for different groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
       ^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [5]
         it { cool_predicate_method }
@@ -137,7 +137,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense for example groups in different groups' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'A' do
         describe '.b' do
           context 'when this' do
@@ -152,7 +152,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense only for RSPEC namespace example groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       helpers.describe 'doing x' do
         it { cool_predicate_method }
       end
@@ -170,7 +170,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense only for RSPEC namespace example groups in any order' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe 'doing x' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [5]
         it { cool_predicate_method }
@@ -188,7 +188,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense only for example group' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe 'A' do
         stub_all_http_calls()
         allowed_statuses = %i[open submitted approved].freeze
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'skips `skip` and `pending` statements' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context 'rejected' do
         skip
       end
@@ -225,7 +225,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'skips `skip` and `pending` statements with arguments' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe '#load' do
         skip 'storage feature needed'
       end
@@ -245,7 +245,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense correctly if `skip` and `pending` have block' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe '#load' do
       ^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [5]
         skip { cool_predicate_method }
@@ -269,7 +269,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense correctly if example groups are separated' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'repeated' do
       ^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [7]
         it { is_expected.to be_truthy }
@@ -285,7 +285,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense for same examples with different data' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context 'when admin' do
         let(:user) { admin }
         it { is_expected.to be_truthy }
@@ -299,7 +299,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'does not register offense if no descriptions, but different body' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context do
         let(:preferences) { default_preferences }
 
@@ -315,7 +315,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
   end
 
   it 'registers offense no descriptions and similar body' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context do
       ^^^^^^^^^^ Repeated context block body on line(s) [7]
         let(:preferences) { %w[a] }

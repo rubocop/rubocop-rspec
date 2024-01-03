@@ -48,12 +48,12 @@ module RuboCop
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
 
         # @!method several_example_groups?(node)
-        def_node_matcher :several_example_groups?, <<-PATTERN
+        def_node_matcher :several_example_groups?, <<~PATTERN
           (begin <#example_group? #example_group? ...>)
         PATTERN
 
         # @!method doc_string_and_metadata(node)
-        def_node_matcher :doc_string_and_metadata, <<-PATTERN
+        def_node_matcher :doc_string_and_metadata, <<~PATTERN
           (block (send _ _ $_ $...) ...)
         PATTERN
 

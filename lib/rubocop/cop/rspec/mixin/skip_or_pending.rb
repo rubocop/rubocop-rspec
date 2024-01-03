@@ -8,7 +8,7 @@ module RuboCop
         extend RuboCop::NodePattern::Macros
 
         # @!method skipped_in_metadata?(node)
-        def_node_matcher :skipped_in_metadata?, <<-PATTERN
+        def_node_matcher :skipped_in_metadata?, <<~PATTERN
           {
             (send _ _ <(sym {:skip :pending}) ...>)
             (send _ _ ... (hash <(pair (sym {:skip :pending}) { true str dstr }) ...>))
@@ -30,7 +30,7 @@ module RuboCop
         #
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes
-        def_node_matcher :skip_or_pending_inside_block?, <<-PATTERN
+        def_node_matcher :skip_or_pending_inside_block?, <<~PATTERN
           (block <(send nil? {:skip :pending} ...) ...>)
         PATTERN
       end

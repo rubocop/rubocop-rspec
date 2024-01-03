@@ -59,7 +59,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores different hooks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         before { bar }
         after { baz }
@@ -69,7 +69,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores different hook types' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         before { bar }
         before(:all) { baz }
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores hooks in different example groups' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         before { bar }
 
@@ -91,7 +91,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores hooks in different shared contexts' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         shared_context 'one' do
           before { bar }
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores similar method names inside of examples' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         before { bar }
 
@@ -117,7 +117,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
   end
 
   it 'ignores hooks with different metadata' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         before(:example) { foo }
         before(:example, :special_case) { bar }

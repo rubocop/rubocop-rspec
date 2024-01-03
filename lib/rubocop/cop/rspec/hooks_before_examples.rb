@@ -28,7 +28,7 @@ module RuboCop
         MSG = 'Move `%<hook>s` above the examples in the group.'
 
         # @!method example_or_group?(node)
-        def_node_matcher :example_or_group?, <<-PATTERN
+        def_node_matcher :example_or_group?, <<~PATTERN
           {
             ({block numblock} {
               (send #rspec? #ExampleGroups.all ...)

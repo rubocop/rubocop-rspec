@@ -48,7 +48,7 @@ module RuboCop
         def_node_matcher :stub_with_block?, '(block #contains_stub? ...)'
 
         # @!method and_return_value(node)
-        def_node_search :and_return_value, <<-PATTERN
+        def_node_search :and_return_value, <<~PATTERN
           $(send _ :and_return $(...))
         PATTERN
 

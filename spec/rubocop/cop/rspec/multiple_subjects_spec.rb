@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
   it 'registers an offense for every overwritten subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'hello there' do
         subject(:foo) { 1 }
         ^^^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
@@ -18,7 +18,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe 'hello there' do
         let(:foo) { 1 }
         let(:bar) { 2 }
@@ -32,7 +32,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
   end
 
   it 'does not try to autocorrect subject!' do
-    source = <<-RUBY
+    source = <<~RUBY
       describe Foo do
         subject! { a }
         ^^^^^^^^^^^^^^ Do not set more than one subject per example group
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
   end
 
   it 'does not flag shared example groups' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Foo do
         it_behaves_like 'user' do
           subject { described_class.new(user, described_class) }
@@ -64,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
   end
 
   it 'autocorrects' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'hello there' do
         subject { 1 }
         ^^^^^^^^^^^^^ Do not set more than one subject per example group
@@ -74,7 +74,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe 'hello there' do
         subject { 3 }
       end

@@ -32,17 +32,17 @@ module RuboCop
                          'or `%<arg>s.run`.'
 
         # @!method hook_block(node)
-        def_node_matcher :hook_block, <<-PATTERN
+        def_node_matcher :hook_block, <<~PATTERN
           (block (send nil? :around sym ?) (args $...) ...)
         PATTERN
 
         # @!method hook_numblock(node)
-        def_node_matcher :hook_numblock, <<-PATTERN
+        def_node_matcher :hook_numblock, <<~PATTERN
           (numblock (send nil? :around sym ?) ...)
         PATTERN
 
         # @!method find_arg_usage(node)
-        def_node_search :find_arg_usage, <<-PATTERN
+        def_node_search :find_arg_usage, <<~PATTERN
           {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
         PATTERN
 

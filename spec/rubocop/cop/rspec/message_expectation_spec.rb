@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation do
     end
 
     it 'flags expect(...).to receive' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         expect(foo).to receive(:bar)
         ^^^^^^ Prefer `allow` for setting message expectations.
       RUBY
@@ -27,7 +27,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation do
     end
 
     it 'flags allow(...).to receive' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         allow(foo).to receive(:bar)
         ^^^^^ Prefer `expect` for setting message expectations.
       RUBY

@@ -24,8 +24,8 @@ module RuboCop
           RESTRICT_ON_SEND = %i[assert_equal refute_equal].freeze
 
           # @!method minitest_assertion(node)
-          def_node_matcher :minitest_assertion, <<-PATTERN
-          (send nil? {:assert_equal :refute_equal} $_ $_ $_?)
+          def_node_matcher :minitest_assertion, <<~PATTERN
+            (send nil? {:assert_equal :refute_equal} $_ $_ $_?)
           PATTERN
 
           def on_send(node)

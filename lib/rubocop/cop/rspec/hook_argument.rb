@@ -66,12 +66,12 @@ module RuboCop
         EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'
 
         # @!method scoped_hook(node)
-        def_node_matcher :scoped_hook, <<-PATTERN
+        def_node_matcher :scoped_hook, <<~PATTERN
           ({block numblock} $(send _ #Hooks.all (sym ${:each :example})) ...)
         PATTERN
 
         # @!method unscoped_hook(node)
-        def_node_matcher :unscoped_hook, <<-PATTERN
+        def_node_matcher :unscoped_hook, <<~PATTERN
           ({block numblock} $(send _ #Hooks.all) ...)
         PATTERN
 

@@ -8,7 +8,7 @@ RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
   let(:cop_class) { RuboCop::Cop::RSpec::Base }
 
   let(:source) do
-    <<-RUBY
+    <<~RUBY
       RSpec.describe Foo do
         it 'does x' do
           x

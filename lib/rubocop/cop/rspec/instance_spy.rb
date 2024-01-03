@@ -25,7 +25,7 @@ module RuboCop
               'with `have_received`.'
 
         # @!method null_double(node)
-        def_node_search :null_double, <<-PATTERN
+        def_node_search :null_double, <<~PATTERN
           (lvasgn $_
             (send
               $(send nil? :instance_double
@@ -33,7 +33,7 @@ module RuboCop
         PATTERN
 
         # @!method have_received_usage(node)
-        def_node_search :have_received_usage, <<-PATTERN
+        def_node_search :have_received_usage, <<~PATTERN
           (send
             (send nil? :expect
             (lvar $_)) :to

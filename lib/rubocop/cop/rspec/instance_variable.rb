@@ -52,12 +52,12 @@ module RuboCop
               'a method call, or a local variable (if possible).'
 
         # @!method dynamic_class?(node)
-        def_node_matcher :dynamic_class?, <<-PATTERN
+        def_node_matcher :dynamic_class?, <<~PATTERN
           (block (send (const nil? :Class) :new ...) ...)
         PATTERN
 
         # @!method custom_matcher?(node)
-        def_node_matcher :custom_matcher?, <<-PATTERN
+        def_node_matcher :custom_matcher?, <<~PATTERN
           (block {
             (send nil? :matcher sym)
             (send (const (const nil? :RSpec) :Matchers) :define sym)

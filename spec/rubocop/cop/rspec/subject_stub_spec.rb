@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   it 'flags when subject is stubbed' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
 
   it 'flags when subject is stubbed and there are several named subjects ' \
      'in the same example group' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
         subject(:bar) { described_class.new }
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when subject is mocked' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -62,7 +62,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when an unnamed subject is mocked' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject { described_class.new }
 
@@ -75,7 +75,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when a forced subject! is mocked and called as subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject!(:foo) { described_class.new }
 
@@ -88,7 +88,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when a forced subject! is mocked and called by name' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject!(:foo) { described_class.new }
 
@@ -101,7 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when an unnamed forced subject! is mocked' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject! { described_class.new }
 
@@ -114,7 +114,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags an expectation made on an unnamed subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -127,7 +127,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags one-line expectation syntax' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -140,7 +140,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags stub within context where subject name changed' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -157,7 +157,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags stub inside all matcher' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { [Object.new] }
         it 'tries to trick rubocop-rspec' do
@@ -169,7 +169,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when nested subject uses same name' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -190,7 +190,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested stubs when nested subject is anonymous' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -211,7 +211,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when example group does not define subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -230,7 +230,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -253,7 +253,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags nested subject stubs when adjacent context redefines' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -270,7 +270,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags deeply nested subject stubs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -295,7 +295,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags negated runners' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -311,7 +311,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags multiple-method stubs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -325,7 +325,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags chain stubs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -339,7 +339,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags spy subject stubs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         subject(:foo) { described_class.new }
 
@@ -354,7 +354,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when an implicit subject is mocked' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Foo do
         it 'uses an implicit subject' do
           expect(subject).to receive(:bar).and_return(baz)
@@ -365,7 +365,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
   end
 
   it 'flags when there are several top level example groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         subject(:foo) { described_class.new }
 
@@ -442,7 +442,7 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       shared_examples shared_examples_for shared_context
     ].each do |method|
       it "flags in top level #{method}" do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           RSpec.#{method} '#{method}' do
             it 'uses an implicit subject' do
               expect(subject).to receive(:bar)

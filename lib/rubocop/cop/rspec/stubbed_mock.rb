@@ -31,7 +31,7 @@ module RuboCop
         #
         #   @param node [RuboCop::AST::Node]
         #   @return [Array<RuboCop::AST::Node>] matching nodes
-        def_node_matcher :message_expectation?, <<-PATTERN
+        def_node_matcher :message_expectation?, <<~PATTERN
           {
             (send nil? { :receive :receive_message_chain } ...)  # receive(:foo)
             (send (send nil? :receive ...) :with ...)            # receive(:foo).with('bar')

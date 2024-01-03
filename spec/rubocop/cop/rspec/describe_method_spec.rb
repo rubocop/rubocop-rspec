@@ -6,7 +6,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'enforces non-method names' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe Some::Class, 'nope', '.incorrect_usage' do
                             ^^^^^^ The second argument to describe should be the method being tested. '#instance' or '.class'.
       end
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'enforces non-method names with multi-line describe' do
-    expect_offense(<<-'RUBY')
+    expect_offense(<<~'RUBY')
       describe Some::Class, "foo" \
                             ^^^^^^^ The second argument to describe should be the method being tested. '#instance' or '.class'.
         "bar" do
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'skips methods starting with a . or #' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Some::Class, '.asdf' do
       end
 
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'skips methods starting with a . or # with multi-line describe' do
-    expect_no_offenses(<<-'RUBY')
+    expect_no_offenses(<<~'RUBY')
       describe Some::Class, ".foo" \
         "bar" do
       end
@@ -45,7 +45,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
   end
 
   it 'skips specs not having a string second argument' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe Some::Class, :config do
       end
     RUBY

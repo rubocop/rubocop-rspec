@@ -42,7 +42,7 @@ module RuboCop
       PATTERN
 
       # @!method example_group_with_body?(node)
-      def_node_matcher :example_group_with_body?, <<-PATTERN
+      def_node_matcher :example_group_with_body?, <<~PATTERN
         (block (send #rspec? #ExampleGroups.all ...) args !nil?)
       PATTERN
 
@@ -50,15 +50,15 @@ module RuboCop
       def_node_matcher :example?, '(block (send nil? #Examples.all ...) ...)'
 
       # @!method hook?(node)
-      def_node_matcher :hook?, <<-PATTERN
-      {
-        (numblock (send nil? #Hooks.all ...) ...)
-        (block (send nil? #Hooks.all ...) ...)
-      }
+      def_node_matcher :hook?, <<~PATTERN
+        {
+          (numblock (send nil? #Hooks.all ...) ...)
+          (block (send nil? #Hooks.all ...) ...)
+        }
       PATTERN
 
       # @!method let?(node)
-      def_node_matcher :let?, <<-PATTERN
+      def_node_matcher :let?, <<~PATTERN
         {
           (block (send nil? #Helpers.all ...) ...)
           (send nil? #Helpers.all _ block_pass)
@@ -66,7 +66,7 @@ module RuboCop
       PATTERN
 
       # @!method include?(node)
-      def_node_matcher :include?, <<-PATTERN
+      def_node_matcher :include?, <<~PATTERN
         {
           (block (send nil? #Includes.all ...) ...)
           (send nil? #Includes.all ...)

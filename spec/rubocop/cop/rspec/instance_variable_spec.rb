@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   it 'flags an instance variable inside a describe' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores non-spec blocks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       not_rspec do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'flags an instance variable inside a shared example' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       shared_examples 'shared example' do
         it { expect(@foo).to be_empty }
                     ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'flags several instance variables inside a describe' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe MyClass do
         before { @foo = [] }
         it { expect(@foo).to be_empty }
@@ -42,14 +42,14 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   it 'ignores an instance variable without describe' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       @foo = []
       @foo.empty?
     RUBY
   end
 
   it 'ignores an instance variable inside a dynamic class' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe MyClass do
         let(:object) do
           Class.new(OtherClass) do
@@ -68,7 +68,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
 
   # Regression test for nevir/rubocop-rspec#115
   it 'ignores instance variables outside of specs' do
-    expect_no_offenses(<<-RUBY, 'lib/source_code.rb')
+    expect_no_offenses(<<~RUBY, 'lib/source_code.rb')
       feature do
         @foo = bar
 
@@ -134,7 +134,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     end
 
     it 'flags an instance variable when it is also assigned' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           before { @foo = [] }
           it { expect(@foo).to be_empty }
@@ -144,7 +144,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     end
 
     it 'ignores an instance variable when it is not assigned' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           it { expect(@foo).to be_empty }
         end
@@ -153,7 +153,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
 
     it 'flags an instance variable when it is also assigned ' \
        'in a sibling example group' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           context 'foo' do
             before { @foo = [] }

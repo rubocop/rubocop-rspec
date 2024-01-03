@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   it 'flags `let` after the first different node' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         let(:a) { a }
         it { expect(subject.foo).to eq(a) }
@@ -11,7 +11,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:b) { b }
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'works with heredocs' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe User do
         let(:a) { <<-BAR }
           hello
@@ -35,7 +35,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe User do
         let(:a) { <<-BAR }
           hello
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'works with comments' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         let(:a) { a } # a comment
         # example comment
@@ -63,7 +63,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         let(:a) { a } # a comment
         # define the second letter
@@ -77,7 +77,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'flags `let` at different nesting levels' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe User do
         let(:a) { a }
         it { expect(subject.foo).to eq(a) }
@@ -93,7 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe User do
         let(:a) { a }
         it { expect(subject.foo).to eq(a) }
@@ -110,7 +110,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'doesnt flag `let!` in the middle of multiple `let`s' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe User do
         subject { User }
 
@@ -122,7 +122,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'flags scattered `let!`s' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe User do
         let!(:a) { a }
         it { expect(subject.foo).to eq(a) }
@@ -131,7 +131,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe User do
         let!(:a) { a }
         let!(:c) { c }
@@ -141,7 +141,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
   end
 
   it 'flags `let` with proc argument' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe User do
         let(:a) { a }
         it { expect(subject.foo).to eq(a) }
@@ -150,7 +150,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe User do
         let(:a) { a }
         let(:user, &args[:build_user])

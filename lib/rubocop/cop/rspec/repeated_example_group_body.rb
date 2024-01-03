@@ -48,7 +48,7 @@ module RuboCop
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
         # @!method several_example_groups?(node)
-        def_node_matcher :several_example_groups?, <<-PATTERN
+        def_node_matcher :several_example_groups?, <<~PATTERN
           (begin <#example_group_with_body? #example_group_with_body? ...>)
         PATTERN
 

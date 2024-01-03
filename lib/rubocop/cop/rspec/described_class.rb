@@ -63,7 +63,7 @@ module RuboCop
         MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'
 
         # @!method common_instance_exec_closure?(node)
-        def_node_matcher :common_instance_exec_closure?, <<-PATTERN
+        def_node_matcher :common_instance_exec_closure?, <<~PATTERN
           (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
         PATTERN
 
@@ -75,7 +75,7 @@ module RuboCop
         def_node_matcher :scope_changing_syntax?, '{def class module}'
 
         # @!method described_constant(node)
-        def_node_matcher :described_constant, <<-PATTERN
+        def_node_matcher :described_constant, <<~PATTERN
           (block (send _ :describe $(const ...) ...) (args) $_)
         PATTERN
 

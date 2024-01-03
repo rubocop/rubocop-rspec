@@ -22,7 +22,7 @@ module RuboCop
         RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
 
         # @!method lambda?(node)
-        def_node_matcher :lambda?, <<-PATTERN
+        def_node_matcher :lambda?, <<~PATTERN
           {
             (send (const nil? :Proc) :new)
             (send nil? {:proc :lambda})
@@ -33,7 +33,7 @@ module RuboCop
         def_node_matcher :lambda_subject?, '(block #lambda? ...)'
 
         # @!method implicit_expect(node)
-        def_node_matcher :implicit_expect, <<-PATTERN
+        def_node_matcher :implicit_expect, <<~PATTERN
           $(send nil? {:is_expected :should :should_not} ...)
         PATTERN
 

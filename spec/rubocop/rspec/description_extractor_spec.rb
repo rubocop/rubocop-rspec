@@ -6,7 +6,7 @@ require 'rubocop/rspec/description_extractor'
 
 RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   let(:yardocs) do
-    YARD.parse_string(<<-RUBY)
+    YARD.parse_string(<<~RUBY)
       # This is not a cop
       class RuboCop::Cop::Mixin::Sneaky
       end

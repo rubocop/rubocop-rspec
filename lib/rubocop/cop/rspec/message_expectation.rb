@@ -33,7 +33,7 @@ module RuboCop
         RESTRICT_ON_SEND = %i[to].freeze
 
         # @!method message_expectation(node)
-        def_node_matcher :message_expectation, <<-PATTERN
+        def_node_matcher :message_expectation, <<~PATTERN
           (send $(send nil? {:expect :allow} ...) :to #receive_message?)
         PATTERN
 

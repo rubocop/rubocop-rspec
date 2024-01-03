@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   it 'flags a missing empty line after `it`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags one-line examples' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it { }
         ^^^^^^ Add an empty line after `it`.
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         it { }
 
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line after `specify`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.context 'foo' do
         specify do
         end
@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.context 'foo' do
         specify do
         end
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'ignores when an empty line is present' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'ignores consecutive one-liners' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         it { one }
         it { two }
@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags mixed one-line and multi-line examples' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.context 'foo' do
         it { }
         it { }
@@ -102,7 +102,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'does not register an offense for a comment followed by an empty line' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -115,7 +115,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line before a comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -126,7 +126,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -139,7 +139,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line before a multiline comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -151,7 +151,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -165,7 +165,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line after a `rubocop:enable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         it 'does this' do
@@ -177,7 +177,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         it 'does this' do
@@ -191,7 +191,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
   end
 
   it 'flags a missing empty line before a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -203,7 +203,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         it 'does this' do
         end
@@ -218,7 +218,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
 
   it 'flags a missing empty line after a `rubocop:enable` directive ' \
      'when it is followed by a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         it 'does this' do
@@ -232,7 +232,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         it 'does this' do
@@ -251,7 +251,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
     let(:cop_config) { { 'AllowConsecutiveOneLiners' => false } }
 
     it 'ignores consecutive one-liners' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe Foo do
           it { one }
           ^^^^^^^^^^ Add an empty line after `it`.

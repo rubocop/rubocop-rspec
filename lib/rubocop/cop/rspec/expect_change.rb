@@ -38,12 +38,12 @@ module RuboCop
         RESTRICT_ON_SEND = %i[change].freeze
 
         # @!method expect_change_with_arguments(node)
-        def_node_matcher :expect_change_with_arguments, <<-PATTERN
+        def_node_matcher :expect_change_with_arguments, <<~PATTERN
           (send nil? :change $_ ({sym str} $_))
         PATTERN
 
         # @!method expect_change_with_block(node)
-        def_node_matcher :expect_change_with_block, <<-PATTERN
+        def_node_matcher :expect_change_with_block, <<~PATTERN
           (block
             (send nil? :change)
             (args)

@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::RSpec::Focus do
   # rubocop:disable RSpec/ExampleLength
   it 'flags all rspec example blocks with that include `focus: true`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       example 'test', meta: true, focus: true do; end
                                   ^^^^^^^^^^^ Focused spec found.
       xit 'test', meta: true, focus: true do; end
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                                          ^^^^^^^^^^^ Focused spec found.
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       example 'test', meta: true do; end
       xit 'test', meta: true do; end
       describe 'test', meta: true do; end
@@ -68,7 +68,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'flags all rspec example blocks that include `:focus`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       example_group 'test', :focus do; end
                             ^^^^^^ Focused spec found.
       feature 'test', :focus do; end
@@ -109,7 +109,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
                              ^^^^^^ Focused spec found.
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       example_group 'test' do; end
       feature 'test' do; end
       xexample 'test' do; end
@@ -134,7 +134,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
   # rubocop:enable RSpec/ExampleLength
 
   it 'does not flag unfocused specs' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       xcontext      'test' do; end
       xscenario     'test' do; end
       xspecify      'test' do; end
@@ -156,27 +156,27 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'flags a method that is focused twice' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       fit "foo", :focus do
       ^^^^^^^^^^^^^^^^^ Focused spec found.
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       it "foo" do
       end
     RUBY
   end
 
   it 'ignores non-rspec code with :focus blocks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       some_method "foo", focus: true do
       end
     RUBY
   end
 
   it 'flags focused block types' do # rubocop:disable RSpec/ExampleLength
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       fdescribe 'test' do; end
       ^^^^^^^^^^^^^^^^ Focused spec found.
       RSpec.fdescribe 'test' do; end
@@ -197,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       ^^^^^^^^^^^^ Focused spec found.
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe 'test' do; end
       RSpec.describe 'test' do; end
       feature 'test' do; end
@@ -211,25 +211,25 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'flags rspec example blocks that include `:focus` preceding a hash' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'test', :focus, js: true do; end
                        ^^^^^^ Focused spec found.
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       describe 'test', js: true do; end
     RUBY
   end
 
   it 'ignores with chained method calls' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       let(:fit) { Tax.federal_income_tax }
       let(:fit_id) { fit.id }
     RUBY
   end
 
   it 'ignores when inside define method' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context 'test' do
         def foo
           fdescribe 'test'
@@ -246,7 +246,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
   end
 
   it 'ignores when inside define singleton method' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       def self.foo
         fdescribe 'test'
         ffeature 'test'

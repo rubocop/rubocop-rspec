@@ -23,7 +23,7 @@ module RuboCop
           MSG = 'Use `before` instead of `setup`.'
 
           # @!method setup_call(node)
-          def_node_matcher :setup_call, <<-PATTERN
+          def_node_matcher :setup_call, <<~PATTERN
             (block
               $(send nil? :setup)
               (args) _)

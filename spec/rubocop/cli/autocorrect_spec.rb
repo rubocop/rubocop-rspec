@@ -19,7 +19,7 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
           EnforcedStyleForMultiline: 'comma'
       YAML
 
-      create_file('spec/example.rb', <<-RUBY)
+      create_file('spec/example.rb', <<~RUBY)
         expect(page.current_path).to eq(
           some_path(
             id: id
@@ -39,7 +39,7 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
                'RSpec/Capybara/CurrentPathExpectation,' \
                'Style/TrailingCommaInArguments'])
 
-      expect(File.read('spec/example.rb')).to eq(<<-RUBY)
+      expect(File.read('spec/example.rb')).to eq(<<~RUBY)
         expect(page).to have_current_path(
           some_path(
             id: id,

@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathSuffix do
   end
 
   it 'does not register an offense for shared examples' do
-    expect_no_global_offenses(<<-RUBY, 'spec/models/user.rb')
+    expect_no_global_offenses(<<~RUBY, 'spec/models/user.rb')
       shared_examples_for 'foo' do; end
     RUBY
   end

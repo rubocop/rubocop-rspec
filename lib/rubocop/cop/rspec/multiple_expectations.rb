@@ -70,7 +70,7 @@ module RuboCop
         TRUE = ->(node) { node.true_type? }
 
         # @!method aggregate_failures?(node)
-        def_node_matcher :aggregate_failures?, <<-PATTERN
+        def_node_matcher :aggregate_failures?, <<~PATTERN
           (block {
               (send _ _ <(sym :aggregate_failures) ...>)
               (send _ _ ... (hash <(pair (sym :aggregate_failures) %1) ...>))
@@ -81,7 +81,7 @@ module RuboCop
         def_node_matcher :expect?, '(send nil? #Expectations.all ...)'
 
         # @!method aggregate_failures_block?(node)
-        def_node_matcher :aggregate_failures_block?, <<-PATTERN
+        def_node_matcher :aggregate_failures_block?, <<~PATTERN
           (block (send nil? :aggregate_failures ...) ...)
         PATTERN
 

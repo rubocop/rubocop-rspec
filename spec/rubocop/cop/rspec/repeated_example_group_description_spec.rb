@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   it 'registers an offense for repeated describe descriptions' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
       ^^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [5]
         # example group
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers an offense for repeated context descriptions' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context 'when awesome case' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [5]
         # example group
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers an offense with right pointing to lines of code' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'super feature' do
         context 'when some case' do
           # ...
@@ -55,7 +55,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'does not register offense for different block descriptions' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         # example group
       end
@@ -67,7 +67,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'does not register offense for describe block with additional docstring' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe 'Animal', 'dog' do
         # example group
       end
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'does not register offense for describe block with several docstring' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe 'Animal', 'dog', type: :request do
         # example group
       end
@@ -91,7 +91,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'register offense for different example group with similar descriptions' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'Animal' do
       ^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [5]
         # example group
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers offense only for RSPEC namespace example groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       helpers.describe 'doing x' do
         it { cool_predicate_method }
       end
@@ -123,7 +123,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers offense only for RSPEC namespace example groups in any order' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe 'doing x' do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [5]
         it { cool_predicate_method }
@@ -141,7 +141,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers offense only for example group' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe 'A' do
         stub_all_http_calls()
         allowed_statuses = %i[open submitted approved].freeze
@@ -161,7 +161,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'considers interpolated docstrings as different descriptions' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context "when class is \#{A::B}" do
         # ...
       end
@@ -173,7 +173,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers offense correctly for interpolated docstrings' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context "when class is \#{A::B}" do
       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [5]
         # ...
@@ -187,7 +187,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'considers different classes as different descriptions' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context A::B do
         # ...
       end
@@ -199,7 +199,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'register offense if same method used in docstring' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       context(description) do
       ^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [5]
         # ...
@@ -213,7 +213,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'registers offense correctly if example groups are separated' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'repeated' do
       ^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [7]
         it { is_expected.to be_truthy }
@@ -229,7 +229,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
   end
 
   it 'does not register offense for example group without descriptions' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       context do
         # ...
       end

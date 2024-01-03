@@ -78,12 +78,12 @@ module RuboCop
         ].freeze
 
         # @!method explicit_unnamed_subject?(node)
-        def_node_matcher :explicit_unnamed_subject?, <<-PATTERN
+        def_node_matcher :explicit_unnamed_subject?, <<~PATTERN
           (send nil? :expect (send nil? :subject))
         PATTERN
 
         # @!method implicit_subject?(node)
-        def_node_matcher :implicit_subject?, <<-PATTERN
+        def_node_matcher :implicit_subject?, <<~PATTERN
           (send nil? {:should :should_not :is_expected} ...)
         PATTERN
 
