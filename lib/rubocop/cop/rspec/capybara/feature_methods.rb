@@ -58,12 +58,12 @@ module RuboCop
           }.freeze
 
           # @!method capybara_speak(node)
-          def_node_matcher :capybara_speak, <<-PATTERN
+          def_node_matcher :capybara_speak, <<~PATTERN
             {#{MAP.keys.map(&:inspect).join(' ')}}
           PATTERN
 
           # @!method feature_method(node)
-          def_node_matcher :feature_method, <<-PATTERN
+          def_node_matcher :feature_method, <<~PATTERN
             (block
               $(send #rspec? $#capybara_speak ...)
             ...)

@@ -30,7 +30,7 @@ module RuboCop
         RESTRICT_ON_SEND = %i[eq].freeze
 
         # @!method eq_type_with_identity?(node)
-        def_node_matcher :eq_type_with_identity?, <<-PATTERN
+        def_node_matcher :eq_type_with_identity?, <<~PATTERN
           (send nil? :eq {true false nil})
         PATTERN
 

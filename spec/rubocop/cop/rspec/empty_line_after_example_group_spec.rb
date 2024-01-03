@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   it 'checks for empty line after describe' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         describe '#bar' do
         end
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         describe '#bar' do
         end
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'highlights single line formulations correctly' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         describe('#bar') { }
         ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
@@ -33,7 +33,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         describe('#bar') { }
 
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'checks for empty line after context' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.context 'foo' do
         context 'bar' do
         end
@@ -54,7 +54,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.context 'foo' do
         context 'bar' do
         end
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'checks for empty line after shared groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.context 'foo' do
         shared_examples 'bar' do
         end
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.context 'foo' do
         shared_examples 'bar' do
         end
@@ -94,7 +94,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'approves empty line after describe' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         describe '#bar' do
         end
@@ -106,7 +106,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'approves empty line after context' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.context 'foo' do
         context 'bar' do
         end
@@ -118,7 +118,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'handles describes in an if block' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       if RUBY_VERSION < 2.3
         describe 'skips checks under old ruby' do
         end
@@ -131,7 +131,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       if RUBY_VERSION < 2.3
         describe 'skips checks under old ruby' do
         end
@@ -146,7 +146,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'does not register an offense for a comment followed by an empty line' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -159,7 +159,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'flags a missing empty line before a comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -170,7 +170,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -183,7 +183,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'flags a missing empty line before a multiline comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -195,7 +195,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'flags a missing empty line after a `rubocop:enable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         describe 'bar' do
@@ -221,7 +221,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         describe 'bar' do
@@ -235,7 +235,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
   end
 
   it 'flags a missing empty line before a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -247,7 +247,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         describe 'bar' do
         end
@@ -262,7 +262,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
 
   it 'flags a missing empty line after a `rubocop:enable` directive ' \
      'when it is followed by a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         describe 'bar' do
@@ -276,7 +276,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         # rubocop:disable RSpec/Foo
         describe 'bar' do

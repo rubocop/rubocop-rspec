@@ -25,7 +25,7 @@ module RuboCop
           RESTRICT_ON_SEND = RUNNERS
 
           # @!method match_status(node)
-          def_node_matcher :match_status, <<-PATTERN
+          def_node_matcher :match_status, <<~PATTERN
             (send
               (send nil? :expect
                 $(send (send nil? :response) {:status :code})

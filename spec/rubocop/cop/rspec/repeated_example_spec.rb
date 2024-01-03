@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   it 'registers an offense for repeated example' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         it "does x" do
         ^^^^^^^^^^^^^^ Don't repeat examples within an example group.
@@ -18,7 +18,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'does not register an offense if rspec tag magic is involved' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does x" do
           expect(foo).to be(bar)
@@ -32,7 +32,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'does not flag examples with different implementations' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does x" do
           expect(foo).to have_attribute(foo: 1)
@@ -46,7 +46,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'registers an offense when repeated its are used' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat examples within an example group.
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'does not flag examples when different its arguments are used' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         its(:y) { is_expected.to be_present }
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'does not flag examples when different its block expectations are used' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         its(:x) { is_expected.to be_blank }
@@ -75,7 +75,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
   end
 
   it 'does not flag repeated examples in different scopes' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does x" do
           expect(foo).to be(bar)

@@ -21,7 +21,7 @@ module RuboCop
               'of iterating over an array.'
 
         # @!method each?(node)
-        def_node_matcher :each?, <<-PATTERN
+        def_node_matcher :each?, <<~PATTERN
           (block
             (send ... :each)
             (args (arg $_))
@@ -30,14 +30,14 @@ module RuboCop
         PATTERN
 
         # @!method each_numblock?(node)
-        def_node_matcher :each_numblock?, <<-PATTERN
+        def_node_matcher :each_numblock?, <<~PATTERN
           (numblock
             (send ... :each) _ $(...)
           )
         PATTERN
 
         # @!method expectation?(node)
-        def_node_matcher :expectation?, <<-PATTERN
+        def_node_matcher :expectation?, <<~PATTERN
           (send (send nil? :expect (lvar %)) :to ...)
         PATTERN
 

@@ -68,7 +68,7 @@ module RuboCop
         #   @param node [RuboCop::AST::Node]
         #
         #   @yield [Symbol] subject name
-        def_node_matcher :subject?, <<-PATTERN
+        def_node_matcher :subject?, <<~PATTERN
           (block
             (send nil?
               { #Subjects.all (sym $_) | $#Subjects.all }
@@ -77,7 +77,7 @@ module RuboCop
 
         # @!method let?(node)
         #   Find a memoized helper
-        def_node_matcher :let?, <<-PATTERN
+        def_node_matcher :let?, <<~PATTERN
           (block
             (send nil? :let (sym $_)
             ) args ...)
@@ -94,7 +94,7 @@ module RuboCop
         #     expect(foo).to receive(:bar).with(1)
         #     expect(foo).to receive(:bar).with(1).and_return(2)
         #
-        def_node_matcher :message_expectation?, <<-PATTERN
+        def_node_matcher :message_expectation?, <<~PATTERN
           (send
             {
               (send nil? { :expect :allow } (send nil? %))
@@ -106,7 +106,7 @@ module RuboCop
         PATTERN
 
         # @!method message_expectation_matcher?(node)
-        def_node_search :message_expectation_matcher?, <<-PATTERN
+        def_node_search :message_expectation_matcher?, <<~PATTERN
           (send nil? {
             :receive :receive_messages :receive_message_chain :have_received
             } ...)

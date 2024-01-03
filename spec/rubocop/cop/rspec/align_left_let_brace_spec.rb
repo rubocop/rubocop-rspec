@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
   # rubocop:disable RSpec/ExampleLength
   it 'registers offense for unaligned braces' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       let(:foo) { bar }
                 ^ Align left let brace
       let(:hi) { baz }
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       let(:foo)      { bar }
       let(:hi)       { baz }
       let(:blahblah) { baz }
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
   # rubocop:enable RSpec/ExampleLength
 
   it 'does not register an offense for let with proc argument' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       let(:user, &args[:build_user])
     RUBY
   end

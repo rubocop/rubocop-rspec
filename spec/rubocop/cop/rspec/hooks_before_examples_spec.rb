@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   it 'flags `before` after `it`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         it { is_expected.to be_after_before_hook }
         before { setup }
@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         before { setup }
         it { is_expected.to be_after_before_hook }
@@ -19,7 +19,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'flags `before` after `context`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         context 'a context' do
           it { is_expected.to be_after_before_hook }
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         before { setup }
         context 'a context' do
@@ -42,7 +42,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'flags `before` after `include_examples`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         include_examples('should be after before-hook')
 
@@ -51,7 +51,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         before { setup }
         include_examples('should be after before-hook')
@@ -61,7 +61,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'flags `after` after an example' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         it { is_expected.to be_after_after_hook }
         after { cleanup }
@@ -69,7 +69,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         after { cleanup }
         it { is_expected.to be_after_after_hook }
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'flags scoped hook after an example' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         it { is_expected.to be_after_before_hook }
         before(:each) { cleanup }
@@ -86,7 +86,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         before(:each) { cleanup }
         it { is_expected.to be_after_before_hook }
@@ -95,7 +95,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'works with comments' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         it { is_expected.to be_after_before_hook } # h
         # setup the system
@@ -105,7 +105,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         # setup the system
         # with multiline comment
@@ -116,7 +116,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'does not flag hooks before the examples' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         before(:each) { setup }
         after(:each) { cleanup }
@@ -133,7 +133,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'does not flag `before` in a nested context' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         before { setup }
 
@@ -148,7 +148,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'allows inclusion of context before hooks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         include_context 'special user'
 
@@ -158,7 +158,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
   end
 
   it 'ignores single-line example blocks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         include_examples 'special user' do
           before { setup }
@@ -169,7 +169,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
 
   context 'when Ruby 2.7', :ruby27 do
     it 'flags `around` after `it`' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           it { is_expected.to be_after_around_hook }
           around { _1 }
@@ -177,7 +177,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         RSpec.describe User do
           around { _1 }
           it { is_expected.to be_after_around_hook }
@@ -186,7 +186,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
     end
 
     it 'flags `around` after `context`' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           context 'a context' do
             it { is_expected.to be_after_around_hook }
@@ -197,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         RSpec.describe User do
           around { _1 }
           context 'a context' do
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
     end
 
     it 'flags `around` after `include_examples`' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           include_examples('should be after around-hook')
 
@@ -218,7 +218,7 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         RSpec.describe User do
           around { _1 }
           include_examples('should be after around-hook')

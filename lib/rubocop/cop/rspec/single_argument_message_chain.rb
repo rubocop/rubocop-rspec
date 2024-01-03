@@ -24,7 +24,7 @@ module RuboCop
         RESTRICT_ON_SEND = %i[receive_message_chain stub_chain].freeze
 
         # @!method message_chain(node)
-        def_node_matcher :message_chain, <<-PATTERN
+        def_node_matcher :message_chain, <<~PATTERN
           (send _ {:receive_message_chain :stub_chain} $_)
         PATTERN
 

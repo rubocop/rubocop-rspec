@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   it 'registers an offense for overwritten `let`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         let(:a) { a }
         let(:a) { b }
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'registers an offense for overwritten `subject`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject(:a) { a }
 
@@ -23,7 +23,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'registers an offense for `subject!` and `let!`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject!(:a) { a }
 
@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'registers an offense for `let!` overwriting `let`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         let(:a) { b }
         let!(:a) { b }
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'does not register an offense for overwriting in different context' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         let(:a) { a }
 
@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'registers an offense for overriding an unnamed subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject { a }
 
@@ -67,7 +67,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'does not register an offense for dynamic names for `let`' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         subject(:name) { a }
 
@@ -77,7 +77,7 @@ RSpec.describe RuboCop::Cop::RSpec::OverwritingSetup do
   end
 
   it 'registers an offense for string arguments' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject(:name) { a }
 

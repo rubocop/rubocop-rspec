@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   it 'registers an offense for empty line after subject' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject { described_class.new }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject`.
@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'registers an offense for empty line after subject!' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         subject! { described_class.new }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject!`.
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         subject! { described_class.new }
 
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'does not register an offense for empty line after subject' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         subject { described_class.new }
 
@@ -48,7 +48,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'does not register an offense for empty line after subject!' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         subject! { described_class.new }
 
@@ -58,7 +58,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'does not register an offense for multiline subject block' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         subject do
           described_class.new
@@ -70,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'does not register an offense for subject being the latest node' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe User do
         subject { described_user }
       end
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'does not register an offense for a comment followed by an empty line' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
         # comment
@@ -90,7 +90,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'flags a missing empty line before a comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject`.
@@ -100,7 +100,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
 
@@ -112,7 +112,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'flags a missing empty line before a multiline comment' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject`.
@@ -123,7 +123,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
 
@@ -136,7 +136,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'flags a missing empty line after a `rubocop:enable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         # rubocop:disable RSpec/Foo
         subject { described_user }
@@ -147,7 +147,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         # rubocop:disable RSpec/Foo
         subject { described_user }
@@ -160,7 +160,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
   end
 
   it 'flags a missing empty line before a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject`.
@@ -171,7 +171,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe Foo do
         subject { described_user }
 
@@ -185,7 +185,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
 
   it 'flags a missing empty line after a `rubocop:enable` directive ' \
      'when it is followed by a `rubocop:disable` directive' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe User do
         # rubocop:disable RSpec/Foo
         subject { described_user }
@@ -198,7 +198,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       RSpec.describe User do
         # rubocop:disable RSpec/Foo
         subject { described_user }

@@ -40,28 +40,28 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
   it 'builds a YAML dump with spacing between cops' do
     formatter = described_class.new(config, descriptions)
 
-    expect(formatter.dump).to eql(<<-YAML.gsub(/^\s+\|/, ''))
-      |---
-      |AllCops:
-      |  Setting: forty two
-      |
-      |RSpec/Foo:
-      |  Config: 2
-      |  Enabled: true
-      |  Description: Blah
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
-      |
-      |RSpec/Bar:
-      |  Enabled: true
-      |  Nullable: ~
-      |  Description: Wow
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
-      |
-      |RSpec/Baz:
-      |  Enabled: true
-      |  StyleGuide: "#buzz"
-      |  Description: Woof
-      |  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
+    expect(formatter.dump).to eql(<<~YAML)
+      ---
+      AllCops:
+        Setting: forty two
+
+      RSpec/Foo:
+        Config: 2
+        Enabled: true
+        Description: Blah
+        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
+
+      RSpec/Bar:
+        Enabled: true
+        Nullable: ~
+        Description: Wow
+        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
+
+      RSpec/Baz:
+        Enabled: true
+        StyleGuide: "#buzz"
+        Description: Woof
+        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
     YAML
   end
 end

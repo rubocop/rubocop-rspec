@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
 
   shared_examples 'ignored hooks' do
     it 'ignores :context and :suite' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         before(:suite) { true }
         after(:suite) { true }
         before(:context) { true }
@@ -16,13 +16,13 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'ignores hooks with more than one argument' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         before(:each, :something_custom) { true }
       RUBY
     end
 
     it 'ignores non-rspec hooks' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         setup(:each) { true }
       RUBY
     end
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     let(:enforced_style) { :implicit }
 
     it 'detects :each for hooks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before(:each) { true }
         ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
         after(:each) { true }
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before { true }
         after { true }
         around { true }
@@ -59,7 +59,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'detects :example for hooks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before(:example) { true }
         ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
         after(:example) { true }
@@ -70,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^^^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before { true }
         after { true }
         around { true }
@@ -79,7 +79,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'does not flag hooks without default scopes' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         before { true }
         after { true }
         around { true }
@@ -91,29 +91,29 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
 
     context 'when Ruby 2.7', :ruby27 do
       it 'detects :each for hooks' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around(:each) { _1 }
           ^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around { _1 }
         RUBY
       end
 
       it 'detects :example for hooks' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around(:example) { _1 }
           ^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around { _1 }
         RUBY
       end
 
       it 'does not flag hooks without default scopes' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           around { _1 }
         RUBY
       end
@@ -124,7 +124,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     let(:enforced_style) { :each }
 
     it 'does not flag :each for hooks' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         before(:each) { true }
         after(:each) { true }
         around(:each) { true }
@@ -133,7 +133,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'detects :example for hooks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before(:example) { true }
         ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
         after(:example) { true }
@@ -144,7 +144,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^^^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before(:each) { true }
         after(:each) { true }
         around(:each) { true }
@@ -153,7 +153,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'detects hooks without default scopes' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before { true }
         ^^^^^^ Use `:each` for RSpec hooks.
         after { true }
@@ -164,7 +164,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
                ^^^^^^ Use `:each` for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before(:each) { true }
         after(:each) { true }
         around(:each) { true }
@@ -176,29 +176,29 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
 
     context 'when Ruby 2.7', :ruby27 do
       it 'does not flag :each for hooks' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           around(:each) { _1 }
         RUBY
       end
 
       it 'detects :example for hooks' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around(:example) { _1 }
           ^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around(:each) { _1 }
         RUBY
       end
 
       it 'detects hooks without default scopes' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around { _1 }
           ^^^^^^ Use `:each` for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around(:each) { _1 }
         RUBY
       end
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     let(:enforced_style) { :example }
 
     it 'does not flag :example for hooks' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         before(:example) { true }
         after(:example) { true }
         around(:example) { true }
@@ -218,7 +218,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'detects :each for hooks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before(:each) { true }
         ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
         after(:each) { true }
@@ -229,7 +229,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
         ^^^^^^^^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before(:example) { true }
         after(:example) { true }
         around(:example) { true }
@@ -238,7 +238,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
     end
 
     it 'detects hooks without default scopes' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         before { true }
         ^^^^^^ Use `:example` for RSpec hooks.
         after { true }
@@ -249,7 +249,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
                ^^^^^^ Use `:example` for RSpec hooks.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         before(:example) { true }
         after(:example) { true }
         around(:example) { true }
@@ -261,29 +261,29 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
 
     context 'when Ruby 2.7', :ruby27 do
       it 'does not flag :example for hooks' do
-        expect_no_offenses(<<-RUBY)
+        expect_no_offenses(<<~RUBY)
           around(:example) { _1 }
         RUBY
       end
 
       it 'detects :each for hooks' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around(:each) { _1 }
           ^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around(:example) { _1 }
         RUBY
       end
 
       it 'detects hooks without default scopes' do
-        expect_offense(<<-RUBY)
+        expect_offense(<<~RUBY)
           around { _1 }
           ^^^^^^ Use `:example` for RSpec hooks.
         RUBY
 
-        expect_correction(<<-RUBY)
+        expect_correction(<<~RUBY)
           around(:example) { _1 }
         RUBY
       end

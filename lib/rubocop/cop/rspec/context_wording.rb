@@ -61,7 +61,7 @@ module RuboCop
         MSG = 'Context description should match %<patterns>s.'
 
         # @!method context_wording(node)
-        def_node_matcher :context_wording, <<-PATTERN
+        def_node_matcher :context_wording, <<~PATTERN
           (block (send #rspec? { :context :shared_context } $({str dstr xstr} ...) ...) ...)
         PATTERN
 

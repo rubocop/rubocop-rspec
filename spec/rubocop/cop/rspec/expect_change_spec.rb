@@ -9,14 +9,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     let(:enforced_style) { 'method_call' }
 
     it 'flags blocks that contain simple message sending' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change { User.count }.by(1)
                             ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change(User, :count).by(1)
         end
@@ -24,7 +24,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores blocks when the method is called with arguments' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           expect { run }.to change { User.sum(:points) }
         end
@@ -32,7 +32,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores when not an expectation' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           Record.change { User.count }
         end
@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags implicit block expectation syntax' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect(run).to change { User.count }.by(1)
                          ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
@@ -49,7 +49,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores the usage that adheres to the enforced style' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           expect { run }.to change(User, :count).by(1)
         end
@@ -57,14 +57,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags when the received is a namespaced constant' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change { User::Token::Auth.count }.by(1)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User::Token::Auth, :count)`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change(User::Token::Auth, :count).by(1)
         end
@@ -72,14 +72,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags when the receiver is a top-level constant' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change { ::User.count }.by(1)
                             ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change(::User, :count)`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change(::User, :count).by(1)
         end
@@ -87,14 +87,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags a method call on an object' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change { user.name }.to('Jack')
                             ^^^^^^^^^^^^^^^^^^^^ Prefer `change(user, :name)`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change(user, :name).to('Jack')
         end
@@ -102,7 +102,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores multiple chained method calls' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           expect { run }.to change { user.reload.name }
         end
@@ -110,7 +110,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores a variable/method' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           expect { run }.to change { results }.to([])
         end
@@ -122,14 +122,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     let(:enforced_style) { 'block' }
 
     it 'flags change matcher without block' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change(User, :count).by(1)
                             ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change { User.count }.by(1)
         end
@@ -137,14 +137,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags change matcher when receiver is a namespaced constant' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change(User::Token::Auth, :count).by(1)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { User::Token::Auth.count }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change { User::Token::Auth.count }.by(1)
         end
@@ -152,14 +152,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags change matcher when receiver is a variable' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change(user, :count)
                             ^^^^^^^^^^^^^^^^^^^^ Prefer `change { user.count }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change { user.count }
         end
@@ -167,14 +167,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags change matcher when message is a string' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change(user, 'status')
                             ^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { user.status }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change { user.status }
         end
@@ -182,14 +182,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'registers an offense for change matcher with chained method call' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { paint_users! }.to change(users.green, :count).by(1)
                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { users.green.count }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { paint_users! }.to change { users.green.count }.by(1)
         end
@@ -197,14 +197,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags change matcher when receiver is a top-level constant' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { run }.to change(::User, :count)
                             ^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { ::User.count }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { run }.to change { ::User.count }
         end
@@ -212,14 +212,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'registers an offense for change matcher with an instance variable' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { paint_users! }.to change(@food, :taste).to(:sour)
                                      ^^^^^^^^^^^^^^^^^^^^^ Prefer `change { @food.taste }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { paint_users! }.to change { @food.taste }.to(:sour)
         end
@@ -227,14 +227,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'registers an offense for change matcher with a global variable' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect { paint_users! }.to change($token, :value).to(nil)
                                      ^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { $token.value }`.
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it do
           expect { paint_users! }.to change { $token.value }.to(nil)
         end
@@ -242,7 +242,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'ignores methods called change' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it do
           record.change(user, :count)
         end
@@ -250,7 +250,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
     end
 
     it 'flags implicit block expectation syntax' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it do
           expect(run).to change(User, :count).by(1)
                          ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.

@@ -62,7 +62,7 @@ module RuboCop
         PATTERN
 
         # @!method context?(node)
-        def_node_search :context?, <<-PATTERN
+        def_node_search :context?, <<~PATTERN
           (send nil?
             {#Subjects.all #Helpers.all #Includes.context #Hooks.all} ...
           )

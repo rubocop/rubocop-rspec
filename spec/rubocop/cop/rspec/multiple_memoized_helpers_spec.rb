@@ -148,7 +148,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers do
   end
 
   it 'support --auto-gen-config' do
-    inspect_source(<<-RUBY, 'spec/foo_spec.rb')
+    inspect_source(<<~RUBY, 'spec/foo_spec.rb')
       describe Foo do
         let(:foo) { Foo.new }
         let(:bar) { Bar.new }

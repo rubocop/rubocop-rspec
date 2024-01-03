@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
   shared_examples_for 'checking subject outside of shared examples' do
     it 'checks `it` and `specify` for explicit subject usage' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject { described_class.new }
 
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'checks before and after for explicit subject usage' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject { described_class.new }
 
@@ -39,7 +39,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'checks around(:each) for explicit subject usage' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject { described_class.new }
 
@@ -52,7 +52,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'ignores subject when not wrapped inside a test' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         def foo
           it(subject)
         end
@@ -64,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     let(:cop_config) { { 'EnforcedStyle' => :named_only } }
 
     it 'ignores subject where declaration is not named' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         RSpec.describe User do
           subject { described_class.new }
 
@@ -80,7 +80,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'ignores subject! where declaration is not named' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         RSpec.describe User do
           subject! { described_class.new }
 
@@ -96,7 +96,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'checks subject where declaration is named' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject(:new_user) { described_class.new }
 
@@ -114,7 +114,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'checks subject! where declaration is named' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject!(:new_user) { described_class.new }
 
@@ -132,7 +132,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'ignores subject where the closest declaration is not named' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         RSpec.describe User do
           subject(:user) { described_class.new }
 
@@ -155,7 +155,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     end
 
     it 'ignores subject when block has no body' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         it "is a User" do
           subject.each do
             # empty body
@@ -171,7 +171,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     it_behaves_like 'checking subject outside of shared examples'
 
     it 'checks shared_examples for explicit subject usage' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         RSpec.describe User do
           subject(:new_user) { described_class.new }
 
@@ -197,7 +197,7 @@ RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
     it_behaves_like 'checking subject outside of shared examples'
 
     it 'ignores explicit subject in shared_examples' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         RSpec.describe User do
           subject(:new_user) { described_class.new }
 

@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   it 'adds an offense for `expect` in `before` hook' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       before do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `before` hook
@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   end
 
   it 'adds an offense for `expect` in `after` hook' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       after do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `after` hook
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   end
 
   it 'adds an offense for `expect` in `around` hook' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       around do
         expect(something).to eq('foo')
         ^^^^^^ Do not use `expect` in `around` hook
@@ -41,7 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   end
 
   it 'adds an offense for `expect` with block in `before` hook' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       before do
         expect { something }.to eq('foo')
         ^^^^^^ Do not use `expect` in `before` hook
@@ -50,14 +50,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   end
 
   it 'accepts an empty `before` hook' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       before do
       end
     RUBY
   end
 
   it 'accepts `allow` in `before` hook' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       before do
         allow(something).to receive(:foo)
         allow_any_instance_of(something).to receive(:foo)
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
   end
 
   it 'accepts `expect` in `it`' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       it do
         expect(something).to eq('foo')
         is_expected.to eq('foo')
@@ -77,7 +77,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInHook do
 
   context 'when Ruby 2.7', :ruby27 do
     it 'adds an offense for `expect` in `around` hook' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         around do
           expect(something).to eq('foo')
           ^^^^^^ Do not use `expect` in `around` hook

@@ -18,12 +18,12 @@ module RuboCop
         RESTRICT_ON_SEND = %i[expect].freeze
 
         # @!method expect?(node)
-        def_node_matcher :expect?, <<-PATTERN
+        def_node_matcher :expect?, <<~PATTERN
           (send nil? :expect ...)
         PATTERN
 
         # @!method expect_block?(node)
-        def_node_matcher :expect_block?, <<-PATTERN
+        def_node_matcher :expect_block?, <<~PATTERN
           (block #expect? (args) _body)
         PATTERN
 

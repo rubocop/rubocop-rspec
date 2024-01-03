@@ -56,7 +56,7 @@ module RuboCop
         MSG = 'Focused spec found.'
 
         # @!method focusable_selector?(node)
-        def_node_matcher :focusable_selector?, <<-PATTERN
+        def_node_matcher :focusable_selector?, <<~PATTERN
           {
             #ExampleGroups.regular
             #ExampleGroups.skipped
@@ -68,7 +68,7 @@ module RuboCop
         PATTERN
 
         # @!method metadata(node)
-        def_node_matcher :metadata, <<-PATTERN
+        def_node_matcher :metadata, <<~PATTERN
           {(send #rspec? #focusable_selector? <$(sym :focus) ...>)
            (send #rspec? #focusable_selector? ... (hash <$(pair (sym :focus) true) ...>))}
         PATTERN

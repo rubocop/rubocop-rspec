@@ -6,7 +6,7 @@ require 'rubocop/rspec/version'
 Gem::Specification.new do |spec|
   spec.name = 'rubocop-rspec'
   spec.summary = 'Code style checking for RSpec files'
-  spec.description = <<-DESCRIPTION
+  spec.description = <<~DESCRIPTION
     Code style checking for RSpec files.
     A plugin for the RuboCop code style enforcing & linting tool.
   DESCRIPTION

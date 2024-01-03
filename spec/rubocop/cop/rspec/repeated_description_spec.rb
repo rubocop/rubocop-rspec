@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   it 'registers an offense for repeated descriptions' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         it "does x" do
         ^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -16,7 +16,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense for repeated descriptions separated by a context' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         it "does x" do
         ^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -36,7 +36,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'ignores descriptions repeated in a shared context' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does x" do
         end
@@ -50,7 +50,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'ignores repeated descriptions in a nested context' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does x" do
         end
@@ -64,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag tests which do not contain description strings' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it { foo }
         it { bar }
@@ -73,7 +73,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag examples if metadata is different' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it 'do something' do
           # ...
@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag examples with same metadata and different description' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it 'do something', :flag do
           # ...
@@ -101,7 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense for repeated description and metadata' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         it 'do something', :flag do
         ^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -117,7 +117,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag descriptions with different interpolated variables' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it "does \#{x}" do
         end
@@ -129,7 +129,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense for repeated description in same iterator' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         %i[foo bar].each do |type|
           it "does a thing \#{type}" do
@@ -145,7 +145,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense for repeated description in different iterators' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         %i[foo bar].each do |type|
           it "does a thing \#{type}" do
@@ -163,7 +163,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag different descriptions in different iterators' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         %i[foo bar].each do |type|
           it "does a thing \#{type}" do
@@ -179,7 +179,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers offense if same method used in docstring' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         it(description) do
         ^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -195,7 +195,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag different methods used as docstring' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         it(description) do
           # ...
@@ -209,7 +209,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'registers an offense when repeated its are used' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
@@ -220,7 +220,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag examples when different its arguments are used' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         its(:y) { is_expected.to be_present }
@@ -229,7 +229,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
   end
 
   it 'does not flag examples when different its block expectations are used' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       describe 'doing x' do
         its(:x) { is_expected.to be_present }
         its(:x) { is_expected.to be_blank }

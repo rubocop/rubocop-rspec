@@ -28,7 +28,7 @@ module RuboCop
         RESTRICT_ON_SEND = %i[double spy].freeze
 
         # @!method unverified_double(node)
-        def_node_matcher :unverified_double, <<-PATTERN
+        def_node_matcher :unverified_double, <<~PATTERN
           {(send nil? {:double :spy} $...)}
         PATTERN
 

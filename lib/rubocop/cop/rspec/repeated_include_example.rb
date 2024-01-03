@@ -50,7 +50,7 @@ module RuboCop
               'on line(s) %<repeat>s'
 
         # @!method several_include_examples?(node)
-        def_node_matcher :several_include_examples?, <<-PATTERN
+        def_node_matcher :several_include_examples?, <<~PATTERN
           (begin <#include_examples? #include_examples? ...>)
         PATTERN
 

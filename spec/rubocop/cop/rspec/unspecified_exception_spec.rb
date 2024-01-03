@@ -3,7 +3,7 @@
 RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
   context 'with raise_error matcher' do
     it 'detects the `unspecified_exception` offense' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         expect {
           raise StandardError
         }.to raise_error
@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows empty exception specification when not expecting an error' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError
         }.not_to raise_error
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception classes' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError
         }.to raise_error(StandardError)
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception messages' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error('error')
@@ -36,7 +36,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception types with messages' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error(StandardError, 'error')
@@ -44,7 +44,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception matching regular expressions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error(/err/)
@@ -52,7 +52,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception types with matching regular expressions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error(StandardError, /err/)
@@ -60,7 +60,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows classes with blocks with braces' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error { |err| err.data }
@@ -68,7 +68,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows classes with blocks with do/end' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_error do |error|
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows parameterized exceptions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         my_exception = StandardError.new('my exception')
         expect {
           raise my_exception
@@ -89,7 +89,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
 
   context 'with raise_exception matcher' do
     it 'detects the `unspecified_exception` offense' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         expect {
           raise StandardError
         }.to raise_exception
@@ -98,7 +98,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows empty exception specification when not expecting an error' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError
         }.not_to raise_exception
@@ -106,7 +106,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception classes' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError
         }.to raise_exception(StandardError)
@@ -114,7 +114,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception messages' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception('error')
@@ -122,7 +122,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception types with messages' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception(StandardError, 'error')
@@ -130,7 +130,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception matching regular expressions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception(/err/)
@@ -138,7 +138,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows exception types with matching regular expressions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception(StandardError, /err/)
@@ -146,7 +146,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows classes with blocks with braces' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception { |err| err.data }
@@ -154,7 +154,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows classes with blocks with do/end' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         expect {
           raise StandardError.new('error')
         }.to raise_exception do |error|
@@ -164,7 +164,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
     end
 
     it 'allows parameterized exceptions' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         my_exception = StandardError.new('my exception')
         expect {
           raise my_exception

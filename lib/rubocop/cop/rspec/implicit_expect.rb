@@ -31,7 +31,7 @@ module RuboCop
         RESTRICT_ON_SEND = Runners.all + %i[should should_not]
 
         # @!method implicit_expect(node)
-        def_node_matcher :implicit_expect, <<-PATTERN
+        def_node_matcher :implicit_expect, <<~PATTERN
           {
             (send nil? ${:should :should_not} ...)
             (send (send nil? $:is_expected) #Runners.all ...)

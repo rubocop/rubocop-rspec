@@ -66,14 +66,14 @@ module RuboCop
         RESTRICT_ON_SEND = CHANGE_METHODS.freeze
 
         # @!method expect_change_with_arguments(node)
-        def_node_matcher :expect_change_with_arguments, <<-PATTERN
+        def_node_matcher :expect_change_with_arguments, <<~PATTERN
           (send
             $(send nil? CHANGE_METHODS ...) :by
             (int 0))
         PATTERN
 
         # @!method expect_change_with_block(node)
-        def_node_matcher :expect_change_with_block, <<-PATTERN
+        def_node_matcher :expect_change_with_block, <<~PATTERN
           (send
             (block
               $(send nil? CHANGE_METHODS)
@@ -83,7 +83,7 @@ module RuboCop
         PATTERN
 
         # @!method change_nodes(node)
-        def_node_search :change_nodes, <<-PATTERN
+        def_node_search :change_nodes, <<~PATTERN
           $(send nil? CHANGE_METHODS ...)
         PATTERN
 

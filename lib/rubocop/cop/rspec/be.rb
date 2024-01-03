@@ -24,7 +24,7 @@ module RuboCop
         RESTRICT_ON_SEND = Runners.all
 
         # @!method be_without_args(node)
-        def_node_matcher :be_without_args, <<-PATTERN
+        def_node_matcher :be_without_args, <<~PATTERN
           (send _ #Runners.all $(send nil? :be))
         PATTERN
 

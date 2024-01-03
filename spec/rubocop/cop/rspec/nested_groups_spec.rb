@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   it 'flags nested example groups defined inside `describe`' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe MyClass do
         context 'when foo' do
           context 'when bar' do
@@ -21,7 +21,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'flags nested example groups' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       example_group MyClass do
         context 'when foo' do
           context 'when bar' do
@@ -35,7 +35,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'flags nested example groups inside shared examples' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       shared_examples_for 'nested like express' do
         context 'when foo' do
           context 'when bar' do
@@ -51,7 +51,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'support --auto-gen-config' do
-    inspect_source(<<-RUBY, 'spec/foo_spec.rb')
+    inspect_source(<<~RUBY, 'spec/foo_spec.rb')
       describe MyClass do
         context 'when foo' do
           context 'when bar' do
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'flags example groups wrapped in classes' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       class MyThingy
         describe MyClass do
           context 'when foo' do
@@ -82,7 +82,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'flags example groups wrapped in modules' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       module MyNamespace
         describe MyClass do
           context 'when foo' do
@@ -101,7 +101,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
     let(:cop_config) { { 'Max' => '2' } }
 
     it 'flags two levels of nesting' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           context 'when foo' do
             context 'when bar' do
@@ -129,7 +129,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
   end
 
   it 'counts nesting correctly when non-spec nesting' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       describe MyClass do
         context 'when foo' do
           context 'when bar' do
@@ -155,7 +155,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
 
     it 'accept nested example groups defined inside `describe`' \
        'path is not counted' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           path '/users' do
             context 'when foo' do
@@ -169,7 +169,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
 
     it 'flags nested example groups defined inside `describe`' \
        'path is not counted but exceeded max' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           path '/users' do
             context 'when foo' do

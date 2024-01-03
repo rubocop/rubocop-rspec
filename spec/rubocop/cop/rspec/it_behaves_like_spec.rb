@@ -9,12 +9,12 @@ RSpec.describe RuboCop::Cop::RSpec::ItBehavesLike do
     let(:enforced_style) { :it_behaves_like }
 
     it 'flags an offense for it_should_behave_like' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it_should_behave_like 'a foo'
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `it_behaves_like` over `it_should_behave_like` when including examples in a nested context.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it_behaves_like 'a foo'
       RUBY
     end
@@ -28,12 +28,12 @@ RSpec.describe RuboCop::Cop::RSpec::ItBehavesLike do
     let(:enforced_style) { :it_should_behave_like }
 
     it 'flags an offense for it_behaves_like' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         it_behaves_like 'a foo'
         ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `it_should_behave_like` over `it_behaves_like` when including examples in a nested context.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         it_should_behave_like 'a foo'
       RUBY
     end

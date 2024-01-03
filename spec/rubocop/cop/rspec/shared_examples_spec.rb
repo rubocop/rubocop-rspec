@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
   it 'registers an offense when using symbolic title' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       it_behaves_like :foo_bar_baz
                       ^^^^^^^^^^^^ Prefer 'foo bar baz' over `:foo_bar_baz` to titleize shared examples.
       it_should_behave_like :foo_bar_baz
@@ -25,7 +25,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
                             ^^^^^^^^^^^^ Prefer 'foo bar baz' over `:foo_bar_baz` to titleize shared examples.
     RUBY
 
-    expect_correction(<<-RUBY)
+    expect_correction(<<~RUBY)
       it_behaves_like 'foo bar baz'
       it_should_behave_like 'foo bar baz'
       shared_examples 'foo bar baz'
@@ -42,7 +42,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
   end
 
   it 'does not register an offense when using string title' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       it_behaves_like 'foo bar baz'
       it_should_behave_like 'foo bar baz'
       shared_examples 'foo bar baz'
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
   end
 
   it 'does not register an offense when using Module/Class title' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       it_behaves_like FooBarBaz
       it_should_behave_like FooBarBaz
       shared_examples FooBarBaz

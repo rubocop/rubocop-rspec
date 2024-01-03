@@ -60,7 +60,7 @@ module RuboCop
         IT_PREFIX     = /\Ait /i.freeze
 
         # @!method it_description(node)
-        def_node_matcher :it_description, <<-PATTERN
+        def_node_matcher :it_description, <<~PATTERN
           (block (send _ :it ${
             (str $_)
             (dstr (str $_ ) ...)

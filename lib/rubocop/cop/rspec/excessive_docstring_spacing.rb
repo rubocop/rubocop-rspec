@@ -29,7 +29,7 @@ module RuboCop
         MSG = 'Excessive whitespace.'
 
         # @!method example_description(node)
-        def_node_matcher :example_description, <<-PATTERN
+        def_node_matcher :example_description, <<~PATTERN
           (send _ {#Examples.all #ExampleGroups.all} ${
             $str
             $(dstr ({str dstr `sym} ...) ...)

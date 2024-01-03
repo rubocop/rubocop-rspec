@@ -7,7 +7,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     let(:cop_config) { { 'SkipBlocks' => true } }
 
     it 'ignores offenses within non-rspec blocks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           controller(ApplicationController) do
             bar = MyClass
@@ -28,7 +28,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
 
   context 'when SkipBlocks is `false`' do
     it 'flags offenses within all blocks' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           controller(ApplicationController) do
             bar = MyClass
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     let(:cop_config) { { 'EnforcedStyle' => :described_class } }
 
     it 'flags for the use of the described class' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           include MyClass
                   ^^^^^^^ Use `described_class` instead of `MyClass`.
@@ -66,7 +66,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         describe MyClass do
           include described_class
 
@@ -89,7 +89,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'flags with metadata' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass, some: :metadata do
           subject { MyClass }
                     ^^^^^^^ Use `described_class` instead of `MyClass`.
@@ -98,7 +98,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores described class as string' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           subject { "MyClass" }
         end
@@ -106,7 +106,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores describe that do not reference to a class' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe "MyClass" do
           subject { "MyClass" }
         end
@@ -114,7 +114,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores class if the scope is changing' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           Class.new  { foo = MyClass }
           Module.new { bar = MyClass }
@@ -136,7 +136,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'takes class from innermost describe' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           describe MyClass::Foo do
             subject { MyClass::Foo }
@@ -149,7 +149,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores subclasses' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           subject { MyClass::SubClass }
         end
@@ -157,7 +157,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores non-matching namespace defined on `describe` level' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyNamespace::MyClass do
           subject { ::MyClass }
           let(:foo) { MyClass }
@@ -166,7 +166,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores non-matching namespace' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         module MyNamespace
           describe MyClass do
             subject { ::MyClass }
@@ -176,7 +176,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'flags the use of described class with namespace' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
                     ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
@@ -185,7 +185,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores non-matching namespace in usages' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         module UnrelatedNamespace
           describe MyClass do
             subject { MyNamespace::MyClass }
@@ -195,7 +195,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores offenses within a class scope change' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyNamespace::MyClass do
           before do
             class Foo
@@ -207,7 +207,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores offenses within a hook scope change' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe do
           before do
             MyNamespace::MyClass.new
@@ -217,7 +217,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'flags the use of described class with module' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         module MyNamespace
           describe MyClass do
             subject { MyNamespace::MyClass }
@@ -226,7 +226,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         module MyNamespace
           describe MyClass do
             subject { described_class }
@@ -236,7 +236,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'flags the use of described class with nested namespace' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         module A
           class B::C
             module D
@@ -259,14 +259,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'accepts an empty block' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
         end
       RUBY
     end
 
     it 'ignores if a local variable is part of the namespace' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe Broken do
           [Foo, Bar].each do |klass|
             describe klass::Baz.name do
@@ -278,7 +278,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores if `described_class` is a part of the constant' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         module SomeGem
           describe VERSION do
             it 'returns proper version string' do
@@ -294,7 +294,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     let(:cop_config) { { 'EnforcedStyle' => :explicit } }
 
     it 'flags the use of the described_class' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe MyClass do
           include described_class
                   ^^^^^^^^^^^^^^^ Use `MyClass` instead of `described_class`.
@@ -307,7 +307,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         end
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         describe MyClass do
           include MyClass
 
@@ -319,7 +319,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores described_class as string' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyClass do
           subject { "described_class" }
         end
@@ -327,7 +327,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores describe that do not reference to a class' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe "MyClass" do
           subject { described_class }
         end
@@ -335,7 +335,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores offenses within a class scope change' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe MyNamespace::MyClass do
           before do
             class Foo
@@ -347,7 +347,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'ignores offenses within a hook scope change' do
-      expect_no_offenses(<<-RUBY)
+      expect_no_offenses(<<~RUBY)
         describe do
           before do
             described_class.new
@@ -357,14 +357,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
     end
 
     it 'autocorrects corresponding' do
-      expect_offense(<<-RUBY)
+      expect_offense(<<~RUBY)
         describe(Foo) { include described_class }
                                 ^^^^^^^^^^^^^^^ Use `Foo` instead of `described_class`.
         describe(Bar) { include described_class }
                                 ^^^^^^^^^^^^^^^ Use `Bar` instead of `described_class`.
       RUBY
 
-      expect_correction(<<-RUBY)
+      expect_correction(<<~RUBY)
         describe(Foo) { include Foo }
         describe(Bar) { include Bar }
       RUBY

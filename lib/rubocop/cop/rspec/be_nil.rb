@@ -33,12 +33,12 @@ module RuboCop
         RESTRICT_ON_SEND = %i[be be_nil].freeze
 
         # @!method be_nil_matcher?(node)
-        def_node_matcher :be_nil_matcher?, <<-PATTERN
+        def_node_matcher :be_nil_matcher?, <<~PATTERN
           (send nil? :be_nil)
         PATTERN
 
         # @!method nil_value_expectation?(node)
-        def_node_matcher :nil_value_expectation?, <<-PATTERN
+        def_node_matcher :nil_value_expectation?, <<~PATTERN
           (send nil? :be nil)
         PATTERN
 
