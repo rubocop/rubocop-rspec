@@ -51,10 +51,10 @@ module RuboCop
 
       # @!method hook?(node)
       def_node_matcher :hook?, <<~PATTERN
-      {
-        (numblock (send nil? #Hooks.all ...) ...)
-        (block (send nil? #Hooks.all ...) ...)
-      }
+        {
+          (numblock (send nil? #Hooks.all ...) ...)
+          (block (send nil? #Hooks.all ...) ...)
+        }
       PATTERN
 
       # @!method let?(node)

@@ -41,7 +41,7 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
         it do
           foo = instance_double(Foo)
           expect(bar).to have_received(:bar)
-       end
+        end
       RUBY
     end
   end

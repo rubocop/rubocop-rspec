@@ -25,7 +25,7 @@ module RuboCop
 
           # @!method minitest_assertion(node)
           def_node_matcher :minitest_assertion, <<~PATTERN
-          (send nil? {:assert_equal :refute_equal} $_ $_ $_?)
+            (send nil? {:assert_equal :refute_equal} $_ $_ $_?)
           PATTERN
 
           def on_send(node)
