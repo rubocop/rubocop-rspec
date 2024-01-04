@@ -50,7 +50,8 @@ module RuboCop
           regexp
         ].freeze
 
-        SUPPORTED_MATCHERS = %i[eq eql equal be].freeze
+        SKIPPED_MATCHERS = %i[route_to be_routable].freeze
+        CORRECTABLE_MATCHERS = %i[eq eql equal be].freeze
 
         # @!method expect_literal(node)
         def_node_matcher :expect_literal, <<~PATTERN
@@ -66,8 +67,10 @@ module RuboCop
 
         def on_send(node)
           expect_literal(node) do |actual, matcher, expected|
+            next if SKIPPED_MATCHERS.include?(matcher)
+
             add_offense(actual.source_range) do |corrector|
-              next unless SUPPORTED_MATCHERS.include?(matcher)
+              next unless CORRECTABLE_MATCHERS.include?(matcher)
               next if literal?(expected)
 
               swap(corrector, actual, expected)

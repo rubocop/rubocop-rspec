@@ -317,6 +317,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
     expect_no_corrections
   end
 
+  it 'does not flag when the matcher is a rails routing matcher' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        it 'routes correctly' do
+          expect({:get => "foo"}).to be_routable
+          expect({:get => "foo"}).to route_to("bar#baz")
+        end
+      end
+    RUBY
+  end
+
   context 'when inspecting rspec-rails routing specs' do
     let(:cop_config) { {} }
 

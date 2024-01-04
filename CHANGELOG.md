@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Support correcting `assert_nil` and `refute_nil` to `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
+- Fix a false positive for `RSpec/ExpectActual` when used with rspec-rails routing matchers. ([@naveg])
 
 ## 2.26.1 (2024-01-05)
 
@@ -894,6 +895,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mockdeep]: https://github.com/mockdeep
 [@mothonmars]: https://github.com/MothOnMars
 [@mvz]: https://github.com/mvz
+[@naveg]: https://github.com/naveg
 [@nc-holodakg]: https://github.com/nc-holodakg
 [@nevir]: https://github.com/nevir
 [@ngouy]: https://github.com/ngouy
