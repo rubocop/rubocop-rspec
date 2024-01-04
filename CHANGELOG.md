@@ -6,6 +6,7 @@
 - Add support for correcting "it will" (future tense) for `RSpec/ExampleWording`. ([@jdufresne])
 - Add new `RSpec/RemoveConst` cop. ([@swelther])
 - Ensure `PendingWithoutReason` can detect violations inside shared groups. ([@robinaugh])
+- Add support for `symbol` style for `RSpec/SharedExamples`. ([@jessieay])
 
 ## 2.25.0 (2023-10-27)
 
@@ -862,6 +863,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jaredmoody]: https://github.com/jaredmoody
 [@jdufresne]: https://github.com/jdufresne
 [@jeffreyc]: https://github.com/jeffreyc
+[@jessieay]: https://github.com/jessieay
 [@jfragoulis]: https://github.com/jfragoulis
 [@johnny-miyake]: https://github.com/johnny-miyake
 [@jojos003]: https://github.com/jojos003

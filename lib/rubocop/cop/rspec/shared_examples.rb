@@ -3,9 +3,13 @@
 module RuboCop
   module Cop
     module RSpec
-      # Enforces use of string to titleize shared examples.
+      # Checks for consistent style for shared example names.
       #
-      # @example
+      # Enforces either `string` or `symbol` for shared example names.
+      #
+      # This cop can be configured using the `EnforcedStyle` option
+      #
+      # @example `EnforcedStyle: string` (default)
       #   # bad
       #   it_behaves_like :foo_bar_baz
       #   it_should_behave_like :foo_bar_baz
@@ -20,8 +24,24 @@ module RuboCop
       #   shared_examples_for 'foo bar baz'
       #   include_examples 'foo bar baz'
       #
+      # @example `EnforcedStyle: symbol`
+      #   # bad
+      #   it_behaves_like 'foo bar baz'
+      #   it_should_behave_like 'foo bar baz'
+      #   shared_examples 'foo bar baz'
+      #   shared_examples_for 'foo bar baz'
+      #   include_examples 'foo bar baz'
+      #
+      #   # good
+      #   it_behaves_like :foo_bar_baz
+      #   it_should_behave_like :foo_bar_baz
+      #   shared_examples :foo_bar_baz
+      #   shared_examples_for :foo_bar_baz
+      #   include_examples :foo_bar_baz
+      #
       class SharedExamples < Base
         extend AutoCorrector
+        include ConfigurableEnforcedStyle
 
         # @!method shared_examples(node)
         def_node_matcher :shared_examples, <<~PATTERN
@@ -34,17 +54,55 @@ module RuboCop
         def on_send(node)
           shared_examples(node) do
             ast_node = node.first_argument
-            next unless ast_node&.sym_type?
+            next unless offense?(ast_node)
 
-            checker = Checker.new(ast_node)
-            add_offense(checker.node, message: checker.message) do |corrector|
-              corrector.replace(checker.node, checker.preferred_style)
+            checker = new_checker(ast_node)
+            add_offense(ast_node, message: checker.message) do |corrector|
+              corrector.replace(ast_node, checker.preferred_style)
             end
           end
         end
 
+        private
+
+        def offense?(ast_node)
+          if style == :symbol
+            ast_node.str_type?
+          else # string
+            ast_node.sym_type?
+          end
+        end
+
+        def new_checker(ast_node)
+          if style == :symbol
+            SymbolChecker.new(ast_node)
+          else # string
+            StringChecker.new(ast_node)
+          end
+        end
+
         # :nodoc:
-        class Checker
+        class SymbolChecker
+          MSG = 'Prefer %<prefer>s over `%<current>s` ' \
+                'to symbolize shared examples.'
+
+          attr_reader :node
+
+          def initialize(node)
+            @node = node
+          end
+
+          def message
+            format(MSG, prefer: preferred_style, current: node.value.inspect)
+          end
+
+          def preferred_style
+            ":#{node.value.to_s.downcase.tr(' ', '_')}"
+          end
+        end
+
+        # :nodoc:
+        class StringChecker
           MSG = 'Prefer %<prefer>s over `%<current>s` ' \
                 'to titleize shared examples.'
 
@@ -55,22 +113,11 @@ module RuboCop
           end
 
           def message
-            format(MSG, prefer: preferred_style, current: symbol.inspect)
+            format(MSG, prefer: preferred_style, current: node.value.inspect)
           end
 
           def preferred_style
-            string = symbol.to_s.tr('_', ' ')
-            wrap_with_single_quotes(string)
-          end
-
-          private
-
-          def symbol
-            node.value
-          end
-
-          def wrap_with_single_quotes(string)
-            "'#{string}'"
+            "'#{node.value.to_s.tr('_', ' ')}'"
           end
         end
       end
