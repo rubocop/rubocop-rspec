@@ -4502,7 +4502,7 @@ end
 | Pending
 | Yes
 | Yes
-| <<next>>
+| 2.26
 | -
 |===
 
@@ -4533,7 +4533,7 @@ expect(foo).not_to include(bar)
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.26
 | -
 |===
 
@@ -5050,7 +5050,7 @@ end
 | Yes
 | Yes
 | 1.25
-| <<next>>
+| 2.26
 |===
 
 Checks for consistent style for shared example names.
