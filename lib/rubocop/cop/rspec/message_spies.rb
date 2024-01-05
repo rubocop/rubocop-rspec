@@ -39,8 +39,6 @@ module RuboCop
                             'expectations. Setup `%<source>s` as a spy using ' \
                             '`allow` or `instance_spy`.'
 
-        SUPPORTED_STYLES = %w[have_received receive].freeze
-
         RESTRICT_ON_SEND = Runners.all
 
         # @!method message_expectation(node)
