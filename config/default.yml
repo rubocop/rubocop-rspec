@@ -774,6 +774,7 @@ RSpec/RedundantAround:
 RSpec/RedundantPredicateMatcher:
   Description: Checks for redundant predicate matcher.
   Enabled: pending
+  Safe: false
   VersionAdded: '2.26'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 

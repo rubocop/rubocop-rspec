@@ -4500,13 +4500,19 @@ end
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
-| Yes
-| Yes
+| No
+| Yes (Unsafe)
 | 2.26
 | -
 |===
 
 Checks for redundant predicate matcher.
+
+=== Safety
+
+This cop is marked as unsafe because false positives occur
+when `be_start_with` is used as a legitimate predicate matcher
+for `start_with?` method.
 
 === Examples
 

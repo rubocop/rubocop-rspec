@@ -5,6 +5,11 @@ module RuboCop
     module RSpec
       # Checks for redundant predicate matcher.
       #
+      # @safety
+      #   This cop is marked as unsafe because false positives occur
+      #   when `be_start_with` is used as a legitimate predicate matcher
+      #   for `start_with?` method.
+      #
       # @example
       #   # bad
       #   expect(foo).to be_exist(bar)
