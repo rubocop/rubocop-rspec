@@ -243,7 +243,7 @@ end
 | Yes
 | Yes
 | 2.17
-| -
+| <<next>>
 |===
 
 Check if using Minitest matchers.
@@ -257,10 +257,16 @@ assert_equal(a, b)
 assert_equal a, b, "must be equal"
 refute_equal(a, b)
 
+assert_nil a
+refute_nil a
+
 # good
 expect(b).to eq(a)
 expect(b).to(eq(a), "must be equal")
 expect(b).not_to eq(a)
+
+expect(a).to eq(nil)
+expect(a).not_to eq(nil)
 ----
 
 === References
