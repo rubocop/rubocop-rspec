@@ -29,7 +29,6 @@ module RuboCop
 
         MSG = 'Prefer `%<style>s` for setting message expectations.'
 
-        SUPPORTED_STYLES = %w[allow expect].freeze
         RESTRICT_ON_SEND = %i[to].freeze
 
         # @!method message_expectation(node)
