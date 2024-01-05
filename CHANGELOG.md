@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.26.1 (2024-01-05)
+
 - Fix an error for `RSpec/SharedExamples` when using examples without argument. ([@ydah])
 
 ## 2.26.0 (2024-01-04)
