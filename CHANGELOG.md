@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix an error for `RSpec/SharedExamples` when using examples without argument. ([@ydah])
+
 ## 2.26.0 (2024-01-04)
 
 - Add new `RSpec/RedundantPredicateMatcher` cop. ([@ydah])

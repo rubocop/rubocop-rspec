@@ -150,5 +150,18 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
         end
       RUBY
     end
+
+    context 'when using run_test!' do
+      before do
+        other_cops.dig('RSpec', 'Language', 'Includes', 'Examples')
+          .push('run_test!')
+      end
+
+      it 'does not occur an error' do
+        expect_no_offenses(<<~RUBY)
+          run_test!
+        RUBY
+      end
+    end
   end
 end

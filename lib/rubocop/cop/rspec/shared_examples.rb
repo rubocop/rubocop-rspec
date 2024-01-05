@@ -53,7 +53,7 @@ module RuboCop
 
         def on_send(node)
           shared_examples(node) do
-            ast_node = node.first_argument
+            next unless (ast_node = node.first_argument)
             next unless offense?(ast_node)
 
             checker = new_checker(ast_node)
