@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Support correcting `assert_nil` and `refute_nil` to `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
+
 ## 2.26.1 (2024-01-05)
 
 - Fix an error for `RSpec/SharedExamples` when using examples without argument. ([@ydah])
