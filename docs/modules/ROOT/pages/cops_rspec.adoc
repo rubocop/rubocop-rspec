@@ -4826,6 +4826,46 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
 
+== RSpec/RepeatedSubjectCall
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for repeated calls to subject missing that it is memoized.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+it do
+  subject
+  expect { subject }.to not_change { A.count }
+end
+
+it do
+  expect { subject }.to change { A.count }
+  expect { subject }.to not_change { A.count }
+end
+
+# good
+it do
+  expect { my_method }.to change { A.count }
+  expect { my_method }.to not_change { A.count }
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
+
 == RSpec/ReturnFromStub
 
 |===
