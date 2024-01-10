@@ -29,19 +29,21 @@ module RuboCop
           MSG = 'Use `%<prefer>s`.'
           RESTRICT_ON_SEND = %i[
             assert_equal
+            assert_not_equal
             refute_equal
             assert_nil
+            assert_not_nil
             refute_nil
           ].freeze
 
           # @!method minitest_equal_assertion(node)
           def_node_matcher :minitest_equal_assertion, <<~PATTERN
-            (send nil? {:assert_equal :refute_equal} $_ $_ $_?)
+            (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
           PATTERN
 
           # @!method minitest_nil_assertion(node)
           def_node_matcher :minitest_nil_assertion, <<~PATTERN
-            (send nil? {:assert_nil :refute_nil} $_ $_?)
+            (send nil? {:assert_nil :assert_not_nil :refute_nil} $_ $_?)
           PATTERN
 
           def on_send(node)

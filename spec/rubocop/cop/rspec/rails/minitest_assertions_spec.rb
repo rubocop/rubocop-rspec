@@ -49,6 +49,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
       RUBY
     end
 
+    it 'registers an offense when using `assert_not_equal`' do
+      expect_offense(<<~RUBY)
+        assert_not_equal a, b
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to eq(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to eq(a)
+      RUBY
+    end
+
     it 'registers an offense when using `refute_equal`' do
       expect_offense(<<~RUBY)
         refute_equal a, b
@@ -117,6 +128,17 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
 
       expect_correction(<<~RUBY)
         expect(a).to(eq(nil), "must be nil")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_nil`' do
+      expect_offense(<<~RUBY)
+        assert_not_nil a
+        ^^^^^^^^^^^^^^^^ Use `expect(a).not_to eq(nil)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to eq(nil)
       RUBY
     end
 
