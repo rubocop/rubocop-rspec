@@ -1175,7 +1175,6 @@ RSpec/Rails/MinitestAssertions:
   Description: Check if using Minitest matchers.
   Enabled: pending
   VersionAdded: '2.17'
-  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
 
 RSpec/Rails/NegationBeValid:
