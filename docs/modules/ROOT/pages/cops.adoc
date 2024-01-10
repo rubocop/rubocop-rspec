@@ -87,6 +87,7 @@
 * xref:cops_rspec.adoc#rspecrepeatedexamplegroupbody[RSpec/RepeatedExampleGroupBody]
 * xref:cops_rspec.adoc#rspecrepeatedexamplegroupdescription[RSpec/RepeatedExampleGroupDescription]
 * xref:cops_rspec.adoc#rspecrepeatedincludeexample[RSpec/RepeatedIncludeExample]
+* xref:cops_rspec.adoc#rspecrepeatedsubjectcall[RSpec/RepeatedSubjectCall]
 * xref:cops_rspec.adoc#rspecreturnfromstub[RSpec/ReturnFromStub]
 * xref:cops_rspec.adoc#rspecscatteredlet[RSpec/ScatteredLet]
 * xref:cops_rspec.adoc#rspecscatteredsetup[RSpec/ScatteredSetup]

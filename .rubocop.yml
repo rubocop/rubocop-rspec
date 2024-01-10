@@ -181,6 +181,8 @@ RSpec/RedundantPredicateMatcher:
   Enabled: true
 RSpec/RemoveConst:
   Enabled: true
+RSpec/RepeatedSubjectCall:
+  Enabled: true
 RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:

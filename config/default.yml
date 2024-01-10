@@ -813,6 +813,12 @@ RSpec/RepeatedIncludeExample:
   VersionAdded: '1.44'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
 
+RSpec/RepeatedSubjectCall:
+  Description: Checks for repeated calls to subject missing that it is memoized.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
+
 RSpec/ReturnFromStub:
   Description: Checks for consistent style of stub's return setting.
   Enabled: true
