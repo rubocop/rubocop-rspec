@@ -164,5 +164,85 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
         expect(a).not_to eq(nil)
       RUBY
     end
+
+    it 'registers an offense when using `assert_empty`' do
+      expect_offense(<<~RUBY)
+        assert_empty(a)
+        ^^^^^^^^^^^^^^^ Use `expect(a).to be_empty`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be_empty
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_empty` with no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_empty a
+        ^^^^^^^^^^^^^^ Use `expect(a).to be_empty`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be_empty
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_empty` with failure message' do
+      expect_offense(<<~RUBY)
+        assert_empty a, "must be empty"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(be_empty, "must be empty")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be_empty, "must be empty")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_empty` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_empty(a,
+        ^^^^^^^^^^^^^^^ Use `expect(a).to(be_empty, "must be empty")`.
+                      "must be empty")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be_empty, "must be empty")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_empty`' do
+      expect_offense(<<~RUBY)
+        assert_not_empty a
+        ^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to be_empty`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to be_empty
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_empty`' do
+      expect_offense(<<~RUBY)
+        refute_empty a
+        ^^^^^^^^^^^^^^ Use `expect(a).not_to be_empty`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to be_empty
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(a).to be_empty`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).to be_empty
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(a).not_to be_empty`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).not_to be_empty
+      RUBY
+    end
   end
 end
