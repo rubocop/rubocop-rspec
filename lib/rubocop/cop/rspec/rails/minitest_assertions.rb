@@ -10,6 +10,7 @@ module RuboCop
         #   # bad
         #   assert_equal(a, b)
         #   assert_equal a, b, "must be equal"
+        #   assert_not_includes a, b
         #   refute_equal(a, b)
         #   assert_nil a
         #   refute_empty(b)
@@ -17,6 +18,7 @@ module RuboCop
         #   # good
         #   expect(b).to eq(a)
         #   expect(b).to(eq(a), "must be equal")
+        #   expect(a).not_to include(b)
         #   expect(b).not_to eq(a)
         #   expect(a).to eq(nil)
         #   expect(a).not_to be_empty
@@ -28,11 +30,14 @@ module RuboCop
           RESTRICT_ON_SEND = %i[
             assert_equal
             assert_not_equal
+            assert_includes
+            assert_not_includes
             assert_nil
             assert_not_nil
             assert_empty
             assert_not_empty
             refute_equal
+            refute_includes
             refute_nil
             refute_empty
           ].freeze
@@ -40,6 +45,11 @@ module RuboCop
           # @!method minitest_equal(node)
           def_node_matcher :minitest_equal, <<~PATTERN
             (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
+          PATTERN
+
+          # @!method minitest_includes(node)
+          def_node_matcher :minitest_includes, <<~PATTERN
+            (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
           PATTERN
 
           # @!method minitest_nil(node)
@@ -52,10 +62,15 @@ module RuboCop
             (send nil? {:assert_empty :assert_not_empty :refute_empty} $_ $_?)
           PATTERN
 
-          def on_send(node) # rubocop:disable Metrics/MethodLength
+          def on_send(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
             minitest_equal(node) do |expected, actual, failure_message|
               on_assertion(node, EqualAssertion.new(expected, actual,
                                                     failure_message.first))
+            end
+
+            minitest_includes(node) do |collection, expected, failure_message|
+              on_assertion(node, IncludesAssertion.new(collection, expected,
+                                                       failure_message.first))
             end
 
             minitest_nil(node) do |actual, failure_message|
@@ -94,6 +109,28 @@ module RuboCop
                 "expect(#{@actual.source}).#{runner} eq(#{@expected.source})"
               else
                 "expect(#{@actual.source}).#{runner}(eq(#{@expected.source})," \
+                  " #{@fail_message.source})"
+              end
+            end
+          end
+
+          # :nodoc:
+          class IncludesAssertion
+            def initialize(collection, expected, fail_message)
+              @collection = collection
+              @expected = expected
+              @fail_message = fail_message
+            end
+
+            def replaced(node)
+              a_source = @collection.source
+              b_source = @expected.source
+
+              runner = node.method?(:assert_includes) ? 'to' : 'not_to'
+              if @fail_message.nil?
+                "expect(#{a_source}).#{runner} include(#{b_source})"
+              else
+                "expect(#{a_source}).#{runner}(include(#{b_source})," \
                   " #{@fail_message.source})"
               end
             end

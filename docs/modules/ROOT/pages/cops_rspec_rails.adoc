@@ -255,6 +255,7 @@ Check if using Minitest matchers.
 # bad
 assert_equal(a, b)
 assert_equal a, b, "must be equal"
+assert_not_includes a, b
 refute_equal(a, b)
 assert_nil a
 refute_empty(b)
@@ -262,6 +263,7 @@ refute_empty(b)
 # good
 expect(b).to eq(a)
 expect(b).to(eq(a), "must be equal")
+expect(a).not_to include(b)
 expect(b).not_to eq(a)
 expect(a).to eq(nil)
 expect(a).not_to be_empty
