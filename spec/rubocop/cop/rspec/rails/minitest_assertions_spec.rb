@@ -84,6 +84,92 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
   end
 
+  context 'with includes assertions' do
+    it 'registers an offense when using `assert_includes`' do
+      expect_offense(<<~RUBY)
+        assert_includes(a, b)
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to include(b)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to include(b)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_includes` with ' \
+       'no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_includes a, b
+        ^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to include(b)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to include(b)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_includes` with ' \
+       'failure message' do
+      expect_offense(<<~RUBY)
+        assert_includes a, b, "must be include"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(include(b), "must be include")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(include(b), "must be include")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_includes` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_includes(a,
+        ^^^^^^^^^^^^^^^^^^ Use `expect(a).to(include(b), "must be include")`.
+                      b,
+                      "must be include")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(include(b), "must be include")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_includes`' do
+      expect_offense(<<~RUBY)
+        assert_not_includes a, b
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to include(b)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to include(b)
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_includes`' do
+      expect_offense(<<~RUBY)
+        refute_includes a, b
+        ^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to include(b)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to include(b)
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(a).to include(b)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).to include(b)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(a).not_to include(b)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).not_to include(b)
+      RUBY
+    end
+  end
+
   context 'with nil assertions' do
     it 'registers an offense when using `assert_nil`' do
       expect_offense(<<~RUBY)
