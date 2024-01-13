@@ -82,17 +82,17 @@ module RuboCop
             end
 
             minitest_includes(node) do |collection, expected, failure_message|
-              on_assertion(node, IncludesAssertion.new(collection, expected,
+              on_assertion(node, IncludesAssertion.new(expected, collection,
                                                        failure_message.first))
             end
 
             minitest_nil(node) do |actual, failure_message|
-              on_assertion(node, NilAssertion.new(actual,
+              on_assertion(node, NilAssertion.new(nil, actual,
                                                   failure_message.first))
             end
 
             minitest_empty(node) do |actual, failure_message|
-              on_assertion(node, EmptyAssertion.new(actual,
+              on_assertion(node, EmptyAssertion.new(nil, actual,
                                                     failure_message.first))
             end
           end
@@ -109,99 +109,75 @@ module RuboCop
           end
 
           # :nodoc:
-          class EqualAssertion
+          class BasicAssertion
             def initialize(expected, actual, fail_message)
-              @expected = expected
-              @actual = actual
-              @fail_message = fail_message
+              @expected = expected&.source
+              @actual = actual.source
+              @fail_message = fail_message&.source
             end
 
             def replaced(node)
-              runner = node.method?(:assert_equal) ? 'to' : 'not_to'
+              runner = negated?(node) ? 'not_to' : 'to'
               if @fail_message.nil?
-                "expect(#{@actual.source}).#{runner} eq(#{@expected.source})"
+                "expect(#{@actual}).#{runner} #{assertion}"
               else
-                "expect(#{@actual.source}).#{runner}(eq(#{@expected.source})," \
-                  " #{@fail_message.source})"
+                "expect(#{@actual}).#{runner}(#{assertion}, #{@fail_message})"
               end
             end
           end
 
           # :nodoc:
-          class InstanceOfAssertion
-            def initialize(expected, actual, fail_message)
-              @expected = expected
-              @actual = actual
-              @fail_message = fail_message
+          class EqualAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_equal)
             end
 
-            def replaced(node)
-              runner = node.method?(:assert_instance_of) ? 'to' : 'not_to'
-              if @fail_message.nil?
-                "expect(#{@actual.source}).#{runner} be_an_instance_of" \
-                  "(#{@expected.source})"
-              else
-                "expect(#{@actual.source}).#{runner}(be_an_instance_of" \
-                  "(#{@expected.source}), #{@fail_message.source})"
-              end
+            def assertion
+              "eq(#{@expected})"
             end
           end
 
           # :nodoc:
-          class IncludesAssertion
-            def initialize(collection, expected, fail_message)
-              @collection = collection
-              @expected = expected
-              @fail_message = fail_message
+          class InstanceOfAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_instance_of)
             end
 
-            def replaced(node)
-              a_source = @collection.source
-              b_source = @expected.source
-
-              runner = node.method?(:assert_includes) ? 'to' : 'not_to'
-              if @fail_message.nil?
-                "expect(#{a_source}).#{runner} include(#{b_source})"
-              else
-                "expect(#{a_source}).#{runner}(include(#{b_source})," \
-                  " #{@fail_message.source})"
-              end
+            def assertion
+              "be_an_instance_of(#{@expected})"
             end
           end
 
           # :nodoc:
-          class NilAssertion
-            def initialize(actual, fail_message)
-              @actual = actual
-              @fail_message = fail_message
+          class IncludesAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_includes)
             end
 
-            def replaced(node)
-              runner = node.method?(:assert_nil) ? 'to' : 'not_to'
-              if @fail_message.nil?
-                "expect(#{@actual.source}).#{runner} eq(nil)"
-              else
-                "expect(#{@actual.source}).#{runner}(eq(nil), " \
-                  "#{@fail_message.source})"
-              end
+            def assertion
+              "include(#{@expected})"
             end
           end
 
           # :nodoc:
-          class EmptyAssertion
-            def initialize(actual, fail_message)
-              @actual = actual
-              @fail_message = fail_message
+          class NilAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_nil)
             end
 
-            def replaced(node)
-              runner = node.method?(:assert_empty) ? 'to' : 'not_to'
-              if @fail_message.nil?
-                "expect(#{@actual.source}).#{runner} be_empty"
-              else
-                "expect(#{@actual.source}).#{runner}(be_empty, " \
-                  "#{@fail_message.source})"
-              end
+            def assertion
+              'eq(nil)'
+            end
+          end
+
+          # :nodoc:
+          class EmptyAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_empty)
+            end
+
+            def assertion
+              'be_empty'
             end
           end
         end
