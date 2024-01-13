@@ -30,6 +30,8 @@ module RuboCop
           RESTRICT_ON_SEND = %i[
             assert_equal
             assert_not_equal
+            assert_instance_of
+            assert_not_instance_of
             assert_includes
             assert_not_includes
             assert_nil
@@ -37,6 +39,7 @@ module RuboCop
             assert_empty
             assert_not_empty
             refute_equal
+            refute_instance_of
             refute_includes
             refute_nil
             refute_empty
@@ -45,6 +48,11 @@ module RuboCop
           # @!method minitest_equal(node)
           def_node_matcher :minitest_equal, <<~PATTERN
             (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
+          PATTERN
+
+          # @!method minitest_instance_of(node)
+          def_node_matcher :minitest_instance_of, <<~PATTERN
+            (send nil? {:assert_instance_of :assert_not_instance_of :refute_instance_of} $_ $_ $_?)
           PATTERN
 
           # @!method minitest_includes(node)
@@ -66,6 +74,11 @@ module RuboCop
             minitest_equal(node) do |expected, actual, failure_message|
               on_assertion(node, EqualAssertion.new(expected, actual,
                                                     failure_message.first))
+            end
+
+            minitest_instance_of(node) do |expected, actual, failure_message|
+              on_assertion(node, InstanceOfAssertion.new(expected, actual,
+                                                         failure_message.first))
             end
 
             minitest_includes(node) do |collection, expected, failure_message|
@@ -110,6 +123,26 @@ module RuboCop
               else
                 "expect(#{@actual.source}).#{runner}(eq(#{@expected.source})," \
                   " #{@fail_message.source})"
+              end
+            end
+          end
+
+          # :nodoc:
+          class InstanceOfAssertion
+            def initialize(expected, actual, fail_message)
+              @expected = expected
+              @actual = actual
+              @fail_message = fail_message
+            end
+
+            def replaced(node)
+              runner = node.method?(:assert_instance_of) ? 'to' : 'not_to'
+              if @fail_message.nil?
+                "expect(#{@actual.source}).#{runner} be_an_instance_of" \
+                  "(#{@expected.source})"
+              else
+                "expect(#{@actual.source}).#{runner}(be_an_instance_of" \
+                  "(#{@expected.source}), #{@fail_message.source})"
               end
             end
           end
