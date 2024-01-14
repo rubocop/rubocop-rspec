@@ -84,6 +84,107 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
   end
 
+  context 'with instance_of assertions' do
+    it 'registers an offense when using `assert_instance_of`' do
+      expect_offense(<<~RUBY)
+        assert_instance_of(a, b)
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_an_instance_of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_instance_of` with ' \
+       'no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_instance_of a, b
+        ^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_an_instance_of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_instance_of` with' \
+       'failure message' do
+      expect_offense(<<~RUBY)
+        assert_instance_of a, b, "must be instance of"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to(be_an_instance_of(a), "must be instance of")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to(be_an_instance_of(a), "must be instance of")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_instance_of` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_instance_of(a,
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to(be_an_instance_of(a), "must be instance of")`.
+                      b,
+                      "must be instance of")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to(be_an_instance_of(a), "must be instance of")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_instance_of`' do
+      expect_offense(<<~RUBY)
+        assert_not_instance_of a, b
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to be_an_instance_of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_instance_of`' do
+      expect_offense(<<~RUBY)
+        refute_instance_of a, b
+        ^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to be_an_instance_of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).to be_an_instance_of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).not_to be_an_instance_of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).not_to be_an_instance_of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).to be_instance_of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).to be_instance_of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).not_to be_instance_of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).not_to be_instance_of(a)
+      RUBY
+    end
+  end
+
   context 'with includes assertions' do
     it 'registers an offense when using `assert_includes`' do
       expect_offense(<<~RUBY)
@@ -149,23 +250,6 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
       expect_offense(<<~RUBY)
         refute_includes a, b
         ^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to include(b)`.
-      RUBY
-
-      expect_correction(<<~RUBY)
-        expect(a).not_to include(b)
-      RUBY
-    end
-
-    it 'does not register an offense when using `expect(a).to include(b)`' do
-      expect_no_offenses(<<~RUBY)
-        expect(a).to include(b)
-      RUBY
-    end
-
-    it 'does not register an offense when ' \
-       'using `expect(a).not_to include(b)`' do
-      expect_no_offenses(<<~RUBY)
-        expect(a).not_to include(b)
       RUBY
     end
   end
