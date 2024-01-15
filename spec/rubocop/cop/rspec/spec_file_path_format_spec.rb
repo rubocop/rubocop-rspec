@@ -233,19 +233,66 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
-  context 'when configured with `CustomTransform: { "FooFoo" => "foofoo" }`' do
-    let(:cop_config) { { 'CustomTransform' => { 'FooFoo' => 'foofoo' } } }
+  context 'when configured with `CustomTransform: { "RSpec" => "rspec" }`' do
+    let(:cop_config) do
+      {
+        'CustomTransform' => { 'RSpec' => 'rspec' },
+        'CustomTransformPatterns' => {}
+      }
+    end
 
-    it 'does not register an offense for custom module name transformation' do
-      expect_no_offenses(<<~RUBY, 'foofoo/some/class/bar_spec.rb')
-        describe FooFoo::Some::Class, '#bar' do; end
+    it 'registers an offense when not an exact match to custom ' \
+       'module name transformation' do
+      expect_offense(<<-RUBY, 'rspec_foo_spec.rb')
+        RSpec.describe RSpecFoo do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `r_spec_foo*_spec.rb`.
+      RUBY
+    end
+
+    it 'registers an offense when not an exact match to custom ' \
+       'module name transformation with nested directories' do
+      expect_offense(<<-RUBY, 'foo/some/rspec_foo/bar_spec.rb')
+        describe Foo::Some::RSpecFoo, '#bar' do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `foo/some/r_spec_foo*bar*_spec.rb`.
+      RUBY
+    end
+
+    it 'does not register an offense when an exact match to custom ' \
+       'module name transformation' do
+      expect_no_offenses(<<-RUBY, 'rspec/some/foo/bar_spec.rb')
+        describe RSpec::Some::Foo, '#bar' do; end
+      RUBY
+    end
+  end
+
+  context 'when configured with `CustomTransformPatterns: ' \
+          '{ "API" => "api" }`' do
+    let(:cop_config) { { 'CustomTransformPatterns' => { 'API' => 'api' } } }
+
+    it 'does not register an offense when not an exact match to custom ' \
+       'module name transformation' do
+      expect_no_offenses(<<-RUBY, 'foo/some/apis_foo/bar_spec.rb')
+        describe Foo::Some::APIsFoo, '#bar' do; end
+      RUBY
+    end
+
+    it 'does not register an offense when an exact match to custom ' \
+       'module name transformation' do
+      expect_no_offenses(<<-RUBY, 'foo_apis_spec.rb')
+        RSpec.describe FooAPIs do; end
+      RUBY
+    end
+
+    it 'does not register an offense when an exact match to custom ' \
+       'module name transformation with nested directories' do
+      expect_no_offenses(<<-RUBY, 'apis/some/foo/bar_spec.rb')
+        describe APIs::Some::Foo, '#bar' do; end
       RUBY
     end
   end
 
   context 'when configured with `IgnoreMethods: false`' do
     let(:cop_config) { { 'IgnoreMethods' => false } }
-    let(:suffix) { 'my_class*look_here_a_method*_spec.rb' }
 
     it 'registers an offense when file path not include method name' do
       expect_offense(<<~RUBY, 'my_class_spec.rb')

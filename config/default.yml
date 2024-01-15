@@ -889,10 +889,13 @@ RSpec/SpecFilePathFormat:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
+  CustomTransformPatterns:
+    API: api
   IgnoreMethods: false
   IgnoreMetadata:
     type: routing
   VersionAdded: '2.24'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 
 RSpec/SpecFilePathSuffix:

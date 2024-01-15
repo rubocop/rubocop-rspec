@@ -20,6 +20,11 @@ module RuboCop
       #   rubocop_spec.rb          # describe RuboCop
       #   rspec_spec.rb            # describe RSpec
       #
+      # @example `CustomTransformPatterns: {API=>api}` (default)
+      #   # good
+      #   apis_spec.rb             # describe APIs
+      #   foo_apis_spec.rb         # describe Foo::APIs
+      #
       # @example `IgnoreMethods: false` (default)
       #   # bad
       #   my_class_spec.rb         # describe MyClass, '#method'
@@ -100,9 +105,17 @@ module RuboCop
 
           File.join(
             constants.map do |name|
+              pattern, transformed = transformed_pattern(name)
+              name.gsub!(pattern, transformed.capitalize) if transformed
               custom_transform.fetch(name) { camel_to_snake_case(name) }
             end
           )
+        end
+
+        def transformed_pattern(name)
+          custom_transform_patterns.find do |pattern, _|
+            name.include?(pattern)
+          end
         end
 
         def camel_to_snake_case(string)
@@ -114,6 +127,10 @@ module RuboCop
 
         def custom_transform
           cop_config.fetch('CustomTransform', {})
+        end
+
+        def custom_transform_patterns
+          cop_config.fetch('CustomTransformPatterns', {})
         end
 
         def ignore_methods?

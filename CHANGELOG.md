@@ -20,6 +20,7 @@
 - Add support for correcting "it will" (future tense) for `RSpec/ExampleWording`. ([@jdufresne])
 - Add support for `symbol` style for `RSpec/SharedExamples`. ([@jessieay])
 - Ensure `PendingWithoutReason` can detect violations inside shared groups. ([@robinaugh])
+- Add configuration option `CustomTransformPatterns` to `RSpec/SpecFilePathFormat`. ([@ydah])
 
 ## 2.25.0 (2023-10-27)
 
