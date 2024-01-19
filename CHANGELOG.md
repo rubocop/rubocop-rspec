@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add support for `assert_empty`, `assert_not_empty` and `refute_empty` to `RSpec/Rails/MinitestAssertions`. ([@ydah])
+- Support correcting `*_match` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `*_instance_of` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `*_includes` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `assert_not_equal` and `assert_not_nil` in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])

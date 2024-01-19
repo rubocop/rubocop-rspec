@@ -254,6 +254,79 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
   end
 
+  context 'with match assertions' do
+    it 'registers an offense when using `assert_match`' do
+      expect_offense(<<~RUBY)
+        assert_match(/xyz/, b)
+        ^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to match(/xyz/)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to match(/xyz/)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_match` with no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_match /xyz/, b
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to match(/xyz/)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to match(/xyz/)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_match` with failure message' do
+      expect_offense(<<~RUBY)
+        assert_match /xyz/, b, "must match"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to(match(/xyz/), "must match")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to(match(/xyz/), "must match")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_match` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_match(/xyz/,
+        ^^^^^^^^^^^^^^^^^^^ Use `expect(b).to(match(/xyz/), "must match")`.
+                      b,
+                      "must match")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to(match(/xyz/), "must match")
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_match`' do
+      expect_offense(<<~RUBY)
+        refute_match /xyz/, b
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to match(/xyz/)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to match(/xyz/)
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(b).to match(/xyz/)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).to match(/xyz/)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).not_to match(/xyz/)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).not_to match(/xyz/)
+      RUBY
+    end
+  end
+
   context 'with nil assertions' do
     it 'registers an offense when using `assert_nil`' do
       expect_offense(<<~RUBY)
