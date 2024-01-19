@@ -34,6 +34,7 @@ module RuboCop
             assert_not_instance_of
             assert_includes
             assert_not_includes
+            assert_match
             assert_nil
             assert_not_nil
             assert_empty
@@ -43,6 +44,7 @@ module RuboCop
             refute_includes
             refute_nil
             refute_empty
+            refute_match
           ].freeze
 
           # @!method minitest_equal(node)
@@ -58,6 +60,11 @@ module RuboCop
           # @!method minitest_includes(node)
           def_node_matcher :minitest_includes, <<~PATTERN
             (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
+          PATTERN
+
+          # @!method minitest_match(node)
+          def_node_matcher :minitest_match, <<~PATTERN
+            (send nil? {:assert_match :refute_match} $_ $_ $_?)
           PATTERN
 
           # @!method minitest_nil(node)
@@ -84,6 +91,11 @@ module RuboCop
             minitest_includes(node) do |collection, expected, failure_message|
               on_assertion(node, IncludesAssertion.new(expected, collection,
                                                        failure_message.first))
+            end
+
+            minitest_match(node) do |matcher, actual, failure_message|
+              on_assertion(node, MatchAssertion.new(matcher, actual,
+                                                    failure_message.first))
             end
 
             minitest_nil(node) do |actual, failure_message|
@@ -156,6 +168,17 @@ module RuboCop
 
             def assertion
               "include(#{@expected})"
+            end
+          end
+
+          # :nodoc:
+          class MatchAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_match)
+            end
+
+            def assertion
+              "match(#{@expected})"
             end
           end
 
