@@ -28,6 +28,7 @@ module RuboCop
               (send nil? :match_array (array))
               (send nil? :contain_exactly)
             }
+            _?
           )
         PATTERN
 

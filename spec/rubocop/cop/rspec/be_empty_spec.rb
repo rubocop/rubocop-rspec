@@ -12,6 +12,18 @@ RSpec.describe RuboCop::Cop::RSpec::BeEmpty do
     RUBY
   end
 
+  it 'registers an offense when ' \
+     'using `expect(array).to contain_exactly, "with a message"`' do
+    expect_offense(<<~RUBY)
+      expect(array).to contain_exactly, "with a message"
+                       ^^^^^^^^^^^^^^^ Use `be_empty` matchers for checking an empty array.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(array).to be_empty, "with a message"
+    RUBY
+  end
+
   it 'registers an offense when using `expect(array).to match_array([])`' do
     expect_offense(<<~RUBY)
       expect(array).to match_array([])
@@ -23,9 +35,28 @@ RSpec.describe RuboCop::Cop::RSpec::BeEmpty do
     RUBY
   end
 
+  it 'registers an offense when ' \
+     'using `expect(array).to match_array([]), "with a message"`' do
+    expect_offense(<<~RUBY)
+      expect(array).to match_array([]), "with a message"
+                       ^^^^^^^^^^^^^^^ Use `be_empty` matchers for checking an empty array.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      expect(array).to be_empty, "with a message"
+    RUBY
+  end
+
   it 'does not register an offense when using `expect(array).to be_empty`' do
     expect_no_offenses(<<~RUBY)
       expect(array).to be_empty
+    RUBY
+  end
+
+  it 'does not register an offense when ' \
+     'using `expect(array).to be_empty, "with a message"`' do
+    expect_no_offenses(<<~RUBY)
+      expect(array).to be_empty, "with a message"
     RUBY
   end
 end
