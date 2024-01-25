@@ -251,6 +251,23 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
         refute_includes a, b
         ^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to include(b)`.
       RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to include(b)
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(a).to include(b)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).to include(b)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(a).not_to include(b)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).not_to include(b)
+      RUBY
     end
   end
 
