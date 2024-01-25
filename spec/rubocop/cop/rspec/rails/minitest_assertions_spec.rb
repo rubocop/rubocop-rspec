@@ -407,7 +407,9 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
         expect(a).not_to eq(nil)
       RUBY
     end
+  end
 
+  context 'with empty assertions' do
     it 'registers an offense when using `assert_empty`' do
       expect_offense(<<~RUBY)
         assert_empty(a)
