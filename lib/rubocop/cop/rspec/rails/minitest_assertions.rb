@@ -34,6 +34,8 @@ module RuboCop
             assert_not_instance_of
             assert_includes
             assert_not_includes
+            assert_predicate
+            assert_not_predicate
             assert_match
             assert_nil
             assert_not_nil
@@ -42,6 +44,7 @@ module RuboCop
             refute_equal
             refute_instance_of
             refute_includes
+            refute_predicate
             refute_nil
             refute_empty
             refute_match
@@ -60,6 +63,11 @@ module RuboCop
           # @!method minitest_includes(node)
           def_node_matcher :minitest_includes, <<~PATTERN
             (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
+          PATTERN
+
+          # @!method minitest_predicate(node)
+          def_node_matcher :minitest_predicate, <<~PATTERN
+            (send nil? {:assert_predicate :assert_not_predicate :refute_predicate} $_ ${sym} $_?)
           PATTERN
 
           # @!method minitest_match(node)
@@ -86,6 +94,13 @@ module RuboCop
             minitest_instance_of(node) do |expected, actual, failure_message|
               on_assertion(node, InstanceOfAssertion.new(expected, actual,
                                                          failure_message.first))
+            end
+
+            minitest_predicate(node) do |subject, predicate, failure_message|
+              next unless predicate.value.end_with?('?')
+
+              on_assertion(node, PredicateAssertion.new(predicate, subject,
+                                                        failure_message.first))
             end
 
             minitest_includes(node) do |collection, expected, failure_message|
@@ -168,6 +183,17 @@ module RuboCop
 
             def assertion
               "include(#{@expected})"
+            end
+          end
+
+          # :nodoc:
+          class PredicateAssertion < BasicAssertion
+            def negated?(node)
+              !node.method?(:assert_predicate)
+            end
+
+            def assertion
+              "be_#{@expected.delete_prefix(':').delete_suffix('?')}"
             end
           end
 

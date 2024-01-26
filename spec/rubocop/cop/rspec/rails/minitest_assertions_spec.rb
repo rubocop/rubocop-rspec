@@ -507,4 +507,134 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
       RUBY
     end
   end
+
+  context 'with predicate assertions' do
+    it 'registers an offense when using `assert_predicate` with ' \
+       'an actual predicate' do
+      expect_offense(<<~RUBY)
+        assert_predicate(a, :valid?)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to be_valid`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be_valid
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_predicate` with ' \
+       'an actual predicate and no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_predicate a, :valid?
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to be_valid`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be_valid
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_predicate` with ' \
+       'an actual predicate and a failure message' do
+      expect_offense(<<~RUBY)
+        assert_predicate a, :valid?, "must be valid"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(be_valid, "must be valid")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be_valid, "must be valid")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_predicate` with ' \
+       'an actual predicate and multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_predicate(a,
+        ^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(be_valid, "must be valid")`.
+                      :valid?,
+                      "must be valid")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be_valid, "must be valid")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_predicate` with ' \
+       'an actual predicate' do
+      expect_offense(<<~RUBY)
+        assert_not_predicate a, :valid?
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to be_valid`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to be_valid
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_predicate` with ' \
+       'an actual predicate' do
+      expect_offense(<<~RUBY)
+        refute_predicate a, :valid?
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).not_to be_valid`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).not_to be_valid
+      RUBY
+    end
+
+    it 'does not register an offense when using `expect(a).to be_predicate`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).to be_predicate
+      RUBY
+    end
+
+    it 'does not register an offense when using ' \
+       '`expect(a).not_to be_predicate`' do
+      expect_no_offenses(<<~RUBY)
+        expect(a).not_to be_predicate
+      RUBY
+    end
+
+    it 'does not register an offense when using `assert_predicate` with ' \
+       'not a predicate' do
+      expect_no_offenses(<<~RUBY)
+        assert_predicate foo, :do_something
+      RUBY
+    end
+
+    it 'does not register an offense when using `assert_not_predicate` with ' \
+       'not a predicate' do
+      expect_no_offenses(<<~RUBY)
+        assert_not_predicate foo, :do_something
+      RUBY
+    end
+
+    it 'does not register an offense when using `refute_predicate` with ' \
+       'not a predicate' do
+      expect_no_offenses(<<~RUBY)
+        refute_predicate foo, :do_something
+      RUBY
+    end
+
+    it 'does not register an offense when the predicate is not a symbol' do
+      expect_no_offenses(<<~RUBY)
+        assert_predicate a, 1
+      RUBY
+    end
+
+    it 'does not register an offense when the predicate is missing' do
+      expect_no_offenses(<<~RUBY)
+        assert_predicate a, "whoops, we forgot about the actual predicate!"
+      RUBY
+    end
+
+    it 'does not register an offense when the predicate is a variable' do
+      expect_no_offenses(<<~RUBY)
+        foo = :foo?
+
+        assert_predicate a, foo
+      RUBY
+    end
+  end
 end
