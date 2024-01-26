@@ -26,115 +26,6 @@ module RuboCop
         class MinitestAssertions < Base
           extend AutoCorrector
 
-          MSG = 'Use `%<prefer>s`.'
-          RESTRICT_ON_SEND = %i[
-            assert_equal
-            assert_not_equal
-            assert_instance_of
-            assert_not_instance_of
-            assert_includes
-            assert_not_includes
-            assert_predicate
-            assert_not_predicate
-            assert_match
-            assert_nil
-            assert_not_nil
-            assert_empty
-            assert_not_empty
-            refute_equal
-            refute_instance_of
-            refute_includes
-            refute_predicate
-            refute_nil
-            refute_empty
-            refute_match
-          ].freeze
-
-          # @!method minitest_equal(node)
-          def_node_matcher :minitest_equal, <<~PATTERN
-            (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
-          PATTERN
-
-          # @!method minitest_instance_of(node)
-          def_node_matcher :minitest_instance_of, <<~PATTERN
-            (send nil? {:assert_instance_of :assert_not_instance_of :refute_instance_of} $_ $_ $_?)
-          PATTERN
-
-          # @!method minitest_includes(node)
-          def_node_matcher :minitest_includes, <<~PATTERN
-            (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
-          PATTERN
-
-          # @!method minitest_predicate(node)
-          def_node_matcher :minitest_predicate, <<~PATTERN
-            (send nil? {:assert_predicate :assert_not_predicate :refute_predicate} $_ ${sym} $_?)
-          PATTERN
-
-          # @!method minitest_match(node)
-          def_node_matcher :minitest_match, <<~PATTERN
-            (send nil? {:assert_match :refute_match} $_ $_ $_?)
-          PATTERN
-
-          # @!method minitest_nil(node)
-          def_node_matcher :minitest_nil, <<~PATTERN
-            (send nil? {:assert_nil :assert_not_nil :refute_nil} $_ $_?)
-          PATTERN
-
-          # @!method minitest_empty(node)
-          def_node_matcher :minitest_empty, <<~PATTERN
-            (send nil? {:assert_empty :assert_not_empty :refute_empty} $_ $_?)
-          PATTERN
-
-          def on_send(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-            minitest_equal(node) do |expected, actual, failure_message|
-              on_assertion(node, EqualAssertion.new(expected, actual,
-                                                    failure_message.first))
-            end
-
-            minitest_instance_of(node) do |expected, actual, failure_message|
-              on_assertion(node, InstanceOfAssertion.new(expected, actual,
-                                                         failure_message.first))
-            end
-
-            minitest_predicate(node) do |subject, predicate, failure_message|
-              next unless predicate.value.end_with?('?')
-
-              on_assertion(node, PredicateAssertion.new(predicate, subject,
-                                                        failure_message.first))
-            end
-
-            minitest_includes(node) do |collection, expected, failure_message|
-              on_assertion(node, IncludesAssertion.new(expected, collection,
-                                                       failure_message.first))
-            end
-
-            minitest_match(node) do |matcher, actual, failure_message|
-              on_assertion(node, MatchAssertion.new(matcher, actual,
-                                                    failure_message.first))
-            end
-
-            minitest_nil(node) do |actual, failure_message|
-              on_assertion(node, NilAssertion.new(nil, actual,
-                                                  failure_message.first))
-            end
-
-            minitest_empty(node) do |actual, failure_message|
-              on_assertion(node, EmptyAssertion.new(nil, actual,
-                                                    failure_message.first))
-            end
-          end
-
-          def on_assertion(node, assertion)
-            preferred = assertion.replaced(node)
-            add_offense(node, message: message(preferred)) do |corrector|
-              corrector.replace(node, preferred)
-            end
-          end
-
-          def message(preferred)
-            format(MSG, prefer: preferred)
-          end
-
           # :nodoc:
           class BasicAssertion
             def initialize(expected, actual, fail_message)
@@ -151,10 +42,32 @@ module RuboCop
                 "expect(#{@actual}).#{runner}(#{assertion}, #{@fail_message})"
               end
             end
+
+            def negated?(node)
+              raise NotImplementedError
+            end
+
+            def assertion
+              raise NotImplementedError
+            end
           end
 
           # :nodoc:
           class EqualAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_equal
+              assert_not_equal
+              refute_equal
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
+            PATTERN
+
+            def self.match(expected, actual, failure_message)
+              new(expected, actual, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_equal)
             end
@@ -166,6 +79,20 @@ module RuboCop
 
           # :nodoc:
           class InstanceOfAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_instance_of
+              assert_not_instance_of
+              refute_instance_of
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_instance_of :assert_not_instance_of :refute_instance_of} $_ $_ $_?)
+            PATTERN
+
+            def self.match(expected, actual, failure_message)
+              new(expected, actual, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_instance_of)
             end
@@ -177,6 +104,20 @@ module RuboCop
 
           # :nodoc:
           class IncludesAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_includes
+              assert_not_includes
+              refute_includes
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
+            PATTERN
+
+            def self.match(collection, expected, failure_message)
+              new(expected, collection, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_includes)
             end
@@ -188,6 +129,22 @@ module RuboCop
 
           # :nodoc:
           class PredicateAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_predicate
+              assert_not_predicate
+              refute_predicate
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_predicate :assert_not_predicate :refute_predicate} $_ ${sym} $_?)
+            PATTERN
+
+            def self.match(subject, predicate, failure_message)
+              return nil unless predicate.value.end_with?('?')
+
+              new(predicate, subject, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_predicate)
             end
@@ -199,6 +156,19 @@ module RuboCop
 
           # :nodoc:
           class MatchAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_match
+              refute_match
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_match :refute_match} $_ $_ $_?)
+            PATTERN
+
+            def self.match(matcher, actual, failure_message)
+              new(matcher, actual, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_match)
             end
@@ -210,6 +180,20 @@ module RuboCop
 
           # :nodoc:
           class NilAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_nil
+              assert_not_nil
+              refute_nil
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_nil :assert_not_nil :refute_nil} $_ $_?)
+            PATTERN
+
+            def self.match(actual, failure_message)
+              new(nil, actual, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_nil)
             end
@@ -221,6 +205,20 @@ module RuboCop
 
           # :nodoc:
           class EmptyAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_empty
+              assert_not_empty
+              refute_empty
+            ].freeze
+
+            NODE_MATCHER_PATTERN = <<~PATTERN
+              (send nil? {:assert_empty :assert_not_empty :refute_empty} $_ $_?)
+            PATTERN
+
+            def self.match(actual, failure_message)
+              new(nil, actual, failure_message.first)
+            end
+
             def negated?(node)
               !node.method?(:assert_empty)
             end
@@ -228,6 +226,48 @@ module RuboCop
             def assertion
               'be_empty'
             end
+          end
+
+          MSG = 'Use `%<prefer>s`.'
+
+          # TODO: replace with `BasicAssertion.subclasses` in Ruby 3.1+
+          ASSERTION_MATCHERS = constants(false).filter_map do |c|
+            const = const_get(c)
+
+            const if const.is_a?(Class) && const.superclass == BasicAssertion
+          end
+
+          RESTRICT_ON_SEND = ASSERTION_MATCHERS.flat_map { |m| m::MATCHERS }
+
+          ASSERTION_MATCHERS.each do |m|
+            name = m.name.split('::').last
+
+            def_node_matcher "minitest_#{name}".to_sym, m::NODE_MATCHER_PATTERN
+          end
+
+          def on_send(node)
+            ASSERTION_MATCHERS.each do |m|
+              name = m.name.split('::').last
+
+              public_send("minitest_#{name}".to_sym, node) do |*args|
+                assertion = m.match(*args)
+
+                next if assertion.nil?
+
+                on_assertion(node, assertion)
+              end
+            end
+          end
+
+          def on_assertion(node, assertion)
+            preferred = assertion.replaced(node)
+            add_offense(node, message: message(preferred)) do |corrector|
+              corrector.replace(node, preferred)
+            end
+          end
+
+          def message(preferred)
+            format(MSG, prefer: preferred)
           end
         end
       end
