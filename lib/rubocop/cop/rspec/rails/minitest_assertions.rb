@@ -28,12 +28,31 @@ module RuboCop
 
           # :nodoc:
           class BasicAssertion
+            extend NodePattern::Macros
+
             attr_reader :expected, :actual, :failure_message
 
-            def initialize(expected, actual, failure_message)
-              @expected = expected&.source
+            def initialize(node)
+              @expected = nil
+              @actual = nil
+              @failure_message = nil
+              match(node)
+            end
+
+            def expected=(expected)
+              @expected = expected.source
+            end
+
+            def actual=(actual)
               @actual = actual.source
+            end
+
+            def failure_message=(failure_message)
               @failure_message = failure_message&.source
+            end
+
+            def match?
+              !!actual
             end
 
             def replaced(node)
@@ -49,6 +68,10 @@ module RuboCop
               node.method_name.start_with?('assert_not_', 'refute_')
             end
 
+            def match(node)
+              raise NotImplementedError
+            end
+
             def assertion
               raise NotImplementedError
             end
@@ -62,12 +85,17 @@ module RuboCop
               refute_equal
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
             PATTERN
 
-            def self.match(expected, actual, failure_message)
-              new(expected, actual, failure_message.first)
+            def match(node)
+              pattern(node) do |expected, actual, failure_message|
+                self.expected = expected
+                self.actual = actual
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -83,12 +111,17 @@ module RuboCop
               refute_instance_of
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_instance_of :assert_not_instance_of :refute_instance_of} $_ $_ $_?)
             PATTERN
 
-            def self.match(expected, actual, failure_message)
-              new(expected, actual, failure_message.first)
+            def match(node)
+              pattern(node) do |expected, actual, failure_message|
+                self.expected = expected
+                self.actual = actual
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -104,12 +137,17 @@ module RuboCop
               refute_includes
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
             PATTERN
 
-            def self.match(collection, expected, failure_message)
-              new(expected, collection, failure_message.first)
+            def match(node)
+              pattern(node) do |collection, expected, failure_message|
+                self.expected = expected
+                self.actual = collection
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -125,14 +163,19 @@ module RuboCop
               refute_predicate
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_predicate :assert_not_predicate :refute_predicate} $_ ${sym} $_?)
             PATTERN
 
-            def self.match(subject, predicate, failure_message)
-              return nil unless predicate.value.end_with?('?')
+            def match(node)
+              pattern(node) do |subject, predicate, failure_message|
+                return nil unless predicate.value.end_with?('?')
 
-              new(predicate, subject, failure_message.first)
+                self.expected = predicate
+                self.actual = subject
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -147,12 +190,17 @@ module RuboCop
               refute_match
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_match :refute_match} $_ $_ $_?)
             PATTERN
 
-            def self.match(matcher, actual, failure_message)
-              new(matcher, actual, failure_message.first)
+            def match(node)
+              pattern(node) do |matcher, actual, failure_message|
+                self.expected = matcher
+                self.actual = actual
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -168,12 +216,16 @@ module RuboCop
               refute_nil
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_nil :assert_not_nil :refute_nil} $_ $_?)
             PATTERN
 
-            def self.match(actual, failure_message)
-              new(nil, actual, failure_message.first)
+            def match(node)
+              pattern(node) do |actual, failure_message|
+                self.actual = actual
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -189,12 +241,16 @@ module RuboCop
               refute_empty
             ].freeze
 
-            NODE_MATCHER_PATTERN = <<~PATTERN
+            # @!method pattern(node)
+            def_node_matcher :pattern, <<~PATTERN
               (send nil? {:assert_empty :assert_not_empty :refute_empty} $_ $_?)
             PATTERN
 
-            def self.match(actual, failure_message)
-              new(nil, actual, failure_message.first)
+            def match(node)
+              pattern(node) do |actual, failure_message|
+                self.actual = actual
+                self.failure_message = failure_message.first
+              end
             end
 
             def assertion
@@ -213,23 +269,10 @@ module RuboCop
 
           RESTRICT_ON_SEND = ASSERTION_MATCHERS.flat_map { |m| m::MATCHERS }
 
-          ASSERTION_MATCHERS.each do |m|
-            name = m.name.split('::').last
-
-            def_node_matcher "minitest_#{name}".to_sym, m::NODE_MATCHER_PATTERN
-          end
-
           def on_send(node)
-            ASSERTION_MATCHERS.each do |m|
-              name = m.name.split('::').last
-
-              public_send("minitest_#{name}".to_sym, node) do |*args|
-                assertion = m.match(*args)
-
-                next if assertion.nil?
-
-                on_assertion(node, assertion)
-              end
+            ASSERTION_MATCHERS.each do |matcher|
+              assertion = matcher.new(node)
+              on_assertion(node, assertion) if assertion.match?
             end
           end
 
