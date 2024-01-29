@@ -127,6 +127,36 @@ module RuboCop
           end
 
           # :nodoc:
+          class InDeltaAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_in_delta
+              assert_not_in_delta
+              refute_in_delta
+            ].freeze
+
+            # @!method self.minitest_assertion(node)
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+              (send nil? {:assert_in_delta :assert_not_in_delta :refute_in_delta} $_ $_ $!{sym str}? $_?)
+            PATTERN
+
+            def self.match(expected, actual, delta, failure_message)
+              return nil if delta.empty? && !failure_message.empty?
+
+              new(expected, actual, delta.first, failure_message.first)
+            end
+
+            def initialize(expected, actual, delta, fail_message)
+              super(expected, actual, fail_message)
+
+              @delta = delta&.source || '0.001'
+            end
+
+            def assertion
+              "be_within(#{@delta}).of(#{expected})"
+            end
+          end
+
+          # :nodoc:
           class PredicateAssertion < BasicAssertion
             MATCHERS = %i[
               assert_predicate
