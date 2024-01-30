@@ -136,12 +136,10 @@ module RuboCop
 
             # @!method self.minitest_assertion(node)
             def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
-              (send nil? {:assert_in_delta :assert_not_in_delta :refute_in_delta} $_ $_ $!{sym str}? $_?)
+              (send nil? {:assert_in_delta :assert_not_in_delta :refute_in_delta} $_ $_ $_? $_?)
             PATTERN
 
             def self.match(expected, actual, delta, failure_message)
-              return nil if delta.empty? && !failure_message.empty?
-
               new(expected, actual, delta.first, failure_message.first)
             end
 
