@@ -44,7 +44,7 @@ module RuboCop
             end
 
             def negated?(node)
-              raise NotImplementedError
+              node.method_name.start_with?('assert_not_', 'refute_')
             end
 
             def assertion
@@ -68,10 +68,6 @@ module RuboCop
               new(expected, actual, failure_message.first)
             end
 
-            def negated?(node)
-              !node.method?(:assert_equal)
-            end
-
             def assertion
               "eq(#{@expected})"
             end
@@ -93,10 +89,6 @@ module RuboCop
               new(expected, actual, failure_message.first)
             end
 
-            def negated?(node)
-              !node.method?(:assert_instance_of)
-            end
-
             def assertion
               "be_an_instance_of(#{@expected})"
             end
@@ -116,10 +108,6 @@ module RuboCop
 
             def self.match(collection, expected, failure_message)
               new(expected, collection, failure_message.first)
-            end
-
-            def negated?(node)
-              !node.method?(:assert_includes)
             end
 
             def assertion
@@ -145,10 +133,6 @@ module RuboCop
               new(predicate, subject, failure_message.first)
             end
 
-            def negated?(node)
-              !node.method?(:assert_predicate)
-            end
-
             def assertion
               "be_#{@expected.delete_prefix(':').delete_suffix('?')}"
             end
@@ -167,10 +151,6 @@ module RuboCop
 
             def self.match(matcher, actual, failure_message)
               new(matcher, actual, failure_message.first)
-            end
-
-            def negated?(node)
-              !node.method?(:assert_match)
             end
 
             def assertion
@@ -194,10 +174,6 @@ module RuboCop
               new(nil, actual, failure_message.first)
             end
 
-            def negated?(node)
-              !node.method?(:assert_nil)
-            end
-
             def assertion
               'eq(nil)'
             end
@@ -217,10 +193,6 @@ module RuboCop
 
             def self.match(actual, failure_message)
               new(nil, actual, failure_message.first)
-            end
-
-            def negated?(node)
-              !node.method?(:assert_empty)
             end
 
             def assertion
