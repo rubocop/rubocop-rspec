@@ -30,22 +30,24 @@ module RuboCop
           class BasicAssertion
             extend NodePattern::Macros
 
+            attr_reader :expected, :actual, :failure_message
+
             def self.minitest_assertion
               raise NotImplementedError
             end
 
-            def initialize(expected, actual, fail_message)
+            def initialize(expected, actual, failure_message)
               @expected = expected&.source
               @actual = actual.source
-              @fail_message = fail_message&.source
+              @failure_message = failure_message&.source
             end
 
             def replaced(node)
               runner = negated?(node) ? 'not_to' : 'to'
-              if @fail_message.nil?
-                "expect(#{@actual}).#{runner} #{assertion}"
+              if failure_message.nil?
+                "expect(#{actual}).#{runner} #{assertion}"
               else
-                "expect(#{@actual}).#{runner}(#{assertion}, #{@fail_message})"
+                "expect(#{actual}).#{runner}(#{assertion}, #{failure_message})"
               end
             end
 
@@ -76,7 +78,7 @@ module RuboCop
             end
 
             def assertion
-              "eq(#{@expected})"
+              "eq(#{expected})"
             end
           end
 
@@ -98,7 +100,7 @@ module RuboCop
             end
 
             def assertion
-              "be_an_instance_of(#{@expected})"
+              "be_an_instance_of(#{expected})"
             end
           end
 
@@ -120,7 +122,7 @@ module RuboCop
             end
 
             def assertion
-              "include(#{@expected})"
+              "include(#{expected})"
             end
           end
 
@@ -144,7 +146,7 @@ module RuboCop
             end
 
             def assertion
-              "be_#{@expected.delete_prefix(':').delete_suffix('?')}"
+              "be_#{expected.delete_prefix(':').delete_suffix('?')}"
             end
           end
 
@@ -165,7 +167,7 @@ module RuboCop
             end
 
             def assertion
-              "match(#{@expected})"
+              "match(#{expected})"
             end
           end
 
