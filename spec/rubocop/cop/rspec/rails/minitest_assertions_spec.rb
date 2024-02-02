@@ -271,6 +271,121 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
   end
 
+  context 'with in_delta assertions' do
+    it 'registers an offense when using `assert_in_delta`' do
+      expect_offense(<<~RUBY)
+        assert_in_delta(a, b)
+        ^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within(0.001).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_within(0.001).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_in_delta` with ' \
+       'no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_in_delta a, b
+        ^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within(0.001).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_within(0.001).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_in_delta` with ' \
+       'a custom delta' do
+      expect_offense(<<~RUBY)
+        assert_in_delta a, b, 1
+        ^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within(1).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_within(1).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_in_delta` with ' \
+       'a custom delta from a variable' do
+      expect_offense(<<~RUBY)
+        delta = 1
+
+        assert_in_delta a, b, delta
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within(delta).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        delta = 1
+
+        expect(b).to be_within(delta).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_in_delta` with ' \
+       'a custom delta and a failure message' do
+      expect_offense(<<~RUBY)
+        assert_in_delta a, b, 1, "must be within delta"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to(be_within(1).of(a), "must be within delta")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to(be_within(1).of(a), "must be within delta")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_in_delta` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_in_delta(a,
+        ^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within(1).of(a)`.
+                      b,
+                      1)
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).to be_within(1).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_not_in_delta`' do
+      expect_offense(<<~RUBY)
+        assert_not_in_delta a, b
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to be_within(0.001).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to be_within(0.001).of(a)
+      RUBY
+    end
+
+    it 'registers an offense when using `refute_in_delta`' do
+      expect_offense(<<~RUBY)
+        refute_in_delta a, b
+        ^^^^^^^^^^^^^^^^^^^^ Use `expect(b).not_to be_within(0.001).of(a)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(b).not_to be_within(0.001).of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).to be_within(1).of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).to be_within(1).of(a)
+      RUBY
+    end
+
+    it 'does not register an offense when ' \
+       'using `expect(b).not_to be_within(1).of(a)`' do
+      expect_no_offenses(<<~RUBY)
+        expect(b).not_to be_within(1).of(a)
+      RUBY
+    end
+  end
+
   context 'with match assertions' do
     it 'registers an offense when using `assert_match`' do
       expect_offense(<<~RUBY)
