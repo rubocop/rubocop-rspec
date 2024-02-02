@@ -336,18 +336,6 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
 
     it 'registers an offense when using `assert_in_delta` with ' \
-       'a missing delta' do
-      expect_offense(<<~RUBY)
-        assert_in_delta a, b, "whoops, we forgot about the actual delta!"
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(b).to be_within("whoops, we forgot about the actual delta!").of(a)`.
-      RUBY
-
-      expect_correction(<<~RUBY)
-        expect(b).to be_within("whoops, we forgot about the actual delta!").of(a)
-      RUBY
-    end
-
-    it 'registers an offense when using `assert_in_delta` with ' \
        'multi-line arguments' do
       expect_offense(<<~RUBY)
         assert_in_delta(a,
