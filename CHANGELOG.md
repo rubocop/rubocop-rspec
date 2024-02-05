@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])
+- Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants in explicit namespaces. ([@naveg])
 
 ## 3.6.0 (2025-04-18)
 
