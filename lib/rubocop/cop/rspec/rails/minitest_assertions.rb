@@ -4,7 +4,10 @@ module RuboCop
   module Cop
     module RSpec
       module Rails
-        # Check if using Minitest matchers.
+        # Check if using Minitest-like matchers.
+        #
+        # Check the use of minitest-like matchers
+        # starting with `assert_` or `refute_`.
         #
         # @example
         #   # bad
@@ -14,6 +17,8 @@ module RuboCop
         #   refute_equal(a, b)
         #   assert_nil a
         #   refute_empty(b)
+        #   assert_true(a)
+        #   assert_false(a)
         #
         #   # good
         #   expect(b).to eq(a)
@@ -22,6 +27,8 @@ module RuboCop
         #   expect(b).not_to eq(a)
         #   expect(a).to eq(nil)
         #   expect(a).not_to be_empty
+        #   expect(a).to be(true)
+        #   expect(a).to be(false)
         #
         class MinitestAssertions < Base
           extend AutoCorrector
@@ -212,6 +219,46 @@ module RuboCop
 
             def assertion
               'be_empty'
+            end
+          end
+
+          # :nodoc:
+          class TrueAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_true
+            ].freeze
+
+            # @!method self.minitest_assertion(node)
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+              (send nil? {:assert_true} $_ $_?)
+            PATTERN
+
+            def self.match(actual, failure_message)
+              new(nil, actual, failure_message.first)
+            end
+
+            def assertion
+              'be(true)'
+            end
+          end
+
+          # :nodoc:
+          class FalseAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_false
+            ].freeze
+
+            # @!method self.minitest_assertion(node)
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+              (send nil? {:assert_false} $_ $_?)
+            PATTERN
+
+            def self.match(actual, failure_message)
+              new(nil, actual, failure_message.first)
+            end
+
+            def assertion
+              'be(false)'
             end
           end
 
