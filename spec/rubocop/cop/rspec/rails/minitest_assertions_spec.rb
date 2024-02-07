@@ -623,6 +623,100 @@ RSpec.describe RuboCop::Cop::RSpec::Rails::MinitestAssertions do
     end
   end
 
+  context 'with boolean assertions' do
+    it 'registers an offense when using `assert_true`' do
+      expect_offense(<<~RUBY)
+        assert_true(a)
+        ^^^^^^^^^^^^^^ Use `expect(a).to be(true)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be(true)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_true` with no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_true a
+        ^^^^^^^^^^^^^ Use `expect(a).to be(true)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be(true)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_true` with failure message' do
+      expect_offense(<<~RUBY)
+        assert_true a, "must be true"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(be(true), "must be true")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be(true), "must be true")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_true` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_true(a,
+        ^^^^^^^^^^^^^^ Use `expect(a).to(be(true), "must be true")`.
+                    "must be true")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be(true), "must be true")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_false`' do
+      expect_offense(<<~RUBY)
+        assert_false(a)
+        ^^^^^^^^^^^^^^^ Use `expect(a).to be(false)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be(false)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_false` with no parentheses' do
+      expect_offense(<<~RUBY)
+        assert_false a
+        ^^^^^^^^^^^^^^ Use `expect(a).to be(false)`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to be(false)
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_false` with failure message' do
+      expect_offense(<<~RUBY)
+        assert_false a, "must be false"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `expect(a).to(be(false), "must be false")`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be(false), "must be false")
+      RUBY
+    end
+
+    it 'registers an offense when using `assert_false` with ' \
+       'multi-line arguments' do
+      expect_offense(<<~RUBY)
+        assert_false(a,
+        ^^^^^^^^^^^^^^^ Use `expect(a).to(be(false), "must be false")`.
+                     "must be false")
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(a).to(be(false), "must be false")
+      RUBY
+    end
+  end
+
   context 'with predicate assertions' do
     it 'registers an offense when using `assert_predicate` with ' \
        'an actual predicate' do

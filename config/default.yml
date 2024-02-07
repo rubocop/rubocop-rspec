@@ -1172,7 +1172,7 @@ RSpec/Rails/InferredSpecType:
     views: view
 
 RSpec/Rails/MinitestAssertions:
-  Description: Check if using Minitest matchers.
+  Description: Check if using Minitest-like matchers.
   Enabled: pending
   VersionAdded: '2.17'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/MinitestAssertions
