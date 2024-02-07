@@ -48,22 +48,50 @@ end
 | Yes
 | Yes (Unsafe)
 | 2.12
-| -
+| <<next>>
 |===
 
 Checks that tests use `have_http_status` instead of equality matchers.
 
 === Examples
 
+==== ResponseMethods: ['response', 'last_response'] (default)
+
 [source,ruby]
 ----
 # bad
 expect(response.status).to be(200)
-expect(response.code).to eq("200")
+expect(last_response.code).to eq("200")
 
 # good
 expect(response).to have_http_status(200)
+expect(last_response).to have_http_status(200)
 ----
+
+==== ResponseMethods: ['foo_response']
+
+[source,ruby]
+----
+# bad
+expect(foo_response.status).to be(200)
+
+# good
+expect(foo_response).to have_http_status(200)
+
+# also good
+expect(response).to have_http_status(200)
+expect(last_response).to have_http_status(200)
+----
+
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| ResponseMethods
+| `response`, `last_response`
+| Array
+|===
 
 === References
 
