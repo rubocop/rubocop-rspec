@@ -31,6 +31,14 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
       RUBY
     end
 
+    it 'ignores constant defined on the example group' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeClass do
+          self::CONSTANT = "Accessible as self.class::CONSTANT".freeze
+        end
+      RUBY
+    end
+
     it 'ignores outside of example/shared group' do
       expect_no_offenses(<<~RUBY)
         factory :some_class do
@@ -60,7 +68,16 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
               end
             end
           end
-         end
+        end
+      RUBY
+    end
+
+    it 'ignores classes defined on the example group' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeClass do
+          class self::DummyClass
+          end
+        end
       RUBY
     end
 
@@ -81,6 +98,15 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
         describe SomeClass do
           module DummyModule
           ^^^^^^^^^^^^^^^^^^ Stub module constant instead of declaring explicitly.
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores modules defined on the example group' do
+      expect_no_offenses(<<~RUBY)
+        describe SomeClass do
+          module self::DummyModule
           end
         end
       RUBY

@@ -13,6 +13,7 @@
 - Support correcting `assert_not_equal` and `assert_not_nil` in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Fix a false positive for `RSpec/ExpectActual` when used with rspec-rails routing matchers. ([@naveg])
 - Add new `RSpec/RepeatedSubjectCall` cop. ([@drcapulet])
+- Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants on the example group. ([@naveg])
 
 ## 2.26.1 (2024-01-05)
 

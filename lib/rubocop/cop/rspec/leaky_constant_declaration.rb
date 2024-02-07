@@ -100,18 +100,21 @@ module RuboCop
 
         def on_casgn(node)
           return unless inside_describe_block?(node)
+          return if defined_on_example_group?(node)
 
           add_offense(node, message: MSG_CONST)
         end
 
         def on_class(node)
           return unless inside_describe_block?(node)
+          return if defined_on_example_group?(node)
 
           add_offense(node, message: MSG_CLASS)
         end
 
         def on_module(node)
           return unless inside_describe_block?(node)
+          return if defined_on_example_group?(node)
 
           add_offense(node, message: MSG_MODULE)
         end
@@ -120,6 +123,16 @@ module RuboCop
 
         def inside_describe_block?(node)
           node.each_ancestor(:block).any?(&method(:spec_group?))
+        end
+
+        def defined_on_example_group?(node)
+          if node.is_a?(RuboCop::AST::ClassNode) ||
+              node.is_a?(RuboCop::AST::ModuleNode)
+
+            node.loc.name.source.start_with?('self::')
+          elsif node.is_a?(RuboCop::AST::CasgnNode)
+            node.namespace&.self_type?
+          end
         end
       end
     end
