@@ -90,6 +90,28 @@ module RuboCop
           end
 
           # :nodoc:
+          class KindOfAssertion < BasicAssertion
+            MATCHERS = %i[
+              assert_kind_of
+              assert_not_kind_of
+              refute_kind_of
+            ].freeze
+
+            # @!method self.minitest_assertion(node)
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+              (send nil? {:assert_kind_of :assert_not_kind_of :refute_kind_of} $_ $_ $_?)
+            PATTERN
+
+            def self.match(expected, actual, failure_message)
+              new(expected, actual, failure_message.first)
+            end
+
+            def assertion
+              "be_a_kind_of(#{expected})"
+            end
+          end
+
+          # :nodoc:
           class InstanceOfAssertion < BasicAssertion
             MATCHERS = %i[
               assert_instance_of
