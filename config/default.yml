@@ -1132,8 +1132,12 @@ RSpec/Rails/AvoidSetupHook:
 RSpec/Rails/HaveHttpStatus:
   Description: Checks that tests use `have_http_status` instead of equality matchers.
   Enabled: pending
+  ResponseMethods:
+    - response
+    - last_response
   SafeAutoCorrect: false
   VersionAdded: '2.12'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
 
 RSpec/Rails/HttpStatus:
