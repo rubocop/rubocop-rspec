@@ -6,6 +6,7 @@
 - Support asserts with messages in `Rspec/BeEmpty`. ([@G-Rath])
 - Add support for `assert_empty`, `assert_not_empty` and `refute_empty` to `RSpec/Rails/MinitestAssertions`. ([@ydah])
 - Support correcting some `*_predicate` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
+- Support correcting `*_kind_of` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `*_in_delta` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `*_match` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
 - Support correcting `*_instance_of` assertions in `RSpec/Rails/MinitestAssertions`. ([@G-Rath])
