@@ -92,18 +92,27 @@ module RuboCop
           add_offense(docstring, message: message) do |corrector|
             next if node.heredoc?
 
-            corrector.replace(docstring, replacement_text(node))
+            if node.str_type? && needs_escape?(node)
+              corrector.replace(node, replacement_text(node).inspect)
+            else
+              corrector.replace(docstring, replacement_text(node))
+            end
           end
         end
 
         def docstring(node)
-          expr = node.source_range
+          if node.str_type? && !node.heredoc?
+            node.source_range.with(
+              begin_pos: node.loc.begin.end_pos,
+              end_pos: node.loc.end.begin_pos
+            )
+          else
+            node.source_range.adjust(begin_pos: 1, end_pos: -1)
+          end
+        end
 
-          Parser::Source::Range.new(
-            expr.source_buffer,
-            expr.begin_pos + 1,
-            expr.end_pos - 1
-          )
+        def needs_escape?(node)
+          node.value.include?(node.loc.end.source)
         end
 
         def replacement_text(node)

@@ -352,4 +352,94 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
       RUBY
     end
   end
+
+  context "when message includes `'` in `'...'`" do
+    it 'corrects message with `String#inspect`' do
+      expect_offense(<<~'RUBY')
+        it 'should return foo\'s bar' do
+            ^^^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it "returns foo's bar" do
+        end
+      RUBY
+    end
+  end
+
+  context 'when message includes `"` in `"..."`' do
+    it 'corrects message with `String#inspect`' do
+      expect_offense(<<~'RUBY')
+        it "should return \"foo\"" do
+            ^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        it "returns \"foo\"" do
+        end
+      RUBY
+    end
+  end
+
+  context 'when message includes `!` in `%!...!`' do
+    it 'corrects message with `String#inspect`' do
+      expect_offense(<<~'RUBY')
+        it %!should return foo\!! do
+             ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it "returns foo!" do
+        end
+      RUBY
+    end
+  end
+
+  context 'when message includes `)` in `%q(...)`' do
+    it 'corrects message with `String#inspect`' do
+      expect_offense(<<~RUBY)
+        it %q(should return foo (bar)) do
+              ^^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it "returns foo (bar)" do
+        end
+      RUBY
+    end
+  end
+
+  context 'when message includes `"` in `%q(...)`' do
+    it 'corrects message with direct substring replacement' do
+      expect_offense(<<~RUBY)
+        it %q(should return "foo") do
+              ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it %q(returns "foo") do
+        end
+      RUBY
+    end
+  end
+
+  context 'when message includes `"` and `)` in `%q(...)`' do
+    it 'corrects message with `String#inspect`' do
+      expect_offense(<<~RUBY)
+        it %q(should return "foo (bar)") do
+              ^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+        end
+      RUBY
+
+      expect_correction(<<~'RUBY')
+        it "returns \"foo (bar)\"" do
+        end
+      RUBY
+    end
+  end
 end
