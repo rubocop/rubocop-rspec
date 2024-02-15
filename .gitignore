@@ -20,3 +20,6 @@ pkg
 
 # simplecov generated
 coverage
+
+# vscode generated
+.vscode
