@@ -7,6 +7,7 @@ module RuboCop
       #
       # RSpec allows for auto-generated example descriptions when there is no
       # description provided or the description is an empty one.
+      # It is acceptable to use `specify` without a description
       #
       # This cop removes empty descriptions.
       # It also defines whether auto-generated description is allowed, based
@@ -14,17 +15,24 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option
       #
+      # @example
+      #   # always good
+      #   specify do
+      #     result = service.call
+      #     expect(result).to be(true)
+      #   end
+      #
       # @example `EnforcedStyle: always_allow` (default)
       #   # bad
       #   it('') { is_expected.to be_good }
-      #   it '' do
+      #   specify '' do
       #     result = service.call
       #     expect(result).to be(true)
       #   end
       #
       #   # good
       #   it { is_expected.to be_good }
-      #   it do
+      #   specify do
       #     result = service.call
       #     expect(result).to be(true)
       #   end
@@ -75,6 +83,7 @@ module RuboCop
         def check_example_without_description(node)
           return if node.arguments?
           return unless disallow_empty_description?(node)
+          return if node.method?(:specify) && node.parent.multiline?
 
           add_offense(node, message: MSG_ADD_DESCRIPTION)
         end

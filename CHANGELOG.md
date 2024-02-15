@@ -16,6 +16,7 @@
 - Add new `RSpec/RepeatedSubjectCall` cop. ([@drcapulet])
 - Add configuration option `ResponseMethods` to `RSpec/Rails/HaveHttpStatus`. ([@ydah])
 - Fix a false negative for `RSpec/DescribedClass` when class with constant. ([@ydah])
+- Fix a false positive for `RSpec/ExampleWithoutDescription` when `specify` with multi-line block and missing description. ([@ydah])
 
 ## 2.26.1 (2024-01-05)
 
