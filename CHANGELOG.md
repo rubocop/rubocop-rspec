@@ -15,6 +15,7 @@
 - Fix a false positive for `RSpec/ExpectActual` when used with rspec-rails routing matchers. ([@naveg])
 - Add new `RSpec/RepeatedSubjectCall` cop. ([@drcapulet])
 - Add configuration option `ResponseMethods` to `RSpec/Rails/HaveHttpStatus`. ([@ydah])
+- Fix a false negative for `RSpec/DescribedClass` when class with constant. ([@ydah])
 
 ## 2.26.1 (2024-01-05)
 
