@@ -194,7 +194,8 @@ module RuboCop
         #   const_name(s(:const, s(:const, nil, :M), :C)) # => [:M, :C]
         #   const_name(s(:const, s(:cbase), :C))          # => [nil, :C]
         def const_name(node)
-          namespace, name = *node # rubocop:disable InternalAffairs/NodeDestructuring
+          namespace = node.namespace
+          name = node.short_name
           if !namespace
             [name]
           elsif namespace.const_type?
