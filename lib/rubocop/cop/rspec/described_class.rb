@@ -113,7 +113,7 @@ module RuboCop
         def find_usage(node, &block)
           yield(node) if offensive?(node)
 
-          return if scope_change?(node) || node.const_type?
+          return if scope_change?(node)
 
           node.each_child_node do |child|
             find_usage(child, &block)

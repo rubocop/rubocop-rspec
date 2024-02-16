@@ -148,10 +148,32 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'ignores subclasses' do
-      expect_no_offenses(<<~RUBY)
+    it 'flags class with constant' do
+      expect_offense(<<~RUBY)
         describe MyClass do
-          subject { MyClass::SubClass }
+          subject { MyClass::FOO }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          subject { described_class::FOO }
+        end
+      RUBY
+    end
+
+    it 'flags class with subclasses' do
+      expect_offense(<<~RUBY)
+        describe MyClass do
+          subject { MyClass::Subclass }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          subject { described_class::Subclass }
         end
       RUBY
     end
