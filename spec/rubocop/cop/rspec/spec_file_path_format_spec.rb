@@ -172,7 +172,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
-  it 'registers an offense when path containing the class nam' do
+  it 'registers an offense when path containing the class name' do
     filename = '/home/foo/spec/models/bar_spec.rb'
     expect_offense(<<~RUBY, filename)
       describe Foo do; end

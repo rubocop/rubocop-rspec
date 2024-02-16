@@ -27,7 +27,7 @@ module RuboCop
 
         def on_send(node)
           return if node.parent.block_type? || node.arguments.empty?
-          return unless replacable_arguments?(node)
+          return unless replaceable_arguments?(node)
 
           method_name = node.method_name.to_s
           replaced = replaced_method_name(method_name)
@@ -45,7 +45,7 @@ module RuboCop
           format(MSG, bad: bad_method, good: good_method)
         end
 
-        def replacable_arguments?(node)
+        def replaceable_arguments?(node)
           if node.method?(:be_all)
             node.first_argument.send_type?
           else
