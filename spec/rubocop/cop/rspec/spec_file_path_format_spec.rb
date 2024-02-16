@@ -36,6 +36,13 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
+  it 'registers an offense when wrong top-level class name' do
+    expect_offense(<<~RUBY, 'wrong_class_spec.rb')
+      describe ::MyClass do; end
+      ^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*_spec.rb`.
+    RUBY
+  end
+
   it 'registers an offense when wrong class name with a symbol argument' do
     expect_offense(<<~RUBY, 'wrong_class_spec.rb')
       describe MyClass, :foo do; end
