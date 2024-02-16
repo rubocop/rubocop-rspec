@@ -47,7 +47,7 @@ module RuboCop
             )
           PATTERN
 
-          def on_send(node) # rubocop:todo Metrics/MethodLength
+          def on_send(node) # rubocop:disable Metrics/MethodLength
             match_status(node) do
               |response_status, response_method, to, match, status|
               return unless status.to_s.match?(/\A\d+\z/)
