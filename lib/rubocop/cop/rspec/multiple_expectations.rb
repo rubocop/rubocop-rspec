@@ -48,12 +48,17 @@ module RuboCop
       #     end
       #   end
       #
-      # @example configuration
-      #   # .rubocop.yml
-      #   # RSpec/MultipleExpectations:
-      #   #   Max: 2
+      # @example `Max: 1` (default)
+      #   # bad
+      #   describe UserCreator do
+      #     it 'builds a user' do
+      #       expect(user.name).to eq("John")
+      #       expect(user.age).to eq(22)
+      #     end
+      #   end
       #
-      #   # not flagged by rubocop
+      # @example `Max: 2`
+      #   # good
       #   describe UserCreator do
       #     it 'builds a user' do
       #       expect(user.name).to eq("John")
