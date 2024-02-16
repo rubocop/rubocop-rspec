@@ -3461,7 +3461,7 @@ end
 | Yes
 | No
 | 1.7
-| 1.21
+| <<next>>
 |===
 
 Checks if examples contain too many `expect` calls.
@@ -3545,6 +3545,34 @@ describe UserCreator do
 end
 ----
 
+==== `AllowNested: false` (default)
+
+[source,ruby]
+----
+# bad
+describe UserCreator do
+  it 'raises an error' do
+    expect { my_code }.to raise_error(MyErrorType) do |error|
+      expect(error.record.persisted?).to be(true)
+    end
+  end
+end
+----
+
+==== `AllowNested: true`
+
+[source,ruby]
+----
+# good
+describe UserCreator do
+  it 'raises an error' do
+    expect { my_code }.to raise_error(MyErrorType) do |error|
+      expect(error.record.persisted?).to be(true)
+    end
+  end
+end
+----
+
 === Configurable attributes
 
 |===
@@ -3553,6 +3581,10 @@ end
 | Max
 | `1`
 | Integer
+
+| AllowNested
+| `false`
+| Boolean
 |===
 
 === References

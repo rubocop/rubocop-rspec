@@ -238,6 +238,39 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
     end
   end
 
+  context 'with `AllowNested: false`' do
+    let(:cop_config) { { 'AllowNested' => false } }
+
+    it 'flags nested expects' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it 'uses expect with block' do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect { my_code }.to raise_error(MyErrorType) do |error|
+              expect(error.record.persisted?).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+  end
+
+  context 'with `AllowNested: true`' do
+    let(:cop_config) { { 'AllowNested' => true } }
+
+    it 'ignores nested expects' do
+      expect_no_offenses(<<~RUBY)
+        describe Foo do
+          it 'uses expect with block twice' do
+            expect { my_code }.to raise_error(MyErrorType) do |error|
+              expect(error.record.persisted?).to be(true)
+            end
+          end
+        end
+      RUBY
+    end
+  end
+
   it 'generates a todo based on the worst offense' do
     inspect_source(<<~RUBY, 'spec/foo_spec.rb')
       describe Foo do

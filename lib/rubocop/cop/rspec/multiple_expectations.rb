@@ -66,6 +66,26 @@ module RuboCop
       #     end
       #   end
       #
+      # @example `AllowNested: false` (default)
+      #   # bad
+      #   describe UserCreator do
+      #     it 'raises an error' do
+      #       expect { my_code }.to raise_error(MyErrorType) do |error|
+      #         expect(error.record.persisted?).to be(true)
+      #       end
+      #     end
+      #   end
+      #
+      # @example `AllowNested: true`
+      #   # good
+      #   describe UserCreator do
+      #     it 'raises an error' do
+      #       expect { my_code }.to raise_error(MyErrorType) do |error|
+      #         expect(error.record.persisted?).to be(true)
+      #       end
+      #     end
+      #   end
+      #
       class MultipleExpectations < Base
         include ConfigurableMax
 
@@ -124,6 +144,8 @@ module RuboCop
           # do not search inside of aggregate_failures block
           return if aggregate_failures_block?(node)
 
+          return if node.block_type? && allow_nested?
+
           node.each_child_node do |child|
             find_expectation(child, &block)
           end
@@ -142,6 +164,10 @@ module RuboCop
 
         def max_expectations
           Integer(cop_config.fetch('Max', 1))
+        end
+
+        def allow_nested?
+          cop_config.fetch('AllowNested', false)
         end
       end
     end
