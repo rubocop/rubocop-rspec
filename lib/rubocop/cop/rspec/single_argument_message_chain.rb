@@ -81,8 +81,7 @@ module RuboCop
         end
 
         def key_to_arg(node)
-          key, = *node # rubocop:disable InternalAffairs/NodeDestructuring
-          node.sym_type? ? ":#{key}" : node.source
+          node.sym_type? ? ":#{node.value}" : node.source
         end
 
         def replacement(method)
