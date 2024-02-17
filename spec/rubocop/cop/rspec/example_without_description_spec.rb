@@ -8,7 +8,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
   context 'with EnforcedStyle `always_allow`' do
     let(:enforced_style) { 'always_allow' }
 
-    it 'flags empty strings for description' do
+    it 'flags `it` with a empty strings for description' do
       expect_offense(<<~RUBY)
         it '' do
            ^^ Omit the argument when you want to have auto-generated description.
@@ -32,12 +32,37 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
         end
       RUBY
     end
+
+    it 'flags `specify` with a empty strings for description' do
+      expect_offense(<<~RUBY)
+        specify '' do
+                ^^ Omit the argument when you want to have auto-generated description.
+          expect(subject).to be_good
+        end
+      RUBY
+    end
+
+    it 'ignores `specify` without an argument' do
+      expect_no_offenses(<<~RUBY)
+        specify do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
+
+    it 'ignores `specify` with a description' do
+      expect_no_offenses(<<~RUBY)
+        specify 'is good' do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `single_line_only`' do
     let(:enforced_style) { 'single_line_only' }
 
-    it 'flags missing description in multi-line examples' do
+    it 'flags `it` missing description in multi-line examples' do
       expect_offense(<<~RUBY)
         it do
         ^^ Add a description.
@@ -46,16 +71,37 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
       RUBY
     end
 
-    it 'ignores missing description in single-line examples' do
+    it 'ignores `it` missing description in single-line examples' do
       expect_no_offenses(<<~RUBY)
         it { expect(subject).to be_good }
       RUBY
     end
 
-    it 'flags example with an empty string for description' do
+    it 'flags `it` with an empty string for description' do
       expect_offense(<<~RUBY)
         it('') { expect(subject).to be_good }
            ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'ignores `specify` missing decripton in multi-line examples' do
+      expect_no_offenses(<<~RUBY)
+        specify do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
+
+    it 'ignores `specify` missing description in single-line examples' do
+      expect_no_offenses(<<~RUBY)
+        specify { expect(subject).to be_good }
+      RUBY
+    end
+
+    it 'flags `specify` with an empty string for description' do
+      expect_offense(<<~RUBY)
+        specify('') { expect(subject).to be_good }
+                ^^ Omit the argument when you want to have auto-generated description.
       RUBY
     end
   end
@@ -63,7 +109,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
   context 'with EnforcedStyle `disallow`' do
     let(:enforced_style) { 'disallow' }
 
-    it 'flags missing description in multi-line examples' do
+    it 'flags `it` missing description in multi-line examples' do
       expect_offense(<<~RUBY)
         it do
         ^^ Add a description.
@@ -72,7 +118,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
       RUBY
     end
 
-    it 'flags missing description in single-line examples' do
+    it 'flags `it` missing description in single-line examples' do
       expect_offense(<<~RUBY)
         it { expect(subject).to be_good }
         ^^ Add a description.
@@ -82,6 +128,29 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
     it 'ignores `it` with a description' do
       expect_no_offenses(<<~RUBY)
         it 'is good' do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
+
+    it 'ignores `specify` missing description in multi-line examples' do
+      expect_no_offenses(<<~RUBY)
+        specify do
+          expect(subject).to be_good
+        end
+      RUBY
+    end
+
+    it 'flags `specify` missing description in single-line examples' do
+      expect_offense(<<~RUBY)
+        specify { expect(subject).to be_good }
+        ^^^^^^^ Add a description.
+      RUBY
+    end
+
+    it 'ignores `specify` with a description' do
+      expect_no_offenses(<<~RUBY)
+        specify 'is good' do
           expect(subject).to be_good
         end
       RUBY
