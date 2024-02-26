@@ -59,6 +59,8 @@ module RuboCop
       #
       class ChangeByZero < Base
         extend AutoCorrector
+        include RangeHelp
+
         MSG = 'Prefer `not_to change` over `to %<method>s.by(0)`.'
         MSG_COMPOUND = 'Prefer %<preferred>s with compound expectations ' \
                        'over `%<method>s.by(0)`.'
@@ -140,8 +142,32 @@ module RuboCop
 
           change_nodes(node) do |change_node|
             corrector.replace(change_node.loc.selector, negated_matcher)
-            range = node.loc.dot.with(end_pos: node.source_range.end_pos)
+            insert_operator(corrector, node, change_node)
+            remove_by_zero(corrector, node, change_node)
+          end
+        end
+
+        def insert_operator(corrector, node, change_node)
+          operator = node.right_siblings.first
+          return unless %i[& |].include?(operator)
+
+          corrector.insert_after(
+            replace_node(node, change_node), " #{operator}"
+          )
+        end
+
+        def replace_node(node, change_node)
+          expect_change_with_arguments(node) ? change_node : change_node.parent
+        end
+
+        def remove_by_zero(corrector, node, change_node)
+          range = node.loc.dot.with(end_pos: node.source_range.end_pos)
+          if change_node.loc.line == range.line
             corrector.remove(range)
+          else
+            corrector.remove(
+              range_by_whole_lines(range, include_final_newline: true)
+            )
           end
         end
 

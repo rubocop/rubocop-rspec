@@ -258,6 +258,74 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
         end
       RUBY
     end
+
+    it 'registers an offense and autocorrect when ' \
+       'the argument to `by` is zero with compound expectations (`and`/`or`) ' \
+       'with line break before `.by(0)`' do
+      expect_offense(<<~RUBY)
+        it do
+          expect { foo }
+            .to change(Foo, :bar)
+                ^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+            .and change(Foo, :baz)
+                 ^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+          expect { foo }
+            .to change { Foo.bar }
+                ^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+            .or change { Foo.baz }
+                ^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          expect { foo }
+            .to not_change(Foo, :bar)
+            .and not_change(Foo, :baz)
+          expect { foo }
+            .to not_change { Foo.bar }
+            .or not_change { Foo.baz }
+        end
+      RUBY
+    end
+
+    it 'registers an offense and autocorrect when ' \
+       'the argument to `by` is zero with compound expectations (`&`/`|`) ' \
+       'with line break before `.by(0)`' do
+      expect_offense(<<~RUBY)
+        it do
+          expect { foo }
+            .to change(Foo, :bar)
+                ^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0) &
+            change(Foo, :baz)
+            ^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+          expect { foo }
+            .to change { Foo.bar }
+                ^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0) |
+            change { Foo.baz }
+            ^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+            .by(0)
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          expect { foo }
+            .to not_change(Foo, :bar) &
+            not_change(Foo, :baz)
+          expect { foo }
+            .to not_change { Foo.bar } |
+            not_change { Foo.baz }
+        end
+      RUBY
+    end
   end
 
   it 'does not register an offense when the argument to `by` is not zero' do
