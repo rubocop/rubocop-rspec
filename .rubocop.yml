@@ -165,6 +165,8 @@ RSpec/IdenticalEqualityAssertion:
   Enabled: true
 RSpec/IndexedLet:
   Enabled: true
+RSpec/IsExpectedSpecify:
+  Enabled: true
 RSpec/MatchArray:
   Enabled: true
 RSpec/MetadataStyle:

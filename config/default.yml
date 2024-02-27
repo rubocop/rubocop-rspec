@@ -548,6 +548,13 @@ RSpec/InstanceVariable:
   StyleGuide: https://rspec.rubystyle.guide/#instance-variables
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
+RSpec/IsExpectedSpecify:
+  Description: Check for `specify` with `is_expected` and one-liner expectations.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  StyleGuide: https://rspec.rubystyle.guide/#it-and-specify
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IsExpectedSpecify
+
 RSpec/ItBehavesLike:
   Description: Checks that only one `it_behaves_like` style is used.
   Enabled: true
