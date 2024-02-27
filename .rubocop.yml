@@ -153,6 +153,8 @@ RSpec/ClassCheck:
   Enabled: true
 RSpec/ContainExactly:
   Enabled: true
+RSpec/UndescriptiveLiteralsDescription:
+  Enabled: true
 RSpec/DuplicatedMetadata:
   Enabled: true
 RSpec/EmptyMetadata:
