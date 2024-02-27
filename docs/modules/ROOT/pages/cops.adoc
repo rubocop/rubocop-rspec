@@ -52,6 +52,7 @@
 * xref:cops_rspec.adoc#rspecindexedlet[RSpec/IndexedLet]
 * xref:cops_rspec.adoc#rspecinstancespy[RSpec/InstanceSpy]
 * xref:cops_rspec.adoc#rspecinstancevariable[RSpec/InstanceVariable]
+* xref:cops_rspec.adoc#rspecisexpectedspecify[RSpec/IsExpectedSpecify]
 * xref:cops_rspec.adoc#rspecitbehaveslike[RSpec/ItBehavesLike]
 * xref:cops_rspec.adoc#rspeciteratedexpectation[RSpec/IteratedExpectation]
 * xref:cops_rspec.adoc#rspecleadingsubject[RSpec/LeadingSubject]
