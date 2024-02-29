@@ -13,7 +13,7 @@
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.18
 | 2.0
 |===
@@ -58,7 +58,7 @@ expect(page).to have_current_path('/callback')
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.17
 | 2.0
 |===
@@ -125,7 +125,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.17
 | -
 |===
@@ -180,7 +180,7 @@ expect(page).to match_style(display: 'block')
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.14
 | -
 |===
@@ -271,7 +271,7 @@ find('div').click_button
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.13
 | -
 |===

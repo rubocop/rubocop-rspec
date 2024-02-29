@@ -13,7 +13,7 @@
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.4
 | -
 |===
@@ -46,9 +46,9 @@ end
 
 | Pending
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.12
-| <<next>>
+| 2.27
 |===
 
 Checks that tests use `have_http_status` instead of equality matchers.
@@ -104,7 +104,7 @@ expect(last_response).to have_http_status(200)
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.23
 | 2.20
 |===
@@ -192,7 +192,7 @@ it { is_expected.to have_http_status :error }
 
 | Pending
 | No
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.14
 | -
 |===
@@ -275,7 +275,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.17
 | -
 |===
@@ -321,7 +321,7 @@ expect(a).to be(false)
 
 | Pending
 | No
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.23
 | -
 |===
@@ -384,7 +384,7 @@ expect(foo).to be_invalid.or be_even
 
 | Pending
 | No
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.19
 | -
 |===

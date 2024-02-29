@@ -13,7 +13,7 @@
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.28
 | 2.23
 |===
@@ -64,7 +64,7 @@ count { 1 }
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.14
 | -
 |===
@@ -135,7 +135,7 @@ build(
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.25
 | 2.23
 |===
@@ -202,7 +202,7 @@ create_list :user, 3
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.37
 | 2.23
 |===
@@ -248,7 +248,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.16
 | -
 |===
@@ -304,7 +304,7 @@ build "user", username: "NAME"
 
 | Pending
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.7
 | -
 |===

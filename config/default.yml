@@ -551,7 +551,7 @@ RSpec/InstanceVariable:
 RSpec/IsExpectedSpecify:
   Description: Check for `specify` with `is_expected` and one-liner expectations.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.27'
   StyleGuide: https://rspec.rubystyle.guide/#it-and-specify
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IsExpectedSpecify
 
@@ -823,7 +823,7 @@ RSpec/RepeatedIncludeExample:
 RSpec/RepeatedSubjectCall:
   Description: Checks for repeated calls to subject missing that it is memoized.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.27'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
 
 RSpec/ReturnFromStub:
@@ -1144,7 +1144,7 @@ RSpec/Rails/HaveHttpStatus:
     - last_response
   SafeAutoCorrect: false
   VersionAdded: '2.12'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.27'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HaveHttpStatus
 
 RSpec/Rails/HttpStatus:
