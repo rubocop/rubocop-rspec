@@ -13,7 +13,7 @@
 
 | Disabled
 | Yes
-| Yes
+| Always
 | 1.16
 | -
 |===
@@ -46,7 +46,7 @@ let(:a)      { b }
 
 | Disabled
 | Yes
-| Yes
+| Always
 | 1.16
 | -
 |===
@@ -199,7 +199,7 @@ expect(foo).to be(true)
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.20
 | -
 |===
@@ -229,7 +229,7 @@ expect(array).to be_empty
 
 | Pending
 | No
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.9.0
 | 2.16
 |===
@@ -270,7 +270,7 @@ expect(foo).to be(nil)
 
 | Enabled
 | No
-| Yes (Unsafe)
+| Always (Unsafe)
 | 1.7
 | 2.16
 |===
@@ -325,7 +325,7 @@ expect(foo).to be(nil)
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.9.0
 | 2.10.0
 |===
@@ -428,7 +428,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.11
 | 2.14
 |===
@@ -518,7 +518,7 @@ expect { run }
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.13
 | -
 |===
@@ -575,7 +575,7 @@ expect(object).to be_a_kind_of(String)
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.19
 | -
 |===
@@ -611,7 +611,7 @@ it { is_expected.to contain_exactly(content, *array) }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.36
 | -
 |===
@@ -885,7 +885,7 @@ end
 
 | Enabled
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 1.0
 | 1.11
 |===
@@ -1016,7 +1016,7 @@ end
 
 | Disabled
 | Yes
-| Yes
+| Always
 | 1.33
 | -
 |===
@@ -1085,7 +1085,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.16
 | -
 |===
@@ -1114,7 +1114,7 @@ describe 'Something', :a
 
 | Enabled
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 1.7
 | 2.13
 |===
@@ -1168,7 +1168,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.39
 | -
 |===
@@ -1208,7 +1208,7 @@ after(:all) { cleanup_feed }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.36
 | -
 |===
@@ -1280,7 +1280,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.27
 | -
 |===
@@ -1321,7 +1321,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.14
 | -
 |===
@@ -1356,7 +1356,7 @@ it { does_something }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.27
 | 2.13
 |===
@@ -1438,7 +1438,7 @@ it { does_something }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.14
 | -
 |===
@@ -1471,7 +1471,7 @@ let(:foo) { bar }
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.24
 | -
 |===
@@ -1502,7 +1502,7 @@ describe 'Something'
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.24
 | -
 |===
@@ -1714,7 +1714,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.0
 | 2.13
 |===
@@ -1802,7 +1802,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.5
 | -
 |===
@@ -1844,7 +1844,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.7
 | 2.23
 |===
@@ -1892,7 +1892,7 @@ expect(false).to eq(true)
 
 | Enabled
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 1.22
 | 2.5
 |===
@@ -2133,7 +2133,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.5
 | 2.1
 |===
@@ -2199,7 +2199,7 @@ focus 'test' do; end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.7
 | -
 |===
@@ -2295,7 +2295,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.29
 | -
 |===
@@ -2400,7 +2400,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.8
 | -
 |===
@@ -2456,7 +2456,7 @@ it { should be_truthy }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.29
 | 2.13
 |===
@@ -2652,7 +2652,7 @@ let(:item_2) { create(:item) }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.12
 | -
 |===
@@ -2764,8 +2764,8 @@ end
 
 | Pending
 | Yes
-| Yes
-| <<next>>
+| Always
+| 2.27
 | -
 |===
 
@@ -2800,7 +2800,7 @@ specify { expect(sqrt(4)).to eq(2) }
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.13
 | -
 |===
@@ -2885,7 +2885,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.7
 | 1.14
 |===
@@ -3050,7 +3050,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.16
 | 1.22
 |===
@@ -3141,7 +3141,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.19
 | -
 |===
@@ -3326,7 +3326,7 @@ do_something
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.24
 | -
 |===
@@ -3689,7 +3689,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.16
 | -
 |===
@@ -4094,7 +4094,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.4
 | -
 |===
@@ -4316,7 +4316,7 @@ end
 
 | Enabled
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 1.16
 | -
 |===
@@ -4418,7 +4418,7 @@ expect(foo.something?).to be_truthy
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.26
 | -
 |===
@@ -4457,7 +4457,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 | Pending
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.23
 | -
 |===
@@ -4503,7 +4503,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.28
 | -
 |===
@@ -4532,7 +4532,7 @@ expect(foo).not_to receive(:bar)
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.19
 | -
 |===
@@ -4562,7 +4562,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.26
 | -
 |===
@@ -4895,7 +4895,7 @@ end
 | Pending
 | Yes
 | No
-| <<next>>
+| 2.27
 | -
 |===
 
@@ -4934,7 +4934,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.16
 | 1.22
 |===
@@ -5000,7 +5000,7 @@ allow(Foo).to receive(:bar).and_return(bar.baz)
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.14
 | 1.39
 |===
@@ -5043,7 +5043,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.10
 | -
 |===
@@ -5082,7 +5082,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.13
 | -
 |===
@@ -5151,7 +5151,7 @@ end
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.25
 | 2.26
 |===
@@ -5223,7 +5223,7 @@ include_examples :foo_bar_baz
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.9
 | 1.10
 |===
@@ -5296,7 +5296,7 @@ end
 
 | Pending
 | Yes
-| Yes
+| Always
 | 2.14
 | -
 |===
@@ -5639,7 +5639,7 @@ expect { do_something }.not_to raise_error
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.40
 | -
 |===
@@ -5776,7 +5776,7 @@ let(:userFood_2) { 'fettuccine' }
 
 | Pending
 | Yes
-| Yes (Unsafe)
+| Always (Unsafe)
 | 2.10.0
 | 2.12
 |===
@@ -5935,7 +5935,7 @@ expect(something).to be(1)
 
 | Enabled
 | Yes
-| Yes
+| Always
 | 1.32
 | -
 |===
