@@ -4921,6 +4921,12 @@ it do
   expect { my_method }.to change { A.count }
   expect { my_method }.to not_change { A.count }
 end
+
+# also good
+it do
+  expect { subject.a }.to change { A.count }
+  expect { subject.b }.to not_change { A.count }
+end
 ----
 
 === References

@@ -102,4 +102,15 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
       end
     RUBY
   end
+
+  it 'registers no offenses for `subject.method_call`' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it do
+          expect { subject.a }.to change { A.count }
+          expect { subject.b }.to not_change { A.count }
+        end
+      end
+    RUBY
+  end
 end

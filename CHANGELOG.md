@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/RepeatedSubjectCall` when `subject.method_call`. ([@ydah])
+
 ## 2.27.0 (2024-03-01)
 
 - Add new `RSpec/IsExpectedSpecify` cop. ([@ydah])

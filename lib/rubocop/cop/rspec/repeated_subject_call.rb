@@ -23,6 +23,12 @@ module RuboCop
       #     expect { my_method }.to not_change { A.count }
       #   end
       #
+      #   # also good
+      #   it do
+      #     expect { subject.a }.to change { A.count }
+      #     expect { subject.b }.to not_change { A.count }
+      #   end
+      #
       class RepeatedSubjectCall < Base
         include TopLevelGroup
 
@@ -64,17 +70,15 @@ module RuboCop
 
         private
 
-        def detect_offense(example_node, subject_node)
-          walker = subject_node
+        def detect_offense(subject_node)
+          return if subject_node.chained?
+          return unless (block_node = expect_block(subject_node))
 
-          while walker.parent? && walker.parent != example_node.body
-            walker = walker.parent
+          add_offense(block_node)
+        end
 
-            if walker.block_type? && walker.method?(:expect)
-              add_offense(walker)
-              return
-            end
-          end
+        def expect_block(node)
+          node.each_ancestor(:block).find { |block| block.method?(:expect) }
         end
 
         def detect_offenses_in_block(node, subject_names = [])
@@ -96,7 +100,7 @@ module RuboCop
 
           subject_calls(node.body, Set[*subject_names, :subject]).each do |call|
             if subjects_used[call.method_name]
-              detect_offense(node, call)
+              detect_offense(call)
             else
               subjects_used[call.method_name] = true
             end
