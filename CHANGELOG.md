@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.27.1 (2024-03-03)
+
 - Fix a false positive for `RSpec/RepeatedSubjectCall` when `subject.method_call`. ([@ydah])
 - Add configuration option `OnlyStaticConstants` to `RSpec/DescribedClass`. ([@ydah])
 
