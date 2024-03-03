@@ -8,8 +8,10 @@ module RuboCop
       # If the first argument of describe is a class, the class is exposed to
       # each example via described_class.
       #
-      # This cop can be configured using the `EnforcedStyle` and `SkipBlocks`
-      # options.
+      # This cop can be configured using the `EnforcedStyle`, `SkipBlocks`
+      # and `OnlyStaticConstants` options.
+      # `OnlyStaticConstants` is only relevant when `EnforcedStyle` is
+      # `described_class`.
       #
       # @example `EnforcedStyle: described_class` (default)
       #   # bad
@@ -20,6 +22,18 @@ module RuboCop
       #   # good
       #   describe MyClass do
       #     subject { described_class.do_something }
+      #   end
+      #
+      # @example `OnlyStaticConstants: true` (default)
+      #   # good
+      #   describe MyClass do
+      #     subject { MyClass::CONSTANT }
+      #   end
+      #
+      # @example `OnlyStaticConstants: false`
+      #   # bad
+      #   describe MyClass do
+      #     subject { MyClass::CONSTANT }
       #   end
       #
       # @example `EnforcedStyle: explicit`
@@ -54,7 +68,7 @@ module RuboCop
       #     end
       #   end
       #
-      class DescribedClass < Base
+      class DescribedClass < Base # rubocop:disable Metrics/ClassLength
         extend AutoCorrector
         include ConfigurableEnforcedStyle
         include Namespace
@@ -112,12 +126,15 @@ module RuboCop
 
         def find_usage(node, &block)
           yield(node) if offensive?(node)
-
-          return if scope_change?(node)
+          return if scope_change?(node) || allowed?(node)
 
           node.each_child_node do |child|
             find_usage(child, &block)
           end
+        end
+
+        def allowed?(node)
+          node.const_type? && only_static_constants?
         end
 
         def message(offense)
@@ -137,6 +154,10 @@ module RuboCop
 
         def skippable_block?(node)
           node.block_type? && !rspec_block?(node) && cop_config['SkipBlocks']
+        end
+
+        def only_static_constants?
+          cop_config.fetch('OnlyStaticConstants', true)
         end
 
         def offensive?(node)

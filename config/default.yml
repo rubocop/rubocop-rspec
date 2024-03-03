@@ -283,9 +283,10 @@ RSpec/DescribedClass:
   SupportedStyles:
     - described_class
     - explicit
+  OnlyStaticConstants: true
   SafeAutoCorrect: false
   VersionAdded: '1.0'
-  VersionChanged: '1.11'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
 RSpec/DescribedClassModuleWrapping:

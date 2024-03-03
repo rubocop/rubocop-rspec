@@ -148,36 +148,6 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
-    it 'flags class with constant' do
-      expect_offense(<<~RUBY)
-        describe MyClass do
-          subject { MyClass::FOO }
-                    ^^^^^^^ Use `described_class` instead of `MyClass`.
-        end
-      RUBY
-
-      expect_correction(<<~RUBY)
-        describe MyClass do
-          subject { described_class::FOO }
-        end
-      RUBY
-    end
-
-    it 'flags class with subclasses' do
-      expect_offense(<<~RUBY)
-        describe MyClass do
-          subject { MyClass::Subclass }
-                    ^^^^^^^ Use `described_class` instead of `MyClass`.
-        end
-      RUBY
-
-      expect_correction(<<~RUBY)
-        describe MyClass do
-          subject { described_class::Subclass }
-        end
-      RUBY
-    end
-
     it 'ignores non-matching namespace defined on `describe` level' do
       expect_no_offenses(<<~RUBY)
         describe MyNamespace::MyClass do
@@ -309,6 +279,64 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
           end
         end
       RUBY
+    end
+
+    context 'when OnlyStaticConstants is `true`' do
+      let(:cop_config) do
+        { 'EnforcedStyle' => :described_class, 'OnlyStaticConstants' => true }
+      end
+
+      it 'ignores class with constant' do
+        expect_no_offenses(<<~RUBY)
+          describe MyClass do
+            subject { MyClass::FOO }
+          end
+        RUBY
+      end
+
+      it 'ignores class with subclasses' do
+        expect_no_offenses(<<~RUBY)
+          describe MyClass do
+            subject { MyClass::Subclass }
+          end
+        RUBY
+      end
+    end
+
+    context 'when OnlyStaticConstants is `false`' do
+      let(:cop_config) do
+        { 'EnforcedStyle' => :described_class, 'OnlyStaticConstants' => false }
+      end
+
+      it 'flags class with constant' do
+        expect_offense(<<~RUBY)
+          describe MyClass do
+            subject { MyClass::FOO }
+                      ^^^^^^^ Use `described_class` instead of `MyClass`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe MyClass do
+            subject { described_class::FOO }
+          end
+        RUBY
+      end
+
+      it 'flags class with subclasses' do
+        expect_offense(<<~RUBY)
+          describe MyClass do
+            subject { MyClass::Subclass }
+                      ^^^^^^^ Use `described_class` instead of `MyClass`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe MyClass do
+            subject { described_class::Subclass }
+          end
+        RUBY
+      end
     end
   end
 
