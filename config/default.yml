@@ -286,7 +286,7 @@ RSpec/DescribedClass:
   OnlyStaticConstants: true
   SafeAutoCorrect: false
   VersionAdded: '1.0'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.27'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
 RSpec/DescribedClassModuleWrapping:

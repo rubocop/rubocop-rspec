@@ -887,7 +887,7 @@ end
 | Yes
 | Always (Unsafe)
 | 1.0
-| <<next>>
+| 2.27
 |===
 
 Checks that tests use `described_class`.
