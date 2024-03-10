@@ -75,8 +75,9 @@ module RuboCop
               refute_equal
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_equal :assert_not_equal :refute_equal} $_ $_ $_?)
             PATTERN
 
@@ -97,8 +98,9 @@ module RuboCop
               refute_kind_of
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_kind_of :assert_not_kind_of :refute_kind_of} $_ $_ $_?)
             PATTERN
 
@@ -119,8 +121,9 @@ module RuboCop
               refute_instance_of
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_instance_of :assert_not_instance_of :refute_instance_of} $_ $_ $_?)
             PATTERN
 
@@ -141,8 +144,9 @@ module RuboCop
               refute_includes
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_includes :assert_not_includes :refute_includes} $_ $_ $_?)
             PATTERN
 
@@ -163,8 +167,9 @@ module RuboCop
               refute_in_delta
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_in_delta :assert_not_in_delta :refute_in_delta} $_ $_ $_? $_?)
             PATTERN
 
@@ -191,8 +196,9 @@ module RuboCop
               refute_predicate
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_predicate :assert_not_predicate :refute_predicate} $_ ${sym} $_?)
             PATTERN
 
@@ -214,8 +220,9 @@ module RuboCop
               refute_match
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_match :refute_match} $_ $_ $_?)
             PATTERN
 
@@ -236,8 +243,9 @@ module RuboCop
               refute_nil
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_nil :assert_not_nil :refute_nil} $_ $_?)
             PATTERN
 
@@ -258,8 +266,9 @@ module RuboCop
               refute_empty
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_empty :assert_not_empty :refute_empty} $_ $_?)
             PATTERN
 
@@ -278,8 +287,9 @@ module RuboCop
               assert_true
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_true} $_ $_?)
             PATTERN
 
@@ -298,8 +308,9 @@ module RuboCop
               assert_false
             ].freeze
 
-            # @!method self.minitest_assertion(node)
-            def_node_matcher 'self.minitest_assertion', <<~PATTERN # rubocop:disable InternalAffairs/NodeMatcherDirective
+            # @!method minitest_assertion(node)
+            # @!scope class
+            def_node_matcher 'self.minitest_assertion', <<~PATTERN
               (send nil? {:assert_false} $_ $_?)
             PATTERN
 
