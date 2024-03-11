@@ -40,4 +40,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rubocop', '~> 1.40'
   spec.add_runtime_dependency 'rubocop-capybara', '~> 2.17'
   spec.add_runtime_dependency 'rubocop-factory_bot', '~> 2.22'
+  spec.add_runtime_dependency 'rubocop-rspec_rails', '~> 2.28'
 end

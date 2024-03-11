@@ -39,6 +39,9 @@ require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/example_group'
 require_relative 'rubocop/rspec/hook'
 
+# need after `require 'rubocop/cop/rspec/base'``
+require 'rubocop-rspec_rails'
+
 RuboCop::RSpec::Inject.defaults!
 
 require_relative 'rubocop/cop/rspec_cops'

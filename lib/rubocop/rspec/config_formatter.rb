@@ -22,6 +22,13 @@ module RuboCop
         RSpec/FactoryBot/FactoryClassName
         RSpec/FactoryBot/FactoryNameStyle
         RSpec/FactoryBot/SyntaxMethods
+        RSpec/Rails/AvoidSetupHook
+        RSpec/Rails/HaveHttpStatus
+        RSpec/Rails/HttpStatus
+        RSpec/Rails/InferredSpecType
+        RSpec/Rails/MinitestAssertions
+        RSpec/Rails/NegationBeValid
+        RSpec/Rails/TravelAround
       )
       AMENDMENTS = %(Metrics/BlockLength)
       COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/'
