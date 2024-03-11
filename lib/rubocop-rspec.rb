@@ -6,6 +6,7 @@ require 'yaml'
 require 'rubocop'
 require 'rubocop-capybara'
 require 'rubocop-factory_bot'
+require 'rubocop-rspec_rails'
 
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/inject'
