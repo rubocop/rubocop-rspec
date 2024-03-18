@@ -2748,7 +2748,7 @@ end
 ----
 # rubocop.yml
 # RSpec/InstanceVariable:
-#   AssignmentOnly: false
+#   AssignmentOnly: true
 
 # bad
 describe MyClass do
