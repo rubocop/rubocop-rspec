@@ -171,6 +171,8 @@ RSpec/MatchArray:
   Enabled: true
 RSpec/MetadataStyle:
   Enabled: true
+RSpec/NegatedExpectation:
+  Enabled: true
 RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
