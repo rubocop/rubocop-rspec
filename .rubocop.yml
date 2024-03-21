@@ -85,6 +85,9 @@ Naming/InclusiveLanguage:
     violation:
       Suggestions:
         - offense
+    'register no offense':
+      Suggestions:
+        - registers no offense
 
 RSpec:
   Language:
