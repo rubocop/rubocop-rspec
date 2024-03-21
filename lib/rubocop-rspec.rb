@@ -9,13 +9,10 @@ require 'rubocop-factory_bot'
 
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/inject'
-require_relative 'rubocop/rspec/language/node_pattern'
+require_relative 'rubocop/rspec/language'
 require_relative 'rubocop/rspec/node'
 require_relative 'rubocop/rspec/version'
 require_relative 'rubocop/rspec/wording'
-
-# Dependent on `RuboCop::RSpec::Language::NodePattern`.
-require_relative 'rubocop/rspec/language'
 
 require_relative 'rubocop/cop/rspec/mixin/file_help'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'

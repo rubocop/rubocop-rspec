@@ -80,8 +80,6 @@ module RuboCop
 
         private
 
-        # This is not implemented using a NodePattern because it seems
-        # to not be able to match against an explicit (nil) sexp
         def literal?(node)
           node && (simple_literal?(node) || complex_literal?(node))
         end

@@ -6,7 +6,6 @@ module RuboCop
       # @abstract parent class to RSpec cops
       class Base < ::RuboCop::Cop::Base
         include RuboCop::RSpec::Language
-        extend RuboCop::RSpec::Language::NodePattern
 
         exclude_from_registry
 
