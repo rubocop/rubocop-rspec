@@ -3888,6 +3888,40 @@ end
 * https://rspec.rubystyle.guide/#use-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
+== RSpec/NegatedExpectation
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always (Unsafe)
+| <<next>>
+| -
+|===
+
+Checks for expectations with `!`.
+
+=== Safety
+
+The autocorrection is marked as unsafe, because it may change the
+expectation from a positive to a negative one, or vice versa.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+!expect(foo).to be_valid
+
+# good
+expect(foo).not_to be_valid
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NegatedExpectation
+
 == RSpec/NestedGroups
 
 |===
