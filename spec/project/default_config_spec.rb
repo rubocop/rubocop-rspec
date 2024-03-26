@@ -81,4 +81,17 @@ RSpec.describe 'config/default.yml' do
     expect(cop_configuration('Enabled'))
       .to all be(true).or(be(false)).or(eq('pending'))
   end
+
+  it 'does not include unnecessary `SafeAutoCorrect: false`' do
+    cop_names.each do |cop_name|
+      next unless default_config.dig(cop_name, 'Safe') == false
+
+      safe_autocorrect = default_config.dig(cop_name, 'SafeAutoCorrect')
+
+      expect(safe_autocorrect).not_to(
+        be(false),
+        "`#{cop_name}` has unnecessary `SafeAutoCorrect: false` config."
+      )
+    end
+  end
 end
