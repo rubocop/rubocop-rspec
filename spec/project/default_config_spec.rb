@@ -32,6 +32,22 @@ RSpec.describe 'config/default.yml' do
     cop_names + namespaces.values
   end
 
+  let(:unsafe_cops) do
+    require 'yard'
+    YARD::Registry.load!
+    YARD::Registry.all(:class).select do |example|
+      example.tags.any? { |tag| tag.tag_name == 'safety' }
+    end
+  end
+
+  let(:unsafe_cop_names) do
+    unsafe_cops.map do |cop|
+      dept_and_cop_names =
+        cop.path.split('::')[2..] # Drop `RuboCop::Cop` from class name.
+      dept_and_cop_names.join('/')
+    end
+  end
+
   def cop_configuration(config_key)
     cop_names.map do |cop_name|
       cop_config = default_config[cop_name]
@@ -91,6 +107,19 @@ RSpec.describe 'config/default.yml' do
       expect(safe_autocorrect).not_to(
         be(false),
         "`#{cop_name}` has unnecessary `SafeAutoCorrect: false` config."
+      )
+    end
+  end
+
+  it 'is expected that all cops documented with `@safety` are `Safe: false`' \
+     ' or `SafeAutoCorrect: false`' do
+    unsafe_cop_names.each do |cop_name|
+      unsafe = default_config[cop_name]['Safe'] == false ||
+        default_config[cop_name]['SafeAutoCorrect'] == false
+      expect(unsafe).to(
+        be(true),
+        "`#{cop_name}` cop should be set `Safe: false` or " \
+        '`SafeAutoCorrect: false` because `@safety` YARD tag exists.'
       )
     end
   end
