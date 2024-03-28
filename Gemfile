@@ -6,7 +6,6 @@ gemspec
 
 gem 'bump'
 gem 'danger'
-gem 'rack'
 gem 'rake'
 gem 'rspec', '~> 3.11'
 gem 'rubocop-performance', '~> 1.7'

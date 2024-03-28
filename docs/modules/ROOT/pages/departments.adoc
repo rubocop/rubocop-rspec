@@ -35,8 +35,8 @@ There are plans for extracting the following three departments before RuboCop RS
 |Extracted in https://github.com/rubocop/rubocop-rspec/releases/tag/v2.22.0[v2.22.0]
 
 |RSpec/Rails
-|rubocop-rspec-rails
-|Not yet extracted
+|rubocop-rspec_rails
+|Extracted in https://github.com/rubocop/rubocop-rspec/releases/tag/v2.28.0[v2.28.0]
 |===
 
 === Migration manual
