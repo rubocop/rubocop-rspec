@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
+
 ## 2.29.2 (2024-05-02)
 
 - Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])

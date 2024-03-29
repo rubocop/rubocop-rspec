@@ -17,7 +17,6 @@ module RuboCop
       #
       class RemoveConst < Base
         include RuboCop::RSpec::Language
-        extend RuboCop::RSpec::Language::NodePattern
 
         MSG = 'Do not use remove_const in specs. ' \
               'Consider using e.g. `stub_const`.'
