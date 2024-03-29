@@ -114,32 +114,6 @@
 
 === Department xref:cops_rspec_capybara.adoc[RSpec/Capybara]
 
-* xref:cops_rspec_capybara.adoc#rspeccapybara/currentpathexpectation[RSpec/Capybara/CurrentPathExpectation]
 * xref:cops_rspec_capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/matchstyle[RSpec/Capybara/MatchStyle]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/negationmatcher[RSpec/Capybara/NegationMatcher]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/specificactions[RSpec/Capybara/SpecificActions]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/specificfinders[RSpec/Capybara/SpecificFinders]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/specificmatcher[RSpec/Capybara/SpecificMatcher]
-* xref:cops_rspec_capybara.adoc#rspeccapybara/visibilitymatcher[RSpec/Capybara/VisibilityMatcher]
-
-=== Department xref:cops_rspec_factorybot.adoc[RSpec/FactoryBot]
-
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/attributedefinedstatically[RSpec/FactoryBot/AttributeDefinedStatically]
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/consistentparenthesesstyle[RSpec/FactoryBot/ConsistentParenthesesStyle]
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/createlist[RSpec/FactoryBot/CreateList]
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/factoryclassname[RSpec/FactoryBot/FactoryClassName]
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/factorynamestyle[RSpec/FactoryBot/FactoryNameStyle]
-* xref:cops_rspec_factorybot.adoc#rspecfactorybot/syntaxmethods[RSpec/FactoryBot/SyntaxMethods]
-
-=== Department xref:cops_rspec_rails.adoc[RSpec/Rails]
-
-* xref:cops_rspec_rails.adoc#rspecrails/avoidsetuphook[RSpec/Rails/AvoidSetupHook]
-* xref:cops_rspec_rails.adoc#rspecrails/havehttpstatus[RSpec/Rails/HaveHttpStatus]
-* xref:cops_rspec_rails.adoc#rspecrails/httpstatus[RSpec/Rails/HttpStatus]
-* xref:cops_rspec_rails.adoc#rspecrails/inferredspectype[RSpec/Rails/InferredSpecType]
-* xref:cops_rspec_rails.adoc#rspecrails/minitestassertions[RSpec/Rails/MinitestAssertions]
-* xref:cops_rspec_rails.adoc#rspecrails/negationbevalid[RSpec/Rails/NegationBeValid]
-* xref:cops_rspec_rails.adoc#rspecrails/travelaround[RSpec/Rails/TravelAround]
 
 // END_COP_LIST
