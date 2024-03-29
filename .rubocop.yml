@@ -28,6 +28,8 @@ Layout/LineLength:
   Max: 80 # default: 120
   AllowedPatterns:
     - '^\s*# .*https?:\/\/.+\[.+\]\.?$' # Allow long asciidoc links
+  Exclude:
+    - lib/rubocop/cop/rspec/rails/have_http_status.rb
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented

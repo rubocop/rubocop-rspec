@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Extract RSpec Rails cops to a separate repository, [`rubocop-rspec_rails`](https://github.com/rubocop/rubocop-rspec_rails). The `rubocop-rspec_rails` repository is a dependency of `rubocop-rspec` and the cops related to rspec-rails are aliased (`RSpec/Rails/Foo` == `RSpecRails/Foo`) until v3.0 is released, so the change will be invisible to users until then. ([@ydah])
+
 ## 2.27.1 (2024-03-03)
 
 - Fix a false positive for `RSpec/RepeatedSubjectCall` when `subject.method_call`. ([@ydah])

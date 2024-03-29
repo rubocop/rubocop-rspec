@@ -27,3 +27,10 @@ renamed:
   RSpec/FactoryBot/FactoryClassName: FactoryBot/FactoryClassName
   RSpec/FactoryBot/FactoryNameStyle: FactoryBot/FactoryNameStyle
   RSpec/FactoryBot/SyntaxMethods: FactoryBot/SyntaxMethods
+  RSpec/Rails/AvoidSetupHook: RSpecRails/AvoidSetupHook
+  RSpec/Rails/HaveHttpStatus: RSpecRails/HaveHttpStatus
+  RSpec/Rails/HttpStatus: RSpecRails/HttpStatus
+  RSpec/Rails/InferredSpecType: RSpecRails/InferredSpecType
+  RSpec/Rails/MinitestAssertions: RSpecRails/MinitestAssertions
+  RSpec/Rails/NegationBeValid: RSpecRails/NegationBeValid
+  RSpec/Rails/TravelAround: RSpecRails/TravelAround
