@@ -13,7 +13,6 @@ module RuboCop
     # using the configured aliases.
     module Language
       extend RuboCop::NodePattern::Macros
-      extend NodePattern
 
       class << self
         attr_accessor :config
