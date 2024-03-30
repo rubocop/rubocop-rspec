@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module RSpec
-      #  Checks for empty before and after hooks.
+      # Checks for empty before and after hooks.
       #
       # @example
       #   # bad
