@@ -54,7 +54,7 @@ module RuboCop
         #   #   RSpec.describe User, type: :common do
         #   #   end
         #   #
-        #   class InferredSpecType < RuboCop::Cop::RSpecRails::Base; end
+        #   class InferredSpecType < RuboCop::Cop::RSpec::Base; end
         InferredSpecType = ::RuboCop::Cop::RSpecRails::InferredSpecType
       end
     end

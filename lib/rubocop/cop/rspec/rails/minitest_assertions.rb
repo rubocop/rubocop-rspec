@@ -31,7 +31,7 @@ module RuboCop
         #   #   expect(a).to be(true)
         #   #   expect(a).to be(false)
         #   #
-        #   class MinitestAssertions < RuboCop::Cop::RSpecRails::Base; end
+        #   class MinitestAssertions < RuboCop::Cop::RSpec::Base; end
         MinitestAssertions = ::RuboCop::Cop::RSpecRails::MinitestAssertions
       end
     end
