@@ -1521,6 +1521,37 @@ describe 'Something'
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
 
+== RSpec/EmptyOutput
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Check that the `output` matcher is not called with an empty string.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect { foo }.to output('').to_stdout
+expect { bar }.not_to output('').to_stderr
+
+# good
+expect { foo }.not_to output.to_stdout
+expect { bar }.to output.to_stderr
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyOutput
+
 == RSpec/Eq
 
 |===
