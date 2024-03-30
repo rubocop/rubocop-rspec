@@ -26,7 +26,7 @@ module RuboCop
         #   #   # good
         #   #   before { freeze_time }
         #   #
-        #   class TravelAround < RuboCop::Cop::RSpecRails::Base; end
+        #   class TravelAround < RuboCop::Cop::RSpec::Base; end
         TravelAround = ::RuboCop::Cop::RSpecRails::TravelAround
       end
     end

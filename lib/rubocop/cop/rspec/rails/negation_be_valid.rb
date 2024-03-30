@@ -31,7 +31,7 @@ module RuboCop
         #   #   # good (with method chain)
         #   #   expect(foo).to be_invalid.or be_even
         #   #
-        #   class NegationBeValid < RuboCop::Cop::RSpecRails::Base; end
+        #   class NegationBeValid < RuboCop::Cop::RSpec::Base; end
         NegationBeValid = ::RuboCop::Cop::RSpecRails::NegationBeValid
       end
     end

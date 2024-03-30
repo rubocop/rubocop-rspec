@@ -19,7 +19,7 @@ module RuboCop
         #   #     allow(foo).to receive(:bar)
         #   #   end
         #   #
-        #   class AvoidSetupHook < RuboCop::Cop::RSpecRails::Base; end
+        #   class AvoidSetupHook < RuboCop::Cop::RSpec::Base; end
         AvoidSetupHook = ::RuboCop::Cop::RSpecRails::AvoidSetupHook
       end
     end

@@ -53,7 +53,7 @@ module RuboCop
         #   #   it { is_expected.to have_http_status :success }
         #   #   it { is_expected.to have_http_status :error }
         #   #
-        #   class HttpStatus < RuboCop::Cop::RSpecRails::Base; end
+        #   class HttpStatus < RuboCop::Cop::RSpec::Base; end
         HttpStatus = ::RuboCop::Cop::RSpecRails::HttpStatus
       end
     end
