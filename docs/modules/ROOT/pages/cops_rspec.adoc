@@ -3524,12 +3524,12 @@ end
 [source,ruby]
 ----
 # good - the cop ignores when RSpec aggregates failures
- describe UserCreator do
-   it 'builds a user', :aggregate_failures do
-     expect(user.name).to eq("John")
-     expect(user.age).to eq(22)
-   end
- end
+describe UserCreator do
+  it 'builds a user', :aggregate_failures do
+    expect(user.name).to eq("John")
+    expect(user.age).to eq(22)
+  end
+end
 ----
 
 ==== `aggregate_failures: false`
@@ -3537,12 +3537,12 @@ end
 [source,ruby]
 ----
 # Detected as an offense
- describe UserCreator do
-   it 'builds a user', aggregate_failures: false do
-     expect(user.name).to eq("John")
-     expect(user.age).to eq(22)
-   end
- end
+describe UserCreator do
+  it 'builds a user', aggregate_failures: false do
+    expect(user.name).to eq("John")
+    expect(user.age).to eq(22)
+  end
+end
 ----
 
 ==== `Max: 1` (default)

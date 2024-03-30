@@ -7,13 +7,13 @@ module RuboCop
       #
       # @example
       #
-      #    it 'is valid' do
-      #      expect(user).to be_valid
-      #    end
+      #   it 'is valid' do
+      #     expect(user).to be_valid
+      #   end
       #
-      #    it 'validates the user' do
-      #      expect(user).to be_valid
-      #    end
+      #   it 'validates the user' do
+      #     expect(user).to be_valid
+      #   end
       #
       class RepeatedExample < Base
         MSG = "Don't repeat examples within an example group."
