@@ -121,6 +121,7 @@ RSpec.describe 'config/default.yml' do
         "`#{cop_name}` cop should be set `Safe: false` or " \
         '`SafeAutoCorrect: false` because `@safety` YARD tag exists.'
       )
+      YARD::Registry.clear
     end
   end
 end
