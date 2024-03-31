@@ -148,6 +148,28 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
     RUBY
   end
 
+  it 'autocorrects literal hash when expected is without parentheses' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(foo: 1, bar: 2).to eq bar
+                 ^^^^^^^^^^^^^^ Provide the actual value you are testing to `expect(...)`.
+          expect({ foo: 1, bar: 2 }).to eq bar
+                 ^^^^^^^^^^^^^^^^^^ Provide the actual value you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect(bar).to eq(foo: 1, bar: 2)
+          expect(bar).to eq({ foo: 1, bar: 2 })
+        end
+      end
+    RUBY
+  end
+
   it 'flags ranges containing only literal values within expect(...)' do
     expect_offense(<<~RUBY)
       describe Foo do

@@ -58,22 +58,27 @@ module RuboCop
           (send
             (send nil? :expect $#literal?)
             #Runners.all
-            {
+            ${
               (send (send nil? $:be) :== $_)
               (send nil? $_ $_ ...)
             }
           )
         PATTERN
 
-        def on_send(node)
-          expect_literal(node) do |actual, matcher, expected|
+        def on_send(node) # rubocop:disable Metrics/MethodLength
+          expect_literal(node) do |actual, send_node, matcher, expected|
             next if SKIPPED_MATCHERS.include?(matcher)
 
             add_offense(actual.source_range) do |corrector|
               next unless CORRECTABLE_MATCHERS.include?(matcher)
               next if literal?(expected)
 
-              swap(corrector, actual, expected)
+              corrector.replace(actual, expected.source)
+              if matcher == :be
+                corrector.replace(expected, actual.source)
+              else
+                corrector.replace(send_node, "#{matcher}(#{actual.source})")
+              end
             end
           end
         end
@@ -93,11 +98,6 @@ module RuboCop
         def complex_literal?(node)
           COMPLEX_LITERALS.include?(node.type) &&
             node.each_child_node.all?(&method(:literal?))
-        end
-
-        def swap(corrector, actual, expected)
-          corrector.replace(actual, expected.source)
-          corrector.replace(expected, actual.source)
         end
       end
     end
