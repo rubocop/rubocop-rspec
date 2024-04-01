@@ -5617,6 +5617,67 @@ end
 * https://robots.thoughtbot.com/don-t-stub-the-system-under-test
 * https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
 
+== RSpec/UndescriptiveLiteralsDescription
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Description should be descriptive.
+
+If example group or example contains only `execute string`, numbers
+and regular expressions, the description is not clear.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+describe `time` do
+ # ...
+end
+
+# bad
+context /when foo/ do
+  # ...
+end
+
+# bad
+it 10000 do
+  # ...
+end
+
+# good
+describe Foo do
+  # ...
+end
+
+# good
+describe '#foo' do
+  # ...
+end
+
+# good
+context "when #{foo} is bar" do
+  # ...
+end
+
+# good
+it 'does something' do
+  # ...
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
+
 == RSpec/UnspecifiedException
 
 |===

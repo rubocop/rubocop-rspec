@@ -932,6 +932,12 @@ RSpec/SubjectStub:
   StyleGuide: https://rspec.rubystyle.guide/#dont-stub-subject
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 
+RSpec/UndescriptiveLiteralsDescription:
+  Description: Description should be descriptive.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
+
 RSpec/UnspecifiedException:
   Description: Checks for a specified error in checking raised errors.
   Enabled: true

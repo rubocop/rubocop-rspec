@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix an autocorrect error for `RSpec/ExpectActual`. ([@bquorning])
+- Add new `RSpec/UndescriptiveLiteralsDescription` cop. ([@ydah])
 
 ## 2.28.0 (2024-03-30)
 
