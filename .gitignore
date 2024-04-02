@@ -23,3 +23,5 @@ coverage
 
 # vscode generated
 .vscode
+
+/relnotes.md
