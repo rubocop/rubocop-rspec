@@ -2,6 +2,10 @@
 
 ## Master (Unreleased)
 
+## 2.29.1 (2024-04-05)
+
+- Fix an error in the default configuration. ([@ydah])
+
 ## 2.29.0 (2024-04-04)
 
 - Fix an autocorrect error for `RSpec/ExpectActual`. ([@bquorning])
