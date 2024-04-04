@@ -25,12 +25,14 @@ jobs:
           bundle exec rake create_release_notes
           gh release create $(git tag --points-at @) \
             --title "RuboCop RSpec $(git tag --points-at @)" \
-            --notes-file relnotes.md \
+            --notes-file relnotes.md
       - name: Replace version in Antora config
         run: |
           sed -i 's/version:.*$/version: ~/' docs/antora.yml
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git add docs/antora.yml
-          git commit -m "Switch docs version back"
-          git push
+          if ! git diff --exit-code docs/antora.yml; then
+            git config user.name "${GITHUB_ACTOR}"
+            git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+            git add docs/antora.yml
+            git commit -m "Switch docs version back"
+            git push
+          fi
