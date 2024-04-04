@@ -23,7 +23,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           bundle exec rake create_release_notes
-          gh release create $(git tag --points-at @) --notes-file relnotes.md
+          gh release create $(git tag --points-at @) \
+            --title "RuboCop RSpec $(git tag --points-at @)" \
+            --notes-file relnotes.md \
       - name: Replace version in Antora config
         run: |
           sed -i 's/version:.*$/version: ~/' docs/antora.yml
