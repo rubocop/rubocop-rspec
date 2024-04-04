@@ -164,6 +164,8 @@ RSpec/DuplicatedMetadata:
   Enabled: true
 RSpec/EmptyMetadata:
   Enabled: true
+RSpec/EmptyOutput:
+  Enabled: true
 RSpec/Eq:
   Enabled: true
 RSpec/ExcessiveDocstringSpacing:
