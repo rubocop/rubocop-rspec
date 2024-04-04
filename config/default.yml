@@ -369,7 +369,7 @@ RSpec/EmptyMetadata:
 RSpec/EmptyOutput:
   Description: Check that the `output` matcher is not called with an empty string.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.29'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyOutput
 
 RSpec/Eq:
