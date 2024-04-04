@@ -941,7 +941,7 @@ RSpec/SubjectStub:
 RSpec/UndescriptiveLiteralsDescription:
   Description: Description should be descriptive.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.29'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
 
 RSpec/UnspecifiedException:
