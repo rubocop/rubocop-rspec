@@ -18,6 +18,12 @@ jobs:
           bundler-cache: true
           ruby-version: ruby
       - uses: rubygems/release-gem@v1
+      - name: Create a GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bundle exec rake create_release_notes
+          gh release create $(git tag --points-at @) --notes-file relnotes.md
       - name: Replace version in Antora config
         run: |
           sed -i 's/version:.*$/version: ~/' docs/antora.yml
