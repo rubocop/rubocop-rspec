@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])
+
 ## 2.29.1 (2024-04-05)
 
 - Fix an error in the default configuration. ([@ydah])
@@ -895,6 +897,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@harry-graham]: https://github.com/harry-graham
 [@harrylewis]: https://github.com/harrylewis
+[@hasghari]: https://github.com/hasghari
 [@hosamaly]: https://github.com/hosamaly
 [@ignaciovillaverde]: https://github.com/ignaciovillaverde
 [@jaredbeck]: https://github.com/jaredbeck

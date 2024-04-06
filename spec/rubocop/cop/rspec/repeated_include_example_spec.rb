@@ -233,5 +233,23 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
         end
       RUBY
     end
+
+    it 'allows for beginless ranges' do
+      expect_no_offenses(<<~RUBY)
+        describe 'foo' do
+          include_examples 'irange', ..1
+          it_behaves_like 'irange', ..2
+        end
+      RUBY
+    end
+
+    it 'allows for endless ranges' do
+      expect_no_offenses(<<~RUBY)
+        describe 'foo' do
+          include_examples 'erange', (1..)
+          it_behaves_like 'erange', (2..)
+        end
+      RUBY
+    end
   end
 end
