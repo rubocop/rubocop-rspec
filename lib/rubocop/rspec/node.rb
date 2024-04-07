@@ -9,7 +9,7 @@ module RuboCop
       def recursive_literal_or_const?
         case type
         when :begin, :pair, *AST::Node::COMPOSITE_LITERALS
-          children.all?(&:recursive_literal_or_const?)
+          children.compact.all?(&:recursive_literal_or_const?)
         else
           literal? || const_type?
         end
