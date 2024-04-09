@@ -10,6 +10,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
@@ -32,7 +33,9 @@ jobs:
           if ! git diff --exit-code docs/antora.yml; then
             git config user.name "${GITHUB_ACTOR}"
             git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+            git checkout -b switch-docs-version
             git add docs/antora.yml
             git commit -m "Switch docs version back"
-            git push
+            git push -u origin switch-docs-version
+            gh pr create --fill --head switch-docs-version
           fi
