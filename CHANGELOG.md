@@ -911,6 +911,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jojos003]: https://github.com/jojos003
 [@jonatas]: https://github.com/jonatas
 [@jtannas]: https://github.com/jtannas
+[@k-s-a]: https://github.com/K-S-A
 [@kellysutton]: https://github.com/kellysutton
 [@koic]: https://github.com/koic
 [@kuahyeow]: https://github.com/kuahyeow
@@ -979,4 +980,3 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ypresto]: https://github.com/ypresto
 [@zdennis]: https://github.com/zdennis
 [@zverok]: https://github.com/zverok
-[@K-S-A]: https://github.com/K-S-A
