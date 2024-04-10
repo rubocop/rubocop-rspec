@@ -72,6 +72,7 @@ module RuboCop
 
         def detect_offense(subject_node)
           return if subject_node.chained?
+          return if subject_node.parent.send_type?
           return unless (block_node = expect_block(subject_node))
 
           add_offense(block_node)

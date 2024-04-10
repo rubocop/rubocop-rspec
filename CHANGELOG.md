@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])
+- Fix a false positive for `RSpec/RepeatedSubjectCall` when subject is used as argument to function call. ([@K-S-A])
 
 ## 2.29.1 (2024-04-05)
 
@@ -910,6 +911,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jojos003]: https://github.com/jojos003
 [@jonatas]: https://github.com/jonatas
 [@jtannas]: https://github.com/jtannas
+[@k-s-a]: https://github.com/K-S-A
 [@kellysutton]: https://github.com/kellysutton
 [@koic]: https://github.com/koic
 [@kuahyeow]: https://github.com/kuahyeow

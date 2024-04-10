@@ -114,6 +114,17 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
     RUBY
   end
 
+  it 'does not register an offense when `subject` as an argument' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it do
+          expect { create(:bar, baz: subject) }.to change { A.count }
+          expect { create(:bar, subject) }.to not_change { A.count }
+        end
+      end
+    RUBY
+  end
+
   it 'does not register an offense when `subject` with not expectation' do
     expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
