@@ -90,7 +90,8 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
     RUBY
   end
 
-  it 'register offense for different example group with similar descriptions' do
+  it 'registers offense for different example group with ' \
+     'similar descriptions' do
     expect_offense(<<~RUBY)
       describe 'Animal' do
       ^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [5]
@@ -198,7 +199,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
     RUBY
   end
 
-  it 'register offense if same method used in docstring' do
+  it 'registers offense if same method used in docstring' do
     expect_offense(<<~RUBY)
       context(description) do
       ^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [5]
