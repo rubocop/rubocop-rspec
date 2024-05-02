@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.29.2 (2024-05-02)
+
 - Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])
 - Fix a false positive for `RSpec/RepeatedSubjectCall` when subject is used as argument to function call. ([@K-S-A])
 
