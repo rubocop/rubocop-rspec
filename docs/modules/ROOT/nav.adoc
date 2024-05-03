@@ -4,6 +4,7 @@
 * xref:departments.adoc[Departments]
 * xref:cops.adoc[Cops]
 * xref:upgrade_to_version_2.adoc[Upgrade to 2.x]
+* xref:upgrade_to_version_3.adoc[Upgrade to 3.x]
 * xref:third_party_rspec_syntax_extensions.adoc[RSpec syntax extensions in third-party gems]
 * xref:development.adoc[Development]
 * Cops Documentation
