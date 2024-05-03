@@ -97,7 +97,7 @@ module RuboCop
 
         def complex_literal?(node)
           COMPLEX_LITERALS.include?(node.type) &&
-            node.each_child_node.all?(&method(:literal?))
+            node.each_child_node.all? { |child_node| literal?(child_node) }
         end
       end
     end
