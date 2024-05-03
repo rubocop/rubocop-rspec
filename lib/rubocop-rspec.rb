@@ -4,8 +4,6 @@ require 'pathname'
 require 'yaml'
 
 require 'rubocop'
-require 'rubocop-capybara'
-require 'rubocop-factory_bot'
 
 require_relative 'rubocop/rspec'
 require_relative 'rubocop/rspec/inject'
@@ -39,9 +37,6 @@ require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/example_group'
 require_relative 'rubocop/rspec/hook'
 
-# need after `require 'rubocop/cop/rspec/base'``
-require 'rubocop-rspec_rails'
-
 RuboCop::RSpec::Inject.defaults!
 
 require_relative 'rubocop/cop/rspec_cops'
@@ -54,14 +49,6 @@ RuboCop::Cop::Layout::ExtraSpacing.singleton_class.prepend(
     def autocorrect_incompatible_with
       super.push(RuboCop::Cop::RSpec::AlignLeftLetBrace)
       .push(RuboCop::Cop::RSpec::AlignRightLetBrace)
-    end
-  end
-)
-
-RuboCop::Cop::Style::TrailingCommaInArguments.singleton_class.prepend(
-  Module.new do
-    def autocorrect_incompatible_with
-      super.push(RuboCop::Cop::RSpec::Capybara::CurrentPathExpectation)
     end
   end
 )

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
+
 ## 2.29.2 (2024-05-02)
 
 - Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])

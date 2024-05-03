@@ -34,7 +34,7 @@ task :build_config do
   require 'rubocop/rspec/description_extractor'
 
   glob = File.join('lib', 'rubocop', 'cop', 'rspec',
-                   '{,capybara,factory_bot,rails}', '*.rb')
+                   '{,capybara}', '*.rb')
   # Due to YARD's sensitivity to file require order (as of 0.9.25),
   # we have to prepend the list with our base cop, RuboCop::Cop::RSpec::Base.
   # Otherwise, cop's parent class for cops loaded before our base cop class
