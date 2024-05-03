@@ -108,10 +108,8 @@ module RuboCop
         attr_reader :example_group_memoized_helpers
 
         def all_helpers(node)
-          [
-            *helpers(node),
-            *node.each_ancestor(:block).flat_map(&method(:helpers))
-          ]
+          helpers(node) +
+            node.each_ancestor(:block).flat_map { |ancestor| helpers(ancestor) }
         end
 
         def helpers(node)

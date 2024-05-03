@@ -113,8 +113,8 @@ module RuboCop
         PATTERN
 
         def on_top_level_group(node)
-          @explicit_subjects = find_all_explicit(node, &method(:subject?))
-          @subject_overrides = find_all_explicit(node, &method(:let?))
+          @explicit_subjects = find_all_explicit(node) { |n| subject?(n) }
+          @subject_overrides = find_all_explicit(node) { |n| let?(n) }
 
           find_subject_expectations(node) do |stub|
             add_offense(stub)
