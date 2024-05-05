@@ -28,8 +28,6 @@ Layout/LineLength:
   Max: 80 # default: 120
   AllowedPatterns:
     - '^\s*# .*https?:\/\/.+\[.+\]\.?$' # Allow long asciidoc links
-  Exclude:
-    - lib/rubocop/cop/rspec/rails/have_http_status.rb
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -113,6 +111,7 @@ RSpec/DescribeClass:
 RSpec/MultipleExpectations:
   Max: 2
 
+# `expect_offense` does not use Kernel#format or String#%
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
