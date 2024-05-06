@@ -2,7 +2,7 @@
 
 RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   it 'registers an offense when a singular block' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it do
           subject
@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   end
 
   it 'registers an offense when repeated blocks' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it do
           expect { subject }.to change { Foo.count }
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   end
 
   it 'registers an offense when nested blocks' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         it do
           expect(subject.a).to eq(3)
@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   end
 
   it 'registers an offense when custom subjects' do
-    expect_offense(<<-RUBY)
+    expect_offense(<<~RUBY)
       RSpec.describe Foo do
         subject(:bar) { do_something }
 
@@ -76,7 +76,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   end
 
   it 'does not register an offense when different subjects' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         subject { do_something_else }
         subject(:bar) { do_something }
@@ -90,7 +90,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
   end
 
   it 'does not register an offense when multiple no description it blocks' do
-    expect_no_offenses(<<-RUBY)
+    expect_no_offenses(<<~RUBY)
       RSpec.describe Foo do
         it do
           expect { subject }.to change { Foo.count }
