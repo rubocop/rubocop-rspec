@@ -218,7 +218,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
-  # RSpec/FilePath runs on all files - not only **/*_spec.rb
+  # RSpec/SpecFilePathFormat runs on all files - not only **/*_spec.rb
   it 'does not register an offense when files defining an empty class' do
     expect_no_offenses(<<~RUBY)
       class Foo

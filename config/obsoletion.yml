@@ -34,3 +34,9 @@ renamed:
   RSpec/Rails/MinitestAssertions: RSpecRails/MinitestAssertions
   RSpec/Rails/NegationBeValid: RSpecRails/NegationBeValid
   RSpec/Rails/TravelAround: RSpecRails/TravelAround
+
+split:
+  RSpec/FilePath:
+    alternatives:
+      - RSpec/SpecFilePathFormat
+      - RSpec/SpecFilePathSuffix

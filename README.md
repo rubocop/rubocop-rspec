@@ -81,7 +81,7 @@ In your `.rubocop.yml`, you may treat the RSpec cops just like any other
 cop. For example:
 
 ```yaml
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
   Exclude:
     - spec/my_poorly_named_spec_file.rb
 ```

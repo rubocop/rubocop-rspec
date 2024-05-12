@@ -453,21 +453,6 @@ RSpec/ExpectOutput:
   VersionAdded: '1.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
-RSpec/FilePath:
-  Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: true
-  Include:
-    - "**/*_spec*rb*"
-    - "**/spec/**/*"
-  CustomTransform:
-    RuboCop: rubocop
-    RSpec: rspec
-  IgnoreMethods: false
-  SpecSuffixOnly: false
-  VersionAdded: '1.2'
-  VersionChanged: '2.24'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath
-
 RSpec/Focus:
   Description: Checks if examples are focused.
   Enabled: true
