@@ -41,6 +41,7 @@
 * xref:cops_rspec.adoc#rspecexpectactual[RSpec/ExpectActual]
 * xref:cops_rspec.adoc#rspecexpectchange[RSpec/ExpectChange]
 * xref:cops_rspec.adoc#rspecexpectinhook[RSpec/ExpectInHook]
+* xref:cops_rspec.adoc#rspecexpectinlet[RSpec/ExpectInLet]
 * xref:cops_rspec.adoc#rspecexpectoutput[RSpec/ExpectOutput]
 * xref:cops_rspec.adoc#rspecfocus[RSpec/Focus]
 * xref:cops_rspec.adoc#rspechookargument[RSpec/HookArgument]

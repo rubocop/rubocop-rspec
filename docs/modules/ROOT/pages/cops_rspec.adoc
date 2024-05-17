@@ -2042,6 +2042,39 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook
 
+== RSpec/ExpectInLet
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Do not use `expect` in let.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  expect(something).to eq 'foo'
+end
+
+# good
+it do
+  expect(something).to eq 'foo'
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInLet
+
 == RSpec/ExpectOutput
 
 |===
