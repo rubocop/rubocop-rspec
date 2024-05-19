@@ -6,6 +6,7 @@
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
 - Add new `RSpec/ExpectInLet` cop. ([@yasu551])
+- Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
 
 ## 2.29.2 (2024-05-02)
 

@@ -40,3 +40,8 @@ split:
     alternatives:
       - RSpec/SpecFilePathFormat
       - RSpec/SpecFilePathSuffix
+
+removed:
+  RSpec/Capybara/FeatureMethods:
+    reason: >
+      this cop has migrated to `RSpec/Dialect`. Please use `RSpec/Dialect` instead

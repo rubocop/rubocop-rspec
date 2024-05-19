@@ -112,8 +112,4 @@
 * xref:cops_rspec.adoc#rspecvoidexpect[RSpec/VoidExpect]
 * xref:cops_rspec.adoc#rspecyield[RSpec/Yield]
 
-=== Department xref:cops_rspec_capybara.adoc[RSpec/Capybara]
-
-* xref:cops_rspec_capybara.adoc#rspeccapybara/featuremethods[RSpec/Capybara/FeatureMethods]
-
 // END_COP_LIST
