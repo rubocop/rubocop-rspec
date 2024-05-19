@@ -21,7 +21,7 @@ RSpec.shared_context 'with default RSpec/Language config' do
     when Array
       object.map { |item| deep_dup(item) }
     when Hash
-      object.transform_values(&method(:deep_dup))
+      object.transform_values { |value| deep_dup(value) }
     else
       object # only collections undergo modifications and need duping
     end

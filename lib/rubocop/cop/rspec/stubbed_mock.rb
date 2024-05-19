@@ -136,7 +136,9 @@ module RuboCop
         RESTRICT_ON_SEND = %i[to].freeze
 
         def on_send(node)
-          expectation(node, &method(:on_expectation))
+          expectation(node) do |expectation, method_name, matcher|
+            on_expectation(expectation, method_name, matcher)
+          end
         end
 
         private

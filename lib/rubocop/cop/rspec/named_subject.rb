@@ -107,8 +107,11 @@ module RuboCop
         private
 
         def ignored_shared_example?(node)
-          cop_config['IgnoreSharedExamples'] &&
-            node.each_ancestor(:block).any?(&method(:shared_example?))
+          return false unless cop_config['IgnoreSharedExamples']
+
+          node.each_ancestor(:block).any? do |ancestor|
+            shared_example?(ancestor)
+          end
         end
 
         def check_explicit_subject(node)
