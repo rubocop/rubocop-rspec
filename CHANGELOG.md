@@ -5,6 +5,7 @@
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
+- Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
 
 ## 2.29.2 (2024-05-02)
 
