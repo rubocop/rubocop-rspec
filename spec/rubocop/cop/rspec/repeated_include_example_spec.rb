@@ -234,7 +234,7 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedIncludeExample do
       RUBY
     end
 
-    it 'allows for beginless ranges' do
+    it 'allows for beginless ranges', :ruby27 do
       expect_no_offenses(<<~RUBY)
         describe 'foo' do
           include_examples 'irange', ..1
