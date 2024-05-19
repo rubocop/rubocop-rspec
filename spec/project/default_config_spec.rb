@@ -5,16 +5,10 @@ RSpec.describe 'config/default.yml' do
     RuboCop::ConfigLoader.load_yaml_configuration('config/default.yml')
   end
 
-  let(:namespaces) do
-    {
-      'rspec' => 'RSpec',
-      'capybara' => 'RSpec/Capybara'
-    }
-  end
+  let(:namespaces) { { 'rspec' => 'RSpec' } }
 
   let(:cop_names) do
-    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec',
-                                 '{,capybara}', '*.rb')
+    glob = SpecHelper::ROOT.join('lib', 'rubocop', 'cop', 'rspec', '*.rb')
     cop_names =
       Pathname.glob(glob).map do |file|
         file_name = file.basename('.rb').to_s
