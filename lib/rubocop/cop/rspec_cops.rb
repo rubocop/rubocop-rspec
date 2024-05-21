@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'rspec/capybara/feature_methods'
-
 require_relative 'rspec/align_left_let_brace'
 require_relative 'rspec/align_right_let_brace'
 require_relative 'rspec/any_instance'

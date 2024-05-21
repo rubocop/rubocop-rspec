@@ -72,7 +72,7 @@ module RuboCop
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
         ANYTHING = ->(_node) { true }
-        TRUE = ->(node) { node.true_type? }
+        TRUE_NODE = lambda(&:true_type?)
 
         # @!method aggregate_failures?(node)
         def_node_matcher :aggregate_failures?, <<~PATTERN
@@ -110,7 +110,7 @@ module RuboCop
           node_with_aggregate_failures = find_aggregate_failures(example_node)
           return false unless node_with_aggregate_failures
 
-          aggregate_failures?(node_with_aggregate_failures, TRUE)
+          aggregate_failures?(node_with_aggregate_failures, TRUE_NODE)
         end
 
         def find_aggregate_failures(example_node)

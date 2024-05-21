@@ -30,7 +30,7 @@ module RuboCop
 
         def on_top_level_group(node)
           top_level_example_groups =
-            top_level_groups.select(&method(:example_group?))
+            top_level_groups.select { |group| example_group?(group) }
 
           return if top_level_example_groups.one?
           return unless top_level_example_groups.first.equal?(node)

@@ -58,7 +58,7 @@ module RuboCop
 
         def sort_symbols(symbols)
           symbols.sort_by do |symbol|
-            if %i[str sym].include?(symbol.type)
+            if symbol.str_type? || symbol.sym_type?
               symbol.value.to_s.downcase
             else
               symbol.source.downcase

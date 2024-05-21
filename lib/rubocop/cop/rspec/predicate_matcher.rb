@@ -174,7 +174,7 @@ module RuboCop
 
         def heredoc_argument?(matcher)
           matcher.arguments.select do |arg|
-            %i[str dstr xstr].include?(arg.type)
+            arg.str_type? || arg.dstr_type? || arg.xstr_type?
           end.any?(&:heredoc?)
         end
 

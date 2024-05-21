@@ -1073,6 +1073,19 @@ a config like:
     PreferredMethods:
       context: describe
 
+If you were previously using the `RSpec/Capybara/FeatureMethods` cop and
+want to keep disabling all Capybara-specific methods that have the same
+native RSpec method (e.g. are just aliases), use the following config:
+
+  RSpec/Dialect:
+    PreferredMethods:
+      background: :before
+      scenario:   :it
+      xscenario:  :xit
+      given:      :let
+      given!:     :let!
+      feature:    :describe
+
 You can expect the following behavior:
 
 === Examples
