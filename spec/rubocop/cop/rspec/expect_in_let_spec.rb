@@ -29,6 +29,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectInLet do
     RUBY
   end
 
+  it 'adds offenses for multiple expectations in let' do
+    expect_offense(<<~RUBY)
+      let(:foo) do
+        expect(something).to eq 'foo'
+        ^^^^^^ Do not use `expect` in let
+        is_expected.to eq 'foo'
+        ^^^^^^^^^^^ Do not use `is_expected` in let
+      end
+    RUBY
+  end
+
   it 'accepts an empty let' do
     expect_no_offenses(<<~RUBY)
       let(:foo) {}
