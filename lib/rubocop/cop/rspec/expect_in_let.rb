@@ -22,7 +22,7 @@ module RuboCop
         # @!method expectation(node)
         def_node_search :expectation, '(send nil? #Expectations.all ...)'
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless let?(node)
           return if node.body.nil?
 
@@ -30,8 +30,6 @@ module RuboCop
             add_offense(expect.loc.selector, message: message(expect))
           end
         end
-
-        alias on_numblock on_block
 
         private
 
