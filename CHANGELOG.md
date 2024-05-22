@@ -5,6 +5,7 @@
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
+- Add new `RSpec/ExpectInLet` cop. ([@yasu551])
 - Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
 
 ## 2.29.2 (2024-05-02)
@@ -981,6 +982,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@twalpole]: https://github.com/twalpole
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@walf443]: https://github.com/walf443
+[@yasu551]: https://github.com/yasu551
 [@ybiquitous]: https://github.com/ybiquitous
 [@ydah]: https://github.com/ydah
 [@yevhene]: https://github.com/yevhene
