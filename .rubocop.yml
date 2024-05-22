@@ -170,6 +170,8 @@ RSpec/Eq:
   Enabled: true
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
+RSpec/ExpectInLet:
+  Enabled: true
 RSpec/IdenticalEqualityAssertion:
   Enabled: true
 RSpec/IndexedLet:

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add new `RSpec/ExpectInLet` cop. ([@yasu551])
+
 ## 2.29.2 (2024-05-02)
 
 - Fix beginless and endless range bug for RepeatedIncludeExample cop. ([@hasghari])
@@ -976,6 +978,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@twalpole]: https://github.com/twalpole
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@walf443]: https://github.com/walf443
+[@yasu551]: https://github.com/yasu551
 [@ybiquitous]: https://github.com/ybiquitous
 [@ydah]: https://github.com/ydah
 [@yevhene]: https://github.com/yevhene
