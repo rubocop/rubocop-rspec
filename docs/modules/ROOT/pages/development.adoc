@@ -2,6 +2,47 @@
 
 This page describes considerations when developing RSpec-specific cops. It is intended to be a complement to the general https://docs.rubocop.org/rubocop/development.html[RuboCop development documentation].
 
+== Create a new cop
+
+NOTE: Clone the repository and run `bundle install` if not done yet.
+The following rake task can only be run inside the rubocop project directory itself.
+
+Use the bundled rake task `new_cop` to generate a cop template:
+
+[source,sh]
+----
+$ bundle exec rake 'new_cop[RSpec/CopName]'
+[create] lib/rubocop/cop/rspec/cop_name.rb
+[create] spec/rubocop/cop/rspec/cop_name_spec.rb
+[modify] lib/rubocop/cop/rspec_cops.rb - `require_relative 'rspec/cop_name'` was injected.
+[modify] A configuration for the cop is added into config/default.yml.
+Do 4 steps:
+  1. Modify the description of RSpec/CopName in config/default.yml
+  2. Implement your new cop in the generated file!
+  3. Add an entry about new cop to CHANGELOG.md
+  4. Commit your new cop with a message such as
+     e.g. "Add new `#{badge}` cop"
+----
+
+=== Choose a Name
+
+Use the following rules to give the new cop a name:
+
+* Pick a department. See the xref:cops.adoc[list of existing departments]
+* The name is self-explanatory
+* The name explains the offense the cop detects, e.g. `ExtraSpacing`
+* The name starts with a noun instead of a verb, e.g. `ArrayAlignment` instead of `AlignArray`
+* The name is easy to understand, e.g. `IndentationStyle` instead of just `Tab`
+* The name is specific, e.g. `DuplicateHashKey` instead of just `DuplicateKey`
+* The name is neutral when possible and accommodates multiple styles when feasible, e.g. `EmptyLineBeforeBegin`.
+* The name uses commonly-used terms, e.g. `RedundantPercentI` instead of `RedundantPercentSymbolArray`
+* The name uses correct terms, e.g. arguments in a method call, and parameters in a method signature
+* Lines with no symbols are called "empty", not "blank", e.g. `LeadingEmptyLines` instead of `LeadingBlankLines`
+* Prefer "redundant" to "unneeded", e.g. `RedundantSelf` instead of `UnneededSelf`
+
+See the https://github.com/rubocop/rubocop-rspec/blob/dad11fc2d341f88d395b7196f78c7ba67fcb4c17/config/obsoletion.yml["renamed" section of `config/obsoletion.yml`]
+for good and bad examples (old name is on the left, new name on the right).
+
 == Base class
 
 The `RuboCop::Cop::RSpec::Base` class includes convenient https://docs.rubocop.org/rubocop-ast/node_pattern.html[node pattern DSL] matchers that will automatically account for any xref:usage.adoc#rspec-dsl-configuration[custom RSpec DSL configuration].
