@@ -40,7 +40,7 @@ Use the following rules to give the new cop a name:
 * Lines with no symbols are called "empty", not "blank", e.g. `LeadingEmptyLines` instead of `LeadingBlankLines`
 * Prefer "redundant" to "unneeded", e.g. `RedundantSelf` instead of `UnneededSelf`
 
-See the https://github.com/rubocop/rubocop-rspec/blob/dad11fc2d341f88d395b7196f78c7ba67fcb4c17/config/obsoletion.yml["renamed" section of `config/obsoletion.yml`]
+See the https://github.com/rubocop/rubocop/blob/12fd014e255617a08b7b42aa5df0745e7382af88/config/obsoletion.yml#L4["renamed" section of `config/obsoletion.yml`]
 for good and bad examples (old name is on the left, new name on the right).
 
 == Base class
