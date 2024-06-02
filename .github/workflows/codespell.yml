@@ -1,7 +1,6 @@
 name: CodeSpell
 on:
-  pull_request:
-    branches: 2-x-stable
+  - pull_request
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
