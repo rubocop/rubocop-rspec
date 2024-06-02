@@ -1,7 +1,7 @@
 name: Publish
 on:
   push:
-    branches: master
+    branches: 2-x-stable
     paths: lib/rubocop/rspec/version.rb
 jobs:
   publish:
