@@ -450,7 +450,7 @@ RSpec/ExpectInHook:
 RSpec/ExpectInLet:
   Description: Do not use `expect` in let.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '2.30'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInLet
 
 RSpec/ExpectOutput:

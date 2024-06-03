@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 2.30.0 (2024-06-03)
+
 - Add new `RSpec/ExpectInLet` cop. ([@yasu551])
 
 ## 2.29.2 (2024-05-02)
