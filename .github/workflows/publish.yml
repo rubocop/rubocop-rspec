@@ -28,6 +28,8 @@ jobs:
             --title "RuboCop RSpec $(git tag --points-at @)" \
             --notes-file relnotes.md
       - name: Replace version in Antora config
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           sed -i 's/version:.*$/version: ~/' docs/antora.yml
           if ! git diff --exit-code docs/antora.yml; then
