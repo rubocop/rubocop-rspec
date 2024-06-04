@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'bump'
-gem 'danger'
 gem 'rack'
 gem 'rake'
 gem 'rspec', '~> 3.11'
