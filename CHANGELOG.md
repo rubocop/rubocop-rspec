@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.0.0.pre (2024-06-05)
+
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
@@ -9,6 +11,8 @@
 - Enable all pending cops. ([@bquorning])
 - Add new `RSpec/MissingExpectationTargetMethod` cop. ([@krororo])
 - Fix an error for `RSpec/ScatteredSetup` when one of the hooks is an empty block. ([@earlopain])
+
+Read more about how to upgrade in https://docs.rubocop.org/rubocop-rspec/upgrade_to_version_3.html
 
 ## 2.31.0 (2024-06-07)
 
