@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Support `AutoCorrect: contextual` option for LSP. ([@ydah])
+
 ## 2.30.0 (2024-06-03)
 
 - Add new `RSpec/ExpectInLet` cop. ([@yasu551])
