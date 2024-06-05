@@ -146,7 +146,7 @@ RSpec/Be:
 
 RSpec/BeEmpty:
   Description: Prefer using `be_empty` when checking for an empty array.
-  Enabled: pending
+  Enabled: true
   AutoCorrect: contextual
   VersionAdded: '2.20'
   VersionChanged: "<<next>>"
@@ -154,7 +154,7 @@ RSpec/BeEmpty:
 
 RSpec/BeEq:
   Description: Check for expectations where `be(...)` can replace `eq(...)`.
-  Enabled: pending
+  Enabled: true
   Safe: false
   VersionAdded: 2.9.0
   VersionChanged: '2.16'
@@ -170,7 +170,7 @@ RSpec/BeEql:
 
 RSpec/BeNil:
   Description: Ensures a consistent style is used when matching `nil`.
-  Enabled: pending
+  Enabled: true
   EnforcedStyle: be_nil
   SupportedStyles:
     - be
@@ -193,7 +193,7 @@ RSpec/BeforeAfterAll:
 
 RSpec/ChangeByZero:
   Description: Prefer negated matchers over `to change.by(0)`.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.11'
   VersionChanged: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
@@ -202,7 +202,7 @@ RSpec/ChangeByZero:
 RSpec/ClassCheck:
   Description: Enforces consistent use of `be_a` or `be_kind_of`.
   StyleGuide: "#is-a-vs-kind-of"
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.13'
   EnforcedStyle: be_a
   SupportedStyles:
@@ -212,7 +212,7 @@ RSpec/ClassCheck:
 
 RSpec/ContainExactly:
   Description: Checks where `contain_exactly` is used.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
@@ -306,7 +306,7 @@ RSpec/Dialect:
 
 RSpec/DuplicatedMetadata:
   Description: Avoid duplicated metadata.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
 
@@ -367,7 +367,7 @@ RSpec/EmptyLineAfterSubject:
 
 RSpec/EmptyMetadata:
   Description: Avoid empty metadata hash.
-  Enabled: pending
+  Enabled: true
   AutoCorrect: contextual
   VersionAdded: '2.24'
   VersionChanged: "<<next>>"
@@ -375,13 +375,13 @@ RSpec/EmptyMetadata:
 
 RSpec/EmptyOutput:
   Description: Check that the `output` matcher is not called with an empty string.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.29'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyOutput
 
 RSpec/Eq:
   Description: Use `eq` instead of `be ==` to compare objects.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
 
@@ -423,7 +423,7 @@ RSpec/ExampleWording:
 
 RSpec/ExcessiveDocstringSpacing:
   Description: Checks for excessive whitespace in example descriptions.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.5'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
 
@@ -456,8 +456,8 @@ RSpec/ExpectInHook:
 
 RSpec/ExpectInLet:
   Description: Do not use `expect` in let.
-  Enabled: pending
-  VersionAdded: "<<next>>"
+  Enabled: true
+  VersionAdded: '2.30'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInLet
 
 RSpec/ExpectOutput:
@@ -496,7 +496,7 @@ RSpec/HooksBeforeExamples:
 
 RSpec/IdenticalEqualityAssertion:
   Description: Checks for equality assertions with identical expressions on both sides.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
 
@@ -533,7 +533,7 @@ RSpec/ImplicitSubject:
 
 RSpec/IndexedLet:
   Description: Do not set up test data using indexes (e.g., `item_1`, `item_2`).
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.20'
   VersionChanged: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
@@ -558,7 +558,7 @@ RSpec/InstanceVariable:
 
 RSpec/IsExpectedSpecify:
   Description: Check for `specify` with `is_expected` and one-liner expectations.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.27'
   StyleGuide: https://rspec.rubystyle.guide/#it-and-specify
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IsExpectedSpecify
@@ -610,7 +610,7 @@ RSpec/LetSetup:
 
 RSpec/MatchArray:
   Description: Checks where `match_array` is used.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
@@ -643,7 +643,7 @@ RSpec/MessageSpies:
 
 RSpec/MetadataStyle:
   Description: Use consistent metadata style.
-  Enabled: pending
+  Enabled: true
   EnforcedStyle: symbol
   SupportedStyles:
     - hash
@@ -711,7 +711,7 @@ RSpec/NestedGroups:
 
 RSpec/NoExpectationExample:
   Description: Checks if an example contains any expectation.
-  Enabled: pending
+  Enabled: true
   Safe: false
   VersionAdded: '2.13'
   VersionChanged: '2.14'
@@ -744,7 +744,7 @@ RSpec/Pending:
 
 RSpec/PendingWithoutReason:
   Description: Checks for pending or skipped examples without reason.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.16'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingWithoutReason
 
@@ -770,7 +770,7 @@ RSpec/ReceiveCounts:
 
 RSpec/ReceiveMessages:
   Description: Checks for multiple messages stubbed on the same object.
-  Enabled: pending
+  Enabled: true
   SafeAutoCorrect: false
   VersionAdded: '2.23'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
@@ -783,19 +783,19 @@ RSpec/ReceiveNever:
 
 RSpec/RedundantAround:
   Description: Remove redundant `around` hook.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
 RSpec/RedundantPredicateMatcher:
   Description: Checks for redundant predicate matcher.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.26'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 
 RSpec/RemoveConst:
   Description: Checks that `remove_const` is not used in specs.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.26'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
 
@@ -831,7 +831,7 @@ RSpec/RepeatedIncludeExample:
 
 RSpec/RepeatedSubjectCall:
   Description: Checks for repeated calls to subject missing that it is memoized.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.27'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
 
@@ -888,19 +888,19 @@ RSpec/SingleArgumentMessageChain:
 
 RSpec/SkipBlockInsideExample:
   Description: Checks for passing a block to `skip` within examples.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SkipBlockInsideExample
 
 RSpec/SortMetadata:
   Description: Sort RSpec metadata alphabetically.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.14'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
 RSpec/SpecFilePathFormat:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: pending
+  Enabled: true
   Include:
     - "**/*_spec.rb"
   Exclude:
@@ -916,7 +916,7 @@ RSpec/SpecFilePathFormat:
 
 RSpec/SpecFilePathSuffix:
   Description: Checks that spec file paths suffix are consistent and well-formed.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.24'
   Include:
     - "**/*_spec*rb*"
@@ -931,7 +931,7 @@ RSpec/StubbedMock:
 
 RSpec/SubjectDeclaration:
   Description: Ensure that subject is defined using subject helper.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.5'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
 
@@ -945,7 +945,7 @@ RSpec/SubjectStub:
 
 RSpec/UndescriptiveLiteralsDescription:
   Description: Description should be descriptive.
-  Enabled: pending
+  Enabled: true
   VersionAdded: '2.29'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
 
@@ -979,7 +979,7 @@ RSpec/VariableName:
 
 RSpec/VerifiedDoubleReference:
   Description: Checks for consistent verified double reference style.
-  Enabled: pending
+  Enabled: true
   SafeAutoCorrect: false
   EnforcedStyle: constant
   SupportedStyles:

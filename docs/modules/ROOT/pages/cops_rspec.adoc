@@ -197,7 +197,7 @@ expect(foo).to be(true)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Command-line only
 | 2.20
@@ -227,7 +227,7 @@ expect(array).to be_empty
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | No
 | Always (Unsafe)
 | 2.9.0
@@ -323,7 +323,7 @@ expect(foo).to be(nil)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.9.0
@@ -426,7 +426,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.11
@@ -516,7 +516,7 @@ expect { run }
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.13
@@ -573,7 +573,7 @@ expect(object).to be_a_kind_of(String)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.19
@@ -1122,7 +1122,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.16
@@ -1508,7 +1508,7 @@ let(:foo) { bar }
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Command-line only
 | 2.24
@@ -1539,7 +1539,7 @@ describe 'Something'
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.29
@@ -1570,7 +1570,7 @@ expect { bar }.to output.to_stderr
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.24
@@ -1870,7 +1870,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.5
@@ -2060,10 +2060,10 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
-| <<next>>
+| 2.30
 | -
 |===
 
@@ -2326,7 +2326,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.4
@@ -2551,7 +2551,7 @@ it { expect(named_subject).to be_truthy }
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.20
@@ -2756,7 +2756,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.27
@@ -3133,7 +3133,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.19
@@ -3318,7 +3318,7 @@ do_something
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.24
@@ -3999,7 +3999,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | No
 | No
 | 2.13
@@ -4234,7 +4234,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.16
@@ -4449,7 +4449,7 @@ expect(foo).to receive(:bar).at_most(:twice).times
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always (Unsafe)
 | 2.23
@@ -4524,7 +4524,7 @@ expect(foo).not_to receive(:bar)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.19
@@ -4554,7 +4554,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.26
@@ -4587,7 +4587,7 @@ expect(foo).to all be(bar)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.26
@@ -4886,7 +4886,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.27
@@ -5254,7 +5254,7 @@ allow(foo).to receive("bar.baz")
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.19
@@ -5294,7 +5294,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always
 | 2.14
@@ -5327,7 +5327,7 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.24
@@ -5418,7 +5418,7 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.24
@@ -5492,7 +5492,7 @@ expect(foo).to receive(:bar).with(42)
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.5
@@ -5590,7 +5590,7 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
 | 2.29
@@ -5835,7 +5835,7 @@ let(:userFood_2) { 'fettuccine' }
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | Always (Unsafe)
 | 2.10.0
