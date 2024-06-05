@@ -122,7 +122,6 @@ Style/RequireOrder:
   Enabled: true
 
 RSpec/SpecFilePathFormat:
-  Enabled: true
   Exclude:
     - spec/rubocop/cop/rspec/mixin/**/*.rb
 
@@ -253,66 +252,5 @@ Style/SwapValues: {Enabled: true}
 Style/YAMLFileRead: {Enabled: true}
 
 # Enable our own pending cops.
-
-RSpec/BeEmpty:
-  Enabled: true
-RSpec/BeEq:
-  Enabled: true
-RSpec/BeNil:
-  Enabled: true
-RSpec/ChangeByZero:
-  Enabled: true
-RSpec/ClassCheck:
-  Enabled: true
-RSpec/ContainExactly:
-  Enabled: true
-RSpec/DuplicatedMetadata:
-  Enabled: true
-RSpec/EmptyMetadata:
-  Enabled: true
-RSpec/EmptyOutput:
-  Enabled: true
-RSpec/Eq:
-  Enabled: true
-RSpec/ExcessiveDocstringSpacing:
-  Enabled: true
-RSpec/ExpectInLet:
-  Enabled: true
-RSpec/IdenticalEqualityAssertion:
-  Enabled: true
-RSpec/IndexedLet:
-  Enabled: true
-RSpec/IsExpectedSpecify:
-  Enabled: true
-RSpec/MatchArray:
-  Enabled: true
-RSpec/MetadataStyle:
-  Enabled: true
-RSpec/MissingExpectationTargetMethod:
-  Enabled: true
-RSpec/NoExpectationExample:
-  Enabled: true
-RSpec/PendingWithoutReason:
-  Enabled: true
-RSpec/ReceiveMessages:
-  Enabled: true
-RSpec/RedundantAround:
-  Enabled: true
-RSpec/RedundantPredicateMatcher:
-  Enabled: true
-RSpec/RemoveConst:
-  Enabled: true
-RSpec/RepeatedSubjectCall:
-  Enabled: true
-RSpec/SkipBlockInsideExample:
-  Enabled: true
-RSpec/SortMetadata:
-  Enabled: true
-RSpec/SpecFilePathSuffix:
-  Enabled: true
-RSpec/SubjectDeclaration:
-  Enabled: true
-RSpec/UndescriptiveLiteralsDescription:
-  Enabled: true
-RSpec/VerifiedDoubleReference:
-  Enabled: true
+#
+# No pending cops yet.
