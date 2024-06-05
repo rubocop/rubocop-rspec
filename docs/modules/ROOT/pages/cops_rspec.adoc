@@ -199,9 +199,9 @@ expect(foo).to be(true)
 
 | Pending
 | Yes
-| Always
+| Command-line only
 | 2.20
-| -
+| <<next>>
 |===
 
 Prefer using `be_empty` when checking for an empty array.
@@ -1140,9 +1140,9 @@ describe 'Something', :a
 
 | Enabled
 | Yes
-| Always (Unsafe)
+| Command-line only (Unsafe)
 | 1.7
-| 2.13
+| <<next>>
 |===
 
 Checks if an example group does not include any tests.
@@ -1194,9 +1194,9 @@ end
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.39
-| -
+| <<next>>
 |===
 
 Checks for empty before and after hooks.
@@ -1497,9 +1497,9 @@ let(:foo) { bar }
 
 | Pending
 | Yes
-| Always
+| Command-line only
 | 2.24
-| -
+| <<next>>
 |===
 
 Avoid empty metadata hash.
@@ -2223,9 +2223,9 @@ my_class_spec.rb         # describe MyClass, '#method'
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.5
-| 2.1
+| <<next>>
 |===
 
 Checks if examples are focused.
@@ -2385,9 +2385,9 @@ end
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.29
-| -
+| <<next>>
 |===
 
 Checks for before/around/after hooks that come after an example.
@@ -3140,9 +3140,9 @@ end
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.16
-| 1.22
+| <<next>>
 |===
 
 Checks for `let` definitions that come after an example.
@@ -5096,9 +5096,9 @@ allow(Foo).to receive(:bar).and_return(bar.baz)
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.14
-| 1.39
+| <<next>>
 |===
 
 Checks for let scattered across the example group.
@@ -5139,9 +5139,9 @@ end
 
 | Enabled
 | Yes
-| Always
+| Command-line only
 | 1.10
-| -
+| <<next>>
 |===
 
 Checks for setup scattered across multiple hooks in an example group.
