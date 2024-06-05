@@ -66,6 +66,7 @@
 * xref:cops_rspec.adoc#rspecmessagespies[RSpec/MessageSpies]
 * xref:cops_rspec.adoc#rspecmetadatastyle[RSpec/MetadataStyle]
 * xref:cops_rspec.adoc#rspecmissingexamplegroupargument[RSpec/MissingExampleGroupArgument]
+* xref:cops_rspec.adoc#rspecmissingexpectationtargetmethod[RSpec/MissingExpectationTargetMethod]
 * xref:cops_rspec.adoc#rspecmultipledescribes[RSpec/MultipleDescribes]
 * xref:cops_rspec.adoc#rspecmultipleexpectations[RSpec/MultipleExpectations]
 * xref:cops_rspec.adoc#rspecmultiplememoizedhelpers[RSpec/MultipleMemoizedHelpers]
