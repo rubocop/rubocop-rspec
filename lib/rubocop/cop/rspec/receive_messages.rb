@@ -35,16 +35,6 @@ module RuboCop
         MSG = 'Use `receive_messages` instead of multiple stubs on lines ' \
               '%<loc>s.'
 
-        def on_begin(node)
-          repeated_receive_message(node).each do |item, repeated_lines, args|
-            next if repeated_lines.empty?
-
-            register_offense(item, repeated_lines, args)
-          end
-        end
-
-        private
-
         # @!method allow_receive_message?(node)
         def_node_matcher :allow_receive_message?, <<~PATTERN
           (send (send nil? :allow ...) :to (send (send nil? :receive (sym _)) :and_return !#heredoc_or_splat?))
@@ -69,6 +59,16 @@ module RuboCop
         def_node_matcher :receive_and_return_argument, <<~PATTERN
           (send (send nil? :allow ...) :to (send (send nil? :receive (sym $_)) :and_return $_))
         PATTERN
+
+        def on_begin(node)
+          repeated_receive_message(node).each do |item, repeated_lines, args|
+            next if repeated_lines.empty?
+
+            register_offense(item, repeated_lines, args)
+          end
+        end
+
+        private
 
         def repeated_receive_message(node)
           node

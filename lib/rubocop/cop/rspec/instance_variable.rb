@@ -51,17 +51,6 @@ module RuboCop
         MSG = 'Avoid instance variables - use let, ' \
               'a method call, or a local variable (if possible).'
 
-        def on_top_level_group(node)
-          ivar_usage(node) do |ivar, name|
-            next if valid_usage?(ivar)
-            next if assignment_only? && !ivar_assigned?(node, name)
-
-            add_offense(ivar)
-          end
-        end
-
-        private
-
         # @!method dynamic_class?(node)
         def_node_matcher :dynamic_class?, <<~PATTERN
           (block (send (const nil? :Class) :new ...) ...)
@@ -80,6 +69,17 @@ module RuboCop
 
         # @!method ivar_assigned?(node)
         def_node_search :ivar_assigned?, '(ivasgn % ...)'
+
+        def on_top_level_group(node)
+          ivar_usage(node) do |ivar, name|
+            next if valid_usage?(ivar)
+            next if assignment_only? && !ivar_assigned?(node, name)
+
+            add_offense(ivar)
+          end
+        end
+
+        private
 
         def valid_usage?(node)
           node.each_ancestor(:block).any? do |block|

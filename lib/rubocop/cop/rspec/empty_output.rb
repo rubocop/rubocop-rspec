@@ -20,19 +20,6 @@ module RuboCop
         MSG = 'Use `%<runner>s` instead of matching on an empty output.'
         RESTRICT_ON_SEND = Runners.all
 
-        def on_send(send_node)
-          matching_empty_output(send_node) do |node|
-            runner = send_node.method?(:to) ? 'not_to' : 'to'
-            message = format(MSG, runner: runner)
-            add_offense(node, message: message) do |corrector|
-              corrector.replace(send_node.loc.selector, runner)
-              corrector.replace(node, 'output')
-            end
-          end
-        end
-
-        private
-
         # @!method matching_empty_output(node)
         def_node_matcher :matching_empty_output, <<~PATTERN
           (send
@@ -43,6 +30,17 @@ module RuboCop
             (send $(send nil? :output (str empty?)) ...)
           )
         PATTERN
+
+        def on_send(send_node)
+          matching_empty_output(send_node) do |node|
+            runner = send_node.method?(:to) ? 'not_to' : 'to'
+            message = format(MSG, runner: runner)
+            add_offense(node, message: message) do |corrector|
+              corrector.replace(send_node.loc.selector, runner)
+              corrector.replace(node, 'output')
+            end
+          end
+        end
       end
     end
   end

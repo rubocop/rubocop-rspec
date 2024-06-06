@@ -29,6 +29,11 @@ module RuboCop
 
         MSG = 'Empty hook detected.'
 
+        # @!method empty_hook?(node)
+        def_node_matcher :empty_hook?, <<~PATTERN
+          (block $(send nil? #Hooks.all ...) _ nil?)
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           empty_hook?(node) do |hook|
             add_offense(hook) do |corrector|
@@ -38,13 +43,6 @@ module RuboCop
             end
           end
         end
-
-        private
-
-        # @!method empty_hook?(node)
-        def_node_matcher :empty_hook?, <<~PATTERN
-          (block $(send nil? #Hooks.all ...) _ nil?)
-        PATTERN
       end
     end
   end

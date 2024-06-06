@@ -4,6 +4,19 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec example groups
     class ExampleGroup < Concept
+      # @!method scope_change?(node)
+      #
+      #   Detect if the node is an example group or shared example
+      #
+      #   Selectors which indicate that we should stop searching
+      #
+      def_node_matcher :scope_change?, <<~PATTERN
+        (block {
+          (send #rspec? {#SharedGroups.all #ExampleGroups.all} ...)
+          (send nil? #Includes.all ...)
+        } ...)
+      PATTERN
+
       def lets
         find_all_in_scope(node, :let?)
       end
@@ -25,19 +38,6 @@ module RuboCop
       end
 
       private
-
-      # @!method scope_change?(node)
-      #
-      #   Detect if the node is an example group or shared example
-      #
-      #   Selectors which indicate that we should stop searching
-      #
-      def_node_matcher :scope_change?, <<~PATTERN
-        (block {
-          (send #rspec? {#SharedGroups.all #ExampleGroups.all} ...)
-          (send nil? #Includes.all ...)
-        } ...)
-      PATTERN
 
       # Recursively search for predicate within the current scope
       #

@@ -41,6 +41,17 @@ module RuboCop
         MSG_BLOCK = 'Use block for static values.'
         RESTRICT_ON_SEND = %i[and_return].freeze
 
+        # @!method contains_stub?(node)
+        def_node_search :contains_stub?, '(send nil? :receive (...))'
+
+        # @!method stub_with_block?(node)
+        def_node_matcher :stub_with_block?, '(block #contains_stub? ...)'
+
+        # @!method and_return_value(node)
+        def_node_search :and_return_value, <<~PATTERN
+          $(send _ :and_return $(...))
+        PATTERN
+
         def on_send(node)
           return unless style == :block
           return unless contains_stub?(node)
@@ -56,17 +67,6 @@ module RuboCop
         end
 
         private
-
-        # @!method contains_stub?(node)
-        def_node_search :contains_stub?, '(send nil? :receive (...))'
-
-        # @!method stub_with_block?(node)
-        def_node_matcher :stub_with_block?, '(block #contains_stub? ...)'
-
-        # @!method and_return_value(node)
-        def_node_search :and_return_value, <<~PATTERN
-          $(send _ :and_return $(...))
-        PATTERN
 
         def check_and_return_call(node)
           and_return_value(node) do |and_return, args|

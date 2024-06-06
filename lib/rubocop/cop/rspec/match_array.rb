@@ -28,6 +28,11 @@ module RuboCop
         MSG = 'Prefer `contain_exactly` when matching an array literal.'
         RESTRICT_ON_SEND = %i[match_array].freeze
 
+        # @!method match_array_with_empty_array?(node)
+        def_node_matcher :match_array_with_empty_array?, <<~PATTERN
+          (send nil? :match_array (array))
+        PATTERN
+
         def on_send(node)
           return unless node.first_argument&.array_type?
           return if match_array_with_empty_array?(node)
@@ -36,11 +41,6 @@ module RuboCop
         end
 
         private
-
-        # @!method match_array_with_empty_array?(node)
-        def_node_matcher :match_array_with_empty_array?, <<~PATTERN
-          (send nil? :match_array (array))
-        PATTERN
 
         def check_populated_array(node)
           return if node.first_argument.percent_literal?

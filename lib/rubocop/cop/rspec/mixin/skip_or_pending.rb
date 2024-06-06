@@ -7,8 +7,6 @@ module RuboCop
       module SkipOrPending
         extend RuboCop::NodePattern::Macros
 
-        private
-
         # @!method skipped_in_metadata?(node)
         def_node_matcher :skipped_in_metadata?, <<~PATTERN
           {

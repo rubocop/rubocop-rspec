@@ -37,6 +37,26 @@ module RuboCop
         MSG_CALL = 'Prefer `change { %<obj>s.%<attr>s }`.'
         RESTRICT_ON_SEND = %i[change].freeze
 
+        # @!method expect_change_with_arguments(node)
+        def_node_matcher :expect_change_with_arguments, <<~PATTERN
+          (send nil? :change $_ ({sym str} $_))
+        PATTERN
+
+        # @!method expect_change_with_block(node)
+        def_node_matcher :expect_change_with_block, <<~PATTERN
+          (block
+            (send nil? :change)
+            (args)
+            (send
+              ${
+                (send nil? _)  # change { user.name }
+                const          # change { User.count }
+              }
+              $_
+            )
+          )
+        PATTERN
+
         def on_send(node)
           return unless style == :block
 
@@ -60,28 +80,6 @@ module RuboCop
             end
           end
         end
-
-        private
-
-        # @!method expect_change_with_arguments(node)
-        def_node_matcher :expect_change_with_arguments, <<~PATTERN
-          (send nil? :change $_ ({sym str} $_))
-        PATTERN
-
-        # @!method expect_change_with_block(node)
-        def_node_matcher :expect_change_with_block, <<~PATTERN
-          (block
-            (send nil? :change)
-            (args)
-            (send
-              ${
-                (send nil? _)  # change { user.name }
-                const          # change { User.count }
-              }
-              $_
-            )
-          )
-        PATTERN
       end
     end
   end

@@ -19,6 +19,11 @@ module RuboCop
         MSG = 'Use `eq` instead of `be ==` to compare objects.'
         RESTRICT_ON_SEND = Runners.all
 
+        # @!method be_equals(node)
+        def_node_matcher :be_equals, <<~PATTERN
+          (send _ #Runners.all $(send (send nil? :be) :== _))
+        PATTERN
+
         def on_send(node)
           be_equals(node) do |matcher|
             range = offense_range(matcher)
@@ -29,11 +34,6 @@ module RuboCop
         end
 
         private
-
-        # @!method be_equals(node)
-        def_node_matcher :be_equals, <<~PATTERN
-          (send _ #Runners.all $(send (send nil? :be) :== _))
-        PATTERN
 
         def offense_range(matcher)
           range_between(

@@ -25,6 +25,11 @@ module RuboCop
         IS_EXPECTED_METHODS = ::Set[:is_expected, :are_expected].freeze
         MSG = 'Use `it` instead of `specify`.'
 
+        # @!method offense?(node)
+        def_node_matcher :offense?, <<~PATTERN
+          (block (send _ :specify) _ (send (send _ IS_EXPECTED_METHODS) ...))
+        PATTERN
+
         def on_send(node)
           block_node = node.parent
           return unless block_node&.single_line? && offense?(block_node)
@@ -34,13 +39,6 @@ module RuboCop
             corrector.replace(selector, 'it')
           end
         end
-
-        private
-
-        # @!method offense?(node)
-        def_node_matcher :offense?, <<~PATTERN
-          (block (send _ :specify) _ (send (send _ IS_EXPECTED_METHODS) ...))
-        PATTERN
       end
     end
   end

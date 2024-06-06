@@ -37,14 +37,6 @@ module RuboCop
 
         MSG = 'Pending spec found.'
 
-        def on_send(node)
-          return unless pending_block?(node) || skipped?(node)
-
-          add_offense(node)
-        end
-
-        private
-
         # @!method skippable?(node)
         def_node_matcher :skippable?, <<~PATTERN
           {
@@ -65,6 +57,14 @@ module RuboCop
             (send nil? {#Examples.skipped #Examples.pending} ...)
           }
         PATTERN
+
+        def on_send(node)
+          return unless pending_block?(node) || skipped?(node)
+
+          add_offense(node)
+        end
+
+        private
 
         def skipped?(node)
           (skippable?(node) && skipped_in_metadata?(node)) ||

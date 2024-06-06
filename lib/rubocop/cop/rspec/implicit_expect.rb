@@ -30,6 +30,14 @@ module RuboCop
 
         RESTRICT_ON_SEND = Runners.all + %i[should should_not]
 
+        # @!method implicit_expect(node)
+        def_node_matcher :implicit_expect, <<~PATTERN
+          {
+            (send nil? ${:should :should_not} ...)
+            (send (send nil? $:is_expected) #Runners.all ...)
+          }
+        PATTERN
+
         alternatives = {
           'is_expected.to'     => 'should',
           'is_expected.not_to' => 'should_not',
@@ -57,14 +65,6 @@ module RuboCop
         end
 
         private
-
-        # @!method implicit_expect(node)
-        def_node_matcher :implicit_expect, <<~PATTERN
-          {
-            (send nil? ${:should :should_not} ...)
-            (send (send nil? $:is_expected) #Runners.all ...)
-          }
-        PATTERN
 
         def offending_expect(node)
           case implicit_expect(node)

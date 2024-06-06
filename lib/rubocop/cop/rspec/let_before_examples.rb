@@ -35,18 +35,6 @@ module RuboCop
 
         MSG = 'Move `let` before the examples in the group.'
 
-        def self.autocorrect_incompatible_with
-          [RSpec::ScatteredLet]
-        end
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example_group_with_body?(node)
-
-          check_let_declarations(node.body) if multiline_block?(node.body)
-        end
-
-        private
-
         # @!method example_or_group?(node)
         def_node_matcher :example_or_group?, <<~PATTERN
           {
@@ -62,6 +50,18 @@ module RuboCop
             (send nil? :include_examples ...)
           }
         PATTERN
+
+        def self.autocorrect_incompatible_with
+          [RSpec::ScatteredLet]
+        end
+
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          return unless example_group_with_body?(node)
+
+          check_let_declarations(node.body) if multiline_block?(node.body)
+        end
+
+        private
 
         def example_group_with_include_examples?(body)
           body.children.any? { |sibling| include_examples?(sibling) }

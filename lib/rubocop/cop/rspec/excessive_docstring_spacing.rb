@@ -28,6 +28,14 @@ module RuboCop
 
         MSG = 'Excessive whitespace.'
 
+        # @!method example_description(node)
+        def_node_matcher :example_description, <<~PATTERN
+          (send _ {#Examples.all #ExampleGroups.all} ${
+            $str
+            $(dstr ({str dstr `sym} ...) ...)
+          } ...)
+        PATTERN
+
         def on_send(node)
           example_description(node) do |description_node, message|
             return if description_node.heredoc?
@@ -41,14 +49,6 @@ module RuboCop
         end
 
         private
-
-        # @!method example_description(node)
-        def_node_matcher :example_description, <<~PATTERN
-          (send _ {#Examples.all #ExampleGroups.all} ${
-            $str
-            $(dstr ({str dstr `sym} ...) ...)
-          } ...)
-        PATTERN
 
         # @param text [String]
         def excessive_whitespace?(text)

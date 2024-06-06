@@ -81,18 +81,6 @@ module RuboCop
 
         MSG = 'Name your test subject if you need to reference it explicitly.'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          if !example_or_hook_block?(node) || ignored_shared_example?(node)
-            return
-          end
-
-          subject_usage(node) do |subject_node|
-            check_explicit_subject(subject_node)
-          end
-        end
-
-        private
-
         # @!method example_or_hook_block?(node)
         def_node_matcher :example_or_hook_block?, <<~PATTERN
           (block (send nil? {#Examples.all #Hooks.all} ...) ...)
@@ -105,6 +93,18 @@ module RuboCop
 
         # @!method subject_usage(node)
         def_node_search :subject_usage, '$(send nil? :subject)'
+
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          if !example_or_hook_block?(node) || ignored_shared_example?(node)
+            return
+          end
+
+          subject_usage(node) do |subject_node|
+            check_explicit_subject(subject_node)
+          end
+        end
+
+        private
 
         def ignored_shared_example?(node)
           return false unless cop_config['IgnoreSharedExamples']

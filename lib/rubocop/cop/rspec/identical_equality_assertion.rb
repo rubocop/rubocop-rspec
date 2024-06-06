@@ -19,20 +19,18 @@ module RuboCop
               'may indicate a flawed test.'
         RESTRICT_ON_SEND = %i[to].freeze
 
-        def on_send(node)
-          equality_check?(node) do |left, right|
-            add_offense(node) if left == right
-          end
-        end
-
-        private
-
         # @!method equality_check?(node)
         def_node_matcher :equality_check?, <<~PATTERN
           (send (send nil? :expect $_) :to
             {(send nil? {:eql :eq :be} $_)
              (send (send nil? :be) :== $_)})
         PATTERN
+
+        def on_send(node)
+          equality_check?(node) do |left, right|
+            add_offense(node) if left == right
+          end
+        end
       end
     end
   end

@@ -25,6 +25,14 @@ module RuboCop
       class OverwritingSetup < Base
         MSG = '`%<name>s` is already defined.'
 
+        # @!method setup?(node)
+        def_node_matcher :setup?, <<~PATTERN
+          (block (send nil? {#Helpers.all #Subjects.all} ...) ...)
+        PATTERN
+
+        # @!method first_argument_name(node)
+        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group_with_body?(node)
 
@@ -37,14 +45,6 @@ module RuboCop
         end
 
         private
-
-        # @!method setup?(node)
-        def_node_matcher :setup?, <<~PATTERN
-          (block (send nil? {#Helpers.all #Subjects.all} ...) ...)
-        PATTERN
-
-        # @!method first_argument_name(node)
-        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
 
         def find_duplicates(node)
           setup_expressions = Set.new

@@ -4,6 +4,13 @@ module RuboCop
   module RSpec
     # Wrapper for RSpec hook
     class Hook < Concept
+      # @!method extract_metadata(node)
+      def_node_matcher :extract_metadata, <<~PATTERN
+        (block
+          (send _ _ #valid_scope? ? $...) ...
+        )
+      PATTERN
+
       def name
         node.method_name
       end
@@ -36,13 +43,6 @@ module RuboCop
       end
 
       private
-
-      # @!method extract_metadata(node)
-      def_node_matcher :extract_metadata, <<~PATTERN
-        (block
-          (send _ _ #valid_scope? ? $...) ...
-        )
-      PATTERN
 
       def valid_scope?(node)
         node&.sym_type? && Language::HookScopes.all(node.value)

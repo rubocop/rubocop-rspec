@@ -60,6 +60,11 @@ module RuboCop
 
         MSG = 'Context description should match %<patterns>s.'
 
+        # @!method context_wording(node)
+        def_node_matcher :context_wording, <<~PATTERN
+          (block (send #rspec? { :context :shared_context } $({str dstr xstr} ...) ...) ...)
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_wording(node) do |context|
             if bad_pattern?(context)
@@ -70,11 +75,6 @@ module RuboCop
         end
 
         private
-
-        # @!method context_wording(node)
-        def_node_matcher :context_wording, <<~PATTERN
-          (block (send #rspec? { :context :shared_context } $({str dstr xstr} ...) ...) ...)
-        PATTERN
 
         def allowed_patterns
           super + prefix_regexes

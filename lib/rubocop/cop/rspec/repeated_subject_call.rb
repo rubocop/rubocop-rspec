@@ -34,14 +34,6 @@ module RuboCop
 
         MSG = 'Calls to subject are memoized, this block is misleading'
 
-        def on_top_level_group(node)
-          @subjects_by_node = detect_subjects_in_scope(node)
-
-          detect_offenses_in_block(node)
-        end
-
-        private
-
         # @!method subject?(node)
         #   Find a named or unnamed subject definition
         #
@@ -69,6 +61,14 @@ module RuboCop
         def_node_search :subject_calls, <<~PATTERN
           (send nil? %)
         PATTERN
+
+        def on_top_level_group(node)
+          @subjects_by_node = detect_subjects_in_scope(node)
+
+          detect_offenses_in_block(node)
+        end
+
+        private
 
         def detect_offense(subject_node)
           return if subject_node.chained?

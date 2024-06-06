@@ -17,6 +17,16 @@ module RuboCop
               'Chain the methods or remove it.'
         RESTRICT_ON_SEND = %i[expect].freeze
 
+        # @!method expect?(node)
+        def_node_matcher :expect?, <<~PATTERN
+          (send nil? :expect ...)
+        PATTERN
+
+        # @!method expect_block?(node)
+        def_node_matcher :expect_block?, <<~PATTERN
+          (block #expect? (args) _body)
+        PATTERN
+
         def on_send(node)
           return unless expect?(node)
 
@@ -30,16 +40,6 @@ module RuboCop
         end
 
         private
-
-        # @!method expect?(node)
-        def_node_matcher :expect?, <<~PATTERN
-          (send nil? :expect ...)
-        PATTERN
-
-        # @!method expect_block?(node)
-        def_node_matcher :expect_block?, <<~PATTERN
-          (block #expect? (args) _body)
-        PATTERN
 
         def check_expect(node)
           return unless void?(node)

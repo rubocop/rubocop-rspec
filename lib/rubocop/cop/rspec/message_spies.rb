@@ -41,6 +41,16 @@ module RuboCop
 
         RESTRICT_ON_SEND = Runners.all
 
+        # @!method message_expectation(node)
+        def_node_matcher :message_expectation, %(
+          (send (send nil? :expect $_) #Runners.all ...)
+        )
+
+        # @!method receive_message(node)
+        def_node_search :receive_message, %(
+          $(send nil? {:receive :have_received} ...)
+        )
+
         def on_send(node)
           receive_message_matcher(node) do |receiver, message_matcher|
             return correct_style_detected if preferred_style?(message_matcher)
@@ -53,16 +63,6 @@ module RuboCop
         end
 
         private
-
-        # @!method message_expectation(node)
-        def_node_matcher :message_expectation, %(
-          (send (send nil? :expect $_) #Runners.all ...)
-        )
-
-        # @!method receive_message(node)
-        def_node_search :receive_message, %(
-          $(send nil? {:receive :have_received} ...)
-        )
 
         def receive_message_matcher(node)
           return unless (receiver = message_expectation(node))

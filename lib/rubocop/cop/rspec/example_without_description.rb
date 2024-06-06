@@ -63,6 +63,9 @@ module RuboCop
                                'have auto-generated description.'
         MSG_ADD_DESCRIPTION  = 'Add a description.'
 
+        # @!method example_description(node)
+        def_node_matcher :example_description, '(send nil? _ $(str $_))'
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example?(node)
 
@@ -76,9 +79,6 @@ module RuboCop
         end
 
         private
-
-        # @!method example_description(node)
-        def_node_matcher :example_description, '(send nil? _ $(str $_))'
 
         def check_example_without_description(node)
           return if node.arguments?
