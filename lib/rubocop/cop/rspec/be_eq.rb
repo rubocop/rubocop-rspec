@@ -29,11 +29,6 @@ module RuboCop
         MSG = 'Prefer `be` over `eq`.'
         RESTRICT_ON_SEND = %i[eq].freeze
 
-        # @!method eq_type_with_identity?(node)
-        def_node_matcher :eq_type_with_identity?, <<~PATTERN
-          (send nil? :eq {true false nil})
-        PATTERN
-
         def on_send(node)
           return unless eq_type_with_identity?(node)
 
@@ -41,6 +36,13 @@ module RuboCop
             corrector.replace(node.loc.selector, 'be')
           end
         end
+
+        private
+
+        # @!method eq_type_with_identity?(node)
+        def_node_matcher :eq_type_with_identity?, <<~PATTERN
+          (send nil? :eq {true false nil})
+        PATTERN
       end
     end
   end

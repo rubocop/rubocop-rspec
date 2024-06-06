@@ -47,6 +47,11 @@ Lint/InterpolationCheck:
 Lint/RedundantCopDisableDirective:
   Enabled: false
 
+Lint/UselessAccessModifier:
+  MethodCreatingMethods:
+    - def_node_matcher
+    - def_node_search
+
 Metrics/BlockLength:
   Exclude:
     - rubocop-rspec.gemspec

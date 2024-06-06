@@ -39,14 +39,6 @@ module RuboCop
 
         MSG = 'Spec path should end with `%<suffix>s`.'
 
-        # @!method example_group_arguments(node)
-        def_node_matcher :example_group_arguments, <<~PATTERN
-          (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
-        PATTERN
-
-        # @!method metadata_key_value(node)
-        def_node_search :metadata_key_value, '(pair (sym $_key) (sym $_value))'
-
         def on_top_level_example_group(node)
           return unless top_level_groups.one?
 
@@ -58,6 +50,14 @@ module RuboCop
         end
 
         private
+
+        # @!method example_group_arguments(node)
+        def_node_matcher :example_group_arguments, <<~PATTERN
+          (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
+        PATTERN
+
+        # @!method metadata_key_value(node)
+        def_node_search :metadata_key_value, '(pair (sym $_key) (sym $_value))'
 
         def ensure_correct_file_path(send_node, class_name, arguments)
           pattern = correct_path_pattern(class_name, arguments)

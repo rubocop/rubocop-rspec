@@ -55,6 +55,22 @@ module RuboCop
 
         MSG = 'Focused spec found.'
 
+        def on_send(node)
+          return if node.chained? || node.each_ancestor(:def, :defs).any?
+
+          focus_metadata(node) do |focus|
+            add_offense(focus) do |corrector|
+              if focus.pair_type? || focus.str_type? || focus.sym_type?
+                corrector.remove(with_surrounding(focus))
+              elsif focus.send_type?
+                correct_send(corrector, focus)
+              end
+            end
+          end
+        end
+
+        private
+
         # @!method focusable_selector?(node)
         def_node_matcher :focusable_selector?, <<~PATTERN
           {
@@ -77,22 +93,6 @@ module RuboCop
         def_node_matcher :focused_block?, <<~PATTERN
           (send #rspec? {#ExampleGroups.focused #Examples.focused} ...)
         PATTERN
-
-        def on_send(node)
-          return if node.chained? || node.each_ancestor(:def, :defs).any?
-
-          focus_metadata(node) do |focus|
-            add_offense(focus) do |corrector|
-              if focus.pair_type? || focus.str_type? || focus.sym_type?
-                corrector.remove(with_surrounding(focus))
-              elsif focus.send_type?
-                correct_send(corrector, focus)
-              end
-            end
-          end
-        end
-
-        private
 
         def focus_metadata(node, &block)
           yield(node) if focused_block?(node)

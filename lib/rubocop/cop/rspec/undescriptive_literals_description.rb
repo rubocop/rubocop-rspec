@@ -47,11 +47,6 @@ module RuboCop
       class UndescriptiveLiteralsDescription < Base
         MSG = 'Description should be descriptive.'
 
-        # @!method example_groups_or_example?(node)
-        def_node_matcher :example_groups_or_example?, <<~PATTERN
-          (block (send #rspec? {#ExampleGroups.all #Examples.all} $_) ...)
-        PATTERN
-
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           example_groups_or_example?(node) do |arg|
             add_offense(arg) if offense?(arg)
@@ -59,6 +54,11 @@ module RuboCop
         end
 
         private
+
+        # @!method example_groups_or_example?(node)
+        def_node_matcher :example_groups_or_example?, <<~PATTERN
+          (block (send #rspec? {#ExampleGroups.all #Examples.all} $_) ...)
+        PATTERN
 
         def offense?(node)
           %i[xstr int regexp].include?(node.type)

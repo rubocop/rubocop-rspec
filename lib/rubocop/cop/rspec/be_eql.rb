@@ -43,11 +43,6 @@ module RuboCop
         MSG = 'Prefer `be` over `eql`.'
         RESTRICT_ON_SEND = %i[to].freeze
 
-        # @!method eql_type_with_identity(node)
-        def_node_matcher :eql_type_with_identity, <<~PATTERN
-          (send _ :to $(send nil? :eql {true false int float sym nil}))
-        PATTERN
-
         def on_send(node)
           eql_type_with_identity(node) do |eql|
             add_offense(eql.loc.selector) do |corrector|
@@ -55,6 +50,13 @@ module RuboCop
             end
           end
         end
+
+        private
+
+        # @!method eql_type_with_identity(node)
+        def_node_matcher :eql_type_with_identity, <<~PATTERN
+          (send _ :to $(send nil? :eql {true false int float sym nil}))
+        PATTERN
       end
     end
   end

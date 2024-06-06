@@ -49,6 +49,16 @@ module RuboCop
         MSG = 'Repeated include of shared_examples %<name>s ' \
               'on line(s) %<repeat>s'
 
+        def on_begin(node)
+          return unless several_include_examples?(node)
+
+          repeated_include_examples(node).each do |item, repeats|
+            add_offense(item, message: message(item, repeats))
+          end
+        end
+
+        private
+
         # @!method several_include_examples?(node)
         def_node_matcher :several_include_examples?, <<~PATTERN
           (begin <#include_examples? #include_examples? ...>)
@@ -61,16 +71,6 @@ module RuboCop
         # @!method shared_examples_name(node)
         def_node_matcher :shared_examples_name,
                          '(send nil? #Includes.examples $_name ...)'
-
-        def on_begin(node)
-          return unless several_include_examples?(node)
-
-          repeated_include_examples(node).each do |item, repeats|
-            add_offense(item, message: message(item, repeats))
-          end
-        end
-
-        private
 
         def repeated_include_examples(node)
           node

@@ -42,6 +42,21 @@ module RuboCop
 
         MSG = 'Empty example group detected.'
 
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          return if node.each_ancestor(:def, :defs).any?
+          return if node.each_ancestor(:block).any? { |block| example?(block) }
+
+          example_group_body(node) do |body|
+            next unless offensive?(body)
+
+            add_offense(node.send_node) do |corrector|
+              corrector.remove(removed_range(node))
+            end
+          end
+        end
+
+        private
+
         # @!method example_group_body(node)
         #   Match example group blocks and yield their body
         #
@@ -134,21 +149,6 @@ module RuboCop
             (begin <#examples_in_branches? ...>)
           }
         PATTERN
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return if node.each_ancestor(:def, :defs).any?
-          return if node.each_ancestor(:block).any? { |block| example?(block) }
-
-          example_group_body(node) do |body|
-            next unless offensive?(body)
-
-            add_offense(node.send_node) do |corrector|
-              corrector.remove(removed_range(node))
-            end
-          end
-        end
-
-        private
 
         def offensive?(body)
           return true unless body

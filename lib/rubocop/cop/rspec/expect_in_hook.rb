@@ -24,9 +24,6 @@ module RuboCop
       class ExpectInHook < Base
         MSG = 'Do not use `%<expect>s` in `%<hook>s` hook'
 
-        # @!method expectation(node)
-        def_node_search :expectation, '(send nil? #Expectations.all ...)'
-
         def on_block(node)
           return unless hook?(node)
           return if node.body.nil?
@@ -40,6 +37,9 @@ module RuboCop
         alias on_numblock on_block
 
         private
+
+        # @!method expectation(node)
+        def_node_search :expectation, '(send nil? #Expectations.all ...)'
 
         def message(expect, hook)
           format(MSG, expect: expect.method_name, hook: hook.method_name)

@@ -56,6 +56,22 @@ module RuboCop
         MSG_EXAMPLES = "Use `shared_examples` when you don't define context."
         MSG_CONTEXT  = "Use `shared_context` when you don't define examples."
 
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          context_with_only_examples(node) do
+            add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
+              corrector.replace(node.send_node.loc.selector, 'shared_examples')
+            end
+          end
+
+          examples_with_only_context(node) do
+            add_offense(node.send_node, message: MSG_CONTEXT) do |corrector|
+              corrector.replace(node.send_node.loc.selector, 'shared_context')
+            end
+          end
+        end
+
+        private
+
         # @!method examples?(node)
         def_node_search :examples?, <<~PATTERN
           (send nil? {#Includes.examples #Examples.all} ...)
@@ -77,22 +93,6 @@ module RuboCop
         def_node_matcher :shared_example, <<~PATTERN
           (block (send #rspec? #SharedGroups.examples ...) ...)
         PATTERN
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          context_with_only_examples(node) do
-            add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
-              corrector.replace(node.send_node.loc.selector, 'shared_examples')
-            end
-          end
-
-          examples_with_only_context(node) do
-            add_offense(node.send_node, message: MSG_CONTEXT) do |corrector|
-              corrector.replace(node.send_node.loc.selector, 'shared_context')
-            end
-          end
-        end
-
-        private
 
         def context_with_only_examples(node)
           shared_context(node) { yield if examples?(node) && !context?(node) }

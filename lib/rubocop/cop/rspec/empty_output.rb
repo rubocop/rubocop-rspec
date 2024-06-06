@@ -20,17 +20,6 @@ module RuboCop
         MSG = 'Use `%<runner>s` instead of matching on an empty output.'
         RESTRICT_ON_SEND = Runners.all
 
-        # @!method matching_empty_output(node)
-        def_node_matcher :matching_empty_output, <<~PATTERN
-          (send
-            (block
-              (send nil? :expect) ...
-            )
-            #Runners.all
-            (send $(send nil? :output (str empty?)) ...)
-          )
-        PATTERN
-
         def on_send(send_node)
           matching_empty_output(send_node) do |node|
             runner = send_node.method?(:to) ? 'not_to' : 'to'
@@ -41,6 +30,19 @@ module RuboCop
             end
           end
         end
+
+        private
+
+        # @!method matching_empty_output(node)
+        def_node_matcher :matching_empty_output, <<~PATTERN
+          (send
+            (block
+              (send nil? :expect) ...
+            )
+            #Runners.all
+            (send $(send nil? :output (str empty?)) ...)
+          )
+        PATTERN
       end
     end
   end

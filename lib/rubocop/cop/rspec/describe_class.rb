@@ -40,6 +40,16 @@ module RuboCop
         MSG = 'The first argument to describe should be ' \
               'the class or module being tested.'
 
+        def on_top_level_group(node)
+          return if example_group_with_ignored_metadata?(node.send_node)
+
+          not_a_const_described(node.send_node) do |described|
+            add_offense(described)
+          end
+        end
+
+        private
+
         # @!method example_group_with_ignored_metadata?(node)
         def_node_matcher :example_group_with_ignored_metadata?, <<~PATTERN
           (send #rspec? :describe ... (hash <#ignored_metadata? ...>))
@@ -54,16 +64,6 @@ module RuboCop
         def_node_matcher :sym_pair, <<~PATTERN
           (pair $sym $sym)
         PATTERN
-
-        def on_top_level_group(node)
-          return if example_group_with_ignored_metadata?(node.send_node)
-
-          not_a_const_described(node.send_node) do |described|
-            add_offense(described)
-          end
-        end
-
-        private
 
         def ignored_metadata?(node)
           sym_pair(node) do |key, value|

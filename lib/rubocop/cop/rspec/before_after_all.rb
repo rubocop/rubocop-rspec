@@ -26,11 +26,6 @@ module RuboCop
 
         RESTRICT_ON_SEND = Set[:before, :after].freeze
 
-        # @!method before_or_after_all(node)
-        def_node_matcher :before_or_after_all, <<~PATTERN
-          $(send _ RESTRICT_ON_SEND (sym {:all :context}))
-        PATTERN
-
         def on_send(node)
           before_or_after_all(node) do |hook|
             add_offense(
@@ -39,6 +34,13 @@ module RuboCop
             )
           end
         end
+
+        private
+
+        # @!method before_or_after_all(node)
+        def_node_matcher :before_or_after_all, <<~PATTERN
+          $(send _ RESTRICT_ON_SEND (sym {:all :context}))
+        PATTERN
       end
     end
   end

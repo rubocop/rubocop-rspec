@@ -21,6 +21,15 @@ module RuboCop
         MSG = 'Avoid implicit block expectations.'
         RESTRICT_ON_SEND = %i[is_expected should should_not].freeze
 
+        def on_send(node)
+          implicit_expect(node) do |implicit_expect|
+            subject = nearest_subject(implicit_expect)
+            add_offense(implicit_expect) if lambda_subject?(subject&.body)
+          end
+        end
+
+        private
+
         # @!method lambda?(node)
         def_node_matcher :lambda?, <<~PATTERN
           {
@@ -36,15 +45,6 @@ module RuboCop
         def_node_matcher :implicit_expect, <<~PATTERN
           $(send nil? {:is_expected :should :should_not} ...)
         PATTERN
-
-        def on_send(node)
-          implicit_expect(node) do |implicit_expect|
-            subject = nearest_subject(implicit_expect)
-            add_offense(implicit_expect) if lambda_subject?(subject&.body)
-          end
-        end
-
-        private
 
         def nearest_subject(node)
           node

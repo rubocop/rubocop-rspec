@@ -14,11 +14,9 @@ module RuboCop
       #
       class ReceiveNever < Base
         extend AutoCorrector
+
         MSG = 'Use `not_to receive` instead of `never`.'
         RESTRICT_ON_SEND = %i[never].freeze
-
-        # @!method method_on_stub?(node)
-        def_node_search :method_on_stub?, '(send nil? :receive ...)'
 
         def on_send(node)
           return unless node.method?(:never) && method_on_stub?(node)
@@ -29,6 +27,9 @@ module RuboCop
         end
 
         private
+
+        # @!method method_on_stub?(node)
+        def_node_search :method_on_stub?, '(send nil? :receive ...)'
 
         def autocorrect(corrector, node)
           corrector.replace(node.parent.loc.selector, 'not_to')
