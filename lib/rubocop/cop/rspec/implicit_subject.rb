@@ -77,16 +77,6 @@ module RuboCop
           should_not
         ].freeze
 
-        # @!method explicit_unnamed_subject?(node)
-        def_node_matcher :explicit_unnamed_subject?, <<~PATTERN
-          (send nil? :expect (send nil? :subject))
-        PATTERN
-
-        # @!method implicit_subject?(node)
-        def_node_matcher :implicit_subject?, <<~PATTERN
-          (send nil? {:should :should_not :is_expected} ...)
-        PATTERN
-
         def on_send(node)
           return unless invalid?(node)
 
@@ -96,6 +86,16 @@ module RuboCop
         end
 
         private
+
+        # @!method explicit_unnamed_subject?(node)
+        def_node_matcher :explicit_unnamed_subject?, <<~PATTERN
+          (send nil? :expect (send nil? :subject))
+        PATTERN
+
+        # @!method implicit_subject?(node)
+        def_node_matcher :implicit_subject?, <<~PATTERN
+          (send nil? {:should :should_not :is_expected} ...)
+        PATTERN
 
         def autocorrect(corrector, node)
           case node.method_name

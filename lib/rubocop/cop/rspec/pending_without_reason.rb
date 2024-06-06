@@ -59,6 +59,20 @@ module RuboCop
       class PendingWithoutReason < Base
         MSG = 'Give the reason for pending or skip.'
 
+        def on_send(node)
+          on_pending_by_metadata(node)
+          return unless (parent = parent_node(node))
+
+          if spec_group?(parent) || block_node_example_group?(node)
+            on_skipped_by_example_method(node)
+            on_skipped_by_example_group_method(node)
+          elsif example?(parent)
+            on_skipped_by_in_example_method(node)
+          end
+        end
+
+        private
+
         # @!method skipped_in_example?(node)
         def_node_matcher :skipped_in_example?, <<~PATTERN
           {
@@ -98,20 +112,6 @@ module RuboCop
         def_node_matcher :pending_step_without_reason?, <<~PATTERN
           (send nil? {:skip :pending})
         PATTERN
-
-        def on_send(node)
-          on_pending_by_metadata(node)
-          return unless (parent = parent_node(node))
-
-          if spec_group?(parent) || block_node_example_group?(node)
-            on_skipped_by_example_method(node)
-            on_skipped_by_example_group_method(node)
-          elsif example?(parent)
-            on_skipped_by_in_example_method(node)
-          end
-        end
-
-        private
 
         def parent_node(node)
           node_or_block = node.block_node || node

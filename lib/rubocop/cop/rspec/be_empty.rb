@@ -19,6 +19,16 @@ module RuboCop
         MSG = 'Use `be_empty` matchers for checking an empty array.'
         RESTRICT_ON_SEND = %i[contain_exactly match_array].freeze
 
+        def on_send(node)
+          expect_array_matcher?(node.parent) do |expect|
+            add_offense(expect) do |corrector|
+              corrector.replace(expect, 'be_empty')
+            end
+          end
+        end
+
+        private
+
         # @!method expect_array_matcher?(node)
         def_node_matcher :expect_array_matcher?, <<~PATTERN
           (send
@@ -31,14 +41,6 @@ module RuboCop
             _?
           )
         PATTERN
-
-        def on_send(node)
-          expect_array_matcher?(node.parent) do |expect|
-            add_offense(expect) do |corrector|
-              corrector.replace(expect, 'be_empty')
-            end
-          end
-        end
       end
     end
   end

@@ -31,21 +31,6 @@ module RuboCop
         MSG_UNUSED_ARG = 'You should call `%<arg>s.call` ' \
                          'or `%<arg>s.run`.'
 
-        # @!method hook_block(node)
-        def_node_matcher :hook_block, <<~PATTERN
-          (block (send nil? :around sym ?) (args $...) ...)
-        PATTERN
-
-        # @!method hook_numblock(node)
-        def_node_matcher :hook_numblock, <<~PATTERN
-          (numblock (send nil? :around sym ?) ...)
-        PATTERN
-
-        # @!method find_arg_usage(node)
-        def_node_search :find_arg_usage, <<~PATTERN
-          {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
-        PATTERN
-
         def on_block(node)
           hook_block(node) do |(example_proxy)|
             if example_proxy.nil?
@@ -63,6 +48,21 @@ module RuboCop
         end
 
         private
+
+        # @!method hook_block(node)
+        def_node_matcher :hook_block, <<~PATTERN
+          (block (send nil? :around sym ?) (args $...) ...)
+        PATTERN
+
+        # @!method hook_numblock(node)
+        def_node_matcher :hook_numblock, <<~PATTERN
+          (numblock (send nil? :around sym ?) ...)
+        PATTERN
+
+        # @!method find_arg_usage(node)
+        def_node_search :find_arg_usage, <<~PATTERN
+          {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
+        PATTERN
 
         def add_no_arg_offense(node)
           add_offense(node, message: MSG_NO_ARG)

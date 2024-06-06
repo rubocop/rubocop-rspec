@@ -47,6 +47,16 @@ module RuboCop
 
         MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
 
+        def on_begin(node)
+          return unless several_example_groups?(node)
+
+          repeated_group_descriptions(node).each do |group, repeats|
+            add_offense(group, message: message(group, repeats))
+          end
+        end
+
+        private
+
         # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<~PATTERN
           (begin <#example_group? #example_group? ...>)
@@ -59,16 +69,6 @@ module RuboCop
 
         # @!method empty_description?(node)
         def_node_matcher :empty_description?, '(block (send _ _) ...)'
-
-        def on_begin(node)
-          return unless several_example_groups?(node)
-
-          repeated_group_descriptions(node).each do |group, repeats|
-            add_offense(group, message: message(group, repeats))
-          end
-        end
-
-        private
 
         def repeated_group_descriptions(node)
           node

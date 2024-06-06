@@ -24,6 +24,22 @@ module RuboCop
         MSG = 'Use `instance_spy` when you check your double ' \
               'with `have_received`.'
 
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          return unless example?(node)
+
+          null_double(node) do |var, receiver|
+            have_received_usage(node) do |expected|
+              next if expected != var
+
+              add_offense(receiver) do |corrector|
+                autocorrect(corrector, receiver)
+              end
+            end
+          end
+        end
+
+        private
+
         # @!method null_double(node)
         def_node_search :null_double, <<~PATTERN
           (lvasgn $_
@@ -41,22 +57,6 @@ module RuboCop
             ...)
           ...)
         PATTERN
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example?(node)
-
-          null_double(node) do |var, receiver|
-            have_received_usage(node) do |expected|
-              next if expected != var
-
-              add_offense(receiver) do |corrector|
-                autocorrect(corrector, receiver)
-              end
-            end
-          end
-        end
-
-        private
 
         def autocorrect(corrector, node)
           replacement = 'instance_spy'

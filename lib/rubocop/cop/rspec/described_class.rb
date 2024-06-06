@@ -76,6 +76,23 @@ module RuboCop
         DESCRIBED_CLASS = 'described_class'
         MSG             = 'Use `%<replacement>s` instead of `%<src>s`.'
 
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          # In case the explicit style is used, we need to remember what's
+          # being described.
+          @described_class, body = described_constant(node)
+
+          return unless body
+
+          find_usage(body) do |match|
+            msg = message(match.const_name)
+            add_offense(match, message: msg) do |corrector|
+              autocorrect(corrector, match)
+            end
+          end
+        end
+
+        private
+
         # @!method common_instance_exec_closure?(node)
         def_node_matcher :common_instance_exec_closure?, <<~PATTERN
           (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
@@ -96,23 +113,6 @@ module RuboCop
         # @!method contains_described_class?(node)
         def_node_search :contains_described_class?,
                         '(send nil? :described_class)'
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          # In case the explicit style is used, we need to remember what's
-          # being described.
-          @described_class, body = described_constant(node)
-
-          return unless body
-
-          find_usage(body) do |match|
-            msg = message(match.const_name)
-            add_offense(match, message: msg) do |corrector|
-              autocorrect(corrector, match)
-            end
-          end
-        end
-
-        private
 
         def autocorrect(corrector, match)
           replacement = if style == :described_class

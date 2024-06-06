@@ -43,14 +43,6 @@ module RuboCop
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
-        # @!method shared_examples(node)
-        def_node_matcher :shared_examples, <<~PATTERN
-          {
-            (send #rspec? #SharedGroups.all $_ ...)
-            (send nil? #Includes.all $_ ...)
-          }
-        PATTERN
-
         def on_send(node)
           shared_examples(node) do |ast_node|
             next unless offense?(ast_node)
@@ -63,6 +55,14 @@ module RuboCop
         end
 
         private
+
+        # @!method shared_examples(node)
+        def_node_matcher :shared_examples, <<~PATTERN
+          {
+            (send #rspec? #SharedGroups.all $_ ...)
+            (send nil? #Includes.all $_ ...)
+          }
+        PATTERN
 
         def offense?(ast_node)
           if style == :symbol

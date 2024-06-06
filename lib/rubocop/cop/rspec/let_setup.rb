@@ -28,6 +28,16 @@ module RuboCop
       class LetSetup < Base
         MSG = 'Do not use `let!` to setup objects not referenced in tests.'
 
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+          return unless example_or_shared_group_or_including?(node)
+
+          unused_let_bang(node) do |let|
+            add_offense(let)
+          end
+        end
+
+        private
+
         # @!method example_or_shared_group_or_including?(node)
         def_node_matcher :example_or_shared_group_or_including?, <<~PATTERN
           (block {
@@ -46,16 +56,6 @@ module RuboCop
 
         # @!method method_called?(node)
         def_node_search :method_called?, '(send nil? %)'
-
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example_or_shared_group_or_including?(node)
-
-          unused_let_bang(node) do |let|
-            add_offense(let)
-          end
-        end
-
-        private
 
         def unused_let_bang(node)
           child_let_bang(node) do |method_send, method_name|

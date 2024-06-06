@@ -29,21 +29,6 @@ module RuboCop
         include Metadata
         include RangeHelp
 
-        # @!method extract_metadata_hash(node)
-        def_node_matcher :extract_metadata_hash, <<~PATTERN
-          (send _ _ _ ... $hash)
-        PATTERN
-
-        # @!method match_boolean_metadata_pair?(node)
-        def_node_matcher :match_boolean_metadata_pair?, <<~PATTERN
-          (pair sym true)
-        PATTERN
-
-        # @!method match_ambiguous_trailing_metadata?(node)
-        def_node_matcher :match_ambiguous_trailing_metadata?, <<~PATTERN
-          (send _ _ _ ... !{hash sym})
-        PATTERN
-
         def on_metadata(symbols, hash)
           # RSpec example groups accept two string arguments. In such a case,
           # the rspec_metadata matcher will interpret the second string
@@ -62,6 +47,21 @@ module RuboCop
         end
 
         private
+
+        # @!method extract_metadata_hash(node)
+        def_node_matcher :extract_metadata_hash, <<~PATTERN
+          (send _ _ _ ... $hash)
+        PATTERN
+
+        # @!method match_boolean_metadata_pair?(node)
+        def_node_matcher :match_boolean_metadata_pair?, <<~PATTERN
+          (pair sym true)
+        PATTERN
+
+        # @!method match_ambiguous_trailing_metadata?(node)
+        def_node_matcher :match_ambiguous_trailing_metadata?, <<~PATTERN
+          (send _ _ _ ... !{hash sym})
+        PATTERN
 
         def autocorrect_pair(corrector, node)
           remove_pair(corrector, node)

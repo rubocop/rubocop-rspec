@@ -5,6 +5,8 @@ module RuboCop
     module RSpec
       # Help methods for file.
       module FileHelp
+        private
+
         def expanded_file_path
           File.expand_path(processed_source.file_path)
         end

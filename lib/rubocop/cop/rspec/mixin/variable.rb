@@ -10,6 +10,11 @@ module RuboCop
         Subjects = RuboCop::RSpec::Language::Subjects
         Helpers = RuboCop::RSpec::Language::Helpers
 
+        private_constant :Subjects
+        private_constant :Helpers
+
+        private
+
         # @!method variable_definition?(node)
         def_node_matcher :variable_definition?, <<~PATTERN
           (send nil? {#Subjects.all #Helpers.all}

@@ -53,18 +53,6 @@ module RuboCop
         SKIPPED_MATCHERS = %i[route_to be_routable].freeze
         CORRECTABLE_MATCHERS = %i[eq eql equal be].freeze
 
-        # @!method expect_literal(node)
-        def_node_matcher :expect_literal, <<~PATTERN
-          (send
-            (send nil? :expect $#literal?)
-            #Runners.all
-            ${
-              (send (send nil? $:be) :== $_)
-              (send nil? $_ $_ ...)
-            }
-          )
-        PATTERN
-
         def on_send(node) # rubocop:disable Metrics/MethodLength
           expect_literal(node) do |actual, send_node, matcher, expected|
             next if SKIPPED_MATCHERS.include?(matcher)
@@ -84,6 +72,18 @@ module RuboCop
         end
 
         private
+
+        # @!method expect_literal(node)
+        def_node_matcher :expect_literal, <<~PATTERN
+          (send
+            (send nil? :expect $#literal?)
+            #Runners.all
+            ${
+              (send (send nil? $:be) :== $_)
+              (send nil? $_ $_ ...)
+            }
+          )
+        PATTERN
 
         # This is not implemented using a NodePattern because it seems
         # to not be able to match against an explicit (nil) sexp

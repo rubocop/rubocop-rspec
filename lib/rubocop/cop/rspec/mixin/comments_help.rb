@@ -7,6 +7,8 @@ module RuboCop
       module CommentsHelp
         include FinalEndLocation
 
+        private
+
         def source_range_with_comment(node)
           begin_pos = begin_pos_with_comment(node).begin_pos
           end_pos = end_line_position(node).end_pos

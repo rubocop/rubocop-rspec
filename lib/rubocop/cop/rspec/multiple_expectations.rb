@@ -74,22 +74,6 @@ module RuboCop
         ANYTHING = ->(_node) { true }
         TRUE_NODE = lambda(&:true_type?)
 
-        # @!method aggregate_failures?(node)
-        def_node_matcher :aggregate_failures?, <<~PATTERN
-          (block {
-              (send _ _ <(sym :aggregate_failures) ...>)
-              (send _ _ ... (hash <(pair (sym :aggregate_failures) %1) ...>))
-            } ...)
-        PATTERN
-
-        # @!method expect?(node)
-        def_node_matcher :expect?, '(send nil? #Expectations.all ...)'
-
-        # @!method aggregate_failures_block?(node)
-        def_node_matcher :aggregate_failures_block?, <<~PATTERN
-          (block (send nil? :aggregate_failures ...) ...)
-        PATTERN
-
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example?(node)
 
@@ -105,6 +89,22 @@ module RuboCop
         end
 
         private
+
+        # @!method aggregate_failures?(node)
+        def_node_matcher :aggregate_failures?, <<~PATTERN
+          (block {
+              (send _ _ <(sym :aggregate_failures) ...>)
+              (send _ _ ... (hash <(pair (sym :aggregate_failures) %1) ...>))
+            } ...)
+        PATTERN
+
+        # @!method expect?(node)
+        def_node_matcher :expect?, '(send nil? #Expectations.all ...)'
+
+        # @!method aggregate_failures_block?(node)
+        def_node_matcher :aggregate_failures_block?, <<~PATTERN
+          (block (send nil? :aggregate_failures ...) ...)
+        PATTERN
 
         def example_with_aggregate_failures?(example_node)
           node_with_aggregate_failures = find_aggregate_failures(example_node)
