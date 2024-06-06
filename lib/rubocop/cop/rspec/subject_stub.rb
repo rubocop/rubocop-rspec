@@ -52,17 +52,6 @@ module RuboCop
 
         MSG = 'Do not stub methods of the object under test.'
 
-        def on_top_level_group(node)
-          @explicit_subjects = find_all_explicit(node) { |n| subject?(n) }
-          @subject_overrides = find_all_explicit(node) { |n| let?(n) }
-
-          find_subject_expectations(node) do |stub|
-            add_offense(stub)
-          end
-        end
-
-        private
-
         # @!method subject?(node)
         #   Find a named or unnamed subject definition
         #
@@ -122,6 +111,17 @@ module RuboCop
             :receive :receive_messages :receive_message_chain :have_received
             } ...)
         PATTERN
+
+        def on_top_level_group(node)
+          @explicit_subjects = find_all_explicit(node) { |n| subject?(n) }
+          @subject_overrides = find_all_explicit(node) { |n| let?(n) }
+
+          find_subject_expectations(node) do |stub|
+            add_offense(stub)
+          end
+        end
+
+        private
 
         def find_all_explicit(node)
           node.each_descendant(:block).with_object({}) do |child, h|

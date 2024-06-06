@@ -47,16 +47,6 @@ module RuboCop
 
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
-        def on_begin(node)
-          return unless several_example_groups?(node)
-
-          repeated_group_bodies(node).each do |group, repeats|
-            add_offense(group, message: message(group, repeats))
-          end
-        end
-
-        private
-
         # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<~PATTERN
           (begin <#example_group_with_body? #example_group_with_body? ...>)
@@ -70,6 +60,16 @@ module RuboCop
 
         # @!method const_arg(node)
         def_node_matcher :const_arg, '(block (send _ _ $const ...) ...)'
+
+        def on_begin(node)
+          return unless several_example_groups?(node)
+
+          repeated_group_bodies(node).each do |group, repeats|
+            add_offense(group, message: message(group, repeats))
+          end
+        end
+
+        private
 
         def repeated_group_bodies(node)
           node

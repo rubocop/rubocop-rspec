@@ -23,6 +23,11 @@ module RuboCop
         MSG_LET = 'Use subject explicitly rather than using let'
         MSG_REDUNDANT = 'Ambiguous declaration of subject'
 
+        # @!method offensive_subject_declaration?(node)
+        def_node_matcher :offensive_subject_declaration?, <<~PATTERN
+          (send nil? ${#Subjects.all #Helpers.all} ({sym str} #Subjects.all) ...)
+        PATTERN
+
         def on_send(node)
           offense = offensive_subject_declaration?(node)
           return unless offense
@@ -31,11 +36,6 @@ module RuboCop
         end
 
         private
-
-        # @!method offensive_subject_declaration?(node)
-        def_node_matcher :offensive_subject_declaration?, <<~PATTERN
-          (send nil? ${#Subjects.all #Helpers.all} ({sym str} #Subjects.all) ...)
-        PATTERN
 
         def message_for(offense)
           Helpers.all(offense) ? MSG_LET : MSG_REDUNDANT

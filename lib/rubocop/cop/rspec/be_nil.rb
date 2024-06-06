@@ -32,6 +32,16 @@ module RuboCop
         BE_NIL_MSG = 'Prefer `be_nil` over `be(nil)`.'
         RESTRICT_ON_SEND = %i[be be_nil].freeze
 
+        # @!method be_nil_matcher?(node)
+        def_node_matcher :be_nil_matcher?, <<~PATTERN
+          (send nil? :be_nil)
+        PATTERN
+
+        # @!method nil_value_expectation?(node)
+        def_node_matcher :nil_value_expectation?, <<~PATTERN
+          (send nil? :be nil)
+        PATTERN
+
         def on_send(node)
           case style
           when :be
@@ -42,16 +52,6 @@ module RuboCop
         end
 
         private
-
-        # @!method be_nil_matcher?(node)
-        def_node_matcher :be_nil_matcher?, <<~PATTERN
-          (send nil? :be_nil)
-        PATTERN
-
-        # @!method nil_value_expectation?(node)
-        def_node_matcher :nil_value_expectation?, <<~PATTERN
-          (send nil? :be nil)
-        PATTERN
 
         def check_be_style(node)
           return unless be_nil_matcher?(node)

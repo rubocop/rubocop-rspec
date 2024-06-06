@@ -59,6 +59,14 @@ module RuboCop
         WILL_PREFIX   = /\A(?:will|won't)\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze
 
+        # @!method it_description(node)
+        def_node_matcher :it_description, <<~PATTERN
+          (block (send _ :it ${
+            (str $_)
+            (dstr (str $_ ) ...)
+          } ...) ...)
+        PATTERN
+
         # rubocop:disable Metrics/MethodLength
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           it_description(node) do |description_node, message|
@@ -77,14 +85,6 @@ module RuboCop
         # rubocop:enable Metrics/MethodLength
 
         private
-
-        # @!method it_description(node)
-        def_node_matcher :it_description, <<~PATTERN
-          (block (send _ :it ${
-            (str $_)
-            (dstr (str $_ ) ...)
-          } ...) ...)
-        PATTERN
 
         def add_wording_offense(node, message)
           docstring = docstring(node)

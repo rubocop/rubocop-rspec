@@ -27,16 +27,6 @@ module RuboCop
 
         MSG = 'Move `%<hook>s` above the examples in the group.'
 
-        def on_block(node)
-          return unless example_group_with_body?(node)
-
-          check_hooks(node.body) if multiline_block?(node.body)
-        end
-
-        alias on_numblock on_block
-
-        private
-
         # @!method example_or_group?(node)
         def_node_matcher :example_or_group?, <<~PATTERN
           {
@@ -47,6 +37,16 @@ module RuboCop
             (send nil? #Includes.examples ...)
           }
         PATTERN
+
+        def on_block(node)
+          return unless example_group_with_body?(node)
+
+          check_hooks(node.body) if multiline_block?(node.body)
+        end
+
+        alias on_numblock on_block
+
+        private
 
         def multiline_block?(block)
           block.begin_type?

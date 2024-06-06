@@ -67,18 +67,6 @@ module RuboCop
         CHANGE_METHODS = Set[:change, :a_block_changing, :changing].freeze
         RESTRICT_ON_SEND = CHANGE_METHODS.freeze
 
-        def on_send(node)
-          expect_change_with_arguments(node.parent) do |change|
-            register_offense(node.parent, change)
-          end
-
-          expect_change_with_block(node.parent.parent) do |change|
-            register_offense(node.parent.parent, change)
-          end
-        end
-
-        private
-
         # @!method expect_change_with_arguments(node)
         def_node_matcher :expect_change_with_arguments, <<~PATTERN
           (send
@@ -100,6 +88,18 @@ module RuboCop
         def_node_search :change_nodes, <<~PATTERN
           $(send nil? CHANGE_METHODS ...)
         PATTERN
+
+        def on_send(node)
+          expect_change_with_arguments(node.parent) do |change|
+            register_offense(node.parent, change)
+          end
+
+          expect_change_with_block(node.parent.parent) do |change|
+            register_offense(node.parent.parent, change)
+          end
+        end
+
+        private
 
         # rubocop:disable Metrics/MethodLength
         def register_offense(node, change_node)

@@ -51,6 +51,14 @@ module RuboCop
         MSG = 'This `let` statement uses index in its name. Please give it ' \
               'a meaningful name.'
 
+        # @!method let_name(node)
+        def_node_matcher :let_name, <<~PATTERN
+          {
+            (block (send nil? #Helpers.all ({str sym} $_) ...) ...)
+            (send nil? #Helpers.all ({str sym} $_) block_pass)
+          }
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless spec_group?(node)
 
@@ -63,14 +71,6 @@ module RuboCop
         end
 
         private
-
-        # @!method let_name(node)
-        def_node_matcher :let_name, <<~PATTERN
-          {
-            (block (send nil? #Helpers.all ({str sym} $_) ...) ...)
-            (send nil? #Helpers.all ({str sym} $_) block_pass)
-          }
-        PATTERN
 
         SUFFIX_INDEX_REGEX = /_?\d+$/.freeze
         INDEX_REGEX = /\d+/.freeze

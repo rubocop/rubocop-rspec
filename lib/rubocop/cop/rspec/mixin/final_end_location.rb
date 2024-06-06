@@ -5,8 +5,6 @@ module RuboCop
     module RSpec
       # Helps find the true end location of nodes which might contain heredocs.
       module FinalEndLocation
-        private
-
         def final_end_location(start_node)
           heredoc_endings =
             start_node.each_node(:str, :dstr, :xstr)

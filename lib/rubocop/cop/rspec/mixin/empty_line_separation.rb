@@ -12,8 +12,6 @@ module RuboCop
         include FinalEndLocation
         include RangeHelp
 
-        private
-
         def missing_separating_line_offense(node)
           return if last_child?(node)
 

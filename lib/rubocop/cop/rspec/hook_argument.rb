@@ -65,6 +65,16 @@ module RuboCop
         IMPLICIT_MSG = 'Omit the default `%<scope>p` argument for RSpec hooks.'
         EXPLICIT_MSG = 'Use `%<scope>p` for RSpec hooks.'
 
+        # @!method scoped_hook(node)
+        def_node_matcher :scoped_hook, <<~PATTERN
+          ({block numblock} $(send _ #Hooks.all (sym ${:each :example})) ...)
+        PATTERN
+
+        # @!method unscoped_hook(node)
+        def_node_matcher :unscoped_hook, <<~PATTERN
+          ({block numblock} $(send _ #Hooks.all) ...)
+        PATTERN
+
         def on_block(node)
           hook(node) do |method_send, scope_name|
             return correct_style_detected if scope_name.equal?(style)
@@ -81,16 +91,6 @@ module RuboCop
         alias on_numblock on_block
 
         private
-
-        # @!method scoped_hook(node)
-        def_node_matcher :scoped_hook, <<~PATTERN
-          ({block numblock} $(send _ #Hooks.all (sym ${:each :example})) ...)
-        PATTERN
-
-        # @!method unscoped_hook(node)
-        def_node_matcher :unscoped_hook, <<~PATTERN
-          ({block numblock} $(send _ #Hooks.all) ...)
-        PATTERN
 
         def autocorrect(corrector, _node, method_send)
           scope = implicit_style? ? '' : "(#{style.inspect})"

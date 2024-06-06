@@ -62,6 +62,15 @@ module RuboCop
           const: :constant
         }.freeze
 
+        # @!method verified_double(node)
+        def_node_matcher :verified_double, <<~PATTERN
+          (send
+            nil?
+            RESTRICT_ON_SEND
+            $_class_reference
+            ...)
+        PATTERN
+
         def on_send(node)
           verified_double(node) do |class_reference|
             break correct_style_detected unless opposing_style?(class_reference)
@@ -79,15 +88,6 @@ module RuboCop
         end
 
         private
-
-        # @!method verified_double(node)
-        def_node_matcher :verified_double, <<~PATTERN
-          (send
-            nil?
-            RESTRICT_ON_SEND
-            $_class_reference
-            ...)
-        PATTERN
 
         def opposing_style?(class_reference)
           class_reference_style = REFERENCE_TYPE_STYLES[class_reference.type]

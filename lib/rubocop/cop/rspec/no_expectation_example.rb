@@ -61,20 +61,6 @@ module RuboCop
 
         MSG = 'No expectation found in this example.'
 
-        # @param [RuboCop::AST::BlockNode] node
-        def on_block(node)
-          return unless regular_or_focused_example?(node)
-          return if includes_expectation?(node)
-          return if includes_skip_example?(node)
-          return if skipped_in_metadata?(node.send_node)
-
-          add_offense(node)
-        end
-
-        alias on_numblock on_block
-
-        private
-
         # @!method regular_or_focused_example?(node)
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
@@ -98,6 +84,18 @@ module RuboCop
         def_node_search :includes_skip_example?, <<~PATTERN
           (send nil? {:pending :skip} ...)
         PATTERN
+
+        # @param [RuboCop::AST::BlockNode] node
+        def on_block(node)
+          return unless regular_or_focused_example?(node)
+          return if includes_expectation?(node)
+          return if includes_skip_example?(node)
+          return if skipped_in_metadata?(node.send_node)
+
+          add_offense(node)
+        end
+
+        alias on_numblock on_block
       end
     end
   end
