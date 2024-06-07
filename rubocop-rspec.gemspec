@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['MIT-LICENSE.md', 'README.md']
 
   spec.metadata = {
-    'changelog_uri' => 'https://github.com/rubocop/rubocop-rspec/blob/master/CHANGELOG.md',
+    'changelog_uri' => 'https://github.com/rubocop/rubocop-rspec/releases',
     'documentation_uri' => 'https://docs.rubocop.org/rubocop-rspec/',
     'rubygems_mfa_required' => 'true'
   }
