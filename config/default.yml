@@ -149,7 +149,7 @@ RSpec/BeEmpty:
   Enabled: pending
   AutoCorrect: contextual
   VersionAdded: '2.20'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEmpty
 
 RSpec/BeEq:
@@ -316,7 +316,7 @@ RSpec/EmptyExampleGroup:
   AutoCorrect: contextual
   SafeAutoCorrect: false
   VersionAdded: '1.7'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
 RSpec/EmptyHook:
@@ -324,7 +324,7 @@ RSpec/EmptyHook:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.39'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
 
 RSpec/EmptyLineAfterExample:
@@ -370,7 +370,7 @@ RSpec/EmptyMetadata:
   Enabled: pending
   AutoCorrect: contextual
   VersionAdded: '2.24'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
 
 RSpec/EmptyOutput:
@@ -486,7 +486,7 @@ RSpec/Focus:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.5'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
 RSpec/HookArgument:
@@ -506,7 +506,7 @@ RSpec/HooksBeforeExamples:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.29'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
 
 RSpec/IdenticalEqualityAssertion:
@@ -614,7 +614,7 @@ RSpec/LetBeforeExamples:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.16'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples
 
 RSpec/LetSetup:
@@ -866,7 +866,7 @@ RSpec/ScatteredLet:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.14'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
 
 RSpec/ScatteredSetup:
@@ -874,7 +874,7 @@ RSpec/ScatteredSetup:
   Enabled: true
   AutoCorrect: contextual
   VersionAdded: '1.10'
-  VersionChanged: "<<next>>"
+  VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 RSpec/SharedContext:
