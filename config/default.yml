@@ -657,6 +657,12 @@ RSpec/MissingExampleGroupArgument:
   VersionAdded: '1.28'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
 
+RSpec/MissingExpectationTargetMethod:
+  Description: Checks if `.to`, `not_to` or `to_not` are used.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExpectationTargetMethod
+
 RSpec/MultipleDescribes:
   Description: Checks for multiple top-level example groups.
   Enabled: true

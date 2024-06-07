@@ -9,6 +9,7 @@
 - Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
 - Support `AutoCorrect: contextual` option for LSP. ([@ydah])
 - Enable all pending cops. ([@bquorning])
+- Add new `RSpec/MissingExpectationTargetMethod` cop. ([@krororo])
 
 ## 2.29.2 (2024-05-02)
 
@@ -924,6 +925,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@k-s-a]: https://github.com/K-S-A
 [@kellysutton]: https://github.com/kellysutton
 [@koic]: https://github.com/koic
+[@krororo]: https://github.com/krororo
 [@kuahyeow]: https://github.com/kuahyeow
 [@lazycoder9]: https://github.com/lazycoder9
 [@leoarnold]: https://github.com/leoarnold
