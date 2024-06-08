@@ -1,3 +1,7 @@
 # .git-blame-ignore-revs
 # Add mdformat to the workflow in GitHub Actions
 4874a5a4a2a58e76d343aaa02279cd93b16f5a30
+# Move node patterns into private scope
+089491fb1fa173145f8e6eb1b511d4a7a1bf28ff
+# Don't always define node patterns in private scope
+ce09cb2b25b9f3778bf032d0caaa862da6635b54
