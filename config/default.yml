@@ -659,8 +659,8 @@ RSpec/MissingExampleGroupArgument:
 
 RSpec/MissingExpectationTargetMethod:
   Description: Checks if `.to`, `not_to` or `to_not` are used.
-  Enabled: pending
-  VersionAdded: "<<next>>"
+  Enabled: true
+  VersionAdded: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExpectationTargetMethod
 
 RSpec/MultipleDescribes:

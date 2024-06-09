@@ -3411,10 +3411,10 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Pending
+| Enabled
 | Yes
 | No
-| <<next>>
+| 3.0
 | -
 |===
 
