@@ -33,11 +33,12 @@ jobs:
         run: |
           sed -i 's/version:.*$/version: ~/' docs/antora.yml
           if ! git diff --exit-code docs/antora.yml; then
+            branch=switch-docs-version-$(git tag --points-at @)
             git config user.name "${GITHUB_ACTOR}"
             git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-            git checkout -b switch-docs-version
+            git checkout -b "$branch"
             git add docs/antora.yml
             git commit -m "Switch docs version back"
-            git push -u origin switch-docs-version
-            gh pr create --fill --head switch-docs-version
+            git push -u origin "$branch"
+            gh pr create --fill --head "$branch"
           fi
