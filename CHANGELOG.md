@@ -10,6 +10,7 @@
 - Support `AutoCorrect: contextual` option for LSP. ([@ydah])
 - Enable all pending cops. ([@bquorning])
 - Add new `RSpec/MissingExpectationTargetMethod` cop. ([@krororo])
+- Fix an error for `RSpec/ScatteredSetup` when one of the hooks is an empty block. ([@earlopain])
 
 ## 2.29.2 (2024-05-02)
 
@@ -894,6 +895,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@drowze]: https://github.com/Drowze
 [@dswij]: https://github.com/dswij
 [@dvandersluis]: https://github.com/dvandersluis
+[@earlopain]: https://github.com/earlopain
 [@edgibbs]: https://github.com/edgibbs
 [@eikes]: https://github.com/eikes
 [@eitoball]: https://github.com/eitoball

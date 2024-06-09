@@ -76,7 +76,7 @@ module RuboCop
           return if first_occurrence == occurrence || !first_occurrence.body
 
           corrector.insert_after(first_occurrence.body,
-                                 "\n#{occurrence.body.source}")
+                                 "\n#{occurrence.body&.source}")
           corrector.remove(range_by_whole_lines(occurrence.source_range,
                                                 include_final_newline: true))
         end
