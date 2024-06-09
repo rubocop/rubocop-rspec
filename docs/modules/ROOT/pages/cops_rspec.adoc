@@ -201,7 +201,7 @@ expect(foo).to be(true)
 | Yes
 | Command-line only
 | 2.20
-| <<next>>
+| 2.31
 |===
 
 Prefer using `be_empty` when checking for an empty array.
@@ -1155,7 +1155,7 @@ describe 'Something', :a
 | Yes
 | Command-line only (Unsafe)
 | 1.7
-| <<next>>
+| 2.31
 |===
 
 Checks if an example group does not include any tests.
@@ -1209,7 +1209,7 @@ end
 | Yes
 | Command-line only
 | 1.39
-| <<next>>
+| 2.31
 |===
 
 Checks for empty before and after hooks.
@@ -1512,7 +1512,7 @@ let(:foo) { bar }
 | Yes
 | Command-line only
 | 2.24
-| <<next>>
+| 2.31
 |===
 
 Avoid empty metadata hash.
@@ -2129,7 +2129,7 @@ expect { my_app.print_report }.to output('Hello World').to_stdout
 | Yes
 | Command-line only
 | 1.5
-| <<next>>
+| 2.31
 |===
 
 Checks if examples are focused.
@@ -2291,7 +2291,7 @@ end
 | Yes
 | Command-line only
 | 1.29
-| <<next>>
+| 2.31
 |===
 
 Checks for before/around/after hooks that come after an example.
@@ -3046,7 +3046,7 @@ end
 | Yes
 | Command-line only
 | 1.16
-| <<next>>
+| 2.31
 |===
 
 Checks for `let` definitions that come after an example.
@@ -5038,7 +5038,7 @@ allow(Foo).to receive(:bar).and_return(bar.baz)
 | Yes
 | Command-line only
 | 1.14
-| <<next>>
+| 2.31
 |===
 
 Checks for let scattered across the example group.
@@ -5081,7 +5081,7 @@ end
 | Yes
 | Command-line only
 | 1.10
-| <<next>>
+| 2.31
 |===
 
 Checks for setup scattered across multiple hooks in an example group.
