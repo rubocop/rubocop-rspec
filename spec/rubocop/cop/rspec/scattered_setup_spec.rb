@@ -150,4 +150,22 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
       end
     RUBY
   end
+
+  it 'flags hooks when one of the hooks is an empty block' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { do_something }
+        ^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before { }
+        ^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before { do_something
+       }
+      end
+    RUBY
+  end
 end
