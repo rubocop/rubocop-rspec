@@ -5,11 +5,17 @@
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
-- Add new `RSpec/ExpectInLet` cop. ([@yasu551])
 - Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
-- Support `AutoCorrect: contextual` option for LSP. ([@ydah])
 - Enable all pending cops. ([@bquorning])
 - Add new `RSpec/MissingExpectationTargetMethod` cop. ([@krororo])
+
+## 2.31.0 (2024-06-07)
+
+- Support `AutoCorrect: contextual` option for LSP. ([@ydah])
+
+## 2.30.0 (2024-06-03)
+
+- Add new `RSpec/ExpectInLet` cop. ([@yasu551])
 
 ## 2.29.2 (2024-05-02)
 
