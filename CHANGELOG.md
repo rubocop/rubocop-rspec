@@ -2,7 +2,7 @@
 
 ## Master (Unreleased)
 
-## 3.0.0.pre (2024-06-05)
+## 3.0.0 (2024-06-11)
 
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
