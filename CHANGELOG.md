@@ -2,15 +2,16 @@
 
 ## Master (Unreleased)
 
-## 3.0.0.pre (2024-06-05)
+## 3.0.0 (2024-06-11)
 
 - Remove extracted cops in `Capybara`, `FactoryBot` and `Rails` departments. ([@ydah])
 - Remove `RuboCop::RSpec::Language::NodePattern`. ([@ydah])
 - Remove `RSpec/FilePath` cop. ([@ydah])
 - Remove `RSpec/Capybara/FeatureMethods` cop. If you are using this cop, change it to use `RSpec/Dialect`. ([@ydah])
-- Enable all pending cops. ([@bquorning])
 - Add new `RSpec/MissingExpectationTargetMethod` cop. ([@krororo])
 - Fix an error for `RSpec/ScatteredSetup` when one of the hooks is an empty block. ([@earlopain])
+
+These previously pending cops are now enabled by default: `RSpec/BeEmpty`, `RSpec/BeEq`, `RSpec/BeNil`, `RSpec/ChangeByZero`, `RSpec/ClassCheck`, `RSpec/ContainExactly`, `RSpec/DuplicatedMetadata`, `RSpec/EmptyMetadata`, `RSpec/EmptyOutput`, `RSpec/Eq`, `RSpec/ExcessiveDocstringSpacing`, `RSpec/ExpectInLet`, `RSpec/IdenticalEqualityAssertion`, `RSpec/IndexedLet`, `RSpec/IsExpectedSpecify`, `RSpec/MatchArray`, `RSpec/MetadataStyle`, `RSpec/NoExpectationExample`, `RSpec/PendingWithoutReason`, `RSpec/ReceiveMessages`, `RSpec/RedundantAround`, `RSpec/RedundantPredicateMatcher`, `RSpec/RemoveConst`, `RSpec/RepeatedSubjectCall`, `RSpec/SkipBlockInsideExample`, `RSpec/SortMetadata`, `RSpec/SpecFilePathFormat`, `RSpec/SpecFilePathSuffix`, `RSpec/SubjectDeclaration`, `RSpec/UndescriptiveLiteralsDescription`, and `RSpec/VerifiedDoubleReference`.
 
 Read more about how to upgrade in https://docs.rubocop.org/rubocop-rspec/upgrade_to_version_3.html
 
