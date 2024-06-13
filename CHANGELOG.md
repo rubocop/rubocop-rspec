@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix wrong autocorrect for `RSpec/ScatteredSetup` when hook contains heredoc. ([@earlopain])
+
 ## 3.0.1 (2024-06-11)
 
 - Bump RuboCop requirement to +1.61. ([@ydah])

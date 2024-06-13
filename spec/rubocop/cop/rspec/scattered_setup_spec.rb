@@ -14,7 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     expect_correction(<<~RUBY)
       describe Foo do
         before { bar
-      baz }
+      baz  }
       end
     RUBY
   end
@@ -34,8 +34,8 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     expect_correction(<<~RUBY)
       describe Foo do
         after { bar
-      baz
-      baz }
+      baz#{' '}
+      baz  }
       end
     RUBY
   end
@@ -53,7 +53,7 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     expect_correction(<<~RUBY)
       describe Foo do
         before(:all) { bar
-      baz }
+      baz  }
       end
     RUBY
   end
@@ -143,9 +143,9 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     expect_correction(<<~RUBY)
       describe Foo do
         before(:each, :special_case) { foo
-      bar
-      bar
-      bar }
+      bar#{' '}
+      bar#{' '}
+      bar  }
         before(:example, special_case: false) { bar }
       end
     RUBY
@@ -165,6 +165,31 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
       describe Foo do
         before { do_something
        }
+      end
+    RUBY
+  end
+
+  it 'flags hooks that contain heredoc arguments and autocorrects correctly' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { foo }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before do
+        ^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+          bar(<<~'TEXT')
+            Hello World!
+          TEXT
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before { foo
+      bar(<<~'TEXT')
+            Hello World!
+          TEXT
+         }
       end
     RUBY
   end
