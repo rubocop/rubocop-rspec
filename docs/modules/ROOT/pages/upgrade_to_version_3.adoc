@@ -25,8 +25,9 @@ end
 
 [source,yaml]
 ----
-Capybara:
-  Enabled: true
+require:
+  - rubocop-rspec
+  - rubocop-capybara
 ----
 
 And you need to remove the old department in your `.rubocop.yml` file:
