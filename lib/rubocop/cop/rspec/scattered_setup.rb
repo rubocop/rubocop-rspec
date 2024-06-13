@@ -23,6 +23,7 @@ module RuboCop
       #   end
       #
       class ScatteredSetup < Base
+        include FinalEndLocation
         include RangeHelp
         extend AutoCorrector
 
@@ -75,8 +76,13 @@ module RuboCop
         def autocorrect(corrector, first_occurrence, occurrence)
           return if first_occurrence == occurrence || !first_occurrence.body
 
+          # Take heredocs into account
+          body = occurrence.body&.source_range&.with(
+            end_pos: final_end_location(occurrence).begin_pos
+          )
+
           corrector.insert_after(first_occurrence.body,
-                                 "\n#{occurrence.body&.source}")
+                                 "\n#{body&.source}")
           corrector.remove(range_by_whole_lines(occurrence.source_range,
                                                 include_final_newline: true))
         end
