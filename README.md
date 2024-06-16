@@ -21,6 +21,10 @@ or if you use bundler put this in your `Gemfile`
 gem 'rubocop-rspec', require: false
 ```
 
+### Upgrading to RuboCop RSpec v3.x
+
+Read all the details in our [Upgrade to Version 3.x](https://docs.rubocop.org/rubocop-rspec/3.0/upgrade_to_version_3.html) document.
+
 ### Upgrading to RuboCop RSpec v2.x
 
 Read all the details in our [Upgrade to Version 2.x](https://docs.rubocop.org/rubocop-rspec/2.0/upgrade_to_version_2.html) document.
