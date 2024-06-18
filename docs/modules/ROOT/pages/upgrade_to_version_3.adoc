@@ -10,7 +10,11 @@ In version 3.x:
 [discrete]
 === Extraction of cop departments. (`Capybara`, `FactoryBot`, `Rails`)
 
-If you are using the RSpec/Capybara, RSpec/FactoryBot, or RSpec/Rails departments, you need to install the corresponding gem and add it to your `.rubocop.yml` file.
+If you are using the RSpec/Capybara, RSpec/FactoryBot, or RSpec/Rails departments -- or have one in a `require` list in your rubocop.yml -- you need to install the corresponding gem and add it to your `.rubocop.yml` file:
+
+* Capybara: `rubocop-capybara`
+* FactoryBot: `rubocop-factory_bot`
+* Rails: `rubocop-rspec_rails`
 
 For example, if you are using the RSpec/Capybara department, you need to install the `rubocop-capybara` gem and add it to your `.rubocop.yml` file:
 
@@ -50,3 +54,7 @@ RSpec/FactoryBot:
 RSpec/Rails:
   Enabled: false
 ----
+
+== Troubleshooting
+
+If you're seeing `cannot load such file` when running rubocop, even after installing the gems, restart the server with `rubocop --restart-server`.
