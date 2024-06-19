@@ -32,7 +32,7 @@ module RuboCop
               (block $(send !nil? #predicate? ...) ...)
               $(send !nil? #predicate? ...)})
             $#Runners.all
-            $#boolean_matcher?)
+            $#boolean_matcher? ...)
         PATTERN
 
         # @!method be_bool?(node)
@@ -183,8 +183,12 @@ module RuboCop
           (send
             (send nil? :expect $!nil?)
             #Runners.all
-            {$(send nil? #predicate_matcher_name? ...)
-              (block $(send nil? #predicate_matcher_name? ...) ...)})
+            {
+              $(send nil? #predicate_matcher_name? ...)
+              (block $(send nil? #predicate_matcher_name? ...) ...)
+            }
+            ...
+          )
         PATTERN
 
         # @!method predicate_matcher_block?(node)
