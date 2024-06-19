@@ -16,6 +16,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo.empty?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).to be_truthy, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).not_to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to_not be_truthy
@@ -30,6 +32,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo).to be_empty
+          expect(foo).to be_empty, 'fail'
           expect(foo).not_to be_empty
           expect(foo).not_to be_empty
           expect(foo).not_to be_empty
@@ -42,6 +45,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo.exist?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exist?`.
+          expect(foo.exist?).to be_truthy, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exist?`.
           expect(foo.exists?).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `exist` matcher over `exists?`.
           expect(foo.has_something?).to be_truthy
@@ -58,6 +63,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo).to exist
+          expect(foo).to exist, 'fail'
           expect(foo).to exist
           expect(foo).to have_something
           expect(foo).not_to have_something
@@ -71,6 +77,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo.something?('foo')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
+          expect(foo.something?('foo')).to be_truthy, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
           expect(foo.something?('foo', 'bar')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
           expect(foo.something? 1, 2).to be_truthy
@@ -85,6 +93,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo).to be_something('foo')
+          expect(foo).to be_something('foo'), 'fail'
           expect(foo).to be_something('foo', 'bar')
           expect(foo).to be_something 1, 2
           expect(foo).to have_key('foo')
@@ -112,6 +121,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo.all?(&:present?)).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
+          expect(foo.all?(&:present?)).to be_truthy, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
           expect(foo.all? { |x| x.present? }).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_all` matcher over `all?`.
           expect(foo.all?(n) { |x| x.present? }).to be_truthy
@@ -134,6 +145,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo).to be_all(&:present?)
+          expect(foo).to be_all(&:present?), 'fail'
           expect(foo).to be_all { |x| x.present? }
           expect(foo).to be_all(n) { |x| x.present? }
           expect(foo).to be_all { present }
@@ -151,6 +163,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       it 'accepts a predicate method that is not checked true/false' do
         expect_no_offenses(<<~RUBY)
           expect(foo.something?).to eq "something"
+          expect(foo.something?).to eq "something", "fail"
           expect(foo.has_something?).to eq "something"
         RUBY
       end
@@ -158,6 +171,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       it 'accepts non-predicate method' do
         expect_no_offenses(<<~RUBY)
           expect(foo.something).to be(true)
+          expect(foo.something).to be(true), 'fail'
           expect(foo.has_something).to be(true)
         RUBY
       end
@@ -171,6 +185,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       it 'accepts strict checking boolean matcher' do
         expect_no_offenses(<<~RUBY)
           expect(foo.empty?).to eq(true)
+          expect(foo.empty?).to eq(true), 'fail'
           expect(foo.empty?).to be(true)
           expect(foo.empty?).to be(false)
           expect(foo.empty?).not_to be true
@@ -188,6 +203,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo.empty?).to eq(true)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).to eq(true), 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).not_to be(true)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be(true)
@@ -202,6 +219,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo).to be_empty
+          expect(foo).to be_empty, 'fail'
           expect(foo).not_to be_empty
           expect(foo).to be_empty
           expect(foo).not_to be_empty
@@ -220,6 +238,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo).to be_empty
           ^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+          expect(foo).to be_empty, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
           expect(foo).not_to be_empty
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
           expect(foo).to have_something
@@ -252,6 +272,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       it 'accepts built in matchers' do
         expect_no_offenses(<<~RUBY)
           expect(foo).to be_truthy
+          expect(foo).to be_truthy, 'fail'
           expect(foo).to be_falsey
           expect(foo).to be_falsy
           expect(foo).to have_attributes(name: 'foo')
@@ -275,6 +296,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
       it 'accepts non-predicate matcher' do
         expect_no_offenses(<<~RUBY)
           expect(foo).to be(true)
+          expect(foo).to be(true), 'fail'
         RUBY
       end
 
@@ -282,6 +304,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_offense(<<~RUBY)
           expect(foo).to be_something
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+          expect(foo).to be_something, 'fail'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
           expect(foo).not_to be_something
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
           expect(foo).to have_something
@@ -300,6 +324,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
 
         expect_correction(<<~RUBY)
           expect(foo.something?).to #{matcher_true}
+          expect(foo.something?).to #{matcher_true}, 'fail'
           expect(foo.something?).to #{matcher_false}
           expect(foo.has_something?).to #{matcher_true}
           expect(foo.is_a?(Array)).to #{matcher_true}
@@ -403,6 +428,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
          'with no argument' do
         expect_no_offenses(<<~RUBY)
           expect(foo).to include
+          expect(foo).to include, 'fail'
         RUBY
       end
 
