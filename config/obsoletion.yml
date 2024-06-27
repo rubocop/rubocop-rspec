@@ -13,28 +13,6 @@ changed_parameters:
     alternative: AllowedPatterns
     severity: warning
 
-renamed:
-  RSpec/Capybara/CurrentPathExpectation: Capybara/CurrentPathExpectation
-  RSpec/Capybara/MatchStyle: Capybara/MatchStyle
-  RSpec/Capybara/NegationMatcher: Capybara/NegationMatcher
-  RSpec/Capybara/SpecificActions: Capybara/SpecificActions
-  RSpec/Capybara/SpecificFinders: Capybara/SpecificFinders
-  RSpec/Capybara/SpecificMatcher: Capybara/SpecificMatcher
-  RSpec/Capybara/VisibilityMatcher: Capybara/VisibilityMatcher
-  RSpec/FactoryBot/AttributeDefinedStatically: FactoryBot/AttributeDefinedStatically
-  RSpec/FactoryBot/ConsistentParenthesesStyle: FactoryBot/ConsistentParenthesesStyle
-  RSpec/FactoryBot/CreateList: FactoryBot/CreateList
-  RSpec/FactoryBot/FactoryClassName: FactoryBot/FactoryClassName
-  RSpec/FactoryBot/FactoryNameStyle: FactoryBot/FactoryNameStyle
-  RSpec/FactoryBot/SyntaxMethods: FactoryBot/SyntaxMethods
-  RSpec/Rails/AvoidSetupHook: RSpecRails/AvoidSetupHook
-  RSpec/Rails/HaveHttpStatus: RSpecRails/HaveHttpStatus
-  RSpec/Rails/HttpStatus: RSpecRails/HttpStatus
-  RSpec/Rails/InferredSpecType: RSpecRails/InferredSpecType
-  RSpec/Rails/MinitestAssertions: RSpecRails/MinitestAssertions
-  RSpec/Rails/NegationBeValid: RSpecRails/NegationBeValid
-  RSpec/Rails/TravelAround: RSpecRails/TravelAround
-
 split:
   RSpec/FilePath:
     alternatives:
@@ -45,3 +23,8 @@ removed:
   RSpec/Capybara/FeatureMethods:
     reason: >
       this cop has migrated to `RSpec/Dialect`. Please use `RSpec/Dialect` instead
+
+extracted:
+  RSpec/Rails/*: rubocop-rspec_rails
+  RSpec/FactoryBot/*: rubocop-factory_bot
+  RSpec/Capybara/*: rubocop-capybara
