@@ -4,6 +4,7 @@
 
 - Fix wrong autocorrect for `RSpec/ScatteredSetup` when hook contains heredoc. ([@earlopain])
 - Fix false negative for `RSpec/PredicateMatcher` when expectation contains custom failure message. ([@earlopain])
+- Facilitate the 3.0 upgrade flow with proper extracted cop messages. ([@jeppester])
 
 ## 3.0.1 (2024-06-11)
 
@@ -936,6 +937,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jaredmoody]: https://github.com/jaredmoody
 [@jdufresne]: https://github.com/jdufresne
 [@jeffreyc]: https://github.com/jeffreyc
+[@jeppester]: https://github.com/jeppester
 [@jessieay]: https://github.com/jessieay
 [@jfragoulis]: https://github.com/jfragoulis
 [@johnny-miyake]: https://github.com/johnny-miyake
