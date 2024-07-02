@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.0.2 (2024-07-02)
+
 - Fix wrong autocorrect for `RSpec/ScatteredSetup` when hook contains heredoc. ([@earlopain])
 - Fix false negative for `RSpec/PredicateMatcher` when expectation contains custom failure message. ([@earlopain])
 - Facilitate the 3.0 upgrade flow with proper extracted cop messages. ([@jeppester])
