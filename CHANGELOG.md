@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add support for Unicode RIGHT SINGLE QUOTATION MARK in `RSpec/ExampleWording`. ([@jdufresne])
+
 ## 3.0.2 (2024-07-02)
 
 - Fix wrong autocorrect for `RSpec/ScatteredSetup` when hook contains heredoc. ([@earlopain])

@@ -148,9 +148,35 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     RUBY
   end
 
+  it 'finds description with `won’t` at the beginning' do
+    expect_offense(<<~RUBY)
+      it "won’t do something" do
+          ^^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it "does not do something" do
+      end
+    RUBY
+  end
+
   it "finds description with `WON'T` at the beginning" do
     expect_offense(<<~RUBY)
       it "WON'T do something" do
+          ^^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it "DOES NOT do something" do
+      end
+    RUBY
+  end
+
+  it 'finds description with `WON’T` at the beginning' do
+    expect_offense(<<~RUBY)
+      it "WON’T do something" do
           ^^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
       end
     RUBY
@@ -190,6 +216,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
   it "flags a lone won't" do
     expect_offense(<<~RUBY)
       it "won't" do
+          ^^^^^ Do not use the future tense when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it "does not" do
+      end
+    RUBY
+  end
+
+  it 'flags a lone won’t' do
+    expect_offense(<<~RUBY)
+      it "won’t" do
           ^^^^^ Do not use the future tense when describing your tests.
       end
     RUBY
