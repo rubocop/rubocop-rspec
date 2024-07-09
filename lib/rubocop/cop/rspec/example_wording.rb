@@ -55,8 +55,8 @@ module RuboCop
         MSG_INSUFFICIENT_DESCRIPTION = 'Your example description is ' \
                                        'insufficient.'
 
-        SHOULD_PREFIX = /\Ashould(?:n't)?\b/i.freeze
-        WILL_PREFIX   = /\A(?:will|won't)\b/i.freeze
+        SHOULD_PREFIX = /\Ashould(?:n't|n’t)?\b/i.freeze
+        WILL_PREFIX   = /\A(?:will|won't|won’t)\b/i.freeze
         IT_PREFIX     = /\Ait /i.freeze
 
         # @!method it_description(node)

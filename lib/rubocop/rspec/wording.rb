@@ -4,10 +4,10 @@ module RuboCop
   module RSpec
     # RSpec example wording rewriter
     class Wording
-      SHOULDNT_PREFIX    = /\Ashould(?:n't| not)\b/i.freeze
+      SHOULDNT_PREFIX    = /\Ashould(?:n't|n’t| not)\b/i.freeze
       SHOULDNT_BE_PREFIX = /#{SHOULDNT_PREFIX} be\b/i.freeze
       WILL_NOT_PREFIX    = /\Awill not\b/i.freeze
-      WONT_PREFIX        = /\Awon't\b/i.freeze
+      WONT_PREFIX        = /\Awo(?:n't|n’t)\b/i.freeze
       ES_SUFFIX_PATTERN  = /(?:o|s|x|ch|sh|z)\z/i.freeze
       IES_SUFFIX_PATTERN = /[^aeou]y\z/i.freeze
 
