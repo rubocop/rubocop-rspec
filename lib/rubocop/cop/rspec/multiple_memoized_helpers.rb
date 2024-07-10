@@ -82,10 +82,11 @@ module RuboCop
       #   end
       #
       class MultipleMemoizedHelpers < Base
-        include ConfigurableMax
         include Variable
 
         MSG = 'Example group has too many memoized helpers [%<count>d/%<max>d]'
+
+        exclude_limit 'Max'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless spec_group?(node)

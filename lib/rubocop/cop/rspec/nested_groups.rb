@@ -92,7 +92,6 @@ module RuboCop
       #   end
       #
       class NestedGroups < Base
-        include ConfigurableMax
         include TopLevelGroup
 
         MSG = 'Maximum example group nesting exceeded [%<total>d/%<max>d].'
@@ -102,6 +101,8 @@ module RuboCop
         DEPRECATION_WARNING =
           "Configuration key `#{DEPRECATED_MAX_KEY}` for #{cop_name} is " \
           'deprecated in favor of `Max`. Please use that instead.'
+
+        exclude_limit 'Max'
 
         def on_top_level_group(node)
           find_nested_example_groups(node) do |example_group, nesting|
