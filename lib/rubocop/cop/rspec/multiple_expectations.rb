@@ -67,12 +67,12 @@ module RuboCop
       #   end
       #
       class MultipleExpectations < Base
-        include ConfigurableMax
-
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
         ANYTHING = ->(_node) { true }
         TRUE_NODE = lambda(&:true_type?)
+
+        exclude_limit 'Max'
 
         # @!method aggregate_failures?(node)
         def_node_matcher :aggregate_failures?, <<~PATTERN
