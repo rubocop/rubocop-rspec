@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.0.3 (2024-07-12)
+
 - Add support for Unicode RIGHT SINGLE QUOTATION MARK in `RSpec/ExampleWording`. ([@jdufresne])
 - Suppress deprecation warning for `RSpec/MultipleExpectations`, `RSpec/MultipleMemoizedHelpers`, and `RSpec/NestedGroups` cops. ([@koic])
 
