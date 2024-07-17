@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false-negative for `UnspecifiedException` when matcher is chained. ([@r7kamura])
+
 ## 3.0.3 (2024-07-12)
 
 - Add support for Unicode RIGHT SINGLE QUOTATION MARK in `RSpec/ExampleWording`. ([@jdufresne])
