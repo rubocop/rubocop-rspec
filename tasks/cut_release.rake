@@ -38,7 +38,7 @@ namespace :cut_release do
   def add_header_to_changelog(version)
     update_file('CHANGELOG.md') do |changelog|
       changelog.sub("## Master (Unreleased)\n\n",
-                    '\0' "## #{version} (#{Time.now.strftime('%F')})\n\n")
+                    "\\0## #{version} (#{Time.now.strftime('%F')})\n\n")
     end
   end
 
