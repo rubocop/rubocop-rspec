@@ -171,5 +171,32 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
         }.to raise_exception(my_exception)
       RUBY
     end
+
+    it 'detects chained offenses' do
+      expect_offense(<<~RUBY)
+        expect {
+          foo
+        }.to raise_exception.and change { bar }
+             ^^^^^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+    end
+
+    it 'detects more chained offenses' do
+      expect_offense(<<~RUBY)
+        expect {
+          foo
+        }.to raise_exception.and change { bar }.and change { baz }
+             ^^^^^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+    end
+
+    it 'detects more complex chained offenses' do
+      expect_offense(<<~RUBY)
+        expect {
+          foo
+        }.to change { bar }.and raise_exception.and change { baz }
+                                ^^^^^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+    end
   end
 end

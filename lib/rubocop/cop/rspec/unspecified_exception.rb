@@ -32,34 +32,39 @@ module RuboCop
       #
       class UnspecifiedException < Base
         MSG = 'Specify the exception being captured'
-        RESTRICT_ON_SEND = %i[to].freeze
 
-        # @!method empty_raise_error_or_exception(node)
-        def_node_matcher :empty_raise_error_or_exception, <<~PATTERN
-          (send
-            (block
-                (send nil? :expect) ...)
-            :to
-            (send nil? {:raise_error :raise_exception})
-          )
+        RESTRICT_ON_SEND = %i[
+          raise_exception
+          raise_error
+        ].freeze
+
+        # @!method expect_to?(node)
+        def_node_matcher :expect_to?, <<~PATTERN
+          (send (block (send nil? :expect) ...) :to ...)
         PATTERN
 
         def on_send(node)
           return unless empty_exception_matcher?(node)
 
-          add_offense(node.children.last)
+          add_offense(node)
         end
 
         private
 
         def empty_exception_matcher?(node)
-          empty_raise_error_or_exception(node) && !block_with_args?(node.parent)
+          return false if node.arguments? || node.block_literal?
+
+          expect_to = find_expect_to(node)
+          return false unless expect_to
+          return false if expect_to.block_node&.arguments?
+
+          true
         end
 
-        def block_with_args?(node)
-          return false unless node&.block_type?
-
-          node.arguments?
+        def find_expect_to(node)
+          node.each_ancestor(:send).find do |ancestor|
+            expect_to?(ancestor)
+          end
         end
       end
     end
