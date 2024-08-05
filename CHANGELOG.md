@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.0.4 (2024-08-05)
+
 - Fix false-negative for `UnspecifiedException` when matcher is chained. ([@r7kamura])
 
 ## 3.0.3 (2024-07-12)
