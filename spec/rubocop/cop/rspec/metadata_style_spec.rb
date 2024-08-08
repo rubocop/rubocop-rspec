@@ -94,6 +94,15 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
       end
     end
 
+    context 'with non-literal metadata and symbol metadata' do
+      it 'registers no offense' do
+        expect_no_offenses(<<~RUBY)
+          describe 'Something', a, :b do
+          end
+        RUBY
+      end
+    end
+
     context 'with boolean keyword arguments metadata and symbol metadata' do
       it 'registers offense' do
         expect_offense(<<~RUBY)
@@ -243,6 +252,15 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
       end
     end
 
+    context 'with 2 non-literal metadata' do
+      it 'registers no offense' do
+        expect_no_offenses(<<~RUBY)
+          describe 'Something', a, b do
+          end
+        RUBY
+      end
+    end
+
     context 'with symbol metadata after 2 string arguments' do
       it 'registers offense' do
         expect_offense(<<~RUBY)
@@ -253,6 +271,21 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
 
         expect_correction(<<~RUBY)
           describe 'Something', 'Something else', a: true do
+          end
+        RUBY
+      end
+    end
+
+    context 'with symbol metadata after non-literal metadata' do
+      it 'registers offense' do
+        expect_offense(<<~RUBY)
+          describe 'Something', a, :b do
+                                   ^^ Use hash style for metadata.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe 'Something', a, b: true do
           end
         RUBY
       end
