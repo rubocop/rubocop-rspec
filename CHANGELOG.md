@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false-negative and error for `RSpec/MetadataStyle` when non-literal args are used in metadata in `EnforceStyle: hash`. ([@cbliard])
+
 ## 3.0.4 (2024-08-05)
 
 - Fix false-negative for `UnspecifiedException` when matcher is chained. ([@r7kamura])
@@ -911,6 +913,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@bquorning]: https://github.com/bquorning
 [@brentwheeldon]: https://github.com/BrentWheeldon
 [@brianhawley]: https://github.com/BrianHawley
+[@cbliard]: https://github.com/cbliard
 [@cfabianski]: https://github.com/cfabianski
 [@clupprich]: https://github.com/clupprich
 [@composerinteralia]: https://github.com/composerinteralia

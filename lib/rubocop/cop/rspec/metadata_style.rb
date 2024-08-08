@@ -45,13 +45,8 @@ module RuboCop
         PATTERN
 
         def on_metadata(symbols, hash)
-          # RSpec example groups accept two string arguments. In such a case,
-          # the rspec_metadata matcher will interpret the second string
-          # argument as a metadata symbol.
-          symbols.shift if symbols.first&.str_type?
-
           symbols.each do |symbol|
-            on_metadata_symbol(symbol)
+            on_metadata_symbol(symbol) if symbol.sym_type?
           end
 
           return unless hash
