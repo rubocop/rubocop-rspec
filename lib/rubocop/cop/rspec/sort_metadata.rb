@@ -5,6 +5,8 @@ module RuboCop
     module RSpec
       # Sort RSpec metadata alphabetically.
       #
+      # Only the trailing metadata is sorted.
+      #
       # @example
       #   # bad
       #   describe 'Something', :b, :a
@@ -16,6 +18,9 @@ module RuboCop
       #   context 'Something', baz: true, foo: 'bar'
       #   it 'works', :a, :b, baz: true, foo: 'bar'
       #
+      #   # good, trailing metadata is sorted
+      #   describe 'Something', 'description', :a, :b, :z
+      #   context 'Something', :z, variable, :a, :b
       class SortMetadata < Base
         extend AutoCorrector
         include Metadata
@@ -23,8 +28,14 @@ module RuboCop
 
         MSG = 'Sort metadata alphabetically.'
 
-        def on_metadata(symbols, hash)
+        # @!method match_ambiguous_trailing_metadata?(node)
+        def_node_matcher :match_ambiguous_trailing_metadata?, <<~PATTERN
+          (send _ _ _ ... !{hash sym str dstr xstr})
+        PATTERN
+
+        def on_metadata(args, hash)
           pairs = hash&.pairs || []
+          symbols = trailing_symbols(args)
           return if sorted?(symbols, pairs)
 
           crime_scene = crime_scene(symbols, pairs)
@@ -34,6 +45,15 @@ module RuboCop
         end
 
         private
+
+        def trailing_symbols(args)
+          args = args[...-1] if last_arg_could_be_a_hash?(args)
+          args.reverse.take_while(&:sym_type?).reverse
+        end
+
+        def last_arg_could_be_a_hash?(args)
+          args.last && match_ambiguous_trailing_metadata?(args.last.parent)
+        end
 
         def crime_scene(symbols, pairs)
           metadata = symbols + pairs
@@ -57,13 +77,7 @@ module RuboCop
         end
 
         def sort_symbols(symbols)
-          symbols.sort_by do |symbol|
-            if symbol.str_type? || symbol.sym_type?
-              symbol.value.to_s.downcase
-            else
-              symbol.source.downcase
-            end
-          end
+          symbols.sort_by { |symbol| symbol.value.to_s.downcase }
         end
       end
     end
