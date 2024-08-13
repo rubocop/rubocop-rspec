@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false-positive for `RSpec/UnspecifiedException` when a method is literally named `raise_exception`. ([@aarestad])
+
 ## 3.0.5 (2024-09-07)
 
 - Fix false-negative and error for `RSpec/MetadataStyle` when non-literal args are used in metadata in `EnforceStyle: hash`. ([@cbliard])
@@ -899,6 +901,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 
 <!-- Contributors (alphabetically) -->
 
+[@aarestad]: https://github.com/aarestad
 [@abrom]: https://github.com/abrom
 [@ahukkanen]: https://github.com/ahukkanen
 [@akiomik]: https://github.com/akiomik

@@ -62,7 +62,10 @@ module RuboCop
         end
 
         def find_expect_to(node)
-          node.each_ancestor(:send).find do |ancestor|
+          node.each_ancestor.find do |ancestor|
+            break if ancestor.block_type?
+            next unless ancestor.send_type?
+
             expect_to?(ancestor)
           end
         end
