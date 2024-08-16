@@ -5687,16 +5687,20 @@ end
 |===
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
-| Enabled
+| Pending
 | Yes
 | No
 | 3.0
 | -
 |===
 
-Checks that rspec files do not contain requires, as this can lead to unexpected behavior later when the code is not used with rspec.
+Checks that rspec files do not contain requires.
 
-Require the necessary files in the projects config or where you need it instead.
+As this can lead to unexpected behavior 
+later when the code is not used with rspec.
+
+Require the necessary files in the projects config or
+where you need it instead.
 
 === Examples
 
@@ -5706,12 +5710,12 @@ Require the necessary files in the projects config or where you need it instead.
 require "lib/use_cases/my_work"
 
 describe UseCases::MyWork do
-  ...
+
 end
 
 # good
 describe UseCases::MyWork do
-  ...
+
 end
 ----
 

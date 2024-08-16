@@ -956,10 +956,7 @@ RSpec/UndescriptiveLiteralsDescription:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
 
 RSpec/UnexpectedRequires:
-  Description: |-
-    Checks that rspec files do not contain requires, as this
-    can lead to unexpected behavior later when the code is
-    not used with rspec.
+  Description: Checks that rspec files do not contain requires.
   Enabled: pending
   VersionAdded: '3.0'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnexpectedRequires
