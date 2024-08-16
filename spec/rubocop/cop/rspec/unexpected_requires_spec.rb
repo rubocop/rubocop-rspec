@@ -15,7 +15,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnexpectedRequires do
 
     context 'with the file being spec_helper' do
       it 'does not register an offense' do
-        expect_no_offenses(<<~RUBY, "spec_helper.rb")
+        expect_no_offenses(<<~RUBY, "spec/spec_helper.rb")
           require "base64"
 
           describe "MyTest" do
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::RSpec::UnexpectedRequires do
 
     context 'with the file being rails_helper' do
       it 'does not register an offense' do
-        expect_no_offenses(<<~RUBY, 'rails_helper.rb')
+        expect_no_offenses(<<~RUBY, 'spec/rails_helper.rb')
           require "rails"
 
           describe "MyTest" do
