@@ -129,6 +129,9 @@ Style/NumberedParameters:
   Enabled: true
   EnforcedStyle: disallow
 
+RSpec/UnexpectedRequires:
+  Enabled: true
+
 # Enable RuboCop's pending cops up to v1.63
 
 Gemspec/DeprecatedAttributeAssignment: {Enabled: true}

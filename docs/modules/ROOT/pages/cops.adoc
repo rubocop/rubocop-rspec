@@ -104,6 +104,7 @@
 * xref:cops_rspec.adoc#rspecstubbedmock[RSpec/StubbedMock]
 * xref:cops_rspec.adoc#rspecsubjectdeclaration[RSpec/SubjectDeclaration]
 * xref:cops_rspec.adoc#rspecsubjectstub[RSpec/SubjectStub]
+* xref:cops_rspec.adoc#rspecunexpectedrequires[RSpec/UnexpectedRequires]
 * xref:cops_rspec.adoc#rspecundescriptiveliteralsdescription[RSpec/UndescriptiveLiteralsDescription]
 * xref:cops_rspec.adoc#rspecunspecifiedexception[RSpec/UnspecifiedException]
 * xref:cops_rspec.adoc#rspecvariabledefinition[RSpec/VariableDefinition]

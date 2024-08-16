@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false-negative and error for `RSpec/MetadataStyle` when non-literal args are used in metadata in `EnforceStyle: hash`. ([@cbliard])
+- Add 'Rspec/UnexpectedRequires' cop. ([@TheWudu])
 
 ## 3.0.4 (2024-08-05)
 
@@ -1015,6 +1016,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@tdeo]: https://github.com/tdeo
 [@tejasbubane]: https://github.com/tejasbubane
 [@telmofcosta]: https://github.com/telmofcosta
+[@thewudu]: https://github.com/TheWudu
 [@tietew]: https://github.com/Tietew
 [@timrogers]: https://github.com/timrogers
 [@tmaier]: https://github.com/tmaier

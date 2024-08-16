@@ -5682,6 +5682,43 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
 
+== RSpec/UnexpectedRequires
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Enabled
+| Yes
+| No
+| 3.0
+| -
+|===
+
+Checks that rspec files do not contain requires, as this can lead to unexpected behavior later when the code is not used with rspec.
+
+Require the necessary files in the projects config or where you need it instead.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+require "lib/use_cases/my_work"
+
+describe UseCases::MyWork do
+  ...
+end
+
+# good
+describe UseCases::MyWork do
+  ...
+end
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnexpectedRequires
+
 == RSpec/UnspecifiedException
 
 |===
