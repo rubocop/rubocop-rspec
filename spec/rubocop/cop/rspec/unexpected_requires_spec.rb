@@ -12,6 +12,17 @@ RSpec.describe RuboCop::Cop::RSpec::UnexpectedRequires do
         end
       RUBY
     end
+    
+    it 'registers an offense' do
+      expect_offense(<<~RUBY)
+        require Rails.root.join("db/migrate/update_something.rb")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not require anything in a test file.
+
+        describe "MyTest" do
+          do_something
+        end
+      RUBY
+    end
 
     context 'with the file being spec_helper' do
       it 'does not register an offense' do

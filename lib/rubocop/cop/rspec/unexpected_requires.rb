@@ -41,7 +41,8 @@ module RuboCop
           return if @ignore_file
 
           require_symbol?(node) do |match|
-            next if match.value.match?(IGNORED_PATTERN)
+            next if match.respond_to?(:value) &&
+               match.value.match?(IGNORED_PATTERN)
 
             add_offense(node, message: MSG)
           end 
