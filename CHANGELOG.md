@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false-negative and error for `RSpec/MetadataStyle` when non-literal args are used in metadata in `EnforceStyle: hash`. ([@cbliard])
+- Fix false negative for `RSpec/Dialect` when specified Capybara-specific methods. ([@sanfrecce-osaka])
 
 ## 3.0.4 (2024-08-05)
 
@@ -1004,6 +1005,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rspeicher]: https://github.com/rspeicher
 [@rst-j]: https://github.com/RST-J
 [@samrjenkins]: https://github.com/samrjenkins
+[@sanfrecce-osaka]: https://github.com/sanfrecce-osaka
 [@schmijos]: https://github.com/schmijos
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
