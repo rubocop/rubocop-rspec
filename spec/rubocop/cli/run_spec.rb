@@ -39,9 +39,9 @@ RSpec.describe 'RuboCop::CLI run', :isolated_environment do # rubocop:disable RS
         == spec/example.rb ==
         C:  2:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
         C:  3:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
-        C:  6:  3: RSpec/IndexedLet: This let statement uses index in its name. Please give it a meaningful name.
+        C:  6:  3: RSpec/IndexedLet: This let statement uses 1 in its name. Please give it a meaningful name.
         C:  6:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
-        C:  7:  3: RSpec/IndexedLet: This let statement uses index in its name. Please give it a meaningful name.
+        C:  7:  3: RSpec/IndexedLet: This let statement uses 2 in its name. Please give it a meaningful name.
         C:  7:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
 
         1 file inspected, 6 offenses detected
@@ -82,9 +82,9 @@ RSpec.describe 'RuboCop::CLI run', :isolated_environment do # rubocop:disable RS
         == spec/example.rb ==
         C:  2:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
         C:  3:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
-        C:  6:  3: RSpec/IndexedLet: This let statement uses index in its name. Please give it a meaningful name.
+        C:  6:  3: RSpec/IndexedLet: This let statement uses 1 in its name. Please give it a meaningful name.
         C:  6:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
-        C:  7:  3: RSpec/IndexedLet: This let statement uses index in its name. Please give it a meaningful name.
+        C:  7:  3: RSpec/IndexedLet: This let statement uses 2 in its name. Please give it a meaningful name.
         C:  7:  7: Naming/VariableNumber: Use normalcase for symbol numbers.
 
         1 file inspected, 6 offenses detected

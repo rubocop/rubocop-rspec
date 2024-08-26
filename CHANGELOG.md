@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false-negative and error for `RSpec/MetadataStyle` when non-literal args are used in metadata in `EnforceStyle: hash`. ([@cbliard])
+- Improve offense message for `RSpec/IndexedLet`. ([@earlopain])
 
 ## 3.0.4 (2024-08-05)
 
