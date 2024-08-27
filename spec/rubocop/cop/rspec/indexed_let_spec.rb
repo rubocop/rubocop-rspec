@@ -16,9 +16,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let(:item_2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end
@@ -27,9 +27,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let("item_1") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let("item_2") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end
@@ -38,9 +38,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let(:item2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end
@@ -49,9 +49,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1, &block)
-        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let(:item_2, &block)
-        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end
@@ -72,11 +72,11 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       context SomeService do
         let(:user_1_item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let(:user_1_item_2) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let(:user_2_item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end
@@ -112,9 +112,9 @@ RSpec.describe RuboCop::Cop::RSpec::IndexedLet do
     expect_offense(<<~RUBY)
       describe SomeService do
         let(:item_1) { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `1` in its name. Please give it a meaningful name.
         let("item_2") { create(:item) }
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses index in its name. Please give it a meaningful name.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This `let` statement uses `2` in its name. Please give it a meaningful name.
       end
     RUBY
   end

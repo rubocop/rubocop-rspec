@@ -48,8 +48,8 @@ module RuboCop
         include AllowedIdentifiers
         include AllowedPattern
 
-        MSG = 'This `let` statement uses index in its name. Please give it ' \
-              'a meaningful name.'
+        MSG = 'This `let` statement uses `%<index>s` in its name. ' \
+              'Please give it a meaningful name.'
 
         # @!method let_name(node)
         def_node_matcher :let_name, <<~PATTERN
@@ -66,7 +66,8 @@ module RuboCop
           return unless children
 
           filter_indexed_lets(children).each do |let_node|
-            add_offense(let_node)
+            index = let_name(let_node)[INDEX_REGEX]
+            add_offense(let_node, message: format(MSG, index: index))
           end
         end
 
