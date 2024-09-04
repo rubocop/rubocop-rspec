@@ -7,7 +7,7 @@ concurrency:
 jobs:
   yamllint:
     name: Yamllint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       - name: Yamllint
@@ -20,7 +20,7 @@ jobs:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   mdformat:
     name: Mdformat
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
       - name: Mdformat
