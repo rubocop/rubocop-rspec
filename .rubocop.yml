@@ -253,4 +253,5 @@ Style/YAMLFileRead: {Enabled: true}
 
 # Enable our own pending cops.
 #
-# No pending cops yet.
+RSpec/StringAsInstanceDoubleConstant:
+  Enabled: true

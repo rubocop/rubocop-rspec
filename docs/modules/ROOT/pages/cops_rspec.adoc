@@ -5493,6 +5493,41 @@ spec/models/user.rb       # shared_examples_for 'foo'
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
 
+== RSpec/StringAsInstanceDoubleConstant
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| No
+| Always (Unsafe)
+| <<next>>
+| -
+|===
+
+Do not use a string as `instance_double` constant.
+
+=== Safety
+
+This cop is unsafe because the correction requires loading the class.
+Loading before stubbing causes RSpec to only allow instance methods
+to be stubbed.
+
+=== Examples
+
+[source,ruby]
+----
+# bad
+instance_double('User', name: 'John')
+
+# good
+instance_double(User, name: 'John')
+----
+
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StringAsInstanceDoubleConstant
+
 == RSpec/StubbedMock
 
 |===
