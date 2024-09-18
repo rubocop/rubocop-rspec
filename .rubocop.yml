@@ -101,33 +101,33 @@ RSpec:
       - expect_no_offenses
       - expect_offense
 
+RSpec/DescribeClass:
+  Exclude:
+    - spec/project/**/*.rb
+
 RSpec/ExampleLength:
   CountAsOne:
     - heredoc
   Max: 11
 
-RSpec/DescribeClass:
-  Exclude:
-    - spec/project/**/*.rb
-
 RSpec/MultipleExpectations:
   Max: 2
+
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - spec/rubocop/cop/rspec/mixin/**/*.rb
 
 # `expect_offense` does not use Kernel#format or String#%
 Style/FormatStringToken:
   Exclude:
     - spec/rubocop/**/*.rb
 
-Style/RequireOrder:
-  Enabled: true
-
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - spec/rubocop/cop/rspec/mixin/**/*.rb
-
 Style/NumberedParameters:
   Enabled: true
   EnforcedStyle: disallow
+
+Style/RequireOrder:
+  Enabled: true
 
 # Enable RuboCop's pending cops up to v1.63
 
