@@ -69,7 +69,7 @@ module RuboCop
           expect_literal(node) do |actual, send_node, matcher, expected|
             next if SKIPPED_MATCHERS.include?(matcher)
 
-            add_offense(actual.source_range) do |corrector|
+            add_offense(actual) do |corrector|
               next unless CORRECTABLE_MATCHERS.include?(matcher)
               next if literal?(expected)
 
