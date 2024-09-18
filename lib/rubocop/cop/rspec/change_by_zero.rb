@@ -104,12 +104,12 @@ module RuboCop
         # rubocop:disable Metrics/MethodLength
         def register_offense(node, change_node)
           if compound_expectations?(node)
-            add_offense(node.source_range,
+            add_offense(node,
                         message: message_compound(change_node)) do |corrector|
               autocorrect_compound(corrector, node)
             end
           else
-            add_offense(node.source_range,
+            add_offense(node,
                         message: message(change_node)) do |corrector|
               autocorrect(corrector, node, change_node)
             end
