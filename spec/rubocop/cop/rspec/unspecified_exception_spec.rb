@@ -85,6 +85,30 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
         }.to raise_error(my_exception)
       RUBY
     end
+
+    it 'allows a subject function to be named raise_error' do
+      expect_no_offenses(<<~RUBY)
+        def raise_exception
+          raise StandardError
+        end
+
+        expect {
+          raise_error
+        }.to raise_error(StandardError)
+      RUBY
+    end
+
+    it 'allows a subject function to be named raise_exception' do
+      expect_no_offenses(<<~RUBY)
+        def raise_exception
+          raise StandardError
+        end
+
+        expect {
+          raise_exception
+        }.to raise_error(StandardError)
+      RUBY
+    end
   end
 
   context 'with raise_exception matcher' do
@@ -196,6 +220,30 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
           foo
         }.to change { bar }.and raise_exception.and change { baz }
                                 ^^^^^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+    end
+
+    it 'allows a subject function to be named raise_exception' do
+      expect_no_offenses(<<~RUBY)
+        def raise_error
+          raise StandardError
+        end
+
+        expect {
+          raise_exception
+        }.to raise_exception(StandardError)
+      RUBY
+    end
+
+    it 'allows a subject function to be named raise_error' do
+      expect_no_offenses(<<~RUBY)
+        def raise_error
+          raise StandardError
+        end
+
+        expect {
+          raise_error
+        }.to raise_exception(StandardError)
       RUBY
     end
   end
