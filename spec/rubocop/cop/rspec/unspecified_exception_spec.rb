@@ -223,6 +223,14 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
       RUBY
     end
 
+    it 'does not confuse blocks with chains' do
+      expect_no_offenses(<<~RUBY)
+        expect do
+          expect { foo }.not_to raise_error
+        end.to change(Foo, :count).by(3)
+      RUBY
+    end
+
     it 'allows a subject function to be named raise_exception' do
       expect_no_offenses(<<~RUBY)
         def raise_error
