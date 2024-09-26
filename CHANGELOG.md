@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false-positive for `RSpec/UnspecifiedException` when a method is literally named `raise_exception`. ([@aarestad])
+- Fix false-positive for `RSpec/UnspecifiedException` when `not_to raise_error` is used within a block. ([@aarestad], [@G-Rath])
 
 ## 3.0.5 (2024-09-07)
 
