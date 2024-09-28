@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
 - Fix false-positive for `RSpec/UnspecifiedException` when a method is literally named `raise_exception`. ([@aarestad])
 - Fix false-positive for `RSpec/UnspecifiedException` when `not_to raise_error` is used within a block. ([@aarestad], [@G-Rath])
 
@@ -924,6 +925,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@cfabianski]: https://github.com/cfabianski
 [@clupprich]: https://github.com/clupprich
 [@composerinteralia]: https://github.com/composerinteralia
+[@corsonknowles]: https://github.com/corsonknowles
 [@corydiamand]: https://github.com/corydiamand
 [@darhazer]: https://github.com/Darhazer
 [@daveworth]: https://github.com/daveworth
