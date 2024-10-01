@@ -5501,7 +5501,7 @@ spec/models/user.rb       # shared_examples_for 'foo'
 | Pending
 | No
 | Always (Unsafe)
-| <<next>>
+| 3.1
 | -
 |===
 

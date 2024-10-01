@@ -933,7 +933,7 @@ RSpec/StringAsInstanceDoubleConstant:
   Description: Do not use a string as `instance_double` constant.
   Enabled: pending
   Safe: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.1'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StringAsInstanceDoubleConstant
 
 RSpec/StubbedMock:
