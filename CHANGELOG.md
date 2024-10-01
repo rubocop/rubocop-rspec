@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.1.0 (2024-10-01)
+
 - Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
 - Fix false-positive for `RSpec/UnspecifiedException` when a method is literally named `raise_exception`. ([@aarestad])
 - Fix false-positive for `RSpec/UnspecifiedException` when `not_to raise_error` is used within a block. ([@aarestad], [@G-Rath])
