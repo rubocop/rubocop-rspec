@@ -403,6 +403,7 @@ RSpec/ExampleWithoutDescription:
     - single_line_only
     - disallow
   VersionAdded: '1.22'
+  StyleGuide: https://rspec.rubystyle.guide/#it-and-specify
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
 RSpec/ExampleWording:
