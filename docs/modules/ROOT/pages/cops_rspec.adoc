@@ -1775,6 +1775,7 @@ end
 
 === References
 
+* https://rspec.rubystyle.guide/#it-and-specify
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
 == RSpec/ExampleWording
