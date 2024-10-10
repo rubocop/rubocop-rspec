@@ -23,6 +23,54 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
     RUBY
   end
 
+  it 'does not register an offense for a symbol metadata before a non-symbol ' \
+     'argument' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe 'Something', :z, :a, 'string' do
+      end
+
+      RSpec.describe 'Something', :z, :a, variable, foo: :bar do
+      end
+    RUBY
+  end
+
+  it 'registers an offense only for trailing symbol metadata not in ' \
+     'alphabetical order' do
+    expect_offense(<<~RUBY)
+      RSpec.describe 'Something', :z, :a, 'string', :c, :b do
+                                                    ^^^^^^ Sort metadata alphabetically.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe 'Something', :z, :a, 'string', :b, :c do
+      end
+    RUBY
+  end
+
+  it 'registers an offense when a symbol metadata not in alphabetical order ' \
+     'is before a variable argument being the last argument ' \
+     'as it could be a hash' do
+    expect_offense(<<~RUBY)
+      RSpec.describe 'Something', :z, :a, some_hash do
+                                  ^^^^^^ Sort metadata alphabetically.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe 'Something', :a, :z, some_hash do
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when using a second level description ' \
+     'not in alphabetical order with symbol metadata' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe 'Something', 'second docstring', :a, :b do
+      end
+    RUBY
+  end
+
   it 'does not register an offense when using only a hash of metadata ' \
      'with keys in alphabetical order' do
     expect_no_offenses(<<~RUBY)
@@ -100,27 +148,27 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
      'and the hash values are complex objects' do
     expect_offense(<<~RUBY)
       it 'Something', variable, 'B', :a, key => {}, foo: ->(x) { bar(x) }, Identifier.sample => true, baz: Snafu.new do
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sort metadata alphabetically.
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sort metadata alphabetically.
       end
     RUBY
 
     expect_correction(<<~RUBY)
-      it 'Something', :a, 'B', variable, baz: Snafu.new, foo: ->(x) { bar(x) }, Identifier.sample => true, key => {} do
+      it 'Something', variable, 'B', :a, baz: Snafu.new, foo: ->(x) { bar(x) }, Identifier.sample => true, key => {} do
       end
     RUBY
   end
 
   it 'registers an offense only when example or group has a block' do
     expect_offense(<<~RUBY)
-      shared_examples 'a difficult situation', 'B', :a do |x, y|
-                                               ^^^^^^^ Sort metadata alphabetically.
+      shared_examples 'a difficult situation', 'B', :z, :a do |x, y|
+                                                    ^^^^^^ Sort metadata alphabetically.
       end
 
       include_examples 'a difficult situation', 'value', 'another value'
     RUBY
 
     expect_correction(<<~RUBY)
-      shared_examples 'a difficult situation', :a, 'B' do |x, y|
+      shared_examples 'a difficult situation', 'B', :a, :z do |x, y|
       end
 
       include_examples 'a difficult situation', 'value', 'another value'
