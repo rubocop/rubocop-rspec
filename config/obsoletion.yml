@@ -6,6 +6,13 @@
 
 # Cop parameters that have been changed
 # Can be treated as a warning instead of a failure with `severity: warning`
+changed_enforced_styles:
+  - cops: RSpec/VerifiedDoubleReference
+    parameters: EnforcedStyle
+    value: string
+    reason: String references are not verifying unless the class is loaded.
+    severity: warning
+
 changed_parameters:
   - cops:
       - RSpec/VariableName
@@ -28,3 +35,6 @@ extracted:
   RSpec/Rails/*: rubocop-rspec_rails
   RSpec/FactoryBot/*: rubocop-factory_bot
   RSpec/Capybara/*: rubocop-capybara
+
+renamed:
+  RSpec/StringAsInstanceDoubleConstant: RSpec/VerifiedDoubleReference
