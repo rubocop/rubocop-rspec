@@ -28,10 +28,6 @@ module RuboCop
 
         def on_top_level_group(_node); end
 
-        def top_level_group?(node)
-          top_level_groups.include?(node)
-        end
-
         def top_level_nodes(node)
           return [] if node.nil?
 
