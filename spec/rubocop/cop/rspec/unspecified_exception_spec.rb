@@ -254,5 +254,27 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
         }.to raise_exception(StandardError)
       RUBY
     end
+
+    it 'skips ancestors that are not send types' do
+      node = parse_source(<<~RUBY).ast
+        expect {
+          raise StandardError
+        }.to raise_error
+      RUBY
+
+      allow_any_instance_of(RuboCop::AST::Node)
+        .to receive(:each_ancestor)
+        .and_yield(double('NonSendAncestor', send_type?: false, block_type?: false))
+        .and_yield(double('SendAncestor', send_type?: true, block_type?: false))
+
+      expect_offense(<<~RUBY)
+        expect {
+          raise StandardError
+        }.to raise_error
+             ^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+
+      cop.send(:find_expect_to, node)
+    end
   end
 end
