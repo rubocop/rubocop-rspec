@@ -214,4 +214,17 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       end
     end
   end
+
+  context 'when `AllowedPatterns:` and `Prefixes:` are both empty' do
+    let(:cop_config) do
+      { 'Prefixes' => [], 'AllowedPatterns' => [] }
+    end
+
+    it 'skips any description' do
+      expect_no_offenses(<<~RUBY)
+        context 'arbitrary text' do
+        end
+      RUBY
+    end
+  end
 end
