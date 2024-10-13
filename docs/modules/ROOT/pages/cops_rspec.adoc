@@ -5493,41 +5493,6 @@ spec/models/user.rb       # shared_examples_for 'foo'
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
 
-== RSpec/StringAsInstanceDoubleConstant
-
-|===
-| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
-
-| Pending
-| No
-| Always (Unsafe)
-| 3.1
-| -
-|===
-
-Do not use a string as `instance_double` constant.
-
-=== Safety
-
-This cop is unsafe because the correction requires loading the class.
-Loading before stubbing causes RSpec to only allow instance methods
-to be stubbed.
-
-=== Examples
-
-[source,ruby]
-----
-# bad
-instance_double('User', name: 'John')
-
-# good
-instance_double(User, name: 'John')
-----
-
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StringAsInstanceDoubleConstant
-
 == RSpec/StubbedMock
 
 |===
@@ -5910,20 +5875,19 @@ let(:userFood_2) { 'fettuccine' }
 | Yes
 | Always (Unsafe)
 | 2.10.0
-| 2.12
+| <<next>>
 |===
 
 Checks for consistent verified double reference style.
 
-Only investigates references that are one of the supported styles.
+=== Safety
 
-This cop can be configured in your configuration using the
-`EnforcedStyle` option and supports `--auto-gen-config`.
+This cop is unsafe because the correction requires loading the class.
+Loading before stubbing causes RSpec to only allow instance methods
+to be stubbed.
 
 === Examples
 
-==== `EnforcedStyle: constant` (default)
-
 [source,ruby]
 ----
 # bad
@@ -5937,22 +5901,7 @@ let(:foo) do
 end
 ----
 
-==== `EnforcedStyle: string`
-
-[source,ruby]
-----
-# bad
-let(:foo) do
-  instance_double(ClassName, method_name: 'returned_value')
-end
-
-# good
-let(:foo) do
-  instance_double('ClassName', method_name: 'returned_value')
-end
-----
-
-==== Reference is not in the supported style list. No enforcement
+==== Reference is any dynamic variable. No enforcement
 
 [source,ruby]
 ----
@@ -5961,16 +5910,6 @@ let(:foo) do
   instance_double(@klass, method_name: 'returned_value')
 end
 ----
-
-=== Configurable attributes
-
-|===
-| Name | Default value | Configurable values
-
-| EnforcedStyle
-| `constant`
-| `constant`, `string`
-|===
 
 === References
 

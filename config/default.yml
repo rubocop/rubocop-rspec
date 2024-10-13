@@ -929,13 +929,6 @@ RSpec/SpecFilePathSuffix:
     - "**/spec/**/*"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
 
-RSpec/StringAsInstanceDoubleConstant:
-  Description: Do not use a string as `instance_double` constant.
-  Enabled: pending
-  Safe: false
-  VersionAdded: '3.1'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StringAsInstanceDoubleConstant
-
 RSpec/StubbedMock:
   Description: Checks that message expectations do not have a configured response.
   Enabled: true
@@ -994,12 +987,8 @@ RSpec/VerifiedDoubleReference:
   Description: Checks for consistent verified double reference style.
   Enabled: true
   SafeAutoCorrect: false
-  EnforcedStyle: constant
-  SupportedStyles:
-    - constant
-    - string
   VersionAdded: 2.10.0
-  VersionChanged: '2.12'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
 
 RSpec/VerifiedDoubles:

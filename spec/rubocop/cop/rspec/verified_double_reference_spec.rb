@@ -14,11 +14,7 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
 
   verified_doubles.each do |verified_double|
     describe verified_double do
-      context 'when EnforcedStyle is constant' do
-        let(:cop_config) do
-          { 'EnforcedStyle' => 'constant' }
-        end
-
+      context 'with requirement to use constant class references' do
         it 'does not flag an offense when using a constant reference' do
           expect_no_offenses("#{verified_double}(ClassName)")
         end
@@ -26,11 +22,11 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
         it 'flags an offense when using a string reference' do
           expect_offense(<<~RUBY, verified_double: verified_double)
             %{verified_double}('ClassName')
-            _{verified_double} ^^^^^^^^^^^ Use a constant class reference for verified doubles.
+            _{verified_double} ^^^^^^^^^^^ Use a constant class reference for verified doubles. String references are not verifying unless the class is loaded.
             %{verified_double}('Foo::Bar::Baz')
-            _{verified_double} ^^^^^^^^^^^^^^^ Use a constant class reference for verified doubles.
+            _{verified_double} ^^^^^^^^^^^^^^^ Use a constant class reference for verified doubles. String references are not verifying unless the class is loaded.
             %{verified_double}('::Foo::Bar')
-            _{verified_double} ^^^^^^^^^^^^ Use a constant class reference for verified doubles.
+            _{verified_double} ^^^^^^^^^^^^ Use a constant class reference for verified doubles. String references are not verifying unless the class is loaded.
           RUBY
 
           expect_correction(<<~RUBY)
@@ -39,41 +35,6 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubleReference do
             #{verified_double}(::Foo::Bar)
           RUBY
         end
-
-        include_examples 'detects style',
-                         "#{verified_double}(ClassName)",
-                         'constant'
-      end
-
-      context 'when EnforcedStyle is string' do
-        let(:cop_config) do
-          { 'EnforcedStyle' => 'string' }
-        end
-
-        it 'does not flag an offense when using a string reference' do
-          expect_no_offenses("#{verified_double}('ClassName')")
-        end
-
-        it 'flags an offense when using a constant reference' do
-          expect_offense(<<~RUBY, verified_double: verified_double)
-            %{verified_double}(ClassName)
-            _{verified_double} ^^^^^^^^^ Use a string class reference for verified doubles.
-            %{verified_double}(Foo::Bar::Baz)
-            _{verified_double} ^^^^^^^^^^^^^ Use a string class reference for verified doubles.
-            %{verified_double}(::Foo::Bar)
-            _{verified_double} ^^^^^^^^^^ Use a string class reference for verified doubles.
-          RUBY
-
-          expect_correction(<<~RUBY)
-            #{verified_double}('ClassName')
-            #{verified_double}('Foo::Bar::Baz')
-            #{verified_double}('::Foo::Bar')
-          RUBY
-        end
-
-        include_examples 'detects style',
-                         "#{verified_double}('ClassName')",
-                         'string'
       end
     end
   end

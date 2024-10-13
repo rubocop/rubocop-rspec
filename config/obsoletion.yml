@@ -28,3 +28,6 @@ extracted:
   RSpec/Rails/*: rubocop-rspec_rails
   RSpec/FactoryBot/*: rubocop-factory_bot
   RSpec/Capybara/*: rubocop-capybara
+
+renamed:
+  RSpec/StringAsInstanceDoubleConstant: RSpec/VerifiedDoubleReference

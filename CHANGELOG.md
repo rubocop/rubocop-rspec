@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Replace `RSpec/StringAsInstanceDoubleConstant` with `RSpecVerifiedDoubleReference` configured to only support constant class references. ([@corsonknowles])
+
 ## 3.1.0 (2024-10-01)
 
 - Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
