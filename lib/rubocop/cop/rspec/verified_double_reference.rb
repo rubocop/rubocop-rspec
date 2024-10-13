@@ -5,14 +5,14 @@ module RuboCop
     module RSpec
       # Checks for consistent verified double reference style.
       #
-      # Only investigates references that are one of the supported styles.
-      #
       # @see https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
       #
-      # This cop can be configured in your configuration using the
-      # `EnforcedStyle` option and supports `--auto-gen-config`.
+      # @safety
+      #   This cop is unsafe because the correction requires loading the class.
+      #   Loading before stubbing causes RSpec to only allow instance methods
+      #   to be stubbed.
       #
-      # @example `EnforcedStyle: constant` (default)
+      # @example
       #   # bad
       #   let(:foo) do
       #     instance_double('ClassName', method_name: 'returned_value')
@@ -23,18 +23,7 @@ module RuboCop
       #     instance_double(ClassName, method_name: 'returned_value')
       #   end
       #
-      # @example `EnforcedStyle: string`
-      #   # bad
-      #   let(:foo) do
-      #     instance_double(ClassName, method_name: 'returned_value')
-      #   end
-      #
-      #   # good
-      #   let(:foo) do
-      #     instance_double('ClassName', method_name: 'returned_value')
-      #   end
-      #
-      # @example Reference is not in the supported style list. No enforcement
+      # @example Reference is any dynamic variable. No enforcement
       #
       #   # good
       #   let(:foo) do
@@ -42,9 +31,9 @@ module RuboCop
       #   end
       class VerifiedDoubleReference < Base
         extend AutoCorrector
-        include ConfigurableEnforcedStyle
 
-        MSG = 'Use a %<style>s class reference for verified doubles.'
+        MSG = 'Use a constant class reference for verified doubles. ' \
+              'String references are not verifying unless the class is loaded.'
 
         RESTRICT_ON_SEND = Set[
           :class_double,
@@ -57,53 +46,25 @@ module RuboCop
           :stub_model
         ].freeze
 
-        REFERENCE_TYPE_STYLES = {
-          str: :string,
-          const: :constant
-        }.freeze
-
         # @!method verified_double(node)
         def_node_matcher :verified_double, <<~PATTERN
           (send
             nil?
             RESTRICT_ON_SEND
-            $_class_reference
+            $str
             ...)
         PATTERN
 
         def on_send(node)
-          verified_double(node) do |class_reference|
-            break correct_style_detected unless opposing_style?(class_reference)
-
-            message = format(MSG, style: style)
-            expression = class_reference.source_range
-
-            add_offense(expression, message: message) do |corrector|
-              offense = class_reference.source
-              corrector.replace(expression, correct_style(offense))
-
-              opposite_style_detected
+          verified_double(node) do |string_argument_node|
+            add_offense(string_argument_node) do |corrector|
+              autocorrect(corrector, string_argument_node)
             end
           end
         end
 
-        private
-
-        def opposing_style?(class_reference)
-          class_reference_style = REFERENCE_TYPE_STYLES[class_reference.type]
-
-          # Only enforce supported styles
-          return false unless class_reference_style
-
-          class_reference_style != style
-        end
-
-        def correct_style(offense)
-          if style == :string
-            "'#{offense}'"
-          else
-            offense.gsub(/^['"]|['"]$/, '')
-          end
+        def autocorrect(corrector, node)
+          corrector.replace(node, node.value)
         end
       end
     end
