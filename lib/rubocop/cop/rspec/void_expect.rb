@@ -29,12 +29,14 @@ module RuboCop
 
         def on_send(node)
           return unless expect?(node)
+          return unless inside_example?(node)
 
           check_expect(node)
         end
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless expect_block?(node)
+          return unless inside_example?(node)
 
           check_expect(node)
         end
@@ -49,10 +51,13 @@ module RuboCop
 
         def void?(expect)
           parent = expect.parent
-          return true unless parent
           return true if parent.begin_type?
 
           parent.block_type? && parent.body == expect
+        end
+
+        def inside_example?(node)
+          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
         end
       end
     end

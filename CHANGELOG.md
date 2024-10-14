@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix `RSpec/VoidExpect` to only operate inside an example block. ([@corsonknowles])
+
 ## 3.1.0 (2024-10-01)
 
 - Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
