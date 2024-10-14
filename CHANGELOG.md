@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+
 ## 3.1.0 (2024-10-01)
 
 - Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
