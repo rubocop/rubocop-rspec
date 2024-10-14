@@ -74,24 +74,32 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
       hook(source).metadata.to_s
     end
 
+    if RUBY_VERSION >= '3.4'
+      let(:expected_special) { 's(:sym, :special) => true' }
+      let(:expected_symbol) { 's(:sym, :symbol) => true' }
+    else
+      let(:expected_special) { 's(:sym, :special)=>true' }
+      let(:expected_symbol) { 's(:sym, :symbol)=>true' }
+    end
+
     it 'extracts symbol metadata' do
       expect(metadata('before(:example, :special) { foo }'))
-        .to eq('{s(:sym, :special)=>true}')
+        .to eq("{#{expected_special}}")
     end
 
     it 'extracts hash metadata' do
       expect(metadata('before(:example, special: true) { foo }'))
-        .to eq('{s(:sym, :special)=>true}')
+        .to eq("{#{expected_special}}")
     end
 
     it 'combines symbol and hash metadata' do
       expect(metadata('before(:example, :symbol, special: true) { foo }'))
-        .to eq('{s(:sym, :symbol)=>true, s(:sym, :special)=>true}')
+        .to eq("{#{expected_symbol}, #{expected_special}}")
     end
 
     it 'extracts hash metadata with no scope given' do
       expect(metadata('before(special: true) { foo }'))
-        .to eq('{s(:sym, :special)=>true}')
+        .to eq("{#{expected_special}}")
     end
 
     it 'withstands no arguments' do
