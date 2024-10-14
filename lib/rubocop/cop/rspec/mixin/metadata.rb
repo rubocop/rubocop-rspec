@@ -47,15 +47,12 @@ module RuboCop
         private
 
         def on_metadata_arguments(metadata_arguments)
-          *symbols, last = metadata_arguments
-          hash = nil
-          case last&.type
-          when :hash
-            hash = last
-          when :sym
-            symbols << last
+          if metadata_arguments.last&.hash_type?
+            *metadata_arguments, hash = metadata_arguments
+            on_metadata(metadata_arguments, hash)
+          else
+            on_metadata(metadata_arguments, nil)
           end
-          on_metadata(symbols, hash)
         end
       end
     end
