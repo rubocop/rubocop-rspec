@@ -6,6 +6,7 @@
 
 = RSpec
 
+[#rspecalignleftletbrace]
 == RSpec/AlignLeftLetBrace
 
 |===
@@ -20,6 +21,7 @@
 
 Checks that left braces for adjacent single line lets are aligned.
 
+[#examples-rspecalignleftletbrace]
 === Examples
 
 [source,ruby]
@@ -35,10 +37,12 @@ let(:baz)    { bar }
 let(:a)      { b }
 ----
 
+[#references-rspecalignleftletbrace]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace
 
+[#rspecalignrightletbrace]
 == RSpec/AlignRightLetBrace
 
 |===
@@ -53,6 +57,7 @@ let(:a)      { b }
 
 Checks that right braces for adjacent single line lets are aligned.
 
+[#examples-rspecalignrightletbrace]
 === Examples
 
 [source,ruby]
@@ -68,10 +73,12 @@ let(:baz)    { bar      }
 let(:a)      { b        }
 ----
 
+[#references-rspecalignrightletbrace]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace
 
+[#rspecanyinstance]
 == RSpec/AnyInstance
 
 |===
@@ -88,6 +95,7 @@ Check that instances are not being stubbed globally.
 
 Prefer instance doubles over stubbing any instance of a class
 
+[#examples-rspecanyinstance]
 === Examples
 
 [source,ruby]
@@ -108,11 +116,13 @@ describe MyClass do
 end
 ----
 
+[#references-rspecanyinstance]
 === References
 
 * https://rspec.rubystyle.guide/#any_instance_of
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
 
+[#rspecaroundblock]
 == RSpec/AroundBlock
 
 |===
@@ -127,6 +137,7 @@ end
 
 Checks that around blocks actually run the test.
 
+[#examples-rspecaroundblock]
 === Examples
 
 [source,ruby]
@@ -152,10 +163,12 @@ around do |test|
 end
 ----
 
+[#references-rspecaroundblock]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock
 
+[#rspecbe]
 == RSpec/Be
 
 |===
@@ -174,6 +187,7 @@ The `be` matcher is too generic, as it pass on everything that is not
 nil or false. If that is the exact intend, use `be_truthy`. In all other
 cases it's better to specify what exactly is the expected value.
 
+[#examples-rspecbe]
 === Examples
 
 [source,ruby]
@@ -187,11 +201,13 @@ expect(foo).to be 1.0
 expect(foo).to be(true)
 ----
 
+[#references-rspecbe]
 === References
 
 * https://rspec.rubystyle.guide/#be-matcher
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
 
+[#rspecbeempty]
 == RSpec/BeEmpty
 
 |===
@@ -206,6 +222,7 @@ expect(foo).to be(true)
 
 Prefer using `be_empty` when checking for an empty array.
 
+[#examples-rspecbeempty]
 === Examples
 
 [source,ruby]
@@ -218,10 +235,12 @@ expect(array).to match_array([])
 expect(array).to be_empty
 ----
 
+[#references-rspecbeempty]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEmpty
 
+[#rspecbeeq]
 == RSpec/BeEq
 
 |===
@@ -240,10 +259,12 @@ The `be` matcher compares by identity while the `eq` matcher compares
 using `==`. Booleans and nil can be compared by identity and therefore
 the `be` matcher is preferable as it is a more strict test.
 
+[#safety-rspecbeeq]
 === Safety
 
 This cop is unsafe because it changes how values are compared.
 
+[#examples-rspecbeeq]
 === Examples
 
 [source,ruby]
@@ -259,10 +280,12 @@ expect(foo).to be(false)
 expect(foo).to be(nil)
 ----
 
+[#references-rspecbeeq]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
 
+[#rspecbeeql]
 == RSpec/BeEql
 
 |===
@@ -289,10 +312,12 @@ than `!equal?`. We also do not try to flag `eq` because if
 necessarily the same type as `b` since the `#==` operator can
 coerce objects for comparison.
 
+[#safety-rspecbeeql]
 === Safety
 
 This cop is unsafe because it changes how values are compared.
 
+[#examples-rspecbeeql]
 === Examples
 
 [source,ruby]
@@ -314,10 +339,12 @@ expect(foo).to be(:bar)
 expect(foo).to be(nil)
 ----
 
+[#references-rspecbeeql]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
+[#rspecbenil]
 == RSpec/BeNil
 
 |===
@@ -337,8 +364,10 @@ generic `be` matcher with a `nil` argument.
 
 This cop can be configured using the `EnforcedStyle` option
 
+[#examples-rspecbenil]
 === Examples
 
+[#_enforcedstyle_-be_nil_-_default_-rspecbenil]
 ==== `EnforcedStyle: be_nil` (default)
 
 [source,ruby]
@@ -350,6 +379,7 @@ expect(foo).to be(nil)
 expect(foo).to be_nil
 ----
 
+[#_enforcedstyle_-be_-rspecbenil]
 ==== `EnforcedStyle: be`
 
 [source,ruby]
@@ -361,6 +391,7 @@ expect(foo).to be_nil
 expect(foo).to be(nil)
 ----
 
+[#configurable-attributes-rspecbenil]
 === Configurable attributes
 
 |===
@@ -371,10 +402,12 @@ expect(foo).to be(nil)
 | `be`, `be_nil`
 |===
 
+[#references-rspecbenil]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
 
+[#rspecbeforeafterall]
 == RSpec/BeforeAfterAll
 
 |===
@@ -389,6 +422,7 @@ expect(foo).to be(nil)
 
 Check that before/after(:all/:context) isn't being used.
 
+[#examples-rspecbeforeafterall]
 === Examples
 
 [source,ruby]
@@ -406,6 +440,7 @@ describe MyClass do
 end
 ----
 
+[#configurable-attributes-rspecbeforeafterall]
 === Configurable attributes
 
 |===
@@ -416,11 +451,13 @@ end
 | Array
 |===
 
+[#references-rspecbeforeafterall]
 === References
 
 * https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
+[#rspecchangebyzero]
 == RSpec/ChangeByZero
 
 |===
@@ -443,8 +480,10 @@ compound expectations, but if you set the
 negated matcher for `change`, e.g. `not_change` with
 the `NegatedMatcher` option, the cop will perform the autocorrection.
 
+[#examples-rspecchangebyzero]
 === Examples
 
+[#negatedmatcher_-_-_default_-rspecchangebyzero]
 ==== NegatedMatcher: ~ (default)
 
 [source,ruby]
@@ -475,6 +514,7 @@ expect { run }
   .and not_change { Foo.baz }
 ----
 
+[#negatedmatcher_-not_change-rspecchangebyzero]
 ==== NegatedMatcher: not_change
 
 [source,ruby]
@@ -497,6 +537,7 @@ expect { run }
   .and not_change { Foo.baz }
 ----
 
+[#configurable-attributes-rspecchangebyzero]
 === Configurable attributes
 
 |===
@@ -507,10 +548,12 @@ expect { run }
 | 
 |===
 
+[#references-rspecchangebyzero]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
 
+[#rspecclasscheck]
 == RSpec/ClassCheck
 
 |===
@@ -525,8 +568,10 @@ expect { run }
 
 Enforces consistent use of `be_a` or `be_kind_of`.
 
+[#examples-rspecclasscheck]
 === Examples
 
+[#enforcedstyle_-be_a-_default_-rspecclasscheck]
 ==== EnforcedStyle: be_a (default)
 
 [source,ruby]
@@ -540,6 +585,7 @@ expect(object).to be_a(String)
 expect(object).to be_an(String)
 ----
 
+[#enforcedstyle_-be_kind_of-rspecclasscheck]
 ==== EnforcedStyle: be_kind_of
 
 [source,ruby]
@@ -553,6 +599,7 @@ expect(object).to be_kind_of(String)
 expect(object).to be_a_kind_of(String)
 ----
 
+[#configurable-attributes-rspecclasscheck]
 === Configurable attributes
 
 |===
@@ -563,11 +610,13 @@ expect(object).to be_a_kind_of(String)
 | `be_a`, `be_kind_of`
 |===
 
+[#references-rspecclasscheck]
 === References
 
 * https://rubystyle.guide#is-a-vs-kind-of
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
 
+[#rspeccontainexactly]
 == RSpec/ContainExactly
 
 |===
@@ -586,6 +635,7 @@ This cop checks for the following:
 - Prefer `match_array` when matching array values.
 - Prefer `be_empty` when using `contain_exactly` with no arguments.
 
+[#examples-rspeccontainexactly]
 === Examples
 
 [source,ruby]
@@ -600,10 +650,12 @@ it { is_expected.to match_array(array1 + array2) }
 it { is_expected.to contain_exactly(content, *array) }
 ----
 
+[#references-rspeccontainexactly]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
+[#rspeccontextmethod]
 == RSpec/ContextMethod
 
 |===
@@ -618,6 +670,7 @@ it { is_expected.to contain_exactly(content, *array) }
 
 `context` should not be used for specifying methods.
 
+[#examples-rspeccontextmethod]
 === Examples
 
 [source,ruby]
@@ -641,11 +694,13 @@ describe '.foo_bar' do
 end
 ----
 
+[#references-rspeccontextmethod]
 === References
 
 * https://rspec.rubystyle.guide/#example-group-naming
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
 
+[#rspeccontextwording]
 == RSpec/ContextWording
 
 |===
@@ -668,8 +723,10 @@ They may consist of multiple words if desired.
 This cop can be customized allowed context description pattern
 with `AllowedPatterns`. By default, there are no checking by pattern.
 
+[#examples-rspeccontextwording]
 === Examples
 
+[#_prefixes_-configuration-rspeccontextwording]
 ==== `Prefixes` configuration
 
 [source,ruby]
@@ -698,6 +755,7 @@ context 'when the display name is not present' do
 end
 ----
 
+[#_allowedpatterns_-configuration-rspeccontextwording]
 ==== `AllowedPatterns` configuration
 
 [source,ruby]
@@ -721,6 +779,7 @@ context '条件を満たすとき' do
 end
 ----
 
+[#configurable-attributes-rspeccontextwording]
 === Configurable attributes
 
 |===
@@ -735,12 +794,14 @@ end
 | Array
 |===
 
+[#references-rspeccontextwording]
 === References
 
 * https://rspec.rubystyle.guide/#context-descriptions
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 * http://www.betterspecs.org/#contexts
 
+[#rspecdescribeclass]
 == RSpec/DescribeClass
 
 |===
@@ -759,8 +820,10 @@ It can be configured to ignore strings when certain metadata is passed.
 
 Ignores Rails and Aruba `type` metadata by default.
 
+[#examples-rspecdescribeclass]
 === Examples
 
+[#_ignoredmetadata_-configuration-rspecdescribeclass]
 ==== `IgnoredMetadata` configuration
 
 [source,ruby]
@@ -792,6 +855,7 @@ describe "A feature example", type: :feature do
 end
 ----
 
+[#configurable-attributes-rspecdescribeclass]
 === Configurable attributes
 
 |===
@@ -806,10 +870,12 @@ end
 | 
 |===
 
+[#references-rspecdescribeclass]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
 
+[#rspecdescribemethod]
 == RSpec/DescribeMethod
 
 |===
@@ -824,6 +890,7 @@ end
 
 Checks that the second argument to `describe` specifies a method.
 
+[#examples-rspecdescribemethod]
 === Examples
 
 [source,ruby]
@@ -840,10 +907,12 @@ describe MyClass, '.my_class_method' do
 end
 ----
 
+[#references-rspecdescribemethod]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod
 
+[#rspecdescribesymbol]
 == RSpec/DescribeSymbol
 
 |===
@@ -858,6 +927,7 @@ end
 
 Avoid describing symbols.
 
+[#examples-rspecdescribesymbol]
 === Examples
 
 [source,ruby]
@@ -873,11 +943,13 @@ describe '#my_method' do
 end
 ----
 
+[#references-rspecdescribesymbol]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
 * https://github.com/rspec/rspec-core/issues/1610
 
+[#rspecdescribedclass]
 == RSpec/DescribedClass
 
 |===
@@ -909,8 +981,10 @@ To narrow down this setting to only a specific directory, it is
 possible to use an overriding configuration file local to that
 directory.
 
+[#examples-rspecdescribedclass]
 === Examples
 
+[#_enforcedstyle_-described_class_-_default_-rspecdescribedclass]
 ==== `EnforcedStyle: described_class` (default)
 
 [source,ruby]
@@ -926,6 +1000,7 @@ describe MyClass do
 end
 ----
 
+[#_onlystaticconstants_-true_-_default_-rspecdescribedclass]
 ==== `OnlyStaticConstants: true` (default)
 
 [source,ruby]
@@ -936,6 +1011,7 @@ describe MyClass do
 end
 ----
 
+[#_onlystaticconstants_-false_-rspecdescribedclass]
 ==== `OnlyStaticConstants: false`
 
 [source,ruby]
@@ -946,6 +1022,7 @@ describe MyClass do
 end
 ----
 
+[#_enforcedstyle_-explicit_-rspecdescribedclass]
 ==== `EnforcedStyle: explicit`
 
 [source,ruby]
@@ -961,6 +1038,7 @@ describe MyClass do
 end
 ----
 
+[#_skipblocks_-true_-rspecdescribedclass]
 ==== `SkipBlocks: true`
 
 [source,ruby]
@@ -977,6 +1055,7 @@ describe MyConcern do
 end
 ----
 
+[#configurable-attributes-rspecdescribedclass]
 === Configurable attributes
 
 |===
@@ -995,10 +1074,12 @@ end
 | Boolean
 |===
 
+[#references-rspecdescribedclass]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
+[#rspecdescribedclassmodulewrapping]
 == RSpec/DescribedClassModuleWrapping
 
 |===
@@ -1013,6 +1094,7 @@ end
 
 Avoid opening modules and defining specs within them.
 
+[#examples-rspecdescribedclassmodulewrapping]
 === Examples
 
 [source,ruby]
@@ -1030,11 +1112,13 @@ RSpec.describe MyModule::MyClass do
 end
 ----
 
+[#references-rspecdescribedclassmodulewrapping]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
 * https://github.com/rubocop/rubocop-rspec/issues/735
 
+[#rspecdialect]
 == RSpec/Dialect
 
 |===
@@ -1088,6 +1172,7 @@ native RSpec method (e.g. are just aliases), use the following config:
 
 You can expect the following behavior:
 
+[#examples-rspecdialect]
 === Examples
 
 [source,ruby]
@@ -1103,6 +1188,7 @@ describe 'display name presence' do
 end
 ----
 
+[#configurable-attributes-rspecdialect]
 === Configurable attributes
 
 |===
@@ -1113,10 +1199,12 @@ end
 | 
 |===
 
+[#references-rspecdialect]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
+[#rspecduplicatedmetadata]
 == RSpec/DuplicatedMetadata
 
 |===
@@ -1131,6 +1219,7 @@ end
 
 Avoid duplicated metadata.
 
+[#examples-rspecduplicatedmetadata]
 === Examples
 
 [source,ruby]
@@ -1142,10 +1231,12 @@ describe 'Something', :a, :a
 describe 'Something', :a
 ----
 
+[#references-rspecduplicatedmetadata]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
 
+[#rspecemptyexamplegroup]
 == RSpec/EmptyExampleGroup
 
 |===
@@ -1160,8 +1251,10 @@ describe 'Something', :a
 
 Checks if an example group does not include any tests.
 
+[#examples-rspecemptyexamplegroup]
 === Examples
 
+[#usage-rspecemptyexamplegroup]
 ==== usage
 
 [source,ruby]
@@ -1196,10 +1289,12 @@ describe Bacon do
 end
 ----
 
+[#references-rspecemptyexamplegroup]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
 
+[#rspecemptyhook]
 == RSpec/EmptyHook
 
 |===
@@ -1214,6 +1309,7 @@ end
 
 Checks for empty before and after hooks.
 
+[#examples-rspecemptyhook]
 === Examples
 
 [source,ruby]
@@ -1236,10 +1332,12 @@ end
 after(:all) { cleanup_feed }
 ----
 
+[#references-rspecemptyhook]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
 
+[#rspecemptylineafterexample]
 == RSpec/EmptyLineAfterExample
 
 |===
@@ -1254,6 +1352,7 @@ after(:all) { cleanup_feed }
 
 Checks if there is an empty line after example blocks.
 
+[#examples-rspecemptylineafterexample]
 === Examples
 
 [source,ruby]
@@ -1282,6 +1381,7 @@ RSpec.describe Foo do
 end
 ----
 
+[#with-allowconsecutiveoneliners-configuration-rspecemptylineafterexample]
 ==== with AllowConsecutiveOneLiners configuration
 
 [source,ruby]
@@ -1297,6 +1397,7 @@ RSpec.describe Foo do
 end
 ----
 
+[#configurable-attributes-rspecemptylineafterexample]
 === Configurable attributes
 
 |===
@@ -1307,11 +1408,13 @@ end
 | Boolean
 |===
 
+[#references-rspecemptylineafterexample]
 === References
 
 * https://rspec.rubystyle.guide/#empty-lines-around-examples
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample
 
+[#rspecemptylineafterexamplegroup]
 == RSpec/EmptyLineAfterExampleGroup
 
 |===
@@ -1326,6 +1429,7 @@ end
 
 Checks if there is an empty line after example group blocks.
 
+[#examples-rspecemptylineafterexamplegroup]
 === Examples
 
 [source,ruby]
@@ -1348,11 +1452,13 @@ RSpec.describe Foo do
 end
 ----
 
+[#references-rspecemptylineafterexamplegroup]
 === References
 
 * https://rspec.rubystyle.guide/#empty-lines-between-describes
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup
 
+[#rspecemptylineafterfinallet]
 == RSpec/EmptyLineAfterFinalLet
 
 |===
@@ -1367,6 +1473,7 @@ end
 
 Checks if there is an empty line after the last let block.
 
+[#examples-rspecemptylineafterfinallet]
 === Examples
 
 [source,ruby]
@@ -1383,11 +1490,13 @@ let(:something) { other }
 it { does_something }
 ----
 
+[#references-rspecemptylineafterfinallet]
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet
 
+[#rspecemptylineafterhook]
 == RSpec/EmptyLineAfterHook
 
 |===
@@ -1405,6 +1514,7 @@ Checks if there is an empty line after hook blocks.
 `AllowConsecutiveOneLiners` configures whether adjacent
 one-line definitions are considered an offense.
 
+[#examples-rspecemptylineafterhook]
 === Examples
 
 [source,ruby]
@@ -1433,6 +1543,7 @@ after { do_something }
 it { does_something }
 ----
 
+[#with-allowconsecutiveoneliners-configuration-rspecemptylineafterhook]
 ==== with AllowConsecutiveOneLiners configuration
 
 [source,ruby]
@@ -1455,6 +1566,7 @@ after { do_something }
 it { does_something }
 ----
 
+[#configurable-attributes-rspecemptylineafterhook]
 === Configurable attributes
 
 |===
@@ -1465,11 +1577,13 @@ it { does_something }
 | Boolean
 |===
 
+[#references-rspecemptylineafterhook]
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
 
+[#rspecemptylineaftersubject]
 == RSpec/EmptyLineAfterSubject
 
 |===
@@ -1484,6 +1598,7 @@ it { does_something }
 
 Checks if there is an empty line after subject block.
 
+[#examples-rspecemptylineaftersubject]
 === Examples
 
 [source,ruby]
@@ -1498,11 +1613,13 @@ subject(:obj) { described_class }
 let(:foo) { bar }
 ----
 
+[#references-rspecemptylineaftersubject]
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
+[#rspecemptymetadata]
 == RSpec/EmptyMetadata
 
 |===
@@ -1517,8 +1634,10 @@ let(:foo) { bar }
 
 Avoid empty metadata hash.
 
+[#examples-rspecemptymetadata]
 === Examples
 
+[#enforcedstyle_-symbol-_default_-rspecemptymetadata]
 ==== EnforcedStyle: symbol (default)
 
 [source,ruby]
@@ -1530,10 +1649,12 @@ describe 'Something', {}
 describe 'Something'
 ----
 
+[#references-rspecemptymetadata]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
 
+[#rspecemptyoutput]
 == RSpec/EmptyOutput
 
 |===
@@ -1548,6 +1669,7 @@ describe 'Something'
 
 Check that the `output` matcher is not called with an empty string.
 
+[#examples-rspecemptyoutput]
 === Examples
 
 [source,ruby]
@@ -1561,10 +1683,12 @@ expect { foo }.not_to output.to_stdout
 expect { bar }.to output.to_stderr
 ----
 
+[#references-rspecemptyoutput]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyOutput
 
+[#rspeceq]
 == RSpec/Eq
 
 |===
@@ -1579,6 +1703,7 @@ expect { bar }.to output.to_stderr
 
 Use `eq` instead of `be ==` to compare objects.
 
+[#examples-rspeceq]
 === Examples
 
 [source,ruby]
@@ -1590,10 +1715,12 @@ expect(foo).to be == 42
 expect(foo).to eq 42
 ----
 
+[#references-rspeceq]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
 
+[#rspecexamplelength]
 == RSpec/ExampleLength
 
 |===
@@ -1617,6 +1744,7 @@ Available are: 'array', 'hash', 'heredoc', and 'method_call'.
 Each construct will be counted as one line regardless of
 its actual size.
 
+[#examples-rspecexamplelength]
 === Examples
 
 [source,ruby]
@@ -1638,6 +1766,7 @@ it do
 end
 ----
 
+[#countasone_-__array__-_heredoc__-_method_call__-rspecexamplelength]
 ==== CountAsOne: ['array', 'heredoc', 'method_call']
 
 [source,ruby]
@@ -1664,6 +1793,7 @@ it do
 end               # 6 points
 ----
 
+[#configurable-attributes-rspecexamplelength]
 === Configurable attributes
 
 |===
@@ -1678,10 +1808,12 @@ end               # 6 points
 | Array
 |===
 
+[#references-rspecexamplelength]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength
 
+[#rspecexamplewithoutdescription]
 == RSpec/ExampleWithoutDescription
 
 |===
@@ -1706,6 +1838,7 @@ on the configured style.
 
 This cop can be configured using the `EnforcedStyle` option
 
+[#examples-rspecexamplewithoutdescription]
 === Examples
 
 [source,ruby]
@@ -1717,6 +1850,7 @@ specify do
 end
 ----
 
+[#_enforcedstyle_-always_allow_-_default_-rspecexamplewithoutdescription]
 ==== `EnforcedStyle: always_allow` (default)
 
 [source,ruby]
@@ -1736,6 +1870,7 @@ specify do
 end
 ----
 
+[#_enforcedstyle_-single_line_only_-rspecexamplewithoutdescription]
 ==== `EnforcedStyle: single_line_only`
 
 [source,ruby]
@@ -1751,6 +1886,7 @@ end
 it { is_expected.to be_good }
 ----
 
+[#_enforcedstyle_-disallow_-rspecexamplewithoutdescription]
 ==== `EnforcedStyle: disallow`
 
 [source,ruby]
@@ -1763,6 +1899,7 @@ it do
 end
 ----
 
+[#configurable-attributes-rspecexamplewithoutdescription]
 === Configurable attributes
 
 |===
@@ -1773,11 +1910,13 @@ end
 | `always_allow`, `single_line_only`, `disallow`
 |===
 
+[#references-rspecexamplewithoutdescription]
 === References
 
 * https://rspec.rubystyle.guide/#it-and-specify
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
+[#rspecexamplewording]
 == RSpec/ExampleWording
 
 |===
@@ -1802,6 +1941,7 @@ Use the DisallowedExamples setting to prevent unclear or insufficient
 descriptions. Please note that this config will not be treated as
 case sensitive.
 
+[#examples-rspecexamplewording]
 === Examples
 
 [source,ruby]
@@ -1829,6 +1969,7 @@ it 'does things' do
 end
 ----
 
+[#_disallowedexamples_-__works___-_default_-rspecexamplewording]
 ==== `DisallowedExamples: ['works']` (default)
 
 [source,ruby]
@@ -1842,6 +1983,7 @@ it 'marks the task as done' do
 end
 ----
 
+[#configurable-attributes-rspecexamplewording]
 === Configurable attributes
 
 |===
@@ -1860,12 +2002,14 @@ end
 | Array
 |===
 
+[#references-rspecexamplewording]
 === References
 
 * https://rspec.rubystyle.guide/#should-in-example-docstrings
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
 * http://betterspecs.org/#should
 
+[#rspecexcessivedocstringspacing]
 == RSpec/ExcessiveDocstringSpacing
 
 |===
@@ -1880,6 +2024,7 @@ end
 
 Checks for excessive whitespace in example descriptions.
 
+[#examples-rspecexcessivedocstringspacing]
 === Examples
 
 [source,ruby]
@@ -1904,10 +2049,12 @@ context 'when a condition is met' do
 end
 ----
 
+[#references-rspecexcessivedocstringspacing]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
 
+[#rspecexpectactual]
 == RSpec/ExpectActual
 
 |===
@@ -1924,6 +2071,7 @@ Checks for `expect(...)` calls containing literal values.
 
 Autocorrection is performed when the expected is not a literal.
 
+[#examples-rspecexpectactual]
 === Examples
 
 [source,ruby]
@@ -1942,6 +2090,7 @@ expect(name).to eq("John")
 expect(false).to eq(true)
 ----
 
+[#configurable-attributes-rspecexpectactual]
 === Configurable attributes
 
 |===
@@ -1952,10 +2101,12 @@ expect(false).to eq(true)
 | Array
 |===
 
+[#references-rspecexpectactual]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
+[#rspecexpectchange]
 == RSpec/ExpectChange
 
 |===
@@ -1975,8 +2126,10 @@ or passing a block that reads the attribute value.
 
 This cop can be configured using the `EnforcedStyle` option.
 
+[#examples-rspecexpectchange]
 === Examples
 
+[#_enforcedstyle_-method_call_-_default_-rspecexpectchange]
 ==== `EnforcedStyle: method_call` (default)
 
 [source,ruby]
@@ -1993,6 +2146,7 @@ expect { run }.to change { Foo.bar(:count) }
 expect { run }.to change { user.reload.name }
 ----
 
+[#_enforcedstyle_-block_-rspecexpectchange]
 ==== `EnforcedStyle: block`
 
 [source,ruby]
@@ -2004,6 +2158,7 @@ expect { run }.to change(Foo, :bar)
 expect { run }.to change { Foo.bar }
 ----
 
+[#configurable-attributes-rspecexpectchange]
 === Configurable attributes
 
 |===
@@ -2014,10 +2169,12 @@ expect { run }.to change { Foo.bar }
 | `method_call`, `block`
 |===
 
+[#references-rspecexpectchange]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
+[#rspecexpectinhook]
 == RSpec/ExpectInHook
 
 |===
@@ -2032,6 +2189,7 @@ expect { run }.to change { Foo.bar }
 
 Do not use `expect` in hooks such as `before`.
 
+[#examples-rspecexpectinhook]
 === Examples
 
 [source,ruby]
@@ -2052,10 +2210,12 @@ it do
 end
 ----
 
+[#references-rspecexpectinhook]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook
 
+[#rspecexpectinlet]
 == RSpec/ExpectInLet
 
 |===
@@ -2070,6 +2230,7 @@ end
 
 Do not use `expect` in let.
 
+[#examples-rspecexpectinlet]
 === Examples
 
 [source,ruby]
@@ -2085,10 +2246,12 @@ it do
 end
 ----
 
+[#references-rspecexpectinlet]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInLet
 
+[#rspecexpectoutput]
 == RSpec/ExpectOutput
 
 |===
@@ -2103,6 +2266,7 @@ end
 
 Checks for opportunities to use `expect { ... }.to output`.
 
+[#examples-rspecexpectoutput]
 === Examples
 
 [source,ruby]
@@ -2117,10 +2281,12 @@ expect($stdout.string).to eq('Hello World')
 expect { my_app.print_report }.to output('Hello World').to_stdout
 ----
 
+[#references-rspecexpectoutput]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
+[#rspecfocus]
 == RSpec/Focus
 
 |===
@@ -2137,6 +2303,7 @@ Checks if examples are focused.
 
 This cop does not support autocorrection in some cases.
 
+[#examples-rspecfocus]
 === Examples
 
 [source,ruby]
@@ -2183,10 +2350,12 @@ shared_context 'test' do; end
 focus 'test' do; end
 ----
 
+[#references-rspecfocus]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
+[#rspechookargument]
 == RSpec/HookArgument
 
 |===
@@ -2206,8 +2375,10 @@ hooks which run for each example. There are three supported
 styles: "implicit", "each", and "example." All styles have
 the same behavior.
 
+[#examples-rspechookargument]
 === Examples
 
+[#_enforcedstyle_-implicit_-_default_-rspechookargument]
 ==== `EnforcedStyle: implicit` (default)
 
 [source,ruby]
@@ -2228,6 +2399,7 @@ before do
 end
 ----
 
+[#_enforcedstyle_-each_-rspechookargument]
 ==== `EnforcedStyle: each`
 
 [source,ruby]
@@ -2248,6 +2420,7 @@ before(:each) do
 end
 ----
 
+[#_enforcedstyle_-example_-rspechookargument]
 ==== `EnforcedStyle: example`
 
 [source,ruby]
@@ -2268,6 +2441,7 @@ before(:example) do
 end
 ----
 
+[#configurable-attributes-rspechookargument]
 === Configurable attributes
 
 |===
@@ -2278,11 +2452,13 @@ end
 | `implicit`, `each`, `example`
 |===
 
+[#references-rspechookargument]
 === References
 
 * https://rspec.rubystyle.guide/#redundant-beforeeach
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
+[#rspechooksbeforeexamples]
 == RSpec/HooksBeforeExamples
 
 |===
@@ -2297,6 +2473,7 @@ end
 
 Checks for before/around/after hooks that come after an example.
 
+[#examples-rspechooksbeforeexamples]
 === Examples
 
 [source,ruby]
@@ -2318,10 +2495,12 @@ it 'checks what foo does' do
 end
 ----
 
+[#references-rspechooksbeforeexamples]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
 
+[#rspecidenticalequalityassertion]
 == RSpec/IdenticalEqualityAssertion
 
 |===
@@ -2336,6 +2515,7 @@ end
 
 Checks for equality assertions with identical expressions on both sides.
 
+[#examples-rspecidenticalequalityassertion]
 === Examples
 
 [source,ruby]
@@ -2349,10 +2529,12 @@ expect(foo.bar).to eq(2)
 expect(foo.bar).to eql(2)
 ----
 
+[#references-rspecidenticalequalityassertion]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
 
+[#rspecimplicitblockexpectation]
 == RSpec/ImplicitBlockExpectation
 
 |===
@@ -2369,6 +2551,7 @@ Check that implicit block expectation syntax is not used.
 
 Prefer using explicit block expectations.
 
+[#examples-rspecimplicitblockexpectation]
 === Examples
 
 [source,ruby]
@@ -2383,11 +2566,13 @@ it 'changes something to a new value' do
 end
 ----
 
+[#references-rspecimplicitblockexpectation]
 === References
 
 * https://rspec.rubystyle.guide/#implicit-block-expectations
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation
 
+[#rspecimplicitexpect]
 == RSpec/ImplicitExpect
 
 |===
@@ -2405,8 +2590,10 @@ Check that a consistent implicit expectation style is used.
 This cop can be configured using the `EnforcedStyle` option
 and supports the `--auto-gen-config` flag.
 
+[#examples-rspecimplicitexpect]
 === Examples
 
+[#_enforcedstyle_-is_expected_-_default_-rspecimplicitexpect]
 ==== `EnforcedStyle: is_expected` (default)
 
 [source,ruby]
@@ -2418,6 +2605,7 @@ it { should be_truthy }
 it { is_expected.to be_truthy }
 ----
 
+[#_enforcedstyle_-should_-rspecimplicitexpect]
 ==== `EnforcedStyle: should`
 
 [source,ruby]
@@ -2429,6 +2617,7 @@ it { is_expected.to be_truthy }
 it { should be_truthy }
 ----
 
+[#configurable-attributes-rspecimplicitexpect]
 === Configurable attributes
 
 |===
@@ -2439,11 +2628,13 @@ it { should be_truthy }
 | `is_expected`, `should`
 |===
 
+[#references-rspecimplicitexpect]
 === References
 
 * https://rspec.rubystyle.guide/#use-expect
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
+[#rspecimplicitsubject]
 == RSpec/ImplicitSubject
 
 |===
@@ -2460,8 +2651,10 @@ Checks for usage of implicit subject (`is_expected` / `should`).
 
 This cop can be configured using the `EnforcedStyle` option
 
+[#examples-rspecimplicitsubject]
 === Examples
 
+[#_enforcedstyle_-single_line_only_-_default_-rspecimplicitsubject]
 ==== `EnforcedStyle: single_line_only` (default)
 
 [source,ruby]
@@ -2478,6 +2671,7 @@ it do
 end
 ----
 
+[#_enforcedstyle_-single_statement_only_-rspecimplicitsubject]
 ==== `EnforcedStyle: single_statement_only`
 
 [source,ruby]
@@ -2498,6 +2692,7 @@ it do
 end
 ----
 
+[#_enforcedstyle_-disallow_-rspecimplicitsubject]
 ==== `EnforcedStyle: disallow`
 
 [source,ruby]
@@ -2509,6 +2704,7 @@ it { is_expected.to be_truthy }
 it { expect(subject).to be_truthy }
 ----
 
+[#_enforcedstyle_-require_implicit_-rspecimplicitsubject]
 ==== `EnforcedStyle: require_implicit`
 
 [source,ruby]
@@ -2533,6 +2729,7 @@ end
 it { expect(named_subject).to be_truthy }
 ----
 
+[#configurable-attributes-rspecimplicitsubject]
 === Configurable attributes
 
 |===
@@ -2543,10 +2740,12 @@ it { expect(named_subject).to be_truthy }
 | `single_line_only`, `single_statement_only`, `disallow`, `require_implicit`
 |===
 
+[#references-rspecimplicitsubject]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
 
+[#rspecindexedlet]
 == RSpec/IndexedLet
 
 |===
@@ -2567,8 +2766,10 @@ is tested by this particular example.
 The configurable options `AllowedIdentifiers` and `AllowedPatterns`
 will also read those set in `Naming/VariableNumber`.
 
+[#examples-rspecindexedlet]
 === Examples
 
+[#_max_-1-_default__-rspecindexedlet]
 ==== `Max: 1 (default)`
 
 [source,ruby]
@@ -2586,6 +2787,7 @@ let(:visible_item) { create(:item, visible: true) }
 let(:invisible_item) { create(:item, visible: false) }
 ----
 
+[#_max_-2_-rspecindexedlet]
 ==== `Max: 2`
 
 [source,ruby]
@@ -2600,6 +2802,7 @@ let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 ----
 
+[#_allowedidentifiers_-__item_1__-_item_2___-rspecindexedlet]
 ==== `AllowedIdentifiers: ['item_1', 'item_2']`
 
 [source,ruby]
@@ -2609,6 +2812,7 @@ let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 ----
 
+[#_allowedpatterns_-__item___-rspecindexedlet]
 ==== `AllowedPatterns: ['item']`
 
 [source,ruby]
@@ -2618,6 +2822,7 @@ let(:item_1) { create(:item) }
 let(:item_2) { create(:item) }
 ----
 
+[#configurable-attributes-rspecindexedlet]
 === Configurable attributes
 
 |===
@@ -2636,10 +2841,12 @@ let(:item_2) { create(:item) }
 | Array
 |===
 
+[#references-rspecindexedlet]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
 
+[#rspecinstancespy]
 == RSpec/InstanceSpy
 
 |===
@@ -2654,6 +2861,7 @@ let(:item_2) { create(:item) }
 
 Checks for `instance_double` used with `have_received`.
 
+[#examples-rspecinstancespy]
 === Examples
 
 [source,ruby]
@@ -2671,10 +2879,12 @@ it do
 end
 ----
 
+[#references-rspecinstancespy]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy
 
+[#rspecinstancevariable]
 == RSpec/InstanceVariable
 
 |===
@@ -2694,6 +2904,7 @@ will configure the cop to only register offenses on instance
 variable usage if the instance variable is also assigned within
 the spec
 
+[#examples-rspecinstancevariable]
 === Examples
 
 [source,ruby]
@@ -2711,6 +2922,7 @@ describe MyClass do
 end
 ----
 
+[#with-assignmentonly-configuration-rspecinstancevariable]
 ==== with AssignmentOnly configuration
 
 [source,ruby]
@@ -2737,6 +2949,7 @@ describe MyClass do
 end
 ----
 
+[#configurable-attributes-rspecinstancevariable]
 === Configurable attributes
 
 |===
@@ -2747,11 +2960,13 @@ end
 | Boolean
 |===
 
+[#references-rspecinstancevariable]
 === References
 
 * https://rspec.rubystyle.guide/#instance-variables
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
+[#rspecisexpectedspecify]
 == RSpec/IsExpectedSpecify
 
 |===
@@ -2766,6 +2981,7 @@ end
 
 Check for `specify` with `is_expected` and one-liner expectations.
 
+[#examples-rspecisexpectedspecify]
 === Examples
 
 [source,ruby]
@@ -2783,11 +2999,13 @@ end
 specify { expect(sqrt(4)).to eq(2) }
 ----
 
+[#references-rspecisexpectedspecify]
 === References
 
 * https://rspec.rubystyle.guide/#it-and-specify
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IsExpectedSpecify
 
+[#rspecitbehaveslike]
 == RSpec/ItBehavesLike
 
 |===
@@ -2802,8 +3020,10 @@ specify { expect(sqrt(4)).to eq(2) }
 
 Checks that only one `it_behaves_like` style is used.
 
+[#examples-rspecitbehaveslike]
 === Examples
 
+[#_enforcedstyle_-it_behaves_like_-_default_-rspecitbehaveslike]
 ==== `EnforcedStyle: it_behaves_like` (default)
 
 [source,ruby]
@@ -2815,6 +3035,7 @@ it_should_behave_like 'a foo'
 it_behaves_like 'a foo'
 ----
 
+[#_enforcedstyle_-it_should_behave_like_-rspecitbehaveslike]
 ==== `EnforcedStyle: it_should_behave_like`
 
 [source,ruby]
@@ -2826,6 +3047,7 @@ it_behaves_like 'a foo'
 it_should_behave_like 'a foo'
 ----
 
+[#configurable-attributes-rspecitbehaveslike]
 === Configurable attributes
 
 |===
@@ -2836,10 +3058,12 @@ it_should_behave_like 'a foo'
 | `it_behaves_like`, `it_should_behave_like`
 |===
 
+[#references-rspecitbehaveslike]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
 
+[#rspeciteratedexpectation]
 == RSpec/IteratedExpectation
 
 |===
@@ -2854,6 +3078,7 @@ it_should_behave_like 'a foo'
 
 Check that `all` matcher is used instead of iterating over an array.
 
+[#examples-rspeciteratedexpectation]
 === Examples
 
 [source,ruby]
@@ -2869,10 +3094,12 @@ it 'validates users' do
 end
 ----
 
+[#references-rspeciteratedexpectation]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
 
+[#rspecleadingsubject]
 == RSpec/LeadingSubject
 
 |===
@@ -2887,6 +3114,7 @@ end
 
 Enforce that subject is the first definition in the test.
 
+[#examples-rspecleadingsubject]
 === Examples
 
 [source,ruby]
@@ -2916,11 +3144,13 @@ it { expect_something }
 it { expect_something_else }
 ----
 
+[#references-rspecleadingsubject]
 === References
 
 * https://rspec.rubystyle.guide/#leading-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
+[#rspecleakyconstantdeclaration]
 == RSpec/LeakyConstantDeclaration
 
 |===
@@ -2947,8 +3177,10 @@ Even worse when a class that exists in the codebase is reopened.
 Anonymous classes are fine, since they don't result in global
 namespace name clashes.
 
+[#examples-rspecleakyconstantdeclaration]
 === Examples
 
+[#constants-leak-between-examples-rspecleakyconstantdeclaration]
 ==== Constants leak between examples
 
 [source,ruby]
@@ -3032,12 +3264,14 @@ describe SomeClass do
 end
 ----
 
+[#references-rspecleakyconstantdeclaration]
 === References
 
 * https://rspec.rubystyle.guide/#declare-constants
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 * https://rspec.info/features/3-12/rspec-mocks/mutating-constants
 
+[#rspecletbeforeexamples]
 == RSpec/LetBeforeExamples
 
 |===
@@ -3052,6 +3286,7 @@ end
 
 Checks for `let` definitions that come after an example.
 
+[#examples-rspecletbeforeexamples]
 === Examples
 
 [source,ruby]
@@ -3082,10 +3317,12 @@ it 'checks what some does' do
 end
 ----
 
+[#references-rspecletbeforeexamples]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples
 
+[#rspecletsetup]
 == RSpec/LetSetup
 
 |===
@@ -3100,6 +3337,7 @@ end
 
 Checks unreferenced `let!` calls being used for test setup.
 
+[#examples-rspecletsetup]
 === Examples
 
 [source,ruby]
@@ -3125,10 +3363,12 @@ it 'counts widgets' do
 end
 ----
 
+[#references-rspecletsetup]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
 
+[#rspecmatcharray]
 == RSpec/MatchArray
 
 |===
@@ -3147,6 +3387,7 @@ This cop checks for the following:
 - Prefer `contain_exactly` when matching an array with values.
 - Prefer `eq` when using `match_array` with an empty array literal.
 
+[#examples-rspecmatcharray]
 === Examples
 
 [source,ruby]
@@ -3164,10 +3405,12 @@ it { is_expected.to match_array([content] + array) }
 it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
 ----
 
+[#references-rspecmatcharray]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
+[#rspecmessagechain]
 == RSpec/MessageChain
 
 |===
@@ -3182,6 +3425,7 @@ it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
 
 Check that chains of messages are not being stubbed.
 
+[#examples-rspecmessagechain]
 === Examples
 
 [source,ruby]
@@ -3194,10 +3438,12 @@ thing = Thing.new(baz: 42)
 allow(foo).to receive(:bar).and_return(thing)
 ----
 
+[#references-rspecmessagechain]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain
 
+[#rspecmessageexpectation]
 == RSpec/MessageExpectation
 
 |===
@@ -3215,8 +3461,10 @@ Checks for consistent message expectation style.
 This cop can be configured in your configuration using the
 `EnforcedStyle` option and supports `--auto-gen-config`.
 
+[#examples-rspecmessageexpectation]
 === Examples
 
+[#_enforcedstyle_-allow_-_default_-rspecmessageexpectation]
 ==== `EnforcedStyle: allow` (default)
 
 [source,ruby]
@@ -3228,6 +3476,7 @@ expect(foo).to receive(:bar)
 allow(foo).to receive(:bar)
 ----
 
+[#_enforcedstyle_-expect_-rspecmessageexpectation]
 ==== `EnforcedStyle: expect`
 
 [source,ruby]
@@ -3239,6 +3488,7 @@ allow(foo).to receive(:bar)
 expect(foo).to receive(:bar)
 ----
 
+[#configurable-attributes-rspecmessageexpectation]
 === Configurable attributes
 
 |===
@@ -3249,10 +3499,12 @@ expect(foo).to receive(:bar)
 | `allow`, `expect`
 |===
 
+[#references-rspecmessageexpectation]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation
 
+[#rspecmessagespies]
 == RSpec/MessageSpies
 
 |===
@@ -3270,8 +3522,10 @@ Checks that message expectations are set using spies.
 This cop can be configured in your configuration using the
 `EnforcedStyle` option and supports `--auto-gen-config`.
 
+[#examples-rspecmessagespies]
 === Examples
 
+[#_enforcedstyle_-have_received_-_default_-rspecmessagespies]
 ==== `EnforcedStyle: have_received` (default)
 
 [source,ruby]
@@ -3286,6 +3540,7 @@ do_something
 expect(foo).to have_received(:bar)
 ----
 
+[#_enforcedstyle_-receive_-rspecmessagespies]
 ==== `EnforcedStyle: receive`
 
 [source,ruby]
@@ -3300,6 +3555,7 @@ expect(foo).to receive(:bar)
 do_something
 ----
 
+[#configurable-attributes-rspecmessagespies]
 === Configurable attributes
 
 |===
@@ -3310,10 +3566,12 @@ do_something
 | `have_received`, `receive`
 |===
 
+[#references-rspecmessagespies]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
 
+[#rspecmetadatastyle]
 == RSpec/MetadataStyle
 
 |===
@@ -3332,8 +3590,10 @@ This cop does not support autocorrection in the case of
 `EnforcedStyle: hash` where the trailing metadata type is ambiguous.
 (e.g. `describe 'Something', :a, b`)
 
+[#examples-rspecmetadatastyle]
 === Examples
 
+[#enforcedstyle_-symbol-_default_-rspecmetadatastyle]
 ==== EnforcedStyle: symbol (default)
 
 [source,ruby]
@@ -3345,6 +3605,7 @@ describe 'Something', a: true
 describe 'Something', :a
 ----
 
+[#enforcedstyle_-hash-rspecmetadatastyle]
 ==== EnforcedStyle: hash
 
 [source,ruby]
@@ -3356,6 +3617,7 @@ describe 'Something', :a
 describe 'Something', a: true
 ----
 
+[#configurable-attributes-rspecmetadatastyle]
 === Configurable attributes
 
 |===
@@ -3366,10 +3628,12 @@ describe 'Something', a: true
 | `hash`, `symbol`
 |===
 
+[#references-rspecmetadatastyle]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MetadataStyle
 
+[#rspecmissingexamplegroupargument]
 == RSpec/MissingExampleGroupArgument
 
 |===
@@ -3384,6 +3648,7 @@ describe 'Something', a: true
 
 Checks that the first argument to an example group is not empty.
 
+[#examples-rspecmissingexamplegroupargument]
 === Examples
 
 [source,ruby]
@@ -3403,10 +3668,12 @@ describe "A feature example" do
 end
 ----
 
+[#references-rspecmissingexamplegroupargument]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
 
+[#rspecmissingexpectationtargetmethod]
 == RSpec/MissingExpectationTargetMethod
 
 |===
@@ -3424,6 +3691,7 @@ Checks if `.to`, `not_to` or `to_not` are used.
 The RSpec::Expectations::ExpectationTarget must use `to`, `not_to` or
 `to_not` to run. Therefore, this cop checks if other methods are used.
 
+[#examples-rspecmissingexpectationtargetmethod]
 === Examples
 
 [source,ruby]
@@ -3439,10 +3707,12 @@ is_expected.to eq 42
 expect{something}.to raise_error BarError
 ----
 
+[#references-rspecmissingexpectationtargetmethod]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExpectationTargetMethod
 
+[#rspecmultipledescribes]
 == RSpec/MultipleDescribes
 
 |===
@@ -3460,6 +3730,7 @@ Checks for multiple top-level example groups.
 Multiple descriptions for the same class or module should either
 be nested or separated into different test files.
 
+[#examples-rspecmultipledescribes]
 === Examples
 
 [source,ruby]
@@ -3479,10 +3750,12 @@ describe MyClass do
 end
 ----
 
+[#references-rspecmultipledescribes]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes
 
+[#rspecmultipleexpectations]
 == RSpec/MultipleExpectations
 
 |===
@@ -3500,6 +3773,7 @@ Checks if examples contain too many `expect` calls.
 This cop is configurable using the `Max` option
 and works with `--auto-gen-config`.
 
+[#examples-rspecmultipleexpectations]
 === Examples
 
 [source,ruby]
@@ -3524,6 +3798,7 @@ describe UserCreator do
 end
 ----
 
+[#_aggregate_failures_-true_-_default_-rspecmultipleexpectations]
 ==== `aggregate_failures: true` (default)
 
 [source,ruby]
@@ -3537,6 +3812,7 @@ describe UserCreator do
 end
 ----
 
+[#_aggregate_failures_-false_-rspecmultipleexpectations]
 ==== `aggregate_failures: false`
 
 [source,ruby]
@@ -3550,6 +3826,7 @@ describe UserCreator do
 end
 ----
 
+[#_max_-1_-_default_-rspecmultipleexpectations]
 ==== `Max: 1` (default)
 
 [source,ruby]
@@ -3563,6 +3840,7 @@ describe UserCreator do
 end
 ----
 
+[#_max_-2_-rspecmultipleexpectations]
 ==== `Max: 2`
 
 [source,ruby]
@@ -3576,6 +3854,7 @@ describe UserCreator do
 end
 ----
 
+[#configurable-attributes-rspecmultipleexpectations]
 === Configurable attributes
 
 |===
@@ -3586,12 +3865,14 @@ end
 | Integer
 |===
 
+[#references-rspecmultipleexpectations]
 === References
 
 * https://rspec.rubystyle.guide/#expectation-per-example
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 * http://betterspecs.org/#single
 
+[#rspecmultiplememoizedhelpers]
 == RSpec/MultipleMemoizedHelpers
 
 |===
@@ -3610,6 +3891,7 @@ This cop is configurable using the `Max` option and the `AllowSubject`
 which will configure the cop to only register offenses on calls to
 `let` and not calls to `subject`.
 
+[#examples-rspecmultiplememoizedhelpers]
 === Examples
 
 [source,ruby]
@@ -3660,6 +3942,7 @@ describe MyClass do
 end
 ----
 
+[#when-disabling-allowsubject-configuration-rspecmultiplememoizedhelpers]
 ==== when disabling AllowSubject configuration
 
 [source,ruby]
@@ -3679,6 +3962,7 @@ describe MyClass do
 end
 ----
 
+[#with-max-configuration-rspecmultiplememoizedhelpers]
 ==== with Max configuration
 
 [source,ruby]
@@ -3694,6 +3978,7 @@ describe MyClass do
 end
 ----
 
+[#configurable-attributes-rspecmultiplememoizedhelpers]
 === Configurable attributes
 
 |===
@@ -3708,11 +3993,13 @@ end
 | Integer
 |===
 
+[#references-rspecmultiplememoizedhelpers]
 === References
 
 * https://rspec.rubystyle.guide/#let-blocks
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
 
+[#rspecmultiplesubjects]
 == RSpec/MultipleSubjects
 
 |===
@@ -3743,6 +4030,7 @@ duplication:
     This is enough of an edge case that people can just move this to
     a `before` hook on their own
 
+[#examples-rspecmultiplesubjects]
 === Examples
 
 [source,ruby]
@@ -3774,10 +4062,12 @@ describe Foo do
 end
 ----
 
+[#references-rspecmultiplesubjects]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects
 
+[#rspecnamedsubject]
 == RSpec/NamedSubject
 
 |===
@@ -3803,8 +4093,10 @@ This cop can be configured in your configuration using `EnforcedStyle`,
 and `IgnoreSharedExamples` which will not report offenses for implicit
 subjects in shared example groups.
 
+[#examples-rspecnamedsubject]
 === Examples
 
+[#_enforcedstyle_-always_-_default_-rspecnamedsubject]
 ==== `EnforcedStyle: always` (default)
 
 [source,ruby]
@@ -3835,6 +4127,7 @@ RSpec.describe User do
 end
 ----
 
+[#_enforcedstyle_-named_only_-rspecnamedsubject]
 ==== `EnforcedStyle: named_only`
 
 [source,ruby]
@@ -3874,6 +4167,7 @@ RSpec.describe User do
 end
 ----
 
+[#configurable-attributes-rspecnamedsubject]
 === Configurable attributes
 
 |===
@@ -3888,11 +4182,13 @@ end
 | Boolean
 |===
 
+[#references-rspecnamedsubject]
 === References
 
 * https://rspec.rubystyle.guide/#use-subject
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
+[#rspecnestedgroups]
 == RSpec/NestedGroups
 
 |===
@@ -3910,6 +4206,7 @@ Checks for nested example groups.
 This cop is configurable using the `Max` option
 and supports `--auto-gen-config`.
 
+[#examples-rspecnestedgroups]
 === Examples
 
 [source,ruby]
@@ -3959,6 +4256,7 @@ context 'using some feature as an admin' do
 end
 ----
 
+[#_max_-3_-_default_-rspecnestedgroups]
 ==== `Max: 3` (default)
 
 [source,ruby]
@@ -3974,6 +4272,7 @@ describe Foo do
 end
 ----
 
+[#_max_-2_-rspecnestedgroups]
 ==== `Max: 2`
 
 [source,ruby]
@@ -3989,6 +4288,7 @@ describe Foo do
 end
 ----
 
+[#_allowedgroups_-__-_default__-rspecnestedgroups]
 ==== `AllowedGroups: [] (default)`
 
 [source,ruby]
@@ -4001,6 +4301,7 @@ describe Foo do # <-- nested groups 1
 end
 ----
 
+[#_allowedgroups_-_path__-rspecnestedgroups]
 ==== `AllowedGroups: [path]`
 
 [source,ruby]
@@ -4013,6 +4314,7 @@ describe Foo do # <-- nested groups 1
 end
 ----
 
+[#configurable-attributes-rspecnestedgroups]
 === Configurable attributes
 
 |===
@@ -4027,10 +4329,12 @@ end
 | Array
 |===
 
+[#references-rspecnestedgroups]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
 
+[#rspecnoexpectationexample]
 == RSpec/NoExpectationExample
 
 |===
@@ -4061,6 +4365,7 @@ This cop can be customized with an allowed expectation methods pattern
 with an `AllowedPatterns` option. ^expect_ and ^assert_ are allowed
 by default.
 
+[#examples-rspecnoexpectationexample]
 === Examples
 
 [source,ruby]
@@ -4076,6 +4381,7 @@ it do
 end
 ----
 
+[#_allowedpatterns_-configuration-rspecnoexpectationexample]
 ==== `AllowedPatterns` configuration
 
 [source,ruby]
@@ -4104,6 +4410,7 @@ it do
 end
 ----
 
+[#configurable-attributes-rspecnoexpectationexample]
 === Configurable attributes
 
 |===
@@ -4114,10 +4421,12 @@ end
 | Array
 |===
 
+[#references-rspecnoexpectationexample]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NoExpectationExample
 
+[#rspecnottonot]
 == RSpec/NotToNot
 
 |===
@@ -4132,8 +4441,10 @@ end
 
 Checks for consistent method usage for negating expectations.
 
+[#examples-rspecnottonot]
 === Examples
 
+[#_enforcedstyle_-not_to_-_default_-rspecnottonot]
 ==== `EnforcedStyle: not_to` (default)
 
 [source,ruby]
@@ -4149,6 +4460,7 @@ it '...' do
 end
 ----
 
+[#_enforcedstyle_-to_not_-rspecnottonot]
 ==== `EnforcedStyle: to_not`
 
 [source,ruby]
@@ -4164,6 +4476,7 @@ it '...' do
 end
 ----
 
+[#configurable-attributes-rspecnottonot]
 === Configurable attributes
 
 |===
@@ -4174,10 +4487,12 @@ end
 | `not_to`, `to_not`
 |===
 
+[#references-rspecnottonot]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
+[#rspecoverwritingsetup]
 == RSpec/OverwritingSetup
 
 |===
@@ -4192,6 +4507,7 @@ end
 
 Checks if there is a let/subject that overwrites an existing one.
 
+[#examples-rspecoverwritingsetup]
 === Examples
 
 [source,ruby]
@@ -4213,10 +4529,12 @@ let(:baz) { baz }
 let!(:other) { other }
 ----
 
+[#references-rspecoverwritingsetup]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup
 
+[#rspecpending]
 == RSpec/Pending
 
 |===
@@ -4231,6 +4549,7 @@ let!(:other) { other }
 
 Checks for any pending or skipped examples.
 
+[#examples-rspecpending]
 === Examples
 
 [source,ruby]
@@ -4262,10 +4581,12 @@ describe MyClass do
 end
 ----
 
+[#references-rspecpending]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
 
+[#rspecpendingwithoutreason]
 == RSpec/PendingWithoutReason
 
 |===
@@ -4280,6 +4601,7 @@ end
 
 Checks for pending or skipped examples without reason.
 
+[#examples-rspecpendingwithoutreason]
 === Examples
 
 [source,ruby]
@@ -4336,10 +4658,12 @@ it 'does something', skip: 'reason' do
 end
 ----
 
+[#references-rspecpendingwithoutreason]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingWithoutReason
 
+[#rspecpredicatematcher]
 == RSpec/PredicateMatcher
 
 |===
@@ -4358,8 +4682,10 @@ RSpec defines magic matchers for predicate methods.
 This cop recommends to use the predicate matcher instead of using
 predicate method directly.
 
+[#examples-rspecpredicatematcher]
 === Examples
 
+[#strict_-true_-enforcedstyle_-inflected-_default_-rspecpredicatematcher]
 ==== Strict: true, EnforcedStyle: inflected (default)
 
 [source,ruby]
@@ -4374,6 +4700,7 @@ expect(foo).to be_something
 expect(foo.something?).to be(true)
 ----
 
+[#strict_-false_-enforcedstyle_-inflected-rspecpredicatematcher]
 ==== Strict: false, EnforcedStyle: inflected
 
 [source,ruby]
@@ -4386,6 +4713,7 @@ expect(foo.something?).to be(true)
 expect(foo).to be_something
 ----
 
+[#strict_-true_-enforcedstyle_-explicit-rspecpredicatematcher]
 ==== Strict: true, EnforcedStyle: explicit
 
 [source,ruby]
@@ -4408,6 +4736,7 @@ expect(foo.something?(<<~TEXT)).to be(true)
 TEXT
 ----
 
+[#strict_-false_-enforcedstyle_-explicit-rspecpredicatematcher]
 ==== Strict: false, EnforcedStyle: explicit
 
 [source,ruby]
@@ -4419,6 +4748,7 @@ expect(foo).to be_something
 expect(foo.something?).to be_truthy
 ----
 
+[#configurable-attributes-rspecpredicatematcher]
 === Configurable attributes
 
 |===
@@ -4437,11 +4767,13 @@ expect(foo.something?).to be_truthy
 | Array
 |===
 
+[#references-rspecpredicatematcher]
 === References
 
 * https://rspec.rubystyle.guide/#predicate-matchers
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
+[#rspecreceivecounts]
 == RSpec/ReceiveCounts
 
 |===
@@ -4456,6 +4788,7 @@ expect(foo.something?).to be_truthy
 
 Check for `once` and `twice` receive counts matchers usage.
 
+[#examples-rspecreceivecounts]
 === Examples
 
 [source,ruby]
@@ -4477,10 +4810,12 @@ expect(foo).to receive(:bar).at_most(:once)
 expect(foo).to receive(:bar).at_most(:twice).times
 ----
 
+[#references-rspecreceivecounts]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
+[#rspecreceivemessages]
 == RSpec/ReceiveMessages
 
 |===
@@ -4495,12 +4830,14 @@ expect(foo).to receive(:bar).at_most(:twice).times
 
 Checks for multiple messages stubbed on the same object.
 
+[#safety-rspecreceivemessages]
 === Safety
 
 The autocorrection is marked as unsafe, because it may change the
 order of stubs. This in turn may cause e.g. variables to be called
 before they are defined.
 
+[#examples-rspecreceivemessages]
 === Examples
 
 [source,ruby]
@@ -4523,10 +4860,12 @@ before do
 end
 ----
 
+[#references-rspecreceivemessages]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
 
+[#rspecreceivenever]
 == RSpec/ReceiveNever
 
 |===
@@ -4541,6 +4880,7 @@ end
 
 Prefer `not_to receive(...)` over `receive(...).never`.
 
+[#examples-rspecreceivenever]
 === Examples
 
 [source,ruby]
@@ -4552,10 +4892,12 @@ expect(foo).to receive(:bar).never
 expect(foo).not_to receive(:bar)
 ----
 
+[#references-rspecreceivenever]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever
 
+[#rspecredundantaround]
 == RSpec/RedundantAround
 
 |===
@@ -4570,6 +4912,7 @@ expect(foo).not_to receive(:bar)
 
 Remove redundant `around` hook.
 
+[#examples-rspecredundantaround]
 === Examples
 
 [source,ruby]
@@ -4582,10 +4925,12 @@ end
 # good
 ----
 
+[#references-rspecredundantaround]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
+[#rspecredundantpredicatematcher]
 == RSpec/RedundantPredicateMatcher
 
 |===
@@ -4600,6 +4945,7 @@ end
 
 Checks for redundant predicate matcher.
 
+[#examples-rspecredundantpredicatematcher]
 === Examples
 
 [source,ruby]
@@ -4615,10 +4961,12 @@ expect(foo).not_to include(bar)
 expect(foo).to all be(bar)
 ----
 
+[#references-rspecredundantpredicatematcher]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 
+[#rspecremoveconst]
 == RSpec/RemoveConst
 
 |===
@@ -4633,6 +4981,7 @@ expect(foo).to all be(bar)
 
 Checks that `remove_const` is not used in specs.
 
+[#examples-rspecremoveconst]
 === Examples
 
 [source,ruby]
@@ -4647,10 +4996,12 @@ before do
 end
 ----
 
+[#references-rspecremoveconst]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
 
+[#rspecrepeateddescription]
 == RSpec/RepeatedDescription
 
 |===
@@ -4665,6 +5016,7 @@ end
 
 Check for repeated description strings in example groups.
 
+[#examples-rspecrepeateddescription]
 === Examples
 
 [source,ruby]
@@ -4703,10 +5055,12 @@ RSpec.describe User do
 end
 ----
 
+[#references-rspecrepeateddescription]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription
 
+[#rspecrepeatedexample]
 == RSpec/RepeatedExample
 
 |===
@@ -4721,6 +5075,7 @@ end
 
 Check for repeated examples within example groups.
 
+[#examples-rspecrepeatedexample]
 === Examples
 
 [source,ruby]
@@ -4734,10 +5089,12 @@ it 'validates the user' do
 end
 ----
 
+[#references-rspecrepeatedexample]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
+[#rspecrepeatedexamplegroupbody]
 == RSpec/RepeatedExampleGroupBody
 
 |===
@@ -4752,6 +5109,7 @@ end
 
 Check for repeated describe and context block body.
 
+[#examples-rspecrepeatedexamplegroupbody]
 === Examples
 
 [source,ruby]
@@ -4793,10 +5151,12 @@ context Hash do
 end
 ----
 
+[#references-rspecrepeatedexamplegroupbody]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody
 
+[#rspecrepeatedexamplegroupdescription]
 == RSpec/RepeatedExampleGroupDescription
 
 |===
@@ -4811,6 +5171,7 @@ end
 
 Check for repeated example group descriptions.
 
+[#examples-rspecrepeatedexamplegroupdescription]
 === Examples
 
 [source,ruby]
@@ -4852,10 +5213,12 @@ context 'when another case' do
 end
 ----
 
+[#references-rspecrepeatedexamplegroupdescription]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
 
+[#rspecrepeatedincludeexample]
 == RSpec/RepeatedIncludeExample
 
 |===
@@ -4870,6 +5233,7 @@ end
 
 Check for repeated include of shared examples.
 
+[#examples-rspecrepeatedincludeexample]
 === Examples
 
 [source,ruby]
@@ -4914,10 +5278,12 @@ context 'foo' do
 end
 ----
 
+[#references-rspecrepeatedincludeexample]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
 
+[#rspecrepeatedsubjectcall]
 == RSpec/RepeatedSubjectCall
 
 |===
@@ -4932,6 +5298,7 @@ end
 
 Checks for repeated calls to subject missing that it is memoized.
 
+[#examples-rspecrepeatedsubjectcall]
 === Examples
 
 [source,ruby]
@@ -4960,10 +5327,12 @@ it do
 end
 ----
 
+[#references-rspecrepeatedsubjectcall]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
 
+[#rspecreturnfromstub]
 == RSpec/ReturnFromStub
 
 |===
@@ -4984,8 +5353,10 @@ are the result would be different
 
 This cop can be configured using the `EnforcedStyle` option
 
+[#examples-rspecreturnfromstub]
 === Examples
 
+[#_enforcedstyle_-and_return_-_default_-rspecreturnfromstub]
 ==== `EnforcedStyle: and_return` (default)
 
 [source,ruby]
@@ -5001,6 +5372,7 @@ expect(Foo).to receive(:bar).and_return("baz")
 allow(Foo).to receive(:bar) { bar.baz }
 ----
 
+[#_enforcedstyle_-block_-rspecreturnfromstub]
 ==== `EnforcedStyle: block`
 
 [source,ruby]
@@ -5016,6 +5388,7 @@ expect(Foo).to receive(:bar) { "baz" }
 allow(Foo).to receive(:bar).and_return(bar.baz)
 ----
 
+[#configurable-attributes-rspecreturnfromstub]
 === Configurable attributes
 
 |===
@@ -5026,10 +5399,12 @@ allow(Foo).to receive(:bar).and_return(bar.baz)
 | `and_return`, `block`
 |===
 
+[#references-rspecreturnfromstub]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
 
+[#rspecscatteredlet]
 == RSpec/ScatteredLet
 
 |===
@@ -5046,6 +5421,7 @@ Checks for let scattered across the example group.
 
 Group lets together
 
+[#examples-rspecscatteredlet]
 === Examples
 
 [source,ruby]
@@ -5069,10 +5445,12 @@ describe Foo do
 end
 ----
 
+[#references-rspecscatteredlet]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
 
+[#rspecscatteredsetup]
 == RSpec/ScatteredSetup
 
 |===
@@ -5089,6 +5467,7 @@ Checks for setup scattered across multiple hooks in an example group.
 
 Unify `before`, `after`, and `around` hooks when possible.
 
+[#examples-rspecscatteredsetup]
 === Examples
 
 [source,ruby]
@@ -5108,10 +5487,12 @@ describe Foo do
 end
 ----
 
+[#references-rspecscatteredsetup]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
+[#rspecsharedcontext]
 == RSpec/SharedContext
 
 |===
@@ -5129,6 +5510,7 @@ Checks for proper shared_context and shared_examples usage.
 If there are no examples defined, use shared_context.
 If there is no setup defined, use shared_examples.
 
+[#examples-rspecsharedcontext]
 === Examples
 
 [source,ruby]
@@ -5177,10 +5559,12 @@ RSpec.shared_context 'only setup here' do
 end
 ----
 
+[#references-rspecsharedcontext]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
+[#rspecsharedexamples]
 == RSpec/SharedExamples
 
 |===
@@ -5199,8 +5583,10 @@ Enforces either `string` or `symbol` for shared example names.
 
 This cop can be configured using the `EnforcedStyle` option
 
+[#examples-rspecsharedexamples]
 === Examples
 
+[#_enforcedstyle_-string_-_default_-rspecsharedexamples]
 ==== `EnforcedStyle: string` (default)
 
 [source,ruby]
@@ -5220,6 +5606,7 @@ shared_examples_for 'foo bar baz'
 include_examples 'foo bar baz'
 ----
 
+[#_enforcedstyle_-symbol_-rspecsharedexamples]
 ==== `EnforcedStyle: symbol`
 
 [source,ruby]
@@ -5239,6 +5626,7 @@ shared_examples_for :foo_bar_baz
 include_examples :foo_bar_baz
 ----
 
+[#configurable-attributes-rspecsharedexamples]
 === Configurable attributes
 
 |===
@@ -5249,10 +5637,12 @@ include_examples :foo_bar_baz
 | `string`, `symbol`
 |===
 
+[#references-rspecsharedexamples]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples
 
+[#rspecsingleargumentmessagechain]
 == RSpec/SingleArgumentMessageChain
 
 |===
@@ -5267,6 +5657,7 @@ include_examples :foo_bar_baz
 
 Checks that chains of messages contain more than one element.
 
+[#examples-rspecsingleargumentmessagechain]
 === Examples
 
 [source,ruby]
@@ -5282,10 +5673,12 @@ allow(foo).to receive(:bar, :baz)
 allow(foo).to receive("bar.baz")
 ----
 
+[#references-rspecsingleargumentmessagechain]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
+[#rspecskipblockinsideexample]
 == RSpec/SkipBlockInsideExample
 
 |===
@@ -5300,6 +5693,7 @@ allow(foo).to receive("bar.baz")
 
 Checks for passing a block to `skip` within examples.
 
+[#examples-rspecskipblockinsideexample]
 === Examples
 
 [source,ruby]
@@ -5322,10 +5716,12 @@ skip 'not yet implemented' do
 end
 ----
 
+[#references-rspecskipblockinsideexample]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SkipBlockInsideExample
 
+[#rspecsortmetadata]
 == RSpec/SortMetadata
 
 |===
@@ -5340,6 +5736,7 @@ end
 
 Sort RSpec metadata alphabetically.
 
+[#examples-rspecsortmetadata]
 === Examples
 
 [source,ruby]
@@ -5355,10 +5752,12 @@ context 'Something', baz: true, foo: 'bar'
 it 'works', :a, :b, baz: true, foo: 'bar'
 ----
 
+[#references-rspecsortmetadata]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
+[#rspecspecfilepathformat]
 == RSpec/SpecFilePathFormat
 
 |===
@@ -5373,6 +5772,7 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 
 Checks that spec file paths are consistent and well-formed.
 
+[#examples-rspecspecfilepathformat]
 === Examples
 
 [source,ruby]
@@ -5387,6 +5787,7 @@ my_class_method_spec.rb  # describe MyClass, '#method'
 my_class/method_spec.rb  # describe MyClass, '#method'
 ----
 
+[#_customtransform_-_rubocop__rubocop_-rspec__rspec__-_default_-rspecspecfilepathformat]
 ==== `CustomTransform: {RuboCop=>rubocop, RSpec=>rspec}` (default)
 
 [source,ruby]
@@ -5396,6 +5797,7 @@ rubocop_spec.rb          # describe RuboCop
 rspec_spec.rb            # describe RSpec
 ----
 
+[#_ignoremethods_-false_-_default_-rspecspecfilepathformat]
 ==== `IgnoreMethods: false` (default)
 
 [source,ruby]
@@ -5404,6 +5806,7 @@ rspec_spec.rb            # describe RSpec
 my_class_spec.rb         # describe MyClass, '#method'
 ----
 
+[#_ignoremethods_-true_-rspecspecfilepathformat]
 ==== `IgnoreMethods: true`
 
 [source,ruby]
@@ -5412,6 +5815,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 my_class_spec.rb         # describe MyClass, '#method'
 ----
 
+[#_ignoremetadata_-_type__routing__-_default_-rspecspecfilepathformat]
 ==== `IgnoreMetadata: {type=>routing}` (default)
 
 [source,ruby]
@@ -5420,6 +5824,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 whatever_spec.rb         # describe MyClass, type: :routing do; end
 ----
 
+[#configurable-attributes-rspecspecfilepathformat]
 === Configurable attributes
 
 |===
@@ -5446,10 +5851,12 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | 
 |===
 
+[#references-rspecspecfilepathformat]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 
+[#rspecspecfilepathsuffix]
 == RSpec/SpecFilePathSuffix
 
 |===
@@ -5464,6 +5871,7 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 
 Checks that spec file paths suffix are consistent and well-formed.
 
+[#examples-rspecspecfilepathsuffix]
 === Examples
 
 [source,ruby]
@@ -5480,6 +5888,7 @@ my_class_spec.rb          # describe MyClass
 spec/models/user.rb       # shared_examples_for 'foo'
 ----
 
+[#configurable-attributes-rspecspecfilepathsuffix]
 === Configurable attributes
 
 |===
@@ -5490,10 +5899,12 @@ spec/models/user.rb       # shared_examples_for 'foo'
 | Array
 |===
 
+[#references-rspecspecfilepathsuffix]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
 
+[#rspecstringasinstancedoubleconstant]
 == RSpec/StringAsInstanceDoubleConstant
 
 |===
@@ -5508,12 +5919,14 @@ spec/models/user.rb       # shared_examples_for 'foo'
 
 Do not use a string as `instance_double` constant.
 
+[#safety-rspecstringasinstancedoubleconstant]
 === Safety
 
 This cop is unsafe because the correction requires loading the class.
 Loading before stubbing causes RSpec to only allow instance methods
 to be stubbed.
 
+[#examples-rspecstringasinstancedoubleconstant]
 === Examples
 
 [source,ruby]
@@ -5525,10 +5938,12 @@ instance_double('User', name: 'John')
 instance_double(User, name: 'John')
 ----
 
+[#references-rspecstringasinstancedoubleconstant]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StringAsInstanceDoubleConstant
 
+[#rspecstubbedmock]
 == RSpec/StubbedMock
 
 |===
@@ -5543,6 +5958,7 @@ instance_double(User, name: 'John')
 
 Checks that message expectations do not have a configured response.
 
+[#examples-rspecstubbedmock]
 === Examples
 
 [source,ruby]
@@ -5555,10 +5971,12 @@ allow(foo).to receive(:bar).with(42).and_return("hello world")
 expect(foo).to receive(:bar).with(42)
 ----
 
+[#references-rspecstubbedmock]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
+[#rspecsubjectdeclaration]
 == RSpec/SubjectDeclaration
 
 |===
@@ -5573,6 +5991,7 @@ expect(foo).to receive(:bar).with(42)
 
 Ensure that subject is defined using subject helper.
 
+[#examples-rspecsubjectdeclaration]
 === Examples
 
 [source,ruby]
@@ -5591,10 +6010,12 @@ let(:subject, &block)
 subject(:test_subject) { foo }
 ----
 
+[#references-rspecsubjectdeclaration]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
 
+[#rspecsubjectstub]
 == RSpec/SubjectStub
 
 |===
@@ -5612,6 +6033,7 @@ Checks for stubbed test subjects.
 Checks nested subject stubs for innermost subject definition
 when subject is also defined in parent example groups.
 
+[#examples-rspecsubjectstub]
 === Examples
 
 [source,ruby]
@@ -5650,6 +6072,7 @@ describe Article do
 end
 ----
 
+[#references-rspecsubjectstub]
 === References
 
 * https://rspec.rubystyle.guide/#dont-stub-subject
@@ -5657,6 +6080,7 @@ end
 * https://robots.thoughtbot.com/don-t-stub-the-system-under-test
 * https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
 
+[#rspecundescriptiveliteralsdescription]
 == RSpec/UndescriptiveLiteralsDescription
 
 |===
@@ -5674,6 +6098,7 @@ Description should be descriptive.
 If example group or example contains only `execute string`, numbers
 and regular expressions, the description is not clear.
 
+[#examples-rspecundescriptiveliteralsdescription]
 === Examples
 
 [source,ruby]
@@ -5714,10 +6139,12 @@ it 'does something' do
 end
 ----
 
+[#references-rspecundescriptiveliteralsdescription]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
 
+[#rspecunspecifiedexception]
 == RSpec/UnspecifiedException
 
 |===
@@ -5736,6 +6163,7 @@ Enforces one of an Exception type, a string, or a regular
 expression to match against the exception message as a parameter
 to `raise_error`
 
+[#examples-rspecunspecifiedexception]
 === Examples
 
 [source,ruby]
@@ -5761,10 +6189,12 @@ expect {
 expect { do_something }.not_to raise_error
 ----
 
+[#references-rspecunspecifiedexception]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException
 
+[#rspecvariabledefinition]
 == RSpec/VariableDefinition
 
 |===
@@ -5779,8 +6209,10 @@ expect { do_something }.not_to raise_error
 
 Checks that memoized helpers names are symbols or strings.
 
+[#examples-rspecvariabledefinition]
 === Examples
 
+[#enforcedstyle_-symbols-_default_-rspecvariabledefinition]
 ==== EnforcedStyle: symbols (default)
 
 [source,ruby]
@@ -5794,6 +6226,7 @@ subject(:user) { create_user }
 let(:user_name) { 'Adam' }
 ----
 
+[#enforcedstyle_-strings-rspecvariabledefinition]
 ==== EnforcedStyle: strings
 
 [source,ruby]
@@ -5807,6 +6240,7 @@ subject('user') { create_user }
 let('user_name') { 'Adam' }
 ----
 
+[#configurable-attributes-rspecvariabledefinition]
 === Configurable attributes
 
 |===
@@ -5817,10 +6251,12 @@ let('user_name') { 'Adam' }
 | `symbols`, `strings`
 |===
 
+[#references-rspecvariabledefinition]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableDefinition
 
+[#rspecvariablename]
 == RSpec/VariableName
 
 |===
@@ -5838,8 +6274,10 @@ Checks that memoized helper names use the configured style.
 Variables can be excluded from checking using the `AllowedPatterns`
 option.
 
+[#examples-rspecvariablename]
 === Examples
 
+[#enforcedstyle_-snake_case-_default_-rspecvariablename]
 ==== EnforcedStyle: snake_case (default)
 
 [source,ruby]
@@ -5853,6 +6291,7 @@ subject(:user_name_1) { 'Adam' }
 let(:user_name_2) { 'Adam' }
 ----
 
+[#enforcedstyle_-camelcase-rspecvariablename]
 ==== EnforcedStyle: camelCase
 
 [source,ruby]
@@ -5866,6 +6305,7 @@ subject(:userName1) { 'Adam' }
 let(:userName2) { 'Adam' }
 ----
 
+[#allowedpatterns-configuration-rspecvariablename]
 ==== AllowedPatterns configuration
 
 [source,ruby]
@@ -5884,6 +6324,7 @@ subject(:userFood_1) { 'spaghetti' }
 let(:userFood_2) { 'fettuccine' }
 ----
 
+[#configurable-attributes-rspecvariablename]
 === Configurable attributes
 
 |===
@@ -5898,10 +6339,12 @@ let(:userFood_2) { 'fettuccine' }
 | Array
 |===
 
+[#references-rspecvariablename]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
 
+[#rspecverifieddoublereference]
 == RSpec/VerifiedDoubleReference
 
 |===
@@ -5921,8 +6364,10 @@ Only investigates references that are one of the supported styles.
 This cop can be configured in your configuration using the
 `EnforcedStyle` option and supports `--auto-gen-config`.
 
+[#examples-rspecverifieddoublereference]
 === Examples
 
+[#_enforcedstyle_-constant_-_default_-rspecverifieddoublereference]
 ==== `EnforcedStyle: constant` (default)
 
 [source,ruby]
@@ -5938,6 +6383,7 @@ let(:foo) do
 end
 ----
 
+[#_enforcedstyle_-string_-rspecverifieddoublereference]
 ==== `EnforcedStyle: string`
 
 [source,ruby]
@@ -5953,6 +6399,7 @@ let(:foo) do
 end
 ----
 
+[#reference-is-not-in-the-supported-style-list_-no-enforcement-rspecverifieddoublereference]
 ==== Reference is not in the supported style list. No enforcement
 
 [source,ruby]
@@ -5963,6 +6410,7 @@ let(:foo) do
 end
 ----
 
+[#configurable-attributes-rspecverifieddoublereference]
 === Configurable attributes
 
 |===
@@ -5973,11 +6421,13 @@ end
 | `constant`, `string`
 |===
 
+[#references-rspecverifieddoublereference]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
 * https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
+[#rspecverifieddoubles]
 == RSpec/VerifiedDoubles
 
 |===
@@ -5992,6 +6442,7 @@ end
 
 Prefer using verifying doubles over normal doubles.
 
+[#examples-rspecverifieddoubles]
 === Examples
 
 [source,ruby]
@@ -6012,6 +6463,7 @@ let(:foo) do
 end
 ----
 
+[#configurable-attributes-rspecverifieddoubles]
 === Configurable attributes
 
 |===
@@ -6026,12 +6478,14 @@ end
 | Boolean
 |===
 
+[#references-rspecverifieddoubles]
 === References
 
 * https://rspec.rubystyle.guide/#doubles
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 * https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
+[#rspecvoidexpect]
 == RSpec/VoidExpect
 
 |===
@@ -6046,6 +6500,7 @@ end
 
 Checks void `expect()`.
 
+[#examples-rspecvoidexpect]
 === Examples
 
 [source,ruby]
@@ -6057,10 +6512,12 @@ expect(something)
 expect(something).to be(1)
 ----
 
+[#references-rspecvoidexpect]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
 
+[#rspecyield]
 == RSpec/Yield
 
 |===
@@ -6075,6 +6532,7 @@ expect(something).to be(1)
 
 Checks for calling a block within a stub.
 
+[#examples-rspecyield]
 === Examples
 
 [source,ruby]
@@ -6086,6 +6544,7 @@ allow(foo).to receive(:bar) { |&block| block.call(1) }
 expect(foo).to receive(:bar).and_yield(1)
 ----
 
+[#references-rspecyield]
 === References
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
