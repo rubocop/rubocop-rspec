@@ -72,12 +72,15 @@ end
 
 desc 'Confirm documentation is up to date'
 task confirm_documentation: :generate_cops_documentation do
-  _, _, status =
+  stdout, _stderr, status =
     Open3.capture3('git diff --exit-code docs/')
 
   unless status.success?
-    raise 'Please run `rake generate_cops_documentation` ' \
-          'and add docs/ to the commit.'
+    warn 'Documentation is out of sync:'
+    warn stdout
+    warn 'Please run `rake generate_cops_documentation` ' \
+         'and add docs/ to the commit.'
+    exit 1
   end
 end
 
