@@ -84,7 +84,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
       RUBY
     end
 
-    it 'ignores `specify` missing decripton in multi-line examples' do
+    it 'ignores `specify` missing description in multi-line examples' do
       expect_no_offenses(<<~RUBY)
         specify do
           expect(subject).to be_good
