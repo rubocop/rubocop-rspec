@@ -67,7 +67,7 @@ module RuboCop
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_wording(node) do |context|
-            if bad_pattern?(context)
+            unless matches_allowed_pattern?(description(context))
               message = format(MSG, patterns: expect_patterns)
               add_offense(context, message: message)
             end
@@ -82,12 +82,6 @@ module RuboCop
 
         def prefix_regexes
           @prefix_regexes ||= prefixes.map { |pre| /^#{Regexp.escape(pre)}\b/ }
-        end
-
-        def bad_pattern?(node)
-          return false if allowed_patterns.empty?
-
-          !matches_allowed_pattern?(description(node))
         end
 
         def description(context)
