@@ -220,9 +220,10 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       { 'Prefixes' => [], 'AllowedPatterns' => [] }
     end
 
-    it 'skips any description' do
-      expect_no_offenses(<<~RUBY)
-        context 'arbitrary text' do
+    it 'always registers an offense' do
+      expect_offense(<<~RUBY)
+        context 'this is an incorrect context' do
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Current settings will always report an offense. Please add allowed words to `Prefixes` or `AllowedPatterns`.
         end
       RUBY
     end

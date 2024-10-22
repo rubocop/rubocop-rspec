@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
+
 ## 3.1.0 (2024-10-01)
 
 - Add `RSpec/StringAsInstanceDoubleConstant` to check for and correct strings used as instance_doubles. ([@corsonknowles])
