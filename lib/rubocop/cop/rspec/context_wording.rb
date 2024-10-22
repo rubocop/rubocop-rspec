@@ -12,6 +12,9 @@ module RuboCop
       #
       # @see http://www.betterspecs.org/#contexts
       #
+      # If both `Prefixes` and `AllowedPatterns` are empty, this cop will always
+      # report an offense. So you need to set at least one of them.
+      #
       # @example `Prefixes` configuration
       #   # .rubocop.yml
       #   # RSpec/ContextWording:
@@ -58,7 +61,9 @@ module RuboCop
       class ContextWording < Base
         include AllowedPattern
 
-        MSG = 'Context description should match %<patterns>s.'
+        MSG_MATCH = 'Context description should match %<patterns>s.'
+        MSG_ALWAYS = 'Current settings will always report an offense. Please ' \
+                     'add allowed words to `Prefixes` or `AllowedPatterns`.'
 
         # @!method context_wording(node)
         def_node_matcher :context_wording, <<~PATTERN
@@ -67,8 +72,7 @@ module RuboCop
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           context_wording(node) do |context|
-            if bad_pattern?(context)
-              message = format(MSG, patterns: expect_patterns)
+            unless matches_allowed_pattern?(description(context))
               add_offense(context, message: message)
             end
           end
@@ -84,17 +88,19 @@ module RuboCop
           @prefix_regexes ||= prefixes.map { |pre| /^#{Regexp.escape(pre)}\b/ }
         end
 
-        def bad_pattern?(node)
-          return false if allowed_patterns.empty?
-
-          !matches_allowed_pattern?(description(node))
-        end
-
         def description(context)
           if context.xstr_type?
             context.value.value
           else
             context.value
+          end
+        end
+
+        def message
+          if allowed_patterns.empty?
+            MSG_ALWAYS
+          else
+            format(MSG_MATCH, patterns: expect_patterns)
           end
         end
 

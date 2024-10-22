@@ -214,4 +214,18 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       end
     end
   end
+
+  context 'when `AllowedPatterns:` and `Prefixes:` are both empty' do
+    let(:cop_config) do
+      { 'Prefixes' => [], 'AllowedPatterns' => [] }
+    end
+
+    it 'always registers an offense' do
+      expect_offense(<<~RUBY)
+        context 'this is an incorrect context' do
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Current settings will always report an offense. Please add allowed words to `Prefixes` or `AllowedPatterns`.
+        end
+      RUBY
+    end
+  end
 end

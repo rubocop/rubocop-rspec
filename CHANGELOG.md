@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+- Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
 
 ## 3.1.0 (2024-10-01)
 

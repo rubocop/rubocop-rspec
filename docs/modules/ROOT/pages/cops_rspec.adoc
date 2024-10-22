@@ -720,6 +720,9 @@ the configuration to meet project needs. Other acceptable prefixes may
 include `if`, `unless`, `for`, `before`, `after`, or `during`.
 They may consist of multiple words if desired.
 
+If both `Prefixes` and `AllowedPatterns` are empty, this cop will always
+report an offense. So you need to set at least one of them.
+
 This cop can be customized allowed context description pattern
 with `AllowedPatterns`. By default, there are no checking by pattern.
 
