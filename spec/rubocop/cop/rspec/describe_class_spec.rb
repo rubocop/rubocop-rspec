@@ -215,4 +215,23 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
       RUBY
     end
   end
+
+  context 'with mixin tests' do
+    describe '#top_level_group?' do
+      subject(:cop_with_top_level_group_mixin) do
+        described_class.new
+      end
+
+      it 'warns because it is deprecated' do
+        # rubocop:disable RSpec/SubjectStub
+        allow(cop_with_top_level_group_mixin).to receive(:warn)
+        allow(cop_with_top_level_group_mixin).to receive(:top_level_groups)
+          .and_return([])
+
+        cop_with_top_level_group_mixin.send(:top_level_group?, nil)
+        expect(cop_with_top_level_group_mixin).to have_received(:warn)
+        # rubocop:enable RSpec/SubjectStub
+      end
+    end
+  end
 end

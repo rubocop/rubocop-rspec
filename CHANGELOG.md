@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
 - Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
 - Fix an error for `RSpec/ChangeByZero` when `change (...) .by (0)` and `change (...)`, concatenated with `and` and `or`. ([@ydah])
 
