@@ -68,6 +68,10 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
           expect { foo }.to change { Foo.bar }.by(0).and change { Foo.baz }.by(0)
                             ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
                                                          ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change(Foo, :bar).by(0).and change(Foo, :baz)
+                            ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change { Foo.bar }.and change { Foo.baz }.by(0)
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
         end
       RUBY
 
@@ -84,6 +88,10 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
           expect { foo }.to change { Foo.bar }.by(0) & change { Foo.baz }.by(0)
                             ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
                                                        ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change(Foo, :bar).by(0) & change(Foo, :baz)
+                            ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change { Foo.bar } & change { Foo.baz }.by(0)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
         end
       RUBY
 
@@ -100,6 +108,10 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
           expect { foo }.to change { Foo.bar }.by(0).or change { Foo.baz }.by(0)
                             ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
                                                         ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change(Foo, :bar).by(0).or change(Foo, :baz)
+                            ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change { Foo.bar }.or change { Foo.baz }.by(0)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
         end
       RUBY
 
@@ -116,6 +128,10 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
           expect { foo }.to change { Foo.bar }.by(0) | change { Foo.baz }.by(0)
                             ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
                                                        ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change(Foo, :bar) | change(Foo, :baz).by(0)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
+          expect { foo }.to change { Foo.bar }.by(0) | change { Foo.baz }
+                            ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer negated matchers with compound expectations over `change.by(0)`.
         end
       RUBY
 
@@ -244,6 +260,14 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
                 ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
             .and change { Foo.baz }.by(0)
                  ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+          expect { foo }
+            .to change(Foo, :bar)
+            .and change(Foo, :baz).by(0)
+                 ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
+          expect { foo }
+            .to change { Foo.bar }
+            .and change { Foo.baz }.by(0)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change` with compound expectations over `change.by(0)`.
         end
       RUBY
 
@@ -254,6 +278,12 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
             .and not_change(Foo, :baz)
           expect { foo }
             .to not_change { Foo.bar }
+            .and not_change { Foo.baz }
+          expect { foo }
+            .to change(Foo, :bar)
+            .and not_change(Foo, :baz)
+          expect { foo }
+            .to change { Foo.bar }
             .and not_change { Foo.baz }
         end
       RUBY
