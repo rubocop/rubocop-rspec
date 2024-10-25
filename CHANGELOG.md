@@ -4,6 +4,7 @@
 
 - Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
 - Fix an error for `RSpec/ChangeByZero` when `change (...) .by (0)` and `change (...)`, concatenated with `and` and `or`. ([@ydah])
+- Revert an change that would conceal unintentional RSpec syntax. ([@pirj])
 
 ## 3.1.0 (2024-10-01)
 

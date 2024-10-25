@@ -118,11 +118,8 @@ module RuboCop
         # rubocop:enable Metrics/MethodLength
 
         def compound_expectations?(node)
-          if node.parent.send_type?
+          node.parent.send_type? &&
             %i[and or & |].include?(node.parent.method_name)
-          else
-            node.parent.and_type? || node.parent.or_type?
-          end
         end
 
         def message(change_node)
