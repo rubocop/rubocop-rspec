@@ -44,6 +44,16 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceSpy do
         end
       RUBY
     end
+
+    it 'ignores instance_double when expect is called on another variable' do
+      expect_no_offenses(<<~RUBY)
+        it do
+          foo = instance_double(Foo).as_null_object
+          bar = instance_spy(Bar).as_null_object
+          expect(bar).to have_received(:baz)
+        end
+      RUBY
+    end
   end
 
   context 'when not used with `have_received`' do

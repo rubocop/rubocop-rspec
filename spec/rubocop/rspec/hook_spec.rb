@@ -45,6 +45,11 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
         .to be(:each)
     end
 
+    it 'ignores invalid hooks' do
+      expect(hook('before(:invalid) { example_setup }').scope)
+        .to be_nil
+    end
+
     it 'classifies :each as an example hook' do
       expect(hook('before(:each) { }').example?).to be(true)
     end
@@ -75,9 +80,13 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
     end
 
     if RUBY_VERSION >= '3.4'
+      let(:expected_focus) { 's(:sym, :focus) => true' }
+      let(:expected_invalid) { '{s(:sym, :invalid) => true}' }
       let(:expected_special) { 's(:sym, :special) => true' }
       let(:expected_symbol) { 's(:sym, :symbol) => true' }
     else
+      let(:expected_focus) { 's(:sym, :focus)=>true' }
+      let(:expected_invalid) { '{s(:sym, :invalid)=>true}' }
       let(:expected_special) { 's(:sym, :special)=>true' }
       let(:expected_symbol) { 's(:sym, :symbol)=>true' }
     end
@@ -103,8 +112,29 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
     end
 
     it 'withstands no arguments' do
-      expect(metadata('before { foo }'))
-        .to be_empty
+      expect(metadata('before { foo }')).to be_empty
+    end
+
+    it 'returns the symbol even when an invalid symbol scope is provided' do
+      expect(metadata('before(:invalid) { foo }')).to eq(expected_invalid)
+    end
+
+    it 'extracts multiple symbol metadata' do
+      expect(metadata('before(:example, :special, :focus) { foo }'))
+        .to eq("{#{expected_special}, #{expected_focus}}")
+    end
+
+    it 'extracts multiple hash metadata' do
+      expect(metadata('before(:example, special: true, focus: true) { foo }'))
+        .to eq("{#{expected_special}, #{expected_focus}}")
+    end
+
+    it 'combines multiple symbol and hash metadata' do
+      expect(
+        metadata(
+          'before(:example, :symbol, special: true, focus: true) { foo }'
+        )
+      ).to eq("{#{expected_symbol}, #{expected_special}, #{expected_focus}}")
     end
   end
 end
