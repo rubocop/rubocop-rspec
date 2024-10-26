@@ -4,7 +4,7 @@
 
 - Fix `RSpec/VoidExpect` to only operate inside an example block. ([@corsonknowles])
 - Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
-- Fix an error for `RSpec/ChangeByZero` when `change (...) .by (0)` and `change (...)`, concatenated with `and` and `or`. ([@ydah])
+- Add support for `and` and `or` compound matchers to `RSpec/ChangeByZero` cop. ([@ydah])
 
 ## 3.1.0 (2024-10-01)
 
