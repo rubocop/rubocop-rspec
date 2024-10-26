@@ -73,6 +73,13 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
         end
       RUBY
     end
+
+    it 'ignores outside of example/shared group' do
+      expect_no_offenses(<<~RUBY)
+        class DummyClass
+        end
+      RUBY
+    end
   end
 
   describe 'module defined' do
@@ -82,6 +89,13 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
           module DummyModule
           ^^^^^^^^^^^^^^^^^^ Stub module constant instead of declaring explicitly.
           end
+        end
+      RUBY
+    end
+
+    it 'ignores outside of example/shared group' do
+      expect_no_offenses(<<~RUBY)
+        module Dummymodule
         end
       RUBY
     end
