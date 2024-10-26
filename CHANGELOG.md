@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+
 ## 3.2.0 (2024-10-26)
 
 - Fix `RSpec/VoidExpect` to only operate inside an example block. ([@corsonknowles])
