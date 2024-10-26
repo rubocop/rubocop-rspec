@@ -2,10 +2,13 @@
 
 ## Master (Unreleased)
 
+- Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+
+## 3.2.0 (2024-10-26)
+
 - Fix `RSpec/VoidExpect` to only operate inside an example block. ([@corsonknowles])
 - Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
-- Fix an error for `RSpec/ChangeByZero` when `change (...) .by (0)` and `change (...)`, concatenated with `and` and `or`. ([@ydah])
-- Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+- Add support for `and` and `or` compound matchers to `RSpec/ChangeByZero` cop. ([@ydah])
 
 ## 3.1.0 (2024-10-01)
 

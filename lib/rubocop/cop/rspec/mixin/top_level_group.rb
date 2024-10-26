@@ -10,6 +10,7 @@ module RuboCop
         DEPRECATED_MODULE_METHOD_WARNING =
           'top_level_group? is deprecated and will be ' \
           'removed in the next major version of rubocop_rspec.'
+
         def on_new_investigation
           super
 
