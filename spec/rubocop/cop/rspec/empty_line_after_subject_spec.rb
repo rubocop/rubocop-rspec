@@ -19,6 +19,13 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
     RUBY
   end
 
+  it 'does not register an offense outside of an example group' do
+    expect_no_offenses(<<~RUBY)
+      subject { foo }
+      bar
+    RUBY
+  end
+
   it 'registers an offense for empty line after subject!' do
     expect_offense(<<~RUBY)
       RSpec.describe User do

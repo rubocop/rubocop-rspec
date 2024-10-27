@@ -176,6 +176,21 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       RUBY
     end
 
+    it 'registers, but does not try to autocorrect, heredocs' do
+      expect_offense(<<~RUBY)
+        it do
+          allow(Foo).to receive(:bar) do
+                                      ^^ Use `and_return` for static values.
+            <<-TXT
+              You called me
+            TXT
+          end
+        end
+      RUBY
+
+      expect_no_corrections
+    end
+
     it 'does not register an offense for a stub without return value' do
       expect_no_offenses(<<~RUBY)
         it do
@@ -212,6 +227,19 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
                                               ^^^^^^^^^^ Use block for static values.
         end
       RUBY
+    end
+
+    it 'registers, but does not try to autocorrect, heredocs' do
+      expect_offense(<<~RUBY)
+        it do
+          allow(Foo).to receive(:bar).and_return(<<-TXT)
+                                      ^^^^^^^^^^ Use block for static values.
+            You called me
+          TXT
+        end
+      RUBY
+
+      expect_no_corrections
     end
 
     it 'does not register an offense for dynamic values returned from method' do
@@ -281,6 +309,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
       expect_correction(<<~'RUBY')
         allow(Foo).to receive(:bar) { 'You called ' \
           'me' }
+      RUBY
+    end
+
+    it 'ignores irrelevant #and_return methods' do
+      expect_no_offenses(<<~RUBY)
+        library.visit.and_return(book)
       RUBY
     end
   end
