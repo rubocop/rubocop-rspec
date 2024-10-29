@@ -119,3 +119,24 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake spec
+
+  prism:
+    runs-on: ubuntu-latest
+    name: Prism
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use prism parser
+        run: |
+          cat << EOF > Gemfile.local
+            gem 'prism'
+          EOF
+      - name: set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Specify the minimum Ruby version 2.7 required for Prism to run.
+          ruby-version: "2.7"
+          bundler-cache: true
+      - env:
+          NO_COVERAGE: true
+          PARSER_ENGINE: parser_prism
+        run: bundle exec rake spec
