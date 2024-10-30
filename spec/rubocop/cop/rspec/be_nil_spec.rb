@@ -64,4 +64,16 @@ RSpec.describe RuboCop::Cop::RSpec::BeNil do
       RUBY
     end
   end
+
+  context 'with EnforcedStyle set but stubbed to `something_arbitrary` internally' do
+    let(:enforced_style) { 'be' }
+
+    it 'does not register any offenses' do
+      allow_any_instance_of(described_class).to receive(:style).and_return('something_arbitrary')
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to be_nil
+        expect(foo).to be(nil)
+      RUBY
+    end
+  end
 end
