@@ -755,4 +755,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       end
     RUBY
   end
+
+  it 'flags \-separated multiline interpolated strings with ' \
+     'leading whitespace and corrects trailing empty lines' do
+    expect_offense(<<~'RUBY')
+      describe "  ##{object} " \
+                ^^^^^^^^^^^^^^^^ Excessive whitespace.
+          "(is cool)" \
+            ' ' \
+            " " do
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      describe "##{object} (is cool)" do
+      end
+    RUBY
+  end
 end
