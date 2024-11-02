@@ -254,5 +254,12 @@ RSpec.describe RuboCop::Cop::RSpec::UnspecifiedException do
         }.to raise_exception(StandardError)
       RUBY
     end
+
+    it 'detects even when a non-send node is an ancestor' do
+      expect_offense(<<~RUBY)
+        expect { raise 'error' }.to (branch_conditional ? raise_error : handle_exception)
+                                                          ^^^^^^^^^^^ Specify the exception being captured
+      RUBY
+    end
   end
 end
