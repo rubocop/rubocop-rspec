@@ -126,12 +126,19 @@ RSpec.describe RuboCop::Cop::RSpec::StubbedMock do
     RUBY
   end
 
-  it 'tolerates passed arguments without parentheses' do
+  it 'flags even when passed arguments without parentheses' do
     expect_offense(<<~RUBY)
       expect(Foo)
       ^^^^^^^^^^^ Prefer `allow` over `expect` when configuring a response.
         .to receive(:new)
         .with(bar).and_return baz
+    RUBY
+  end
+
+  it 'flags `are_expected`' do
+    expect_offense(<<~RUBY)
+      are_expected.to receive(:bar).and_return(:baz)
+      ^^^^^^^^^^^^ Prefer an allow statement over `are_expected` when configuring a response.
     RUBY
   end
 end
