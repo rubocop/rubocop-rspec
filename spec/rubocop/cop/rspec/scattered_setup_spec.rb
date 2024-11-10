@@ -1,6 +1,72 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
+  it 'flags multiple hooks even through a case statement' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        case ref_value
+        when 1
+          before { bar }
+          ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 6, 8).
+        when 2
+          before { baz }
+          ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 4, 8).
+        else
+          before { qux }
+          ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 4, 6).
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        case ref_value
+        when 1
+          before { bar
+      baz#{' '}
+      qux  }
+        when 2
+        else
+        end
+      end
+    RUBY
+  end
+
+  it 'hoists skipped setup to a higher scope, even with other specs' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { bar }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks [...]
+
+        describe.skip 'baz' do
+          before { quz }
+          ^^^^^^^^^^^^^^ Do not define multiple `before` hooks [...]
+        end
+
+        describe.skip 'qux' do
+          before { qux }
+          ^^^^^^^^^^^^^^ Do not define multiple `before` hooks [...]
+        end
+
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before { bar
+      quz#{' '}
+      qux  }
+
+        describe.skip 'baz' do
+        end
+
+        describe.skip 'qux' do
+        end
+
+      end
+    RUBY
+  end
+
   it 'flags multiple hooks in the same example group' do
     expect_offense(<<~RUBY)
       describe Foo do
