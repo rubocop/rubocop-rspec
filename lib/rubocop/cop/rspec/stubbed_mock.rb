@@ -14,8 +14,9 @@ module RuboCop
       #   expect(foo).to receive(:bar).with(42)
       #
       class StubbedMock < Base
-        MSG = 'Prefer `%<replacement>s` over `%<method_name>s` when ' \
+        MSG = 'Prefer %<replacement>s over `%<method_name>s` when ' \
               'configuring a response.'
+        RESTRICT_ON_SEND = %i[to].freeze
 
         # @!method message_expectation?(node)
         #   Match message expectation matcher
@@ -133,8 +134,6 @@ module RuboCop
           }
         PATTERN
 
-        RESTRICT_ON_SEND = %i[to].freeze
-
         def on_send(node)
           expectation(node) do |expectation, method_name, matcher|
             on_expectation(expectation, method_name, matcher)
@@ -155,19 +154,23 @@ module RuboCop
         end
 
         def msg(method_name)
-          format(MSG,
-                 method_name: method_name,
-                 replacement: replacement(method_name))
+          format(
+            MSG,
+            method_name: method_name,
+            replacement: replacement(method_name)
+          )
         end
 
         def replacement(method_name)
           case method_name
           when :expect
-            :allow
+            '`allow`'
           when :is_expected
-            'allow(subject)'
+            '`allow(subject)`'
           when :expect_any_instance_of
-            :allow_any_instance_of
+            '`allow_any_instance_of`'
+          else
+            'an allow statement'
           end
         end
       end
