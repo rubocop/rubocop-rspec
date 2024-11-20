@@ -69,15 +69,13 @@ module RuboCop
         end
 
         def check_for_unused_proxy(block, proxy)
-          name, = *proxy
-
           find_arg_usage(block) do |usage|
-            return if usage.include?(s(:lvar, name))
+            return if usage.include?(s(:lvar, proxy.name))
           end
 
           add_offense(
             proxy,
-            message: format(MSG_UNUSED_ARG, arg: name)
+            message: format(MSG_UNUSED_ARG, arg: proxy.name)
           )
         end
 

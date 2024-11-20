@@ -67,11 +67,10 @@ module RuboCop
         end
 
         def autocorrect_hash_arg(corrector, arg)
-          key, value = *arg.children.first
-
-          corrector.replace(arg, key_to_arg(key))
+          pair = arg.pairs.first
+          corrector.replace(arg, key_to_arg(pair.key))
           corrector.insert_after(arg.parent.loc.end,
-                                 ".and_return(#{value.source})")
+                                 ".and_return(#{pair.value.source})")
         end
 
         def autocorrect_array_arg(corrector, arg)
