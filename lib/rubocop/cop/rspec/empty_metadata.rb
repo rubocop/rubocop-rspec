@@ -21,6 +21,7 @@ module RuboCop
 
         def on_metadata(_symbols, hash)
           return unless hash&.pairs&.empty?
+          return if hash.children.any?(&:kwsplat_type?)
 
           add_offense(hash) do |corrector|
             remove_empty_metadata(corrector, hash)
