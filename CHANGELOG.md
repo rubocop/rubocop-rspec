@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])
+- Fix false positive for RSpec/EmptyMetadata for splat kwargs. ([@pirj])
 
 ## 3.2.0 (2024-10-26)
 

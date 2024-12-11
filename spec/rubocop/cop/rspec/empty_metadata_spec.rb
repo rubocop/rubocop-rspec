@@ -33,4 +33,11 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyMetadata do
       RUBY
     end
   end
+
+  it 'registers no offense for splat kwargs metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Something', **{ a: b } do
+      end
+    RUBY
+  end
 end
