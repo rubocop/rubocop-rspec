@@ -2332,12 +2332,6 @@ fdescribe 'test' do; end
 describe 'test' do; end
 
 # bad
-fdescribe 'test' do; end
-
-# good
-describe 'test' do; end
-
-# bad
 shared_examples 'test', focus: true do; end
 
 # good
