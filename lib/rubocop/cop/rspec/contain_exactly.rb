@@ -6,6 +6,7 @@ module RuboCop
       # Checks where `contain_exactly` is used.
       #
       # This cop checks for the following:
+      #
       # - Prefer `match_array` when matching array values.
       # - Prefer `be_empty` when using `contain_exactly` with no arguments.
       #
