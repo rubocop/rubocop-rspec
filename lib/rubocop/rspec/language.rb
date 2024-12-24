@@ -46,7 +46,8 @@ module RuboCop
       PATTERN
 
       # @!method example?(node)
-      def_node_matcher :example?, '(block (send nil? #Examples.all ...) ...)'
+      def_node_matcher :example?,
+                       '({block numblock} (send nil? #Examples.all ...) ...)'
 
       # @!method hook?(node)
       def_node_matcher :hook?, <<~PATTERN

@@ -301,21 +301,43 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
       RUBY
     end
 
-    context 'with a numblock' do
+    context 'with a numblock at the top level' do
       it 'registers offense' do
         expect_offense(<<~RUBY)
           RSpec.describe Foo do
+            _1
             pending
             ^^^^^^^ Give the reason for pending.
             skip
             ^^^^ Give the reason for skip.
             _1
+          end
+        RUBY
+      end
+    end
+
+    context 'with a numblock in a nested context' do
+      it 'registers offense' do
+        expect_offense(<<~RUBY)
+          RSpec.describe Foo do
             context 'when something' do
               _1
               pending
               ^^^^^^^ Give the reason for pending.
               skip
               ^^^^ Give the reason for skip.
+              _1
+            end
+          end
+        RUBY
+      end
+    end
+
+    context 'with a numblock in a deeply nested example' do
+      it 'registers offense' do
+        expect_offense(<<~RUBY)
+          RSpec.describe Foo do
+            context 'when something' do
               it 'does something' do
                 _1
                 skip
