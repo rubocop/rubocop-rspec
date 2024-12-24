@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false negative for `RSpec/PendingWithoutReason` cop when pending/skip without reason inside a numblock in a deeply nested example. ([@ydah])
+
 ## 3.3.0 (2024-12-12)
 
 - Deprecate `top_level_group?` method from `TopLevelGroup` mixin as all of its callers were intentionally removed from `Rubocop/RSpec`. ([@corsonknowles])

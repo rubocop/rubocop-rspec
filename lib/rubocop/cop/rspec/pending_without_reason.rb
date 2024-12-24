@@ -108,6 +108,7 @@ module RuboCop
             on_skipped_by_example_group_method(node)
           elsif example?(parent)
             on_skipped_by_in_example_method(node)
+            on_skipped_by_example_group_method(node)
           end
         end
 
