@@ -94,11 +94,6 @@ module RuboCop
           (send #rspec? ${#ExampleGroups.skipped} ...)
         PATTERN
 
-        # @!method pending_step_without_reason?(node)
-        def_node_matcher :pending_step_without_reason?, <<~PATTERN
-          (send nil? {:skip :pending})
-        PATTERN
-
         def on_send(node)
           on_pending_by_metadata(node)
           return unless (parent = parent_node(node))
