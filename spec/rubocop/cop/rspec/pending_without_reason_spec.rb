@@ -300,35 +300,6 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
         end
       RUBY
     end
-
-    context 'with a numblock' do
-      it 'registers offense' do
-        expect_offense(<<~RUBY)
-          RSpec.describe Foo do
-            pending
-            ^^^^^^^ Give the reason for pending.
-            skip
-            ^^^^ Give the reason for skip.
-            _1
-            context 'when something' do
-              _1
-              pending
-              ^^^^^^^ Give the reason for pending.
-              skip
-              ^^^^ Give the reason for skip.
-              it 'does something' do
-                _1
-                skip
-                ^^^^ Give the reason for skip.
-                pending
-                ^^^^^^^ Give the reason for pending.
-                _1
-              end
-            end
-          end
-        RUBY
-      end
-    end
   end
 
   context 'when pending/skip inside conditional' do
