@@ -870,7 +870,7 @@ end
 | Array
 
 | IgnoredMetadata
-| `{"type"=>["channel", "controller", "helper", "job", "mailer", "model", "request", "routing", "view", "feature", "system", "mailbox", "aruba", "task"]}`
+| `{"type" => ["channel", "controller", "helper", "job", "mailer", "model", "request", "routing", "view", "feature", "system", "mailbox", "aruba", "task"]}`
 | 
 |===
 
@@ -1994,7 +1994,7 @@ end
 | Name | Default value | Configurable values
 
 | CustomTransform
-| `{"be"=>"is", "BE"=>"IS", "have"=>"has", "HAVE"=>"HAS"}`
+| `{"be" => "is", "BE" => "IS", "have" => "has", "HAVE" => "HAS"}`
 | 
 
 | IgnoredWords
@@ -5838,7 +5838,7 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | Array
 
 | CustomTransform
-| `{"RuboCop"=>"rubocop", "RSpec"=>"rspec"}`
+| `{"RuboCop" => "rubocop", "RSpec" => "rspec"}`
 | 
 
 | IgnoreMethods
@@ -5846,7 +5846,7 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | Boolean
 
 | IgnoreMetadata
-| `{"type"=>"routing"}`
+| `{"type" => "routing"}`
 | 
 |===
 
