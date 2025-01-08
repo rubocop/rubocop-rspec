@@ -255,3 +255,5 @@ Style/YAMLFileRead: {Enabled: true}
 #
 RSpec/StringAsInstanceDoubleConstant:
   Enabled: true
+RSpec/RedundantContext:
+  Enabled: true
