@@ -62,8 +62,8 @@ module RuboCop
         end
 
         def cop_subclass?
-          yardoc.superclass.path == RSPEC_COP_CLASS_NAME ||
-            yardoc.superclass.path == RUBOCOP_COP_CLASS_NAME
+          [RSPEC_COP_CLASS_NAME,
+           RUBOCOP_COP_CLASS_NAME].include?(yardoc.superclass.path)
         end
 
         def abstract?
