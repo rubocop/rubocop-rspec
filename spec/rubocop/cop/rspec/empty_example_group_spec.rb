@@ -225,14 +225,29 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
   end
 
   it 'ignores example group with examples defined in `if` branch ' \
-     'inside iterator' do
+     'inside iterator with begin block' do
     expect_no_offenses(<<~RUBY)
       describe 'RuboCop monthly' do
         [1, 2, 3].each do |page|
           version = 2.3
 
           if RUBY_VERSION >= version
-            it { expect(use_safe_navigation_operator?(code)).to be(true) }
+            it { expect(newspaper(page)).to have_ads }
+          else
+            warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores example group with examples defined in `if` branch ' \
+     'inside iterator without begin block' do
+    expect_no_offenses(<<~RUBY)
+      describe 'RuboCop monthly' do
+        [1, 2, 3].each do |page|
+          if RUBY_VERSION >= 2.3
+            it { expect(newspaper(page)).to have_ads }
           else
             warn 'Ruby < 2.3 is barely supported, please use a newer version for development.'
           end
