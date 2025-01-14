@@ -14,6 +14,7 @@
 - Fix `RSpec/VoidExpect` to only operate inside an example block. ([@corsonknowles])
 - Change `RSpec/ContextWording` cop to always report an offense when both `Prefixes` and `AllowedPatterns` are empty. ([@ydah])
 - Add support for `and` and `or` compound matchers to `RSpec/ChangeByZero` cop. ([@ydah])
+- Replace `RSpec/StringAsInstanceDoubleConstant` with `RSpecVerifiedDoubleReference` configured to only support constant class references. ([@corsonknowles])
 
 ## 3.1.0 (2024-10-01)
 

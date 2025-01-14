@@ -12,6 +12,9 @@ changed_parameters:
     parameters: IgnoredPatterns
     alternative: AllowedPatterns
     severity: warning
+  - cops: RSpec/VerifiedDoubleReference
+    parameters: EnforcedStyle
+    reason: String references are not verifying unless the class is loaded.
 
 split:
   RSpec/FilePath:
@@ -23,6 +26,8 @@ removed:
   RSpec/Capybara/FeatureMethods:
     reason: >
       this cop has migrated to `RSpec/Dialect`. Please use `RSpec/Dialect` instead
+  RSpec/StringAsInstanceDoubleConstant:
+    reason: Please use `RSpec/VerifiedDoubleReference` instead
 
 extracted:
   RSpec/Rails/*: rubocop-rspec_rails

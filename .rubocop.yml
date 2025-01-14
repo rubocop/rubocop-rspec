@@ -250,8 +250,3 @@ Style/StringChars: {Enabled: true}
 Style/SuperWithArgsParentheses: {Enabled: true}
 Style/SwapValues: {Enabled: true}
 Style/YAMLFileRead: {Enabled: true}
-
-# Enable our own pending cops.
-#
-RSpec/StringAsInstanceDoubleConstant:
-  Enabled: true
