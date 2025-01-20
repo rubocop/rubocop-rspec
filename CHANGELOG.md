@@ -4,7 +4,7 @@
 
 - Fix `RSpec/SortMetadata` cop to limit sorting to trailing metadata arguments. ([@cbliard])
 - Replace `RSpec/StringAsInstanceDoubleConstant` with `RSpec/VerifiedDoubleReference` configured to only support constant class references. ([@corsonknowles])
-- Fix `Rspec/EmptyExampleGroup` cop false positive when a simple conditional is used inside an iterator. ([@lovro-bikic])
+- Fix `RSpec/EmptyExampleGroup` cop false positive when a simple conditional is used inside an iterator. ([@lovro-bikic])
 
 ## 3.3.0 (2024-12-12)
 
@@ -97,7 +97,7 @@ Read more about how to upgrade in https://docs.rubocop.org/rubocop-rspec/upgrade
 - Add new `RSpec/IsExpectedSpecify` cop. ([@ydah])
 - Add new `RSpec/RepeatedSubjectCall` cop. ([@drcapulet])
 - Add support for `assert_true`, `assert_false`, `assert_not_equal`, `assert_not_nil`, `*_empty`, `*_predicate`, `*_kind_of`, `*_in_delta`, `*_match`, `*_instance_of` and `*_includes` assertions in `RSpec/Rails/MinitestAssertions`. ([@ydah], [@G-Rath])
-- Support asserts with messages in `Rspec/BeEmpty`. ([@G-Rath])
+- Support asserts with messages in `RSpec/BeEmpty`. ([@G-Rath])
 - Fix a false positive for `RSpec/ExpectActual` when used with rspec-rails routing matchers. ([@naveg])
 - Add configuration option `ResponseMethods` to `RSpec/Rails/HaveHttpStatus`. ([@ydah])
 - Fix a false negative for `RSpec/DescribedClass` when class with constant. ([@ydah])
@@ -292,7 +292,7 @@ Read more about how to upgrade in https://docs.rubocop.org/rubocop-rspec/upgrade
 ## 2.13.0 (2022-09-12)
 
 - Fix `RSpec/FilePath` cop missing mismatched expanded namespace. ([@sl4vr])
-- Add new `AllowConsecutiveOneLiners` (default true) option for `Rspec/EmptyLineAfterHook` cop. ([@ngouy])
+- Add new `AllowConsecutiveOneLiners` (default true) option for `RSpec/EmptyLineAfterHook` cop. ([@ngouy])
 - Add autocorrect support for `RSpec/EmptyExampleGroup`. ([@r7kamura])
 - Fix `RSpec/ChangeByZero` with compound expressions using `&` or `|` operators. ([@BrianHawley])
 - Add `RSpec/NoExpectationExample`. ([@r7kamura])
