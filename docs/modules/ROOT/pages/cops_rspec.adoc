@@ -6320,7 +6320,7 @@ let(:userFood_2) { 'fettuccine' }
 | Yes
 | Always (Unsafe)
 | 2.10.0
-| <<next>>
+| 3.4
 |===
 
 Checks for consistent verified double reference style.

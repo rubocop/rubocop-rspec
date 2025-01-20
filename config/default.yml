@@ -989,7 +989,7 @@ RSpec/VerifiedDoubleReference:
   Enabled: true
   SafeAutoCorrect: false
   VersionAdded: 2.10.0
-  VersionChanged: "<<next>>"
+  VersionChanged: '3.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
 
 RSpec/VerifiedDoubles:

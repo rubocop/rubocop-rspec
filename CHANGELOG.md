@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.4.0 (2025-01-20)
+
 - Fix `RSpec/SortMetadata` cop to limit sorting to trailing metadata arguments. ([@cbliard])
 - Replace `RSpec/StringAsInstanceDoubleConstant` with `RSpec/VerifiedDoubleReference` configured to only support constant class references. ([@corsonknowles])
 - Fix `RSpec/EmptyExampleGroup` cop false positive when a simple conditional is used inside an iterator. ([@lovro-bikic])
