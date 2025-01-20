@@ -130,6 +130,7 @@ module RuboCop
         def_node_matcher :examples?, <<~PATTERN
           {
             #examples_directly_or_in_block?
+            #examples_in_branches?
             (begin <#examples_directly_or_in_block? ...>)
             (begin <#examples_in_branches? ...>)
           }
@@ -170,6 +171,7 @@ module RuboCop
         end
 
         def examples_in_branches?(condition_node)
+          return false unless condition_node
           return false if !condition_node.if_type? && !condition_node.case_type?
 
           condition_node.branches.any? { |branch| examples?(branch) }

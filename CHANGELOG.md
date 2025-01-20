@@ -4,6 +4,7 @@
 
 - Fix `RSpec/SortMetadata` cop to limit sorting to trailing metadata arguments. ([@cbliard])
 - Replace `RSpec/StringAsInstanceDoubleConstant` with `RSpec/VerifiedDoubleReference` configured to only support constant class references. ([@corsonknowles])
+- Fix `Rspec/EmptyExampleGroup` cop false positive when a simple conditional is used inside an iterator. ([@lovro-bikic])
 
 ## 3.3.0 (2024-12-12)
 
@@ -992,6 +993,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@leoarnold]: https://github.com/leoarnold
 [@liberatys]: https://github.com/Liberatys
 [@lokhi]: https://github.com/lokhi
+[@lovro-bikic]: https://github.com/lovro-bikic
 [@luke-hill]: https://github.com/luke-hill
 [@m-yamashita01]: https://github.com/M-Yamashita01
 [@marocchino]: https://github.com/marocchino
