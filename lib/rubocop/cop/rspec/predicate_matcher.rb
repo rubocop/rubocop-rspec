@@ -43,7 +43,7 @@ module RuboCop
 
         # @!method be_bool?(node)
         def_node_matcher :be_bool?, <<~PATTERN
-          (send nil? {:be :eq :eql :equal} {true false})
+          (send nil? {:be :eq :eql :equal} boolean)
         PATTERN
 
         # @!method be_boolthy?(node)

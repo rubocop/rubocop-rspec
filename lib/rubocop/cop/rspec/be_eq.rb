@@ -31,7 +31,7 @@ module RuboCop
 
         # @!method eq_type_with_identity?(node)
         def_node_matcher :eq_type_with_identity?, <<~PATTERN
-          (send nil? :eq {true false nil})
+          (send nil? :eq {boolean nil})
         PATTERN
 
         def on_send(node)
