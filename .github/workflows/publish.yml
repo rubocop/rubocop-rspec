@@ -6,7 +6,7 @@ on:
 jobs:
   publish:
     name: Publish to RubyGems
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     permissions:
       actions: write
       contents: write
