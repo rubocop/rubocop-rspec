@@ -5,6 +5,10 @@ module RuboCop
     module RSpec
       # Checks unreferenced `let!` calls being used for test setup.
       #
+      # @safety
+      #   This cop is unsafe because it may result in a false positive
+      #   if you intentionally write `let!` for an override.
+      #
       # @example
       #   # bad
       #   let!(:my_widget) { create(:widget) }

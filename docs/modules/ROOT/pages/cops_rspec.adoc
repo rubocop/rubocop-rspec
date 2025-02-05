@@ -3327,13 +3327,19 @@ end
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Enabled
-| Yes
+| No
 | No
 | 1.7
-| -
+| <<next>>
 |===
 
 Checks unreferenced `let!` calls being used for test setup.
+
+[#safety-rspecletsetup]
+=== Safety
+
+This cop is unsafe because it may result in a false positive
+if you intentionally write `let!` for an override.
 
 [#examples-rspecletsetup]
 === Examples

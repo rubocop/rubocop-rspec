@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Mark `RSpec/LetSetup` as unsafe. ([@r7kamura])
+
 ## 3.4.0 (2025-01-20)
 
 - Fix `RSpec/SortMetadata` cop to limit sorting to trailing metadata arguments. ([@cbliard])
