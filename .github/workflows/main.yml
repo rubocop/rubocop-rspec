@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   confirm_config_and_documentation:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     name: Confirm config and documentation
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
       - run: bundle exec rake confirm_config documentation_syntax_check confirm_documentation
 
   main:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         ruby:
@@ -48,7 +48,7 @@ jobs:
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
   coverage:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     name: "Test coverage"
     steps:
       - uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
       - run: bundle exec rake spec
 
   edge-rubocop:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         task:
@@ -80,7 +80,7 @@ jobs:
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
   oldest-rubocop:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         task:
@@ -101,7 +101,7 @@ jobs:
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
   rspec4:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     name: RSpec 4
     steps:
       - uses: actions/checkout@v4
