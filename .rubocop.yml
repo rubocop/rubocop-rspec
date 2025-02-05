@@ -16,6 +16,18 @@ AllCops:
     - 'tmp/**/*'
     - 'spec/smoke_tests/**/*.rb'
 
+
+# Enable when we require rubocop >= 1.71.1 or rubocop-ast >= 1.38.0
+InternalAffairs/NodePatternGroups:
+  Enabled: false
+
+# Enable when we require rubocop >= 1.71.1 or rubocop-ast >= 1.38.0
+InternalAffairs/NodeTypeMultiplePredicates:
+  Enabled: false
+
+InternalAffairs/OnSendWithoutOnCSend:
+  Enabled: false
+
 Layout/HashAlignment:
   EnforcedHashRocketStyle:
     - key
@@ -129,8 +141,9 @@ Style/NumberedParameters:
 Style/RequireOrder:
   Enabled: true
 
-# Enable RuboCop's pending cops up to v1.63
+# Enable RuboCop's pending cops up to v1.71
 
+Gemspec/AddRuntimeDependency: {Enabled: true}
 Gemspec/DeprecatedAttributeAssignment: {Enabled: true}
 Gemspec/DevelopmentDependencies: {Enabled: true}
 Gemspec/RequireMFA: {Enabled: true}
@@ -141,15 +154,19 @@ Layout/SpaceBeforeBrackets: {Enabled: true}
 Lint/AmbiguousAssignment: {Enabled: true}
 Lint/AmbiguousOperatorPrecedence: {Enabled: true}
 Lint/AmbiguousRange: {Enabled: true}
+Lint/ArrayLiteralInRegexp: {Enabled: true}
 Lint/ConstantOverwrittenInRescue: {Enabled: true}
+Lint/ConstantReassignment: {Enabled: true}
 Lint/DeprecatedConstants: {Enabled: true}
 Lint/DuplicateBranch: {Enabled: true}
 Lint/DuplicateMagicComment: {Enabled: true}
 Lint/DuplicateMatchPattern: {Enabled: true}
 Lint/DuplicateRegexpCharacterClassElement: {Enabled: true}
+Lint/DuplicateSetElement: {Enabled: true}
 Lint/EmptyBlock: {Enabled: true}
 Lint/EmptyClass: {Enabled: true}
 Lint/EmptyInPattern: {Enabled: true}
+Lint/HashNewWithKeywordArgumentsAsDefault: {Enabled: true}
 Lint/IncompatibleIoSelectWithFiberScheduler: {Enabled: true}
 Lint/ItWithoutArgumentsInBlock: {Enabled: true}
 Lint/LambdaWithoutLiteralBlock: {Enabled: true}
@@ -158,48 +175,38 @@ Lint/MixedCaseRange: {Enabled: true}
 Lint/NonAtomicFileOperation: {Enabled: true}
 Lint/NoReturnInBeginEndBlocks: {Enabled: true}
 Lint/NumberedParameterAssignment: {Enabled: true}
+Lint/NumericOperationWithConstantResult: {Enabled: true}
 Lint/OrAssignmentToConstant: {Enabled: true}
 Lint/RedundantDirGlobSort: {Enabled: true}
 Lint/RedundantRegexpQuantifiers: {Enabled: true}
 Lint/RefinementImportMethods: {Enabled: true}
 Lint/RequireRangeParentheses: {Enabled: true}
 Lint/RequireRelativeSelfPath: {Enabled: true}
+Lint/SharedMutableDefault: {Enabled: true}
 Lint/SymbolConversion: {Enabled: true}
 Lint/ToEnumArguments: {Enabled: true}
 Lint/TripleQuotes: {Enabled: true}
+Lint/UnescapedBracketInRegexp: {Enabled: true}
 Lint/UnexpectedBlockArity: {Enabled: true}
 Lint/UnmodifiedReduceAccumulator: {Enabled: true}
+Lint/UselessDefined: {Enabled: true}
+Lint/UselessNumericOperation: {Enabled: true}
 Lint/UselessRescue: {Enabled: true}
 Lint/UselessRuby2Keywords: {Enabled: true}
 Metrics/CollectionLiteralLength: {Enabled: true}
 Naming/BlockForwarding: {Enabled: true}
-Performance/AncestorsInclude: {Enabled: true}
-Performance/BigDecimalWithNumericArgument: {Enabled: true}
-Performance/BlockGivenWithExplicitBlock: {Enabled: true}
-Performance/CollectionLiteralInLoop: {Enabled: true}
-Performance/ConcurrentMonotonicTime: {Enabled: true}
-Performance/ConstantRegexp: {Enabled: true}
-Performance/MapCompact: {Enabled: true}
-Performance/MapMethodChain: {Enabled: true}
-Performance/MethodObjectAsBlock: {Enabled: true}
-Performance/RedundantEqualityComparisonBlock: {Enabled: true}
-Performance/RedundantSortBlock: {Enabled: true}
-Performance/RedundantSplitRegexpArgument: {Enabled: true}
-Performance/RedundantStringChars: {Enabled: true}
-Performance/ReverseFirst: {Enabled: true}
-Performance/SortReverse: {Enabled: true}
-Performance/Squeeze: {Enabled: true}
-Performance/StringIdentifierArgument: {Enabled: true}
-Performance/StringInclude: {Enabled: true}
-Performance/Sum: {Enabled: true}
 Security/CompoundHash: {Enabled: true}
 Security/IoMethods: {Enabled: true}
+Style/AmbiguousEndlessMethodDefinition: {Enabled: true}
 Style/ArgumentsForwarding: {Enabled: true}
 Style/ArrayIntersect: {Enabled: true}
+Style/BitwisePredicate: {Enabled: true}
 Style/CollectionCompact: {Enabled: true}
+Style/CombinableDefined: {Enabled: true}
 Style/ComparableClamp: {Enabled: true}
 Style/ConcatArrayLiterals: {Enabled: true}
 Style/DataInheritance: {Enabled: true}
+Style/DigChain: {Enabled: true}
 Style/DirEmpty: {Enabled: true}
 Style/DocumentDynamicEvalDefinition: {Enabled: true}
 Style/EmptyHeredoc: {Enabled: true}
@@ -208,12 +215,17 @@ Style/EnvHome: {Enabled: true}
 Style/ExactRegexpMatch: {Enabled: true}
 Style/FetchEnvVar: {Enabled: true}
 Style/FileEmpty: {Enabled: true}
+Style/FileNull: {Enabled: true}
 Style/FileRead: {Enabled: true}
+Style/FileTouch: {Enabled: true}
 Style/FileWrite: {Enabled: true}
 Style/HashConversion: {Enabled: true}
 Style/HashExcept: {Enabled: true}
+Style/HashSlice: {Enabled: true}
 Style/IfWithBooleanLiteralBranches: {Enabled: true}
 Style/InPatternThen: {Enabled: true}
+Style/ItAssignment: {Enabled: true}
+Style/KeywordArgumentsMerging: {Enabled: true}
 Style/MagicCommentFormat: {Enabled: true}
 Style/MapCompactWithConditionalBlock: {Enabled: true}
 Style/MapIntoArray: {Enabled: true}
@@ -238,15 +250,42 @@ Style/RedundantEach: {Enabled: true}
 Style/RedundantFilterChain: {Enabled: true}
 Style/RedundantHeredocDelimiterQuotes: {Enabled: true}
 Style/RedundantInitialize: {Enabled: true}
+Style/RedundantInterpolationUnfreeze: {Enabled: true}
 Style/RedundantLineContinuation: {Enabled: true}
 Style/RedundantRegexpArgument: {Enabled: true}
 Style/RedundantRegexpConstructor: {Enabled: true}
 Style/RedundantSelfAssignmentBranch: {Enabled: true}
 Style/RedundantStringEscape: {Enabled: true}
 Style/ReturnNilInPredicateMethodDefinition: {Enabled: true}
+Style/SafeNavigationChainLength: {Enabled: true}
 Style/SelectByRegexp: {Enabled: true}
+Style/SendWithLiteralMethodName: {Enabled: true}
 Style/SingleLineDoEndBlock: {Enabled: true}
 Style/StringChars: {Enabled: true}
+Style/SuperArguments: {Enabled: true}
 Style/SuperWithArgsParentheses: {Enabled: true}
 Style/SwapValues: {Enabled: true}
 Style/YAMLFileRead: {Enabled: true}
+
+# Enable RuboCop Performance's pending cops up to v1.23
+
+Performance/AncestorsInclude: {Enabled: true}
+Performance/BigDecimalWithNumericArgument: {Enabled: true}
+Performance/BlockGivenWithExplicitBlock: {Enabled: true}
+Performance/CollectionLiteralInLoop: {Enabled: true}
+Performance/ConcurrentMonotonicTime: {Enabled: true}
+Performance/ConstantRegexp: {Enabled: true}
+Performance/MapCompact: {Enabled: true}
+Performance/MapMethodChain: {Enabled: true}
+Performance/MethodObjectAsBlock: {Enabled: true}
+Performance/RedundantEqualityComparisonBlock: {Enabled: true}
+Performance/RedundantSortBlock: {Enabled: true}
+Performance/RedundantSplitRegexpArgument: {Enabled: true}
+Performance/RedundantStringChars: {Enabled: true}
+Performance/ReverseFirst: {Enabled: true}
+Performance/SortReverse: {Enabled: true}
+Performance/Squeeze: {Enabled: true}
+Performance/StringBytesize: {Enabled: true}
+Performance/StringIdentifierArgument: {Enabled: true}
+Performance/StringInclude: {Enabled: true}
+Performance/Sum: {Enabled: true}
