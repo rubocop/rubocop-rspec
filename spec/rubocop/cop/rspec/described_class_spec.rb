@@ -338,6 +338,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         RUBY
       end
     end
+
+    it 'ignores parenthesized namespaces - begin_types' do
+      expect_no_offenses(<<~RUBY)
+        describe MyClass do
+          subject { (MyNamespace)::MyClass }
+        end
+      RUBY
+    end
   end
 
   context 'when EnforcedStyle is :explicit' do
