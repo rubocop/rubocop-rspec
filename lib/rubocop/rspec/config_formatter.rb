@@ -16,9 +16,9 @@ module RuboCop
 
       def dump
         YAML.dump(unified_config)
-          .gsub(%r{^\w+/}, "\n\\0")
-          .gsub(/^(\s+)- /, '\1  - ')
-          .gsub('"~"', '~')
+          .gsub(%r{^\w+/}, "\n\\0")   # Add an extra newline before each cop.
+          .gsub(/^(\s+)- /, '\1  - ') # Add 2 spaces before each array element.
+          .gsub('"~"', '~')           # Don't quote tilde, YAML's null value.
       end
 
       private
