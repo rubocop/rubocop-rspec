@@ -51,6 +51,37 @@ We are running [mdformat](https://github.com/executablebooks/mdformat) for forma
 $ mdformat . --number
 ```
 
+### Test Coverage - Line and Branch
+
+We are using [Simplecov](https://github.com/colszowka/simplecov) to track test coverage.
+
+It is included and reported when you run `bundle exec rake` or `bundle exec rspec`.
+
+To view the coverage report, open the `coverage/index.html` file in your browser.
+
+E.g. on macOS:
+
+```console
+$ open coverage/index.html
+```
+
+If you have unreachable lines, you can add `# :nocov` around those lines. The code itself or a comment should explain why the line is unreachable.
+
+Example:
+
+```ruby
+# :nocov:
+raise ArgumentError("Unsupported style :#{style}")
+# :nocov:
+```
+
+This can happen for a few reasons, including:
+
+1. When you handle config with a case statement and there is no else block.
+2. When matching with a node pattern even when you handle all cases: all other node types will be excluded before reaching your handler, because the node pattern will not match them.
+
+You will need full line and branch coverage to merge. This helps detect edge cases and prevent errors.
+
 ## Creating new cops
 
 - Document examples of good and bad code in your cop.
