@@ -114,6 +114,20 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitSubject do
         end
       RUBY
     end
+
+    it 'does not flag is_expected in describe blocks (non-example contexts)' do
+      expect_no_offenses(<<~RUBY)
+        describe 'something' do
+          is_expected.to be_valid
+        end
+      RUBY
+    end
+
+    it 'does not flag an empty example' do
+      expect_no_offenses(<<~RUBY)
+        it('is valid') { }
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `disallow`' do
