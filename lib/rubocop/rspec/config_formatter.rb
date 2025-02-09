@@ -7,7 +7,6 @@ module RuboCop
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
       EXTENSION_ROOT_DEPARTMENT = %r{^(RSpec/)}.freeze
-      SUBDEPARTMENTS = [].freeze
       AMENDMENTS = %(Metrics/BlockLength)
       COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/'
 
@@ -28,7 +27,7 @@ module RuboCop
 
       def unified_config
         cops.each_with_object(config.dup) do |cop, unified|
-          next if SUBDEPARTMENTS.include?(cop) || AMENDMENTS.include?(cop)
+          next if AMENDMENTS.include?(cop)
 
           replace_nil(unified[cop])
           unified[cop].merge!(descriptions.fetch(cop))
