@@ -15,6 +15,8 @@ module RuboCop
 
         def check_inflected(node)
           predicate_in_actual?(node) do |predicate, to, matcher|
+            next if cannot_replace_predicate?(predicate)
+
             msg = message_inflected(predicate)
             add_offense(node, message: msg) do |corrector|
               remove_predicate(corrector, predicate)
@@ -34,6 +36,10 @@ module RuboCop
             $#Runners.all
             $#boolean_matcher? ...)
         PATTERN
+
+        def cannot_replace_predicate?(send_node)
+          send_node.method?(:respond_to?) && send_node.arguments.length > 1
+        end
 
         # @!method be_bool?(node)
         def_node_matcher :be_bool?, <<~PATTERN

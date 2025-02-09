@@ -73,6 +73,12 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         RUBY
       end
 
+      it 'accepts respond_to? with a second argument' do
+        expect_no_offenses(<<~RUBY)
+          expect(foo.respond_to?(:bar, true)).to be_truthy
+        RUBY
+      end
+
       it 'registers an offense for a predicate method with argument' do
         expect_offense(<<~RUBY)
           expect(foo.something?('foo')).to be_truthy
