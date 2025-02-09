@@ -1,0 +1,4 @@
+# Use consecutive numbering in ordered lists. The default (always use 1.) does
+# indeed make smaller diffs, but the point of MarkDown files is they are also
+# readable by humans. Consecutive numbering is easier to read.
+number = true

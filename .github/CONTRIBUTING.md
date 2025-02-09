@@ -48,7 +48,7 @@ We are running [mdformat](https://github.com/executablebooks/mdformat) for forma
 `mdformat` is written in [Python](https://www.python.org/) and you can run it with:
 
 ```console
-$ mdformat . --number
+$ mdformat .
 ```
 
 ## Creating new cops
