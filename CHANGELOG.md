@@ -753,7 +753,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 ## 1.13.0 (2017-03-07)
 
 - Add repeated 'it' detection to `RSpec/ExampleWording` cop. ([@dgollahon])
-- Add [observed_nesting/max_nesting] info to `RSpec/NestedGroups` messages. ([@dgollahon])
+- Add \[observed_nesting/max_nesting\] info to `RSpec/NestedGroups` messages. ([@dgollahon])
 - Add `RSpec/ItBehavesLike` cop. ([@dgollahon])
 - Add `RSpec/SharedContext` cop. ([@Darhazer])
 - `RSpec/MultipleExpectations`: Count aggregate_failures block as single expectation. ([@Darhazer])
