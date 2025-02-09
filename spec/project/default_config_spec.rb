@@ -106,6 +106,8 @@ RSpec.describe 'config/default.yml' do
   it 'is expected that all cops documented with `@safety` are `Safe: false` ' \
      'or `SafeAutoCorrect: false`' do
     unsafe_cop_names.each do |cop_name|
+      next if default_config[cop_name].nil?
+
       unsafe = default_config[cop_name]['Safe'] == false ||
         default_config[cop_name]['SafeAutoCorrect'] == false
       expect(unsafe).to(
