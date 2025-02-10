@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Focus do
-  # rubocop:disable RSpec/ExampleLength
   it 'flags all rspec example blocks with that include `focus: true`' do
     expect_offense(<<~RUBY)
       example 'test', meta: true, focus: true do; end
@@ -131,7 +130,6 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
       shared_context 'test' do; end
     RUBY
   end
-  # rubocop:enable RSpec/ExampleLength
 
   it 'does not flag unfocused specs' do
     expect_no_offenses(<<~RUBY)
@@ -175,7 +173,7 @@ RSpec.describe RuboCop::Cop::RSpec::Focus do
     RUBY
   end
 
-  it 'flags focused block types' do # rubocop:disable RSpec/ExampleLength
+  it 'flags focused block types' do
     expect_offense(<<~RUBY)
       fdescribe 'test' do; end
       ^^^^^^^^^^^^^^^^ Focused spec found.
