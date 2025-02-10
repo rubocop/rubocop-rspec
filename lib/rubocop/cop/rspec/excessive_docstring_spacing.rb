@@ -100,7 +100,7 @@ module RuboCop
             node.node_parts.map { |child_node| text(child_node) }.join
           when :str, :sym
             node.value
-          when :begin
+          else
             node.source
           end
         end

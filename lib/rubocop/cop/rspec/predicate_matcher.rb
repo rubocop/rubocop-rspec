@@ -110,6 +110,7 @@ module RuboCop
           )
         end
 
+        # rubocop:disable Metrics/MethodLength
         def true?(to_symbol, matcher)
           result = case matcher.method_name
                    when :be, :eq, :eql, :equal
@@ -118,9 +119,14 @@ module RuboCop
                      true
                    when :be_falsey, :be_falsy, :a_falsey_value, :a_falsy_value
                      false
+                   else
+                     # :nocov:
+                     :noop
+                     # :nocov:
                    end
           to_symbol == :to ? result : !result
         end
+        # rubocop:enable Metrics/MethodLength
       end
 
       # A helper for `explicit` style
@@ -266,7 +272,7 @@ module RuboCop
             'be(false)'
           when [false, true]
             'be_truthy'
-          when [false, false]
+          else
             'be_falsey'
           end
         end
@@ -335,6 +341,10 @@ module RuboCop
             check_inflected(node)
           when :explicit
             check_explicit(node)
+          else
+            # :nocov:
+            :noop
+            # :nocov:
           end
         end
 
