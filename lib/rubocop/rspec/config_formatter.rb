@@ -6,9 +6,7 @@ module RuboCop
   module RSpec
     # Builds a YAML config file from two config hashes
     class ConfigFormatter
-      EXTENSION_ROOT_DEPARTMENT = %r{^(RSpec/)}.freeze
-      SUBDEPARTMENTS = [].freeze
-      AMENDMENTS = %(Metrics/BlockLength)
+      EXTENSION_ROOT_DEPARTMENT = %r{^RSpec/}.freeze
       COP_DOC_BASE_URL = 'https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/'
 
       def initialize(config, descriptions)
@@ -18,18 +16,15 @@ module RuboCop
 
       def dump
         YAML.dump(unified_config)
-          .gsub(EXTENSION_ROOT_DEPARTMENT, "\n\\1")
-          .gsub(*AMENDMENTS, "\n\\0")
-          .gsub(/^(\s+)- /, '\1  - ')
-          .gsub('"~"', '~')
+          .gsub(%r{^\w+/}, "\n\\0")   # Add an extra newline before each cop.
+          .gsub(/^(\s+)- /, '\1  - ') # Add 2 spaces before each array element.
+          .gsub('"~"', '~')           # Don't quote tilde, YAML's null value.
       end
 
       private
 
       def unified_config
         cops.each_with_object(config.dup) do |cop, unified|
-          next if SUBDEPARTMENTS.include?(cop) || AMENDMENTS.include?(cop)
-
           replace_nil(unified[cop])
           unified[cop].merge!(descriptions.fetch(cop))
           unified[cop]['Reference'] = reference(cop)

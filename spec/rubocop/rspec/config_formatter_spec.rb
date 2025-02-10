@@ -8,6 +8,12 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       'AllCops' => {
         'Setting' => 'forty two'
       },
+      'Metrics/BlockLength' => {
+        'Exclude' => [
+          '**/*_spec.rb',
+          '**/spec/**/*'
+        ]
+      },
       'RSpec/Foo' => {
         'Config' => 2,
         'Enabled' => true
@@ -18,6 +24,7 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       },
       'RSpec/Baz' => {
         'Enabled' => true,
+        'NegatedMatcher' => '~',
         'StyleGuide' => '#buzz'
       }
     }
@@ -45,6 +52,11 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
       AllCops:
         Setting: forty two
 
+      Metrics/BlockLength:
+        Exclude:
+          - "**/*_spec.rb"
+          - "**/spec/**/*"
+
       RSpec/Foo:
         Config: 2
         Enabled: true
@@ -59,6 +71,7 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
 
       RSpec/Baz:
         Enabled: true
+        NegatedMatcher: ~
         StyleGuide: "#buzz"
         Description: Woof
         Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
