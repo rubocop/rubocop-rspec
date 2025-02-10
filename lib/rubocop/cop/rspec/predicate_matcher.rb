@@ -112,7 +112,7 @@ module RuboCop
 
         def true?(to_symbol, matcher)
           result = case matcher.method_name
-                   when :be, :eq
+                   when :be, :eq, :eql, :equal
                      matcher.first_argument.true_type?
                    when :be_truthy, :a_truthy_value
                      true

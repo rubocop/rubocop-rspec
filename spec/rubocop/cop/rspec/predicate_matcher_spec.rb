@@ -211,6 +211,10 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to eq(true), 'fail'
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).to eql(true)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
+          expect(foo.empty?).to equal(true), 'whoops'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).not_to be(true)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_empty` matcher over `empty?`.
           expect(foo.empty?).to be(true)
@@ -226,6 +230,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         expect_correction(<<~RUBY)
           expect(foo).to be_empty
           expect(foo).to be_empty, 'fail'
+          expect(foo).to be_empty
+          expect(foo).to be_empty, 'whoops'
           expect(foo).not_to be_empty
           expect(foo).to be_empty
           expect(foo).not_to be_empty

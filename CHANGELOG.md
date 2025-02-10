@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Don't let `RSpec/PredicateMatcher` replace `respond_to?` with two arguments with the RSpec `respond_to` matcher. ([@bquorning])
+- Fix `RSpec/PredicateMatcher` support for `eql` and `equal` matchers. ([@bquorning])
 
 ## 3.4.0 (2025-01-20)
 
