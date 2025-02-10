@@ -69,7 +69,6 @@ module RuboCop
                  matcher_name: to_predicate_matcher(predicate.method_name))
         end
 
-        # rubocop:disable Metrics/MethodLength
         def to_predicate_matcher(name)
           case name = name.to_s
           when 'is_a?'
@@ -86,7 +85,6 @@ module RuboCop
             "be_#{name[0..-2]}"
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def remove_predicate(corrector, predicate)
           range = predicate.loc.dot.with(
@@ -110,7 +108,6 @@ module RuboCop
           )
         end
 
-        # rubocop:disable Metrics/MethodLength
         def true?(to_symbol, matcher)
           result = case matcher.method_name
                    when :be, :eq, :eql, :equal
@@ -126,7 +123,6 @@ module RuboCop
                    end
           to_symbol == :to ? result : !result
         end
-        # rubocop:enable Metrics/MethodLength
       end
 
       # A helper for `explicit` style
@@ -245,7 +241,6 @@ module RuboCop
           corrector.insert_after(actual, ".#{predicate}" + args + block)
         end
 
-        # rubocop:disable Metrics/MethodLength
         def to_predicate_method(matcher)
           case matcher = matcher.to_s
           when 'be_a', 'be_an', 'be_a_kind_of', 'a_kind_of', 'be_kind_of'
@@ -262,7 +257,6 @@ module RuboCop
             "#{matcher[/\Abe_(.+)/, 1]}?"
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def replacement_matcher(node)
           case [cop_config['Strict'], node.method?(:to)]

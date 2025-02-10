@@ -101,7 +101,6 @@ module RuboCop
 
         private
 
-        # rubocop:disable Metrics/MethodLength
         def register_offense(node, change_node)
           if compound_expectations?(node)
             add_offense(node,
@@ -115,7 +114,6 @@ module RuboCop
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def compound_expectations?(node)
           node.parent.send_type? &&

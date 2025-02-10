@@ -67,7 +67,6 @@ module RuboCop
           } ...) ...)
         PATTERN
 
-        # rubocop:disable Metrics/MethodLength
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           it_description(node) do |description_node, message|
             if message.match?(SHOULD_PREFIX)
@@ -82,7 +81,6 @@ module RuboCop
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         private
 

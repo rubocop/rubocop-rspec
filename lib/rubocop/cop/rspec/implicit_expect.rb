@@ -46,7 +46,7 @@ module RuboCop
 
         ENFORCED_REPLACEMENTS = alternatives.merge(alternatives.invert).freeze
 
-        def on_send(node) # rubocop:disable Metrics/MethodLength
+        def on_send(node)
           return unless (source_range = offending_expect(node))
 
           expectation_source = source_range.source
