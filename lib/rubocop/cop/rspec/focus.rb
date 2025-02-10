@@ -75,23 +75,27 @@ module RuboCop
         def on_send(node)
           return if node.chained? || node.each_ancestor(:def, :defs).any?
 
-          focus_metadata(node) do |focus|
-            add_offense(focus) do |corrector|
-              if focus.pair_type? || focus.str_type? || focus.sym_type?
-                corrector.remove(with_surrounding(focus))
-              elsif focus.send_type?
-                correct_send(corrector, focus)
-              end
+          if focused_block?(node)
+            on_focused_block(node)
+          else
+            metadata(node) do |focus|
+              on_metadata(focus)
             end
           end
         end
 
         private
 
-        def focus_metadata(node, &block)
-          yield(node) if focused_block?(node)
+        def on_focused_block(node)
+          add_offense(node) do |corrector|
+            correct_send(corrector, node)
+          end
+        end
 
-          metadata(node, &block)
+        def on_metadata(node)
+          add_offense(node) do |corrector|
+            corrector.remove(with_surrounding(node))
+          end
         end
 
         def with_surrounding(focus)
