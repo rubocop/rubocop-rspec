@@ -65,7 +65,7 @@ module RuboCop
           )
         PATTERN
 
-        def on_send(node) # rubocop:disable Metrics/MethodLength
+        def on_send(node)
           expect_literal(node) do |actual, send_node, matcher, expected|
             next if SKIPPED_MATCHERS.include?(matcher)
 

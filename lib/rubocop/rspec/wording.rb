@@ -17,7 +17,6 @@ module RuboCop
         @replacements = replace
       end
 
-      # rubocop:disable Metrics/MethodLength
       def rewrite
         case text
         when SHOULDNT_BE_PREFIX
@@ -32,7 +31,6 @@ module RuboCop
           remove_should_and_pluralize
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

@@ -46,7 +46,7 @@ module RuboCop
 
         ENFORCED_REPLACEMENTS = alternatives.merge(alternatives.invert).freeze
 
-        def on_send(node) # rubocop:disable Metrics/MethodLength
+        def on_send(node)
           return unless (source_range = offending_expect(node))
 
           expectation_source = source_range.source
@@ -69,13 +69,13 @@ module RuboCop
         def offending_expect(node)
           case implicit_expect(node)
           when :is_expected
-            is_expected_range(node.loc)
+            range_for_is_expected(node.loc)
           when :should, :should_not
             node.loc.selector
           end
         end
 
-        def is_expected_range(source_map) # rubocop:disable Naming/PredicateName
+        def range_for_is_expected(source_map)
           Parser::Source::Range.new(
             source_map.expression.source_buffer,
             source_map.expression.begin_pos,

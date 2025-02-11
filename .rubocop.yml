@@ -16,7 +16,6 @@ AllCops:
     - 'tmp/**/*'
     - 'spec/smoke_tests/**/*.rb'
 
-
 # Enable when we require rubocop >= 1.71.1 or rubocop-ast >= 1.38.0
 InternalAffairs/NodePatternGroups:
   Enabled: false
@@ -69,6 +68,9 @@ Metrics/BlockLength:
     - rubocop-rspec.gemspec
     - Rakefile
     - '**/*.rake'
+
+Metrics/MethodLength:
+  Max: 15
 
 Naming/FileName:
   Exclude:

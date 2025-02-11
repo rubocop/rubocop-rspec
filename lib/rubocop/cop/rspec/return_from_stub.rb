@@ -80,10 +80,10 @@ module RuboCop
 
         def check_block_body(block)
           body = block.body
-          unless dynamic?(body) # rubocop:disable Style/GuardClause
-            add_offense(block.loc.begin, message: MSG_AND_RETURN) do |corrector|
-              BlockBodyCorrector.new(block).call(corrector)
-            end
+          return if dynamic?(body)
+
+          add_offense(block.loc.begin, message: MSG_AND_RETURN) do |corrector|
+            BlockBodyCorrector.new(block).call(corrector)
           end
         end
 

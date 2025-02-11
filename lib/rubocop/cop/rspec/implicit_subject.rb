@@ -97,7 +97,6 @@ module RuboCop
 
         private
 
-        # rubocop:disable Metrics/MethodLength
         def autocorrect(corrector, node)
           case node.method_name
           when :expect
@@ -114,7 +113,6 @@ module RuboCop
             # :nocov:
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def message(_node)
           case style
@@ -125,7 +123,6 @@ module RuboCop
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
         def invalid?(node)
           case style
           when :require_implicit
@@ -142,7 +139,6 @@ module RuboCop
             # :nocov:
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def implicit_subject_in_non_its?(node)
           implicit_subject?(node) && !its?(node)

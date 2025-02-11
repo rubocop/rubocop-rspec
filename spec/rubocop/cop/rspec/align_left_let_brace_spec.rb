@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
-  # rubocop:disable RSpec/ExampleLength
   it 'registers offense for unaligned braces' do
     expect_offense(<<~RUBY)
       let(:foo) { bar }
@@ -41,7 +40,6 @@ RSpec.describe RuboCop::Cop::RSpec::AlignLeftLetBrace do
       end
     RUBY
   end
-  # rubocop:enable RSpec/ExampleLength
 
   it 'does not register an offense for let with proc argument' do
     expect_no_offenses(<<~RUBY)
