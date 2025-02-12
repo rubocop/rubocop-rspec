@@ -91,7 +91,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Use oldest RuboCop allowed by gemspec
         run: |
-          sed -nr "s/ *spec.add_dependency 'rubocop', '~> ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
+          sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
             rubocop-rspec.gemspec > Gemfile.local
           cat Gemfile.local
       - uses: ruby/setup-ruby@v1
