@@ -30,7 +30,7 @@ module RuboCop
         # @!method example_or_group?(node)
         def_node_matcher :example_or_group?, <<~PATTERN
           {
-            ({block numblock} {
+            (any_block {
               (send #rspec? #ExampleGroups.all ...)
               (send nil? #Examples.all ...)
             } ...)

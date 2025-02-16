@@ -65,7 +65,7 @@ module RuboCop
         # @param [RuboCop::AST::Node] node
         # @return [Boolean]
         def_node_matcher :regular_or_focused_example?, <<~PATTERN
-          ({block numblock} (send nil? {#Examples.regular #Examples.focused} ...) ...)
+          (any_block (send nil? {#Examples.regular #Examples.focused} ...) ...)
         PATTERN
 
         # @!method includes_expectation?(node)
