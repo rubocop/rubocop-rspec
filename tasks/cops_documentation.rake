@@ -12,6 +12,8 @@ end
 
 desc 'Generate docs of all cops departments'
 task generate_cops_documentation: :yard_for_generate_documentation do
+  RuboCop::ConfigLoader.inject_defaults!("#{__dir__}/../config/default.yml")
+
   generator = CopsDocumentationGenerator.new(
     departments: %w[RSpec]
   )

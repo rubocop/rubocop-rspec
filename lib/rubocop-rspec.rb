@@ -6,9 +6,9 @@ require 'yaml'
 require 'rubocop'
 
 require_relative 'rubocop/rspec'
-require_relative 'rubocop/rspec/inject'
 require_relative 'rubocop/rspec/language'
 require_relative 'rubocop/rspec/node'
+require_relative 'rubocop/rspec/plugin'
 require_relative 'rubocop/rspec/version'
 require_relative 'rubocop/rspec/wording'
 
@@ -33,8 +33,6 @@ require_relative 'rubocop/rspec/corrector/move_node'
 require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/example_group'
 require_relative 'rubocop/rspec/hook'
-
-RuboCop::RSpec::Inject.defaults!
 
 require_relative 'rubocop/cop/rspec_cops'
 
