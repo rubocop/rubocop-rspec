@@ -50,7 +50,7 @@ module RuboCop
           return unless inside_example_group?(node)
 
           variable_definition?(node) do |variable|
-            return if variable.dstr_type? || variable.dsym_type?
+            return if variable.type?(:dstr, :dsym)
             return if matches_allowed_pattern?(variable.value)
 
             check_name(node, variable.value, variable.source_range)

@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# This cop supports safe autocorrection (--autocorrect).
-InternalAffairs/NodeTypeMultiplePredicates:
-  Exclude:
-    - 'lib/rubocop/cop/rspec/empty_example_group.rb'
-    - 'lib/rubocop/cop/rspec/predicate_matcher.rb'
-    - 'lib/rubocop/cop/rspec/receive_messages.rb'
-    - 'lib/rubocop/cop/rspec/variable_definition.rb'
-    - 'lib/rubocop/cop/rspec/variable_name.rb'
-
 Rake/MethodDefinitionInTask:
   Exclude:
     - 'tasks/cut_release.rake'
