@@ -63,8 +63,7 @@ module RuboCop
         def_node_matcher :skipped_in_example?, <<~PATTERN
           {
             (send nil? ${#Examples.skipped #Examples.pending})
-            (block (send nil? ${#Examples.skipped}) ...)
-            (numblock (send nil? ${#Examples.skipped}) ...)
+            (any_block (send nil? ${#Examples.skipped}) ...)
           }
         PATTERN
 
@@ -75,7 +74,7 @@ module RuboCop
 
         # @!method skipped_by_example_method_with_block?(node)
         def_node_matcher :skipped_by_example_method_with_block?, <<~PATTERN
-          ({block numblock} (send nil? ${#Examples.skipped #Examples.pending} ...) ...)
+          (any_block (send nil? ${#Examples.skipped #Examples.pending} ...) ...)
         PATTERN
 
         # @!method metadata_without_reason?(node)

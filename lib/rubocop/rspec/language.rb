@@ -26,7 +26,7 @@ module RuboCop
 
       # @!method example_group?(node)
       def_node_matcher :example_group?, <<~PATTERN
-        ({block numblock} (send #rspec? #ExampleGroups.all ...) ...)
+        (any_block (send #rspec? #ExampleGroups.all ...) ...)
       PATTERN
 
       # @!method shared_group?(node)
@@ -35,7 +35,7 @@ module RuboCop
 
       # @!method spec_group?(node)
       def_node_matcher :spec_group?, <<~PATTERN
-        ({block numblock} (send #rspec?
+        (any_block (send #rspec?
              {#SharedGroups.all #ExampleGroups.all}
           ...) ...)
       PATTERN
@@ -50,10 +50,7 @@ module RuboCop
 
       # @!method hook?(node)
       def_node_matcher :hook?, <<~PATTERN
-        {
-          (numblock (send nil? #Hooks.all ...) ...)
-          (block (send nil? #Hooks.all ...) ...)
-        }
+        (any_block (send nil? #Hooks.all ...) ...)
       PATTERN
 
       # @!method let?(node)
