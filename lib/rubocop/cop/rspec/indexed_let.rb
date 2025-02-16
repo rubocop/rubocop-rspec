@@ -74,7 +74,9 @@ module RuboCop
         private
 
         SUFFIX_INDEX_REGEX = /_?\d+$/.freeze
+        private_constant :SUFFIX_INDEX_REGEX
         INDEX_REGEX = /\d+/.freeze
+        private_constant :INDEX_REGEX
 
         def filter_indexed_lets(candidates)
           candidates
