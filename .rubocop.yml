@@ -16,14 +16,6 @@ AllCops:
     - 'tmp/**/*'
     - 'spec/smoke_tests/**/*.rb'
 
-# Enable when we require rubocop >= 1.71.1 or rubocop-ast >= 1.38.0
-InternalAffairs/NodePatternGroups:
-  Enabled: false
-
-# Enable when we require rubocop >= 1.71.1 or rubocop-ast >= 1.38.0
-InternalAffairs/NodeTypeMultiplePredicates:
-  Enabled: false
-
 InternalAffairs/OnSendWithoutOnCSend:
   Enabled: false
 
@@ -143,7 +135,7 @@ Style/NumberedParameters:
 Style/RequireOrder:
   Enabled: true
 
-# Enable RuboCop's pending cops up to v1.71
+# Enable RuboCop's pending cops up to v1.72
 
 Gemspec/AddRuntimeDependency: {Enabled: true}
 Gemspec/DeprecatedAttributeAssignment: {Enabled: true}
@@ -159,6 +151,7 @@ Lint/AmbiguousRange: {Enabled: true}
 Lint/ArrayLiteralInRegexp: {Enabled: true}
 Lint/ConstantOverwrittenInRescue: {Enabled: true}
 Lint/ConstantReassignment: {Enabled: true}
+Lint/CopDirectiveSyntax: {Enabled: true}
 Lint/DeprecatedConstants: {Enabled: true}
 Lint/DuplicateBranch: {Enabled: true}
 Lint/DuplicateMagicComment: {Enabled: true}
@@ -181,16 +174,19 @@ Lint/NumericOperationWithConstantResult: {Enabled: true}
 Lint/OrAssignmentToConstant: {Enabled: true}
 Lint/RedundantDirGlobSort: {Enabled: true}
 Lint/RedundantRegexpQuantifiers: {Enabled: true}
+Lint/RedundantTypeConversion: {Enabled: true}
 Lint/RefinementImportMethods: {Enabled: true}
 Lint/RequireRangeParentheses: {Enabled: true}
 Lint/RequireRelativeSelfPath: {Enabled: true}
 Lint/SharedMutableDefault: {Enabled: true}
+Lint/SuppressedExceptionInNumberConversion: {Enabled: true}
 Lint/SymbolConversion: {Enabled: true}
 Lint/ToEnumArguments: {Enabled: true}
 Lint/TripleQuotes: {Enabled: true}
 Lint/UnescapedBracketInRegexp: {Enabled: true}
 Lint/UnexpectedBlockArity: {Enabled: true}
 Lint/UnmodifiedReduceAccumulator: {Enabled: true}
+Lint/UselessConstantScoping: {Enabled: true}
 Lint/UselessDefined: {Enabled: true}
 Lint/UselessNumericOperation: {Enabled: true}
 Lint/UselessRescue: {Enabled: true}
@@ -250,6 +246,7 @@ Style/RedundantCurrentDirectoryInPath: {Enabled: true}
 Style/RedundantDoubleSplatHashBraces: {Enabled: true}
 Style/RedundantEach: {Enabled: true}
 Style/RedundantFilterChain: {Enabled: true}
+Style/RedundantFormat: {Enabled: true}
 Style/RedundantHeredocDelimiterQuotes: {Enabled: true}
 Style/RedundantInitialize: {Enabled: true}
 Style/RedundantInterpolationUnfreeze: {Enabled: true}
@@ -269,7 +266,7 @@ Style/SuperWithArgsParentheses: {Enabled: true}
 Style/SwapValues: {Enabled: true}
 Style/YAMLFileRead: {Enabled: true}
 
-# Enable RuboCop Performance's pending cops up to v1.23
+# Enable RuboCop Performance's pending cops up to v1.24
 
 Performance/AncestorsInclude: {Enabled: true}
 Performance/BigDecimalWithNumericArgument: {Enabled: true}
@@ -291,3 +288,4 @@ Performance/StringBytesize: {Enabled: true}
 Performance/StringIdentifierArgument: {Enabled: true}
 Performance/StringInclude: {Enabled: true}
 Performance/Sum: {Enabled: true}
+Performance/ZipWithoutBlock: {Enabled: true}

@@ -162,6 +162,7 @@ module RuboCop
           end
 
           NULL_BLOCK_BODY = Struct.new(:loc, :source).new(nil, 'nil')
+          private_constant :NULL_BLOCK_BODY
         end
       end
     end
