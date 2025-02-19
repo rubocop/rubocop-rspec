@@ -37,11 +37,6 @@ let(:baz)    { bar }
 let(:a)      { b }
 ----
 
-[#references-rspecalignleftletbrace]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace
-
 [#rspecalignrightletbrace]
 == RSpec/AlignRightLetBrace
 
@@ -72,11 +67,6 @@ let(:foobar) { blahblah }
 let(:baz)    { bar      }
 let(:a)      { b        }
 ----
-
-[#references-rspecalignrightletbrace]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace
 
 [#rspecanyinstance]
 == RSpec/AnyInstance
@@ -120,7 +110,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#any_instance_of
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance
 
 [#rspecaroundblock]
 == RSpec/AroundBlock
@@ -163,11 +152,6 @@ around do |test|
 end
 ----
 
-[#references-rspecaroundblock]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock
-
 [#rspecbe]
 == RSpec/Be
 
@@ -205,7 +189,6 @@ expect(foo).to be(true)
 === References
 
 * https://rspec.rubystyle.guide/#be-matcher
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be
 
 [#rspecbeempty]
 == RSpec/BeEmpty
@@ -234,11 +217,6 @@ expect(array).to match_array([])
 # good
 expect(array).to be_empty
 ----
-
-[#references-rspecbeempty]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEmpty
 
 [#rspecbeeq]
 == RSpec/BeEq
@@ -279,11 +257,6 @@ expect(foo).to be(true)
 expect(foo).to be(false)
 expect(foo).to be(nil)
 ----
-
-[#references-rspecbeeq]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEq
 
 [#rspecbeeql]
 == RSpec/BeEql
@@ -338,11 +311,6 @@ expect(foo).to be(false)
 expect(foo).to be(:bar)
 expect(foo).to be(nil)
 ----
-
-[#references-rspecbeeql]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql
 
 [#rspecbenil]
 == RSpec/BeNil
@@ -402,11 +370,6 @@ expect(foo).to be(nil)
 | `be`, `be_nil`
 |===
 
-[#references-rspecbenil]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeNil
-
 [#rspecbeforeafterall]
 == RSpec/BeforeAfterAll
 
@@ -455,7 +418,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#avoid-hooks-with-context-scope
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll
 
 [#rspecchangebyzero]
 == RSpec/ChangeByZero
@@ -548,11 +510,6 @@ expect { run }
 | 
 |===
 
-[#references-rspecchangebyzero]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
-
 [#rspecclasscheck]
 == RSpec/ClassCheck
 
@@ -614,7 +571,6 @@ expect(object).to be_a_kind_of(String)
 === References
 
 * https://rubystyle.guide#is-a-vs-kind-of
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ClassCheck
 
 [#rspeccontainexactly]
 == RSpec/ContainExactly
@@ -650,11 +606,6 @@ it { is_expected.to match_array(array1 + array2) }
 # good
 it { is_expected.to contain_exactly(content, *array) }
 ----
-
-[#references-rspeccontainexactly]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
 [#rspeccontextmethod]
 == RSpec/ContextMethod
@@ -699,7 +650,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#example-group-naming
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextMethod
 
 [#rspeccontextwording]
 == RSpec/ContextWording
@@ -802,7 +752,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#context-descriptions
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 * http://www.betterspecs.org/#contexts
 
 [#rspecdescribeclass]
@@ -874,11 +823,6 @@ end
 | 
 |===
 
-[#references-rspecdescribeclass]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass
-
 [#rspecdescribemethod]
 == RSpec/DescribeMethod
 
@@ -910,11 +854,6 @@ end
 describe MyClass, '.my_class_method' do
 end
 ----
-
-[#references-rspecdescribemethod]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod
 
 [#rspecdescribesymbol]
 == RSpec/DescribeSymbol
@@ -950,7 +889,6 @@ end
 [#references-rspecdescribesymbol]
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol
 * https://github.com/rspec/rspec-core/issues/1610
 
 [#rspecdescribedclass]
@@ -1078,11 +1016,6 @@ end
 | Boolean
 |===
 
-[#references-rspecdescribedclass]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
-
 [#rspecdescribedclassmodulewrapping]
 == RSpec/DescribedClassModuleWrapping
 
@@ -1119,7 +1052,6 @@ end
 [#references-rspecdescribedclassmodulewrapping]
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
 * https://github.com/rubocop/rubocop-rspec/issues/735
 
 [#rspecdialect]
@@ -1203,11 +1135,6 @@ end
 | 
 |===
 
-[#references-rspecdialect]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
-
 [#rspecduplicatedmetadata]
 == RSpec/DuplicatedMetadata
 
@@ -1234,11 +1161,6 @@ describe 'Something', :a, :a
 # good
 describe 'Something', :a
 ----
-
-[#references-rspecduplicatedmetadata]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DuplicatedMetadata
 
 [#rspecemptyexamplegroup]
 == RSpec/EmptyExampleGroup
@@ -1293,11 +1215,6 @@ describe Bacon do
 end
 ----
 
-[#references-rspecemptyexamplegroup]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
-
 [#rspecemptyhook]
 == RSpec/EmptyHook
 
@@ -1335,11 +1252,6 @@ before(:all) do
 end
 after(:all) { cleanup_feed }
 ----
-
-[#references-rspecemptyhook]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyHook
 
 [#rspecemptylineafterexample]
 == RSpec/EmptyLineAfterExample
@@ -1416,7 +1328,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#empty-lines-around-examples
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExample
 
 [#rspecemptylineafterexamplegroup]
 == RSpec/EmptyLineAfterExampleGroup
@@ -1460,7 +1371,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#empty-lines-between-describes
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup
 
 [#rspecemptylineafterfinallet]
 == RSpec/EmptyLineAfterFinalLet
@@ -1498,7 +1408,6 @@ it { does_something }
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet
 
 [#rspecemptylineafterhook]
 == RSpec/EmptyLineAfterHook
@@ -1585,7 +1494,6 @@ it { does_something }
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
 
 [#rspecemptylineaftersubject]
 == RSpec/EmptyLineAfterSubject
@@ -1621,7 +1529,6 @@ let(:foo) { bar }
 === References
 
 * https://rspec.rubystyle.guide/#empty-line-after-let
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject
 
 [#rspecemptymetadata]
 == RSpec/EmptyMetadata
@@ -1653,11 +1560,6 @@ describe 'Something', {}
 describe 'Something'
 ----
 
-[#references-rspecemptymetadata]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyMetadata
-
 [#rspecemptyoutput]
 == RSpec/EmptyOutput
 
@@ -1687,11 +1589,6 @@ expect { foo }.not_to output.to_stdout
 expect { bar }.to output.to_stderr
 ----
 
-[#references-rspecemptyoutput]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyOutput
-
 [#rspeceq]
 == RSpec/Eq
 
@@ -1718,11 +1615,6 @@ expect(foo).to be == 42
 # good
 expect(foo).to eq 42
 ----
-
-[#references-rspeceq]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Eq
 
 [#rspecexamplelength]
 == RSpec/ExampleLength
@@ -1811,11 +1703,6 @@ end               # 6 points
 | `[]`
 | Array
 |===
-
-[#references-rspecexamplelength]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength
 
 [#rspecexamplewithoutdescription]
 == RSpec/ExampleWithoutDescription
@@ -1918,7 +1805,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#it-and-specify
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription
 
 [#rspecexamplewording]
 == RSpec/ExampleWording
@@ -2010,7 +1896,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#should-in-example-docstrings
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording
 * http://betterspecs.org/#should
 
 [#rspecexcessivedocstringspacing]
@@ -2052,11 +1937,6 @@ end
 context 'when a condition is met' do
 end
 ----
-
-[#references-rspecexcessivedocstringspacing]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExcessiveDocstringSpacing
 
 [#rspecexpectactual]
 == RSpec/ExpectActual
@@ -2104,11 +1984,6 @@ expect(false).to eq(true)
 | `+**/spec/routing/**/*+`
 | Array
 |===
-
-[#references-rspecexpectactual]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual
 
 [#rspecexpectchange]
 == RSpec/ExpectChange
@@ -2173,11 +2048,6 @@ expect { run }.to change { Foo.bar }
 | `method_call`, `block`
 |===
 
-[#references-rspecexpectchange]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
-
 [#rspecexpectinhook]
 == RSpec/ExpectInHook
 
@@ -2214,11 +2084,6 @@ it do
 end
 ----
 
-[#references-rspecexpectinhook]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook
-
 [#rspecexpectinlet]
 == RSpec/ExpectInLet
 
@@ -2250,11 +2115,6 @@ it do
 end
 ----
 
-[#references-rspecexpectinlet]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInLet
-
 [#rspecexpectoutput]
 == RSpec/ExpectOutput
 
@@ -2284,11 +2144,6 @@ expect($stdout.string).to eq('Hello World')
 # good
 expect { my_app.print_report }.to output('Hello World').to_stdout
 ----
-
-[#references-rspecexpectoutput]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput
 
 [#rspecfocus]
 == RSpec/Focus
@@ -2347,11 +2202,6 @@ shared_context 'test' do; end
 # bad (does not support autocorrection)
 focus 'test' do; end
 ----
-
-[#references-rspecfocus]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
 [#rspechookargument]
 == RSpec/HookArgument
@@ -2454,7 +2304,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#redundant-beforeeach
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument
 
 [#rspechooksbeforeexamples]
 == RSpec/HooksBeforeExamples
@@ -2493,11 +2342,6 @@ it 'checks what foo does' do
 end
 ----
 
-[#references-rspechooksbeforeexamples]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HooksBeforeExamples
-
 [#rspecidenticalequalityassertion]
 == RSpec/IdenticalEqualityAssertion
 
@@ -2526,11 +2370,6 @@ expect(foo.bar).to eql(foo.bar)
 expect(foo.bar).to eq(2)
 expect(foo.bar).to eql(2)
 ----
-
-[#references-rspecidenticalequalityassertion]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IdenticalEqualityAssertion
 
 [#rspecimplicitblockexpectation]
 == RSpec/ImplicitBlockExpectation
@@ -2568,7 +2407,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#implicit-block-expectations
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitBlockExpectation
 
 [#rspecimplicitexpect]
 == RSpec/ImplicitExpect
@@ -2630,7 +2468,6 @@ it { should be_truthy }
 === References
 
 * https://rspec.rubystyle.guide/#use-expect
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect
 
 [#rspecimplicitsubject]
 == RSpec/ImplicitSubject
@@ -2738,11 +2575,6 @@ it { expect(named_subject).to be_truthy }
 | `single_line_only`, `single_statement_only`, `disallow`, `require_implicit`
 |===
 
-[#references-rspecimplicitsubject]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitSubject
-
 [#rspecindexedlet]
 == RSpec/IndexedLet
 
@@ -2839,11 +2671,6 @@ let(:item_2) { create(:item) }
 | Array
 |===
 
-[#references-rspecindexedlet]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IndexedLet
-
 [#rspecinstancespy]
 == RSpec/InstanceSpy
 
@@ -2876,11 +2703,6 @@ it do
   expect(foo).to have_received(:bar)
 end
 ----
-
-[#references-rspecinstancespy]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy
 
 [#rspecinstancevariable]
 == RSpec/InstanceVariable
@@ -2962,7 +2784,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#instance-variables
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
 [#rspecisexpectedspecify]
 == RSpec/IsExpectedSpecify
@@ -3001,7 +2822,6 @@ specify { expect(sqrt(4)).to eq(2) }
 === References
 
 * https://rspec.rubystyle.guide/#it-and-specify
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IsExpectedSpecify
 
 [#rspecitbehaveslike]
 == RSpec/ItBehavesLike
@@ -3056,11 +2876,6 @@ it_should_behave_like 'a foo'
 | `it_behaves_like`, `it_should_behave_like`
 |===
 
-[#references-rspecitbehaveslike]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike
-
 [#rspeciteratedexpectation]
 == RSpec/IteratedExpectation
 
@@ -3091,11 +2906,6 @@ it 'validates users' do
   expect([user1, user2, user3]).to all(be_valid)
 end
 ----
-
-[#references-rspeciteratedexpectation]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation
 
 [#rspecleadingsubject]
 == RSpec/LeadingSubject
@@ -3146,7 +2956,6 @@ it { expect_something_else }
 === References
 
 * https://rspec.rubystyle.guide/#leading-subject
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
 
 [#rspecleakyconstantdeclaration]
 == RSpec/LeakyConstantDeclaration
@@ -3266,7 +3075,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#declare-constants
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 * https://rspec.info/features/3-12/rspec-mocks/mutating-constants
 
 [#rspecletbeforeexamples]
@@ -3315,11 +3123,6 @@ it 'checks what some does' do
 end
 ----
 
-[#references-rspecletbeforeexamples]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples
-
 [#rspecletsetup]
 == RSpec/LetSetup
 
@@ -3361,11 +3164,6 @@ it 'counts widgets' do
 end
 ----
 
-[#references-rspecletsetup]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup
-
 [#rspecmatcharray]
 == RSpec/MatchArray
 
@@ -3404,11 +3202,6 @@ it { is_expected.to match_array([content] + array) }
 it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
 ----
 
-[#references-rspecmatcharray]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
-
 [#rspecmessagechain]
 == RSpec/MessageChain
 
@@ -3436,11 +3229,6 @@ allow(foo).to receive_message_chain(:bar, :baz).and_return(42)
 thing = Thing.new(baz: 42)
 allow(foo).to receive(:bar).and_return(thing)
 ----
-
-[#references-rspecmessagechain]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain
 
 [#rspecmessageexpectation]
 == RSpec/MessageExpectation
@@ -3497,11 +3285,6 @@ expect(foo).to receive(:bar)
 | `allow`
 | `allow`, `expect`
 |===
-
-[#references-rspecmessageexpectation]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation
 
 [#rspecmessagespies]
 == RSpec/MessageSpies
@@ -3565,11 +3348,6 @@ do_something
 | `have_received`, `receive`
 |===
 
-[#references-rspecmessagespies]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies
-
 [#rspecmetadatastyle]
 == RSpec/MetadataStyle
 
@@ -3627,11 +3405,6 @@ describe 'Something', a: true
 | `hash`, `symbol`
 |===
 
-[#references-rspecmetadatastyle]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MetadataStyle
-
 [#rspecmissingexamplegroupargument]
 == RSpec/MissingExampleGroupArgument
 
@@ -3667,11 +3440,6 @@ describe "A feature example" do
 end
 ----
 
-[#references-rspecmissingexamplegroupargument]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExampleGroupArgument
-
 [#rspecmissingexpectationtargetmethod]
 == RSpec/MissingExpectationTargetMethod
 
@@ -3705,11 +3473,6 @@ expect(something).to be_a Foo
 is_expected.to eq 42
 expect{something}.to raise_error BarError
 ----
-
-[#references-rspecmissingexpectationtargetmethod]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MissingExpectationTargetMethod
 
 [#rspecmultipledescribes]
 == RSpec/MultipleDescribes
@@ -3748,11 +3511,6 @@ describe MyClass do
   end
 end
 ----
-
-[#references-rspecmultipledescribes]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes
 
 [#rspecmultipleexpectations]
 == RSpec/MultipleExpectations
@@ -3868,7 +3626,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#expectation-per-example
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
 * http://betterspecs.org/#single
 
 [#rspecmultiplememoizedhelpers]
@@ -3996,7 +3753,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#let-blocks
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleMemoizedHelpers
 
 [#rspecmultiplesubjects]
 == RSpec/MultipleSubjects
@@ -4060,11 +3816,6 @@ describe Foo do
   end
 end
 ----
-
-[#references-rspecmultiplesubjects]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects
 
 [#rspecnamedsubject]
 == RSpec/NamedSubject
@@ -4185,7 +3936,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#use-subject
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject
 
 [#rspecnestedgroups]
 == RSpec/NestedGroups
@@ -4328,11 +4078,6 @@ end
 | Array
 |===
 
-[#references-rspecnestedgroups]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups
-
 [#rspecnoexpectationexample]
 == RSpec/NoExpectationExample
 
@@ -4420,11 +4165,6 @@ end
 | Array
 |===
 
-[#references-rspecnoexpectationexample]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NoExpectationExample
-
 [#rspecnottonot]
 == RSpec/NotToNot
 
@@ -4486,11 +4226,6 @@ end
 | `not_to`, `to_not`
 |===
 
-[#references-rspecnottonot]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
-
 [#rspecoverwritingsetup]
 == RSpec/OverwritingSetup
 
@@ -4527,11 +4262,6 @@ let(:foo) { bar }
 let(:baz) { baz }
 let!(:other) { other }
 ----
-
-[#references-rspecoverwritingsetup]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup
 
 [#rspecpending]
 == RSpec/Pending
@@ -4579,11 +4309,6 @@ end
 describe MyClass do
 end
 ----
-
-[#references-rspecpending]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending
 
 [#rspecpendingwithoutreason]
 == RSpec/PendingWithoutReason
@@ -4656,11 +4381,6 @@ end
 it 'does something', skip: 'reason' do
 end
 ----
-
-[#references-rspecpendingwithoutreason]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PendingWithoutReason
 
 [#rspecpredicatematcher]
 == RSpec/PredicateMatcher
@@ -4770,7 +4490,6 @@ expect(foo.something?).to be_truthy
 === References
 
 * https://rspec.rubystyle.guide/#predicate-matchers
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
 [#rspecreceivecounts]
 == RSpec/ReceiveCounts
@@ -4808,11 +4527,6 @@ expect(foo).to receive(:bar).at_least(:twice)
 expect(foo).to receive(:bar).at_most(:once)
 expect(foo).to receive(:bar).at_most(:twice).times
 ----
-
-[#references-rspecreceivecounts]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
 [#rspecreceivemessages]
 == RSpec/ReceiveMessages
@@ -4859,11 +4573,6 @@ before do
 end
 ----
 
-[#references-rspecreceivemessages]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveMessages
-
 [#rspecreceivenever]
 == RSpec/ReceiveNever
 
@@ -4890,11 +4599,6 @@ expect(foo).to receive(:bar).never
 # good
 expect(foo).not_to receive(:bar)
 ----
-
-[#references-rspecreceivenever]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveNever
 
 [#rspecredundantaround]
 == RSpec/RedundantAround
@@ -4923,11 +4627,6 @@ end
 
 # good
 ----
-
-[#references-rspecredundantaround]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
 [#rspecredundantpredicatematcher]
 == RSpec/RedundantPredicateMatcher
@@ -4960,11 +4659,6 @@ expect(foo).not_to include(bar)
 expect(foo).to all be(bar)
 ----
 
-[#references-rspecredundantpredicatematcher]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
-
 [#rspecremoveconst]
 == RSpec/RemoveConst
 
@@ -4994,11 +4688,6 @@ before do
   SomeClass.send(:remove_const, :SomeConstant)
 end
 ----
-
-[#references-rspecremoveconst]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
 
 [#rspecrepeateddescription]
 == RSpec/RepeatedDescription
@@ -5054,11 +4743,6 @@ RSpec.describe User do
 end
 ----
 
-[#references-rspecrepeateddescription]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription
-
 [#rspecrepeatedexample]
 == RSpec/RepeatedExample
 
@@ -5087,11 +4771,6 @@ it 'validates the user' do
   expect(user).to be_valid
 end
 ----
-
-[#references-rspecrepeatedexample]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
 [#rspecrepeatedexamplegroupbody]
 == RSpec/RepeatedExampleGroupBody
@@ -5150,11 +4829,6 @@ context Hash do
 end
 ----
 
-[#references-rspecrepeatedexamplegroupbody]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupBody
-
 [#rspecrepeatedexamplegroupdescription]
 == RSpec/RepeatedExampleGroupDescription
 
@@ -5211,11 +4885,6 @@ context 'when another case' do
   # example group
 end
 ----
-
-[#references-rspecrepeatedexamplegroupdescription]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExampleGroupDescription
 
 [#rspecrepeatedincludeexample]
 == RSpec/RepeatedIncludeExample
@@ -5277,11 +4946,6 @@ context 'foo' do
 end
 ----
 
-[#references-rspecrepeatedincludeexample]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedIncludeExample
-
 [#rspecrepeatedsubjectcall]
 == RSpec/RepeatedSubjectCall
 
@@ -5325,11 +4989,6 @@ it do
   expect { subject.b }.to not_change { A.count }
 end
 ----
-
-[#references-rspecrepeatedsubjectcall]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedSubjectCall
 
 [#rspecreturnfromstub]
 == RSpec/ReturnFromStub
@@ -5398,11 +5057,6 @@ allow(Foo).to receive(:bar).and_return(bar.baz)
 | `and_return`, `block`
 |===
 
-[#references-rspecreturnfromstub]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub
-
 [#rspecscatteredlet]
 == RSpec/ScatteredLet
 
@@ -5444,11 +5098,6 @@ describe Foo do
 end
 ----
 
-[#references-rspecscatteredlet]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet
-
 [#rspecscatteredsetup]
 == RSpec/ScatteredSetup
 
@@ -5485,11 +5134,6 @@ describe Foo do
   end
 end
 ----
-
-[#references-rspecscatteredsetup]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 [#rspecsharedcontext]
 == RSpec/SharedContext
@@ -5557,11 +5201,6 @@ RSpec.shared_context 'only setup here' do
   end
 end
 ----
-
-[#references-rspecsharedcontext]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 [#rspecsharedexamples]
 == RSpec/SharedExamples
@@ -5636,11 +5275,6 @@ include_examples :foo_bar_baz
 | `string`, `symbol`
 |===
 
-[#references-rspecsharedexamples]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples
-
 [#rspecsingleargumentmessagechain]
 == RSpec/SingleArgumentMessageChain
 
@@ -5671,11 +5305,6 @@ allow(foo).to receive(:bar).and_return(42)
 allow(foo).to receive(:bar, :baz)
 allow(foo).to receive("bar.baz")
 ----
-
-[#references-rspecsingleargumentmessagechain]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain
 
 [#rspecskipblockinsideexample]
 == RSpec/SkipBlockInsideExample
@@ -5715,11 +5344,6 @@ skip 'not yet implemented' do
 end
 ----
 
-[#references-rspecskipblockinsideexample]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SkipBlockInsideExample
-
 [#rspecsortmetadata]
 == RSpec/SortMetadata
 
@@ -5756,11 +5380,6 @@ it 'works', :a, :b, baz: true, foo: 'bar'
 describe 'Something', 'description', :a, :b, :z
 context 'Something', :z, variable, :a, :b
 ----
-
-[#references-rspecsortmetadata]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SortMetadata
 
 [#rspecspecfilepathformat]
 == RSpec/SpecFilePathFormat
@@ -5856,11 +5475,6 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | 
 |===
 
-[#references-rspecspecfilepathformat]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
-
 [#rspecspecfilepathsuffix]
 == RSpec/SpecFilePathSuffix
 
@@ -5904,11 +5518,6 @@ spec/models/user.rb       # shared_examples_for 'foo'
 | Array
 |===
 
-[#references-rspecspecfilepathsuffix]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
-
 [#rspecstubbedmock]
 == RSpec/StubbedMock
 
@@ -5936,11 +5545,6 @@ expect(foo).to receive(:bar).with(42).and_return("hello world")
 allow(foo).to receive(:bar).with(42).and_return("hello world")
 expect(foo).to receive(:bar).with(42)
 ----
-
-[#references-rspecstubbedmock]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
 
 [#rspecsubjectdeclaration]
 == RSpec/SubjectDeclaration
@@ -5975,11 +5579,6 @@ let(:subject, &block)
 # good
 subject(:test_subject) { foo }
 ----
-
-[#references-rspecsubjectdeclaration]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectDeclaration
 
 [#rspecsubjectstub]
 == RSpec/SubjectStub
@@ -6042,7 +5641,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#dont-stub-subject
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 * https://robots.thoughtbot.com/don-t-stub-the-system-under-test
 * https://penelope.zone/2015/12/27/introducing-rspec-smells-and-where-to-find-them.html#smell-1-stubjec
 
@@ -6105,11 +5703,6 @@ it 'does something' do
 end
 ----
 
-[#references-rspecundescriptiveliteralsdescription]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UndescriptiveLiteralsDescription
-
 [#rspecunspecifiedexception]
 == RSpec/UnspecifiedException
 
@@ -6154,11 +5747,6 @@ expect {
 
 expect { do_something }.not_to raise_error
 ----
-
-[#references-rspecunspecifiedexception]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/UnspecifiedException
 
 [#rspecvariabledefinition]
 == RSpec/VariableDefinition
@@ -6216,11 +5804,6 @@ let('user_name') { 'Adam' }
 | `symbols`
 | `symbols`, `strings`
 |===
-
-[#references-rspecvariabledefinition]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableDefinition
 
 [#rspecvariablename]
 == RSpec/VariableName
@@ -6305,11 +5888,6 @@ let(:userFood_2) { 'fettuccine' }
 | Array
 |===
 
-[#references-rspecvariablename]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VariableName
-
 [#rspecverifieddoublereference]
 == RSpec/VerifiedDoubleReference
 
@@ -6362,7 +5940,6 @@ end
 [#references-rspecverifieddoublereference]
 === References
 
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubleReference
 * https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
 [#rspecverifieddoubles]
@@ -6420,7 +5997,6 @@ end
 === References
 
 * https://rspec.rubystyle.guide/#doubles
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles
 * https://rspec.info/features/3-12/rspec-mocks/verifying-doubles
 
 [#rspecvoidexpect]
@@ -6450,11 +6026,6 @@ expect(something)
 expect(something).to be(1)
 ----
 
-[#references-rspecvoidexpect]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
-
 [#rspecyield]
 == RSpec/Yield
 
@@ -6481,8 +6052,3 @@ allow(foo).to receive(:bar) { |&block| block.call(1) }
 # good
 expect(foo).to receive(:bar).and_yield(1)
 ----
-
-[#references-rspecyield]
-=== References
-
-* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Yield
