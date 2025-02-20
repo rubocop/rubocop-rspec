@@ -7,6 +7,7 @@ jobs:
   publish:
     name: Publish to RubyGems
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'rubocop'
     permissions:
       actions: write
       contents: write
