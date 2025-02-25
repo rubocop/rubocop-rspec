@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
+- Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
 
 ## 3.5.0 (2025-02-16)
 
@@ -1040,6 +1041,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@rrosenblum]: https://github.com/rrosenblum
 [@rspeicher]: https://github.com/rspeicher
 [@rst-j]: https://github.com/RST-J
+[@sakuro]: https://github.com/sakuro
 [@samrjenkins]: https://github.com/samrjenkins
 [@schmijos]: https://github.com/schmijos
 [@seanpdoyle]: https://github.com/seanpdoyle
