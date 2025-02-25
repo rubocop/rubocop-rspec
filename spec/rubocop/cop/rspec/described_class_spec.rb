@@ -23,6 +23,22 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          controller(ApplicationController) do
+            bar = MyClass
+          end
+
+          before do
+            described_class
+
+            Foo.custom_block do
+              MyClass
+            end
+          end
+        end
+      RUBY
     end
   end
 
@@ -42,6 +58,22 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
             Foo.custom_block do
               MyClass
               ^^^^^^^ Use `described_class` instead of `MyClass`.
+            end
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          controller(ApplicationController) do
+            bar = described_class
+          end
+
+          before do
+            described_class
+
+            Foo.custom_block do
+              described_class
             end
           end
         end
@@ -95,6 +127,12 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
                     ^^^^^^^ Use `described_class` instead of `MyClass`.
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass, some: :metadata do
+          subject { described_class }
+        end
+      RUBY
     end
 
     it 'ignores described class as string' do
@@ -146,6 +184,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          describe MyClass::Foo do
+            subject { described_class }
+
+            let(:foo) { MyClass }
+          end
+        end
+      RUBY
     end
 
     it 'ignores non-matching namespace defined on `describe` level' do
@@ -172,6 +220,12 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         describe MyNamespace::MyClass do
           subject { MyNamespace::MyClass }
                     ^^^^^^^^^^^^^^^^^^^^ Use `described_class` instead of `MyNamespace::MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyNamespace::MyClass do
+          subject { described_class }
         end
       RUBY
     end
@@ -243,6 +297,22 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
                             ^^^^ Use `described_class` instead of `D::E`.
                 let(:ten) { E }
                             ^ Use `described_class` instead of `E`.
+              end
+            end
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        module A
+          class B::C
+            module D
+              describe E do
+                subject { described_class }
+                let(:one) { described_class }
+                let(:two) { described_class }
+                let(:six) { described_class }
+                let(:ten) { described_class }
               end
             end
           end

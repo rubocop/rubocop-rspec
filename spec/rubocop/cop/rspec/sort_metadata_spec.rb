@@ -269,6 +269,16 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describan "Algo", :a, :b do
+          contexto_compartido 'una situación complicada', baz: true, foo: 'bar' do
+          end
+
+          ejemplo "hablando español", baz: true, foo: 'bar' do
+          end
+        end
+      RUBY
     end
   end
 end

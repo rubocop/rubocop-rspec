@@ -46,6 +46,12 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
                          ^^^^^^^^^^^^^^^^^^^^^ Prefer `change(User, :count)`.
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          expect(run).to change(User, :count).by(1)
+        end
+      RUBY
     end
 
     it 'ignores the usage that adheres to the enforced style' do
@@ -254,6 +260,12 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
         it do
           expect(run).to change(User, :count).by(1)
                          ^^^^^^^^^^^^^^^^^^^^ Prefer `change { User.count }`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          expect(run).to change { User.count }.by(1)
         end
       RUBY
     end
