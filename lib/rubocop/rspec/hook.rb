@@ -64,7 +64,9 @@ module RuboCop
       end
 
       def transform_true(node)
-        node.true_type? ? true : node
+        return true if node.true_type?
+
+        node
       end
 
       def scope_name
