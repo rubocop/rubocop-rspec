@@ -153,7 +153,9 @@ module RuboCop
         end
 
         def skippable_block?(node)
-          node.block_type? && !rspec_block?(node) && cop_config['SkipBlocks']
+          return false unless cop_config['SkipBlocks']
+
+          node.any_block_type? && !rspec_block?(node)
         end
 
         def only_static_constants?

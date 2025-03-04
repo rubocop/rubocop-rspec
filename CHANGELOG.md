@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/DescribedClass` when `SkipBlocks` is true and numblocks are used. ([@earlopain])
+
 ## 3.5.0 (2025-02-16)
 
 - Don't let `RSpec/PredicateMatcher` replace `respond_to?` with two arguments with the RSpec `respond_to` matcher. ([@bquorning])
