@@ -225,4 +225,12 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
       subject { Project.pending }
     RUBY
   end
+
+  it 'ignores default block parameter' do
+    expect_no_offenses(<<~RUBY)
+      expect(
+        foo.map { it.reverse }
+      ).to include(:bar)
+    RUBY
+  end
 end

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
+
 ## 3.5.0 (2025-02-16)
 
 - Don't let `RSpec/PredicateMatcher` replace `respond_to?` with two arguments with the RSpec `respond_to` matcher. ([@bquorning])
