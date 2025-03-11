@@ -233,7 +233,7 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
     let(:cop_config) do
       YAML.safe_load(<<-CONFIG)
         Prefixes:
-          - on
+          - on # evaluates to true
       CONFIG
     end
 
