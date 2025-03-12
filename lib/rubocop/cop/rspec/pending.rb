@@ -47,7 +47,7 @@ module RuboCop
 
         # @!method skippable_example?(node)
         def_node_matcher :skippable_example?, <<~PATTERN
-          (send nil? #Examples.regular ...)
+          (send nil? #Examples.regular _ ...)
         PATTERN
 
         # @!method pending_block?(node)

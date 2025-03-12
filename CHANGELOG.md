@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
+- Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
 
 ## 3.5.0 (2025-02-16)
 
