@@ -228,4 +228,36 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       RUBY
     end
   end
+
+  context 'when `Prefixes: [on]' do
+    let(:cop_config) do
+      YAML.safe_load(<<-CONFIG)
+        Prefixes:
+          - on # evaluates to true
+      CONFIG
+    end
+
+    it 'fails' do
+      expect { expect_no_offenses(<<~RUBY) }.to raise_error(RuntimeError)
+        context 'on Linux' do
+        end
+      RUBY
+    end
+  end
+
+  context 'when `Prefixes: ["on"]' do
+    let(:cop_config) do
+      YAML.safe_load(<<-CONFIG)
+        Prefixes:
+          - "on"
+      CONFIG
+    end
+
+    it 'does not fail' do
+      expect { expect_no_offenses(<<~RUBY) }.not_to raise_error
+        context 'on Linux' do
+        end
+      RUBY
+    end
+  end
 end
