@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add explanation why `RSpec/ExpectChange` autocorrection is unsafe. ([@lovro-bikic])
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
 
 ## 3.5.0 (2025-02-16)

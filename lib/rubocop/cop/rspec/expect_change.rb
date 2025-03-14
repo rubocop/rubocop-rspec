@@ -10,6 +10,15 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option.
       #
+      # @safety
+      #   Autocorrection is unsafe because `block` style evaluates the object
+      #   twice (before and after evaluating `expect` block), whereas
+      #   `method_call` style evaluates the object only once.
+      #
+      #   If you currently pass a block to `change` and expect the object to
+      #   be evaluated before and after `expect` block, changing to
+      #   `method_call` style may break your test.
+      #
       # @example `EnforcedStyle: method_call` (default)
       #   # bad
       #   expect { run }.to change { Foo.bar }
