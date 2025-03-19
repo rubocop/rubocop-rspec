@@ -61,20 +61,17 @@ RSpec.describe RuboCop::RSpec::ConfigFormatter do
         Config: 2
         Enabled: true
         Description: Blah
-        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Foo
 
       RSpec/Bar:
         Enabled: true
         Nullable: ~
         Description: Wow
-        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Bar
 
       RSpec/Baz:
         Enabled: true
         NegatedMatcher: ~
         StyleGuide: "#buzz"
         Description: Woof
-        Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Baz
     YAML
   end
 end
