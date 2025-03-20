@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add explanation why `RSpec/ExpectChange` autocorrection is unsafe. ([@lovro-bikic])
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
 
