@@ -876,14 +876,18 @@ RSpec/SharedContext:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 RSpec/SharedExamples:
-  Description: Checks for consistent style for shared example names.
+  Description: Checks for consistent style for shared examples.
   Enabled: true
   EnforcedStyle: string
   SupportedStyles:
     - string
     - symbol
+  PreferredExamplesMethod: ~
+  PreferredContextMethod: ~
+  PreferredIncludeExamplesMethod: ~
+  PreferredIncludeContextMethod: ~
   VersionAdded: '1.25'
-  VersionChanged: '2.26'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples
 
 RSpec/SingleArgumentMessageChain:

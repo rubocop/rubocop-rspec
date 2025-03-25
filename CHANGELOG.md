@@ -4,6 +4,7 @@
 
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
+- Update `RSpec/SharedExamples` to allow specifying a preferred method to use for defining and including shared examples and context. ([@dvandersluis])
 
 ## 3.5.0 (2025-02-16)
 

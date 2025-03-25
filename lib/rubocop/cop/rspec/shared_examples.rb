@@ -3,11 +3,27 @@
 module RuboCop
   module Cop
     module RSpec
-      # Checks for consistent style for shared example names.
+      # Checks for consistent style for shared examples.
       #
-      # Enforces either `string` or `symbol` for shared example names.
+      # Enforces either `string` or `symbol` for shared example names. This
+      # can be configured using the `EnforcedStyle` option.
       #
-      # This cop can be configured using the `EnforcedStyle` option
+      # Can also be used to enforce the preferred method name to use for
+      # defining and including shared examples and contexts. Each can get a
+      # different value.
+      #
+      # [source,yaml]
+      # ----
+      # RSpec/SharedExamples:
+      #   PreferredExamplesMethod: shared_examples
+      #   PreferredContextMethod: shared_context
+      #   PreferredIncludeExamplesMethod: it_behaves_like
+      #   PreferredIncludeContextMethod: include_context
+      # ----
+      #
+      # By default, no preference is set, so any methods provided in the
+      # `Language/SharedGroups` and `Language/Includes` configuration are
+      # allowed.
       #
       # @example `EnforcedStyle: string` (default)
       #   # bad
@@ -43,6 +59,8 @@ module RuboCop
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
+        MSG_INCORRECT_METHOD = 'Prefer `%<prefer>s` over `%<current>s`.'
+
         # @!method shared_examples(node)
         def_node_matcher :shared_examples, <<~PATTERN
           {
@@ -53,6 +71,8 @@ module RuboCop
 
         def on_send(node)
           shared_examples(node) do |ast_node|
+            register_method_name_offense(node)
+
             next unless offense?(ast_node)
 
             checker = new_checker(ast_node)
@@ -69,6 +89,37 @@ module RuboCop
             ast_node.str_type?
           else # string
             ast_node.sym_type?
+          end
+        end
+
+        def register_method_name_offense(node)
+          preferred_method_name = preferred_method_name(node.method_name)
+          return unless preferred_method_name
+          return if node.method?(preferred_method_name)
+
+          selector = node.loc.selector
+          message = format(
+            MSG_INCORRECT_METHOD,
+            prefer: preferred_method_name,
+            current: node.method_name
+          )
+
+          add_offense(selector, message: message) do |corrector|
+            corrector.replace(selector, preferred_method_name)
+          end
+        end
+
+        def preferred_method_name(method_name)
+          if SharedGroups.examples(method_name)
+            cop_config['PreferredExamplesMethod']
+          elsif SharedGroups.context(method_name)
+            cop_config['PreferredContextMethod']
+          elsif Includes.examples(method_name)
+            cop_config['PreferredIncludeExamplesMethod']
+          elsif Includes.context(method_name)
+            # :nocov: - simplecov is not detecting the coverage of this branch!
+            cop_config['PreferredIncludeContextMethod']
+            # :nocov:
           end
         end
 

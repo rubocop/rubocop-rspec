@@ -5573,14 +5573,30 @@ end
 | Yes
 | Always
 | 1.25
-| 2.26
+| <<next>>
 |===
 
-Checks for consistent style for shared example names.
+Checks for consistent style for shared examples.
 
-Enforces either `string` or `symbol` for shared example names.
+Enforces either `string` or `symbol` for shared example names. This
+can be configured using the `EnforcedStyle` option.
 
-This cop can be configured using the `EnforcedStyle` option
+Can also be used to enforce the preferred method name to use for
+defining and including shared examples and contexts. Each can get a
+different value.
+
+[source,yaml]
+----
+RSpec/SharedExamples:
+  PreferredExamplesMethod: shared_examples
+  PreferredContextMethod: shared_context
+  PreferredIncludeExamplesMethod: it_behaves_like
+  PreferredIncludeContextMethod: include_context
+----
+
+By default, no preference is set, so any methods provided in the
+`Language/SharedGroups` and `Language/Includes` configuration are
+allowed.
 
 [#examples-rspecsharedexamples]
 === Examples
@@ -5634,6 +5650,22 @@ include_examples :foo_bar_baz
 | EnforcedStyle
 | `string`
 | `string`, `symbol`
+
+| PreferredExamplesMethod
+| `<none>`
+| 
+
+| PreferredContextMethod
+| `<none>`
+| 
+
+| PreferredIncludeExamplesMethod
+| `<none>`
+| 
+
+| PreferredIncludeContextMethod
+| `<none>`
+| 
 |===
 
 [#references-rspecsharedexamples]
