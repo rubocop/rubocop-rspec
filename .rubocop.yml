@@ -119,6 +119,11 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Max: 2
 
+RSpec/PreferredSharedExampleMethods:
+  Enabled: true
+  PreferredExamplesMethod: shared_examples
+  PreferredContextMethod: shared_context
+
 RSpec/SpecFilePathFormat:
   Exclude:
     - spec/rubocop/cop/rspec/mixin/**/*.rb

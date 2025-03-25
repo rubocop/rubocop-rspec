@@ -4811,6 +4811,107 @@ expect(foo.something?).to be_truthy
 * https://rspec.rubystyle.guide/#predicate-matchers
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
+[#rspecpreferredsharedexamplemethods]
+== RSpec/PreferredSharedExampleMethods
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for consistent method selection for shared examples.
+
+When defining shared examples there are multiple options for which
+method that can be used (RSpec itself aliases `shared_examples`, and
+additional aliases could be specified when using RSpec). This cop
+enforces consistency with these aliases.
+
+There is separate configuration for defining shared examples
+(`PreferredExamplesMethod`) and context (`PreferredContextMethod`).
+
+By default, each configuration option is unset, which allows any
+methods provided in the `Language/SharedGroups` configuration.
+
+[#examples-rspecpreferredsharedexamplemethods]
+=== Examples
+
+[#preferredexamplesmethod_-nil-_default_-rspecpreferredsharedexamplemethods]
+==== PreferredExamplesMethod: nil (default)
+
+[source,ruby]
+----
+# good
+shared_examples
+shared_examples_for
+
+# good - with alias defined in Language/SharedGroups/Examples
+shared_scenarios
+----
+
+[#preferredexamplesmethod_-shared_examples-rspecpreferredsharedexamplemethods]
+==== PreferredExamplesMethod: shared_examples
+
+[source,ruby]
+----
+# bad
+shared_examples_for
+
+# bad - with alias defined in Language/SharedGroups/Examples
+shared_scenarios
+
+# good
+shared_examples
+----
+
+[#preferredcontextmethod_-nil-_default_-rspecpreferredsharedexamplemethods]
+==== PreferredContextMethod: nil (default)
+
+[source,ruby]
+----
+# good
+shared_context
+
+# good - with alias defined in Language/SharedGroups/Context
+shared_scenarios
+----
+
+[#preferredcontextmethod_-shared_context-rspecpreferredsharedexamplemethods]
+==== PreferredContextMethod: shared_context
+
+[source,ruby]
+----
+# bad - with alias defined in Language/SharedGroups/Context
+shared_scenarios
+
+# good
+shared_context
+----
+
+[#configurable-attributes-rspecpreferredsharedexamplemethods]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| PreferredExamplesMethod
+| `<none>`
+| 
+
+| PreferredContextMethod
+| `<none>`
+| 
+|===
+
+[#references-rspecpreferredsharedexamplemethods]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PreferredSharedExampleMethods
+
 [#rspecreceivecounts]
 == RSpec/ReceiveCounts
 

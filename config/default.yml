@@ -775,6 +775,14 @@ RSpec/PredicateMatcher:
   StyleGuide: https://rspec.rubystyle.guide/#predicate-matchers
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher
 
+RSpec/PreferredSharedExampleMethods:
+  Description: Checks for consistent method selection for shared examples.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  PreferredExamplesMethod: ~
+  PreferredContextMethod: ~
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PreferredSharedExampleMethods
+
 RSpec/ReceiveCounts:
   Description: Check for `once` and `twice` receive counts matchers usage.
   Enabled: true
