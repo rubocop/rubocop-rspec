@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NamedSubject do
-  shared_examples_for 'checking subject outside of shared examples' do
+  shared_examples 'checking subject outside of shared examples' do
     it 'checks `it` and `specify` for explicit subject usage' do
       expect_offense(<<~RUBY)
         RSpec.describe User do

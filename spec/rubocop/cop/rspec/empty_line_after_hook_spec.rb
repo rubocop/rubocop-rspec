@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
-  shared_examples_for 'always require empty line after hook groups' do
+  shared_examples 'always require empty line after hook groups' do
     it 'registers an offense for multiline blocks without empty line before' do
       expect_offense(<<~RUBY)
         RSpec.describe User do
@@ -281,7 +281,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     end
   end
 
-  shared_examples_for 'never allows consecutive multiline blocks' do
+  shared_examples 'never allows consecutive multiline blocks' do
     it 'registers an offense for multiline blocks without empty line after' do
       expect_offense(<<~RUBY)
         RSpec.describe User do

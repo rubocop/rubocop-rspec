@@ -91,7 +91,7 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
 
     let(:cop_class) { RuboCop::RSpec::ExampleGroupHaterCop }
 
-    shared_examples_for 'it detects `describe`' do
+    shared_examples 'it detects `describe`' do
       it 'detects `describe` as an example group' do
         expect_offense(<<~RUBY)
           describe 'ouch oh' do
