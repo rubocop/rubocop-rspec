@@ -29,10 +29,10 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
   end
 
   shared_examples 'an example hook' do
-    include_examples 'ignored hooks'
-    include_examples 'detects style', 'before(:each) { foo }', 'each'
-    include_examples 'detects style', 'before(:example) { foo }', 'example'
-    include_examples 'detects style', 'before { foo }', 'implicit'
+    it_behaves_like 'ignored hooks'
+    it_behaves_like 'detects style', 'before(:each) { foo }', 'each'
+    it_behaves_like 'detects style', 'before(:example) { foo }', 'example'
+    it_behaves_like 'detects style', 'before { foo }', 'implicit'
   end
 
   context 'when EnforcedStyle is :implicit' do
@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       RUBY
     end
 
-    include_examples 'an example hook'
+    it_behaves_like 'an example hook'
 
     context 'when Ruby 2.7', :ruby27 do
       it 'detects :each for hooks' do
@@ -172,7 +172,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       RUBY
     end
 
-    include_examples 'an example hook'
+    it_behaves_like 'an example hook'
 
     context 'when Ruby 2.7', :ruby27 do
       it 'does not flag :each for hooks' do
@@ -257,7 +257,7 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       RUBY
     end
 
-    include_examples 'an example hook'
+    it_behaves_like 'an example hook'
 
     context 'when Ruby 2.7', :ruby27 do
       it 'does not flag :example for hooks' do

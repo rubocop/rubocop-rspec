@@ -67,11 +67,11 @@ RSpec.describe RuboCop::Cop::RSpec::MessageSpies do
       expect_no_offenses('expect(foo).to have_received(:bar)')
     end
 
-    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'receive'
+    it_behaves_like 'detects style', 'expect(foo).to receive(:bar)', 'receive'
 
-    include_examples 'detects style',
-                     'expect(foo).to have_received(:bar)',
-                     'have_received'
+    it_behaves_like 'detects style',
+                    'expect(foo).to have_received(:bar)',
+                    'have_received'
   end
 
   context 'when EnforcedStyle is receive' do
@@ -140,10 +140,10 @@ RSpec.describe RuboCop::Cop::RSpec::MessageSpies do
       expect_no_offenses('expect(foo).to receive(:bar)')
     end
 
-    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'receive'
+    it_behaves_like 'detects style', 'expect(foo).to receive(:bar)', 'receive'
 
-    include_examples 'detects style',
-                     'expect(foo).to have_received(:bar)',
-                     'have_received'
+    it_behaves_like 'detects style',
+                    'expect(foo).to have_received(:bar)',
+                    'have_received'
   end
 end

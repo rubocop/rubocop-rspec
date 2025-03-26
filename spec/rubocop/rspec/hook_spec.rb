@@ -64,14 +64,14 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
       end
     end
 
-    include_examples 'standardizes scope', 'before(:each) { }',    :each
-    include_examples 'standardizes scope', 'around(:example) { }', :each
-    include_examples 'standardizes scope', 'after { }',            :each
+    it_behaves_like 'standardizes scope', 'before(:each) { }',    :each
+    it_behaves_like 'standardizes scope', 'around(:example) { }', :each
+    it_behaves_like 'standardizes scope', 'after { }',            :each
 
-    include_examples 'standardizes scope', 'before(:all) { }',     :context
-    include_examples 'standardizes scope', 'around(:context) { }', :context
+    it_behaves_like 'standardizes scope', 'before(:all) { }',     :context
+    it_behaves_like 'standardizes scope', 'around(:context) { }', :context
 
-    include_examples 'standardizes scope', 'after(:suite) { }', :suite
+    it_behaves_like 'standardizes scope', 'after(:suite) { }', :suite
   end
 
   describe '#metadata' do
