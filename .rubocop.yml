@@ -289,3 +289,7 @@ Performance/StringIdentifierArgument: {Enabled: true}
 Performance/StringInclude: {Enabled: true}
 Performance/Sum: {Enabled: true}
 Performance/ZipWithoutBlock: {Enabled: true}
+
+# Enable our own pending cops.
+
+RSpec/IncludeExamples: {Enabled: true}

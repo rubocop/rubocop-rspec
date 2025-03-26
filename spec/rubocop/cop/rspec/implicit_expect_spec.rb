@@ -40,7 +40,7 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect do
       expect_no_offenses('it { is_expected.not_to be_truthy }')
     end
 
-    include_examples 'detects style', 'it { should be_truthy }', 'should'
+    it_behaves_like 'detects style', 'it { should be_truthy }', 'should'
   end
 
   context 'when EnforcedStyle is should' do
@@ -89,12 +89,12 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect do
       expect_no_offenses('it { should_not be_truthy }')
     end
 
-    include_examples 'detects style',
-                     'it { is_expected.to be_truthy }',
-                     'is_expected'
+    it_behaves_like 'detects style',
+                    'it { is_expected.to be_truthy }',
+                    'is_expected'
 
-    include_examples 'detects style',
-                     'it { should be_truthy }',
-                     'should'
+    it_behaves_like 'detects style',
+                    'it { should be_truthy }',
+                    'should'
   end
 end

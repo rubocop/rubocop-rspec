@@ -113,7 +113,7 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
         RUBY
       end
 
-      include_examples 'it detects `describe`'
+      it_behaves_like 'it detects `describe`'
     end
 
     context 'when `epic` is set as an alias to example group' do
@@ -133,7 +133,7 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
         RUBY
       end
 
-      include_examples 'it detects `describe`'
+      it_behaves_like 'it detects `describe`'
     end
   end
 end

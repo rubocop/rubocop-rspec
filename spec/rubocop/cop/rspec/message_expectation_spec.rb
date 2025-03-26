@@ -17,8 +17,8 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation do
       expect_no_offenses('allow(foo).to receive(:bar)')
     end
 
-    include_examples 'detects style', 'allow(foo).to receive(:bar)',  'allow'
-    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'expect'
+    it_behaves_like 'detects style', 'allow(foo).to receive(:bar)',  'allow'
+    it_behaves_like 'detects style', 'expect(foo).to receive(:bar)', 'expect'
   end
 
   context 'when EnforcedStyle is expect' do
@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::RSpec::MessageExpectation do
       expect_no_offenses('expect(foo).to receive(:bar)')
     end
 
-    include_examples 'detects style', 'expect(foo).to receive(:bar)', 'expect'
-    include_examples 'detects style', 'allow(foo).to receive(:bar)',  'allow'
+    it_behaves_like 'detects style', 'expect(foo).to receive(:bar)', 'expect'
+    it_behaves_like 'detects style', 'allow(foo).to receive(:bar)',  'allow'
   end
 end
