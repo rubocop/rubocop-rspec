@@ -5,10 +5,29 @@ module RuboCop
     module RSpec
       # Checks for consistent style of change matcher.
       #
-      # Enforces either passing object and attribute as arguments to the matcher
-      # or passing a block that reads the attribute value.
+      # Enforces either passing a receiver and message as method arguments,
+      # or a block.
       #
       # This cop can be configured using the `EnforcedStyle` option.
+      #
+      # @safety
+      #   Autocorrection is unsafe because `method_call` style calls the
+      #   receiver *once* and sends the message to it before and after
+      #   calling the `expect` block, whereas `block` style calls the
+      #   expression *twice*, including the receiver.
+      #
+      #   If your receiver is dynamic (e.g., the result of a method call) and
+      #   you expect it to be called before and after the `expect` block,
+      #   changing from `block` to `method_call` style may break your test.
+      #
+      #   [source,ruby]
+      #   ----
+      #   expect { run }.to change { my_method.message }
+      #   # `my_method` is called before and after `run`
+      #
+      #   expect { run }.to change(my_method, :message)
+      #   # `my_method` is called once, but `message` is called on it twice
+      #   ----
       #
       # @example `EnforcedStyle: method_call` (default)
       #   # bad
