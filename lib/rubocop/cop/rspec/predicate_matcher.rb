@@ -69,18 +69,21 @@ module RuboCop
                  matcher_name: to_predicate_matcher(predicate.method_name))
         end
 
+        TO_PREDICATE_MATCHER_MAP = {
+          exist?:       'exist',
+          exists?:      'exist',
+          include?:     'include',
+          instance_of?: 'be_an_instance_of',
+          is_a?:        'be_a',
+          respond_to?:  'respond_to'
+        }.freeze
+        private_constant :TO_PREDICATE_MATCHER_MAP
+
         def to_predicate_matcher(name)
-          case name = name.to_s
-          when 'is_a?'
-            'be_a'
-          when 'instance_of?'
-            'be_an_instance_of'
-          when 'include?', 'respond_to?'
-            name[0..-2]
-          when 'exist?', 'exists?'
-            'exist'
-          when /\Ahas_/
-            name.sub('has_', 'have_')[0..-2]
+          if TO_PREDICATE_MATCHER_MAP.key?(name)
+            TO_PREDICATE_MATCHER_MAP.fetch(name)
+          elsif name.start_with?('has_')
+            name.to_s.sub('has_', 'have_')[0..-2]
           else
             "be_#{name[0..-2]}"
           end
@@ -241,18 +244,25 @@ module RuboCop
           corrector.insert_after(actual, ".#{predicate}" + args + block)
         end
 
+        TO_PREDICATE_METHOD_MAP = {
+          a_kind_of:         'is_a?',
+          an_instance_of:    'instance_of?',
+          be_a:              'is_a?',
+          be_a_kind_of:      'is_a?',
+          be_an:             'is_a?',
+          be_an_instance_of: 'instance_of?',
+          be_instance_of:    'instance_of?',
+          be_kind_of:        'is_a?',
+          include:           'include?',
+          respond_to:        'respond_to?'
+        }.freeze
+        private_constant :TO_PREDICATE_METHOD_MAP
+
         def to_predicate_method(matcher)
-          case matcher = matcher.to_s
-          when 'be_a', 'be_an', 'be_a_kind_of', 'a_kind_of', 'be_kind_of'
-            'is_a?'
-          when 'be_an_instance_of', 'be_instance_of', 'an_instance_of'
-            'instance_of?'
-          when 'include'
-            'include?'
-          when 'respond_to'
-            'respond_to?'
-          when /\Ahave_(.+)/
-            "has_#{Regexp.last_match(1)}?"
+          if TO_PREDICATE_METHOD_MAP.key?(matcher)
+            TO_PREDICATE_METHOD_MAP.fetch(matcher)
+          elsif (subject = matcher[/\Ahave_(.+)/, 1])
+            "has_#{subject}?"
           else
             "#{matcher[/\Abe_(.+)/, 1]}?"
           end
