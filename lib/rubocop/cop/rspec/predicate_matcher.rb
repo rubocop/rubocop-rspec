@@ -75,6 +75,7 @@ module RuboCop
           include?:     'include',
           instance_of?: 'be_an_instance_of',
           is_a?:        'be_a',
+          key?:         'have_key',
           respond_to?:  'respond_to'
         }.freeze
         private_constant :TO_PREDICATE_MATCHER_MAP

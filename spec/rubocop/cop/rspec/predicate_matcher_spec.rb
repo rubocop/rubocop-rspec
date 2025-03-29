@@ -91,6 +91,8 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_something` matcher over `something?`.
           expect(foo.has_key?('foo')).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_key` matcher over `has_key?`.
+          expect(foo.key?('foo')).to be_truthy
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `have_key` matcher over `key?`.
           expect(foo.is_a?(Array)).to be_truthy
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `be_a` matcher over `is_a?`.
           expect(foo.instance_of?(Array)).to be_truthy
@@ -102,6 +104,7 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           expect(foo).to be_something('foo'), 'fail'
           expect(foo).to be_something('foo', 'bar')
           expect(foo).to be_something 1, 2
+          expect(foo).to have_key('foo')
           expect(foo).to have_key('foo')
           expect(foo).to be_a(Array)
           expect(foo).to be_an_instance_of(Array)
