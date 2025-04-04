@@ -6,6 +6,7 @@
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
 - Add new `RSpec/IncludeExamples` cop to enforce using `it_behaves_like` over `include_examples`. ([@dvandersluis])
 - Change `RSpec/ScatteredSetup` to allow `around` hooks to be scattered. ([@ydah])
+- Add new `RSpec/ChangeWithoutExpect` cop. ([@ydah])
 
 ## 3.5.0 (2025-02-16)
 

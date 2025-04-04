@@ -199,6 +199,12 @@ RSpec/ChangeByZero:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
   NegatedMatcher: ~
 
+RSpec/ChangeWithoutExpect:
+  Description: Checks for `change` matcher usage without an `expect` block.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeWithoutExpect
+
 RSpec/ClassCheck:
   Description: Enforces consistent use of `be_a` or `be_kind_of`.
   StyleGuide: "#is-a-vs-kind-of"
