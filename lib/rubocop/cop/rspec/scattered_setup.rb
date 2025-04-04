@@ -5,7 +5,9 @@ module RuboCop
     module RSpec
       # Checks for setup scattered across multiple hooks in an example group.
       #
-      # Unify `before`, `after`, and `around` hooks when possible.
+      # Unify `before` and `after` hooks when possible.
+      # However, `around` hooks are allowed to be defined multiple times,
+      # as unifying them would typically make the code harder to read.
       #
       # @example
       #   # bad
@@ -20,6 +22,12 @@ module RuboCop
       #       setup1
       #       setup2
       #     end
+      #   end
+      #
+      #   # good
+      #   describe Foo do
+      #     around { |example| before1; example.call; after1 }
+      #     around { |example| before2; example.call; after2 }
       #   end
       #
       class ScatteredSetup < Base
@@ -48,7 +56,7 @@ module RuboCop
         def repeated_hooks(node)
           hooks = RuboCop::RSpec::ExampleGroup.new(node)
             .hooks
-            .select(&:knowable_scope?)
+            .select { |hook| hook.knowable_scope? && hook.name != :around }
             .group_by { |hook| [hook.name, hook.scope, hook.metadata] }
             .values
             .reject(&:one?)

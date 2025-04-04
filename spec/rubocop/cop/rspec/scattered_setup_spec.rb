@@ -58,6 +58,15 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     RUBY
   end
 
+  it 'ignores around hooks' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        around { bar }
+        around { baz }
+      end
+    RUBY
+  end
+
   it 'ignores different hooks' do
     expect_no_offenses(<<~RUBY)
       describe Foo do
