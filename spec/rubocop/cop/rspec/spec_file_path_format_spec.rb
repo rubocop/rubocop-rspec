@@ -281,4 +281,14 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
       RUBY
     end
   end
+
+  context 'when configured with `IgnoreMetadata: { "foo" => ["bar"] }`' do
+    let(:cop_config) { { 'IgnoreMetadata' => { 'foo' => ['bar'] } } }
+
+    it 'does not register an offense when include ignored metadata' do
+      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, foo: :bar do; end
+      RUBY
+    end
+  end
 end
