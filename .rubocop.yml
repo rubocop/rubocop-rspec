@@ -292,4 +292,5 @@ Performance/ZipWithoutBlock: {Enabled: true}
 
 # Enable our own pending cops.
 
+RSpec/ChangeWithoutExpect: {Enabled: true}
 RSpec/IncludeExamples: {Enabled: true}

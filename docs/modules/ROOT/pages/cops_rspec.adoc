@@ -553,6 +553,75 @@ expect { run }
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeByZero
 
+[#rspecchangewithoutexpect]
+== RSpec/ChangeWithoutExpect
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for `change` matcher usage without an `expect` block.
+
+This cop only considered a matcher if it is chained with
+`from`, `by`, `by_at_least`, or `by_at_most`.
+
+[#examples-rspecchangewithoutexpect]
+=== Examples
+
+[source,ruby]
+----
+# bad
+it 'changes the count' do
+  change(Counter, :count).by(1)
+end
+
+# bad
+it 'changes the count' do
+  change(Counter, :count).by_at_least(1)
+end
+
+# bad
+it 'changes the count' do
+  change(Counter, :count).by_at_most(1)
+end
+
+# bad
+it 'changes the count' do
+  change(Counter, :count).from(0)
+end
+
+# bad
+it 'changes the count' do
+  change(Counter, :count).from(0).to(1)
+end
+
+# good - no chained matchers
+it 'changes the count' do
+  change(Counter, :count)
+end
+
+# good - ignore not change matcher
+it 'changes the count' do
+  change(Counter, :count).from(0).by(1)
+end
+
+# good - within expect block
+it 'changes the count' do
+  expect { subject }.to change(Counter, :count).by(1)
+end
+----
+
+[#references-rspecchangewithoutexpect]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ChangeWithoutExpect
+
 [#rspecclasscheck]
 == RSpec/ClassCheck
 
