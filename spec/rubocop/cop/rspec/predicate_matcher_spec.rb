@@ -257,6 +257,13 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           expect(foo).to have_something
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `has_something?` over `have_something` matcher.
         RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo.empty?).to #{matcher_true}
+          expect(foo.empty?).to #{matcher_true}, 'fail'
+          expect(foo.empty?).to #{matcher_false}
+          expect(foo.has_something?).to #{matcher_true}
+        RUBY
       end
 
       it 'registers an offense for a predicate mather with argument' do
@@ -265,6 +272,11 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
           expect(foo).to have_key(1)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `has_key?` over `have_key` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo.something?(1, 2)).to #{matcher_true}
+          expect(foo.has_key?(1)).to #{matcher_true}
         RUBY
       end
 
@@ -278,6 +290,13 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `all?` over `be_all` matcher.
           expect(foo).to be_something(x) { |y| y.present? }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `something?` over `be_something` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo.all?(&:present?)).to #{matcher_true}
+          expect(foo.all? { |x| x.present? }).to #{matcher_true}
+          expect(foo.all? { present }).to #{matcher_true}
+          expect(foo.something?(x) { |y| y.present? }).to #{matcher_true}
         RUBY
       end
 
