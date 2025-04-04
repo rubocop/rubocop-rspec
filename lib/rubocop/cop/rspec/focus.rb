@@ -73,7 +73,7 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return if node.chained? || node.each_ancestor(:def, :defs).any?
+          return if node.chained? || node.each_ancestor(:any_def).any?
 
           if focused_block?(node)
             on_focused_block(node)
