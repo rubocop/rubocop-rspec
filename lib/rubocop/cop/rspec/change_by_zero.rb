@@ -102,6 +102,8 @@ module RuboCop
         private
 
         def register_offense(node, change_node)
+          return unless node.parent.send_type?
+
           if compound_expectations?(node)
             add_offense(node,
                         message: message_compound(change_node)) do |corrector|
@@ -116,8 +118,7 @@ module RuboCop
         end
 
         def compound_expectations?(node)
-          node.parent.send_type? &&
-            %i[and or & |].include?(node.parent.method_name)
+          %i[and or & |].include?(node.parent.method_name)
         end
 
         def message(change_node)

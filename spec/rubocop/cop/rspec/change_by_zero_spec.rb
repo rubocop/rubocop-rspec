@@ -366,4 +366,12 @@ RSpec.describe RuboCop::Cop::RSpec::ChangeByZero do
       end
     RUBY
   end
+
+  it 'does not register an offense when without expect block' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        change(foo, :bar).by(0)
+      end
+    RUBY
+  end
 end

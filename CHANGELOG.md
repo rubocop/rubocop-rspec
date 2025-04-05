@@ -6,6 +6,7 @@
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
 - Add new `RSpec/IncludeExamples` cop to enforce using `it_behaves_like` over `include_examples`. ([@dvandersluis])
 - Change `RSpec/ScatteredSetup` to allow `around` hooks to be scattered. ([@ydah])
+- Fix an error `RSpec/ChangeByZero` cop when without expect block. ([@lee266])
 
 ## 3.5.0 (2025-02-16)
 
@@ -1003,6 +1004,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@krororo]: https://github.com/krororo
 [@kuahyeow]: https://github.com/kuahyeow
 [@lazycoder9]: https://github.com/lazycoder9
+[@lee266]: https://github.com/lee266
 [@leoarnold]: https://github.com/leoarnold
 [@liberatys]: https://github.com/Liberatys
 [@lokhi]: https://github.com/lokhi
