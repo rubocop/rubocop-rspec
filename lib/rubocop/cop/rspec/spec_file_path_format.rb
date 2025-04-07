@@ -78,8 +78,7 @@ module RuboCop
         def ignore_metadata?(arguments)
           arguments.any? do |argument|
             metadata_key_value(argument).any? do |key, value|
-              ignore_values = ignore_metadata[key.to_s]
-              ignore_values = [ignore_values] unless ignore_values.is_a?(Array)
+              ignore_values = Array(ignore_metadata[key.to_s])
 
               ignore_values.include?(value.to_s)
             end
