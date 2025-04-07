@@ -329,6 +329,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
       DESC
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'flags an unclear description' do
@@ -337,6 +339,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
           ^^^^^ Your example description is insufficient.
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'flags an unclear description despite extra spaces' do
@@ -345,6 +349,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
           ^^^^^^^^^^^ Your example description is insufficient.
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'flags an unclear description despite uppercase and lowercase strings' do
@@ -353,6 +359,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
           ^^^^^^ Your example description is insufficient.
       end
     RUBY
+
+    expect_no_corrections
   end
 
   context 'when `DisallowedExamples: Workz`' do
@@ -373,6 +381,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
           " " do
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'flags an unclear description' do
@@ -381,6 +391,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
             ^^^^^ Your example description is insufficient.
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'flags an unclear description despite uppercase and lowercase strings' do
@@ -389,6 +401,8 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
             ^^^^^^ Your example description is insufficient.
         end
       RUBY
+
+      expect_no_corrections
     end
   end
 end

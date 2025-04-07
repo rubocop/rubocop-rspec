@@ -218,6 +218,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
                                       ^^^^^^^^^^ Use block for static values.
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          allow(Foo).to receive(:bar) { 42 }
+        end
+      RUBY
     end
 
     it 'registers an offense for static values returned from chained method' do
@@ -225,6 +231,12 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
         it do
           allow(Foo).to receive(:bar).with(1).and_return(42)
                                               ^^^^^^^^^^ Use block for static values.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          allow(Foo).to receive(:bar).with(1) { 42 }
         end
       RUBY
     end

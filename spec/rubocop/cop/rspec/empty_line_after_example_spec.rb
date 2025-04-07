@@ -99,6 +99,19 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
         it { }
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.context 'foo' do
+        it { }
+        it { }
+
+        it 'does this' do
+        end
+
+        it { }
+        it { }
+      end
+    RUBY
   end
 
   it 'does not register an offense for a comment followed by an empty line' do
@@ -255,6 +268,14 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
         RSpec.describe Foo do
           it { one }
           ^^^^^^^^^^ Add an empty line after `it`.
+          it { two }
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describe Foo do
+          it { one }
+
           it { two }
         end
       RUBY

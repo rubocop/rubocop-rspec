@@ -67,6 +67,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+
+    expect_correction("\n\n")
   end
 
   it 'ignores example group with examples defined in `if` branches' do
@@ -123,6 +125,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+
+    expect_correction("\n\n")
   end
 
   it 'ignores example group with examples defined in `case` branches' do
@@ -186,6 +190,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+
+    expect_correction("\n\n")
   end
 
   it 'ignores example group with examples defined in iterator' do
@@ -222,6 +228,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         more_surroundings
       end
     RUBY
+
+    expect_correction('')
   end
 
   it 'ignores example group with examples defined in `if` branch ' \
@@ -407,6 +415,8 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyExampleGroup do
         end
       end
     RUBY
+
+    expect_correction('')
   end
 
   context 'when a custom include method is specified' do
