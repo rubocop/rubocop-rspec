@@ -5897,6 +5897,16 @@ my_class_spec.rb         # describe MyClass, '#method'
 whatever_spec.rb         # describe MyClass, type: :routing do; end
 ----
 
+[#_ignoremetadata_-_type___routing_models___-_default_-rspecspecfilepathformat]
+==== `IgnoreMetadata: {type=>[routing,models]}` (default)
+
+[source,ruby]
+----
+# good
+whatever_spec.rb         # describe MyClass, type: :routing do; end
+whatever_spec.rb         # describe MyClass, type: :models do; end
+----
+
 [#configurable-attributes-rspecspecfilepathformat]
 === Configurable attributes
 
