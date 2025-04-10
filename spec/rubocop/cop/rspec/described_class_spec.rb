@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       expect_offense(<<~RUBY)
         describe MyClass do
           controller(ApplicationController) do
-            bar = MyClass
+            self.bar = MyClass
           end
 
           before do
@@ -27,13 +27,34 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       expect_correction(<<~RUBY)
         describe MyClass do
           controller(ApplicationController) do
-            bar = MyClass
+            self.bar = MyClass
           end
 
           before do
             described_class
 
             Foo.custom_block do
+              MyClass
+            end
+          end
+        end
+      RUBY
+    end
+
+    it 'ignores offenses within non-rspec numblocks' do
+      expect_offense(<<~RUBY)
+        describe MyClass do
+          controller(ApplicationController) do
+            do_some_work(_1)
+            self.bar = MyClass
+          end
+
+          before do
+            MyClass
+            ^^^^^^^ Use `described_class` instead of `MyClass`.
+
+            Foo.custom_block do
+              do_some_work(_1)
               MyClass
             end
           end
