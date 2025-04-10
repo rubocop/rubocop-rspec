@@ -7,6 +7,7 @@
 - Add new `RSpec/IncludeExamples` cop to enforce using `it_behaves_like` over `include_examples`. ([@dvandersluis])
 - Change `RSpec/ScatteredSetup` to allow `around` hooks to be scattered. ([@ydah])
 - Fix an error `RSpec/ChangeByZero` cop when without expect block. ([@lee266])
+- Fix a false positive for `RSpec/DescribedClass` when `SkipBlocks` is true and numblocks are used. ([@earlopain])
 
 ## 3.5.0 (2025-02-16)
 
