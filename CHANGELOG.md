@@ -8,6 +8,7 @@
 - Change `RSpec/ScatteredSetup` to allow `around` hooks to be scattered. ([@ydah])
 - Fix an error `RSpec/ChangeByZero` cop when without expect block. ([@lee266])
 - Fix a false positive for `RSpec/DescribedClass` when `SkipBlocks` is true and numblocks are used. ([@earlopain])
+- Add support for `itblock` from Ruby 3.4. ([@earlopain])
 
 ## 3.5.0 (2025-02-16)
 
