@@ -35,7 +35,12 @@ jobs:
           - "3.4"
           - ruby-head
           - jruby-9.4
-    name: "Ruby ${{ matrix.ruby }} - Spec"
+        parser_engine:
+          - parser_whitequark
+        include:
+          - ruby: "2.7" # Minimum version required for Prism to run.
+            parser_engine: parser_prism
+    name: "Ruby ${{ matrix.ruby }} - Spec (${{ matrix.parser_engine }})"
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
@@ -43,6 +48,8 @@ jobs:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake spec
+        env:
+          PARSER_ENGINE: ${{ matrix.parser_engine }}
 
   coverage:
     runs-on: ubuntu-latest
@@ -119,24 +126,3 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake spec
-
-  prism:
-    runs-on: ubuntu-latest
-    name: Prism
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use prism parser
-        run: |
-          cat << EOF > Gemfile.local
-            gem 'prism'
-          EOF
-      - name: set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # Specify the minimum Ruby version 2.7 required for Prism to run.
-          ruby-version: "2.7"
-          bundler-cache: true
-      - env:
-          NO_COVERAGE: true
-          PARSER_ENGINE: parser_prism
-        run: bundle exec rake spec
