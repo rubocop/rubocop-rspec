@@ -38,6 +38,5 @@ Gem::Specification.new do |spec|
     'default_lint_roller_plugin' => 'RuboCop::RSpec::Plugin'
   }
 
-  spec.add_dependency 'lint_roller', '~> 1.1'
   spec.add_dependency 'rubocop', '~> 1.72', '>= 1.72.1'
 end
