@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+## 3.6.0 (2025-04-18)
+
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
 - Fix issue when `Style/ContextWording` is configured with a Prefix being interpreted as a boolean, like `on`. ([@sakuro])
 - Add new `RSpec/IncludeExamples` cop to enforce using `it_behaves_like` over `include_examples`. ([@dvandersluis])
