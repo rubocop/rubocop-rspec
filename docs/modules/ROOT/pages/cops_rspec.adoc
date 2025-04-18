@@ -2773,7 +2773,7 @@ it { expect(named_subject).to be_truthy }
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.6
 | -
 |===
 
