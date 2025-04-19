@@ -32,6 +32,11 @@ module RuboCop
       #   # good
       #   whatever_spec.rb         # describe MyClass, type: :routing do; end
       #
+      # @example `IgnoreMetadata: {type=>[routing,models]}` (default)
+      #   # good
+      #   whatever_spec.rb         # describe MyClass, type: :routing do; end
+      #   whatever_spec.rb         # describe MyClass, type: :models do; end
+      #
       class SpecFilePathFormat < Base
         include TopLevelGroup
         include Namespace
@@ -73,7 +78,9 @@ module RuboCop
         def ignore_metadata?(arguments)
           arguments.any? do |argument|
             metadata_key_value(argument).any? do |key, value|
-              ignore_metadata.values_at(key.to_s).include?(value.to_s)
+              ignore_values = Array(ignore_metadata[key.to_s])
+
+              ignore_values.include?(value.to_s)
             end
           end
         end
