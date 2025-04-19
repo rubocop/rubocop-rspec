@@ -36,6 +36,13 @@ module RuboCop
           )
         PATTERN
 
+        # @!method each_itblock?(node)
+        def_node_matcher :each_itblock?, <<~PATTERN
+          (itblock
+            (send ... :each) _ $(...)
+          )
+        PATTERN
+
         # @!method expectation?(node)
         def_node_matcher :expectation?, <<~PATTERN
           (send (send nil? :expect (lvar %)) :to ...)
@@ -43,21 +50,29 @@ module RuboCop
 
         def on_block(node)
           each?(node) do |arg, body|
-            if single_expectation?(body, arg) || only_expectations?(body, arg)
-              add_offense(node.send_node)
-            end
+            check_expectation(node, body, arg)
           end
         end
 
         def on_numblock(node)
           each_numblock?(node) do |body|
-            if single_expectation?(body, :_1) || only_expectations?(body, :_1)
-              add_offense(node.send_node)
-            end
+            check_expectation(node, body, :_1)
+          end
+        end
+
+        def on_itblock(node)
+          each_itblock?(node) do |body|
+            check_expectation(node, body, :it)
           end
         end
 
         private
+
+        def check_expectation(node, body, arg)
+          if single_expectation?(body, arg) || only_expectations?(body, arg)
+            add_offense(node.send_node)
+          end
+        end
 
         def single_expectation?(body, arg)
           expectation?(body, arg)

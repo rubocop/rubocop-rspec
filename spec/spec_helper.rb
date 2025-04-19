@@ -44,6 +44,11 @@ RSpec.configure do |config|
 
   config.include_context 'with default RSpec/Language config', :config
   config.include_context 'smoke test', type: :cop_spec
+
+  # whitequark/parser is syntax compatible with 2.0 to 3.3.
+  if ENV['PARSER_ENGINE'] != 'parser_prism'
+    config.filter_run_excluding unsupported_on: :parser
+  end
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
