@@ -35,28 +35,45 @@ jobs:
           - "3.4"
           - ruby-head
           - jruby-9.4
-        task:
-          - internal_investigation
-          - spec
-    name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
+        parser_engine:
+          - parser_whitequark
+        include:
+          - ruby: "2.7" # Minimum version required for Prism to run.
+            parser_engine: parser_prism
+    name: "Ruby ${{ matrix.ruby }} - Spec (${{ matrix.parser_engine }})"
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
-      - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
+      - run: bundle exec rake spec
+        env:
+          PARSER_ENGINE: ${{ matrix.parser_engine }}
+      - name: Upload Coverage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-ubuntu-${{ matrix.ruby }}-${{ matrix.parser_engine }}
+          path: coverage/.resultset.json
+          include-hidden-files: true
 
   coverage:
+    name: Check Coverage
+    needs: main
     runs-on: ubuntu-latest
-    name: "Test coverage"
+
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        name: Download Coverage Artifacts
+        with:
+          pattern: coverage-*
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4"
+          ruby-version: ruby # Latest stable CRuby version
           bundler-cache: true
-      - run: bundle exec rake spec
+
+      - run: bundle exec rake coverage:ci
 
   edge-rubocop:
     runs-on: ubuntu-latest
@@ -122,24 +139,3 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake spec
-
-  prism:
-    runs-on: ubuntu-latest
-    name: Prism
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use prism parser
-        run: |
-          cat << EOF > Gemfile.local
-            gem 'prism'
-          EOF
-      - name: set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # Specify the minimum Ruby version 2.7 required for Prism to run.
-          ruby-version: "2.7"
-          bundler-cache: true
-      - env:
-          NO_COVERAGE: true
-          PARSER_ENGINE: parser_prism
-        run: bundle exec rake spec
