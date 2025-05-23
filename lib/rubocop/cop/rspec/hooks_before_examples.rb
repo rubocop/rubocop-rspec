@@ -38,13 +38,11 @@ module RuboCop
           }
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example_group_with_body?(node)
 
           check_hooks(node.body) if multiline_block?(node.body)
         end
-
-        alias on_numblock on_block
 
         private
 
