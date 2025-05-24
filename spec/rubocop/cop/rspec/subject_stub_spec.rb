@@ -364,6 +364,17 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
+  it 'flags when described_class is mocked' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        it 'uses described_class' do
+          expect(described_class).to receive(:bar).and_return(baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
   it 'flags when there are several top level example groups' do
     expect_offense(<<~RUBY)
       RSpec.describe Foo do

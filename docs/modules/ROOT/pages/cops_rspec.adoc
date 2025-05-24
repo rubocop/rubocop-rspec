@@ -6096,6 +6096,16 @@ describe Article do
   end
 end
 
+# bad - described_class stubs are recognized as well
+describe Article do
+  it 'indicates that the author is unknown' do
+    article = double(Article, description: 'by an unknown author')
+    allow(described_class).to receive(:new).and_return(article)
+
+    expect(Article.new.description).to include('by an unknown author')
+  end
+end
+
 # good
 describe Article do
   subject(:article) { Article.new(author: nil) }

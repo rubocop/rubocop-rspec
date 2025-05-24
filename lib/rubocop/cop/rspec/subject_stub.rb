@@ -38,6 +38,16 @@ module RuboCop
       #     end
       #   end
       #
+      #   # bad - described_class stubs are recognized as well
+      #   describe Article do
+      #     it 'indicates that the author is unknown' do
+      #       article = double(Article, description: 'by an unknown author')
+      #       allow(described_class).to receive(:new).and_return(article)
+      #
+      #       expect(Article.new.description).to include('by an unknown author')
+      #     end
+      #   end
+      #
       #   # good
       #   describe Article do
       #     subject(:article) { Article.new(author: nil) }
@@ -141,7 +151,7 @@ module RuboCop
           subject_names = [*subject_names, *@explicit_subjects[node]]
           subject_names -= @subject_overrides[node] if @subject_overrides[node]
 
-          names = Set[*subject_names, :subject]
+          names = Set[*subject_names, :subject, :described_class]
           expectation_detected = message_expectation?(node, names)
           return yield(node) if expectation_detected
 
