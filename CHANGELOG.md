@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])
+
 ## 3.6.0 (2025-04-18)
 
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
@@ -1073,5 +1075,6 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@ydah]: https://github.com/ydah
 [@yevhene]: https://github.com/yevhene
 [@ypresto]: https://github.com/ypresto
+[@yujideveloper]: https://github.com/yujideveloper
 [@zdennis]: https://github.com/zdennis
 [@zverok]: https://github.com/zverok

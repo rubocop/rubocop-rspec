@@ -535,7 +535,9 @@ RSpec/ImplicitSubject:
 RSpec/IncludeExamples:
   Description: Checks for usage of `include_examples`.
   Enabled: pending
+  SafeAutoCorrect: false
   VersionAdded: '3.6'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IncludeExamples
 
 RSpec/IndexedLet:
