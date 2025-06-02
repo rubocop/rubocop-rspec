@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles])
+
 ## 3.6.0 (2025-04-18)
 
 - Fix false positive in `RSpec/Pending`, where it would mark the default block `it` as an offense. ([@bquorning])
