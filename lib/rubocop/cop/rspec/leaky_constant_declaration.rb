@@ -126,13 +126,16 @@ module RuboCop
         end
 
         def defined_on_explicit_namespace?(node)
-          if node.is_a?(RuboCop::AST::ClassNode) ||
-              node.is_a?(RuboCop::AST::ModuleNode)
-
-            node.loc.name.source.include?('::')
-          elsif node.is_a?(RuboCop::AST::CasgnNode)
-            node.namespace&.cbase_type? || node.const_name.include?('::')
-          end
+          namespace = if node.type?(:class, :module)
+                        node.identifier.namespace
+                      elsif node.type?(:casgn)
+                        node.namespace
+                      else
+                        # :nocov:
+                        :noop
+                        # :novoc:
+                      end
+          !namespace.nil?
         end
       end
     end
