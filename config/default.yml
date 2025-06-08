@@ -782,7 +782,7 @@ RSpec/ReceiveCounts:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts
 
 RSpec/ReceiveMessages:
-  Description: Checks for multiple messages stubbed on the same object.
+  Description: Prefer `receive_messages` over multiple `receive`s on the same object.
   Enabled: true
   SafeAutoCorrect: false
   VersionAdded: '2.23'
