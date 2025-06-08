@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])
+- Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles])
 
 ## 3.6.0 (2025-04-18)
 

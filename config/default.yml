@@ -926,6 +926,8 @@ RSpec/SpecFilePathFormat:
   IgnoreMethods: false
   IgnoreMetadata:
     type: routing
+  InflectorPath: "./config/initializers/inflections.rb"
+  UseActiveSupportInflections: false
   VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 

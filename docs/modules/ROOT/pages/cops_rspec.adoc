@@ -5951,6 +5951,17 @@ my_class_spec.rb         # describe MyClass, '#method'
 whatever_spec.rb         # describe MyClass, type: :routing do; end
 ----
 
+[#_useactivesupportinflections_-true_-rspecspecfilepathformat]
+==== `UseActiveSupportInflections: true`
+
+[source,ruby]
+----
+# Enable to use ActiveSupport's inflector for custom acronyms
+# like HTTP, etc. Set to false by default.
+# The InflectorPath provides the path to the inflector file.
+# The default is ./config/initializers/inflections.rb.
+----
+
 [#configurable-attributes-rspecspecfilepathformat]
 === Configurable attributes
 
@@ -5976,6 +5987,14 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | IgnoreMetadata
 | `{"type" => "routing"}`
 | 
+
+| InflectorPath
+| `./config/initializers/inflections.rb`
+| String
+
+| UseActiveSupportInflections
+| `false`
+| Boolean
 |===
 
 [#references-rspecspecfilepathformat]
