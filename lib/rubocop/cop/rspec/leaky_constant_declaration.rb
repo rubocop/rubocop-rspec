@@ -100,21 +100,21 @@ module RuboCop
 
         def on_casgn(node)
           return unless inside_describe_block?(node)
-          return if defined_on_explicit_namespace?(node)
+          return if explicit_namespace?(node.namespace)
 
           add_offense(node, message: MSG_CONST)
         end
 
         def on_class(node)
           return unless inside_describe_block?(node)
-          return if defined_on_explicit_namespace?(node)
+          return if explicit_namespace?(node.identifier.namespace)
 
           add_offense(node, message: MSG_CLASS)
         end
 
         def on_module(node)
           return unless inside_describe_block?(node)
-          return if defined_on_explicit_namespace?(node)
+          return if explicit_namespace?(node.identifier.namespace)
 
           add_offense(node, message: MSG_MODULE)
         end
@@ -125,16 +125,7 @@ module RuboCop
           node.each_ancestor(:block).any? { |ancestor| spec_group?(ancestor) }
         end
 
-        def defined_on_explicit_namespace?(node)
-          namespace = if node.type?(:class, :module)
-                        node.identifier.namespace
-                      elsif node.type?(:casgn)
-                        node.namespace
-                      else
-                        # :nocov:
-                        :noop
-                        # :novoc:
-                      end
+        def explicit_namespace?(namespace)
           !namespace.nil?
         end
       end
