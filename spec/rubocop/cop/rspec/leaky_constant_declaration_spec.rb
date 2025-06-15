@@ -109,7 +109,7 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
     it 'ignores classes defined explicitly in the global namespace' do
       expect_no_offenses(<<~RUBY)
         describe SomeClass do
-          module ::DummyClass
+          class ::DummyClass
           end
         end
       RUBY
