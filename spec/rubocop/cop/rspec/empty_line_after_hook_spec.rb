@@ -313,7 +313,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
     it_behaves_like 'always require empty line after hook groups'
     it_behaves_like 'never allows consecutive multiline blocks'
 
-    it 'allows multiple one-liner blocks' do
+    it 'ignores multiple one-liner blocks' do
       expect_offense(<<~RUBY)
         RSpec.describe User do
           before { do_something }
@@ -333,7 +333,7 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
       RUBY
     end
 
-    it 'allows multiple one-liner blocks with comments' do
+    it 'ignores multiple one-liner blocks with comments' do
       expect_offense(<<~RUBY)
         RSpec.describe User do
           before { do_something }
