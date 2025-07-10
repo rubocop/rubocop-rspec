@@ -4,6 +4,7 @@
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])
 - Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants in explicit namespaces. ([@naveg])
+- Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles])
 
 ## 3.6.0 (2025-04-18)
 

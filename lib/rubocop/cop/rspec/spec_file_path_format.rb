@@ -32,6 +32,12 @@ module RuboCop
       #   # good
       #   whatever_spec.rb         # describe MyClass, type: :routing do; end
       #
+      # @example `UseActiveSupportInflections: true`
+      #   # Enable to use ActiveSupport's inflector for custom acronyms
+      #   # like HTTP, etc. Set to false by default.
+      #   # The InflectorPath provides the path to the inflector file.
+      #   # The default is ./config/initializers/inflections.rb.
+      #
       class SpecFilePathFormat < Base
         include TopLevelGroup
         include Namespace
@@ -57,7 +63,66 @@ module RuboCop
           end
         end
 
+        # For testing and debugging
+        def self.reset_activesupport_cache!
+          ActiveSupportInflector.reset_cache!
+        end
+
         private
+
+        # Inflector module that uses ActiveSupport for advanced inflection rules
+        module ActiveSupportInflector
+          def self.call(string)
+            ActiveSupport::Inflector.underscore(string)
+          end
+
+          def self.available?(cop_config)
+            return @available unless @available.nil?
+
+            unless cop_config.fetch('UseActiveSupportInflections', false)
+              return @available = false
+            end
+
+            unless File.exist?(inflector_path(cop_config))
+              return @available = false
+            end
+
+            @available = begin
+              require 'active_support/inflector'
+              require inflector_path(cop_config)
+              true
+            rescue LoadError, StandardError
+              false
+            end
+          end
+
+          def self.inflector_path(cop_config)
+            cop_config.fetch('InflectorPath',
+                             './config/initializers/inflections.rb')
+          end
+
+          def self.reset_cache!
+            @available = nil
+          end
+        end
+
+        # Inflector module that uses basic regex-based conversion
+        module DefaultInflector
+          def self.call(string)
+            string
+              .gsub(/([^A-Z])([A-Z]+)/, '\1_\2')
+              .gsub(/([A-Z])([A-Z][^A-Z\d]+)/, '\1_\2')
+              .downcase
+          end
+        end
+
+        def inflector
+          @inflector ||= if ActiveSupportInflector.available?(cop_config)
+                           ActiveSupportInflector
+                         else
+                           DefaultInflector
+                         end
+        end
 
         def ensure_correct_file_path(send_node, class_name, arguments)
           pattern = correct_path_pattern(class_name, arguments)
@@ -106,10 +171,7 @@ module RuboCop
         end
 
         def camel_to_snake_case(string)
-          string
-            .gsub(/([^A-Z])([A-Z]+)/, '\1_\2')
-            .gsub(/([A-Z])([A-Z][^A-Z\d]+)/, '\1_\2')
-            .downcase
+          inflector.call(string)
         end
 
         def custom_transform
