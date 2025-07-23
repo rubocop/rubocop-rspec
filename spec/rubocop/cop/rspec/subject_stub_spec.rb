@@ -38,6 +38,23 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
     RUBY
   end
 
+  it 'flags when any instance of subject is stubbed' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        subject(:foo) { described_class }
+
+        before do
+          allow_any_instance_of(foo).to receive(:bar).and_return(baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+
+        it 'uses expect twice' do
+          expect(foo.bar).to eq(baz)
+        end
+      end
+    RUBY
+  end
+
   it 'flags when subject is mocked' do
     expect_offense(<<~RUBY)
       describe Foo do
@@ -121,6 +138,19 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
         it 'uses unnamed subject' do
           expect(subject).to receive(:bar)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+        end
+      end
+    RUBY
+  end
+
+  it 'flags when any instance of subject is mocked' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        subject(:foo) { described_class }
+
+        it 'uses named subject' do
+          expect_any_instance_of(foo).to receive(:bar).and_return(baz)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
         end
       end
     RUBY
