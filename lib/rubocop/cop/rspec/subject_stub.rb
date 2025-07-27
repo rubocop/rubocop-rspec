@@ -38,6 +38,17 @@ module RuboCop
       #     end
       #   end
       #
+      #   # bad
+      #   describe Article do
+      #     subject { Article }
+      #
+      #     it 'indicates that the author is unknown' do
+      #       allow_any_instance_of(subject).to receive(:author).and_return(nil)
+      #
+      #       expect(subject.new.description).to include('by an unknown author')
+      #     end
+      #   end
+      #
       #   # good
       #   describe Article do
       #     subject(:article) { Article.new(author: nil) }
@@ -93,11 +104,13 @@ module RuboCop
         #     expect(foo).to receive(:bar)
         #     expect(foo).to receive(:bar).with(1)
         #     expect(foo).to receive(:bar).with(1).and_return(2)
+        #     expect_any_instance_of(foo).to receive(:bar)
+        #     allow_any_instance_of(foo).to receive(:bar)
         #
         def_node_matcher :message_expectation?, <<~PATTERN
           (send
             {
-              (send nil? { :expect :allow } (send nil? %))
+              (send nil? { :expect :allow :expect_any_instance_of :allow_any_instance_of } (send nil? %))
               (send nil? :is_expected)
             }
             #Runners.all

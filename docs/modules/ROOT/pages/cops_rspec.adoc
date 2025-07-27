@@ -6157,6 +6157,17 @@ describe Article do
   end
 end
 
+# bad
+describe Article do
+  subject { Article }
+
+  it 'indicates that the author is unknown' do
+    allow_any_instance_of(subject).to receive(:author).and_return(nil)
+
+    expect(subject.new.description).to include('by an unknown author')
+  end
+end
+
 # good
 describe Article do
   subject(:article) { Article.new(author: nil) }
