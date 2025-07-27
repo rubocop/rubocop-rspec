@@ -21,6 +21,7 @@ module RuboCop
       # - let, let!
       # - subject, subject!
       # - expect, is_expected, expect_any_instance_of
+      # - raise_error, raise_exception
       #
       # By default all of the RSpec methods and aliases are allowed. By setting
       # a config like:

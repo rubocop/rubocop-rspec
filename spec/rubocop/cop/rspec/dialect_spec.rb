@@ -73,4 +73,29 @@ RSpec.describe RuboCop::Cop::RSpec::Dialect do
       RUBY
     end
   end
+
+  context 'with error matchers config' do
+    let(:cop_config) do
+      {
+        'PreferredMethods' => {
+          'raise_exception' => 'raise_error'
+        }
+      }
+    end
+
+    it 'registers an offense for `raise_exception`' do
+      expect_offense(<<~RUBY)
+        it 'raises an error' do
+          expect { subject }.to raise_exception(StandardError)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `raise_error` over `raise_exception`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it 'raises an error' do
+          expect { subject }.to raise_error(StandardError)
+        end
+      RUBY
+    end
+  end
 end
