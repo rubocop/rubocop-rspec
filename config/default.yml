@@ -79,6 +79,9 @@ RSpec:
       - prepend_after
       - after
       - append_after
+    ErrorMatchers:
+      - raise_error
+      - raise_exception
     Includes:
       inherit_mode:
         merge:

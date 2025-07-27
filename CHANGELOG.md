@@ -4,6 +4,7 @@
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])
 - Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants in explicit namespaces. ([@naveg])
+- Add support for error matchers (`raise_exception` and `raise_error`) to `RSpec/Dialect`. ([@lovro-bikic])
 
 ## 3.6.0 (2025-04-18)
 

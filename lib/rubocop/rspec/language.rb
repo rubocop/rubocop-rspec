@@ -72,6 +72,12 @@ module RuboCop
       # @!method subject?(node)
       def_node_matcher :subject?, '(block (send nil? #Subjects.all ...) ...)'
 
+      module ErrorMatchers # :nodoc:
+        def self.all(element)
+          Language.config['ErrorMatchers'].include?(element.to_s)
+        end
+      end
+
       module ExampleGroups # :nodoc:
         class << self
           def all(element)
@@ -200,14 +206,14 @@ module RuboCop
       # This is used in Dialect and DescribeClass cops to detect RSpec blocks.
       module ALL # :nodoc:
         def self.all(element)
-          [ExampleGroups, Examples, Expectations, Helpers, Hooks, Includes,
-           Runners, SharedGroups, Subjects]
+          [ErrorMatchers, ExampleGroups, Examples, Expectations, Helpers, Hooks,
+           Includes, Runners, SharedGroups, Subjects]
             .find { |concept| concept.all(element) }
         end
       end
 
-      private_constant :ExampleGroups, :Examples, :Expectations, :Hooks,
-                       :Includes, :Runners, :SharedGroups, :ALL
+      private_constant :ErrorMatchers, :ExampleGroups, :Examples, :Expectations,
+                       :Hooks, :Includes, :Runners, :SharedGroups, :ALL
     end
   end
 end
