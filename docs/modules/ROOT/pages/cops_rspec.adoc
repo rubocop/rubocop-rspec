@@ -985,6 +985,13 @@ To narrow down this setting to only a specific directory, it is
 possible to use an overriding configuration file local to that
 directory.
 
+[#safety-rspecdescribedclass]
+=== Safety
+
+Autocorrection is unsafe when `SkipBlocks: false` because
+`described_class` might not be available within the block (for
+example, in rspec-rails's `controller` helper).
+
 [#examples-rspecdescribedclass]
 === Examples
 

@@ -13,6 +13,20 @@ module RuboCop
       # `OnlyStaticConstants` is only relevant when `EnforcedStyle` is
       # `described_class`.
       #
+      # There's a known caveat with rspec-rails's `controller` helper that
+      # runs its block in a different context, and `described_class` is not
+      # available to it. `SkipBlocks` option excludes detection in all
+      # non-RSpec related blocks.
+      #
+      # To narrow down this setting to only a specific directory, it is
+      # possible to use an overriding configuration file local to that
+      # directory.
+      #
+      # @safety
+      #   Autocorrection is unsafe when `SkipBlocks: false` because
+      #   `described_class` might not be available within the block (for
+      #   example, in rspec-rails's `controller` helper).
+      #
       # @example `EnforcedStyle: described_class` (default)
       #   # bad
       #   describe MyClass do
@@ -46,15 +60,6 @@ module RuboCop
       #   describe MyClass do
       #     subject { MyClass.do_something }
       #   end
-      #
-      # There's a known caveat with rspec-rails's `controller` helper that
-      # runs its block in a different context, and `described_class` is not
-      # available to it. `SkipBlocks` option excludes detection in all
-      # non-RSpec related blocks.
-      #
-      # To narrow down this setting to only a specific directory, it is
-      # possible to use an overriding configuration file local to that
-      # directory.
       #
       # @example `SkipBlocks: true`
       #   # spec/controllers/.rubocop.yml
