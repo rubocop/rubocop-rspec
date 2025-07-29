@@ -83,7 +83,13 @@ module RuboCop
 
         # @!method common_instance_exec_closure?(node)
         def_node_matcher :common_instance_exec_closure?, <<~PATTERN
-          (block (send (const nil? {:Class :Module :Struct}) :new ...) ...)
+          (block
+            {
+              (send (const nil? {:Class :Module :Struct}) :new ...)
+              (send (const nil? :Data) :define ...)
+            }
+            ...
+          )
         PATTERN
 
         # @!method rspec_block?(node)
