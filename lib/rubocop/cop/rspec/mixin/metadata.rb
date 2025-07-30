@@ -27,7 +27,7 @@ module RuboCop
           (send (lvar %) #Hooks.all _ $...)
         PATTERN
 
-        def on_block(node)
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           rspec_configure(node) do |block_var|
             metadata_in_block(node, block_var) do |metadata_arguments|
               on_metadata_arguments(metadata_arguments)
@@ -38,7 +38,6 @@ module RuboCop
             on_metadata_arguments(metadata_arguments)
           end
         end
-        alias on_numblock on_block
 
         def on_metadata(_symbols, _hash)
           raise ::NotImplementedError
