@@ -178,6 +178,7 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
           Class.new  { foo = MyClass }
           Module.new { bar = MyClass }
           Struct.new { lol = MyClass }
+          Data.define { dat = MyClass }
 
           def method
             include MyClass
