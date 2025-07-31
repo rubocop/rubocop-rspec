@@ -829,15 +829,6 @@ RSpec/RemoveConst:
   Enabled: true
   VersionAdded: '2.26'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RemoveConst
-  inherit_mode:
-    merge:
-      - Include
-  Include:
-    - "**/spec/factories.rb"
-    - "**/spec/factories/**/*.rb"
-    - "**/test/factories.rb"
-    - "**/test/factories/**/*.rb"
-    - "**/features/support/factories/**/*.rb"
 
 RSpec/RepeatedDescription:
   Description: Check for repeated description strings in example groups.
