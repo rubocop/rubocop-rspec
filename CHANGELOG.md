@@ -1028,6 +1028,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mlarraz]: https://github.com/mlarraz
 [@mockdeep]: https://github.com/mockdeep
 [@mothonmars]: https://github.com/MothOnMars
+[@Mth0158]: https://github.com/Mth0158
 [@mvz]: https://github.com/mvz
 [@naveg]: https://github.com/naveg
 [@nc-holodakg]: https://github.com/nc-holodakg
