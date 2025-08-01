@@ -9,8 +9,6 @@ RSpec:
   Exclude:
     - "**/spec/factories.rb"
     - "**/spec/factories/**/*.rb"
-    - "**/test/factories.rb"
-    - "**/test/factories/**/*.rb"
     - "**/features/support/factories/**/*.rb"
   Language:
     inherit_mode:
@@ -116,14 +114,7 @@ RSpec:
 Metrics/BlockLength:
   inherit_mode:
     merge:
-      - Include
       - Exclude
-  Include:
-    - "**/spec/factories.rb"
-    - "**/spec/factories/**/*.rb"
-    - "**/test/factories.rb"
-    - "**/test/factories/**/*.rb"
-    - "**/features/support/factories/**/*.rb"
   Exclude:
     - "**/*_spec.rb"
     - "**/spec/**/*"

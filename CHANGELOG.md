@@ -7,7 +7,6 @@
 - Add support for error matchers (`raise_exception` and `raise_error`) to `RSpec/Dialect`. ([@lovro-bikic])
 - Don't register offenses for `RSpec/DescribedClass` within `Data.define` blocks. ([@lovro-bikic])
 - Add autocorrection support for `RSpec/IteratedExpectation` for single expectations. ([@lovro-bikic])
-- Exclude all cops from inspecting factorybot files, except if explicitly included ([@Mth0158])
 - Exclude all cops from inspecting factorybot files, except if explicitly included. ([@Mth0158])
 
 ## 3.6.0 (2025-04-18)
