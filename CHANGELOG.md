@@ -6,6 +6,7 @@
 - Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants in explicit namespaces. ([@naveg])
 - Add support for error matchers (`raise_exception` and `raise_error`) to `RSpec/Dialect`. ([@lovro-bikic])
 - Don't register offenses for `RSpec/DescribedClass` within `Data.define` blocks. ([@lovro-bikic])
+- Exclude all cops from inspecting factorybot files, except if explicitly included. ([@Mth0158])
 
 ## 3.6.0 (2025-04-18)
 
@@ -1026,6 +1027,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@mlarraz]: https://github.com/mlarraz
 [@mockdeep]: https://github.com/mockdeep
 [@mothonmars]: https://github.com/MothOnMars
+[@mth0158]: https://github.com/Mth0158
 [@mvz]: https://github.com/mvz
 [@naveg]: https://github.com/naveg
 [@nc-holodakg]: https://github.com/nc-holodakg
