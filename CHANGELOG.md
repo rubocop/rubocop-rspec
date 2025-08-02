@@ -6,6 +6,7 @@
 - Fix a false positive for `RSpec/LeakyConstantDeclaration` when defining constants in explicit namespaces. ([@naveg])
 - Add support for error matchers (`raise_exception` and `raise_error`) to `RSpec/Dialect`. ([@lovro-bikic])
 - Don't register offenses for `RSpec/DescribedClass` within `Data.define` blocks. ([@lovro-bikic])
+- Add autocorrection support for `RSpec/IteratedExpectation` for single expectations. ([@lovro-bikic])
 
 ## 3.6.0 (2025-04-18)
 
