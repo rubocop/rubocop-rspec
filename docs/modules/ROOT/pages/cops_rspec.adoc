@@ -3191,7 +3191,7 @@ it_should_behave_like 'a foo'
 
 | Enabled
 | Yes
-| No
+| Always
 | 1.14
 | -
 |===
