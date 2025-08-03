@@ -59,6 +59,7 @@
 * xref:cops_rspec.adoc#rspeciteratedexpectation[RSpec/IteratedExpectation]
 * xref:cops_rspec.adoc#rspecleadingsubject[RSpec/LeadingSubject]
 * xref:cops_rspec.adoc#rspecleakyconstantdeclaration[RSpec/LeakyConstantDeclaration]
+* xref:cops_rspec.adoc#rspecleakylocalvariable[RSpec/LeakyLocalVariable]
 * xref:cops_rspec.adoc#rspecletbeforeexamples[RSpec/LetBeforeExamples]
 * xref:cops_rspec.adoc#rspecletsetup[RSpec/LetSetup]
 * xref:cops_rspec.adoc#rspecmatcharray[RSpec/MatchArray]
