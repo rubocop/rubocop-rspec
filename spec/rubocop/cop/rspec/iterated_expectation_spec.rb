@@ -8,6 +8,12 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      it 'validates users' do
+        expect([user1, user2, user3]).to all(be_valid)
+      end
+    RUBY
   end
 
   it 'flags `each` when expectation calls method with arguments' do
@@ -17,6 +23,35 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
       end
     RUBY
+
+    expect_correction(<<~RUBY)
+      it 'validates users' do
+        expect([user1, user2, user3]).to all(be_a(User))
+      end
+    RUBY
+  end
+
+  it 'flags `each` when the expectation specifies an error message, but ' \
+     'does not correct' do
+    expect_offense(<<~RUBY)
+      it 'validates users' do
+        [user1, user2, user3].each { |user| expect(user).to be_a(User), "user is not a User" }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'flags `each` when matcher uses block argument, but does not correct' do
+    expect_offense(<<~RUBY)
+      it 'validates users' do
+        [user1, user2, user3].each { |user| expect(user).to receive(:flag).and_return(user.flag) }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+      end
+    RUBY
+
+    expect_no_corrections
   end
 
   it 'ignores `each` without expectation' do
@@ -45,6 +80,8 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
         end
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'ignore `each` when the body does not contain only expectations' do
@@ -94,6 +131,12 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        it 'validates users' do
+          expect([user1, user2, user3]).to all(be_valid)
+        end
+      RUBY
     end
 
     it 'flags `each` when expectation calls method with arguments' do
@@ -101,6 +144,12 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
         it 'validates users' do
           [user1, user2, user3].each { expect(_1).to be_a(User) }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using the `all` matcher instead of iterating over an array.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it 'validates users' do
+          expect([user1, user2, user3]).to all(be_a(User))
         end
       RUBY
     end
@@ -123,6 +172,8 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
           end
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'ignore `each` when the body does not contain only expectations' do
