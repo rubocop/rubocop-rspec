@@ -6,6 +6,10 @@ RSpec:
   Include:
     - "**/*_spec.rb"
     - "**/spec/**/*"
+  Exclude:
+    - "**/spec/factories.rb"
+    - "**/spec/factories/**/*.rb"
+    - "**/features/support/factories/**/*.rb"
   Language:
     inherit_mode:
       merge:
