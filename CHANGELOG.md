@@ -8,6 +8,7 @@
 - Don't register offenses for `RSpec/DescribedClass` within `Data.define` blocks. ([@lovro-bikic])
 - Add autocorrection support for `RSpec/IteratedExpectation` for single expectations. ([@lovro-bikic])
 - Exclude all cops from inspecting factorybot files, except if explicitly included. ([@Mth0158])
+- Fix a false positive for `RSpec/ExcessiveDocstringSpacing` when receivers are not RSpec methods. ([@ydah])
 
 ## 3.6.0 (2025-04-18)
 
