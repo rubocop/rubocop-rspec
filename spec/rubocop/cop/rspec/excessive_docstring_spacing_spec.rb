@@ -772,4 +772,14 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       end
     RUBY
   end
+
+  it 'does not register an offense when receiver is not non-RSpec' do
+    expect_no_offenses(<<~RUBY)
+      it 'does something' do
+        Foo.describe('  does something')
+        Bar.context('  does something')
+        Baz.it('  does something')
+      end
+    RUBY
+  end
 end
