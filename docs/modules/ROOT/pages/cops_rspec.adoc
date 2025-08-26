@@ -2794,8 +2794,6 @@ unexpected behavior and side effects.
 
 Prefer using `it_behaves_like` instead.
 
-----
-
 [#safety-rspecincludeexamples]
 === Safety
 
@@ -2847,6 +2845,7 @@ context "broken example with it_behaves_like" do
     expect(service.call).to eq "mocked response"
   end
 end
+----
 
 [#examples-rspecincludeexamples]
 === Examples

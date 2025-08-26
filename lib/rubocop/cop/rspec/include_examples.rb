@@ -61,7 +61,7 @@ module RuboCop
       #       expect(service.call).to eq "mocked response"
       #     end
       #   end
-      # ----
+      #   ----
       #
       # @example
       #   # bad
