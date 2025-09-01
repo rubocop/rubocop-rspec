@@ -544,7 +544,7 @@ RSpec/IncludeExamples:
   Enabled: pending
   SafeAutoCorrect: false
   VersionAdded: '3.6'
-  VersionChanged: "<<next>>"
+  VersionChanged: '3.7'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IncludeExamples
 
 RSpec/IndexedLet:

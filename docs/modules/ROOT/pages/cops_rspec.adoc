@@ -2782,7 +2782,7 @@ it { expect(named_subject).to be_truthy }
 | Yes
 | Always (Unsafe)
 | 3.6
-| <<next>>
+| 3.7
 |===
 
 Checks for usage of `include_examples`.
