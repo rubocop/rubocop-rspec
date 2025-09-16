@@ -41,6 +41,11 @@ module RuboCop
           (numblock (send nil? :around sym ?) ...)
         PATTERN
 
+        # @!method hook_itblock(node)
+        def_node_matcher :hook_itblock, <<~PATTERN
+          (itblock (send nil? :around sym ?) ...)
+        PATTERN
+
         # @!method find_arg_usage(node)
         def_node_search :find_arg_usage, <<~PATTERN
           {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
@@ -51,14 +56,20 @@ module RuboCop
             if example_proxy.nil?
               add_no_arg_offense(node)
             else
-              check_for_unused_proxy(node, example_proxy)
+              check_for_unused_proxy(node, example_proxy, example_proxy.name)
             end
           end
         end
 
         def on_numblock(node)
           hook_numblock(node) do
-            check_for_numblock(node)
+            check_for_unused_proxy(node, node.children.last, :_1)
+          end
+        end
+
+        def on_itblock(node)
+          hook_itblock(node) do
+            check_for_unused_proxy(node, node.children.last, :it)
           end
         end
 
@@ -68,25 +79,14 @@ module RuboCop
           add_offense(node, message: MSG_NO_ARG)
         end
 
-        def check_for_unused_proxy(block, proxy)
+        def check_for_unused_proxy(block, range, name)
           find_arg_usage(block) do |usage|
-            return if usage.include?(s(:lvar, proxy.name))
+            return if usage.include?(s(:lvar, name))
           end
 
           add_offense(
-            proxy,
-            message: format(MSG_UNUSED_ARG, arg: proxy.name)
-          )
-        end
-
-        def check_for_numblock(block)
-          find_arg_usage(block) do |usage|
-            return if usage.include?(s(:lvar, :_1))
-          end
-
-          add_offense(
-            block.children.last,
-            message: format(MSG_UNUSED_ARG, arg: :_1)
+            range,
+            message: format(MSG_UNUSED_ARG, arg: name)
           )
         end
       end

@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add support for `itblock` from Ruby 3.4. ([@earlopain])
+
 ## 3.7.0 (2025-09-01)
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])

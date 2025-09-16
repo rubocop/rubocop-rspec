@@ -178,4 +178,66 @@ RSpec.describe RuboCop::Cop::RSpec::AroundBlock do
       end
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    context 'when the yielded value is unused' do
+      it 'registers an offense' do
+        expect_offense(<<~RUBY)
+          around { it }
+                   ^^ You should call `it.call` or `it.run`.
+        RUBY
+      end
+    end
+
+    context 'when a method other than #run or #call is called' do
+      it 'registers an offense' do
+        expect_offense(<<~RUBY)
+          around do
+            it.inspect
+            ^^^^^^^^^^ You should call `it.call` or `it.run`.
+          end
+        RUBY
+      end
+    end
+
+    context 'when #run is called' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          around do
+            it.run
+          end
+        RUBY
+      end
+    end
+
+    context 'when #call is called' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          around do
+            it.call
+          end
+        RUBY
+      end
+    end
+
+    context 'when used as a block arg' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          around do
+            1.times(&it)
+          end
+        RUBY
+      end
+    end
+
+    context 'when passed to another method' do
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY)
+          around do
+            something_that_might_run_test(it, another_arg)
+          end
+        RUBY
+      end
+    end
+  end
 end
