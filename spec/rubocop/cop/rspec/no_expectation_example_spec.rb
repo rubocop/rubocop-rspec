@@ -238,4 +238,19 @@ RSpec.describe RuboCop::Cop::RSpec::NoExpectationExample do
       end
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    context 'with no expectation example with it' do
+      it 'registers an offense' do
+        expect_offense(<<~RUBY)
+          RSpec.describe Foo do
+            it { it }
+            ^^^^^^^^^ No expectation found in this example.
+
+            it { expect(baz).to be_truthy }
+          end
+        RUBY
+      end
+    end
+  end
 end

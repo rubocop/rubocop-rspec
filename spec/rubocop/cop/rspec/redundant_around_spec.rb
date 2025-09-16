@@ -107,4 +107,33 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantAround, :ruby27 do
       RUBY
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    context 'with another node in itblock `around`' do
+      it 'registers no offense' do
+        expect_no_offenses(<<~RUBY)
+          around do
+            it.run
+
+            foo
+          end
+        RUBY
+      end
+    end
+
+    context 'with redundant itblock `around`' do
+      it 'registers offense' do
+        expect_offense(<<~RUBY)
+          around do
+          ^^^^^^^^^ Remove redundant `around` hook.
+            it.run
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+
+        RUBY
+      end
+    end
+  end
 end
