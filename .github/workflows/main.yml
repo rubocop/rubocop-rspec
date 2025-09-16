@@ -128,11 +128,6 @@ jobs:
     name: Prism
     steps:
       - uses: actions/checkout@v5
-      - name: Use prism parser
-        run: |
-          cat << EOF > Gemfile.local
-            gem 'prism'
-          EOF
       - name: set up Ruby
         uses: ruby/setup-ruby@v1
         with:
