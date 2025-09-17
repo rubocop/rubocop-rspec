@@ -62,6 +62,8 @@ jobs:
       - run: bundle exec rake spec
 
   edge-rubocop:
+    env:
+      BUNDLE_GEMFILE: gemfiles/edge_rubocop.rb
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -71,10 +73,6 @@ jobs:
     name: "Edge RuboCop: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Use latest RuboCop from `master`
-        run: |
-          echo "gem 'rubocop', github: 'rubocop/rubocop'" > Gemfile.local
-          cat Gemfile.local
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:
           ruby-version: ruby
@@ -84,28 +82,23 @@ jobs:
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
   oldest-rubocop:
+    env:
+      BUNDLE_GEMFILE: gemfiles/oldest_rubocop.rb
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        task:
-          - spec
     name: "Oldest RuboCop: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Use oldest RuboCop allowed by gemspec
-        run: |
-          sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
-            rubocop-rspec.gemspec > Gemfile.local
-          cat Gemfile.local
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:
           ruby-version: ruby
           bundler-cache: true
       - name: Show RuboCop version
         run: grep '^    rubocop' Gemfile.lock | sort
-      - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
+      - run: NO_COVERAGE=true bundle exec rake spec
 
   rspec4:
+    env:
+      BUNDLE_GEMFILE: gemfiles/latest_rspec_4.rb
     runs-on: ubuntu-latest
     name: RSpec 4
     steps:
