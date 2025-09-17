@@ -7,8 +7,9 @@ doc
 
 # bundler
 .bundle
-Gemfile.lock
-Gemfile.local
+/Gemfile.lock
+/Gemfile.local
+/gemfiles/*.lock
 
 # jeweler generated
 pkg
