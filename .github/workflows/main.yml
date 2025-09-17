@@ -57,7 +57,7 @@ jobs:
         if: ${{ matrix.gemfile }} != Gemfile
         run: cat $BUNDLE_GEMFILE
       - name: Show RuboCop version
-        if: ${{ matrix.gemfile }} != 'Gemfile'
+        if: ${{ matrix.gemfile }} != Gemfile
         run: grep '^    rubocop' $BUNDLE_GEMFILE.lock | sort
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
