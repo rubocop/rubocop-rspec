@@ -35,93 +35,31 @@ jobs:
           - "3.4"
           - ruby-head
           - jruby-9.4
+        gemfile: [Gemfile]
         task:
           - internal_investigation
           - spec
+        include:
+          - {ruby: "3.4", gemfile: "gemfiles/oldest_rubocop.rb", task: spec}
+          - {ruby: "3.4", gemfile: "gemfiles/latest_rubocop.rb", task: internal_investigation}
+          - {ruby: "3.4", gemfile: "gemfiles/latest_rubocop.rb", task: spec}
+          - {ruby: "3.4", gemfile: "gemfiles/latest_rspec_4.rb", task: spec}
     name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
-      - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
-
-  coverage:
-    runs-on: ubuntu-latest
-    name: "Test coverage"
-    steps:
-      - uses: actions/checkout@v5
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.4"
-          bundler-cache: true
-      - run: bundle exec rake spec
-
-  edge-rubocop:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        task:
-          - internal_investigation
-          - spec
-    name: "Edge RuboCop: ${{ matrix.task }}"
-    steps:
-      - uses: actions/checkout@v5
-      - name: Use latest RuboCop from `master`
-        run: |
-          echo "gem 'rubocop', github: 'rubocop/rubocop'" > Gemfile.local
-          cat Gemfile.local
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.4"
-          bundler-cache: true
+      - name: Show Gemfile for debugging
+        if: ${{ matrix.gemfile }} != 'Gemfile'
+        run: cat $BUNDLE_GEMFILE
       - name: Show RuboCop version
-        run: grep '^    rubocop' Gemfile.lock | sort
+        if: ${{ matrix.gemfile }} != 'Gemfile'
+        run: grep '^    rubocop' $BUNDLE_GEMFILE.lock | sort
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
-
-  oldest-rubocop:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        task:
-          - spec
-    name: "Oldest RuboCop: ${{ matrix.task }}"
-    steps:
-      - uses: actions/checkout@v5
-      - name: Use oldest RuboCop allowed by gemspec
-        run: |
-          sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
-            rubocop-rspec.gemspec > Gemfile.local
-          cat Gemfile.local
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.4"
-          bundler-cache: true
-      - name: Show RuboCop version
-        run: grep '^    rubocop' Gemfile.lock | sort
-      - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
-
-  rspec4:
-    runs-on: ubuntu-latest
-    name: RSpec 4
-    steps:
-      - uses: actions/checkout@v5
-      - name: Use latest RSpec 4 from `4-0-dev` branch
-        run: |
-          sed -e '/rspec/d' -i Gemfile
-          cat << EOF > Gemfile.local
-            gem 'rspec', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-core', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-expectations', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-mocks', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-support', github: 'rspec/rspec', branch: '4-0-dev'
-          EOF
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.4"
-          bundler-cache: true
-      - run: NO_COVERAGE=true bundle exec rake spec
 
   prism:
     runs-on: ubuntu-latest
