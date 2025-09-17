@@ -54,7 +54,7 @@ jobs:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
       - name: Show Gemfile for debugging
-        if: ${{ matrix.gemfile }} != 'Gemfile'
+        if: ${{ matrix.gemfile }} != Gemfile
         run: cat $BUNDLE_GEMFILE
       - name: Show RuboCop version
         if: ${{ matrix.gemfile }} != 'Gemfile'
