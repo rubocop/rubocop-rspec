@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
+
 ## 3.7.0 (2025-09-01)
 
 - Mark `RSpec/IncludeExamples` as `SafeAutoCorrect: false`. ([@yujideveloper])

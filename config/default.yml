@@ -610,6 +610,12 @@ RSpec/LeakyConstantDeclaration:
   StyleGuide: https://rspec.rubystyle.guide/#declare-constants
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 
+RSpec/LeakyLocalVariable:
+  Description: Checks for local variables from outer scopes used inside examples.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyLocalVariable
+
 RSpec/LetBeforeExamples:
   Description: Checks for `let` definitions that come after an example.
   Enabled: true

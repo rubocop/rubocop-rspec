@@ -293,3 +293,4 @@ Performance/ZipWithoutBlock: {Enabled: true}
 # Enable our own pending cops.
 
 RSpec/IncludeExamples: {Enabled: true}
+RSpec/LeakyLocalVariable: {Enabled: true}

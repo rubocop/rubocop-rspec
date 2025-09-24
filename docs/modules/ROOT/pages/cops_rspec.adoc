@@ -3390,6 +3390,88 @@ end
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyConstantDeclaration
 * https://rspec.info/features/3-12/rspec-mocks/mutating-constants
 
+[#rspecleakylocalvariable]
+== RSpec/LeakyLocalVariable
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for local variables from outer scopes used inside examples.
+
+Local variables assigned outside an example but used within it act
+as shared state, which can make tests non-deterministic.
+
+[#examples-rspecleakylocalvariable]
+=== Examples
+
+[source,ruby]
+----
+# bad - outside variable used in a hook
+user = create(:user)
+
+before { user.update(admin: true) }
+
+# good
+let(:user) { create(:user) }
+
+before { user.update(admin: true) }
+
+# bad - outside variable used in an example
+user = create(:user)
+
+it 'is persisted' do
+  expect(user).to be_persisted
+end
+
+# good
+let(:user) { create(:user) }
+
+it 'is persisted' do
+  expect(user).to be_persisted
+end
+
+# also good - assigning the variable within the example
+it 'is persisted' do
+  user = create(:user)
+
+  expect(user).to be_persisted
+end
+
+# bad - outside variable passed to included examples
+attrs = ['foo', 'bar']
+
+it_behaves_like 'some examples', attrs
+
+# good
+it_behaves_like 'some examples' do
+  let(:attrs) { ['foo', 'bar'] }
+end
+
+# good - when variable is used only as example description
+attribute = 'foo'
+
+it "#{attribute} is persisted" do
+  expectations
+end
+
+# good - when variable is used only to include other examples
+examples = foo ? 'some examples' : 'other examples'
+
+it_behaves_like examples, another_argument
+----
+
+[#references-rspecleakylocalvariable]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyLocalVariable
+
 [#rspecletbeforeexamples]
 == RSpec/LetBeforeExamples
 
