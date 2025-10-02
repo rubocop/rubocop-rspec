@@ -6,6 +6,7 @@
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Fix a false positive for `RSpec/LetSetup` when `let!` used in outer scope. ([@ydah])
 - Fix a false positive for `RSpec/ReceiveNever` cop when `allow(...).to receive(...).never`. ([@ydah])
+- Fix detection of nameless doubles with methods in `RSpec/VerifiedDoubles`. ([@ushi-as])
 
 ## 3.7.0 (2025-09-01)
 
@@ -1082,6 +1083,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@tmaier]: https://github.com/tmaier
 [@topalovic]: https://github.com/topalovic
 [@twalpole]: https://github.com/twalpole
+[@ushi-as]: https://github.com/ushi-as
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@walf443]: https://github.com/walf443
 [@yasu551]: https://github.com/yasu551

@@ -64,12 +64,29 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
         end
       RUBY
     end
+
+    it 'flags doubles that have no name but methods specified' do
+      expect_offense(<<~RUBY)
+        it do
+          foo = double(call: :bar)
+                ^^^^^^^^^^^^^^^^^^ Prefer using verifying doubles over normal doubles.
+        end
+      RUBY
+    end
   end
 
   it 'ignores doubles that have no name specified' do
     expect_no_offenses(<<~RUBY)
       it do
         foo = double
+      end
+    RUBY
+  end
+
+  it 'ignores doubles that have no name but methods specified' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        foo = double(call: :bar)
       end
     RUBY
   end

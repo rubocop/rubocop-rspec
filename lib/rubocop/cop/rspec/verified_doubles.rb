@@ -78,7 +78,7 @@ module RuboCop
 
         def on_send(node)
           unverified_double(node) do |name, *_args|
-            return if name.nil? && cop_config['IgnoreNameless']
+            return if (name.nil? || hash?(name)) && cop_config['IgnoreNameless']
             return if symbol?(name) && cop_config['IgnoreSymbolicNames']
 
             add_offense(node)
@@ -89,6 +89,10 @@ module RuboCop
 
         def symbol?(name)
           name&.sym_type?
+        end
+
+        def hash?(arg)
+          arg.hash_type?
         end
       end
     end
