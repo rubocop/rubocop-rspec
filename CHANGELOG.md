@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
+- Bump RuboCop requirement to +1.81. ([@ydah])
 
 ## 3.7.0 (2025-09-01)
 
