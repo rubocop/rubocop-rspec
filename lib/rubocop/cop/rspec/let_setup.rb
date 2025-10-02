@@ -25,6 +25,18 @@ module RuboCop
       #   it 'counts widgets' do
       #     expect(Widget.count).to eq(1)
       #   end
+      #
+      #   # good
+      #   describe 'a widget' do
+      #     let!(:my_widget) { create(:widget) }
+      #     context 'when visiting its page' do
+      #       let!(:my_widget) { create(:widget, name: 'Special') }
+      #       it 'counts widgets' do
+      #         expect(Widget.count).to eq(1)
+      #       end
+      #     end
+      #   end
+      #
       class LetSetup < Base
         MSG = 'Do not use `let!` to setup objects not referenced in tests.'
 
@@ -59,6 +71,8 @@ module RuboCop
 
         def unused_let_bang(node)
           child_let_bang(node) do |method_send, method_name|
+            next if overrides_outer_let_bang?(node, method_name)
+
             yield(method_send) unless method_called?(node, method_name.to_sym)
           end
         end
@@ -66,6 +80,22 @@ module RuboCop
         def child_let_bang(node, &block)
           RuboCop::RSpec::ExampleGroup.new(node).lets.each do |let|
             let_bang(let, &block)
+          end
+        end
+
+        def overrides_outer_let_bang?(node, method_name)
+          node.each_ancestor(:block).any? do |ancestor|
+            next unless example_or_shared_group_or_including?(ancestor)
+
+            outer_let_bang?(ancestor, method_name)
+          end
+        end
+
+        def outer_let_bang?(ancestor_node, method_name)
+          RuboCop::RSpec::ExampleGroup.new(ancestor_node).lets.any? do |let|
+            let_bang(let) do |_send, name|
+              name == method_name
+            end
           end
         end
       end
