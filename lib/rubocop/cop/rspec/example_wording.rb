@@ -10,8 +10,19 @@ module RuboCop
       #
       # @see http://betterspecs.org/#should
       #
-      # The autocorrect is experimental - use with care! It can be configured
-      # with CustomTransform (e.g. have => has) and IgnoredWords (e.g. only).
+      # @safety
+      #   The autocorrect is experimental - use with care! It can be configured
+      #   with CustomTransform (e.g. have => has) and IgnoredWords (e.g. only).
+      #
+      #   While the autocorrect will not break your code (it only modifies test
+      #   description strings, not the actual test logic), it may produce
+      #   grammatically incorrect English in some cases. Always review the diff
+      #   when using autocorrect to ensure the descriptions remain natural and
+      #   accurate.
+      #
+      #   This is not classified as an unsafe autocorrect because it does not
+      #   affect code behavior, but manual review of changes is strongly
+      #   recommended.
       #
       # Use the DisallowedExamples setting to prevent unclear or insufficient
       # descriptions. Please note that this config will not be treated as
