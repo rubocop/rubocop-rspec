@@ -5155,10 +5155,13 @@ end
 | Yes
 | Always
 | 2.26
-| -
+| <<next>>
 |===
 
 Checks for redundant predicate matcher.
+
+This cop configures the mapping of redundant predicate matchers
+and their preferable alternatives via `SupportedMethods` option.
 
 [#examples-rspecredundantpredicatematcher]
 === Examples
@@ -5173,6 +5176,19 @@ expect(foo).to be_all(bar)
 # good
 expect(foo).to exist(bar)
 expect(foo).not_to include(bar)
+expect(foo).to all be(bar)
+----
+
+[#_supportedmethods_-_be_exist_-exist_-be_include_-include__-rspecredundantpredicatematcher]
+==== `SupportedMethods: {be_exist: exist, be_include: include}`
+
+[source,ruby]
+----
+# good
+expect(foo).to exist(bar)
+expect(foo).not_to include(bar)
+
+# bad
 expect(foo).to all be(bar)
 ----
 
