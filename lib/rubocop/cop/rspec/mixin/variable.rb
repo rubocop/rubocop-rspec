@@ -13,7 +13,7 @@ module RuboCop
         # @!method variable_definition?(node)
         def_node_matcher :variable_definition?, <<~PATTERN
           (send nil? {#Subjects.all #Helpers.all}
-            $({sym str dsym dstr} ...) ...)
+            $({any_sym str dstr} ...) ...)
         PATTERN
       end
     end

@@ -181,9 +181,7 @@ module RuboCop
         end
 
         def heredoc_argument?(matcher)
-          matcher.arguments.select do |arg|
-            arg.type?(:str, :dstr, :xstr)
-          end.any?(&:heredoc?)
+          matcher.arguments.select(&:any_str_type?).any?(&:heredoc?)
         end
 
         # @!method predicate_matcher?(node)

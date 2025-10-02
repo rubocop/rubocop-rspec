@@ -7,7 +7,7 @@ module RuboCop
       module FinalEndLocation
         def final_end_location(start_node)
           heredoc_endings =
-            start_node.each_node(:str, :dstr, :xstr)
+            start_node.each_node(:any_str)
               .select(&:heredoc?)
               .map { |node| node.loc.heredoc_end }
 

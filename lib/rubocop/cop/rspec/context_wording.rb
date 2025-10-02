@@ -67,7 +67,7 @@ module RuboCop
 
         # @!method context_wording(node)
         def_node_matcher :context_wording, <<~PATTERN
-          (block (send #rspec? { :context :shared_context } $({str dstr xstr} ...) ...) ...)
+          (block (send #rspec? { :context :shared_context } $(any_str ...) ...) ...)
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler

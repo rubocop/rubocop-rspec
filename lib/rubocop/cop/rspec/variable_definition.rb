@@ -69,7 +69,7 @@ module RuboCop
         end
 
         def symbol?(node)
-          node.type?(:sym, :dsym)
+          node.any_sym_type?
         end
       end
     end
