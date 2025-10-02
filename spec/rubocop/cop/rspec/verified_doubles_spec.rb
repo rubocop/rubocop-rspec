@@ -81,4 +81,20 @@ RSpec.describe RuboCop::Cop::RSpec::VerifiedDoubles do
       end
     RUBY
   end
+
+  it 'ignores class_doubles' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        foo = class_double("Foo")
+      end
+    RUBY
+  end
+
+  it 'ignores object_doubles' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        foo = object_double("Foo")
+      end
+    RUBY
+  end
 end
