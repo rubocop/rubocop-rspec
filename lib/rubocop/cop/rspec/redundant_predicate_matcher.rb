@@ -5,6 +5,9 @@ module RuboCop
     module RSpec
       # Checks for redundant predicate matcher.
       #
+      # This cop configures the mapping of redundant predicate matchers
+      # and their preferable alternatives via `SupportedMethods` option.
+      #
       # @example
       #   # bad
       #   expect(foo).to be_exist(bar)
@@ -16,50 +19,56 @@ module RuboCop
       #   expect(foo).not_to include(bar)
       #   expect(foo).to all be(bar)
       #
+      # @example `SupportedMethods: {be_exist: exist, be_include: include}`
+      #  # good
+      #  expect(foo).to exist(bar)
+      #  expect(foo).not_to include(bar)
+      #
+      #  # bad
+      #  expect(foo).to all be(bar)
+      #
       class RedundantPredicateMatcher < Base
         extend AutoCorrector
 
         MSG = 'Use `%<good>s` instead of `%<bad>s`.'
-        RESTRICT_ON_SEND =
-          %i[be_all be_cover be_end_with be_eql be_equal
-             be_exist be_exists be_include be_match
-             be_respond_to be_start_with].freeze
+        UNSUPPORTED_AUTOCORRECT_METHODS = %w[be_all].freeze
 
         def on_send(node)
+          return if node.parent.nil?
           return if node.parent.block_type? || node.arguments.empty?
-          return unless replaceable_arguments?(node)
 
           method_name = node.method_name.to_s
-          replaced = replaced_method_name(method_name)
-          add_offense(node, message: message(method_name,
-                                             replaced)) do |corrector|
-            unless node.method?(:be_all)
-              corrector.replace(node.loc.selector, replaced)
-            end
-          end
+          return unless supported_methods.key?(method_name)
+          return unless valid_arguments?(node)
+
+          register_offense(node, method_name)
         end
 
         private
+
+        def valid_arguments?(node)
+          return true unless node.method?(:be_all)
+
+          node.first_argument.send_type?
+        end
+
+        def register_offense(node, method_name)
+          replacement = supported_methods[method_name]
+
+          add_offense(node, message: message(method_name,
+                                             replacement)) do |corrector|
+            unless UNSUPPORTED_AUTOCORRECT_METHODS.include?(method_name)
+              corrector.replace(node.loc.selector, replacement)
+            end
+          end
+        end
 
         def message(bad_method, good_method)
           format(MSG, bad: bad_method, good: good_method)
         end
 
-        def replaceable_arguments?(node)
-          if node.method?(:be_all)
-            node.first_argument.send_type?
-          else
-            true
-          end
-        end
-
-        def replaced_method_name(method_name)
-          name = method_name.to_s.delete_prefix('be_')
-          if name == 'exists'
-            'exist'
-          else
-            name
-          end
+        def supported_methods
+          @supported_methods ||= cop_config.fetch('SupportedMethods', {})
         end
       end
     end

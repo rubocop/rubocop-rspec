@@ -818,7 +818,20 @@ RSpec/RedundantAround:
 RSpec/RedundantPredicateMatcher:
   Description: Checks for redundant predicate matcher.
   Enabled: true
+  SupportedMethods:
+    be_all: all
+    be_cover: cover
+    be_end_with: end_with
+    be_eql: eql
+    be_equal: equal
+    be_exist: exist
+    be_exists: exist
+    be_include: include
+    be_match: match
+    be_respond_to: respond_to
+    be_start_with: start_with
   VersionAdded: '2.26'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPredicateMatcher
 
 RSpec/RemoveConst:

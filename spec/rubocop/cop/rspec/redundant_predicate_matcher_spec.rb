@@ -156,4 +156,27 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantPredicateMatcher do
       expect(foo).to end_with(bar)
     RUBY
   end
+
+  context 'when `SupportedMethods` is customized' do
+    let(:cop_config) do
+      { 'SupportedMethods' => { 'be_include' => 'include' } }
+    end
+
+    it 'registers an offense when using `be_include`' do
+      expect_offense(<<~RUBY)
+        expect(foo).to be_include(bar, baz)
+                       ^^^^^^^^^^^^^^^^^^^^ Use `include` instead of `be_include`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(foo).to include(bar, baz)
+      RUBY
+    end
+
+    it 'does not register an offense when using `be_exist`' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to be_exist("bar.txt")
+      RUBY
+    end
+  end
 end
