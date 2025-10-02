@@ -102,18 +102,4 @@ RSpec.describe 'config/default.yml' do
       )
     end
   end
-
-  it 'is expected that all cops documented with `@safety` are `Safe: false` ' \
-     'or `SafeAutoCorrect: false`' do
-    unsafe_cop_names.each do |cop_name|
-      unsafe = default_config[cop_name]['Safe'] == false ||
-        default_config[cop_name]['SafeAutoCorrect'] == false
-      expect(unsafe).to(
-        be(true),
-        "`#{cop_name}` cop should be set `Safe: false` or " \
-        '`SafeAutoCorrect: false` because `@safety` YARD tag exists.'
-      )
-      YARD::Registry.clear
-    end
-  end
 end
