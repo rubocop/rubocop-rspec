@@ -4,6 +4,7 @@
 
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
 - Bump RuboCop requirement to +1.81. ([@ydah])
+- Improve an offense message for `RSpec/RepeatedExample`cop. ([@ydah])
 
 ## 3.7.0 (2025-09-01)
 
