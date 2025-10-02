@@ -6598,17 +6598,81 @@ Prefer using verifying doubles over normal doubles.
 ----
 # bad
 let(:foo) do
-  double(method_name: 'returned value')
+  double("ClassName", method_name: 'returned value')
 end
 
 # bad
 let(:foo) do
-  double("ClassName", method_name: 'returned value')
+  spy("ClassName", method_name: 'returned value')
 end
 
 # good
 let(:foo) do
   instance_double("ClassName", method_name: 'returned value')
+end
+
+# good
+let(:foo) do
+  class_double("ClassName", method_name: 'returned value')
+end
+
+# good
+let(:foo) do
+  object_double("some object", method_name: 'returned value')
+end
+----
+
+[#_ignorenameless_-true-_default__-rspecverifieddoubles]
+==== `IgnoreNameless: true (default)`
+
+[source,ruby]
+----
+# good
+let(:foo) do
+  double(method_name: 'returned value')
+end
+
+# good
+let(:foo) do
+  double
+end
+----
+
+[#_ignorenameless_-false_-rspecverifieddoubles]
+==== `IgnoreNameless: false`
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  double(method_name: 'returned value')
+end
+
+# bad
+let(:foo) do
+  double
+end
+----
+
+[#_ignoresymbolicnames_-false-_default__-rspecverifieddoubles]
+==== `IgnoreSymbolicNames: false (default)`
+
+[source,ruby]
+----
+# bad
+let(:foo) do
+  double(:foo)
+end
+----
+
+[#_ignoresymbolicnames_-true_-rspecverifieddoubles]
+==== `IgnoreSymbolicNames: true`
+
+[source,ruby]
+----
+# good
+let(:foo) do
+  double(:foo)
 end
 ----
 

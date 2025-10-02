@@ -10,17 +10,61 @@ module RuboCop
       # @example
       #   # bad
       #   let(:foo) do
-      #     double(method_name: 'returned value')
+      #     double("ClassName", method_name: 'returned value')
       #   end
       #
       #   # bad
       #   let(:foo) do
-      #     double("ClassName", method_name: 'returned value')
+      #     spy("ClassName", method_name: 'returned value')
       #   end
       #
       #   # good
       #   let(:foo) do
       #     instance_double("ClassName", method_name: 'returned value')
+      #   end
+      #
+      #   # good
+      #   let(:foo) do
+      #     class_double("ClassName", method_name: 'returned value')
+      #   end
+      #
+      #   # good
+      #   let(:foo) do
+      #     object_double("some object", method_name: 'returned value')
+      #   end
+      #
+      # @example `IgnoreNameless: true (default)`
+      #   # good
+      #   let(:foo) do
+      #     double(method_name: 'returned value')
+      #   end
+      #
+      #   # good
+      #   let(:foo) do
+      #     double
+      #   end
+      #
+      # @example `IgnoreNameless: false`
+      #   # bad
+      #   let(:foo) do
+      #     double(method_name: 'returned value')
+      #   end
+      #
+      #   # bad
+      #   let(:foo) do
+      #     double
+      #   end
+      #
+      # @example `IgnoreSymbolicNames: false (default)`
+      #   # bad
+      #   let(:foo) do
+      #     double(:foo)
+      #   end
+      #
+      # @example `IgnoreSymbolicNames: true`
+      #   # good
+      #   let(:foo) do
+      #     double(:foo)
       #   end
       #
       class VerifiedDoubles < Base
