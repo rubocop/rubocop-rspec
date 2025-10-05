@@ -19,6 +19,11 @@ corresponding cop name.*
 
 ______________________________________________________________________
 
+## Steps to reproduce the problem
+
+This is extremely important! Providing us with a reliable way to reproduce
+a problem will expedite its solution.
+
 ## Expected behavior
 
 Describe here how you expected RuboCop RSpec to behave in this particular situation.
@@ -27,11 +32,6 @@ Describe here how you expected RuboCop RSpec to behave in this particular situat
 
 Describe here what actually happened.
 Please use `rubocop --debug` when pasting rubocop output as it contains additional information.
-
-## Steps to reproduce the problem
-
-This is extremely important! Providing us with a reliable way to reproduce
-a problem will expedite its solution.
 
 ## RuboCop RSpec version
 
