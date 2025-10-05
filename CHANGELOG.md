@@ -5,6 +5,7 @@
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
 - Bump RuboCop requirement to +1.81. ([@ydah])
 - Fix a false positive for `RSpec/LetSetup` when `let!` used in outer scope. ([@ydah])
+- Fix a false positive for `RSpec/ReceiveNever` cop when `allow(...).to receive(...).never`. ([@ydah])
 
 ## 3.7.0 (2025-09-01)
 
