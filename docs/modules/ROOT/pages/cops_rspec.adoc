@@ -5156,6 +5156,76 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
+[#rspecredundantpending]
+== RSpec/RedundantPending
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for redundant `pending` or `skip` inside skipped examples.
+
+When an example is already skipped using `xit`, `xspecify`, `xexample`,
+or `skip` metadata, adding `pending` or `skip` inside the example body
+is redundant.
+
+[#examples-rspecredundantpending]
+=== Examples
+
+[source,ruby]
+----
+# bad
+xit 'does something' do
+  pending 'not yet implemented'
+  expect(something).to be_truthy
+end
+
+# bad
+xspecify do
+  pending 'not yet implemented'
+  expect(something).to be_truthy
+end
+
+# bad
+it 'does something', :skip do
+  pending 'not yet implemented'
+  expect(something).to be_truthy
+end
+
+# bad
+it 'does something', skip: true do
+  skip 'not yet implemented'
+  expect(something).to be_truthy
+end
+
+# good
+xit 'does something' do
+  expect(something).to be_truthy
+end
+
+# good
+it 'does something', skip: 'not yet implemented' do
+  expect(something).to be_truthy
+end
+
+# good
+it 'does something' do
+  pending 'not yet implemented'
+  expect(something).to be_truthy
+end
+----
+
+[#references-rspecredundantpending]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPending
+
 [#rspecredundantpredicatematcher]
 == RSpec/RedundantPredicateMatcher
 
