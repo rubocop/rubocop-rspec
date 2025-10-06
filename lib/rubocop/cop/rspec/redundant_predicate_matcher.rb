@@ -5,6 +5,22 @@ module RuboCop
     module RSpec
       # Checks for redundant predicate matcher.
       #
+      # This cop checks for the following matchers:
+      # - `be_all`
+      # - `be_cover`
+      # - `be_end_with`
+      # - `be_eql`
+      # - `be_equal`
+      # - `be_exist`
+      # - `be_exists`
+      # - `be_include`
+      # - `be_match`
+      # - `be_respond_to`
+      # - `be_start_with`
+      #
+      # This cop can be configured with `AllowedIdentifiers` option
+      # to allow specific predicate matchers.
+      #
       # @example
       #   # bad
       #   expect(foo).to be_exist(bar)
@@ -16,7 +32,12 @@ module RuboCop
       #   expect(foo).not_to include(bar)
       #   expect(foo).to all be(bar)
       #
+      # @ example `AllowedIdentifiers: ['be_exist']`
+      #   # good
+      #   expect(foo).to be_exist(bar)
+      #
       class RedundantPredicateMatcher < Base
+        include AllowedIdentifiers
         extend AutoCorrector
 
         MSG = 'Use `%<good>s` instead of `%<bad>s`.'
@@ -30,6 +51,8 @@ module RuboCop
           return unless replaceable_arguments?(node)
 
           method_name = node.method_name.to_s
+          return if allowed_identifiers?(method_name)
+
           replaced = replaced_method_name(method_name)
           add_offense(node, message: message(method_name,
                                              replaced)) do |corrector|
@@ -60,6 +83,14 @@ module RuboCop
           else
             name
           end
+        end
+
+        def allowed_identifiers?(name)
+          allowed_identifiers.include?(name)
+        end
+
+        def allowed_identifiers
+          cop_config.fetch('AllowedIdentifiers', [])
         end
       end
     end

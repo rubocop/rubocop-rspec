@@ -5174,10 +5174,30 @@ end
 | Yes
 | Always
 | 2.26
-| -
+| <next>
 |===
 
 Checks for redundant predicate matcher.
+
+This cop checks for the following matchers:
+- `be_all`
+- `be_cover`
+- `be_end_with`
+- `be_eql`
+- `be_equal`
+- `be_exist`
+- `be_exists`
+- `be_include`
+- `be_match`
+- `be_respond_to`
+- `be_start_with`
+
+This cop can be configured with `AllowedIdentifiers` option
+to allow specific predicate matchers.
+
+@ example `AllowedIdentifiers: ['be_exist']`
+  # good
+  expect(foo).to be_exist(bar)
 
 [#examples-rspecredundantpredicatematcher]
 === Examples
@@ -5194,6 +5214,17 @@ expect(foo).to exist(bar)
 expect(foo).not_to include(bar)
 expect(foo).to all be(bar)
 ----
+
+[#configurable-attributes-rspecredundantpredicatematcher]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| AllowedIdentifiers
+| `[]`
+| Array
+|===
 
 [#references-rspecredundantpredicatematcher]
 === References

@@ -156,4 +156,30 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantPredicateMatcher do
       expect(foo).to end_with(bar)
     RUBY
   end
+
+  context 'when AllowedIdentifiers is set' do
+    let(:cop_config) do
+      {
+        'AllowedIdentifiers' => %w[be_exist be_respond_to]
+      }
+    end
+
+    it 'does not register an offense for allowed identifier' do
+      expect_no_offenses(<<~RUBY)
+        expect(foo).to be_exist(bar)
+        expect(foo).to be_respond_to(bar)
+      RUBY
+    end
+
+    it 'registers an offense for non-allowed identifier' do
+      expect_offense(<<~RUBY)
+        expect(foo).to be_include(bar)
+                       ^^^^^^^^^^^^^^^ Use `include` instead of `be_include`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        expect(foo).to include(bar)
+      RUBY
+    end
+  end
 end
