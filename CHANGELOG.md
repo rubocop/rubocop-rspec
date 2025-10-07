@@ -8,6 +8,7 @@
 - Fix a false positive for `RSpec/ReceiveNever` cop when `allow(...).to receive(...).never`. ([@ydah])
 - Fix detection of nameless doubles with methods in `RSpec/VerifiedDoubles`. ([@ushi-as])
 - Improve an offense message for `RSpec/RepeatedExample` cop. ([@ydah])
+- Fix false negative for `RSpec/RepeatedExampleGroupDescription` cop when include skip/pending. ([@ydah])
 
 ## 3.7.0 (2025-09-01)
 
