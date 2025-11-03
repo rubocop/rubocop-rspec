@@ -6015,7 +6015,7 @@ context 'Something', :z, variable, :a, :b
 | Yes
 | No
 | 2.24
-| -
+| <<next>>
 |===
 
 Checks that spec file paths are consistent and well-formed.
@@ -6072,6 +6072,17 @@ my_class_spec.rb         # describe MyClass, '#method'
 whatever_spec.rb         # describe MyClass, type: :routing do; end
 ----
 
+[#_enforcedinflector_-active_support_-rspecspecfilepathformat]
+==== `EnforcedInflector: active_support`
+
+[source,ruby]
+----
+# Enable to use ActiveSupport's inflector for custom acronyms
+# like HTTP, etc. Set to "default" by default.
+# Configure `InflectorPath` with the path to the inflector file.
+# The default is ./config/initializers/inflections.rb.
+----
+
 [#configurable-attributes-rspecspecfilepathformat]
 === Configurable attributes
 
@@ -6097,6 +6108,14 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | IgnoreMetadata
 | `{"type" => "routing"}`
 | 
+
+| InflectorPath
+| `./config/initializers/inflections.rb`
+| String
+
+| EnforcedInflector
+| `default`
+| `<none>`
 |===
 
 [#references-rspecspecfilepathformat]
