@@ -8,6 +8,7 @@
 - Fix a false positive for `RSpec/ReceiveNever` cop when `allow(...).to receive(...).never`. ([@ydah])
 - Fix detection of nameless doubles with methods in `RSpec/VerifiedDoubles`. ([@ushi-as])
 - Improve an offense message for `RSpec/RepeatedExample` cop. ([@ydah])
+- Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles], [@bquorning])
 
 ## 3.7.0 (2025-09-01)
 

@@ -281,4 +281,142 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
       RUBY
     end
   end
+
+  # We intentionally isolate all of the plugin specs in this context
+  # rubocop:disable RSpec/NestedGroups
+  context 'when using ActiveSupport integration' do
+    around do |example|
+      reset_activesupport_cache!
+      example.run
+      reset_activesupport_cache!
+    end
+
+    def reset_activesupport_cache!
+      described_class::ActiveSupportInflector.instance_variable_set(
+        :@prepared, nil
+      )
+    end
+
+    let(:cop_config) do
+      {
+        'EnforcedInflector' => 'active_support',
+        'InflectorPath' => './config/initializers/inflections.rb'
+      }
+    end
+
+    context 'when ActiveSupport inflections are available' do
+      before do
+        allow(File).to receive(:exist?)
+          .with(cop_config['InflectorPath']).and_return(true)
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with('active_support/inflector')
+        stub_const('ActiveSupport::Inflector',
+                   Module.new { def self.underscore(_); end })
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with('./config/initializers/inflections.rb')
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .with('PvPClass').and_return('pvp_class')
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .with('HTTPClient').and_return('http_client')
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .with('HTTPSClient').and_return('https_client')
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .with('API').and_return('api')
+      end
+
+      it 'uses ActiveSupport inflections for custom acronyms' do
+        expect_no_offenses(<<~RUBY, 'pvp_class_spec.rb')
+          describe PvPClass do; end
+        RUBY
+      end
+
+      it 'registers an offense when ActiveSupport inflections ' \
+         'suggest different path' do
+        expect_offense(<<~RUBY, 'pv_p_class_spec.rb')
+          describe PvPClass do; end
+          ^^^^^^^^^^^^^^^^^ Spec path should end with `pvp_class*_spec.rb`.
+        RUBY
+      end
+
+      it 'does not register complex acronyms with method names' do
+        expect_no_offenses(<<~RUBY, 'pvp_class_foo_spec.rb')
+          describe PvPClass, 'foo' do; end
+        RUBY
+      end
+
+      it 'does not register nested namespaces with custom acronyms' do
+        expect_no_offenses(<<~RUBY, 'api/http_client_spec.rb')
+          describe API::HTTPClient do; end
+        RUBY
+      end
+    end
+
+    describe 'errors during preparation' do
+      it 'shows an error when the configured inflector file does not exist' do
+        allow(File).to receive(:exist?)
+          .with(cop_config['InflectorPath']).and_return(false)
+
+        expect do
+          inspect_source('describe PvPClass do; end', 'pv_p_class_spec.rb')
+        end.to raise_error('The configured `InflectorPath` ./config' \
+                           '/initializers/inflections.rb does not exist.')
+      end
+
+      it 'lets LoadError pass all the way up when ActiveSupport loading ' \
+         'raises an error' do
+        allow(File).to receive(:exist?)
+          .with(cop_config['InflectorPath']).and_return(true)
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with('active_support/inflector').and_raise(LoadError)
+
+        expect do
+          inspect_source('describe PvPClass do; end', 'pv_p_class_spec.rb')
+        end.to raise_error(LoadError)
+      end
+    end
+
+    context 'when testing custom InflectorPath configuration precedence' do
+      let(:cop_config) do
+        {
+          'EnforcedInflector' => 'active_support',
+          'InflectorPath' => '/custom/path/to/inflections.rb'
+        }
+      end
+
+      before do
+        allow(File).to receive(:exist?).and_call_original
+        # Ensure default path is not checked when custom path is configured
+        allow(File).to receive(:exist?)
+          .with('./config/initializers/inflections.rb').and_return(false)
+        allow(File).to receive(:exist?)
+          .with(cop_config['InflectorPath']).and_return(true)
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with('active_support/inflector')
+        stub_const('ActiveSupport::Inflector',
+                   Module.new { def self.underscore(_); end })
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with(cop_config['InflectorPath'])
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .and_return('')
+      end
+
+      it 'reads the InflectorPath configuration correctly and does not ' \
+         'fall back to the default inflector path', :aggregate_failures do
+        expect_no_offenses(<<~RUBY, 'http_client_spec.rb')
+          describe HTTPClient do; end
+        RUBY
+
+        expect(File).to have_received(:exist?)
+          .with('/custom/path/to/inflections.rb')
+        expect(File).not_to have_received(:exist?)
+          .with('./config/initializers/inflections.rb')
+      end
+    end
+  end
+  # rubocop:enable RSpec/NestedGroups
 end
