@@ -294,3 +294,4 @@ Performance/ZipWithoutBlock: {Enabled: true}
 
 RSpec/IncludeExamples: {Enabled: true}
 RSpec/LeakyLocalVariable: {Enabled: true}
+RSpec/Output: {Enabled: true}

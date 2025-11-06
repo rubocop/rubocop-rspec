@@ -4718,6 +4718,37 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
+[#rspecoutput]
+== RSpec/Output
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for the use of output calls like puts and print in specs.
+
+[#examples-rspecoutput]
+=== Examples
+
+[source,ruby]
+----
+# bad
+puts 'A debug message'
+pp 'A debug message'
+print 'A debug message'
+----
+
+[#references-rspecoutput]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Output
+
 [#rspecoverwritingsetup]
 == RSpec/OverwritingSetup
 
