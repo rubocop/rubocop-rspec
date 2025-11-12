@@ -67,7 +67,8 @@ module RuboCop
       #   end
       #
       class MultipleExpectations < Base
-        MSG = 'Example has too many expectations [%<total>d/%<max>d].'
+        MSG = 'Example has too many expectations [%<total>d/%<max>d]. ' \
+              'Consider using `aggregate_failures` if these expectations are logically related.'
 
         ANYTHING = ->(_node) { true }
         TRUE_NODE = lambda(&:true_type?)
