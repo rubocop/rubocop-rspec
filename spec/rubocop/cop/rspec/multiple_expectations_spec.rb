@@ -143,7 +143,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
       expect_offense(<<~RUBY)
         describe Foo, aggregate_failures: true do
           it 'uses expect twice', aggregate_failures: false do
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1]. Consider using `aggregate_failures` if these expectations are logically related.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
           end
@@ -155,7 +155,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
       expect_offense(<<~RUBY)
         describe Foo do
           it 'uses expect twice', aggregate_failures: false do
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1]. Consider using `aggregate_failures` if these expectations are logically related.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
           end
@@ -167,7 +167,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
       expect_offense(<<~RUBY)
         describe Foo, aggregate_failures: false do
           it 'uses expect twice' do
-          ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1]. Consider using `aggregate_failures` if these expectations are logically related.
+          ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
           end
