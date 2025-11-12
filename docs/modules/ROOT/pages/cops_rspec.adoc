@@ -3412,7 +3412,7 @@ end
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.8
 | -
 |===
 
@@ -6015,7 +6015,7 @@ context 'Something', :z, variable, :a, :b
 | Yes
 | No
 | 2.24
-| <<next>>
+| 3.8
 |===
 
 Checks that spec file paths are consistent and well-formed.
