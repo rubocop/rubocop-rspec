@@ -613,7 +613,7 @@ RSpec/LeakyConstantDeclaration:
 RSpec/LeakyLocalVariable:
   Description: Checks for local variables from outer scopes used inside examples.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.8'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeakyLocalVariable
 
 RSpec/LetBeforeExamples:
@@ -945,7 +945,7 @@ RSpec/SpecFilePathFormat:
     - active_support
   EnforcedInflector: default
   VersionAdded: '2.24'
-  VersionChanged: "<<next>>"
+  VersionChanged: '3.8'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 
 RSpec/SpecFilePathSuffix:
