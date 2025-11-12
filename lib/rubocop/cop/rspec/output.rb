@@ -34,8 +34,7 @@ module RuboCop
             ...)
         PATTERN
 
-        # rubocop:disable Metrics/CyclomaticComplexity
-        def on_send(node)
+        def on_send(node) # rubocop:disable Metrics/CyclomaticComplexity
           return if node.parent&.call_type? || node.block_node
           return if !output?(node) && !io_output?(node)
           return if node.arguments.any? { |arg| arg.type?(:hash, :block_pass) }
@@ -44,7 +43,6 @@ module RuboCop
 
           add_offense(range)
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         private
 
