@@ -2,7 +2,7 @@
 
 module RuboCop
   module Cop
-    # NOTE: This is the same as the `Rails/Output` cop with minor changes.
+    # NOTE: Originally based on the `Rails/Output` cop.
     module RSpec
       # Checks for the use of output calls like puts and print in specs.
       #
