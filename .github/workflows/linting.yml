@@ -9,7 +9,7 @@ jobs:
     name: Yamllint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Yamllint
         uses: karancode/yamllint-github-action@master
         with:
@@ -22,7 +22,7 @@ jobs:
     name: Mdformat
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Mdformat
         uses: ydah/mdformat-action@main
         with:
