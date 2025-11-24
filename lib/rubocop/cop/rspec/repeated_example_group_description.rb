@@ -45,7 +45,7 @@ module RuboCop
       class RepeatedExampleGroupDescription < Base
         include SkipOrPending
 
-        MSG = 'Repeated %<group>s block description on line(s) %<loc>s'
+        MSG = 'Repeated %<group>s block description on line(s) %<loc>s.'
 
         # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<~PATTERN
@@ -64,7 +64,9 @@ module RuboCop
           return unless several_example_groups?(node)
 
           repeated_group_descriptions(node).each do |group, repeats|
-            add_offense(group, message: message(group, repeats))
+            message = format(MSG, group: group.method_name,
+                                  loc: repeats.join(', '))
+            add_offense(group, message: message)
           end
         end
 
@@ -74,7 +76,6 @@ module RuboCop
           node
             .children
             .select { |child| example_group?(child) }
-            .reject { |child| skip_or_pending_inside_block?(child) }
             .reject { |child| empty_description?(child) }
             .group_by { |group| doc_string_and_metadata(group) }
             .values
@@ -85,10 +86,6 @@ module RuboCop
         def add_repeated_lines(groups)
           repeated_lines = groups.map(&:first_line)
           groups.map { |group| [group, repeated_lines - [group.first_line]] }
-        end
-
-        def message(group, repeats)
-          format(MSG, group: group.method_name, loc: repeats)
         end
       end
     end
