@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Confirm config and documentation
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -39,7 +39,7 @@ jobs:
           - spec
     name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Test coverage"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -65,7 +65,7 @@ jobs:
           - spec
     name: "Edge RuboCop: ${{ matrix.task }}"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use latest RuboCop from `master`
         run: |
           echo "gem 'rubocop', github: 'rubocop/rubocop'" > Gemfile.local
@@ -85,7 +85,7 @@ jobs:
           - spec
     name: "Oldest RuboCop: ${{ matrix.task }}"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use oldest RuboCop allowed by gemspec
         run: |
           sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     name: RSpec 4
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use latest RSpec 4 from `4-0-dev` branch
         run: |
           sed -e '/rspec/d' -i Gemfile
@@ -122,7 +122,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Prism
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: set up Ruby
         uses: ruby/setup-ruby@v1
         with:
