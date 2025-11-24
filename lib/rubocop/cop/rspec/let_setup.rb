@@ -72,8 +72,9 @@ module RuboCop
         def unused_let_bang(node)
           child_let_bang(node) do |method_send, method_name|
             next if overrides_outer_let_bang?(node, method_name)
+            next if method_called_in_scope?(node, method_name.to_sym)
 
-            yield(method_send) unless method_called?(node, method_name.to_sym)
+            yield(method_send)
           end
         end
 
@@ -96,6 +97,24 @@ module RuboCop
             let_bang(let) do |_send, name|
               name == method_name
             end
+          end
+        end
+
+        def method_called_in_scope?(node, method_name)
+          method_called?(node, method_name) ||
+            method_called_in_parent_hooks?(node, method_name)
+        end
+
+        def method_called_in_parent_hooks?(node, method_name)
+          node.each_ancestor(:block).any? do |ancestor|
+            example_or_shared_group_or_including?(ancestor) &&
+              method_called_in_hooks?(ancestor, method_name)
+          end
+        end
+
+        def method_called_in_hooks?(node, method_name)
+          RuboCop::RSpec::ExampleGroup.new(node).hooks.any? do |hook|
+            method_called?(hook.to_node, method_name)
           end
         end
       end

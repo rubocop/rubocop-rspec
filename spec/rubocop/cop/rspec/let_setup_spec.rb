@@ -257,4 +257,99 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
       end
     RUBY
   end
+
+  it 'ignores let! used in parent after hook' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Parent' do
+        after { variable.cleanup }
+
+        context 'Child' do
+          let!(:variable) { setup }
+          it { expect(true).to be true }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores let! used in parent before hook' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Parent' do
+        before { variable.setup }
+
+        context 'Child' do
+          let!(:variable) { create }
+          it { expect(true).to be true }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores let! used in parent around hook' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Parent' do
+        around { |example| variable.wrap { example.run } }
+
+        context 'Child' do
+          let!(:variable) { create }
+          it { expect(true).to be true }
+        end
+      end
+    RUBY
+  end
+
+  it 'complains when let! is not used anywhere' do
+    expect_offense(<<~RUBY)
+      describe 'Parent' do
+        context 'Child' do
+          let!(:variable) { setup }
+          ^^^^^^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+          it { expect(true).to be true }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores let! used in nested example' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Parent' do
+        context 'Child' do
+          let!(:variable) { setup }
+          it { expect(variable).to be_present }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores let! used in parent after hook with method call' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Example' do
+        after do
+          authenticator.remove!
+        end
+
+        context 'nested' do
+          let!(:authenticator) { create_authenticator }
+
+          it 'does something' do
+            expect(true).to be true
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores let! used in multiple parent levels' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Level 0' do
+        after { variable.cleanup }
+
+        context 'Level 1' do
+          context 'Level 2' do
+            let!(:variable) { setup }
+            it { expect(true).to be true }
+          end
+        end
+      end
+    RUBY
+  end
 end

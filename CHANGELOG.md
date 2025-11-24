@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false positive in `RSpec/LetSetup` cop when `let!` variables are used in blocks declared in an outer context. ([@ydah])
+
 ## 3.8.0 (2025-11-12)
 
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
