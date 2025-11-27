@@ -50,6 +50,11 @@ module RuboCop
       #     subject { MyClass::CONSTANT }
       #   end
       #
+      #   # good
+      #   describe MyClass do
+      #     subject { described_class::CONSTANT }
+      #   end
+      #
       # @example `EnforcedStyle: explicit`
       #   # bad
       #   describe MyClass do
@@ -205,13 +210,15 @@ module RuboCop
         # @return [Array<Symbol>]
         # @example
         #   # nil represents base constant
-        #   collapse_namespace([], [:C])                # => [:C]
+        #   collapse_namespace([], [:C])                # => [nil, :C]
         #   collapse_namespace([:A, :B], [:C])          # => [:A, :B, :C]
         #   collapse_namespace([:A, :B], [:B, :C])      # => [:A, :B, :C]
         #   collapse_namespace([:A, :B], [nil, :C])     # => [nil, :C]
         #   collapse_namespace([:A, :B], [nil, :B, :C]) # => [nil, :B, :C]
         def collapse_namespace(namespace, const)
-          return const if namespace.empty? || const.first.nil?
+          return const if const.nil?
+
+          namespace = [nil] if namespace.empty?
 
           start = [0, (namespace.length - const.length)].max
           max = namespace.length

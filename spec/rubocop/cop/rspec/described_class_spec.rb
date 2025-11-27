@@ -130,6 +130,56 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
+    it 'flags when references use constant base and described class does not' do
+      expect_offense(<<~RUBY)
+        describe MyClass do
+          include ::MyClass
+                  ^^^^^^^^^ Use `described_class` instead of `MyClass`.
+
+          subject { ::MyClass.do_something }
+                    ^^^^^^^^^ Use `described_class` instead of `MyClass`.
+
+          before { ::MyClass.do_something }
+                   ^^^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe MyClass do
+          include described_class
+
+          subject { described_class.do_something }
+
+          before { described_class.do_something }
+        end
+      RUBY
+    end
+
+    it 'flags when described class uses constant base and references do not' do
+      expect_offense(<<~RUBY)
+        describe ::MyClass do
+          include MyClass
+                  ^^^^^^^ Use `described_class` instead of `MyClass`.
+
+          subject { MyClass.do_something }
+                    ^^^^^^^ Use `described_class` instead of `MyClass`.
+
+          before { MyClass.do_something }
+                   ^^^^^^^ Use `described_class` instead of `MyClass`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe ::MyClass do
+          include described_class
+
+          subject { described_class.do_something }
+
+          before { described_class.do_something }
+        end
+      RUBY
+    end
+
     it 'allows accessing constants from variables when in a nested namespace' do
       expect_no_offenses(<<~RUBY)
         module Foo
@@ -435,6 +485,16 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       expect_no_offenses(<<~RUBY)
         describe MyClass do
           subject { (MyNamespace)::MyClass }
+        end
+      RUBY
+    end
+
+    it 'ignores parenthesized namespaces within modules - begin_types' do
+      expect_no_offenses(<<~RUBY)
+        module Foo
+          describe MyClass do
+            subject { (MyNamespace)::MyClass }
+          end
         end
       RUBY
     end

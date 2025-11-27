@@ -1031,6 +1031,11 @@ end
 describe MyClass do
   subject { MyClass::CONSTANT }
 end
+
+# good
+describe MyClass do
+  subject { described_class::CONSTANT }
+end
 ----
 
 [#_enforcedstyle_-explicit_-rspecdescribedclass]

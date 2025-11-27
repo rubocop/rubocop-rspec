@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false negative for constants with constant base in `RSpec/DescribedClass`. ([@lovro-bikic])
+
 ## 3.8.0 (2025-11-12)
 
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])
