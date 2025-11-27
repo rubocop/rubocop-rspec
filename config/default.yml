@@ -815,6 +815,12 @@ RSpec/RedundantAround:
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantAround
 
+RSpec/RedundantPending:
+  Description: Checks for redundant `pending` or `skip` inside skipped examples.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RedundantPending
+
 RSpec/RedundantPredicateMatcher:
   Description: Checks for redundant predicate matcher.
   Enabled: true
