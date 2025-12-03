@@ -57,6 +57,13 @@ module RuboCop
       #     expectations
       #   end
       #
+      #   # good - when variable is used only in example metadata
+      #   skip_message = 'not yet implemented'
+      #
+      #   it 'does something', skip: skip_message do
+      #     expectations
+      #   end
+      #
       #   # good - when variable is used only to include other examples
       #   examples = foo ? 'some examples' : 'other examples'
       #
@@ -103,11 +110,22 @@ module RuboCop
         def allowed_reference?(node)
           node.each_ancestor.any? do |ancestor|
             next true if example_method?(ancestor)
+            next true if in_example_arguments?(ancestor, node)
+
             if includes_method?(ancestor)
               next allowed_includes_arguments?(ancestor, node)
             end
 
             false
+          end
+        end
+
+        def in_example_arguments?(ancestor, node)
+          return false unless ancestor.send_type?
+          return false unless Examples.all(ancestor.method_name)
+
+          ancestor.arguments.any? do |arg|
+            arg.equal?(node) || arg.each_descendant.any?(node)
           end
         end
 

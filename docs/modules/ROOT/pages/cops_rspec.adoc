@@ -3474,6 +3474,13 @@ it "#{attribute} is persisted" do
   expectations
 end
 
+# good - when variable is used only in example metadata
+skip_message = 'not yet implemented'
+
+it 'does something', skip: skip_message do
+  expectations
+end
+
 # good - when variable is used only to include other examples
 examples = foo ? 'some examples' : 'other examples'
 
