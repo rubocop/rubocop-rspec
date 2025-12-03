@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false positive for `RSpec/LeakyLocalVariable` when variables are used only in example metadata (e.g., skip messages). ([@ydah])
+
 ## 3.8.0 (2025-11-12)
 
 - Add new cop `RSpec/LeakyLocalVariable`. ([@lovro-bikic])

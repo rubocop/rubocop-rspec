@@ -316,4 +316,44 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyLocalVariable, :config do
       end
     RUBY
   end
+
+  it 'does not register an offense when variable is used only in skip ' \
+     'metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe SomeClass do
+        skip_message = 'not yet implemented'
+
+        it 'does something', skip: skip_message do
+          expect(1 + 2).to eq(3)
+        end
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when variable is used only in pending ' \
+     'metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe SomeClass do
+        pending_message = 'work in progress'
+
+        it 'does something', pending: pending_message do
+          expect(1 + 2).to eq(3)
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense when variable is used in skip metadata and in ' \
+     'block body' do
+    expect_offense(<<~RUBY)
+      describe SomeClass do
+        skip_message = 'not yet implemented'
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use local variables defined outside of examples inside of them.
+
+        it 'does something', skip: skip_message do
+          puts skip_message
+        end
+      end
+    RUBY
+  end
 end
