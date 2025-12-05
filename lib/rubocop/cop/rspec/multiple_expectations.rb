@@ -66,7 +66,9 @@ module RuboCop
       #     end
       #   end
       #
-      class MultipleExpectations < Base
+      class MultipleExpectations < Base # rubocop:disable Metrics/ClassLength
+        extend AutoCorrector
+
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
         ANYTHING = ->(_node) { true }
@@ -76,6 +78,13 @@ module RuboCop
 
         # @!method aggregate_failures?(node)
         def_node_matcher :aggregate_failures?, <<~PATTERN
+          (send _ _ <{ (sym :aggregate_failures) (hash <(pair (sym :aggregate_failures) _) ...>) } ...>)
+        PATTERN
+        # @!method metadata_present?(node)
+        def_node_matcher :metadata_present?, '(send _ _ <{sym hash} ...>)'
+
+        # @!method aggregate_failures_definition?(node)
+        def_node_matcher :aggregate_failures_definition?, <<~PATTERN
           (block {
               (send _ _ <(sym :aggregate_failures) ...>)
               (send _ _ ... (hash <(pair (sym :aggregate_failures) %1) ...>))
@@ -110,12 +119,14 @@ module RuboCop
           node_with_aggregate_failures = find_aggregate_failures(example_node)
           return false unless node_with_aggregate_failures
 
-          aggregate_failures?(node_with_aggregate_failures, TRUE_NODE)
+          aggregate_failures_definition?(node_with_aggregate_failures,
+                                         TRUE_NODE)
         end
 
         def find_aggregate_failures(example_node)
-          example_node.send_node.each_ancestor(:block)
-            .find { |block_node| aggregate_failures?(block_node, ANYTHING) }
+          example_node.send_node.each_ancestor(:block).find do |block_node|
+            aggregate_failures_definition?(block_node, ANYTHING)
+          end
         end
 
         def find_expectation(node, &block)
@@ -137,11 +148,53 @@ module RuboCop
               total: expectation_count,
               max: max_expectations
             )
-          )
+          ) do |corrector|
+            autocorrect_metadata(corrector, node.send_node)
+          end
         end
 
         def max_expectations
           Integer(cop_config.fetch('Max', 1))
+        end
+
+        def autocorrect_metadata(corrector, node)
+          return if aggregate_failures?(node)
+
+          if metadata_present?(node)
+            add_hash_metadata(corrector, node)
+          else
+            add_symbol_metadata(corrector, node)
+          end
+        end
+
+        def add_symbol_metadata(corrector, node)
+          if node.arguments.empty?
+            # Handle cases like `it { ... }` vs `it(...) { ... }`
+            loc, str = if node.loc.begin
+                         [node.loc.begin, ':aggregate_failures']
+                       else
+                         [node.loc.selector, '(:aggregate_failures)']
+                       end
+            corrector.insert_after(loc, str)
+          else
+            corrector.insert_after(node.last_argument,
+                                   ', :aggregate_failures')
+          end
+        end
+
+        def add_hash_metadata(corrector, node)
+          if (hash_node = node.arguments.reverse.find(&:hash_type?))
+            if hash_node.pairs.empty?
+              corrector.insert_before(hash_node.loc.end,
+                                      ' aggregate_failures: true ')
+            else
+              corrector.insert_after(hash_node.pairs.last,
+                                     ', aggregate_failures: true')
+            end
+          else
+            corrector.insert_after(node.last_argument,
+                                   ', aggregate_failures: true')
+          end
         end
       end
     end

@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix a false positive for `RSpec/LeakyLocalVariable` when variables are used only in example metadata (e.g., skip messages). ([@ydah])
+- Add autocorrect support for `RSpec/MultipleExpectations`. ([@gildesmarais])
 
 ## 3.8.0 (2025-11-12)
 
@@ -1006,6 +1007,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@franzliedke]: https://github.com/franzliedke
 [@g-rath]: https://github.com/G-Rath
 [@geniou]: https://github.com/geniou
+[@gildesmarais]: https://github.com/gildesmarais
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@harry-graham]: https://github.com/harry-graham
 [@harrylewis]: https://github.com/harrylewis
