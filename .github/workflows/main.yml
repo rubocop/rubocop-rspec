@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ruby
           bundler-cache: true
       - run: bundle exec rake confirm_config documentation_syntax_check confirm_documentation
 
@@ -53,6 +54,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ruby
           bundler-cache: true
       - run: bundle exec rake spec
 
@@ -72,6 +74,7 @@ jobs:
           cat Gemfile.local
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ruby
           bundler-cache: true
       - name: Show RuboCop version
         run: grep '^    rubocop' Gemfile.lock | sort
@@ -93,6 +96,7 @@ jobs:
           cat Gemfile.local
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ruby
           bundler-cache: true
       - name: Show RuboCop version
         run: grep '^    rubocop' Gemfile.lock | sort
@@ -115,6 +119,7 @@ jobs:
           EOF
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ruby
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake spec
 
