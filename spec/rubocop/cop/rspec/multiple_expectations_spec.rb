@@ -92,6 +92,106 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
         end
       RUBY
     end
+
+    describe 'autocorrect' do
+      it 'adds :aggregate_failures when no metadata is present' do
+        expect_offense(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice' do
+            ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', :aggregate_failures do
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+      end
+
+      it 'adds parentheses when the example has no arguments' do
+        expect_offense(<<~RUBY)
+          describe Foo do
+            it do
+            ^^ Example has too many expectations [2/1].
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe Foo do
+            it(:aggregate_failures) do
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+      end
+
+      it 'appends aggregate_failures to existing metadata hash arguments' do
+        expect_offense(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', foo: :bar do
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', foo: :bar, aggregate_failures: true do
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+      end
+
+      it 'appends aggregate_failures keyword arguments when metadata exists' do
+        expect_offense(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', :foo do
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', :foo, aggregate_failures: true do
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+      end
+
+      it 'does not autocorrect when aggregate_failures metadata exists' do
+        expect_offense(<<~RUBY)
+          describe Foo do
+            it 'uses expect twice', aggregate_failures: false do
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+              expect(foo).to eq(bar)
+              expect(baz).to eq(bar)
+            end
+          end
+        RUBY
+
+        expect_no_corrections
+      end
+    end
   end
 
   context 'with metadata' do
