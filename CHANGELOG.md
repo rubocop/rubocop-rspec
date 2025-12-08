@@ -13,6 +13,7 @@
 - Fix detection of nameless doubles with methods in `RSpec/VerifiedDoubles`. ([@ushi-as])
 - Improve an offense message for `RSpec/RepeatedExample` cop. ([@ydah])
 - Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles], [@bquorning])
+- Add new cop `RSpec/Output`. ([@kevinrobell-st])
 
 ## 3.7.0 (2025-09-01)
 
@@ -1025,6 +1026,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@jtannas]: https://github.com/jtannas
 [@k-s-a]: https://github.com/K-S-A
 [@kellysutton]: https://github.com/kellysutton
+[@kevinrobell-st]: https://github.com/kevinrobell-st
 [@koic]: https://github.com/koic
 [@krororo]: https://github.com/krororo
 [@kuahyeow]: https://github.com/kuahyeow

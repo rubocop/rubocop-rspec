@@ -77,6 +77,7 @@
 * xref:cops_rspec.adoc#rspecnestedgroups[RSpec/NestedGroups]
 * xref:cops_rspec.adoc#rspecnoexpectationexample[RSpec/NoExpectationExample]
 * xref:cops_rspec.adoc#rspecnottonot[RSpec/NotToNot]
+* xref:cops_rspec.adoc#rspecoutput[RSpec/Output]
 * xref:cops_rspec.adoc#rspecoverwritingsetup[RSpec/OverwritingSetup]
 * xref:cops_rspec.adoc#rspecpending[RSpec/Pending]
 * xref:cops_rspec.adoc#rspecpendingwithoutreason[RSpec/PendingWithoutReason]

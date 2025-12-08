@@ -758,6 +758,14 @@ RSpec/NotToNot:
   VersionAdded: '1.4'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
 
+RSpec/Output:
+  Description: Checks for the use of output calls like puts and print in specs.
+  Enabled: pending
+  AutoCorrect: contextual
+  SafeAutoCorrect: false
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Output
+
 RSpec/OverwritingSetup:
   Description: Checks if there is a let/subject that overwrites an existing one.
   Enabled: true
