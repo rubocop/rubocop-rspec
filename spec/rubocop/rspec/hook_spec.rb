@@ -137,4 +137,100 @@ RSpec.describe RuboCop::RSpec::Hook, :config do
       ).to eq("{#{expected_symbol}, #{expected_special}, #{expected_focus}}")
     end
   end
+
+  describe '#inside_class_method?' do
+    def example_group_hook(source)
+      RuboCop::RSpec::ExampleGroup.new(parse_source(source).ast).hooks.first
+    end
+
+    it 'returns true if the hook is in class method' do
+      expect(
+        example_group_hook(
+          'describe Foo { def self.setup; before { do_something }; end }'
+        ).inside_class_method?
+      ).to be(true)
+    end
+
+    it 'returns true if the hook is in class << self method' do
+      source = <<~RUBY
+        describe Foo do
+          class << self
+            def setup
+              before { do_something }
+            end
+          end
+        end
+      RUBY
+      expect(example_group_hook(source).inside_class_method?).to be(true)
+    end
+
+    it 'returns true if the hook is in method in multiline class << self' do
+      source = <<~RUBY
+        describe Foo do
+          class << self
+            other_code
+
+            def setup
+              before { do_something }
+            end
+          end
+        end
+      RUBY
+      expect(example_group_hook(source).inside_class_method?).to be(true)
+    end
+
+    it 'returns false if the hook is in instance method' do
+      expect(
+        example_group_hook(
+          'describe Foo { def setup; before { do_something }; end }'
+        ).inside_class_method?
+      ).to be(false)
+    end
+
+    it 'returns false if the hook is in instance method of multiline class' do
+      source = <<~RUBY
+        describe Foo do
+          other_code
+
+          def setup
+            before { do_something }
+          end
+        end
+      RUBY
+      expect(example_group_hook(source).inside_class_method?).to be(false)
+    end
+
+    it 'returns false if the hook is in in method in global scope' do
+      expect(
+        example_group_hook(
+          'def setup; before { do_something }; end'
+        ).inside_class_method?
+      ).to be(false)
+    end
+
+    it 'returns false if the hook is in multiline global scope' do
+      source = <<~RUBY
+        other_code
+
+        def setup
+          before { do_something }
+        end
+      RUBY
+      expect(example_group_hook(source).inside_class_method?).to be(false)
+    end
+
+    it 'returns false if the hook is in example group body' do
+      expect(
+        example_group_hook(
+          'describe Foo { before { do_something } }'
+        ).inside_class_method?
+      ).to be(false)
+    end
+
+    it 'returns false if the hook is in global scope' do
+      expect(
+        hook('before { do_something }').inside_class_method?
+      ).to be(false)
+    end
+  end
 end

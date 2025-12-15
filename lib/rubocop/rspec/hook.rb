@@ -25,6 +25,13 @@ module RuboCop
         scope.equal?(:each)
       end
 
+      def inside_class_method? # rubocop:disable Metrics/CyclomaticComplexity
+        parent = node.parent
+        return false unless parent
+
+        parent.defs_type? || (parent.def_type? && inside_class_self?(parent))
+      end
+
       def scope
         return :each if scope_argument&.hash_type?
 
@@ -75,6 +82,12 @@ module RuboCop
 
       def scope_argument
         node.send_node.first_argument
+      end
+
+      def inside_class_self?(node)
+        node.parent&.sclass_type? ||
+          (node.parent&.begin_type? && node.parent.parent&.sclass_type?) ||
+          false
       end
     end
   end
