@@ -202,4 +202,29 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
       end
     RUBY
   end
+
+  it 'ignores blocks defined inside class methods' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        before { bar }
+        def self.setup
+          before { baz }
+        end
+        setup
+      end
+    RUBY
+  end
+
+  it 'ignores blocks defined in class << self' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        before { bar }
+        class << self
+          def setup
+            before { baz }
+          end
+        end
+      end
+    RUBY
+  end
 end

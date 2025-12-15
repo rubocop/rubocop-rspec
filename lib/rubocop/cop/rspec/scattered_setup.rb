@@ -8,6 +8,7 @@ module RuboCop
       # Unify `before` and `after` hooks when possible.
       # However, `around` hooks are allowed to be defined multiple times,
       # as unifying them would typically make the code harder to read.
+      # Hooks defined in class methods are also ignored.
       #
       # @example
       #   # bad
@@ -28,6 +29,14 @@ module RuboCop
       #   describe Foo do
       #     around { |example| before1; example.call; after1 }
       #     around { |example| before2; example.call; after2 }
+      #   end
+      #
+      #   # good
+      #   describe Foo do
+      #     before { setup1 }
+      #     def self.setup
+      #       before { setup2 }
+      #     end
       #   end
       #
       class ScatteredSetup < Base
@@ -53,9 +62,10 @@ module RuboCop
 
         private
 
-        def repeated_hooks(node)
+        def repeated_hooks(node) # rubocop:disable Metrics/CyclomaticComplexity
           hooks = RuboCop::RSpec::ExampleGroup.new(node)
             .hooks
+            .reject(&:inside_class_method?)
             .select { |hook| hook.knowable_scope? && hook.name != :around }
             .group_by { |hook| [hook.name, hook.scope, hook.metadata] }
             .values
