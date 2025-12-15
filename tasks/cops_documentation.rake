@@ -5,6 +5,48 @@ require 'rubocop-rspec'
 require 'rubocop/cops_documentation_generator'
 require 'yard'
 
+# Monkey patch to normalize Hash formatting regardless of Ruby version
+class CopsDocumentationGenerator
+  private
+
+  # Override to normalize Hash values to Ruby 3.4+ format
+  def format_table_value(val)
+    value =
+      case val
+      when Array
+        if val.empty?
+          '`[]`'
+        else
+          val.map { |config| format_table_value(config) }.join(', ')
+        end
+      when Hash
+        # Normalize Hash to Ruby 3.4+ format with spaces around =>
+        normalize_hash(val)
+      else
+        wrap_backtick(val.nil? ? '<none>' : val)
+      end
+    value.gsub("#{@base_dir}/", '').rstrip
+  end
+
+  def normalize_hash(hash)
+    return '`{}`' if hash.empty?
+
+    pairs = hash.map do |key, value|
+      formatted_key = key.inspect
+      formatted_value = value.is_a?(String) ? value.inspect : value.to_s
+
+      # Use symbol colon syntax for symbol keys, hash rocket for others
+      if key.is_a?(Symbol)
+        "#{key}: #{formatted_value}"
+      else
+        "#{formatted_key} => #{formatted_value}"
+      end
+    end
+
+    "`{#{pairs.join(', ')}}`"
+  end
+end
+
 YARD::Rake::YardocTask.new(:yard_for_generate_documentation) do |task|
   task.files = ['lib/rubocop/cop/**/*.rb']
   task.options = ['--no-output']
