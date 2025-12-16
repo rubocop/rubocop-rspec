@@ -87,6 +87,8 @@ module RuboCop
             {
               (send (const nil? {:Class :Module :Struct}) :new ...)
               (send (const nil? :Data) :define ...)
+              (send _ {:class_eval :module_eval :instance_eval} ...)
+              (send _ {:class_exec :module_exec :instance_exec} ...)
             }
             ...
           )
