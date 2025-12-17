@@ -4,6 +4,7 @@
 
 - Fix a false positive for `RSpec/LeakyLocalVariable` when variables are used only in example metadata (e.g., skip messages). ([@ydah])
 - Fix a false positive for `RSpec/ScatteredSetup` when the hook is defined inside a class method. ([@d4rky-pl])
+- Fix a false positive for `RSpec/DescribedClass` inside dynamically evaluated blocks (`class_eval`, `module_eval`, `instance_eval`, `class_exec`, `module_exec`, `instance_exec`). ([@sucicfilip])
 
 ## 3.8.0 (2025-11-12)
 
@@ -1083,6 +1084,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@smcgivern]: https://github.com/smcgivern
 [@splattael]: https://github.com/splattael
 [@stephannv]: https://github.com/stephannv
+[@sucicfilip]: https://github.com/sucicfilip
 [@swelther]: https://github.com/swelther
 [@t3h2mas]: https://github.com/t3h2mas
 [@tdeo]: https://github.com/tdeo

@@ -195,6 +195,34 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
       RUBY
     end
 
+    it 'ignores class inside *_eval and *_exec blocks' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo do
+          before do
+            stub_const('Dummy', Class.new).class_eval do
+              Foo.new
+            end
+
+            stub_const('Dummy', Class.new).module_eval do
+              Foo.new
+            end
+
+            stub_const('Dummy', Class.new).instance_eval do
+              Foo.new
+            end
+
+            stub_const('Dummy', Class.new).class_exec do
+              Foo.new
+            end
+
+            stub_const('Dummy', Class.new).module_exec do
+              Foo.new
+            end
+          end
+        end
+      RUBY
+    end
+
     it 'takes class from innermost describe' do
       expect_offense(<<~RUBY)
         describe MyClass do
