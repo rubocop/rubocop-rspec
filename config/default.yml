@@ -763,7 +763,7 @@ RSpec/Output:
   Enabled: pending
   AutoCorrect: contextual
   SafeAutoCorrect: false
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.9'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Output
 
 RSpec/OverwritingSetup:
