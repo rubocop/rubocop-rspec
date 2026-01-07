@@ -5,6 +5,7 @@
 - Fix a false positive for `RSpec/LeakyLocalVariable` when variables are used only in example metadata (e.g., skip messages). ([@ydah])
 - Fix a false positive for `RSpec/ScatteredSetup` when the hook is defined inside a class method. ([@d4rky-pl])
 - Fix a false positive for `RSpec/DescribedClass` inside dynamically evaluated blocks (`class_eval`, `module_eval`, `instance_eval`, `class_exec`, `module_exec`, `instance_exec`). ([@sucicfilip])
+- Add new cop `RSpec/Output`. ([@kevinrobell-st])
 
 ## 3.8.0 (2025-11-12)
 
@@ -15,7 +16,6 @@
 - Fix detection of nameless doubles with methods in `RSpec/VerifiedDoubles`. ([@ushi-as])
 - Improve an offense message for `RSpec/RepeatedExample` cop. ([@ydah])
 - Let `RSpec/SpecFilePathFormat` leverage ActiveSupport inflections when configured. ([@corsonknowles], [@bquorning])
-- Add new cop `RSpec/Output`. ([@kevinrobell-st])
 
 ## 3.7.0 (2025-09-01)
 
