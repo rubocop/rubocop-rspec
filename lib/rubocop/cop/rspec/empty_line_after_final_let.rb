@@ -23,8 +23,13 @@ module RuboCop
 
         MSG = 'Add an empty line after the last `%<let>s`.'
 
+        # @!method example_group_or_include?(node)
+        def_node_matcher :example_group_or_include?, <<~PATTERN
+          (block (send #rspec? {#SharedGroups.all #ExampleGroups.all #Includes.all} ...) args $_)
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless example_group_with_body?(node)
+          return unless example_group_or_include?(node)
 
           final_let = node.body.child_nodes.reverse.find { |child| let?(child) }
 
