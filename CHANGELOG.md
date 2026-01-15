@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
+
 ## 3.9.0 (2026-01-07)
 
 - Fix a false positive for `RSpec/LeakyLocalVariable` when variables are used only in example metadata (e.g., skip messages). ([@ydah])

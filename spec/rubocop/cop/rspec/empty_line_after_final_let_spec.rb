@@ -21,6 +21,55 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterFinalLet do
     RUBY
   end
 
+  it 'registers an offense for empty line after last let in shared examples' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        shared_examples_for 'some shared behavior' do
+          let(:a) { a }
+          let(:b) { b }
+          ^^^^^^^^^^^^^ Add an empty line after the last `let`.
+          it { expect(a).to eq(b) }
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        shared_examples_for 'some shared behavior' do
+          let(:a) { a }
+          let(:b) { b }
+
+          it { expect(a).to eq(b) }
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for empty line after last let in' \
+     'included examples' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        it_behaves_like 'some shared behavior' do
+          let(:a) { a }
+          let(:b) { b }
+          ^^^^^^^^^^^^^ Add an empty line after the last `let`.
+          it { expect(a).to eq(b) }
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        it_behaves_like 'some shared behavior' do
+          let(:a) { a }
+          let(:b) { b }
+
+          it { expect(a).to eq(b) }
+        end
+      end
+    RUBY
+  end
+
   it 'registers an offense for empty line after the last `let!`' do
     expect_offense(<<~RUBY)
       RSpec.describe User do
