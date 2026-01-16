@@ -41,15 +41,21 @@ module RuboCop
 
         def check_let_declarations(body)
           lets = body.each_child_node.select { |node| let?(node) }
+          return if lets.empty?
 
           first_let = lets.first
+          reference_let = first_let
+
           lets.each_with_index do |node, idx|
-            next if node.sibling_index == first_let.sibling_index + idx
+            if node.sibling_index == first_let.sibling_index + idx
+              reference_let = node
+              next
+            end
 
             add_offense(node) do |corrector|
               RuboCop::RSpec::Corrector::MoveNode.new(
                 node, corrector, processed_source
-              ).move_after(first_let)
+              ).move_after(reference_let)
             end
           end
         end
