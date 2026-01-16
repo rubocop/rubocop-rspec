@@ -16,6 +16,8 @@ module RuboCop
       #   end
       #
       class RepeatedExample < Base
+        include RepeatedItems
+
         MSG = "Don't repeat examples within an example group. " \
               'Repeated on line(s) %<lines>s.'
 
@@ -32,10 +34,10 @@ module RuboCop
         def find_repeated_examples(node)
           examples = RuboCop::RSpec::ExampleGroup.new(node).examples
 
-          examples
-            .group_by { |example| build_example_signature(example) }
-            .values
-            .select { |group| group.size > 1 }
+          find_repeated_groups(
+            examples,
+            key_proc: ->(example) { build_example_signature(example) }
+          )
         end
 
         def build_example_signature(example)

@@ -46,6 +46,8 @@ module RuboCop
       #   end
       #
       class RepeatedIncludeExample < Base
+        include RepeatedItems
+
         MSG = 'Repeated include of shared_examples %<name>s ' \
               'on line(s) %<repeat>s'
 
@@ -73,23 +75,18 @@ module RuboCop
         private
 
         def repeated_include_examples(node)
-          node
-            .children
+          items = node.children
             .select { |child| literal_include_examples?(child) }
-            .group_by { |child| signature_keys(child) }
-            .values
-            .reject(&:one?)
-            .flat_map { |items| add_repeated_lines(items) }
+
+          find_repeated_groups(
+            items,
+            key_proc: ->(child) { signature_keys(child) }
+          ).flat_map { |group| add_repeated_lines(group) }
         end
 
         def literal_include_examples?(node)
           include_examples?(node) &&
             node.arguments.all?(&:recursive_literal_or_const?)
-        end
-
-        def add_repeated_lines(items)
-          repeated_lines = items.map(&:first_line)
-          items.map { |item| [item, repeated_lines - [item.first_line]] }
         end
 
         def signature_keys(item)

@@ -42,6 +42,7 @@ module RuboCop
       class ScatteredSetup < Base
         include FinalEndLocation
         include RangeHelp
+        include RepeatedItems
         extend AutoCorrector
 
         MSG = 'Do not define multiple `%<hook_name>s` hooks in the same ' \
@@ -63,17 +64,14 @@ module RuboCop
         private
 
         def repeated_hooks(node) # rubocop:disable Metrics/CyclomaticComplexity
-          hooks = RuboCop::RSpec::ExampleGroup.new(node)
-            .hooks
+          hooks = RuboCop::RSpec::ExampleGroup.new(node).hooks
             .reject(&:inside_class_method?)
             .select { |hook| hook.knowable_scope? && hook.name != :around }
-            .group_by { |hook| [hook.name, hook.scope, hook.metadata] }
-            .values
-            .reject(&:one?)
 
-          hooks.map do |hook|
-            hook.map(&:to_node)
-          end
+          find_repeated_groups(
+            hooks,
+            key_proc: ->(hook) { [hook.name, hook.scope, hook.metadata] }
+          ).map { |hook_group| hook_group.map(&:to_node) }
         end
 
         def lines_msg(numbers)
