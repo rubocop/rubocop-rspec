@@ -10,6 +10,10 @@ module RuboCop
       #
       # This cop can be configured using the `EnforcedStyle` option.
       #
+      # When using compound expectations with `change` and a negated matcher
+      # (e.g., `not_change`), you can configure the `NegatedMatcher` option
+      # to ensure consistent style enforcement across both matchers.
+      #
       # @safety
       #   Autocorrection is unsafe because `method_call` style calls the
       #   receiver *once* and sends the message to it before and after
@@ -48,23 +52,29 @@ module RuboCop
       #   # good
       #   expect { run }.to change { Foo.bar }
       #
+      # @example `NegatedMatcher: not_change` (with compound expectations)
+      #   # bad
+      #   expect { run }.to change(Foo, :bar).and not_change { Foo.baz }
+      #
+      #   # good
+      #   expect { run }.to change(Foo, :bar).and not_change(Foo, :baz)
+      #
       class ExpectChange < Base
         extend AutoCorrector
         include ConfigurableEnforcedStyle
 
-        MSG_BLOCK = 'Prefer `change(%<obj>s, :%<attr>s)`.'
-        MSG_CALL = 'Prefer `change { %<obj>s.%<attr>s }`.'
-        RESTRICT_ON_SEND = %i[change].freeze
+        MSG_BLOCK = 'Prefer `%<matcher>s(%<obj>s, :%<attr>s)`.'
+        MSG_CALL = 'Prefer `%<matcher>s { %<obj>s.%<attr>s }`.'
 
-        # @!method expect_change_with_arguments(node)
-        def_node_matcher :expect_change_with_arguments, <<~PATTERN
-          (send nil? :change $_ ({sym str} $_))
+        # @!method expect_matcher_with_arguments(node)
+        def_node_matcher :expect_matcher_with_arguments, <<~PATTERN
+          (send nil? _ $_ ({sym str} $_))
         PATTERN
 
-        # @!method expect_change_with_block(node)
-        def_node_matcher :expect_change_with_block, <<~PATTERN
+        # @!method expect_matcher_with_block(node)
+        def_node_matcher :expect_matcher_with_block, <<~PATTERN
           (block
-            (send nil? :change)
+            (send nil? _)
             (args)
             (send
               ${
@@ -78,11 +88,14 @@ module RuboCop
 
         def on_send(node)
           return unless style == :block
+          return unless matcher_method?(node.method_name)
 
-          expect_change_with_arguments(node) do |receiver, message|
-            msg = format(MSG_CALL, obj: receiver.source, attr: message)
+          expect_matcher_with_arguments(node) do |receiver, message|
+            matcher_name = node.method_name.to_s
+            msg = format(MSG_CALL, matcher: matcher_name,
+                                   obj: receiver.source, attr: message)
             add_offense(node, message: msg) do |corrector|
-              replacement = "change { #{receiver.source}.#{message} }"
+              replacement = "#{matcher_name} { #{receiver.source}.#{message} }"
               corrector.replace(node, replacement)
             end
           end
@@ -90,14 +103,35 @@ module RuboCop
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless style == :method_call
+          return unless matcher_method?(node.method_name)
 
-          expect_change_with_block(node) do |receiver, message|
-            msg = format(MSG_BLOCK, obj: receiver.source, attr: message)
+          expect_matcher_with_block(node) do |receiver, message|
+            matcher_name = node.method_name.to_s
+            msg = format(MSG_BLOCK, matcher: matcher_name,
+                                    obj: receiver.source, attr: message)
             add_offense(node, message: msg) do |corrector|
-              replacement = "change(#{receiver.source}, :#{message})"
+              replacement = "#{matcher_name}(#{receiver.source}, :#{message})"
               corrector.replace(node, replacement)
             end
           end
+        end
+
+        private
+
+        def matcher_method_names
+          @matcher_method_names ||= begin
+            names = [:change]
+            names << negated_matcher.to_sym if negated_matcher
+            names
+          end
+        end
+
+        def matcher_method?(method_name)
+          matcher_method_names.include?(method_name)
+        end
+
+        def negated_matcher
+          cop_config['NegatedMatcher']
         end
       end
     end
