@@ -158,4 +158,33 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
   end
+
+  it 'preserves the order of `let`s' do
+    expect_offense(<<~RUBY)
+      describe User do
+        let(:a) { a }
+        let(:b) { b }
+        it { expect(subject.foo).to eq(a) }
+        let(:c) { c }
+        ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+        let(:d) { d }
+        ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+        it { expect(subject.bar).to eq(d) }
+        let(:e) { e }
+        ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe User do
+        let(:a) { a }
+        let(:b) { b }
+        let(:c) { c }
+        let(:d) { d }
+        let(:e) { e }
+        it { expect(subject.foo).to eq(a) }
+        it { expect(subject.bar).to eq(d) }
+      end
+    RUBY
+  end
 end
