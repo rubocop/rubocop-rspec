@@ -19,11 +19,11 @@ module RuboCop
       #
       #   # good
       #   describe Foo do
-      #     subject { Foo }
-      #     before { prepare }
       #     let(:foo) { 1 }
       #     let(:bar) { 2 }
       #     let!(:baz) { 3 }
+      #     subject { Foo }
+      #     before { prepare }
       #   end
       #
       class ScatteredLet < Base
