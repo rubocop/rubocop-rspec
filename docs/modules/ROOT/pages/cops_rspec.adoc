@@ -2395,6 +2395,44 @@ focus 'test' do; end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
+[#rspechaveattributes]
+== RSpec/HaveAttributes
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for expectations on the same object that can be combined.
+
+[#examples-rspechaveattributes]
+=== Examples
+
+[source,ruby]
+----
+# bad
+expect(obj.foo).to eq(bar)
+expect(obj.fu).to eq(bax)
+expect(obj.name).to eq(baz)
+
+# good
+expect(obj).to have_attributes(
+  foo: bar,
+  fu: bax,
+  name: baz
+)
+----
+
+[#references-rspechaveattributes]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HaveAttributes
+
 [#rspechookargument]
 == RSpec/HookArgument
 
