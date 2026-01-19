@@ -270,4 +270,126 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       RUBY
     end
   end
+
+  context "with `NegatedMatcher: 'not_change'`" do
+    let(:cop_config) do
+      { 'EnforcedStyle' => enforced_style, 'NegatedMatcher' => 'not_change' }
+    end
+
+    context 'with EnforcedStyle `method_call`' do
+      let(:enforced_style) { 'method_call' }
+
+      it 'flags negated matcher with block style' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to not_change { User.count }
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change(User, :count)`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to not_change(User, :count)
+          end
+        RUBY
+      end
+
+      it 'flags negated matcher in compound expectations' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to change(Foo, :bar).and not_change { Foo.baz }
+                                                    ^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change(Foo, :baz)`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to change(Foo, :bar).and not_change(Foo, :baz)
+          end
+        RUBY
+      end
+
+      it 'flags both change and negated matcher in compound expectations' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to change { Foo.bar }.and not_change { Foo.baz }
+                              ^^^^^^^^^^^^^^^^^^ Prefer `change(Foo, :bar)`.
+                                                     ^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change(Foo, :baz)`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to change(Foo, :bar).and not_change(Foo, :baz)
+          end
+        RUBY
+      end
+
+      it 'ignores when both use method_call style' do
+        expect_no_offenses(<<~RUBY)
+          it do
+            expect { run }.to change(Foo, :bar).and not_change(Foo, :baz)
+          end
+        RUBY
+      end
+    end
+
+    context 'with EnforcedStyle `block`' do
+      let(:enforced_style) { 'block' }
+
+      it 'flags negated matcher with method call style' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to not_change(User, :count)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change { User.count }`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to not_change { User.count }
+          end
+        RUBY
+      end
+
+      it 'flags negated matcher in compound expectations' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to change { Foo.bar }.and not_change(Foo, :baz)
+                                                     ^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change { Foo.baz }`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to change { Foo.bar }.and not_change { Foo.baz }
+          end
+        RUBY
+      end
+
+      it 'flags both change and negated matcher in compound expectations' do
+        expect_offense(<<~RUBY)
+          it do
+            expect { run }.to change(Foo, :bar).and not_change(Foo, :baz)
+                              ^^^^^^^^^^^^^^^^^ Prefer `change { Foo.bar }`.
+                                                    ^^^^^^^^^^^^^^^^^^^^^ Prefer `not_change { Foo.baz }`.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it do
+            expect { run }.to change { Foo.bar }.and not_change { Foo.baz }
+          end
+        RUBY
+      end
+
+      it 'ignores when both use block style' do
+        expect_no_offenses(<<~RUBY)
+          it do
+            expect { run }.to change { Foo.bar }.and not_change { Foo.baz }
+          end
+        RUBY
+      end
+    end
+  end
 end

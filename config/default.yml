@@ -453,7 +453,8 @@ RSpec/ExpectChange:
     - block
   SafeAutoCorrect: false
   VersionAdded: '1.22'
-  VersionChanged: '2.5'
+  VersionChanged: "<<next>>"
+  NegatedMatcher: ~
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
 RSpec/ExpectInHook:
