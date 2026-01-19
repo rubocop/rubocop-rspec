@@ -44,6 +44,7 @@
 * xref:cops_rspec.adoc#rspecexpectinlet[RSpec/ExpectInLet]
 * xref:cops_rspec.adoc#rspecexpectoutput[RSpec/ExpectOutput]
 * xref:cops_rspec.adoc#rspecfocus[RSpec/Focus]
+* xref:cops_rspec.adoc#rspechaveattributes[RSpec/HaveAttributes]
 * xref:cops_rspec.adoc#rspechookargument[RSpec/HookArgument]
 * xref:cops_rspec.adoc#rspechooksbeforeexamples[RSpec/HooksBeforeExamples]
 * xref:cops_rspec.adoc#rspecidenticalequalityassertion[RSpec/IdenticalEqualityAssertion]

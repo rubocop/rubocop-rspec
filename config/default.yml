@@ -482,6 +482,12 @@ RSpec/Focus:
   VersionChanged: '2.31'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus
 
+RSpec/HaveAttributes:
+  Description: Checks for expectations on the same object that can be combined.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HaveAttributes
+
 RSpec/HookArgument:
   Description: Checks the arguments passed to `before`, `around`, and `after`.
   Enabled: true
