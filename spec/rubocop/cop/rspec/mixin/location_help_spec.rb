@@ -12,8 +12,10 @@ RSpec.describe RuboCop::Cop::RSpec::LocationHelp do
       let(:source) { 'a b' }
 
       it 'returns #<Parser::Source::Range (string) 1...3>' do
-        expect(arguments_with_whitespace.begin_pos).to eq 1
-        expect(arguments_with_whitespace.end_pos).to eq 3
+        expect(arguments_with_whitespace).to have_attributes(
+          begin_pos: 1,
+          end_pos: 3
+        )
       end
     end
 
@@ -21,8 +23,10 @@ RSpec.describe RuboCop::Cop::RSpec::LocationHelp do
       let(:source) { 'foo 1, 2' }
 
       it 'returns #<Parser::Source::Range (string) 3...8>' do
-        expect(arguments_with_whitespace.begin_pos).to eq 3
-        expect(arguments_with_whitespace.end_pos).to eq 8
+        expect(arguments_with_whitespace).to have_attributes(
+          begin_pos: 3,
+          end_pos: 8
+        )
       end
     end
 
@@ -30,8 +34,10 @@ RSpec.describe RuboCop::Cop::RSpec::LocationHelp do
       let(:source) { 'foo(bar, baz)' }
 
       it 'returns #<Parser::Source::Range (string) 3...13>' do
-        expect(arguments_with_whitespace.begin_pos).to eq 3
-        expect(arguments_with_whitespace.end_pos).to eq 13
+        expect(arguments_with_whitespace).to have_attributes(
+          begin_pos: 3,
+          end_pos: 13
+        )
       end
     end
   end
@@ -64,8 +70,10 @@ RSpec.describe RuboCop::Cop::RSpec::LocationHelp do
       let(:source) { 'a { b }' }
 
       it 'returns #<Parser::Source::Range (string) 1...7>' do
-        expect(block_with_whitespace.begin_pos).to eq 1
-        expect(block_with_whitespace.end_pos).to eq 7
+        expect(block_with_whitespace).to have_attributes(
+          begin_pos: 1,
+          end_pos: 7
+        )
       end
     end
 
@@ -74,8 +82,10 @@ RSpec.describe RuboCop::Cop::RSpec::LocationHelp do
       let(:source) { 'foo { bar + baz }' }
 
       it 'returns #<Parser::Source::Range (string) 3...17>' do
-        expect(block_with_whitespace.begin_pos).to eq 3
-        expect(block_with_whitespace.end_pos).to eq 17
+        expect(block_with_whitespace).to have_attributes(
+          begin_pos: 3,
+          end_pos: 17
+        )
       end
     end
   end
