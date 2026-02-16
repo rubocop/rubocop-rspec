@@ -6266,7 +6266,7 @@ expect(foo).to receive(:bar).with(42)
 
 | Enabled
 | Yes
-| No
+| Always
 | 2.5
 | -
 |===

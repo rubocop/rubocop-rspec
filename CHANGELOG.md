@@ -4,6 +4,7 @@
 
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
+- Add autocorrect support for `RSpec/SubjectDeclaration`. ([@eugeneius])
 
 ## 3.9.0 (2026-01-07)
 
@@ -1009,6 +1010,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@elebow]: https://github.com/elebow
 [@elisefitz15]: https://github.com/EliseFitz15
 [@elliterate]: https://github.com/elliterate
+[@eugeneius]: https://github.com/eugeneius
 [@faucct]: https://github.com/faucct
 [@foton]: https://github.com/foton
 [@francois-ferrandis]: https://github.com/francois-ferrandis
