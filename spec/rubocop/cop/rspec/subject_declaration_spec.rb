@@ -9,12 +9,20 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectDeclaration do
             let!(%{subject}) { 'some subject' }
             ^^^^^^{subject}^ Use subject explicitly rather than using let
           RUBY
+
+          expect_correction(<<~RUBY)
+            subject! { 'some subject' }
+          RUBY
         end
 
         it 'is an offense with a block pass' do
           expect_offense(<<~RUBY, subject: subject.inspect)
             let!(%{subject}, &block)
             ^^^^^^{subject}^^^^^^^^^ Use subject explicitly rather than using let
+          RUBY
+
+          expect_correction(<<~RUBY)
+            subject!(&block)
           RUBY
         end
       end
@@ -25,12 +33,20 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectDeclaration do
             let(%{subject}) { 'some subject' }
             ^^^^^{subject}^ Use subject explicitly rather than using let
           RUBY
+
+          expect_correction(<<~RUBY)
+            subject { 'some subject' }
+          RUBY
         end
 
         it 'is an offense with a block pass' do
           expect_offense(<<~RUBY, subject: subject.inspect)
             let(%{subject}, &block)
             ^^^^^{subject}^^^^^^^^^ Use subject explicitly rather than using let
+          RUBY
+
+          expect_correction(<<~RUBY)
+            subject(&block)
           RUBY
         end
       end
@@ -40,12 +56,20 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectDeclaration do
           subject(%{subject}) { 'some subject' }
           ^^^^^^^^^{subject}^ Ambiguous declaration of subject
         RUBY
+
+        expect_correction(<<~RUBY)
+          subject { 'some subject' }
+        RUBY
       end
 
       it 'is an offense when declared redundantly with `subject!`' do
         expect_offense(<<~RUBY, subject: subject.inspect)
           subject!(%{subject}) { 'some subject' }
           ^^^^^^^^^^{subject}^ Ambiguous declaration of subject
+        RUBY
+
+        expect_correction(<<~RUBY)
+          subject! { 'some subject' }
         RUBY
       end
     end
