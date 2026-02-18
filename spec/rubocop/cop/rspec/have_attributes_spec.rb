@@ -183,6 +183,29 @@ RSpec.describe RuboCop::Cop::RSpec::HaveAttributes do
     RUBY
   end
 
+  it 'does not break consecutive chains when uncombable expect is between ' \
+     'combinable ones' do
+    expect_offense(<<~RUBY)
+      it 'checks attributes' do
+        expect(obj.foo).to eq(bar)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
+        expect(obj.name).not_to eq(baz)
+        expect(obj.fu).to eq(bax)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it 'checks attributes' do
+        expect(obj).to have_attributes(
+        foo: bar,
+          fu: bax
+      )
+        expect(obj.name).not_to eq(baz)
+      end
+    RUBY
+  end
+
   it 'ignores unsupported matchers' do
     expect_offense(<<~RUBY)
       it 'checks attributes' do
