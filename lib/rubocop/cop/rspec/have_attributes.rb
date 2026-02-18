@@ -47,41 +47,65 @@ module RuboCop
           )
         PATTERN
 
+        # @!method expectation_statement?(node)
+        def_node_matcher :expectation_statement?, <<~PATTERN
+          (send (send nil? :expect ...) {:to :not_to :to_not} ...)
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
           return unless example?(node)
 
-          expectations = find_expectations(node)
-          grouped = group_by_object(expectations)
-          grouped.each_value do |group|
-            next if group.size < 2
+          body = node.body
+          return unless body
 
+          statements = body.begin_type? ? body.children : [body]
+          find_consecutive_groups(statements).each do |group|
             flag_group(group)
           end
         end
 
         private
 
-        def find_expectations(node)
-          node.each_descendant(:send).filter_map do |send_node|
-            expect_method_matcher?(send_node) do |obj, method, matcher, value|
-              next if obj.nil? || !MATCHER_MAPPING.key?(matcher)
+        def find_consecutive_groups(statements)
+          groups = []
+          current_groups = {}
 
-              {
-                node: send_node,
-                object: obj,
-                method: method,
-                matcher: matcher,
-                value: value
-              }
+          statements.each do |statement|
+            exp = extract_expectation(statement)
+            if exp
+              obj_key = exp[:object].source
+              (current_groups[obj_key] ||= []) << exp
+            elsif expectation_statement?(statement)
+              # An expect call we can't combine (unsupported matcher,
+              # not_to, etc.) — doesn't break consecutive chains
+            else
+              # Non-expectation statement breaks all consecutive chains
+              flush_groups(current_groups, groups)
+              current_groups = {}
             end
+          end
+
+          flush_groups(current_groups, groups)
+          groups
+        end
+
+        def extract_expectation(statement)
+          expect_method_matcher?(statement) do |obj, method, matcher, value|
+            next if obj.nil? || !MATCHER_MAPPING.key?(matcher)
+
+            return {
+              node: statement,
+              object: obj,
+              method: method,
+              matcher: matcher,
+              value: value
+            }
           end
         end
 
-        def group_by_object(expectations)
-          expectations.each_with_object({}) do |exp, grouped|
-            obj_key = exp[:object].source
-            grouped[obj_key] ||= []
-            grouped[obj_key] << exp
+        def flush_groups(current_groups, groups)
+          current_groups.each_value do |group|
+            groups << group if group.size >= 2
           end
         end
 

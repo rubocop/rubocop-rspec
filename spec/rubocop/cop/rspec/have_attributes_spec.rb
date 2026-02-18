@@ -146,17 +146,28 @@ RSpec.describe RuboCop::Cop::RSpec::HaveAttributes do
     RUBY
   end
 
-  it 'preserves other code between expectations' do
+  it 'does not register an offense when expectations are separated ' \
+     'by other code' do
+    expect_no_offenses(<<~RUBY)
+      it 'checks attributes' do
+        expect(obj.foo).to eq(bar)
+        some_helper_method
+        expect(obj.fu).to eq(bax)
+        another_statement
+        expect(obj.name).to eq(baz)
+      end
+    RUBY
+  end
+
+  it 'groups only consecutive expectations separated by other code' do
     expect_offense(<<~RUBY)
       it 'checks attributes' do
         expect(obj.foo).to eq(bar)
         ^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
-        some_helper_method
         expect(obj.fu).to eq(bax)
         ^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
         another_statement
         expect(obj.name).to eq(baz)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
       end
     RUBY
 
@@ -164,11 +175,10 @@ RSpec.describe RuboCop::Cop::RSpec::HaveAttributes do
       it 'checks attributes' do
         expect(obj).to have_attributes(
         foo: bar,
-          fu: bax,
-          name: baz
+          fu: bax
       )
-        some_helper_method
         another_statement
+        expect(obj.name).to eq(baz)
       end
     RUBY
   end
