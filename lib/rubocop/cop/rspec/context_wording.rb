@@ -70,7 +70,7 @@ module RuboCop
           (block (send #rspec? { :context :shared_context } $(any_str ...) ...) ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           context_wording(node) do |context|
             unless matches_allowed_pattern?(description(context))
               add_offense(context, message: message)

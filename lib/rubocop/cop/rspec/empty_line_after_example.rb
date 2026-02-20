@@ -46,7 +46,7 @@ module RuboCop
 
         MSG = 'Add an empty line after `%<example>s`.'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example?(node)
           return if allowed_one_liner?(node)
 

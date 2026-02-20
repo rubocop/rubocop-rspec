@@ -54,7 +54,7 @@ module RuboCop
 
         MSG = 'Do not set more than one subject per example group'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
 
           subjects = RuboCop::RSpec::ExampleGroup.new(node).subjects

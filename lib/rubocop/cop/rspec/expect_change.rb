@@ -88,7 +88,7 @@ module RuboCop
           end
         end
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless style == :method_call
 
           expect_change_with_block(node) do |receiver, message|

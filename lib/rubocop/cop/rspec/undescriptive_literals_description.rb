@@ -52,7 +52,7 @@ module RuboCop
           (block (send #rspec? {#ExampleGroups.all #Examples.all} $_) ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           example_groups_or_example?(node) do |arg|
             add_offense(arg) if offense?(arg)
           end

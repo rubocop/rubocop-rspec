@@ -78,7 +78,7 @@ module RuboCop
           (block (send #rspec? #SharedGroups.examples ...) ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           context_with_only_examples(node) do
             add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
               corrector.replace(node.send_node.loc.selector, 'shared_examples')

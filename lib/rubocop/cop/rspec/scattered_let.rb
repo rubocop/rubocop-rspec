@@ -31,7 +31,7 @@ module RuboCop
 
         MSG = 'Group all let/let! blocks in the example group together.'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group_with_body?(node)
 
           check_let_declarations(node.body)

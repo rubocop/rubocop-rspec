@@ -90,7 +90,7 @@ module RuboCop
           (block (send nil? :aggregate_failures ...) ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example?(node)
 
           return if example_with_aggregate_failures?(node)

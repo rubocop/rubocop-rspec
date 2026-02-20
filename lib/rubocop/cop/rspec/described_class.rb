@@ -110,7 +110,7 @@ module RuboCop
         def_node_search :contains_described_class?,
                         '(send nil? :described_class)'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           # In case the explicit style is used, we need to remember what's
           # being described.
           @described_class, body = described_constant(node)

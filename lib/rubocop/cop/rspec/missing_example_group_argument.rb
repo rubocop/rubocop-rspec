@@ -23,7 +23,7 @@ module RuboCop
       class MissingExampleGroupArgument < Base
         MSG = 'The first argument to `%<method>s` should not be empty.'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
           return if node.send_node.arguments?
 

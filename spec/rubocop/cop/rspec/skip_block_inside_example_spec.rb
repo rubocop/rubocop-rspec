@@ -22,6 +22,17 @@ RSpec.describe RuboCop::Cop::RSpec::SkipBlockInsideExample do
     RUBY
   end
 
+  it 'registers an offense when using `skip` with an itblock', :ruby34 do
+    expect_offense(<<~RUBY)
+      it 'does something' do
+        skip 'not yet implemented' do
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't pass a block to `skip` inside examples.
+          it
+        end
+      end
+    RUBY
+  end
+
   it 'does not register an offense when using `skip` without a block' do
     expect_no_offenses(<<~RUBY)
       it 'does something' do
