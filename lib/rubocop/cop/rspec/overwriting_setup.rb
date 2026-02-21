@@ -33,7 +33,7 @@ module RuboCop
         # @!method first_argument_name(node)
         def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group_with_body?(node)
 
           find_duplicates(node.body) do |duplicate, name|

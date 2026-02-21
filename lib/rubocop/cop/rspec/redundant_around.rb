@@ -28,6 +28,7 @@ module RuboCop
           end
         end
         alias on_numblock on_block
+        alias on_itblock on_block
 
         def on_send(node)
           return unless match_redundant_around_hook_send?(node)

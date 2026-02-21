@@ -35,6 +35,18 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantAround, :ruby27 do
     end
   end
 
+  context 'with another node in itblock `around`', :ruby34 do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        around do
+          it.run
+
+          foo
+        end
+      RUBY
+    end
+  end
+
   context 'with redundant `around`' do
     it 'registers offense' do
       expect_offense(<<~RUBY)
@@ -69,6 +81,21 @@ RSpec.describe RuboCop::Cop::RSpec::RedundantAround, :ruby27 do
         around do
         ^^^^^^^^^ Remove redundant `around` hook.
           _1.run
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+
+      RUBY
+    end
+  end
+
+  context 'with redundant itblock `around`', :ruby34 do
+    it 'registers offense' do
+      expect_offense(<<~RUBY)
+        around do
+        ^^^^^^^^^ Remove redundant `around` hook.
+          it.run
         end
       RUBY
 

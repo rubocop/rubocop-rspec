@@ -42,7 +42,7 @@ module RuboCop
           ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example?(node)
 
           null_double(node) do |var, receiver|

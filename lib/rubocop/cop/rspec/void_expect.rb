@@ -34,7 +34,7 @@ module RuboCop
           check_expect(node)
         end
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless expect_block?(node)
           return unless inside_example?(node)
 

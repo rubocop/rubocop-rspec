@@ -19,7 +19,7 @@ module RuboCop
         MSG = "Don't repeat examples within an example group. " \
               'Repeated on line(s) %<lines>s.'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
 
           find_repeated_examples(node).each do |repeated_examples|

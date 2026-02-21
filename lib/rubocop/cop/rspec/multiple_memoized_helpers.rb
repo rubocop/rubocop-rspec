@@ -88,7 +88,7 @@ module RuboCop
 
         exclude_limit 'Max'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless spec_group?(node)
 
           count = all_helpers(node).uniq.count

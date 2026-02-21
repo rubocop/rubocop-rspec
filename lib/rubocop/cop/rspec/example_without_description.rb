@@ -66,7 +66,7 @@ module RuboCop
         # @!method example_description(node)
         def_node_matcher :example_description, '(send nil? _ $(str $_))'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example?(node)
 
           check_example_without_description(node.send_node)

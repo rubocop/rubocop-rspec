@@ -94,7 +94,7 @@ module RuboCop
         # @!method subject_usage(node)
         def_node_search :subject_usage, '$(send nil? :subject)'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           if !example_or_hook_block?(node) || ignored_shared_example?(node)
             return
           end

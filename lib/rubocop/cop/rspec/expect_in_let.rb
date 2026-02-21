@@ -22,7 +22,7 @@ module RuboCop
         # @!method expectation(node)
         def_node_search :expectation, '(send nil? #Expectations.all ...)'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless let?(node)
           return if node.body.nil?
 

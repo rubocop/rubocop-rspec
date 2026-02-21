@@ -81,7 +81,7 @@ RSpec.describe RuboCop::Cop::RSpec::Base do
     before do
       stub_const('RuboCop::RSpec::ExampleGroupHaterCop',
                  Class.new(described_class) do
-                   def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+                   def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
                      example_group?(node) do
                        add_offense(node, message: 'I flag example groups')
                      end

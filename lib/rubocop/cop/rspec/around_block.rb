@@ -41,6 +41,11 @@ module RuboCop
           (numblock (send nil? :around sym ?) ...)
         PATTERN
 
+        # @!method hook_itblock(node)
+        def_node_matcher :hook_itblock, <<~PATTERN
+          (itblock (send nil? :around sym ?) ...)
+        PATTERN
+
         # @!method find_arg_usage(node)
         def_node_search :find_arg_usage, <<~PATTERN
           {(send $... {:call :run}) (send _ _ $...) (yield $...) (block-pass $...)}
@@ -59,6 +64,12 @@ module RuboCop
         def on_numblock(node)
           hook_numblock(node) do
             check_for_numblock(node)
+          end
+        end
+
+        def on_itblock(node)
+          hook_itblock(node) do
+            check_for_itblock(node)
           end
         end
 
@@ -87,6 +98,17 @@ module RuboCop
           add_offense(
             block.children.last,
             message: format(MSG_UNUSED_ARG, arg: :_1)
+          )
+        end
+
+        def check_for_itblock(block)
+          find_arg_usage(block) do |usage|
+            return if usage.include?(s(:lvar, :it))
+          end
+
+          add_offense(
+            block.children.last,
+            message: format(MSG_UNUSED_ARG, arg: :it)
           )
         end
       end
