@@ -1129,6 +1129,55 @@ end
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClassModuleWrapping
 * https://github.com/rubocop/rubocop-rspec/issues/735
 
+[#rspecdiscardedmatcher]
+== RSpec/DiscardedMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Enabled
+| Yes
+| No
+| <<next_version>>
+| -
+|===
+
+Checks for matchers that are used in void context.
+
+Matcher calls like `change`, `receive`, etc. that appear as standalone
+expressions have their result silently discarded. This usually means a
+missing `.and` to chain compound matchers.
+
+[#examples-rspecdiscardedmatcher]
+=== Examples
+
+[source,ruby]
+----
+# bad
+specify do
+  expect { result }.to \
+    change { obj.foo }.from(1).to(2)
+    change { obj.bar }.from(3).to(4)
+end
+
+# good
+specify do
+  expect { result }.to \
+    change { obj.foo }.from(1).to(2)
+    .and change { obj.bar }.from(3).to(4)
+end
+
+# good
+specify do
+  expect { result }.to change { obj.foo }.from(1).to(2)
+end
+----
+
+[#references-rspecdiscardedmatcher]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DiscardedMatcher
+
 [#rspecdialect]
 == RSpec/Dialect
 

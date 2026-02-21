@@ -311,6 +311,12 @@ RSpec/Dialect:
   VersionAdded: '1.33'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
+RSpec/DiscardedMatcher:
+  Description: Checks for matchers that are used in void context.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DiscardedMatcher
+
 RSpec/DuplicatedMetadata:
   Description: Avoid duplicated metadata.
   Enabled: true

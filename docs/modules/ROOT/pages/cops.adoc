@@ -22,6 +22,7 @@
 * xref:cops_rspec.adoc#rspecdescribesymbol[RSpec/DescribeSymbol]
 * xref:cops_rspec.adoc#rspecdescribedclass[RSpec/DescribedClass]
 * xref:cops_rspec.adoc#rspecdescribedclassmodulewrapping[RSpec/DescribedClassModuleWrapping]
+* xref:cops_rspec.adoc#rspecdiscardedmatcher[RSpec/DiscardedMatcher]
 * xref:cops_rspec.adoc#rspecdialect[RSpec/Dialect]
 * xref:cops_rspec.adoc#rspecduplicatedmetadata[RSpec/DuplicatedMetadata]
 * xref:cops_rspec.adoc#rspecemptyexamplegroup[RSpec/EmptyExampleGroup]

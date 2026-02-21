@@ -13,6 +13,7 @@
 - Fix a false positive for `RSpec/ScatteredSetup` when the hook is defined inside a class method. ([@d4rky-pl])
 - Fix a false positive for `RSpec/DescribedClass` inside dynamically evaluated blocks (`class_eval`, `module_eval`, `instance_eval`, `class_exec`, `module_exec`, `instance_exec`). ([@sucicfilip])
 - Add new cop `RSpec/Output`. ([@kevinrobell-st])
+- Add new cop `RSpec/DiscardedMatcher` to detect matchers in void context (e.g. missing `.and` between compound matchers). ([@ydakuka])
 
 ## 3.8.0 (2025-11-12)
 
@@ -1109,6 +1110,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@yasu551]: https://github.com/yasu551
 [@ybiquitous]: https://github.com/ybiquitous
 [@ydah]: https://github.com/ydah
+[@ydakuka]: https://github.com/ydakuka
 [@yevhene]: https://github.com/yevhene
 [@ypresto]: https://github.com/ypresto
 [@yujideveloper]: https://github.com/yujideveloper

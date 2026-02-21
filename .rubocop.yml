@@ -111,6 +111,8 @@ RSpec/DescribeClass:
   Exclude:
     - spec/project/**/*.rb
 
+RSpec/DiscardedMatcher: {Enabled: true}
+
 RSpec/ExampleLength:
   CountAsOne:
     - heredoc
