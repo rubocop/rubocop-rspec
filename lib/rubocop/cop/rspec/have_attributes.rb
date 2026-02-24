@@ -52,7 +52,7 @@ module RuboCop
           (send (send nil? :expect ...) {:to :not_to :to_not} ...)
         PATTERN
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example?(node)
 
           body = node.body
