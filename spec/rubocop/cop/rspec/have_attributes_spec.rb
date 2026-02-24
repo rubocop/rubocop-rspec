@@ -260,6 +260,29 @@ RSpec.describe RuboCop::Cop::RSpec::HaveAttributes do
     RUBY
   end
 
+  it 'combines duplicate attribute expectations with different matchers ' \
+     'using .and' do
+    expect_offense(<<~RUBY)
+      it 'checks attributes' do
+        expect(obj.foo).to eq(bar)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
+        expect(obj.foo).to start_with(baz)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
+        expect(obj.name).to eq(qux)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Combine multiple expectations on the same object using `have_attributes`.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it 'checks attributes' do
+        expect(obj).to have_attributes(
+        foo: eq(bar).and(a_string_starting_with(baz)),
+          name: qux
+      )
+      end
+    RUBY
+  end
+
   it 'wraps keyword arguments in braces' do
     expect_offense(<<~RUBY)
       it 'checks attributes' do

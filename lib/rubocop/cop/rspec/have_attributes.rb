@@ -158,14 +158,36 @@ module RuboCop
           attr_reader :sorted_nodes
 
           def build_attributes
-            sorted_nodes.map do |exp|
-              method_name = exp[:method]
-              matcher = exp[:matcher]
-              value = exp[:value]
+            method_groups = {}
+            sorted_nodes.each do |exp|
+              (method_groups[exp[:method]] ||= []) << exp
+            end
 
-              transformed_value = transform_value(matcher, value)
-              "#{method_name}: #{transformed_value}"
+            method_groups.map do |method_name, exps|
+              value_str = if exps.size == 1
+                            exp = exps.first
+                            transform_value(exp[:matcher], exp[:value])
+                          else
+                            combine_matchers(exps)
+                          end
+              "#{method_name}: #{value_str}"
             end.join(",\n    ")
+          end
+
+          def combine_matchers(exps)
+            parts = exps.map do |exp|
+              transform_value_for_and(exp[:matcher], exp[:value])
+            end
+            parts[1..].inject(parts[0]) { |acc, part| "#{acc}.and(#{part})" }
+          end
+
+          def transform_value_for_and(matcher, value)
+            have_attributes_matcher = HaveAttributes::MATCHER_MAPPING[matcher]
+            if have_attributes_matcher.nil?
+              "eq(#{wrap_keyword_arguments(value)})"
+            else
+              "#{have_attributes_matcher}(#{value.source})"
+            end
           end
 
           def transform_value(matcher, value)
