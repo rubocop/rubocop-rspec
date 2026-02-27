@@ -80,8 +80,14 @@ RSpec.describe 'Weirdness' do
 
   context 'test' do
     include_examples 'weird rspec'
-    include_examples('weird rspec', serious: true) do
-      it_behaves_like :something
+    if RSpec::Core::Version::STRING < '4.0'
+      include_examples('weird rspec', serious: true) do
+        it_behaves_like :something
+      end
+    else
+      it_behaves_like('weird rspec', serious: true) do
+        it_behaves_like :something
+      end
     end
   end
 

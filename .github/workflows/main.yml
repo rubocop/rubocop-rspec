@@ -108,15 +108,15 @@ jobs:
     name: RSpec 4
     steps:
       - uses: actions/checkout@v6
-      - name: Use latest RSpec 4 from `4-0-dev` branch
+      - name: Use latest RSpec 4 from `main` branch
         run: |
           sed -e '/rspec/d' -i Gemfile
           cat << EOF > Gemfile.local
-            gem 'rspec', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-core', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-expectations', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-mocks', github: 'rspec/rspec', branch: '4-0-dev'
-            gem 'rspec-support', github: 'rspec/rspec', branch: '4-0-dev'
+            gem 'rspec', github: 'rspec/rspec', branch: 'main'
+            gem 'rspec-core', github: 'rspec/rspec', branch: 'main'
+            gem 'rspec-expectations', github: 'rspec/rspec', branch: 'main'
+            gem 'rspec-mocks', github: 'rspec/rspec', branch: 'main'
+            gem 'rspec-support', github: 'rspec/rspec', branch: 'main'
           EOF
       - uses: ruby/setup-ruby@v1
         with:
