@@ -158,18 +158,18 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register for `change` in modifier `if` without expect' do
+  it 'does not register for `change` in modifier `if`' do
     expect_no_offenses(<<~RUBY)
       specify do
-        change { obj.bar } if condition
+        expect { result }.to change { obj.bar } if condition
       end
     RUBY
   end
 
-  it 'does not register for `change` in modifier `unless` without expect' do
+  it 'does not register for `change` in modifier `unless`' do
     expect_no_offenses(<<~RUBY)
       specify do
-        change { obj.bar } unless condition
+        expect { result }.to change { obj.bar } unless condition
       end
     RUBY
   end

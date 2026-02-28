@@ -47,7 +47,7 @@ module RuboCop
           check_discarded_matcher(node, node)
         end
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
+        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           check_discarded_matcher(node.send_node, node)
         end
 
