@@ -342,6 +342,21 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
+  it 'registers an offense for `change` after custom expect helper' do
+    expect_offense(<<~RUBY)
+      specify do
+        def expect_action
+          expect { action!(performer: performer, context: context) }
+        end
+
+        expect_action
+          .to change { obj.foo }.from(1).to(2)
+              change { obj.bar }.from(3).to(4)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
   it 'does not register an offense when `change` is called on a receiver' do
     expect_no_offenses(<<~RUBY)
       specify do
