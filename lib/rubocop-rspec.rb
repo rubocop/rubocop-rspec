@@ -14,6 +14,7 @@ require_relative 'rubocop/rspec/wording'
 
 require_relative 'rubocop/cop/rspec/mixin/file_help'
 require_relative 'rubocop/cop/rspec/mixin/final_end_location'
+require_relative 'rubocop/cop/rspec/mixin/inside_example'
 require_relative 'rubocop/cop/rspec/mixin/inside_example_group'
 require_relative 'rubocop/cop/rspec/mixin/location_help'
 require_relative 'rubocop/cop/rspec/mixin/metadata'

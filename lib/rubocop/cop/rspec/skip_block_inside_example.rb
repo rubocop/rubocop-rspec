@@ -24,6 +24,8 @@ module RuboCop
       #   end
       #
       class SkipBlockInsideExample < Base
+        include InsideExample
+
         MSG = "Don't pass a block to `skip` inside examples."
 
         def on_block(node)
@@ -35,12 +37,6 @@ module RuboCop
 
         alias on_numblock on_block
         alias on_itblock on_block
-
-        private
-
-        def inside_example?(node)
-          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
-        end
       end
     end
   end

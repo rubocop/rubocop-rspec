@@ -38,6 +38,7 @@ module RuboCop
       class EmptyExampleGroup < Base
         extend AutoCorrector
 
+        include InsideExample
         include RangeHelp
 
         MSG = 'Empty example group detected.'
@@ -138,7 +139,7 @@ module RuboCop
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return if node.each_ancestor(:any_def).any?
-          return if node.each_ancestor(:block).any? { |block| example?(block) }
+          return if inside_example?(node)
 
           example_group_body(node) do |body|
             next unless offensive?(body)

@@ -32,6 +32,8 @@ module RuboCop
       #   end
       #
       class DiscardedMatcher < Base
+        include InsideExample
+
         MSG = 'The result of `%<method>s` is not used. ' \
               'Did you mean to chain it with `.and`?'
 
@@ -102,10 +104,6 @@ module RuboCop
           current = node
           current = current.parent while current.parent.receiver == current
           current
-        end
-
-        def inside_example?(node)
-          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
         end
       end
     end
