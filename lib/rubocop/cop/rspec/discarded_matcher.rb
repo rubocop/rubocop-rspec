@@ -38,17 +38,17 @@ module RuboCop
               'Did you mean to chain it with `.and`?'
 
         def on_send(node)
-          return unless matcher_call?(node)
-          return unless inside_example?(node)
-
-          target = find_outermost_chain(node)
-          return unless void_value?(target)
-
-          add_offense(target, message: format(MSG, method: node.method_name))
+          check_discarded_matcher(node, node)
         end
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler
-          return unless matcher_call?(node.send_node)
+          check_discarded_matcher(node.send_node, node)
+        end
+
+        private
+
+        def check_discarded_matcher(send_node, node)
+          return unless matcher_call?(send_node)
           return unless inside_example?(node)
 
           target = find_outermost_chain(node)
@@ -56,8 +56,6 @@ module RuboCop
 
           add_offense(target, message: format(MSG, method: node.method_name))
         end
-
-        private
 
         def void_value?(node)
           case node.parent.type
