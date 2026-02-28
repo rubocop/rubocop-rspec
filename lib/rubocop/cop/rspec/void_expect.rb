@@ -13,6 +13,8 @@ module RuboCop
       #   expect(something).to be(1)
       #
       class VoidExpect < Base
+        include InsideExample
+
         MSG = 'Do not use `expect()` without `.to` or `.not_to`. ' \
               'Chain the methods or remove it.'
         RESTRICT_ON_SEND = %i[expect].freeze
@@ -54,10 +56,6 @@ module RuboCop
           return true if parent.begin_type?
 
           parent.block_type? && parent.body == expect
-        end
-
-        def inside_example?(node)
-          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
         end
       end
     end

@@ -1216,6 +1216,69 @@ end
 
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Dialect
 
+[#rspecdiscardedmatcher]
+== RSpec/DiscardedMatcher
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Checks for matchers that are used in void context.
+
+Matcher calls like `change`, `receive`, etc. that appear as
+standalone expressions have their result silently discarded.
+This usually means a missing `.and` to chain compound matchers.
+
+The list of matcher methods can be configured
+with `CustomMatcherMethods`.
+
+[#examples-rspecdiscardedmatcher]
+=== Examples
+
+[source,ruby]
+----
+# bad
+specify do
+  expect { result }
+    .to change { obj.foo }.from(1).to(2)
+    change { obj.bar }.from(3).to(4)
+end
+
+# good
+specify do
+  expect { result }
+    .to change { obj.foo }.from(1).to(2)
+    .and change { obj.bar }.from(3).to(4)
+end
+
+# good
+specify do
+  expect { result }.to change { obj.foo }.from(1).to(2)
+end
+----
+
+[#configurable-attributes-rspecdiscardedmatcher]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| CustomMatcherMethods
+| `[]`
+| Array
+|===
+
+[#references-rspecdiscardedmatcher]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DiscardedMatcher
+
 [#rspecduplicatedmetadata]
 == RSpec/DuplicatedMetadata
 
