@@ -12,15 +12,15 @@ module RuboCop
       # @example
       #   # bad
       #   specify do
-      #     expect { result }.to \
-      #       change { obj.foo }.from(1).to(2)
+      #     expect { result }
+      #       .to change { obj.foo }.from(1).to(2)
       #       change { obj.bar }.from(3).to(4)
       #   end
       #
       #   # good
       #   specify do
-      #     expect { result }.to \
-      #       change { obj.foo }.from(1).to(2)
+      #     expect { result }
+      #       .to change { obj.foo }.from(1).to(2)
       #       .and change { obj.bar }.from(3).to(4)
       #   end
       #
