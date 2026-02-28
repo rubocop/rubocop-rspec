@@ -55,19 +55,11 @@ module RuboCop
         def check_discarded_matcher(send_node, node)
           return unless matcher_call?(send_node)
           return unless inside_example?(node)
-          return unless example_with_expectation?(node)
 
           target = find_outermost_chain(node)
           return unless void_value?(target)
 
           add_offense(target, message: format(MSG, method: node.method_name))
-        end
-
-        def example_with_expectation?(node)
-          example_node =
-            node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
-
-          example_node && includes_expectation?(example_node)
         end
 
         def void_value?(node)
@@ -76,29 +68,8 @@ module RuboCop
             true
           when :block
             example?(node.parent)
-          when :if
-            void_value_in_branch?(node, node.parent)
-          when :and, :or
-            void_in_logical_operator?(node, node.parent)
           when :when, :case
-            void_in_case_branch?(node, node.parent)
-          end
-        end
-
-        def void_value_in_branch?(node, parent)
-          (parent.if_branch == node || parent.else_branch == node) &&
-            void_value?(parent)
-        end
-
-        def void_in_logical_operator?(node, parent)
-          parent.rhs == node && void_value?(parent)
-        end
-
-        def void_in_case_branch?(node, parent)
-          if parent.when_type?
-            parent.body == node && void_value?(parent.parent)
-          else
-            parent.else_branch == node && void_value?(parent)
+            void_value?(node.parent)
           end
         end
 

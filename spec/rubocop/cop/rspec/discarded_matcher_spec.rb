@@ -158,17 +158,17 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'registers an offense for `change` in both `if` and `else` branches' do
-    expect_offense(<<~RUBY)
+  it 'does not register for `change` in `if` and `else` branches' do
+    expect_no_offenses(<<~RUBY)
       specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
-        if condition
-          change { obj.bar }.from(3).to(4)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-        else
-          change { obj.baz }.from(5).to(6)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-        end
+        change_temp =
+          if condition
+            change { obj.bar }.from(3).to(4)
+          else
+            change { obj.baz }.from(5).to(6)
+          end
+
+        expect { result }.to change_temp
       end
     RUBY
   end
@@ -178,6 +178,18 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
       specify do
         result = if condition
                    expect { result }.to change { obj.foo }.from(1).to(2)
+                 end
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in non-void `if` and `else` branches' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        result = if condition
+                   expect { result }.to change { obj.foo }.from(1).to(2)
+                 else
+                   expect { result }.to change { obj.foo }.from(3).to(4)
                  end
       end
     RUBY
