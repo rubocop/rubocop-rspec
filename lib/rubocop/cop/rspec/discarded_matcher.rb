@@ -9,6 +9,8 @@ module RuboCop
       # standalone expressions have their result silently discarded.
       # This usually means a missing `.and` to chain compound matchers.
       #
+      # The list of matcher methods can be configured with `MatcherMethods`.
+      #
       # @example
       #   # bad
       #   specify do
@@ -32,20 +34,6 @@ module RuboCop
       class DiscardedMatcher < Base
         MSG = 'The result of `%<method>s` is not used. ' \
               'Did you mean to chain it with `.and`?'
-
-        MATCHER_METHODS = %i[
-          change
-          receive
-          receive_messages
-          receive_message_chain
-        ].to_set.freeze
-
-        RESTRICT_ON_SEND = MATCHER_METHODS.freeze
-
-        # @!method matcher_call?(node)
-        def_node_matcher :matcher_call?, <<~PATTERN
-          (send nil? MATCHER_METHODS ...)
-        PATTERN
 
         def on_send(node)
           return unless matcher_call?(node)
@@ -99,6 +87,15 @@ module RuboCop
           else
             parent.else_branch == node && void_value?(parent)
           end
+        end
+
+        def matcher_call?(node)
+          node.receiver.nil? && matcher_methods.include?(node.method_name)
+        end
+
+        def matcher_methods
+          @matcher_methods ||=
+            cop_config.fetch('MatcherMethods', []).to_set(&:to_sym).freeze
         end
 
         def find_outermost_chain(node)

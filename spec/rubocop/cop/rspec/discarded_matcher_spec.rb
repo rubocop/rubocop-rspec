@@ -67,6 +67,42 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
+  it 'registers an offense for standalone `output`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect { result }.to output('foo').to_stdout
+        output('bar').to_stderr
+        ^^^^^^^^^^^^^^^^^^^^^^^ The result of `output` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `have_received`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect(foo).to have_received(:bar)
+        have_received(:baz)
+        ^^^^^^^^^^^^^^^^^^^ The result of `have_received` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when `output` is used with `expect`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to output('foo').to_stdout
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when `have_received` is used with `expect`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect(foo).to have_received(:bar)
+      end
+    RUBY
+  end
+
   it 'does not register an offense when `change` is used with `expect`' do
     expect_no_offenses(<<~RUBY)
       specify do
@@ -322,5 +358,28 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
         foo.change { obj.foo }
       end
     RUBY
+  end
+
+  context 'with custom MatcherMethods' do
+    let(:cop_config) do
+      { 'MatcherMethods' => %w[custom_matcher] }
+    end
+
+    it 'registers an offense for configured custom matcher' do
+      expect_offense(<<~RUBY)
+        specify do
+          custom_matcher(:foo)
+          ^^^^^^^^^^^^^^^^^^^^ The result of `custom_matcher` is not used. Did you mean to chain it with `.and`?
+        end
+      RUBY
+    end
+
+    it 'does not register an offense for default matchers not in config' do
+      expect_no_offenses(<<~RUBY)
+        specify do
+          change { obj.bar }
+        end
+      RUBY
+    end
   end
 end
