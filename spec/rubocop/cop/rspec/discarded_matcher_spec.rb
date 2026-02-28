@@ -60,6 +60,16 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
+  it 'does not register for `output` unrelated to matcher' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        output.rewind
+        parsed = JSON.parse(output.read.chomp)
+        expect(parsed["message"]).to eq("error message")
+      end
+    RUBY
+  end
+
   it 'registers an offense for standalone `have_received`' do
     expect_offense(<<~RUBY)
       specify do
@@ -101,6 +111,12 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
           change { obj.foo }.from(1).to(2)
           .and change { obj.bar }.from(3).to(4)
       end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in parenthesized arg' do
+    expect_no_offenses(<<~RUBY)
+      expect { result }.to (change { obj.bar })
     RUBY
   end
 
@@ -183,7 +199,8 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense for `change` in non-void `if` and `else` branches' do
+  it 'does not register an offense ' \
+     'for `change` in non-void `if` and `else` branches' do
     expect_no_offenses(<<~RUBY)
       specify do
         result = if condition
@@ -285,25 +302,18 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  context 'with custom MatcherMethods' do
+  context 'with custom CustomMatcherMethods' do
     let(:cop_config) do
-      { 'MatcherMethods' => %w[custom_matcher] }
+      { 'CustomMatcherMethods' => %w[custom_matcher] }
     end
 
     it 'registers an offense for configured custom matcher' do
       expect_offense(<<~RUBY)
         specify do
-          expect(foo).to receive(:bar)
-          custom_matcher(:foo)
-          ^^^^^^^^^^^^^^^^^^^^ The result of `custom_matcher` is not used. Did you mean to chain it with `.and`?
-        end
-      RUBY
-    end
-
-    it 'does not register an offense for default matchers not in config' do
-      expect_no_offenses(<<~RUBY)
-        specify do
-          change { obj.bar }
+          expect(foo).to \\
+            receive(:bar)
+            custom_matcher(:foo)
+            ^^^^^^^^^^^^^^^^^^^^ The result of `custom_matcher` is not used. Did you mean to chain it with `.and`?
         end
       RUBY
     end

@@ -315,13 +315,7 @@ RSpec/DiscardedMatcher:
   Description: Checks for matchers that are used in void context.
   Enabled: pending
   VersionAdded: "<<next>>"
-  MatcherMethods:
-    - change
-    - have_received
-    - output
-    - receive
-    - receive_messages
-    - receive_message_chain
+  CustomMatcherMethods: []
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DiscardedMatcher
 
 RSpec/DuplicatedMetadata:

@@ -9,7 +9,8 @@ module RuboCop
       # standalone expressions have their result silently discarded.
       # This usually means a missing `.and` to chain compound matchers.
       #
-      # The list of matcher methods can be configured with `MatcherMethods`.
+      # The list of matcher methods can be configured
+      # with `CustomMatcherMethods`.
       #
       # @example
       #   # bad
@@ -37,10 +38,10 @@ module RuboCop
         MSG = 'The result of `%<method>s` is not used. ' \
               'Did you mean to chain it with `.and`?'
 
-        # @!method includes_expectation?(node)
-        def_node_search :includes_expectation?, <<~PATTERN
-          (send nil? #Expectations.all ...)
-        PATTERN
+        MATCHER_METHODS = %i[
+          change have_received output
+          receive receive_messages receive_message_chain
+        ].to_set.freeze
 
         def on_send(node)
           check_discarded_matcher(node, node)
@@ -55,6 +56,7 @@ module RuboCop
         def check_discarded_matcher(send_node, node)
           return unless matcher_call?(send_node)
           return unless inside_example?(node)
+          return unless example_with_matcher_expectation?(node)
 
           target = find_outermost_chain(node)
           return unless void_value?(target)
@@ -62,24 +64,42 @@ module RuboCop
           add_offense(target, message: format(MSG, method: node.method_name))
         end
 
+        def example_with_matcher_expectation?(node)
+          example_node =
+            node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
+
+          example_node.each_descendant(:send).any? do |send_node|
+            expectation_with_matcher?(send_node)
+          end
+        end
+
+        def expectation_with_matcher?(node)
+          %i[to to_not not_to].include?(node.method_name) &&
+            node.arguments.any? do |arg|
+              arg.each_node(:send).any? { |s| matcher_call?(s) }
+            end
+        end
+
         def void_value?(node)
           case node.parent.type
-          when :begin
-            true
           when :block
             example?(node.parent)
-          when :when, :case
+          when :begin, :case, :when
             void_value?(node.parent)
           end
         end
 
         def matcher_call?(node)
-          node.receiver.nil? && matcher_methods.include?(node.method_name)
+          node.receiver.nil? && all_matcher_methods.include?(node.method_name)
         end
 
-        def matcher_methods
-          @matcher_methods ||=
-            cop_config.fetch('MatcherMethods', []).to_set(&:to_sym).freeze
+        def all_matcher_methods
+          @all_matcher_methods ||=
+            (MATCHER_METHODS + custom_matcher_methods).freeze
+        end
+
+        def custom_matcher_methods
+          cop_config.fetch('CustomMatcherMethods', []).map(&:to_sym)
         end
 
         def find_outermost_chain(node)
