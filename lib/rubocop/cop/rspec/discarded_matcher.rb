@@ -37,6 +37,11 @@ module RuboCop
         MSG = 'The result of `%<method>s` is not used. ' \
               'Did you mean to chain it with `.and`?'
 
+        # @!method includes_expectation?(node)
+        def_node_search :includes_expectation?, <<~PATTERN
+          (send nil? #Expectations.all ...)
+        PATTERN
+
         def on_send(node)
           check_discarded_matcher(node, node)
         end
@@ -50,11 +55,19 @@ module RuboCop
         def check_discarded_matcher(send_node, node)
           return unless matcher_call?(send_node)
           return unless inside_example?(node)
+          return unless example_with_expectation?(node)
 
           target = find_outermost_chain(node)
           return unless void_value?(target)
 
           add_offense(target, message: format(MSG, method: node.method_name))
+        end
+
+        def example_with_expectation?(node)
+          example_node =
+            node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
+
+          example_node && includes_expectation?(example_node)
         end
 
         def void_value?(node)

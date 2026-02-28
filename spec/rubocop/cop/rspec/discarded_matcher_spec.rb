@@ -22,22 +22,6 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'registers an offense for standalone `change` block without chain' do
-    expect_offense(<<~RUBY)
-      specify do
-        change { obj.bar }
-        ^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-      end
-    RUBY
-  end
-
-  it 'registers an offense for standalone `change` in a one-liner example' do
-    expect_offense(<<~RUBY)
-      specify { change { obj.bar }.from(1).to(2) }
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-    RUBY
-  end
-
   it 'registers an offense for standalone `receive`' do
     expect_offense(<<~RUBY)
       specify do
@@ -48,11 +32,10 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'registers an offense for standalone `receive_messages`' do
-    expect_offense(<<~RUBY)
+  it 'does not register an offense for `receive_messages`' do
+    expect_no_offenses(<<~RUBY)
       specify do
-        receive_messages(foo: 1, bar: 2)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `receive_messages` is not used. Did you mean to chain it with `.and`?
+        expect { result }.to receive_messages(foo: 1, bar: 2)
       end
     RUBY
   end
@@ -87,7 +70,7 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense when `output` is used with `expect`' do
+  it 'does not register an offense for `output`' do
     expect_no_offenses(<<~RUBY)
       specify do
         expect { result }.to output('foo').to_stdout
@@ -95,7 +78,7 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense when `have_received` is used with `expect`' do
+  it 'does not register an offense for `have_received`' do
     expect_no_offenses(<<~RUBY)
       specify do
         expect(foo).to have_received(:bar)
@@ -103,7 +86,7 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense when `change` is used with `expect`' do
+  it 'does not register an offense for `change`' do
     expect_no_offenses(<<~RUBY)
       specify do
         expect { result }.to change { obj.foo }.from(1).to(2)
@@ -129,7 +112,7 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense when `receive` is used with `expect`' do
+  it 'does not register an offense for `receive`' do
     expect_no_offenses(<<~RUBY)
       specify do
         expect(foo).to receive(:bar)
@@ -137,50 +120,40 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense for `change` at end of non-example block' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        [1, 2, 3].each do |n|
-          change { obj.foo }.from(n).to(n + 1)
-        end
-      end
-    RUBY
-  end
-
   it 'does not register an offense outside of example context' do
     expect_no_offenses(<<~RUBY)
-      change { obj.bar }
+      expect { result }.to change { obj.bar }
     RUBY
   end
 
   it 'does not register an offense for multiple matchers outside example' do
     expect_no_offenses(<<~RUBY)
-      change { obj.foo }
-      change { obj.bar }
+      expect { result }.to \\
+        change { obj.foo }
+        change { obj.bar }
     RUBY
   end
 
   it 'does not register an offense for multiple matchers with args outside' do
     expect_no_offenses(<<~RUBY)
-      change(Foo, :foo)
-      change(Foo, :bar)
+      expect { result }.to \\
+        change(Foo, :foo)
+        change(Foo, :bar)
     RUBY
   end
 
-  it 'registers an offense for `change` in modifier `if`' do
-    expect_offense(<<~RUBY)
+  it 'does not register for `change` in modifier `if` without expect' do
+    expect_no_offenses(<<~RUBY)
       specify do
         change { obj.bar } if condition
-        ^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
       end
     RUBY
   end
 
-  it 'registers an offense for `change` in modifier `unless`' do
-    expect_offense(<<~RUBY)
+  it 'does not register for `change` in modifier `unless` without expect' do
+    expect_no_offenses(<<~RUBY)
       specify do
         change { obj.bar } unless condition
-        ^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
       end
     RUBY
   end
@@ -200,44 +173,12 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense for `change` used as `if` condition' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        if change { obj.foo }.from(1).to(2)
-          something
-        end
-      end
-    RUBY
-  end
-
   it 'does not register an offense for `change` in non-void `if` branch' do
     expect_no_offenses(<<~RUBY)
       specify do
         result = if condition
-                   change { obj.foo }.from(1).to(2)
+                   expect { result }.to change { obj.foo }.from(1).to(2)
                  end
-      end
-    RUBY
-  end
-
-  it 'registers an offense for `change` in a ternary branch' do
-    expect_offense(<<~RUBY)
-      specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
-        condition ? change { obj.bar } : nil
-                    ^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-      end
-    RUBY
-  end
-
-  it 'registers an offense for `change` in a `when` branch' do
-    expect_offense(<<~RUBY)
-      specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
-        case condition
-        when :update then change { obj.bar }.from(3).to(4)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-        end
       end
     RUBY
   end
@@ -245,7 +186,6 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
   it 'registers an offense for `change` in a `case` else branch' do
     expect_offense(<<~RUBY)
       specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
         case condition
         when :update then expect { result }.to change { obj.bar }.from(3).to(4)
         else change { obj.baz }.from(5).to(6)
@@ -265,22 +205,15 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense for `change` used as `when` condition' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        case condition
-        when change { obj.foo }.from(1).to(2) then something
-        end
-      end
-    RUBY
-  end
-
   it 'does not register an offense for `change` in non-void `when` branch' do
     expect_no_offenses(<<~RUBY)
       specify do
-        result = case condition
-                 when :update then change { obj.baz }.from(5).to(6)
-                 end
+        change_temp = case season
+                      when :summer then change { temp }.from(0).to(1)
+                      when :winter then change { temp }.from(0).to(2)
+                      end
+
+        expect { result }.to change_temp
       end
     RUBY
   end
@@ -288,38 +221,12 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
   it 'does not register an offense for `change` in non-void `case` else' do
     expect_no_offenses(<<~RUBY)
       specify do
-        result = case condition
-                 when :update then something
-                 else change { obj.baz }.from(5).to(6)
-                 end
-      end
-    RUBY
-  end
+        change_temp = case season
+                      when :summer then change { temp }.from(0).to(1)
+                      else change { temp }.from(0).to(2)
+                      end
 
-  it 'registers an offense for `change` on the right side of `&&`' do
-    expect_offense(<<~RUBY)
-      specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
-        change { obj.bar }.from(3).to(4) && change { obj.baz }.from(5).to(6)
-                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-      end
-    RUBY
-  end
-
-  it 'registers an offense for `change` on the right side of `||`' do
-    expect_offense(<<~RUBY)
-      specify do
-        expect { result }.to change { obj.foo }.from(1).to(2)
-        change { obj.bar }.from(3).to(4) || change { obj.baz }.from(5).to(6)
-                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
-      end
-    RUBY
-  end
-
-  it 'does not register an offense for `change` on rhs of non-void `&&`' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        result = change { obj.foo }.from(1).to(2) && change { obj.bar }.from(3).to(4)
+        expect { result }.to change_temp
       end
     RUBY
   end
@@ -330,14 +237,6 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
         expect { result }.to \\
           change { obj.foo }.from(1).to(2) &
           change { obj.bar }.from(3).to(4)
-      end
-    RUBY
-  end
-
-  it 'does not register an offense for `change` as a method argument' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        foo(change { obj.foo }.from(1).to(2))
       end
     RUBY
   end
@@ -360,6 +259,15 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
   it 'does not register an offense when `change` is called on a receiver' do
     expect_no_offenses(<<~RUBY)
       specify do
+        expect { result }.to change { obj.bar }.from(1).to(2)
+        foo.change { obj.foo }
+      end
+    RUBY
+  end
+
+  it 'does not register when `change` on a receiver has no expectation' do
+    expect_no_offenses(<<~RUBY)
+      specify do
         foo.change { obj.foo }
       end
     RUBY
@@ -373,6 +281,7 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     it 'registers an offense for configured custom matcher' do
       expect_offense(<<~RUBY)
         specify do
+          expect(foo).to receive(:bar)
           custom_matcher(:foo)
           ^^^^^^^^^^^^^^^^^^^^ The result of `custom_matcher` is not used. Did you mean to chain it with `.and`?
         end
