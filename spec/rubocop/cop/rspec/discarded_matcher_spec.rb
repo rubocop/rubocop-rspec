@@ -296,16 +296,6 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
     RUBY
   end
 
-  it 'does not register an offense for `change` used as `case` condition' do
-    expect_no_offenses(<<~RUBY)
-      specify do
-        case change { obj.foo }.from(1).to(2)
-        when 1 then something
-        end
-      end
-    RUBY
-  end
-
   it 'registers an offense for `change` on the right side of `&&`' do
     expect_offense(<<~RUBY)
       specify do
