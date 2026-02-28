@@ -44,6 +44,7 @@ module RuboCop
       #
       class RepeatedExampleGroupBody < Base
         include SkipOrPending
+        include RepeatedItems
 
         MSG = 'Repeated %<group>s block body on line(s) %<loc>s'
 
@@ -72,19 +73,14 @@ module RuboCop
         private
 
         def repeated_group_bodies(node)
-          node
-            .children
+          items = node.children
             .select { |child| example_group_with_body?(child) }
             .reject { |child| skip_or_pending_inside_block?(child) }
-            .group_by { |group| signature_keys(group) }
-            .values
-            .reject(&:one?)
-            .flat_map { |groups| add_repeated_lines(groups) }
-        end
 
-        def add_repeated_lines(groups)
-          repeated_lines = groups.map(&:first_line)
-          groups.map { |group| [group, repeated_lines - [group.first_line]] }
+          find_repeated_groups(
+            items,
+            key_proc: ->(group) { signature_keys(group) }
+          ).flat_map { |group| add_repeated_lines(group) }
         end
 
         def signature_keys(group)
