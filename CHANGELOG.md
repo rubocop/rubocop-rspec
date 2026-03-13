@@ -6,6 +6,7 @@
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
 - Speed up loading rubocop-rspec by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
+- Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])

@@ -372,6 +372,12 @@ RSpec/EmptyLineAfterHook:
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
   AllowConsecutiveOneLiners: true
 
+RSpec/EmptyLineAfterSharedInclusion:
+  Description: Checks for empty line after shared example inclusion.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSharedInclusion
+
 RSpec/EmptyLineAfterSubject:
   Description: Checks if there is an empty line after subject block.
   Enabled: true
