@@ -31,6 +31,7 @@
 * xref:cops_rspec.adoc#rspecemptylineafterexamplegroup[RSpec/EmptyLineAfterExampleGroup]
 * xref:cops_rspec.adoc#rspecemptylineafterfinallet[RSpec/EmptyLineAfterFinalLet]
 * xref:cops_rspec.adoc#rspecemptylineafterhook[RSpec/EmptyLineAfterHook]
+* xref:cops_rspec.adoc#rspecemptylineaftersharedinclusion[RSpec/EmptyLineAfterSharedInclusion]
 * xref:cops_rspec.adoc#rspecemptylineaftersubject[RSpec/EmptyLineAfterSubject]
 * xref:cops_rspec.adoc#rspecemptymetadata[RSpec/EmptyMetadata]
 * xref:cops_rspec.adoc#rspecemptyoutput[RSpec/EmptyOutput]
