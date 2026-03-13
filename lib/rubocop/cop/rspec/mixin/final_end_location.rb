@@ -11,7 +11,8 @@ module RuboCop
               .select(&:heredoc?)
               .map { |node| node.loc.heredoc_end }
 
-          [start_node.loc.end, *heredoc_endings].max_by(&:line)
+          end_loc = start_node.loc.end || start_node.source_range.end
+          [end_loc, *heredoc_endings].max_by(&:line)
         end
       end
     end
