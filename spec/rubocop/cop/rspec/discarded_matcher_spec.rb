@@ -1,0 +1,321 @@
+# frozen_string_literal: true
+
+RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
+  it 'registers an offense for standalone `change` with block in example' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect { result }.to \\
+          change { obj.foo }.from(1).to(2)
+          change { obj.bar }.from(3).to(4)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `change` with arguments' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect { result }.to change(Foo, :bar).by(1)
+        change(Foo, :baz).by(2)
+        ^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `receive`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect(foo).to receive(:bar)
+        receive(:baz).and_return(1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `receive` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `receive_messages`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to receive_messages(foo: 1, bar: 2)
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `receive_message_chain`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect(foo).to receive(:bar)
+        receive_message_chain(:baz, :qux)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `receive_message_chain` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `output`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect { result }.to output('foo').to_stdout
+        output('bar').to_stderr
+        ^^^^^^^^^^^^^^^^^^^^^^^ The result of `output` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'does not register for `output` unrelated to matcher' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        output.rewind
+        parsed = JSON.parse(output.read.chomp)
+        expect(parsed["message"]).to eq("error message")
+      end
+    RUBY
+  end
+
+  it 'registers an offense for standalone `have_received`' do
+    expect_offense(<<~RUBY)
+      specify do
+        expect(foo).to have_received(:bar)
+        have_received(:baz)
+        ^^^^^^^^^^^^^^^^^^^ The result of `have_received` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `output`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to output('foo').to_stdout
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `have_received`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect(foo).to have_received(:bar)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to change { obj.foo }.from(1).to(2)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when `change` is chained with `.and`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to \\
+          change { obj.foo }.from(1).to(2)
+          .and change { obj.bar }.from(3).to(4)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in parenthesized arg' do
+    expect_no_offenses(<<~RUBY)
+      expect { result }.to (change { obj.bar })
+    RUBY
+  end
+
+  it 'does not register an offense when `receive` is used with `allow`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        allow(foo).to receive(:bar).and_return(1)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `receive`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect(foo).to receive(:bar)
+      end
+    RUBY
+  end
+
+  it 'does not register an offense outside of example context' do
+    expect_no_offenses(<<~RUBY)
+      expect { result }.to change { obj.bar }
+    RUBY
+  end
+
+  it 'does not register an offense for multiple matchers outside example' do
+    expect_no_offenses(<<~RUBY)
+      expect { result }.to \\
+        change { obj.foo }
+        change { obj.bar }
+    RUBY
+  end
+
+  it 'does not register an offense for multiple matchers with args outside' do
+    expect_no_offenses(<<~RUBY)
+      expect { result }.to \\
+        change(Foo, :foo)
+        change(Foo, :bar)
+    RUBY
+  end
+
+  it 'does not register for `change` in modifier `if`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to change { obj.bar } if condition
+      end
+    RUBY
+  end
+
+  it 'does not register for `change` in modifier `unless`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to change { obj.bar } unless condition
+      end
+    RUBY
+  end
+
+  it 'does not register for `change` in `if` and `else` branches' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        change_temp =
+          if condition
+            change { obj.bar }.from(3).to(4)
+          else
+            change { obj.baz }.from(5).to(6)
+          end
+
+        expect { result }.to change_temp
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in non-void `if` branch' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        result = if condition
+                   expect { result }.to change { obj.foo }.from(1).to(2)
+                 end
+      end
+    RUBY
+  end
+
+  it 'does not register an offense ' \
+     'for `change` in non-void `if` and `else` branches' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        result = if condition
+                   expect { result }.to change { obj.foo }.from(1).to(2)
+                 else
+                   expect { result }.to change { obj.foo }.from(3).to(4)
+                 end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for `change` in a `case` else branch' do
+    expect_offense(<<~RUBY)
+      specify do
+        case condition
+        when :update then expect { result }.to change { obj.bar }.from(3).to(4)
+        else change { obj.baz }.from(5).to(6)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+        end
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in `when` with `expect`' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        case condition
+        when :update then expect { result }.to change { obj.bar }.from(3).to(4)
+        end
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in non-void `when` branch' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        change_temp = case season
+                      when :summer then change { temp }.from(0).to(1)
+                      when :winter then change { temp }.from(0).to(2)
+                      end
+
+        expect { result }.to change_temp
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` in non-void `case` else' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        change_temp = case season
+                      when :summer then change { temp }.from(0).to(1)
+                      else change { temp }.from(0).to(2)
+                      end
+
+        expect { result }.to change_temp
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for `change` used with `&` operator' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to \\
+          change { obj.foo }.from(1).to(2) &
+          change { obj.bar }.from(3).to(4)
+      end
+    RUBY
+  end
+
+  it 'registers an offense for `change` after custom expect helper' do
+    expect_offense(<<~RUBY)
+      specify do
+        def expect_action
+          expect { action!(performer: performer, context: context) }
+        end
+
+        expect_action
+          .to change { obj.foo }.from(1).to(2)
+              change { obj.bar }.from(3).to(4)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+      end
+    RUBY
+  end
+
+  it 'does not register an offense when `change` is called on a receiver' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        expect { result }.to change { obj.bar }.from(1).to(2)
+        foo.change { obj.foo }
+      end
+    RUBY
+  end
+
+  it 'does not register when `change` on a receiver has no expectation' do
+    expect_no_offenses(<<~RUBY)
+      specify do
+        foo.change { obj.foo }
+      end
+    RUBY
+  end
+
+  context 'with custom CustomMatcherMethods' do
+    let(:cop_config) do
+      { 'CustomMatcherMethods' => %w[custom_matcher] }
+    end
+
+    it 'registers an offense for configured custom matcher' do
+      expect_offense(<<~RUBY)
+        specify do
+          expect(foo).to \\
+            receive(:bar)
+            custom_matcher(:foo)
+            ^^^^^^^^^^^^^^^^^^^^ The result of `custom_matcher` is not used. Did you mean to chain it with `.and`?
+        end
+      RUBY
+    end
+  end
+end
