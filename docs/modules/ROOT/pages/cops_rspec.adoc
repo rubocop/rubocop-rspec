@@ -1658,6 +1658,59 @@ it { does_something }
 * https://rspec.rubystyle.guide/#empty-line-after-let
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook
 
+[#rspecemptylineaftersharedinclusion]
+== RSpec/EmptyLineAfterSharedInclusion
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| Always
+| <<next>>
+| -
+|===
+
+Checks for empty line after shared example inclusion.
+
+[#examples-rspecemptylineaftersharedinclusion]
+=== Examples
+
+[source,ruby]
+----
+# bad
+RSpec.describe User do
+  include_context 'with_authentication'
+  it { does_something }
+end
+
+# bad
+RSpec.describe User do
+  it_behaves_like 'a sortable'
+  it { does_something }
+end
+
+# good
+RSpec.describe User do
+  include_context 'with_authentication'
+
+  it { does_something }
+end
+
+# good - multiple shared example inclusions grouped together
+RSpec.describe User do
+  include_context 'with_authentication'
+  include_context 'with_authorization'
+
+  it { does_something }
+end
+----
+
+[#references-rspecemptylineaftersharedinclusion]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSharedInclusion
+
 [#rspecemptylineaftersubject]
 == RSpec/EmptyLineAfterSubject
 
