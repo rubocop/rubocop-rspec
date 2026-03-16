@@ -16,6 +16,26 @@ module RuboCop
       #     expect([user1, user2, user3]).to all(be_valid)
       #   end
       #
+      #   # bad
+      #   it 'sets inferred fields for users' do
+      #     [user1, user2, user3].each do |user|
+      #       expect(user).to have_attributes(
+      #         post_count: PostService.new(user).post_count,
+      #         karma: KarmaService.new(user).value
+      #       )
+      #     end
+      #   end
+      #
+      #   # good
+      #   it 'sets inferred fields for users' do
+      #     expect([user1, user2, user3]).to all(satisfy do |user|
+      #       have_attributes(
+      #         post_count: PostService.new(user).post_count,
+      #         karma: KarmaService.new(user).value
+      #       )
+      #     end)
+      #   end
+      #
       class IteratedExpectation < Base
         extend AutoCorrector
 
