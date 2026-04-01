@@ -805,6 +805,103 @@ end
 * https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 * http://www.betterspecs.org/#contexts
 
+[#rspeccontrollerspecdirectory]
+== RSpec/ControllerSpecDirectory
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Discourages specs in `spec/controllers/` directories.
+
+Controller specs are a legacy pattern that couples tests to
+implementation details. Request specs test the full stack and
+are more maintainable.
+
+This cop flags any top-level example group located in a
+`spec/controllers/` directory. Use the `Include` configuration
+to control which paths are checked.
+
+[#examples-rspeccontrollerspecdirectory]
+=== Examples
+
+[source,ruby]
+----
+# bad - spec/controllers/users_controller_spec.rb
+RSpec.describe UsersController do
+  # ...
+end
+
+# good - spec/requests/users_spec.rb
+RSpec.describe 'Users', type: :request do
+  # ...
+end
+----
+
+[#configurable-attributes-rspeccontrollerspecdirectory]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Include
+| `+**/spec/controllers/**/*_spec.rb+`
+| Array
+|===
+
+[#references-rspeccontrollerspecdirectory]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ControllerSpecDirectory
+* RSpec/ControllerSpecType
+
+[#rspeccontrollerspectype]
+== RSpec/ControllerSpecType
+
+|===
+| Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
+
+| Pending
+| Yes
+| No
+| <<next>>
+| -
+|===
+
+Discourages explicit `type: :controller` metadata in specs.
+
+Controller specs are a legacy pattern that couples tests to
+implementation details. Request specs test the full stack and
+are more maintainable.
+
+[#examples-rspeccontrollerspectype]
+=== Examples
+
+[source,ruby]
+----
+# bad
+RSpec.describe UsersController, type: :controller do
+  # ...
+end
+
+# good
+RSpec.describe 'Users', type: :request do
+  # ...
+end
+----
+
+[#references-rspeccontrollerspectype]
+=== References
+
+* https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ControllerSpecType
+* RSpec/ControllerSpecDirectory
+
 [#rspecdescribeclass]
 == RSpec/DescribeClass
 

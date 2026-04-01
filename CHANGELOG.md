@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add new cop `RSpec/ControllerSpecDirectory`. ([@CariWest])
+- Add new cop `RSpec/ControllerSpecType`. ([@CariWest])
 - Add support for `itblock` nodes. ([@Darhazer])
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
@@ -988,6 +990,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@bquorning]: https://github.com/bquorning
 [@brentwheeldon]: https://github.com/BrentWheeldon
 [@brianhawley]: https://github.com/BrianHawley
+[@cariwest]: https://github.com/CariWest
 [@cbliard]: https://github.com/cbliard
 [@cfabianski]: https://github.com/cfabianski
 [@clupprich]: https://github.com/clupprich

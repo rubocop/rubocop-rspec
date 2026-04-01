@@ -243,6 +243,20 @@ RSpec/ContextWording:
   StyleGuide: https://rspec.rubystyle.guide/#context-descriptions
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording
 
+RSpec/ControllerSpecDirectory:
+  Description: Discourages specs in `spec/controllers/` directories.
+  Enabled: pending
+  Include:
+    - "**/spec/controllers/**/*_spec.rb"
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ControllerSpecDirectory
+
+RSpec/ControllerSpecType:
+  Description: 'Discourages explicit `type: :controller` metadata in specs.'
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ControllerSpecType
+
 RSpec/DescribeClass:
   Description: Check that the first argument to the top-level describe is a constant.
   Enabled: true

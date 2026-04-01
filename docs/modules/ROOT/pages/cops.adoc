@@ -17,6 +17,8 @@
 * xref:cops_rspec.adoc#rspeccontainexactly[RSpec/ContainExactly]
 * xref:cops_rspec.adoc#rspeccontextmethod[RSpec/ContextMethod]
 * xref:cops_rspec.adoc#rspeccontextwording[RSpec/ContextWording]
+* xref:cops_rspec.adoc#rspeccontrollerspecdirectory[RSpec/ControllerSpecDirectory]
+* xref:cops_rspec.adoc#rspeccontrollerspectype[RSpec/ControllerSpecType]
 * xref:cops_rspec.adoc#rspecdescribeclass[RSpec/DescribeClass]
 * xref:cops_rspec.adoc#rspecdescribemethod[RSpec/DescribeMethod]
 * xref:cops_rspec.adoc#rspecdescribesymbol[RSpec/DescribeSymbol]

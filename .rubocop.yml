@@ -294,6 +294,8 @@ Performance/ZipWithoutBlock: {Enabled: true}
 
 # Enable our own pending cops.
 
+RSpec/ControllerSpecDirectory: {Enabled: true}
+RSpec/ControllerSpecType: {Enabled: true}
 RSpec/IncludeExamples: {Enabled: true}
 RSpec/LeakyLocalVariable: {Enabled: true}
 RSpec/Output: {Enabled: true}
