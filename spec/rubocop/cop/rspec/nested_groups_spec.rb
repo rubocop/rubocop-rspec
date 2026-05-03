@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
+  include_context 'with exclude limit tracking'
+
   it 'flags nested example groups defined inside `describe`' do
     expect_offense(<<~RUBY)
       describe MyClass do
@@ -62,7 +64,7 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
       end
     RUBY
 
-    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 4)
+    expect(read_exclude_limit(cop)).to eq('Max' => 4)
   end
 
   it 'flags example groups wrapped in classes' do

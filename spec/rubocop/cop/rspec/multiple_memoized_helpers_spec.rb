@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers do
+  include_context 'with exclude limit tracking'
+
   let(:cop_config) { { 'Max' => 1 } }
 
   it 'flags excessive `#let`' do
@@ -157,6 +159,6 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleMemoizedHelpers do
       end
     RUBY
 
-    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 4)
+    expect(read_exclude_limit(cop)).to eq('Max' => 4)
   end
 end
