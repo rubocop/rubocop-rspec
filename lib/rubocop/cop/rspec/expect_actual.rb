@@ -19,12 +19,15 @@ module RuboCop
       #   expect(name).to eq("John")
       #
       #   # bad (not supported autocorrection)
+      #   expect(42).to be_even
       #   expect(false).to eq(true)
+      #   expect("user").to be_present
       #
       class ExpectActual < Base
         extend AutoCorrector
 
         MSG = 'Provide the actual value you are testing to `expect(...)`.'
+        MSG_NO_ARG = 'Test a non-literal value with `expect(...)`.'
 
         RESTRICT_ON_SEND = Runners.all
 
@@ -65,9 +68,21 @@ module RuboCop
           )
         PATTERN
 
+        # @!method expect_literal_no_arg(node)
+        def_node_matcher :expect_literal_no_arg, <<~PATTERN
+          (send
+            (send nil? :expect $#literal?)
+            #Runners.all
+            $(send nil? $_)
+          )
+        PATTERN
+
         def on_send(node)
           expect_literal(node) do |actual, send_node, matcher, expected|
             register_offense(actual, send_node, matcher, expected)
+          end
+          expect_literal_no_arg(node) do |actual, send_node, matcher|
+            register_offense(actual, send_node, matcher, nil)
           end
         end
 
@@ -76,9 +91,10 @@ module RuboCop
         def register_offense(actual, send_node, matcher, expected)
           return if SKIPPED_MATCHERS.include?(matcher)
 
-          add_offense(actual) do |corrector|
+          message = expected.nil? ? MSG_NO_ARG : MSG
+          add_offense(actual, message: message) do |corrector|
             next unless CORRECTABLE_MATCHERS.include?(matcher)
-            next if literal?(expected)
+            next if expected.nil? || literal?(expected)
 
             corrector.replace(actual, expected.source)
             if matcher == :be
