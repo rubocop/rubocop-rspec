@@ -67,23 +67,27 @@ module RuboCop
 
         def on_send(node)
           expect_literal(node) do |actual, send_node, matcher, expected|
-            next if SKIPPED_MATCHERS.include?(matcher)
-
-            add_offense(actual) do |corrector|
-              next unless CORRECTABLE_MATCHERS.include?(matcher)
-              next if literal?(expected)
-
-              corrector.replace(actual, expected.source)
-              if matcher == :be
-                corrector.replace(expected, actual.source)
-              else
-                corrector.replace(send_node, "#{matcher}(#{actual.source})")
-              end
-            end
+            register_offense(actual, send_node, matcher, expected)
           end
         end
 
         private
+
+        def register_offense(actual, send_node, matcher, expected)
+          return if SKIPPED_MATCHERS.include?(matcher)
+
+          add_offense(actual) do |corrector|
+            next unless CORRECTABLE_MATCHERS.include?(matcher)
+            next if literal?(expected)
+
+            corrector.replace(actual, expected.source)
+            if matcher == :be
+              corrector.replace(expected, actual.source)
+            else
+              corrector.replace(send_node, "#{matcher}(#{actual.source})")
+            end
+          end
+        end
 
         # This is not implemented using a NodePattern because it seems
         # to not be able to match against an explicit (nil) sexp
