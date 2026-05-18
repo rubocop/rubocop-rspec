@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Add new cop `RSpec/MatchWithSimpleRegex` to suggest `include` matcher when `match` is used with simple string literals without regex-specific features. ([@bquorning])
 - Add support for `itblock` nodes. ([@Darhazer])
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
