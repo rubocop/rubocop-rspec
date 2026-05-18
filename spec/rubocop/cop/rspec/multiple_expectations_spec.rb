@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
+  include_context 'with exclude limit tracking'
+
   context 'without configuration' do
     let(:cop_config) { {} }
 
@@ -254,6 +256,6 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
       end
     RUBY
 
-    expect(cop.config_to_allow_offenses[:exclude_limit]).to eq('Max' => 3)
+    expect(read_exclude_limit(cop)).to eq('Max' => 3)
   end
 end
