@@ -6,6 +6,7 @@
 - Add support for `itblock` nodes. ([@Darhazer])
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
+- Fix a false positive for `RSpec/ContainExactly` when `contain_exactly` has multiple splat arguments. ([@ydah])
 - Add autocorrect support for `RSpec/SubjectDeclaration`. ([@eugeneius])
 
 ## 3.9.0 (2026-01-07)
