@@ -44,6 +44,7 @@ module RuboCop
         include FileHelp
 
         MSG = 'Spec path should end with `%<suffix>s`.'
+        PATH_NAME_BOUNDARY = '(?![[:alnum:]])'
 
         # @!method example_group_arguments(node)
         def_node_matcher :example_group_arguments, <<~PATTERN
@@ -119,7 +120,11 @@ module RuboCop
           # For the suffix shown in the offense message, modify the regular
           # expression pattern to resemble a glob pattern for clearer error
           # messages.
-          suffix = pattern.sub('.*', '*').sub('[^/]*', '*').sub('\.', '.')
+          suffix = pattern
+            .sub(PATH_NAME_BOUNDARY, '')
+            .sub('.*', '*')
+            .sub('[^/]*', '*')
+            .sub('\.', '.')
           add_offense(send_node, message: format(MSG, suffix: suffix))
         end
 
@@ -132,19 +137,21 @@ module RuboCop
         end
 
         def correct_path_pattern(class_name, arguments)
-          path = [expected_path(class_name)]
-          path << '.*' unless ignore?(arguments.first)
-          path << [name_pattern(arguments.first), '[^/]*_spec\.rb']
-          path.join
+          [
+            expected_path(class_name),
+            PATH_NAME_BOUNDARY,
+            method_name_pattern(arguments.first),
+            '[^/]*_spec\.rb'
+          ].join
         end
 
-        def name_pattern(method_name)
-          return if ignore?(method_name)
+        def method_name_pattern(method_name)
+          return if ignore_method_name?(method_name)
 
-          method_name.str_content.gsub(/\s/, '_').gsub(/\W/, '')
+          ".*#{method_name.str_content.gsub(/\s/, '_').gsub(/\W/, '')}"
         end
 
-        def ignore?(method_name)
+        def ignore_method_name?(method_name)
           !method_name&.str_type? || ignore_methods?
         end
 
@@ -175,7 +182,7 @@ module RuboCop
         end
 
         def filename_ends_with?(pattern)
-          expanded_file_path.match?("#{pattern}$")
+          expanded_file_path.match?(%r{(?:\A|/)#{pattern}$})
         end
       end
     end

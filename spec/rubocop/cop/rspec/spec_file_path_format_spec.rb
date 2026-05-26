@@ -36,6 +36,28 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
+  it 'registers an offense when the class name is only a file name prefix' do
+    expect_offense(<<~RUBY, 'spec/models/random/userx_spec.rb')
+      RSpec.describe User, type: :model do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `user*_spec.rb`.
+    RUBY
+  end
+
+  it 'registers an offense when the class name is only a file name suffix' do
+    expect_offense(<<~RUBY, 'spec/models/my_user_spec.rb')
+      describe User do; end
+      ^^^^^^^^^^^^^ Spec path should end with `user*_spec.rb`.
+    RUBY
+  end
+
+  it 'registers an offense when namespaced class name is only a ' \
+     'file name prefix' do
+    expect_offense(<<~RUBY, 'some/classy_spec.rb')
+      describe Some::Class do; end
+      ^^^^^^^^^^^^^^^^^^^^ Spec path should end with `some/class*_spec.rb`.
+    RUBY
+  end
+
   it 'registers an offense when wrong top-level class name' do
     expect_offense(<<~RUBY, 'wrong_class_spec.rb')
       describe ::MyClass do; end
@@ -113,9 +135,23 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
+  it 'does not register an offense when the class name has a suffix' do
+    expect_no_offenses(<<~RUBY, 'user_validations_spec.rb')
+      describe User do; end
+    RUBY
+  end
+
   it 'does not register an offense when instance methods' do
     expect_no_offenses(<<~RUBY, 'some/class/inst_spec.rb')
       describe Some::Class, '#inst' do; end
+    RUBY
+  end
+
+  it 'registers an offense when the method path uses only a class name ' \
+     'prefix' do
+    expect_offense(<<~RUBY, 'some/classx/inst_spec.rb')
+      describe Some::Class, '#inst' do; end
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `some/class*inst*_spec.rb`.
     RUBY
   end
 
@@ -402,7 +438,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
         allow(described_class::ActiveSupportInflector).to receive(:require)
           .with(cop_config['InflectorPath'])
         allow(ActiveSupport::Inflector).to receive(:underscore)
-          .and_return('')
+          .with('HTTPClient').and_return('http_client')
       end
 
       it 'reads the InflectorPath configuration correctly and does not ' \
