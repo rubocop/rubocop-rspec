@@ -80,10 +80,6 @@ module RuboCop
             MSG_RECEIVE
           when :have_received
             format(MSG_HAVE_RECEIVED, source: receiver.source)
-          else
-            # :nocov:
-            :noop
-            # :nocov:
           end
         end
       end
