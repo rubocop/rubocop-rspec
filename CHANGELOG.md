@@ -7,6 +7,7 @@
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
 - Add autocorrect support for `RSpec/SubjectDeclaration`. ([@eugeneius])
+- Fix false negatives for `RSpec/SpecFilePathFormat` when the expected class path only partially matches a path segment. ([@ydah])
 
 ## 3.9.0 (2026-01-07)
 
