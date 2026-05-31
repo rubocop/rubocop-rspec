@@ -37,6 +37,13 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
         def bar
         end
       end
+
+      # Checks bar with a description that wraps across
+      # multiple lines
+      #
+      # @note only works with bar
+      class RuboCop::Cop::RSpec::Bar < RuboCop::Cop::RSpec::Base
+      end
     RUBY
 
     YARD::Registry.all(:class)
@@ -60,12 +67,17 @@ RSpec.describe RuboCop::RSpec::DescriptionExtractor do
   before do
     stub_cop_const('Foo')
     stub_cop_const('Undocumented')
+    stub_cop_const('Bar')
   end
 
   it 'builds a hash of descriptions' do
     expect(described_class.new(yardocs).to_h).to eql(
       'RSpec/Foo'          => { 'Description' => 'Checks foo' },
-      'RSpec/Undocumented' => { 'Description' => ''           }
+      'RSpec/Undocumented' => { 'Description' => '' },
+      'RSpec/Bar'          => {
+        'Description' => 'Checks bar with a description that wraps across ' \
+                         'multiple lines'
+      }
     )
   end
 end

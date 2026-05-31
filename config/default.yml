@@ -649,6 +649,13 @@ RSpec/MatchArray:
   VersionAdded: '2.19'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
+RSpec/MatchWithSimpleRegex:
+  Description: Enforces the use of `include` matcher instead of `match` when the matcher
+    is a simple string literal without regex-specific features.
+  Enabled: pending
+  VersionAdded: "<<next>>"
+  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchWithSimpleRegex
+
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.
   Enabled: true

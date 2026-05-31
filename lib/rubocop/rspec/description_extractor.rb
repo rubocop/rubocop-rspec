@@ -50,7 +50,7 @@ module RuboCop
         end
 
         def description
-          yardoc.docstring.split("\n\n").first.to_s
+          yardoc.docstring.split("\n\n").first.to_s.tr("\n", ' ')
         end
 
         def rspec_cop_namespace?

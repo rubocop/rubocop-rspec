@@ -297,4 +297,5 @@ Performance/ZipWithoutBlock: {Enabled: true}
 RSpec/EmptyLineAfterSharedInclusion: {Enabled: true}
 RSpec/IncludeExamples: {Enabled: true}
 RSpec/LeakyLocalVariable: {Enabled: true}
+RSpec/MatchWithSimpleRegex: {Enabled: true}
 RSpec/Output: {Enabled: true}

@@ -3,10 +3,13 @@
 ## Master (Unreleased)
 
 - Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
+- Add new cop `RSpec/MatchWithSimpleRegex` to suggest `include` matcher when `match` is used with simple string literals without regex-specific features. ([@bquorning])
 - Add support for `itblock` nodes. ([@Darhazer])
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
+- Fix a false positive for `RSpec/ContainExactly` when `contain_exactly` has multiple splat arguments. ([@ydah])
 - Add autocorrect support for `RSpec/SubjectDeclaration`. ([@eugeneius])
+- Fix false negatives for `RSpec/SpecFilePathFormat` when the expected class path only partially matches a path segment. ([@ydah])
 
 ## 3.9.0 (2026-01-07)
 

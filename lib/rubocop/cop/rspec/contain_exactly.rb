@@ -12,10 +12,13 @@ module RuboCop
       #
       # @example
       #   # bad
-      #   it { is_expected.to contain_exactly(*array1, *array2) }
+      #   it { is_expected.to contain_exactly(*array) }
       #
       #   # good
-      #   it { is_expected.to match_array(array1 + array2) }
+      #   it { is_expected.to match_array(array) }
+      #
+      #   # good
+      #   it { is_expected.to contain_exactly(*array1, *array2) }
       #
       #   # good
       #   it { is_expected.to contain_exactly(content, *array) }
@@ -27,29 +30,12 @@ module RuboCop
         RESTRICT_ON_SEND = %i[contain_exactly].freeze
 
         def on_send(node)
-          return if node.arguments.empty?
-
-          check_populated_collection(node)
-        end
-
-        private
-
-        def check_populated_collection(node)
-          return unless node.each_child_node.all?(&:splat_type?)
+          return unless node.arguments.one? && node.first_argument.splat_type?
 
           add_offense(node) do |corrector|
-            autocorrect_for_populated_array(node, corrector)
+            array = node.first_argument.children.first
+            corrector.replace(node, "match_array(#{array.source})")
           end
-        end
-
-        def autocorrect_for_populated_array(node, corrector)
-          arrays = node.arguments.map do |splat_node|
-            splat_node.children.first
-          end
-          corrector.replace(
-            node,
-            "match_array(#{arrays.map(&:source).join(' + ')})"
-          )
         end
       end
     end
