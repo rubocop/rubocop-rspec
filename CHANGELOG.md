@@ -9,6 +9,7 @@
 - Fix a false positive for `RSpec/ContainExactly` when `contain_exactly` has multiple splat arguments. ([@ydah])
 - Add autocorrect support for `RSpec/SubjectDeclaration`. ([@eugeneius])
 - Fix false negatives for `RSpec/SpecFilePathFormat` when the expected class path only partially matches a path segment. ([@ydah])
+- Fix a false negative for `RSpec/ExpectActual` when the matcher takes no arguments (e.g. `expect("foo").to be_present`, `expect(1).to be`). ([@cvx])
 
 ## 3.9.0 (2026-01-07)
 
@@ -997,6 +998,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@composerinteralia]: https://github.com/composerinteralia
 [@corsonknowles]: https://github.com/corsonknowles
 [@corydiamand]: https://github.com/corydiamand
+[@cvx]: https://github.com/cvx
 [@d4rky-pl]: https://github.com/d4rky-pl
 [@darhazer]: https://github.com/Darhazer
 [@daveworth]: https://github.com/daveworth

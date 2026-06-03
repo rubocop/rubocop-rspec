@@ -227,14 +227,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
     RUBY
   end
 
-  it 'ignores `be` with no argument' do
-    expect_no_offenses(<<~RUBY)
+  it 'flags `be` with no argument' do
+    expect_offense(<<~RUBY)
       describe Foo do
-        it 'uses expect legitimately' do
+        it 'uses expect incorrectly' do
           expect(1).to be
+                 ^ Test a non-literal value with `expect(...)`.
         end
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'flags `be` with an argument' do
@@ -332,6 +335,21 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectActual do
         it 'uses expect incorrectly' do
           expect([1,2,3]).to eq([1, 2, 3])
                  ^^^^^^^ Provide the actual value you are testing to `expect(...)`.
+        end
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'flags literal values with argumentless predicate matchers' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        it 'uses expect incorrectly' do
+          expect("user").to be_present
+                 ^^^^^^ Test a non-literal value with `expect(...)`.
+          expect([]).to be_empty
+                 ^^ Test a non-literal value with `expect(...)`.
         end
       end
     RUBY
