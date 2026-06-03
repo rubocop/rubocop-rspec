@@ -2,7 +2,10 @@
 
 ## Master (Unreleased)
 
+## 3.10.0 (2026-06-05)
+
 - Add new cop `RSpec/MatchWithSimpleRegex` to suggest `include` matcher when `match` is used with simple string literals without regex-specific features. ([@bquorning])
+- Add new cop `RSpec/DiscardedMatcher` to detect matchers in void context (e.g. missing `.and` between compound matchers). ([@ydakuka])
 - Add support for `itblock` nodes. ([@Darhazer])
 - `RSpec/ScatteredLet` now preserves the order of `let`s during auto-correction. ([@Darhazer])
 - Fix a false negative for `RSpec/EmptyLineAfterFinalLet` inside `shared_examples` / `include_examples` / `it_behaves_like` blocks. ([@Darhazer])
@@ -17,7 +20,6 @@
 - Fix a false positive for `RSpec/ScatteredSetup` when the hook is defined inside a class method. ([@d4rky-pl])
 - Fix a false positive for `RSpec/DescribedClass` inside dynamically evaluated blocks (`class_eval`, `module_eval`, `instance_eval`, `class_exec`, `module_exec`, `instance_exec`). ([@sucicfilip])
 - Add new cop `RSpec/Output`. ([@kevinrobell-st])
-- Add new cop `RSpec/DiscardedMatcher` to detect matchers in void context (e.g. missing `.and` between compound matchers). ([@ydakuka])
 
 ## 3.8.0 (2025-11-12)
 

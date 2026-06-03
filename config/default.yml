@@ -314,7 +314,7 @@ RSpec/Dialect:
 RSpec/DiscardedMatcher:
   Description: Checks for matchers that are used in void context.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.10'
   CustomMatcherMethods: []
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DiscardedMatcher
 
@@ -647,7 +647,7 @@ RSpec/MatchWithSimpleRegex:
   Description: Enforces the use of `include` matcher instead of `match` when the matcher
     is a simple string literal without regex-specific features.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchWithSimpleRegex
 
 RSpec/MessageChain:
