@@ -4,6 +4,7 @@
 
 - Add `Strict` option to `RSpec/SharedContext` to flag `shared_context` whenever it contains examples, even alongside setup code. ([@Darhazer])
 - Add `NegatedMatcher` configuration option `RSpec/ExpectChange`. ([@Darhazer])
+- Fix `RSpec/MatchWithSimpleRegex` to ignore regular expressions with interpolations. ([@bquorning])
 
 ## 3.10.0 (2026-06-05)
 

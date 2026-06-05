@@ -84,6 +84,12 @@ RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
     RUBY
   end
 
+  it 'does not register an offense when using match with interpolation' do
+    expect_no_offenses(<<~'RUBY')
+      expect('foobar').to match(/foo-#{bar}/)
+    RUBY
+  end
+
   it 'does not register an offense when using match with string ' \
      'instead of regex' do
     expect_no_offenses(<<~RUBY)
