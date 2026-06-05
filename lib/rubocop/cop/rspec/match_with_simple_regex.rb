@@ -54,6 +54,8 @@ module RuboCop
         private
 
         def simple_regexp?(node)
+          return false if node.interpolation?
+
           parsed = Regexp::Parser.parse(node.content)
           parsed.expressions.all? { |expr| simple_expression?(expr) }
         end

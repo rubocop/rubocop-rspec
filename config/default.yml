@@ -460,7 +460,7 @@ RSpec/ExpectChange:
     - block
   SafeAutoCorrect: false
   VersionAdded: '1.22'
-  VersionChanged: "<<next>>"
+  VersionChanged: '3.10'
   NegatedMatcher: ~
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange
 
@@ -918,7 +918,7 @@ RSpec/SharedContext:
   Enabled: true
   Strict: false
   VersionAdded: '1.13'
-  VersionChanged: "<<next>>"
+  VersionChanged: '3.10'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 RSpec/SharedExamples:
