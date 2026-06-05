@@ -1228,7 +1228,7 @@ end
 | Pending
 | Yes
 | No
-| <<next>>
+| 3.10
 | -
 |===
 
@@ -3720,7 +3720,7 @@ it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.10
 | -
 |===
 
