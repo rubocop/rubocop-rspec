@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Add `Strict` option to `RSpec/SharedContext` to flag `shared_context` whenever it contains examples, even alongside setup code. ([@Darhazer])
+
 ## 3.10.0 (2026-06-05)
 
 - Add new cop `RSpec/MatchWithSimpleRegex` to suggest `include` matcher when `match` is used with simple string literals without regex-specific features. ([@bquorning])
