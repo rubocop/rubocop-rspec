@@ -8,6 +8,9 @@ module RuboCop
       # If there are no examples defined, use shared_context.
       # If there is no setup defined, use shared_examples.
       #
+      # With `Strict: true`, `shared_context` is flagged whenever it contains
+      # any examples, even if it also contains setup code.
+      #
       # @example
       #   # bad
       #   RSpec.shared_context 'only examples here' do
@@ -50,11 +53,31 @@ module RuboCop
       #     end
       #   end
       #
+      # @example Strict: true
+      #   # bad - shared_context with examples is flagged
+      #   RSpec.shared_context 'setup and examples' do
+      #     let(:foo) { :bar }
+      #
+      #     it 'does x' do
+      #     end
+      #   end
+      #
+      #   # good - split into separate shared_context and shared_examples
+      #   RSpec.shared_context 'setup' do
+      #     let(:foo) { :bar }
+      #   end
+      #
+      #   RSpec.shared_examples 'examples' do
+      #     it 'does x' do
+      #     end
+      #   end
+      #
       class SharedContext < Base
         extend AutoCorrector
 
         MSG_EXAMPLES = "Use `shared_examples` when you don't define context."
-        MSG_CONTEXT  = "Use `shared_context` when you don't define examples."
+        MSG_EXAMPLES_STRICT = 'Use `shared_examples` when you define examples.'
+        MSG_CONTEXT = "Use `shared_context` when you don't define examples."
 
         # @!method examples?(node)
         def_node_search :examples?, <<~PATTERN
@@ -79,9 +102,12 @@ module RuboCop
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
-          context_with_only_examples(node) do
-            add_offense(node.send_node, message: MSG_EXAMPLES) do |corrector|
-              corrector.replace(node.send_node.loc.selector, 'shared_examples')
+          offending_node(node) do
+            add_offense(node.send_node, message: message) do |corrector|
+              if can_correct?(node)
+                corrector.replace(node.send_node.loc.selector,
+                                  'shared_examples')
+              end
             end
           end
 
@@ -94,8 +120,22 @@ module RuboCop
 
         private
 
-        def context_with_only_examples(node)
-          shared_context(node) { yield if examples?(node) && !context?(node) }
+        def strict?
+          cop_config.fetch('Strict', false)
+        end
+
+        def message
+          strict? ? MSG_EXAMPLES_STRICT : MSG_EXAMPLES
+        end
+
+        def can_correct?(node)
+          !strict? || !context?(node)
+        end
+
+        def offending_node(node)
+          shared_context(node) do
+            yield if examples?(node) && (strict? || !context?(node))
+          end
         end
 
         def examples_with_only_context(node)

@@ -5910,13 +5910,16 @@ end
 | Yes
 | Always
 | 1.13
-| -
+| <<next>>
 |===
 
 Checks for proper shared_context and shared_examples usage.
 
 If there are no examples defined, use shared_context.
 If there is no setup defined, use shared_examples.
+
+With `Strict: true`, `shared_context` is flagged whenever it contains
+any examples, even if it also contains setup code.
 
 [#examples-rspecsharedcontext]
 === Examples
@@ -5966,6 +5969,41 @@ RSpec.shared_context 'only setup here' do
   end
 end
 ----
+
+[#strict_-true-rspecsharedcontext]
+==== Strict: true
+
+[source,ruby]
+----
+# bad - shared_context with examples is flagged
+RSpec.shared_context 'setup and examples' do
+  let(:foo) { :bar }
+
+  it 'does x' do
+  end
+end
+
+# good - split into separate shared_context and shared_examples
+RSpec.shared_context 'setup' do
+  let(:foo) { :bar }
+end
+
+RSpec.shared_examples 'examples' do
+  it 'does x' do
+  end
+end
+----
+
+[#configurable-attributes-rspecsharedcontext]
+=== Configurable attributes
+
+|===
+| Name | Default value | Configurable values
+
+| Strict
+| `false`
+| Boolean
+|===
 
 [#references-rspecsharedcontext]
 === References

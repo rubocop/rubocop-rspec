@@ -915,7 +915,9 @@ RSpec/ScatteredSetup:
 RSpec/SharedContext:
   Description: Checks for proper shared_context and shared_examples usage.
   Enabled: true
+  Strict: false
   VersionAdded: '1.13'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext
 
 RSpec/SharedExamples:
