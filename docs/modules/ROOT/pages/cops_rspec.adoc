@@ -2209,7 +2209,7 @@ expect("user").to be_present
 | Yes
 | Always (Unsafe)
 | 1.22
-| <<next>>
+| 3.10
 |===
 
 Checks for consistent style of change matcher.
@@ -5930,7 +5930,7 @@ end
 | Yes
 | Always
 | 1.13
-| <<next>>
+| 3.10
 |===
 
 Checks for proper shared_context and shared_examples usage.
