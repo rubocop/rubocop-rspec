@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix `RSpec/MatchWithSimpleRegex` to ignore regular expressions with options. ([@bquorning])
+
 ## 3.10.1 (2026-06-05)
 
 - Add `Strict` option to `RSpec/SharedContext` to flag `shared_context` whenever it contains examples, even alongside setup code. ([@Darhazer])
