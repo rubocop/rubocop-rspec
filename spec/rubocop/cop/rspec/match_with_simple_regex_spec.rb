@@ -90,6 +90,17 @@ RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
     RUBY
   end
 
+  it 'does not register an offense when using match with regex options' do
+    expect_no_offenses(<<~RUBY)
+      expect('foobar').to match(/foo/x)
+      expect('foobar').to match(/foo/i)
+      expect('foobar').to match(/foo/m)
+      expect('foobar').to match(/foo/n)
+      expect('foobar').to match(/foo/u)
+      expect('foobar').to match(/foo/o)
+    RUBY
+  end
+
   it 'does not register an offense when using match with string ' \
      'instead of regex' do
     expect_no_offenses(<<~RUBY)
