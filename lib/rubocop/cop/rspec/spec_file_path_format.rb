@@ -159,8 +159,9 @@ module RuboCop
           constants = namespace(constant) + constant.const_name.split('::')
 
           File.join(
-            constants.map do |name|
-              custom_transform.fetch(name) { camel_to_snake_case(name) }
+            constants.filter_map do |name|
+              path = custom_transform.fetch(name) { camel_to_snake_case(name) }
+              path unless path.empty?
             end
           )
         end

@@ -286,6 +286,23 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     end
   end
 
+  context 'when configured with `CustomTransform: { "MyApp" => "" }`' do
+    let(:cop_config) { { 'CustomTransform' => { 'MyApp' => '' } } }
+
+    it 'does not register an offense when namespace maps to empty string' do
+      expect_no_offenses(<<~RUBY, 'actions/api/auth/current_spec.rb')
+        describe MyApp::Actions::API::Auth::Current do; end
+      RUBY
+    end
+
+    it 'registers an offense when path does not match' do
+      expect_offense(<<~RUBY, 'wrong/path_spec.rb')
+        describe MyApp::Actions::API::Auth::Current do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `actions/api/auth/current*_spec.rb`.
+      RUBY
+    end
+  end
+
   context 'when configured with `IgnoreMethods: false`' do
     let(:cop_config) { { 'IgnoreMethods' => false } }
     let(:suffix) { 'my_class*look_here_a_method*_spec.rb' }
