@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false positives for `RSpec/SpecFilePathFormat` when `CustomTransform` maps a namespace to an empty string. ([@sakuro])
+- Fix `RSpec/MatchWithSimpleRegex` to ignore regular expressions with options. ([@bquorning])
 
 ## 3.10.1 (2026-06-05)
 
