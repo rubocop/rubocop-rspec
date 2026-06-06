@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false positives for `RSpec/SpecFilePathFormat` when `CustomTransform` maps a namespace to an empty string. ([@sakuro])
+
 ## 3.10.1 (2026-06-05)
 
 - Add `Strict` option to `RSpec/SharedContext` to flag `shared_context` whenever it contains examples, even alongside setup code. ([@Darhazer])
