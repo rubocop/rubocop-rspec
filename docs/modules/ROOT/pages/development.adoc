@@ -45,9 +45,239 @@ for good and bad examples (old name is on the left, new name on the right).
 
 == Base class
 
-The `RuboCop::Cop::RSpec::Base` class includes convenient https://docs.rubocop.org/rubocop-ast/node_pattern.html[node pattern DSL] matchers that will automatically account for any xref:usage.adoc#rspec-dsl-configuration[custom RSpec DSL configuration].
+The `RuboCop::Cop::RSpec::Base` class includes the `RuboCop::RSpec::Language` module, which provides convenient https://docs.rubocop.org/rubocop-ast/node_pattern.html[node pattern DSL] matchers that will automatically account for any xref:usage.adoc#rspec-dsl-configuration[custom RSpec DSL configuration].
 
 For example, if the project defines https://github.com/test-prof/test-prof/blob/master/docs/recipes/let_it_be.md[`let_it_be`] as a `Helper`, then all cops will find `let_it_be` when using the `let?` matcher.
+
+=== Language module and node pattern DSL
+
+When writing matchers for standard RSpec constructs, always use the `Language` module's matchers rather than hardcoding method names. The `Language` module reads from the `RSpec/Language` section of the RuboCop configuration, so matchers automatically adapt to user-defined aliases.
+
+`RuboCop::Cop::RSpec::Base` includes `RuboCop::RSpec::Language`. But if you write a standalone module that needs these matchers (e.g. a mixin), you should include `RuboCop::RSpec::Language` explicitly:
+
+[source,ruby]
+----
+module RuboCop
+  module Cop
+    module RSpec
+      module MyMixin
+        include RuboCop::RSpec::Language
+        extend RuboCop::NodePattern::Macros
+
+        # Uses the Language-aware #Helpers.all predicate
+        def_node_matcher :helper_call?, <<~PATTERN
+          (block (send nil? #Helpers.all ...) ...)
+        PATTERN
+      end
+    end
+  end
+end
+----
+
+The following built-in matchers are provided by the `Language` module:
+
+[cols="1,3"]
+|===
+|Matcher |Matches
+
+|`example_group?(node)`
+|Example group blocks: `describe`, `context`, and any configured aliases, including focused (`fdescribe`) and skipped (`xdescribe`) variants.
+
+|`shared_group?(node)`
+|Shared group blocks: `shared_examples`, `shared_context`, and any configured aliases.
+
+|`spec_group?(node)`
+|Any spec group — equivalent to `example_group? \|\| shared_group?`.
+
+|`example_group_with_body?(node)`
+|An example group block that has a non-empty body.
+
+|`example?(node)`
+|Example blocks: `it`, `example`, `specify`, and any configured aliases, including focused and skipped/pending variants.
+
+|`hook?(node)`
+|Hook blocks: `before`, `after`, `around`, and any configured aliases.
+
+|`let?(node)`
+|Helper blocks: `let`, `let!`, and any custom helpers registered under `Helpers` in the language config. Also matches the `let(:x, &method(:helper))` proc-forwarding form.
+
+|`subject?(node)`
+|Subject blocks: `subject`, `subject!`, and any configured aliases.
+
+|`include?(node)`
+|Include calls: `include_context`, `include_examples`, and any configured aliases — both the block and the bare send form.
+|===
+
+Because these matchers delegate to `Language.config`, they respect any custom DSL configuration the user has set. Never match against a hardcoded list of method names like `[:describe, :context]` — use the appropriate Language matcher instead.
+
+=== Custom hooks
+
+The `TopLevelGroup` mixin (`RuboCop::Cop::RSpec::TopLevelGroup`) provides two callback hooks that are invoked once per top-level spec group during `on_new_investigation`, before any per-node `on_block` callbacks run:
+
+`on_top_level_example_group(node)`::
+Called for each top-level node that is an example group (e.g. `describe`, `context`). Override this method to inspect the root-level describe/context blocks of a file.
+
+`on_top_level_group(node)`::
+Called for every top-level spec group node — both example groups and shared groups. Override this for logic that applies to any top-level RSpec grouping.
+
+To use these hooks, include the mixin and override the relevant method:
+
+[source,ruby]
+----
+class MyTopLevelCop < Base
+  include TopLevelGroup
+
+  def on_top_level_example_group(node)
+    # called once per top-level describe/context block
+    add_offense(node, message: 'Top-level example group offense')
+  end
+end
+----
+
+The mixin also exposes `top_level_groups` which returns all top-level spec group nodes for the current file, which can be useful for cross-group analysis.
+
+== Helper modules
+
+The `lib/rubocop/cop/rspec/mixin/` directory contains a set of reusable modules that cops can include.
+
+=== TopLevelGroup
+
+Provides `on_top_level_example_group` and `on_top_level_group` callback hooks and the `top_level_groups` helper. See xref:development.adoc#_custom_hooks[Custom hooks] above.
+
+=== InsideExampleGroup
+
+Provides `inside_example_group?(node)` to check whether a node appears inside any example group (rather than at the top level).
+
+[source,ruby]
+----
+include InsideExampleGroup
+
+def on_send(node)
+  return unless inside_example_group?(node)
+  # ...
+end
+----
+
+=== InsideExample
+
+Provides `inside_example?(node)` to check whether a node appears inside an example block (e.g. inside an `it` block).
+
+[source,ruby]
+----
+include InsideExample
+
+def on_send(node)
+  return unless inside_example?(node)
+  # ...
+end
+----
+
+=== FinalEndLocation
+
+Provides `final_end_location(node)` which returns the true end location of a node, accounting for any heredoc strings the node contains. A node with a heredoc body can have its `loc.end` before the heredoc terminator, so this helper ensures you get the last meaningful source line.
+
+[source,ruby]
+----
+include FinalEndLocation
+
+end_line = final_end_location(node).line
+----
+
+=== CommentsHelp
+
+Includes `FinalEndLocation` and adds helpers for computing source ranges that span the node together with any leading comments:
+
+* `source_range_with_comment(node)` — returns a `Parser::Source::Range` that covers the node from the start of its first attached comment to the final end (including heredoc endings).
+* `begin_pos_with_comment(node)` — range starting at the beginning of the first attached comment line (or the node itself if no comment precedes it).
+* `start_line_position(node)` / `end_line_position(node)` — line-aligned ranges for the first and last lines of the node.
+
+These are used by `MoveNode` to ensure that when a node is relocated, its preceding comments move with it.
+
+=== MoveNode corrector
+
+`RuboCop::RSpec::Corrector::MoveNode` is a corrector helper (not a mixin) that moves a node and its leading comments to a new position. Construct it with the node to move, the corrector, and the processed source:
+
+[source,ruby]
+----
+def autocorrect(corrector, node)
+  move_node = RuboCop::RSpec::Corrector::MoveNode.new(
+    node, corrector, processed_source
+  )
+  move_node.move_before(target_node)  # insert before target
+  # or:
+  move_node.move_after(target_node)   # insert after target
+end
+----
+
+`move_before` and `move_after` both remove the original node (including its surrounding blank lines) and insert it with correct indentation relative to `target_node`. The corrector is aware of heredocs and comments via `CommentsHelp` and `FinalEndLocation`.
+
+=== EmptyLineSeparation
+
+Provides `missing_separating_line_offense(node)` to flag a missing blank line after a node. Handles heredocs and `rubocop:enable` directives correctly when deciding where the expected blank line should appear.
+
+[source,ruby]
+----
+include EmptyLineSeparation
+
+def on_block(node)
+  missing_separating_line_offense(node) do |method_name|
+    format(MSG, method: method_name)
+  end
+end
+----
+
+=== Variable
+
+Provides `variable_definition?(node)` which captures the name symbol from any `let`, `let!`, `subject`, `subject!`, or custom helper/subject call. Useful for cops that check the names of memoized helpers.
+
+[source,ruby]
+----
+include Variable
+
+def on_send(node)
+  variable_definition?(node) do |name|
+    add_offense(node) if name.to_s.start_with?('_')
+  end
+end
+----
+
+=== Metadata
+
+Provides node matchers and an `on_block` hook that calls `on_metadata(symbols, hash)` for any RSpec node that carries metadata (symbols or hash pairs after the description string). Implement `on_metadata` in the cop to handle the metadata arguments.
+
+[source,ruby]
+----
+include Metadata
+
+def on_metadata(symbols, hash)
+  symbols.each { |sym| check_symbol(sym) }
+end
+----
+
+=== SkipOrPending
+
+Provides two node matchers for detecting skip/pending markers:
+
+* `skipped_in_metadata?(node)` — matches a send node whose argument list contains `:skip` or `:pending` as a symbol or hash key.
+* `skip_or_pending_inside_block?(node)` — matches a block that directly contains a `skip` or `pending` call.
+
+=== Namespace
+
+Provides `namespace(node)` which returns an array of enclosing module/class names as strings, from outermost to innermost (e.g. `['A', 'B', 'C']` for a node inside `module A; module B; module C`).
+
+[source,ruby]
+----
+include Namespace
+
+def on_top_level_example_group(node)
+  full_name = (namespace(node) + [node.arguments.first.value]).join('::')
+  # ...
+end
+----
+
+=== RepeatedItems
+
+Provides `find_repeated_groups(items, key_proc:)` and `add_repeated_lines(items)` for detecting duplicates in a collection of nodes. `find_repeated_groups` groups items by a key proc and returns only groups with more than one member. `add_repeated_lines` maps each item to a `[item, other_lines]` pair so an offense message can cite the locations of the duplicates.
 
 == Writing specs
 
