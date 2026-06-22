@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
+- Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 
 ## 3.10.2 (2026-06-06)
 

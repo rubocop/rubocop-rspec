@@ -547,5 +547,24 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClass do
         describe(Bar) { include Bar }
       RUBY
     end
+
+    it 'takes class from innermost describe' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          describe Bar do
+            subject { described_class }
+                      ^^^^^^^^^^^^^^^ Use `Bar` instead of `described_class`.
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          describe Bar do
+            subject { Bar }
+          end
+        end
+      RUBY
+    end
   end
 end

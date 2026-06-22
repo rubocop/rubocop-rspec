@@ -111,38 +111,41 @@ module RuboCop
                         '(send nil? :described_class)'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
-          # In case the explicit style is used, we need to remember what's
-          # being described.
-          @described_class, body = described_constant(node)
+          described_class, body = described_constant(node)
 
           return unless body
 
-          find_usage(body) do |match|
-            msg = message(match.const_name)
+          find_usage(body, described_class) do |match, current_described_class|
+            msg = message(match.const_name, current_described_class)
             add_offense(match, message: msg) do |corrector|
-              autocorrect(corrector, match)
+              autocorrect(corrector, match, current_described_class)
             end
           end
         end
 
         private
 
-        def autocorrect(corrector, match)
+        def autocorrect(corrector, match, described_class)
           replacement = if style == :described_class
                           DESCRIBED_CLASS
                         else
-                          @described_class.const_name
+                          described_class.const_name
                         end
 
           corrector.replace(match, replacement)
         end
 
-        def find_usage(node, &block)
-          yield(node) if offensive?(node)
+        def find_usage(node, described_class, &block)
+          current_described_class =
+            described_constant(node)&.first || described_class
+
+          yield(node, current_described_class) if offensive?(
+            node, current_described_class
+          )
           return if scope_change?(node) || allowed?(node)
 
           node.each_child_node do |child|
-            find_usage(child, &block)
+            find_usage(child, current_described_class, &block)
           end
         end
 
@@ -150,11 +153,11 @@ module RuboCop
           node.const_type? && only_static_constants?
         end
 
-        def message(offense)
+        def message(offense, described_class)
           if style == :described_class
             format(MSG, replacement: DESCRIBED_CLASS, src: offense)
           else
-            format(MSG, replacement: @described_class.const_name,
+            format(MSG, replacement: described_class.const_name,
                         src: DESCRIBED_CLASS)
           end
         end
@@ -175,26 +178,23 @@ module RuboCop
           cop_config.fetch('OnlyStaticConstants', true)
         end
 
-        def offensive?(node)
+        def offensive?(node, described_class)
           if style == :described_class
-            offensive_described_class?(node)
+            offensive_described_class?(node, described_class)
           else
             node.send_type? && node.method?(:described_class)
           end
         end
 
-        def offensive_described_class?(node)
+        def offensive_described_class?(node, described_class)
           return false unless node.const_type?
 
           # E.g. `described_class::CONSTANT`
           return false if contains_described_class?(node)
 
-          nearest_described_class, = node.each_ancestor(:block)
-            .map { |ancestor| described_constant(ancestor) }.find(&:itself)
+          return false if described_class.equal?(node)
 
-          return false if nearest_described_class.equal?(node)
-
-          full_const_name(nearest_described_class) == full_const_name(node)
+          full_const_name(described_class) == full_const_name(node)
         end
 
         def full_const_name(node)
