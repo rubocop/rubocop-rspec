@@ -6257,6 +6257,7 @@ my_class_spec.rb         # describe MyClass, '#method'
 my_class_spec.rb         # describe MyClass
 my_class_method_spec.rb  # describe MyClass, '#method'
 my_class/method_spec.rb  # describe MyClass, '#method'
+my_class/_partial_spec.rb # describe MyClass
 ----
 
 [#_customtransform_-_rubocop__rubocop_-rspec__rspec__-_default_-rspecspecfilepathformat]

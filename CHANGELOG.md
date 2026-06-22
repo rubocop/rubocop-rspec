@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
+
 ## 3.10.2 (2026-06-06)
 
 - Fix false positives for `RSpec/SpecFilePathFormat` when `CustomTransform` maps a namespace to an empty string. ([@sakuro])

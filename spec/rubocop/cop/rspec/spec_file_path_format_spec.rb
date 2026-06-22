@@ -141,6 +141,28 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     RUBY
   end
 
+  it 'does not register an offense when a spec partial starts with ' \
+     'an underscore' do
+    expect_no_offenses(<<~RUBY, 'spec/models/user/_authentication_spec.rb')
+      describe User do; end
+    RUBY
+  end
+
+  it 'does not register an offense when a namespaced spec partial starts ' \
+     'with an underscore' do
+    expect_no_offenses(<<~RUBY, 'spec/models/api/user/_authentication_spec.rb')
+      describe API::User do; end
+    RUBY
+  end
+
+  it 'registers an offense when the spec partial parent directory does not ' \
+     'match the class name' do
+    expect_offense(<<~RUBY, 'spec/models/userx/_authentication_spec.rb')
+      describe User do; end
+      ^^^^^^^^^^^^^ Spec path should end with `user*_spec.rb`.
+    RUBY
+  end
+
   it 'does not register an offense when instance methods' do
     expect_no_offenses(<<~RUBY, 'some/class/inst_spec.rb')
       describe Some::Class, '#inst' do; end
