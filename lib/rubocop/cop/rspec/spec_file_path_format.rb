@@ -14,6 +14,7 @@ module RuboCop
       #   my_class_spec.rb         # describe MyClass
       #   my_class_method_spec.rb  # describe MyClass, '#method'
       #   my_class/method_spec.rb  # describe MyClass, '#method'
+      #   my_class/_partial_spec.rb # describe MyClass
       #
       # @example `CustomTransform: {RuboCop=>rubocop, RSpec=>rspec}` (default)
       #   # good
@@ -45,6 +46,7 @@ module RuboCop
 
         MSG = 'Spec path should end with `%<suffix>s`.'
         PATH_NAME_BOUNDARY = '(?![[:alnum:]])'
+        PARTIAL_SPEC_FILE = %r{/(_[^/]*_spec\.rb)\z}.freeze
 
         # @!method example_group_arguments(node)
         def_node_matcher :example_group_arguments, <<~PATTERN
@@ -183,7 +185,11 @@ module RuboCop
         end
 
         def filename_ends_with?(pattern)
-          expanded_file_path.match?(%r{(?:\A|/)#{pattern}$})
+          file_path_for_matching.match?(%r{(?:\A|/)#{pattern}$})
+        end
+
+        def file_path_for_matching
+          expanded_file_path.sub(PARTIAL_SPEC_FILE, '\1')
         end
       end
     end
