@@ -5,6 +5,7 @@
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
+- Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
 
 ## 3.10.2 (2026-06-06)
 
