@@ -10,6 +10,7 @@
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
 - Fix `RSpec/LeadingSubject` to not crash on `itblock`/`numblock` example groups with Ruby 3.4 and Prism. ([@pcbeingused333])
+- Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
 
 ## 3.10.2 (2026-06-06)
 
