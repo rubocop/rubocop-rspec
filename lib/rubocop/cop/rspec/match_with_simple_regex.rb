@@ -27,6 +27,8 @@ module RuboCop
       #   expect('foobar').to match(/foo[ob]/)  # character class
       #
       class MatchWithSimpleRegex < Base
+        include InsideExample
+
         extend AutoCorrector
 
         MSG = 'Prefer using `include(%<string>s)` when the regex is a simple ' \
@@ -39,6 +41,8 @@ module RuboCop
         PATTERN
 
         def on_send(node)
+          return unless inside_example?(node)
+
           match_with_regexp?(node) do |regexp|
             next unless simple_regexp?(regexp)
 
