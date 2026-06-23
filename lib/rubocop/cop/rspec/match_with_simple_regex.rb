@@ -38,7 +38,14 @@ module RuboCop
           (send nil? :match $regexp)
         PATTERN
 
+        # @!method include_matcher_argument?(node)
+        def_node_matcher :include_matcher_argument?, <<~PATTERN
+          ^(send nil? :include ...)
+        PATTERN
+
         def on_send(node)
+          return if include_matcher_argument?(node)
+
           match_with_regexp?(node) do |regexp|
             next unless simple_regexp?(regexp)
 
