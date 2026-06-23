@@ -3,114 +3,162 @@
 RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
   it 'registers an offense when using match with simple string regex' do
     expect_offense(<<~RUBY)
-      expect('foobar').to match(/foo/)
-                          ^^^^^^^^^^^^ Prefer using `include('foo')` when the regex is a simple string literal.
+      it do
+        expect('foobar').to match(/foo/)
+                            ^^^^^^^^^^^^ Prefer using `include('foo')` when the regex is a simple string literal.
+      end
     RUBY
 
     expect_correction(<<~RUBY)
-      expect('foobar').to include('foo')
+      it do
+        expect('foobar').to include('foo')
+      end
     RUBY
   end
 
   it 'registers an offense when using match with escaped URL regex' do
     expect_offense(<<~'RUBY')
-      expect(response.body).to match(/http:\/\/example\.com/)
-                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include('http://example.com')` when the regex is a simple string literal.
+      it do
+        expect(response.body).to match(/http:\/\/example\.com/)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include('http://example.com')` when the regex is a simple string literal.
+      end
     RUBY
 
     expect_correction(<<~RUBY)
-      expect(response.body).to include('http://example.com')
+      it do
+        expect(response.body).to include('http://example.com')
+      end
     RUBY
   end
 
   it 'registers an offense when using match with string containing ' \
      'single quotes' do
     expect_offense(<<~'RUBY')
-      expect(response).to match(/it's "working"/)
-                          ^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include("it's \"working\"")` when the regex is a simple string literal.
+      it do
+        expect(response).to match(/it's "working"/)
+                            ^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `include("it's \"working\"")` when the regex is a simple string literal.
+      end
     RUBY
 
     expect_correction(<<~'RUBY')
-      expect(response).to include("it's \"working\"")
+      it do
+        expect(response).to include("it's \"working\"")
+      end
     RUBY
   end
 
   it 'registers an offense when using match with string containing newline' do
     expect_offense(<<~RUBY)
-      expect(response).to match(/foo
-                          ^^^^^^^^^^ Prefer using [...]
-        bar/)
+      it do
+        expect(response).to match(/foo
+                            ^^^^^^^^^^ Prefer using [...]
+          bar/)
+      end
     RUBY
 
     expect_correction(<<~RUBY)
-      expect(response).to include('foo
-        bar')
+      it do
+        expect(response).to include('foo
+          bar')
+      end
+    RUBY
+  end
+
+  it 'does not register an offense outside examples' do
+    expect_no_offenses(<<~RUBY)
+      match(/foo/)
+
+      RSpec.describe Foo do
+        before do
+          expect(foo).to match(/foo/)
+        end
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with anchor at start' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/^foo/)
+      it do
+        expect('foobar').to match(/^foo/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with anchor at end' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo$/)
+      it do
+        expect('foobar').to match(/foo$/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with character class' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo[ob]/)
+      it do
+        expect('foobar').to match(/foo[ob]/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with quantifier' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo+/)
+      it do
+        expect('foobar').to match(/foo+/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with alternation' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo|bar/)
+      it do
+        expect('foobar').to match(/foo|bar/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with metacharacter' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo.bar/)
+      it do
+        expect('foobar').to match(/foo.bar/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with interpolation' do
     expect_no_offenses(<<~'RUBY')
-      expect('foobar').to match(/foo-#{bar}/)
+      it do
+        expect('foobar').to match(/foo-#{bar}/)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with regex options' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(/foo/x)
-      expect('foobar').to match(/foo/i)
-      expect('foobar').to match(/foo/m)
-      expect('foobar').to match(/foo/n)
-      expect('foobar').to match(/foo/u)
-      expect('foobar').to match(/foo/o)
+      it do
+        expect('foobar').to match(/foo/x)
+        expect('foobar').to match(/foo/i)
+        expect('foobar').to match(/foo/m)
+        expect('foobar').to match(/foo/n)
+        expect('foobar').to match(/foo/u)
+        expect('foobar').to match(/foo/o)
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with string ' \
      'instead of regex' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match('foo')
+      it do
+        expect('foobar').to match('foo')
+      end
     RUBY
   end
 
   it 'does not register an offense when using match with variable' do
     expect_no_offenses(<<~RUBY)
-      expect('foobar').to match(pattern)
+      it do
+        expect('foobar').to match(pattern)
+      end
     RUBY
   end
 end
