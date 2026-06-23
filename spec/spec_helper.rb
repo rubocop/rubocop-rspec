@@ -3,7 +3,10 @@
 require 'rubocop'
 require 'rubocop/rspec/support'
 
-require 'simplecov' unless ENV['NO_COVERAGE']
+unless ENV['NO_COVERAGE'] || RUBY_VERSION < '3.1'
+  require 'simplecov'
+  SimpleCov.start
+end
 
 module SpecHelper
   ROOT = Pathname.new(__dir__).parent.freeze

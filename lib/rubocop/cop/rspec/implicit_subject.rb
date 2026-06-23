@@ -107,10 +107,6 @@ module RuboCop
             corrector.replace(node.location.selector, 'expect(subject).to')
           when :should_not
             corrector.replace(node.location.selector, 'expect(subject).not_to')
-          else
-            # :nocov:
-            :noop
-            # :nocov:
           end
         end
 
@@ -133,10 +129,6 @@ module RuboCop
             implicit_subject_in_non_its_and_non_single_line?(node)
           when :single_statement_only
             implicit_subject_in_non_its_and_non_single_statement?(node)
-          else
-            # :nocov:
-            :noop
-            # :nocov:
           end
         end
 

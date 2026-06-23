@@ -108,10 +108,6 @@ module RuboCop
             ActiveSupportInflector
           when 'default'
             DefaultInflector
-          else
-            # :nocov:
-            :noop
-            # :nocov:
           end
         end
 

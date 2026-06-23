@@ -48,10 +48,6 @@ module RuboCop
             check_be_style(node)
           when :be_nil
             check_be_nil_style(node)
-          else
-            # :nocov:
-            :noop
-            # :nocov:
           end
         end
 
