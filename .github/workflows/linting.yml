@@ -9,9 +9,9 @@ jobs:
     name: Yamllint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: Yamllint
-        uses: karancode/yamllint-github-action@4052d365f09b8d34eb552c363d1141fd60e2aeb2
+        uses: karancode/yamllint-github-action@4052d365f09b8d34eb552c363d1141fd60e2aeb2 # v3.0.0
         with:
           yamllint_strict: true
           yamllint_format: parsable
@@ -22,9 +22,9 @@ jobs:
     name: Mdformat
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: Mdformat
-        uses: ydah/mdformat-action@2549a9e71ea0102aa1f48876b344caf6bccca0e0
+        uses: ydah/mdformat-action@19c467fb015bb66f35abe33327e7a15c552877bc # v1.0.0
         with:
           number: true
         env:
