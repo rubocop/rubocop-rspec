@@ -106,6 +106,12 @@ module RuboCop
         end
 
         def docstring(node)
+          return source_without_outer_chars(node) unless delimited_string?(node)
+
+          node.loc.begin.end.join(node.loc.end.begin)
+        end
+
+        def source_without_outer_chars(node)
           expr = node.source_range
 
           Parser::Source::Range.new(
@@ -116,7 +122,7 @@ module RuboCop
         end
 
         def replacement_text(node)
-          text = text(node)
+          text = replacement_source(node)
 
           if text.match?(SHOULD_PREFIX) || text.match?(WILL_PREFIX)
             RuboCop::RSpec::Wording.new(
@@ -127,6 +133,12 @@ module RuboCop
           else
             text.sub(IT_PREFIX, '')
           end
+        end
+
+        def replacement_source(node)
+          return text(node) unless delimited_string?(node)
+
+          docstring(node).source
         end
 
         # Recursive processing is required to process nested dstr nodes
@@ -148,6 +160,10 @@ module RuboCop
 
         def ignored_words
           cop_config.fetch('IgnoredWords', [])
+        end
+
+        def delimited_string?(node)
+          !node.heredoc? && node.loc.begin && node.loc.end
         end
 
         def insufficient_docstring?(description_node)

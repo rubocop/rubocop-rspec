@@ -18,6 +18,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
     RUBY
   end
 
+  it 'finds percent literal descriptions with `should` at the beginning' do
+    expect_offense(<<~RUBY)
+      it %q[should do something] do
+            ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it %q[does something] do
+      end
+    RUBY
+  end
+
   it 'finds interpolated description with `should` at the beginning' do
     expect_offense(<<~'RUBY')
       it "should do #{:stuff}" do
@@ -27,6 +40,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
 
     expect_correction(<<~'RUBY')
       it "does #{:stuff}" do
+      end
+    RUBY
+  end
+
+  it 'preserves escapes in descriptions with `should` at the beginning' do
+    expect_offense(<<~'RUBY')
+      it "should include \"quotes\"" do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      it "includes \"quotes\"" do
       end
     RUBY
   end
@@ -261,6 +287,19 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
 
     expect_correction(<<~'RUBY')
       it "does #{action}" do
+      end
+    RUBY
+  end
+
+  it 'finds leading it in percent literal interpolated descriptions' do
+    expect_offense(<<~'RUBY')
+      it %Q[it does #{action}] do
+            ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      it %Q[does #{action}] do
       end
     RUBY
   end
