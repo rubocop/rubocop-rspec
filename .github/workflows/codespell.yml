@@ -9,9 +9,9 @@ jobs:
     name: CodeSpell
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: CodeSpell
-        uses: codespell-project/actions-codespell@3abb875e3aa9713e40eed5aea082672a42f7f95c
+        uses: codespell-project/actions-codespell@8f01853be192eb0f849a5c7d721450e7a467c579 # v2.2
         with:
           check_filenames: true
           check_hidden: true
