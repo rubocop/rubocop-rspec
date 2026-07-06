@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: CodeSpell
-        uses: codespell-project/actions-codespell@3abb875e3aa9713e40eed5aea082672a42f7f95c
+        uses: codespell-project/actions-codespell@2b9806f41af12bec53e4f85ec5ac993fb4649c6d
         with:
           check_filenames: true
           check_hidden: true
