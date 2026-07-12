@@ -31,6 +31,7 @@ Layout/LineLength:
   Max: 80 # default: 120
   AllowedPatterns:
     - '^\s*# .*https?:\/\/.+\[.+\]\.?$' # Allow long asciidoc links
+    - '^\s*register_cop :' # Cop registrations in the department module
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
