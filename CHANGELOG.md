@@ -7,6 +7,7 @@
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
+- Load cops lazily to speed up loading RuboCop; only the cops needed for a run are loaded. ([@bquorning])
 
 ## 3.10.2 (2026-06-06)
 

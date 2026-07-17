@@ -22,7 +22,7 @@ require_relative 'rubocop/rspec/example'
 require_relative 'rubocop/rspec/example_group'
 require_relative 'rubocop/rspec/hook'
 
-require_relative 'rubocop/cop/rspec_cops'
+require_relative 'rubocop/cop/rspec'
 
 # We have to register our autocorrect incompatibilities in RuboCop's cops
 # as well so we do not hit infinite loops
