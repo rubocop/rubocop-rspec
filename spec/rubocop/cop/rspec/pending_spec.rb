@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::RSpec::Pending do
-
   def in_rspec_describe(code)
     <<~RUBY
       RSpec.describe 'test' do

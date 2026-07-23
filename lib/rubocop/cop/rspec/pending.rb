@@ -3,7 +3,6 @@
 module RuboCop
   module Cop
     module RSpec
-      include InsideExampleGroup
       # Checks for any pending or skipped examples.
       #
       # @example
@@ -34,6 +33,7 @@ module RuboCop
       #   end
       #
       class Pending < Base
+        include InsideExampleGroup
         include SkipOrPending
 
         MSG = 'Pending spec found.'
