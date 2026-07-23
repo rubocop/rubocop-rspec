@@ -58,13 +58,28 @@ module RuboCop
           }
         PATTERN
 
+        # @!method example_skip_or_pending?(node)
+        def_node_matcher :example_skip_or_pending?, <<~PATTERN
+          (send nil? {#Examples.skipped #Examples.pending} ...)
+        PATTERN
+
         def on_send(node)
           return unless pending_block?(node) || skipped?(node)
+          return if skip_in_non_rspec_context?(node)
 
           add_offense(node)
         end
 
         private
+
+        def skip_in_non_rspec_context?(node)
+          return false unless example_skip_or_pending?(node)
+          return false if node.block_node
+
+          node.each_ancestor(:block).none? do |ancestor|
+            example?(ancestor) || example_group?(ancestor)
+          end
+        end
 
         def skipped?(node)
           (skippable?(node) && skipped_in_metadata?(node)) ||

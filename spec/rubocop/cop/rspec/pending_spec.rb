@@ -233,4 +233,14 @@ RSpec.describe RuboCop::Cop::RSpec::Pending do
       ).to include(:bar)
     RUBY
   end
+
+  it 'avoids a false positive with SimpleCov filters' do
+    expect_no_offenses(<<~RUBY)
+      require 'simplecov'
+
+      SimpleCov.start do
+        skip %r{lib/tasks/}
+      end
+    RUBY
+  end
 end
