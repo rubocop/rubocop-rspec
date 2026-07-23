@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
@@ -1041,6 +1042,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@francois-ferrandis]: https://github.com/francois-ferrandis
 [@franzliedke]: https://github.com/franzliedke
 [@g-rath]: https://github.com/G-Rath
+[@gee-forr]: https://github.com/gee-forr
 [@geniou]: https://github.com/geniou
 [@gsamokovarov]: https://github.com/gsamokovarov
 [@harry-graham]: https://github.com/harry-graham
