@@ -453,4 +453,26 @@ RSpec.describe RuboCop::Cop::RSpec::SubjectStub do
       end
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags stubbing the subject in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          context 'ctx' do
+            subject(:foo) { described_class.new }
+
+            before do
+              allow(foo).to receive(:bar).and_return(baz)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not stub methods of the object under test.
+            end
+
+            it 'uses expect twice' do
+              expect(foo.bar).to eq(baz)
+            end
+            it
+          end
+        end
+      RUBY
+    end
+  end
 end

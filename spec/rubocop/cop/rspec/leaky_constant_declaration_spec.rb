@@ -168,4 +168,16 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyConstantDeclaration do
       RUBY
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags a constant declared in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        describe SomeClass do
+          CONSTANT = "Accessible as ::CONSTANT".freeze
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Stub constant instead of declaring explicitly.
+          it
+        end
+      RUBY
+    end
+  end
 end

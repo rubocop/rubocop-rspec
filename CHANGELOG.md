@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix multiple cops silently ignoring examples and example groups that parse as `itblock`/`numblock` under Ruby 3.4, i.e. a bare `it` pending example or numbered parameters. ([@pcbeingused333])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])

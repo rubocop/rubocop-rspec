@@ -124,11 +124,11 @@ module RuboCop
         private
 
         def find_all_explicit(node)
-          node.each_descendant(:block).with_object({}) do |child, h|
+          node.each_descendant(:any_block).with_object({}) do |child, h|
             name = yield(child)
             next unless name
 
-            outer_example_group = child.each_ancestor(:block).find do |a|
+            outer_example_group = child.each_ancestor(:any_block).find do |a|
               example_group?(a)
             end
 
@@ -145,7 +145,8 @@ module RuboCop
           expectation_detected = message_expectation?(node, names)
           return yield(node) if expectation_detected
 
-          node.each_child_node(:send, :def, :block, :begin) do |child|
+          node.each_child_node(:send, :def, :any_block,
+                               :begin) do |child|
             find_subject_expectations(child, subject_names, &block)
           end
         end

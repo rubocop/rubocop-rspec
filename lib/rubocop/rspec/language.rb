@@ -31,7 +31,7 @@ module RuboCop
 
       # @!method shared_group?(node)
       def_node_matcher :shared_group?,
-                       '(block (send #rspec? #SharedGroups.all ...) ...)'
+                       '(any_block (send #rspec? #SharedGroups.all ...) ...)'
 
       # @!method spec_group?(node)
       def_node_matcher :spec_group?, <<~PATTERN
@@ -42,11 +42,12 @@ module RuboCop
 
       # @!method example_group_with_body?(node)
       def_node_matcher :example_group_with_body?, <<~PATTERN
-        (block (send #rspec? #ExampleGroups.all ...) args !nil?)
+        (any_block (send #rspec? #ExampleGroups.all ...) _ !nil?)
       PATTERN
 
       # @!method example?(node)
-      def_node_matcher :example?, '(block (send nil? #Examples.all ...) ...)'
+      def_node_matcher :example?,
+                       '(any_block (send nil? #Examples.all ...) ...)'
 
       # @!method hook?(node)
       def_node_matcher :hook?, <<~PATTERN

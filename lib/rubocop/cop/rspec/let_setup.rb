@@ -42,7 +42,7 @@ module RuboCop
 
         # @!method example_or_shared_group_or_including?(node)
         def_node_matcher :example_or_shared_group_or_including?, <<~PATTERN
-          (block {
+          (any_block {
             (send #rspec? {#SharedGroups.all #ExampleGroups.all} ...)
             (send nil? #Includes.all ...)
           } ...)
@@ -59,13 +59,15 @@ module RuboCop
         # @!method method_called?(node)
         def_node_search :method_called?, '(send nil? %)'
 
-        def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
+        def on_block(node)
           return unless example_or_shared_group_or_including?(node)
 
           unused_let_bang(node) do |let|
             add_offense(let)
           end
         end
+        alias on_numblock on_block
+        alias on_itblock on_block
 
         private
 
@@ -84,7 +86,7 @@ module RuboCop
         end
 
         def overrides_outer_let_bang?(node, method_name)
-          node.each_ancestor(:block).any? do |ancestor|
+          node.each_ancestor(:any_block).any? do |ancestor|
             next unless example_or_shared_group_or_including?(ancestor)
 
             outer_let_bang?(ancestor, method_name)

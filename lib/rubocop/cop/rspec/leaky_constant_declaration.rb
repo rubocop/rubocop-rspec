@@ -122,7 +122,9 @@ module RuboCop
         private
 
         def inside_describe_block?(node)
-          node.each_ancestor(:block).any? { |ancestor| spec_group?(ancestor) }
+          node.each_ancestor(:any_block).any? do |ancestor|
+            spec_group?(ancestor)
+          end
         end
 
         def explicit_namespace?(namespace)

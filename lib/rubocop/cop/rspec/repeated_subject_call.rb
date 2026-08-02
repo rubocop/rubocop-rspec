@@ -79,7 +79,7 @@ module RuboCop
         end
 
         def expect_block(node)
-          node.each_ancestor(:block).find { |block| block.method?(:expect) }
+          node.each_ancestor(:any_block).find { |block| block.method?(:expect) }
         end
 
         def detect_offenses_in_block(node, subject_names = [])
@@ -89,7 +89,8 @@ module RuboCop
             return detect_offenses_in_example(node, subject_names)
           end
 
-          node.each_child_node(:send, :def, :block, :begin) do |child|
+          node.each_child_node(:send, :def, :any_block,
+                               :begin) do |child|
             detect_offenses_in_block(child, subject_names)
           end
         end
@@ -109,9 +110,9 @@ module RuboCop
         end
 
         def detect_subjects_in_scope(node)
-          node.each_descendant(:block).with_object({}) do |child, h|
+          node.each_descendant(:any_block).with_object({}) do |child, h|
             subject?(child) do |name|
-              outer_example_group = child.each_ancestor(:block).find do |a|
+              outer_example_group = child.each_ancestor(:any_block).find do |a|
                 example_group?(a)
               end
 

@@ -356,4 +356,18 @@ RSpec.describe RuboCop::Cop::RSpec::LeakyLocalVariable, :config do
       end
     RUBY
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags a leaked local variable in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        describe SomeClass do
+          user = create(:user)
+          ^^^^^^^^^^^^^^^^^^^^ Do not use local variables defined outside of examples inside of them.
+
+          before { user.update(admin: true) }
+          it
+        end
+      RUBY
+    end
+  end
 end

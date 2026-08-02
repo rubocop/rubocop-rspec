@@ -257,4 +257,20 @@ RSpec.describe RuboCop::Cop::RSpec::LetSetup do
       end
     RUBY
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags an unused `let!` in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          let!(:foo) { bar }
+          ^^^^^^^^^^ Do not use `let!` to setup objects not referenced in tests.
+
+          it 'does not use foo' do
+            expect(baz).to eq(qux)
+          end
+          it
+        end
+      RUBY
+    end
+  end
 end

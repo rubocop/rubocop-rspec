@@ -8,7 +8,7 @@ module RuboCop
         private
 
         def inside_example?(node)
-          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
+          node.each_ancestor(:any_block).any? { |ancestor| example?(ancestor) }
         end
       end
     end

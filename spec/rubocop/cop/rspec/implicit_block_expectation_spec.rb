@@ -130,4 +130,17 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitBlockExpectation do
       end
     RUBY
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags an implicit block expectation in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        describe do
+          subject { -> { boom } }
+          it { is_expected.to change { something }.to(new_value) }
+               ^^^^^^^^^^^ Avoid implicit block expectations.
+          it
+        end
+      RUBY
+    end
+  end
 end

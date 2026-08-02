@@ -318,4 +318,18 @@ RSpec.describe RuboCop::Cop::RSpec::DiscardedMatcher do
       RUBY
     end
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags a discarded matcher inside an `itblock` example' do
+      expect_offense(<<~RUBY)
+        specify do
+          it
+          expect { result }.to \\
+            change { obj.foo }.from(1).to(2)
+            change { obj.bar }.from(3).to(4)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The result of `change` is not used. Did you mean to chain it with `.and`?
+        end
+      RUBY
+    end
+  end
 end

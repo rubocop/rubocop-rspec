@@ -66,7 +66,9 @@ module RuboCop
 
         def example_with_matcher_expectation?(node)
           example_node =
-            node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
+            node.each_ancestor(:any_block).find do |ancestor|
+              example?(ancestor)
+            end
 
           example_node.each_descendant(:send).any? do |send_node|
             expectation_with_matcher?(send_node)
@@ -82,7 +84,7 @@ module RuboCop
 
         def void_value?(node)
           case node.parent.type
-          when :block
+          when :block, :numblock, :itblock
             example?(node.parent)
           when :begin, :case, :when
             void_value?(node.parent)

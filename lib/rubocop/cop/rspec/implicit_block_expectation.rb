@@ -48,7 +48,7 @@ module RuboCop
 
         def nearest_subject(node)
           node
-            .each_ancestor(:block)
+            .each_ancestor(:any_block)
             .lazy
             .select { |block_node| multi_statement_example_group?(block_node) }
             .map { |block_node| find_subject(block_node) }

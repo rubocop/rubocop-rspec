@@ -155,4 +155,21 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
       subject
     RUBY
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'flags a repeated subject call in an `itblock` example group' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          context 'ctx' do
+            it do
+              subject
+              expect { subject }.to not_change { Foo.count }
+              ^^^^^^^^^^^^^^^^^^ Calls to subject are memoized, this block is misleading
+            end
+            it
+          end
+        end
+      RUBY
+    end
+  end
 end
