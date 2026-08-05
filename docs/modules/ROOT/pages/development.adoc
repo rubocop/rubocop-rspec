@@ -14,7 +14,7 @@ Use the bundled rake task `new_cop` to generate a cop template:
 $ bundle exec rake 'new_cop[RSpec/CopName]'
 [create] lib/rubocop/cop/rspec/cop_name.rb
 [create] spec/rubocop/cop/rspec/cop_name_spec.rb
-[modify] lib/rubocop/cop/rspec_cops.rb - `require_relative 'rspec/cop_name'` was injected.
+[modify] lib/rubocop/cop/rspec.rb - `register_cop :CopName, "#{__dir__}/rspec/cop_name"` was injected.
 [modify] A configuration for the cop is added into config/default.yml.
 Do 4 steps:
   1. Modify the description of RSpec/CopName in config/default.yml
@@ -138,7 +138,7 @@ The mixin also exposes `top_level_groups` which returns all top-level spec group
 
 == Helper modules
 
-The `lib/rubocop/cop/rspec/mixin/` directory contains a set of reusable modules that cops can include.
+The `lib/rubocop/cop/rspec/mixin/` directory contains a set of reusable modules that cops can include. The modules are autoloaded on demand; a new module needs an `autoload` entry in `lib/rubocop/cop/rspec/mixin.rb`.
 
 === TopLevelGroup
 
