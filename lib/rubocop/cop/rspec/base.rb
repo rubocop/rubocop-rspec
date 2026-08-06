@@ -4,7 +4,7 @@ module RuboCop
   module Cop
     module RSpec
       # @abstract parent class to RSpec cops
-      class Base < ::RuboCop::Cop::Base
+      class Base < RuboCop::Cop::Base
         include RuboCop::RSpec::Language
 
         exclude_from_registry

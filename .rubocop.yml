@@ -9,6 +9,7 @@ plugins:
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.7
+  UseProjectIndex: true
   NewCops: disable
   Exclude:
     - 'vendor/**/*'
