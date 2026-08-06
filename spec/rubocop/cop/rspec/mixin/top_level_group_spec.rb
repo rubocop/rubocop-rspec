@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::RSpec::TopLevelGroup do
           @top_level_groups = []
         end
 
-        def test_top_level_group
+        def test_top_level_group # rubocop:disable Naming/PredicateMethod
           top_level_group?(nil)
         end
       end

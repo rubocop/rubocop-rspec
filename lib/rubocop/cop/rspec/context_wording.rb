@@ -116,7 +116,7 @@ module RuboCop
 
         def prefixes
           Array(cop_config.fetch('Prefixes', [])).tap do |prefixes|
-            non_strings = prefixes.reject { |pre| pre.is_a?(String) }
+            non_strings = prefixes.grep_v(String)
             unless non_strings.empty?
               raise "Non-string prefixes #{non_strings.inspect} detected."
             end

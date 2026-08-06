@@ -72,6 +72,7 @@ module RuboCop
       # @!method subject?(node)
       def_node_matcher :subject?, '(block (send nil? #Subjects.all ...) ...)'
 
+      # rubocop:disable Naming/PredicateMethod
       module ErrorMatchers # :nodoc:
         def self.all(element)
           Language.config['ErrorMatchers'].include?(element.to_s)
@@ -202,6 +203,7 @@ module RuboCop
           Language.config['Subjects'].include?(element.to_s)
         end
       end
+      # rubocop:enable Naming/PredicateMethod
 
       # This is used in Dialect and DescribeClass cops to detect RSpec blocks.
       module ALL # :nodoc:
