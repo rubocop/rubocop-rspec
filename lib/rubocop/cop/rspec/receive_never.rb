@@ -22,6 +22,7 @@ module RuboCop
       #
       class ReceiveNever < Base
         extend AutoCorrector
+
         MSG = 'Use `not_to receive` instead of `never`.'
         RESTRICT_ON_SEND = %i[never].freeze
 
