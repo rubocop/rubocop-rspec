@@ -81,12 +81,6 @@ RuboCop::RakeTask.new do |task|
 end
 ```
 
-### External Services
-
-#### Code Climate
-
-rubocop-rspec is available on Code Climate as part of the rubocop engine. [Learn More](https://marketing.codeclimate.com/changelog/55a433bbe30ba00852000fac/).
-
 ## Documentation
 
 You can read more about RuboCop RSpec in its [official manual](https://docs.rubocop.org/rubocop-rspec).
