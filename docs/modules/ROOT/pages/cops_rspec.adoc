@@ -3646,6 +3646,17 @@ end
 
 Checks unreferenced `let!` calls being used for test setup.
 
+A `let!` that is defined in a `shared_context`/`shared_examples` block,
+or in an example group that includes shared examples, may be referenced
+from the shared code rather than from the example group itself. Whether
+such a reference is present cannot be determined from a single file,
+because the shared code is often defined elsewhere. When
+`AllCops/UseProjectIndex` is enabled and the `rubydex` gem is installed,
+the cop consults the project-wide index for these `let!` calls and does
+not flag one whose name is referenced anywhere in the project. Without
+the index it falls back to the file-local check, which may report such a
+`let!` as unused.
+
 [#examples-rspecletsetup]
 === Examples
 

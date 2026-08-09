@@ -16,6 +16,7 @@ module RuboCop
       autoload :Metadata, "#{__dir__}/mixin/metadata"
       autoload :Namespace, "#{__dir__}/mixin/namespace"
       autoload :RepeatedItems, "#{__dir__}/mixin/repeated_items"
+      autoload :SharedCodeReference, "#{__dir__}/mixin/shared_code_reference"
       autoload :SkipOrPending, "#{__dir__}/mixin/skip_or_pending"
       autoload :TopLevelGroup, "#{__dir__}/mixin/top_level_group"
       autoload :Variable, "#{__dir__}/mixin/variable"
