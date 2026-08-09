@@ -40,12 +40,10 @@ Read all the details in our [Upgrade to Version 2.x](https://docs.rubocop.org/ru
 
 ## Usage
 
-### Local Configuration
-
 You need to tell RuboCop to load the RSpec extension. There are three
 ways to do this:
 
-#### RuboCop configuration file
+### RuboCop configuration file
 
 Put this into your `.rubocop.yml`.
 
@@ -67,13 +65,13 @@ cops together with the standard cops.
 > [!NOTE]
 > The plugin system is supported in RuboCop 1.72+. In earlier versions, use `require` instead of `plugins`.
 
-#### Command line
+### Command line
 
 ```bash
 rubocop --plugin rubocop-rspec
 ```
 
-#### Rake task
+### Rake task
 
 ```ruby
 RuboCop::RakeTask.new do |task|
