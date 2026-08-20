@@ -227,4 +227,84 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
       end
     RUBY
   end
+
+  it 'ignores hooks in different branches of a case statement' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        case key
+        when :a
+          before { setup_a }
+        when :b
+          before { setup_b }
+        else
+          before { setup_c }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores hooks in different branches of an if statement' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        if flag
+          before { setup_a }
+        else
+          before { setup_b }
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a hook outside a conditional and one inside' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { always }
+        ^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 5).
+        case key
+        when :a
+          before { sometimes }
+          ^^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for two hooks in the same branch' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        case key
+        when :a
+          before { setup_a1 }
+          ^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 5).
+          before { setup_a2 }
+          ^^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 4).
+        when :b
+          before { setup_b }
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores hooks in exclusive branches of a version check' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        if RUBY_VERSION >= '3.4'
+          before { modern_setup }
+        else
+          before { legacy_setup }
+        end
+      end
+    RUBY
+  end
+
+  it 'still registers an offense for hooks distinguished only by position' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { first }
+        ^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before { second }
+        ^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+  end
 end
