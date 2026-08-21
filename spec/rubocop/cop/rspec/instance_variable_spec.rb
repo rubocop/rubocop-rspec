@@ -99,6 +99,47 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   # Regression test for nevir/rubocop-rspec#115
+  it 'ignores an instance variable inside an anonymous controller' do
+    expect_no_offenses(<<~RUBY)
+      describe MyController do
+        controller do
+          def index
+            render json: @resource
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable in an anonymous controller with a parent' do
+    expect_no_offenses(<<~RUBY)
+      describe MyController do
+        controller(ApplicationController) do
+          def show
+            @thing ||= Thing.new
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags instance variables in examples beside an anonymous controller' do
+    expect_offense(<<~RUBY)
+      describe MyController do
+        controller do
+          def index
+            render json: @resource
+          end
+        end
+
+        before { @thing = 1 }
+
+        it { expect(@thing).to eq(1) }
+                    ^^^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
+      end
+    RUBY
+  end
+
   it 'ignores instance variables outside of specs' do
     expect_no_offenses(<<~RUBY, 'lib/source_code.rb')
       feature do
