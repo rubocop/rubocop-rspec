@@ -56,6 +56,11 @@ module RuboCop
           (block (send (const nil? :Class) :new ...) ...)
         PATTERN
 
+        # @!method reopened_class?(node)
+        def_node_matcher :reopened_class?, <<~PATTERN
+          (block (send _ {:class_eval :module_eval} ...) ...)
+        PATTERN
+
         # @!method custom_matcher?(node)
         def_node_matcher :custom_matcher?, <<~PATTERN
           (block {
@@ -83,7 +88,8 @@ module RuboCop
 
         def valid_usage?(node)
           node.each_ancestor(:block).any? do |block|
-            dynamic_class?(block) || custom_matcher?(block)
+            dynamic_class?(block) || reopened_class?(block) ||
+              custom_matcher?(block)
           end
         end
 
