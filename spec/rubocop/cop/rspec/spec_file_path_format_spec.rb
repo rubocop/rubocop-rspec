@@ -379,10 +379,16 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
       }
     end
 
+    # The cop resolves `InflectorPath` against the config's base
+    # directory, which is the working directory in these specs.
+    let(:inflector_path) do
+      File.expand_path(cop_config['InflectorPath'])
+    end
+
     context 'when ActiveSupport inflections are available' do
       before do
         allow(File).to receive(:exist?)
-          .with(cop_config['InflectorPath']).and_return(true)
+          .with(inflector_path).and_return(true)
 
         allow(described_class::ActiveSupportInflector).to receive(:require)
           .with('active_support/inflector')
@@ -390,7 +396,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
                    Module.new { def self.underscore(_); end })
 
         allow(described_class::ActiveSupportInflector).to receive(:require)
-          .with('./config/initializers/inflections.rb')
+          .with(File.expand_path('./config/initializers/inflections.rb'))
         allow(ActiveSupport::Inflector).to receive(:underscore)
           .with('PvPClass').and_return('pvp_class')
         allow(ActiveSupport::Inflector).to receive(:underscore)
@@ -431,18 +437,18 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     describe 'errors during preparation' do
       it 'shows an error when the configured inflector file does not exist' do
         allow(File).to receive(:exist?)
-          .with(cop_config['InflectorPath']).and_return(false)
+          .with(inflector_path).and_return(false)
 
         expect do
           inspect_source('describe PvPClass do; end', 'pv_p_class_spec.rb')
-        end.to raise_error('The configured `InflectorPath` ./config' \
-                           '/initializers/inflections.rb does not exist.')
+        end.to raise_error("The configured `InflectorPath` #{inflector_path} " \
+                           'does not exist.')
       end
 
       it 'lets LoadError pass all the way up when ActiveSupport loading ' \
          'raises an error' do
         allow(File).to receive(:exist?)
-          .with(cop_config['InflectorPath']).and_return(true)
+          .with(inflector_path).and_return(true)
 
         allow(described_class::ActiveSupportInflector).to receive(:require)
           .with('active_support/inflector').and_raise(LoadError)
@@ -465,9 +471,10 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
         allow(File).to receive(:exist?).and_call_original
         # Ensure default path is not checked when custom path is configured
         allow(File).to receive(:exist?)
-          .with('./config/initializers/inflections.rb').and_return(false)
+          .with(File.expand_path('./config/initializers/inflections.rb'))
+          .and_return(false)
         allow(File).to receive(:exist?)
-          .with(cop_config['InflectorPath']).and_return(true)
+          .with(inflector_path).and_return(true)
 
         allow(described_class::ActiveSupportInflector).to receive(:require)
           .with('active_support/inflector')
@@ -475,7 +482,7 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
                    Module.new { def self.underscore(_); end })
 
         allow(described_class::ActiveSupportInflector).to receive(:require)
-          .with(cop_config['InflectorPath'])
+          .with(inflector_path)
         allow(ActiveSupport::Inflector).to receive(:underscore)
           .with('HTTPClient').and_return('http_client')
       end
@@ -489,7 +496,41 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
         expect(File).to have_received(:exist?)
           .with('/custom/path/to/inflections.rb')
         expect(File).not_to have_received(:exist?)
-          .with('./config/initializers/inflections.rb')
+          .with(File.expand_path('./config/initializers/inflections.rb'))
+      end
+    end
+
+    context 'when RuboCop is invoked from outside the project root' do
+      let(:project_root) { '/somewhere/else' }
+
+      before do
+        allow(config).to receive(:base_dir_for_path_parameters)
+          .and_return(project_root)
+
+        allow(File).to receive(:exist?).and_call_original
+        allow(File).to receive(:exist?)
+          .with("#{project_root}/config/initializers/inflections.rb")
+          .and_return(true)
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with('active_support/inflector')
+        stub_const('ActiveSupport::Inflector',
+                   Module.new { def self.underscore(_); end })
+
+        allow(described_class::ActiveSupportInflector).to receive(:require)
+          .with("#{project_root}/config/initializers/inflections.rb")
+        allow(ActiveSupport::Inflector).to receive(:underscore)
+          .with('HTTPClient').and_return('http_client')
+      end
+
+      it 'resolves a relative `InflectorPath` against the config directory ' \
+         'rather than the working directory', :aggregate_failures do
+        expect_no_offenses(<<~RUBY, 'http_client_spec.rb')
+          describe HTTPClient do; end
+        RUBY
+
+        expect(File).to have_received(:exist?)
+          .with("#{project_root}/config/initializers/inflections.rb")
       end
     end
   end
