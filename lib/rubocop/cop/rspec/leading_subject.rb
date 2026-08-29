@@ -47,19 +47,41 @@ module RuboCop
         private
 
         def check_previous_nodes(node)
-          offending_node(node) do |offender|
-            msg = format(MSG, offending: offender.method_name)
-            add_offense(node, message: msg) do |corrector|
-              autocorrect(corrector, node, offender)
-            end
+          offender = preceding_offender(node)
+          return unless offender
+
+          msg = format(MSG, offending: offender.method_name)
+          add_offense(node, message: msg) do |corrector|
+            target = move_target(node)
+            autocorrect(corrector, node, target) if target
           end
         end
 
-        def offending_node(node)
-          parent(node).each_child_node.find do |sibling|
-            break if sibling.equal?(node)
+        # The declaration that makes this `subject` non-leading. Used only to
+        # build the offense message and to decide whether to report an offense;
+        # where the `subject` actually moves is decided by `move_target`.
+        def preceding_offender(node)
+          preceding_siblings(node).find { |sibling| offending?(sibling) }
+        end
 
-            yield sibling if offending?(sibling)
+        # A `subject` may move above preceding `let`s/hooks, but never above
+        # another `subject`. Walking preceding siblings in reverse, we stop at
+        # the nearest `subject` and return the topmost offender after it, or
+        # `nil` when a `subject` blocks the move (a later pass moves this one
+        # once the `subject` above it has moved).
+        def move_target(node)
+          target = nil
+          preceding_siblings(node).reverse_each do |sibling|
+            break if subject?(sibling)
+
+            target = sibling if offending?(sibling)
+          end
+          target
+        end
+
+        def preceding_siblings(node)
+          parent(node).each_child_node.take_while do |sibling|
+            !sibling.equal?(node)
           end
         end
 
