@@ -10,6 +10,8 @@
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
 - Fix `RSpec/SpecFilePathFormat` raising when `EnforcedInflector: active_support` and RuboCop is invoked from outside the project root. ([@corsonknowles])
+- Fix `RSpec/LeadingSubject` to not crash on `itblock`/`numblock` example groups with Ruby 3.4 and Prism. ([@pcbeingused333])
+- Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
 
 ## 3.10.2 (2026-06-06)
 
@@ -1098,6 +1100,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@oshiro3]: https://github.com/oshiro3
 [@patrickomatic]: https://github.com/patrickomatic
 [@paydaylight]: https://github.com/paydaylight
+[@pcbeingused333]: https://github.com/pcbeingused333
 [@philcoggins]: https://github.com/PhilCoggins
 [@pirj]: https://github.com/pirj
 [@pocke]: https://github.com/pocke

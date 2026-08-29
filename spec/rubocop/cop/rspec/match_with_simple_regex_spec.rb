@@ -76,6 +76,16 @@ RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
     RUBY
   end
 
+  it 'does not register an offense when using match within an ' \
+     'include matcher' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        expect(errors).to include(match(/message/))
+        expect(errors).to include(match(/message/), match(/warning/))
+      end
+    RUBY
+  end
+
   it 'does not register an offense when using match with anchor at start' do
     expect_no_offenses(<<~RUBY)
       it do
