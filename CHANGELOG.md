@@ -9,6 +9,7 @@
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
+- Fix false positives for `RSpec/LetSetup` when a `let!` is referenced from shared examples or contexts defined in another file, by consulting the project-wide index when `AllCops/UseProjectIndex` is enabled. ([@bquorning])
 
 ## 3.10.2 (2026-06-06)
 
