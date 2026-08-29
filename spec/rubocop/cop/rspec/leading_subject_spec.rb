@@ -289,4 +289,15 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       end
     RUBY
   end
+
+  context 'when Ruby 3.4', :ruby34 do
+    it 'does not crash when the example group is an `itblock`' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe User do
+          subject { described_class.new }
+          it
+        end
+      RUBY
+    end
+  end
 end
