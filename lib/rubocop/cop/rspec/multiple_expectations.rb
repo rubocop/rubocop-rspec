@@ -68,9 +68,12 @@ module RuboCop
       #
       class MultipleExpectations < Base
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
+        MSG_SUGGEST_AGGREGATE = 'Example has too many expectations [%<total>d/%<max>d]. ' \
+                                'Consider using `aggregate_failures` if these expectations are logically related.'
 
         ANYTHING = ->(_node) { true }
         TRUE_NODE = lambda(&:true_type?)
+        FALSE_NODE = lambda(&:false_type?)
 
         exclude_limit 'Max'
 
@@ -101,7 +104,8 @@ module RuboCop
 
           self.max = expectations_count
 
-          flag_example(node, expectation_count: expectations_count)
+          flag_example(node, expectation_count: expectations_count,
+                             aggregate_failures_disabled: aggregate_failures_disabled?(node))
         end
 
         private
@@ -111,6 +115,13 @@ module RuboCop
           return false unless node_with_aggregate_failures
 
           aggregate_failures?(node_with_aggregate_failures, TRUE_NODE)
+        end
+
+        def aggregate_failures_disabled?(example_node)
+          node_with_aggregate_failures = find_aggregate_failures(example_node)
+          return false unless node_with_aggregate_failures
+
+          aggregate_failures?(node_with_aggregate_failures, FALSE_NODE)
         end
 
         def find_aggregate_failures(example_node)
@@ -129,11 +140,12 @@ module RuboCop
           end
         end
 
-        def flag_example(node, expectation_count:)
+        def flag_example(node, expectation_count:, aggregate_failures_disabled:)
+          message_template = aggregate_failures_disabled ? MSG : MSG_SUGGEST_AGGREGATE
           add_offense(
             node.send_node,
             message: format(
-              MSG,
+              message_template,
               total: expectation_count,
               max: max_expectations
             )
