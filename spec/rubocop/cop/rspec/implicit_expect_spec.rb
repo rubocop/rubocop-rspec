@@ -97,4 +97,33 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitExpect do
                     'it { should be_truthy }',
                     'should'
   end
+
+  context 'when the runner is separated from `is_expected`' do
+    let(:cop_config) do
+      { 'EnforcedStyle' => 'should' }
+    end
+
+    it 'flags a chain split over lines' do
+      expect_offense(<<~RUBY)
+        is_expected
+        ^^^^^^^^^^^ Prefer `should` over `is_expected.to`.
+          .to be_truthy
+      RUBY
+
+      expect_correction(<<~RUBY)
+        should be_truthy
+      RUBY
+    end
+
+    it 'flags spaces around the dot' do
+      expect_offense(<<~RUBY)
+        is_expected . to be_truthy
+        ^^^^^^^^^^^^^^^^ Prefer `should` over `is_expected.to`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        should be_truthy
+      RUBY
+    end
+  end
 end

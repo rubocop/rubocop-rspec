@@ -49,7 +49,7 @@ module RuboCop
         def on_send(node)
           return unless (source_range = offending_expect(node))
 
-          expectation_source = source_range.source
+          expectation_source = source_range.source.gsub(/\s+/, '')
 
           if expectation_source.start_with?(style.to_s)
             correct_style_detected
