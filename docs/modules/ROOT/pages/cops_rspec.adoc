@@ -5879,7 +5879,8 @@ Checks for setup scattered across multiple hooks in an example group.
 Unify `before` and `after` hooks when possible.
 However, `around` hooks are allowed to be defined multiple times,
 as unifying them would typically make the code harder to read.
-Hooks defined in class methods are also ignored.
+Hooks defined in class methods are also ignored, as are hooks in
+different branches of one conditional, which never both run.
 
 [#examples-rspecscatteredsetup]
 === Examples
@@ -5910,6 +5911,15 @@ end
 describe Foo do
   before { setup1 }
   def self.setup
+    before { setup2 }
+  end
+end
+
+# good
+describe Foo do
+  if flag
+    before { setup1 }
+  else
     before { setup2 }
   end
 end
