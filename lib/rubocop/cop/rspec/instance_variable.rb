@@ -23,6 +23,15 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       #
+      #   # good - an instance variable of a class defined in the spec
+      #   describe MyController do
+      #     controller do
+      #       def index
+      #         render json: @resource
+      #       end
+      #     end
+      #   end
+      #
       # @example with AssignmentOnly configuration
       #   # rubocop.yml
       #   # RSpec/InstanceVariable:
@@ -61,6 +70,11 @@ module RuboCop
           (block (send _ {:class_eval :module_eval} ...) ...)
         PATTERN
 
+        # @!method anonymous_controller?(node)
+        def_node_matcher :anonymous_controller?, <<~PATTERN
+          (block (send nil? :controller ...) ...)
+        PATTERN
+
         # @!method custom_matcher?(node)
         def_node_matcher :custom_matcher?, <<~PATTERN
           (block {
@@ -89,7 +103,7 @@ module RuboCop
         def valid_usage?(node)
           node.each_ancestor(:block).any? do |block|
             dynamic_class?(block) || reopened_class?(block) ||
-              custom_matcher?(block)
+              anonymous_controller?(block) || custom_matcher?(block)
           end
         end
 
