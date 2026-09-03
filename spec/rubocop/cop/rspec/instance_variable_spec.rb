@@ -66,6 +66,38 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
     RUBY
   end
 
+  it 'ignores an instance variable inside a class_eval block' do
+    expect_no_offenses(<<~RUBY)
+      describe MyMailer do
+        let(:mailer_class) { Class.new(ApplicationMailer) }
+
+        before do
+          mailer_class.class_eval do
+            def welcome
+              mail(from: @signature)
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable inside a module_eval block' do
+    expect_no_offenses(<<~RUBY)
+      describe MyConcern do
+        let(:concern) { Module.new }
+
+        before do
+          concern.module_eval do
+            def call
+              @context.fetch(:value)
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
   # Regression test for nevir/rubocop-rspec#115
   it 'ignores instance variables outside of specs' do
     expect_no_offenses(<<~RUBY, 'lib/source_code.rb')

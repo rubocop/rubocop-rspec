@@ -64,7 +64,7 @@ module RuboCop
         end
 
         def parent(node)
-          node.each_ancestor(:block).first.body
+          node.each_ancestor(:any_block).first.body
         end
 
         def autocorrect(corrector, node, sibling)
