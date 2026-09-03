@@ -74,12 +74,10 @@ module RuboCop
             ActiveSupport::Inflector.underscore(string)
           end
 
-          def self.prepare_availability(config)
+          def self.prepare_availability(inflector_path)
             return if @prepared
 
             @prepared = true
-
-            inflector_path = config.fetch('InflectorPath')
 
             unless File.exist?(inflector_path)
               raise "The configured `InflectorPath` #{inflector_path} does " \
@@ -104,11 +102,18 @@ module RuboCop
         def inflector
           case cop_config.fetch('EnforcedInflector')
           when 'active_support'
-            ActiveSupportInflector.prepare_availability(cop_config)
+            ActiveSupportInflector.prepare_availability(inflector_path)
             ActiveSupportInflector
           when 'default'
             DefaultInflector
           end
+        end
+
+        def inflector_path
+          File.expand_path(
+            cop_config.fetch('InflectorPath'),
+            config.base_dir_for_path_parameters
+          )
         end
 
         def ensure_correct_file_path(send_node, class_name, arguments)
