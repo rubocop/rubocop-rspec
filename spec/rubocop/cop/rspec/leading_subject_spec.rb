@@ -290,6 +290,59 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
     RUBY
   end
 
+  it 'does not move a subject above another subject' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        let(:foo) { bar }
+        subject(:a) { first }
+        ^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+        subject(:b) { second }
+        ^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject(:a) { first }
+        subject(:b) { second }
+        let(:foo) { bar }
+      end
+    RUBY
+  end
+
+  it 'reports but does not move a subject blocked by a preceding subject' do
+    # `subject(:b)` is offending (a `before` precedes it), but on the first
+    # pass `move_target` is `nil` because `subject(:a)` blocks the move. Once
+    # `subject(:a)` has moved above the hook, a later pass moves `subject(:b)`.
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        before { prepare }
+        subject(:a) { first }
+        ^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `before` declarations.
+        subject(:b) { second }
+        ^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `before` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject(:a) { first }
+        subject(:b) { second }
+        before { prepare }
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for consecutive leading subjects' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe User do
+        subject(:a) { first }
+        subject(:b) { second }
+        let(:foo) { bar }
+      end
+    RUBY
+  end
+
   context 'when Ruby 3.4', :ruby34 do
     it 'does not crash when the example group is an `itblock`' do
       expect_no_offenses(<<~RUBY)
