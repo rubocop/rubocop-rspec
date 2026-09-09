@@ -34,6 +34,14 @@ module RuboCop
 
           add_offense(node) do |corrector|
             array = node.first_argument.children.first
+
+            # If the splatted expression is itself a `contain_exactly` call
+            # (`contain_exactly(*contain_exactly(*array))`), it is also
+            # offended and will be replaced by its own correction; replacing
+            # this node's whole range too would overlap that one and raise
+            # `Parser::ClobberingError`. Leave it uncorrected in that case.
+            next if array.send_type? && array.method?(:contain_exactly)
+
             corrector.replace(node, "match_array(#{array.source})")
           end
         end

@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix `RSpec/ContainExactly` raising `Parser::ClobberingError` when the splatted argument is itself a `contain_exactly` call. ([@pcbeingused333])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])

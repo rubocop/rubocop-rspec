@@ -56,4 +56,16 @@ RSpec.describe RuboCop::Cop::RSpec::ContainExactly do
       it { is_expected.to contain_exactly() }
     RUBY
   end
+
+  it 'does not crash when the splat arg is itself a `contain_exactly` call' do
+    expect_offense(<<~RUBY)
+      it { is_expected.to contain_exactly(*contain_exactly(*array)) }
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
+                                           ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it { is_expected.to match_array(match_array(array)) }
+    RUBY
+  end
 end
