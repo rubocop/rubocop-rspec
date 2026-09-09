@@ -74,6 +74,7 @@ module RuboCop
           if single_expectation?(node.body, argument)
             add_offense(node.send_node) do |corrector|
               next unless node.body.arguments.one?
+              next if node.receiver.nil?
               next if uses_argument_in_matcher?(node, argument)
 
               corrector.replace(node, single_expectation_replacement(node))

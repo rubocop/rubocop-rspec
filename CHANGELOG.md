@@ -12,6 +12,7 @@
 - Fix incorrect autocorrection for `RSpec/ExampleWording` with percent literal and escaped example descriptions. ([@ydah])
 - Fix `RSpec/SpecFilePathFormat` raising when `EnforcedInflector: active_support` and RuboCop is invoked from outside the project root. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not crash on `itblock`/`numblock` example groups with Ruby 3.4 and Prism. ([@pcbeingused333])
+- Fix `RSpec/IteratedExpectation` autocorrection crashing when `each` is called without an explicit receiver. ([@pcbeingused333])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
 
 ## 3.10.2 (2026-06-06)

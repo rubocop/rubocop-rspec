@@ -54,6 +54,17 @@ RSpec.describe RuboCop::Cop::RSpec::IteratedExpectation do
     expect_no_corrections
   end
 
+  it 'flags `each` without an explicit receiver, but does not correct' do
+    expect_offense(<<~RUBY)
+      it 'validates users' do
+        each { |user| expect(user).to be_valid }
+        ^^^^ Prefer using the `all` matcher instead of iterating over an array.
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'ignores `each` without expectation' do
     expect_no_offenses(<<~RUBY)
       it 'validates users' do
