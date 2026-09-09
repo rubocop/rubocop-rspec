@@ -255,6 +255,22 @@ RSpec.describe RuboCop::Cop::RSpec::ExpectChange do
       RUBY
     end
 
+    it 'does not crash when the receiver is itself a change matcher call' do
+      expect_offense(<<~RUBY)
+        it do
+          expect { run }.to change(change(x, :y), :bar)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `change { change(x, :y).bar }`.
+                                   ^^^^^^^^^^^^^ Prefer `change { x.y }`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it do
+          expect { run }.to change { change { x.y }.bar }
+        end
+      RUBY
+    end
+
     it 'flags implicit block expectation syntax' do
       expect_offense(<<~RUBY)
         it do

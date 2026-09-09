@@ -95,6 +95,13 @@ module RuboCop
             msg = format(MSG_CALL, matcher: matcher_name,
                                    obj: receiver.source, attr: message)
             add_offense(node, message: msg) do |corrector|
+              # If the receiver is itself a matcher call
+              # (`change(change(x, :y), :z)`), it is also offended and will
+              # be replaced by its own correction; replacing this node's
+              # whole range too would overlap that one and raise
+              # `Parser::ClobberingError`. Leave it uncorrected in that case.
+              next if nested_matcher_call?(receiver)
+
               replacement = "#{matcher_name} { #{receiver.source}.#{message} }"
               corrector.replace(node, replacement)
             end
@@ -117,6 +124,10 @@ module RuboCop
         end
 
         private
+
+        def nested_matcher_call?(node)
+          node.send_type? && matcher_method?(node.method_name)
+        end
 
         def matcher_method_names
           [:change, negated_matcher&.to_sym].compact
