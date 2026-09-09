@@ -59,13 +59,27 @@ RSpec.describe RuboCop::Cop::RSpec::ContainExactly do
 
   it 'does not crash when the splat arg is itself a `contain_exactly` call' do
     expect_offense(<<~RUBY)
-      it { is_expected.to contain_exactly(*contain_exactly(*array)) }
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
-                                           ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
+      RSpec.describe Basket do
+        subject { basket.contents }
+
+        it 'matches, however contrived the nesting' do
+          array = [1, 2, 3]
+          expect(subject).to contain_exactly(*contain_exactly(*array))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
+                                              ^^^^^^^^^^^^^^^^^^^^^^^ Prefer `match_array` when matching array values.
+        end
+      end
     RUBY
 
     expect_correction(<<~RUBY)
-      it { is_expected.to match_array(match_array(array)) }
+      RSpec.describe Basket do
+        subject { basket.contents }
+
+        it 'matches, however contrived the nesting' do
+          array = [1, 2, 3]
+          expect(subject).to match_array(match_array(array))
+        end
+      end
     RUBY
   end
 end
