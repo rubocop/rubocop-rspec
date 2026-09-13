@@ -36,6 +36,7 @@ module RuboCop
       register_cop :EmptyLineAfterExampleGroup, "#{__dir__}/rspec/empty_line_after_example_group"
       register_cop :EmptyLineAfterFinalLet, "#{__dir__}/rspec/empty_line_after_final_let"
       register_cop :EmptyLineAfterHook, "#{__dir__}/rspec/empty_line_after_hook"
+      register_cop :EmptyLineAfterSharedInclusion, "#{__dir__}/rspec/empty_line_after_shared_inclusion"
       register_cop :EmptyLineAfterSubject, "#{__dir__}/rspec/empty_line_after_subject"
       register_cop :EmptyMetadata, "#{__dir__}/rspec/empty_metadata"
       register_cop :EmptyOutput, "#{__dir__}/rspec/empty_output"
