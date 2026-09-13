@@ -99,6 +99,131 @@ RSpec.describe RuboCop::Cop::RSpec::InstanceVariable do
   end
 
   # Regression test for nevir/rubocop-rspec#115
+  it 'ignores an instance variable in a macro call beside a method' do
+    expect_no_offenses(<<~RUBY)
+      describe MyController do
+        controller(described_class) do
+          authorize_action proxy: -> { Thing.new(id: @employee.id) }
+
+          def index
+            head :ok
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable inside a block of an unknown DSL' do
+    expect_no_offenses(<<~RUBY)
+      describe MyMailer do
+        mailer do
+          def welcome
+            mail(from: @signature)
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable inside a dynamic module' do
+    expect_no_offenses(<<~RUBY)
+      describe MyClass do
+        let(:context) do
+          Module.new do
+            def self.warnings
+              @warnings ||= []
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags an instance variable in a helper method of an example group' do
+    expect_offense(<<~RUBY)
+      describe MyClass do
+        before { @user = create(:user) }
+
+        def sign_in_as_user
+          session[:id] = @user.id
+                         ^^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
+        end
+      end
+    RUBY
+  end
+
+  it 'flags an instance variable in an example beside a method definition' do
+    expect_offense(<<~RUBY)
+      describe MyClass do
+        def helper
+          :ok
+        end
+
+        before { @foo = [] }
+
+        it { expect(@foo).to be_empty }
+                    ^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
+      end
+    RUBY
+  end
+
+  it 'flags an instance variable that is the receiver of a class-body block' do
+    expect_offense(<<~RUBY)
+      describe 'Index overriding' do
+        before do
+          @controller = Admin::PostsController.new
+          @controller.instance_eval do
+          ^^^^^^^^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
+            def index
+              super
+            end
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable inside an anonymous controller' do
+    expect_no_offenses(<<~RUBY)
+      describe MyController do
+        controller do
+          def index
+            render json: @resource
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an instance variable in an anonymous controller with a parent' do
+    expect_no_offenses(<<~RUBY)
+      describe MyController do
+        controller(ApplicationController) do
+          def show
+            @thing ||= Thing.new
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags instance variables in examples beside an anonymous controller' do
+    expect_offense(<<~RUBY)
+      describe MyController do
+        controller do
+          def index
+            render json: @resource
+          end
+        end
+
+        before { @thing = 1 }
+
+        it { expect(@thing).to eq(1) }
+                    ^^^^^^ Avoid instance variables - use let, a method call, or a local variable (if possible).
+      end
+    RUBY
+  end
+
   it 'ignores instance variables outside of specs' do
     expect_no_offenses(<<~RUBY, 'lib/source_code.rb')
       feature do

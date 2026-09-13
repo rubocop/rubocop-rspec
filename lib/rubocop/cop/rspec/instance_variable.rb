@@ -23,6 +23,16 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       #
+      #   # good - an instance variable of a class whose body the spec opens,
+      #   # here through rspec-rails' `controller`
+      #   describe MyController do
+      #     controller do
+      #       def index
+      #         render json: @resource
+      #       end
+      #     end
+      #   end
+      #
       # @example with AssignmentOnly configuration
       #   # rubocop.yml
       #   # RSpec/InstanceVariable:
@@ -87,10 +97,45 @@ module RuboCop
         private
 
         def valid_usage?(node)
-          node.each_ancestor(:block).any? do |block|
-            dynamic_class?(block) || reopened_class?(block) ||
-              custom_matcher?(block)
+          child = node
+
+          node.each_ancestor do |ancestor|
+            return true if opens_another_body?(ancestor, child)
+
+            child = ancestor
           end
+
+          false
+        end
+
+        # Only a block's body counts. An instance variable in the receiver, as
+        # in `@controller.instance_eval { ... }`, is read in the surrounding
+        # scope and is still the example's.
+        def opens_another_body?(node, child)
+          return false unless node.block_type? && node.body.equal?(child)
+
+          dynamic_class?(node) || reopened_class?(node) ||
+            custom_matcher?(node) || class_body?(node)
+        end
+
+        # A block that defines methods is opening some object's body, so the
+        # instance variables written inside it belong to that object rather
+        # than to the example. That covers any DSL yielding a class body --
+        # rspec-rails' `controller` among them -- without naming one.
+        def class_body?(node)
+          !example_scope?(node) && defines_method?(node.body)
+        end
+
+        def defines_method?(body)
+          statements = body.begin_type? ? body.children : [body]
+          statements.any?(&:any_def_type?)
+        end
+
+        # A `def` in an example group belongs to the example group, so the
+        # instance variables in it are the example's and stay flagged.
+        def example_scope?(node)
+          spec_group?(node) || example?(node) || hook?(node) ||
+            let?(node) || subject?(node) || include?(node)
         end
 
         def assignment_only?
