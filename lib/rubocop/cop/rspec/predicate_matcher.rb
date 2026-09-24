@@ -231,10 +231,30 @@ module RuboCop
           block_loc = LocationHelp.block_with_whitespace(block_child)
           block = block_loc ? block_loc.source : ''
 
-          replacement = "#{actual.source}.#{predicate}#{args}#{block}"
+          receiver = actual.source
+          receiver = "(#{receiver})" if requires_parentheses?(actual)
+          replacement = "#{receiver}.#{predicate}#{args}#{block}"
 
           corrector.remove(block_loc) if block_loc
           corrector.replace(actual, replacement)
+        end
+
+        def requires_parentheses?(node)
+          case node.type
+          when :and, :or, :if, :irange, :erange
+            true
+          when :send, :csend
+            complex_call?(node)
+          else
+            node.assignment?
+          end
+        end
+
+        def complex_call?(node)
+          return false if node.method?(:[])
+          return true if node.operator_method? || node.unary_operation?
+
+          !node.arguments.empty? && !node.parenthesized?
         end
 
         def to_predicate_method(matcher)
