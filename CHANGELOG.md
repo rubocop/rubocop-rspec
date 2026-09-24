@@ -18,6 +18,7 @@
 - Fix an incorrect autocorrect for `RSpec/SharedExamples` when the shared example name cannot be written as a plain symbol or a single-quoted string. ([@viralpraxis])
 - Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
 - Fix `RSpec/Dialect` to ignore configured method names on non-RSpec receivers. ([@iamzayn19])
+- Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when the expectation argument is an operator or other low-precedence expression, such as `expect(a + b)`. ([@viralpraxis])
 
 ## 3.10.2 (2026-06-06)
 
