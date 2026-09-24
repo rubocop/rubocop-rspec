@@ -16,6 +16,7 @@
 - Fix `RSpec/LeadingSubject` to not crash on `itblock`/`numblock` example groups with Ruby 3.4 and Prism. ([@pcbeingused333])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
 - Fix an incorrect autocorrect for `RSpec/SharedExamples` when the shared example name cannot be written as a plain symbol or a single-quoted string. ([@viralpraxis])
+- Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
 
 ## 3.10.2 (2026-06-06)
 
