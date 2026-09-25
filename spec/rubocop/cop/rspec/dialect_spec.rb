@@ -24,6 +24,13 @@ RSpec.describe RuboCop::Cop::RSpec::Dialect do
     RUBY
   end
 
+  it 'allows configured method names on non-RSpec receivers' do
+    expect_no_offenses(<<~RUBY)
+      page.context 'display name presence' do
+      end
+    RUBY
+  end
+
   it 'registers an offense for context blocks' do
     expect_offense(<<~RUBY)
       context 'display name presence' do
@@ -69,6 +76,29 @@ RSpec.describe RuboCop::Cop::RSpec::Dialect do
           specify 'for someone to work' do
             everyone.should have_some_leeway
           end
+        end
+      RUBY
+    end
+  end
+
+  context 'with a Capybara dialect config' do
+    let(:cop_config) do
+      {
+        'PreferredMethods' => {
+          'background' => 'before'
+        }
+      }
+    end
+
+    it 'registers an offense for configured methods outside RSpec language defaults' do
+      expect_offense(<<~RUBY)
+        background do
+        ^^^^^^^^^^ Prefer `before` over `background`.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before do
         end
       RUBY
     end

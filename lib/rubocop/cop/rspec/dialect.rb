@@ -62,12 +62,9 @@ module RuboCop
 
         MSG = 'Prefer `%<prefer>s` over `%<current>s`.'
 
-        # @!method rspec_method?(node)
-        def_node_matcher :rspec_method?, '(send #rspec? #ALL.all ...)'
-
         def on_send(node)
-          return unless rspec_method?(node)
           return unless preferred_methods[node.method_name]
+          return if node.receiver && !rspec?(node.receiver)
 
           msg = format(MSG, prefer: preferred_method(node.method_name),
                             current: node.method_name)
