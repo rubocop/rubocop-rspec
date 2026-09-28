@@ -17,6 +17,7 @@
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
 - Fix an incorrect autocorrect for `RSpec/SharedExamples` when the shared example name cannot be written as a plain symbol or a single-quoted string. ([@viralpraxis])
 - Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
+- Fix `RSpec/Dialect` to ignore configured method names on non-RSpec receivers. ([@iamzayn19])
 
 ## 3.10.2 (2026-06-06)
 
@@ -1059,6 +1060,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@harrylewis]: https://github.com/harrylewis
 [@hasghari]: https://github.com/hasghari
 [@hosamaly]: https://github.com/hosamaly
+[@iamzayn19]: https://github.com/iamzayn19
 [@ignaciovillaverde]: https://github.com/ignaciovillaverde
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
