@@ -18,6 +18,7 @@
 - Fix an incorrect autocorrect for `RSpec/SharedExamples` when the shared example name cannot be written as a plain symbol or a single-quoted string. ([@viralpraxis])
 - Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
 - Fix `RSpec/Dialect` to ignore configured method names on non-RSpec receivers. ([@iamzayn19])
+- Fix an incorrect autocorrect for `RSpec/ReturnFromStub` with `EnforcedStyle: block` when the stub already has a block. ([@viralpraxis])
 
 ## 3.10.2 (2026-06-06)
 
