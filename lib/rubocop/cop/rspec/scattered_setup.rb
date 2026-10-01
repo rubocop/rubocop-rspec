@@ -8,7 +8,8 @@ module RuboCop
       # Unify `before` and `after` hooks when possible.
       # However, `around` hooks are allowed to be defined multiple times,
       # as unifying them would typically make the code harder to read.
-      # Hooks defined in class methods are also ignored.
+      # Hooks defined in class methods are also ignored, as are hooks in
+      # different branches of one conditional, which never both run.
       #
       # @example
       #   # bad
@@ -39,6 +40,15 @@ module RuboCop
       #     end
       #   end
       #
+      #   # good
+      #   describe Foo do
+      #     if flag
+      #       before { setup1 }
+      #     else
+      #       before { setup2 }
+      #     end
+      #   end
+      #
       class ScatteredSetup < Base
         include FinalEndLocation
         include RangeHelp
@@ -53,9 +63,18 @@ module RuboCop
 
           repeated_hooks(node).each do |occurrences|
             occurrences.each do |occurrence|
-              message = message(occurrences, occurrence)
+              peers = co_occurring(occurrences, occurrence)
+              next if peers.empty?
+
+              # Anchor on the set's earliest hook, the same for every member,
+              # so the corrections all merge in one direction.
+              group = occurrences.select do |hook|
+                hook.equal?(occurrence) || peers.include?(hook)
+              end
+
+              message = message(group, occurrence)
               add_offense(occurrence, message: message) do |corrector|
-                autocorrect(corrector, occurrences.first, occurrence)
+                autocorrect(corrector, group.first, occurrence)
               end
             end
           end
@@ -72,6 +91,35 @@ module RuboCop
             hooks,
             key_proc: ->(hook) { [hook.name, hook.scope, hook.metadata] }
           ).map { |hook_group| hook_group.map(&:to_node) }
+        end
+
+        # Hooks in different branches of one conditional never both run, so they
+        # are not scattered setup. A hook outside the conditional does run
+        # alongside one inside it, so only divergence at a shared conditional
+        # counts.
+        def co_occurring(occurrences, occurrence)
+          occurrences.reject do |other|
+            other.equal?(occurrence) || mutually_exclusive?(occurrence, other)
+          end
+        end
+
+        def mutually_exclusive?(node, other)
+          branches = enclosing_branches(other)
+
+          enclosing_branches(node).any? do |conditional, branch|
+            branches.key?(conditional) && !branches[conditional].equal?(branch)
+          end
+        end
+
+        # Maps each enclosing `if`/`case` to the branch this node sits in.
+        def enclosing_branches(node)
+          child = node
+          node.each_ancestor.with_object({}) do |ancestor, branches|
+            if ancestor.type?(:if, :case, :case_match)
+              branches[ancestor] = child
+            end
+            child = ancestor
+          end
         end
 
         def lines_msg(numbers)
