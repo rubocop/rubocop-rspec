@@ -93,4 +93,40 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
       RUBY
     end
   end
+
+  context 'when corrects `RSpec/PredicateMatcher` with ' \
+          '`Style/TrailingCommaInArguments`' do
+    before do
+      RuboCop::ConfigLoader
+        .default_configuration
+        .for_all_cops['SuggestExtensions'] = false
+
+      create_file('.rubocop.yml', <<~YAML)
+        RSpec/PredicateMatcher:
+          Enabled: true
+          EnforcedStyle: explicit
+        Style/TrailingCommaInArguments:
+          Enabled: true
+          EnforcedStyleForMultiline: comma
+      YAML
+
+      create_file('spec/example.rb', <<~RUBY)
+        expect(
+          foo
+        ).to be_valid
+      RUBY
+    end
+
+    it 'autocorrects be compatible with each other' do
+      cli.run(['-A', '--only',
+               'RSpec/PredicateMatcher,' \
+               'Style/TrailingCommaInArguments'])
+
+      expect(File.read('spec/example.rb')).to eq(<<~RUBY)
+        expect(
+          foo.valid?,
+        ).to be(true)
+      RUBY
+    end
+  end
 end

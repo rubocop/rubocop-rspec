@@ -231,8 +231,10 @@ module RuboCop
           block_loc = LocationHelp.block_with_whitespace(block_child)
           block = block_loc ? block_loc.source : ''
 
+          replacement = "#{actual.source}.#{predicate}#{args}#{block}"
+
           corrector.remove(block_loc) if block_loc
-          corrector.insert_after(actual, ".#{predicate}" + args + block)
+          corrector.replace(actual, replacement)
         end
 
         def to_predicate_method(matcher)

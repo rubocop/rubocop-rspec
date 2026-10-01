@@ -41,7 +41,7 @@ RSpec.describe 'cop lazy loading' do
       puts "loaded_cop_files=\#{loaded.size}"
     RUBY
 
-    expect(output).to include('registered=115', 'loaded_cop_files=0')
+    expect(output).to include('registered=116', 'loaded_cop_files=0')
   end
 
   it 'resolves every mixin file in `lib/rubocop/cop/rspec/mixin` through ' \
