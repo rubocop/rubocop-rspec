@@ -17,6 +17,16 @@ module RuboCop
         } ...)
       PATTERN
 
+      # @!method alien_dsl?(node)
+      #
+      #   Detect a block called on a constant that takes no arguments, like
+      #   `Definition.define do ... end`
+      #
+      #   Such a block is evaluated against the receiver rather than the
+      #   example group, unlike an iterator such as `KINDS.each do |kind|`
+      #
+      def_node_matcher :alien_dsl?, '(block (send const ...) (args) ...)'
+
       def lets
         find_all_in_scope(node, :let?)
       end
@@ -42,7 +52,7 @@ module RuboCop
       # Recursively search for predicate within the current scope
       #
       # Searches node and halts when a scope change is detected, or at a
-      # block that runs in an example's context
+      # block that runs in an example's context or against another receiver
       #
       # @param node [RuboCop::AST::Node] node to recursively search
       # @param predicate [Symbol] method to call with node as argument
@@ -57,7 +67,7 @@ module RuboCop
       def find_all(node, predicate)
         if public_send(predicate, node)
           [node]
-        elsif scope_change?(node) || example_context?(node)
+        elsif scope_change?(node) || example_context?(node) || alien_dsl?(node)
           []
         else
           find_all_in_scope(node, predicate)

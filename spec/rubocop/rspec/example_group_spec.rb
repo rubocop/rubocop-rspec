@@ -86,4 +86,42 @@ RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
         .to eq([12])
     end
   end
+
+  context 'with declarations in a block called on a constant' do
+    let(:source) do
+      <<~RUBY
+        RSpec.describe Foo do
+          Definition.define do
+            let(:a) { 1 }
+            subject(:b) { 2 }
+            before { c }
+            it('d') { d }
+          end
+          KINDS.each do |kind|
+            let(kind) { 1 }
+            subject(kind) { 2 }
+            before { c }
+            it(kind) { d }
+          end
+        end
+      RUBY
+    end
+
+    it 'exposes lets from the iterator, not the DSL block' do
+      expect(group.lets.map(&:first_line)).to eq([9])
+    end
+
+    it 'exposes subjects from the iterator, not the DSL block' do
+      expect(group.subjects.map(&:first_line)).to eq([10])
+    end
+
+    it 'exposes hooks from the iterator, not the DSL block' do
+      expect(group.hooks.map { |hook| hook.to_node.first_line }).to eq([11])
+    end
+
+    it 'exposes examples from the iterator, not the DSL block' do
+      expect(group.examples.map { |example| example.to_node.first_line })
+        .to eq([12])
+    end
+  end
 end

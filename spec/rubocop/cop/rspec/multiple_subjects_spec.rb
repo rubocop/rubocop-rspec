@@ -168,6 +168,43 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
     RUBY
   end
 
+  it 'ignores a same-named method in a DSL block called on a constant' do
+    expect_no_offenses(<<~RUBY)
+      describe 'hello there' do
+        AbilityDefinition.define do
+          subject(:foo) { can :read }
+          subject(:bar) { can :write }
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for subjects declared inside an iterator over a ' \
+     'constant' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        KINDS.each do |kind|
+          subject(kind) { 1 }
+          ^^^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
+          subject(:other) { 2 }
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for subjects declared inside a numbered ' \
+     'parameter iterator over a constant' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        KINDS.each do
+          subject(_1) { 1 }
+          ^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
+          subject(:other) { 2 }
+        end
+      end
+    RUBY
+  end
+
   it 'registers an offense for subjects declared inside an iterator' do
     expect_offense(<<~RUBY)
       describe 'hello there' do
