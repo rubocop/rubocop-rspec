@@ -117,8 +117,8 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       describe 'hello there' do
         let(:definition) do
           AbilityDefinition.define do
-            subject(Model, test: ['value']) { can :read }
-            subject(Model, other: ['value']) { can :write }
+            subject(:foo) { can :read }
+            subject(:bar) { can :write }
           end
         end
       end
@@ -130,7 +130,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       describe 'hello there' do
         let(:definition) do
           AbilityDefinition.define do
-            subject(Model, test: ['value']) { can :read }
+            subject(:foo) { can :read }
           end
         end
 
@@ -144,7 +144,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       describe 'hello there' do
         let(:definition) do
           AbilityDefinition.define do
-            subject(Model, test: ['value']) { can :read }
+            subject(:foo) { can :read }
           end
         end
 
@@ -158,7 +158,7 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       describe 'hello there' do
         let(:definition) do
           AbilityDefinition.define do
-            subject(Model, test: ['value']) { can :read }
+            subject(:foo) { can :read }
           end
         end
 
