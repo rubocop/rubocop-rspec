@@ -22,7 +22,7 @@ module RuboCop
       end
 
       def subjects
-        find_all_in_scope(node, :subject?, skip_nested_blocks: true)
+        find_all_in_scope(node, :subject?)
       end
 
       def examples
@@ -41,32 +41,33 @@ module RuboCop
 
       # Recursively search for predicate within the current scope
       #
-      # Searches node and halts when a scope change is detected
+      # Searches node and halts when a scope change is detected, or at a
+      # block that runs in an example's context
       #
       # @param node [RuboCop::AST::Node] node to recursively search
       # @param predicate [Symbol] method to call with node as argument
       #
       # @return [Array<RuboCop::AST::Node>] discovered nodes
-      def find_all_in_scope(node, predicate, skip_nested_blocks: false)
+      def find_all_in_scope(node, predicate)
         node.each_child_node.flat_map do |child|
-          find_all(child, predicate, skip_nested_blocks: skip_nested_blocks)
+          find_all(child, predicate)
         end
       end
 
-      def find_all(node, predicate, skip_nested_blocks: false)
-        return [node] if public_send(predicate, node)
-        # No attempt is made to tell an RSpec DSL block from any other: a
-        # declaration inside *any* block is not one the group makes
-        # unconditionally, so stop rather than identify the block.
-        return [] if skip_nested_blocks && node.block_type?
-        return [] if scope_change?(node)
-        return [] if example?(node)
+      def find_all(node, predicate)
+        if public_send(predicate, node)
+          [node]
+        elsif scope_change?(node) || example_context?(node)
+          []
+        else
+          find_all_in_scope(node, predicate)
+        end
+      end
 
-        find_all_in_scope(
-          node,
-          predicate,
-          skip_nested_blocks: skip_nested_blocks
-        )
+      # Examples, hooks and memoized helpers run inside an example, where
+      # no group-level declaration can be made
+      def example_context?(node)
+        example?(node) || hook?(node) || let?(node) || subject?(node)
       end
     end
   end

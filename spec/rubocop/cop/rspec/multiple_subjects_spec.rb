@@ -168,11 +168,13 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
     RUBY
   end
 
-  it 'does not register an offense for subjects declared inside an iterator' do
-    expect_no_offenses(<<~RUBY)
+  it 'registers an offense for subjects declared inside an iterator' do
+    expect_offense(<<~RUBY)
       describe 'hello there' do
         %i[a b].each do |name|
           subject(name) { 1 }
+          ^^^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
+          subject(:other) { 2 }
         end
       end
     RUBY

@@ -47,4 +47,43 @@ RSpec.describe RuboCop::RSpec::ExampleGroup, :config do
   it 'exposes examples in scope' do
     expect(group.examples).to eql(example_nodes)
   end
+
+  context 'with declarations nested in an example, hook or memoized helper' do
+    let(:source) do
+      <<~RUBY
+        RSpec.describe Foo do
+          let(:a) do
+            subject(:nested) { 1 }
+          end
+          subject(:b) do
+            before { nested }
+          end
+          before do
+            let(:nested) { 1 }
+            it('nested') { x }
+          end
+          it 'does x' do
+            x
+          end
+        end
+      RUBY
+    end
+
+    it 'exposes only the lets the group declares' do
+      expect(group.lets.map(&:first_line)).to eq([2])
+    end
+
+    it 'exposes only the subjects the group declares' do
+      expect(group.subjects.map(&:first_line)).to eq([5])
+    end
+
+    it 'exposes only the hooks the group declares' do
+      expect(group.hooks.map { |hook| hook.to_node.first_line }).to eq([8])
+    end
+
+    it 'exposes only the examples the group declares' do
+      expect(group.examples.map { |example| example.to_node.first_line })
+        .to eq([12])
+    end
+  end
 end
