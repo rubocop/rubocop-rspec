@@ -357,6 +357,124 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     end
   end
 
+  context 'when configured with an IgnoreMetadata list' do
+    let(:cop_config) do
+      {
+        'IgnoreMetadata' => [
+          'prepare', { 'type' => 'model' }, { 'type' => 'routing' },
+          { 'skip' => %w[database network] }, { 'enabled' => true },
+          { 'disabled' => false }, { 'reason' => nil }, { 'level' => 1 },
+          { 'ratio' => 1.5 }, { 'nested' => [%w[database]] }
+        ]
+      }
+    end
+
+    [
+      ':prepare',
+      'prepare: false',
+      'prepare: nil',
+      'prepare: dynamic_value',
+      'prepare: false, **options',
+      'type: :model',
+      'type: :routing',
+      'type: "model"',
+      '{type: :model}',
+      '**options, type: :model',
+      'type: :request, type: :model',
+      '{dynamic_key => :request, type: :model}',
+      '{type: :model, "other" => false}',
+      ':enabled, enabled: false',
+      'enabled: true',
+      'disabled: false',
+      'reason: nil',
+      'level: 1',
+      'level: 1.0',
+      'ratio: 1.5',
+      'skip: [:database, :network]',
+      'skip: ["database", "network"]',
+      'nested: [[:database]]'
+    ].each do |metadata|
+      it "does not register an offense for #{metadata}" do
+        expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+          describe MyClass, #{metadata} do; end
+        RUBY
+      end
+    end
+
+    [
+      ':other',
+      ':prepare, "description"',
+      '{type: :model}, "description"',
+      'other: {type: :model}',
+      'type: :request',
+      'type: dynamic_value',
+      'type: "#{dynamic_value}"',
+      'type: :"#{dynamic_value}"',
+      'type: :model, **options',
+      'type: :model, type: :request',
+      '{type: :model, dynamic_key => :request}',
+      'enabled: false',
+      'disabled: true',
+      'reason: dynamic_value',
+      'level: "1"',
+      'skip: :database',
+      'skip: [:database]',
+      'skip: [:network, :database]',
+      'skip: [:database, :network, :extra]',
+      'skip: [dynamic_value, :network]',
+      'skip: [*values, :network]',
+      'nested: [[dynamic_value]]'
+    ].each do |metadata|
+      it "registers an offense for #{metadata}" do
+        expect_offense(<<~RUBY, 'wrong_class_spec.rb', metadata: metadata)
+          describe MyClass, %{metadata} do; end
+          ^^^^^^^^^^^^^^^^^^^{metadata} Spec path should end with `my_class*_spec.rb`.
+        RUBY
+      end
+    end
+  end
+
+  context 'when a list entry contains multiple metadata keys' do
+    let(:cop_config) do
+      { 'IgnoreMetadata' => [{ 'type' => 'model', 'enabled' => true }] }
+    end
+
+    it 'matches any pair, without requiring every key' do
+      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, enabled: true do; end
+      RUBY
+    end
+  end
+
+  context 'when list entries use Symbols' do
+    let(:cop_config) { { 'IgnoreMetadata' => [:prepare, { type: :model }] } }
+
+    it 'matches a Symbol-valued entry' do
+      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, type: :model do; end
+      RUBY
+    end
+
+    it 'matches a Symbol presence entry' do
+      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, :prepare do; end
+      RUBY
+    end
+  end
+
+  [[], [{}], [123], nil, 'prepare'].each do |setting|
+    context "when IgnoreMetadata is #{setting.inspect}" do
+      let(:cop_config) { { 'IgnoreMetadata' => setting } }
+
+      it 'does not suppress an offense' do
+        expect_offense(<<~RUBY, 'wrong_class_spec.rb')
+          describe MyClass, :prepare, type: :routing do; end
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*_spec.rb`.
+        RUBY
+      end
+    end
+  end
+
   # We intentionally isolate all of the plugin specs in this context
   # rubocop:disable RSpec/NestedGroups
   context 'when using ActiveSupport integration' do

@@ -6299,10 +6299,19 @@ context 'Something', :z, variable, :a, :b
 | Yes
 | No
 | 2.24
-| 3.8
+| <<next>>
 |===
 
 Checks that spec file paths are consistent and well-formed.
+
+The list format of `IgnoreMetadata` ignores keys by presence, including
+false and nil values, or matches literal values. Entries and pairs are
+alternatives. Symbols and strings match by their spelling. Array values
+must match exactly, including order.
+Only explicitly supplied metadata is considered. Dynamic values cannot
+match literal values, and unsupported entries do not match. A list
+replaces the default mapping; include `type: routing` explicitly to keep
+that exemption. The legacy mapping retains its existing behavior.
 
 [#examples-rspecspecfilepathformat]
 === Examples
@@ -6355,6 +6364,31 @@ my_class_spec.rb         # describe MyClass, '#method'
 ----
 # good
 whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
+[#_ignoremetadata_-_prepare_-_type__model__-_type__routing___-rspecspecfilepathformat]
+==== `IgnoreMetadata: [prepare, {type=>model}, {type=>routing}]`
+
+[source,ruby]
+----
+# good
+whatever_spec.rb         # describe MyClass, :prepare do; end
+whatever_spec.rb         # describe MyClass, prepare: false do; end
+whatever_spec.rb         # describe MyClass, type: :model do; end
+whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
+[#_ignoremetadata_-__skip___database_-network____-rspecspecfilepathformat]
+==== `IgnoreMetadata: [{skip=>[database, network]}]`
+
+[source,ruby]
+----
+# good
+wrong_spec.rb # describe MyClass, skip: [:database, :network] do; end
+
+# bad
+whatever_spec.rb         # describe MyClass, skip: :database do; end
+wrong_spec.rb # describe MyClass, skip: [:network, :database] do; end
 ----
 
 [#_enforcedinflector_-active_support_-rspecspecfilepathformat]

@@ -5,6 +5,72 @@ RSpec.describe 'RuboCop::CLI run', :isolated_environment do # rubocop:disable RS
 
   include_context 'when cli spec behavior'
 
+  context 'when SpecFilePathFormat uses an IgnoreMetadata list' do
+    let(:exit_code) do
+      cli.run(%w[--format simple --only RSpec/SpecFilePathFormat])
+    end
+
+    before do
+      create_file('.rubocop.yml', <<~YAML)
+        AllCops:
+          NewCops: disable
+        RSpec/SpecFilePathFormat:
+          IgnoreMetadata:
+            - prepare
+            - type: model
+            - type: :routing
+            - skip: [database, network]
+      YAML
+    end
+
+    it 'loads multiple values and array-valued metadata through YAML' do
+      create_file('spec/model_spec.rb', <<~RUBY)
+        describe MyClass, type: :model do; end
+      RUBY
+      create_file('spec/routing_spec.rb', <<~RUBY)
+        describe MyClass, type: :routing do; end
+      RUBY
+      create_file('spec/prepare_spec.rb', <<~RUBY)
+        describe MyClass, prepare: false do; end
+      RUBY
+      create_file('spec/database_spec.rb', <<~RUBY)
+        describe MyClass, skip: [:database, :network] do; end
+      RUBY
+
+      expect(exit_code).to eq(0)
+      expect([$stdout.string, $stderr.string]).to match(
+        [a_string_including('4 files inspected, no offenses detected'), '']
+      )
+    end
+
+    it 'reports metadata outside the configured alternatives' do
+      create_file('spec/request_spec.rb', <<~RUBY)
+        describe MyClass, type: :request do; end
+      RUBY
+
+      expect(exit_code).to eq(1)
+      expect([$stdout.string, $stderr.string]).to match(
+        [a_string_including('1 file inspected, 1 offense detected'), '']
+      )
+    end
+
+    it 'replaces the default Hash rather than implicitly adding routing' do
+      create_file('.rubocop.yml', <<~YAML)
+        AllCops:
+          NewCops: disable
+        RSpec/SpecFilePathFormat:
+          IgnoreMetadata:
+            - type: model
+      YAML
+      create_file('spec/routing_spec.rb', <<~RUBY)
+        describe MyClass, type: :routing do; end
+      RUBY
+
+      expect(exit_code).to eq(1)
+      expect($stdout.string).to include('1 file inspected, 1 offense detected')
+    end
+  end
+
   context 'when set option `AllowedIdentifiers` for ' \
           '`RSpec/IndexedLet` and `Naming/VariableNumber`' do
     let(:exit_code) do
