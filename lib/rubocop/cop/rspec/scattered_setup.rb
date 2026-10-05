@@ -9,7 +9,9 @@ module RuboCop
       # However, `around` hooks are allowed to be defined multiple times,
       # as unifying them would typically make the code harder to read.
       # Hooks defined in class methods are also ignored, as are hooks in
-      # different branches of one conditional, which never both run.
+      # different branches of one conditional, which never both run. A
+      # conditional inside an iterator can take every branch, so hooks in
+      # its branches are still checked.
       #
       # @example
       #   # bad
@@ -58,12 +60,14 @@ module RuboCop
         MSG = 'Do not define multiple `%<hook_name>s` hooks in the same ' \
               'example group (also defined on %<lines>s).'
 
+        LOOP_TYPES = %i[while until while_post until_post for].freeze
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
 
           repeated_hooks(node).each do |occurrences|
             occurrences.each do |occurrence|
-              peers = co_occurring(occurrences, occurrence)
+              peers = co_occurring(occurrences, occurrence, node)
               next if peers.empty?
 
               # Anchor on the set's earliest hook, the same for every member,
@@ -97,29 +101,39 @@ module RuboCop
         # are not scattered setup. A hook outside the conditional does run
         # alongside one inside it, so only divergence at a shared conditional
         # counts.
-        def co_occurring(occurrences, occurrence)
+        def co_occurring(occurrences, occurrence, group)
           occurrences.reject do |other|
-            other.equal?(occurrence) || mutually_exclusive?(occurrence, other)
+            other.equal?(occurrence) ||
+              mutually_exclusive?(occurrence, other, group)
           end
         end
 
-        def mutually_exclusive?(node, other)
-          branches = enclosing_branches(other)
+        def mutually_exclusive?(node, other, group)
+          branches = enclosing_branches(other, group)
 
-          enclosing_branches(node).any? do |conditional, branch|
+          enclosing_branches(node, group).any? do |conditional, branch|
             branches.key?(conditional) && !branches[conditional].equal?(branch)
           end
         end
 
-        # Maps each enclosing `if`/`case` to the branch this node sits in.
-        def enclosing_branches(node)
+        # Maps each `if`/`case` between this node and its example group to the
+        # branch the node sits in. A conditional inside a block or loop can be
+        # evaluated more than once, taking each branch in turn, so only
+        # conditionals outside every such block or loop are kept.
+        def enclosing_branches(node, group)
+          branches = {}
           child = node
-          node.each_ancestor.with_object({}) do |ancestor, branches|
+          node.each_ancestor do |ancestor|
+            break if ancestor.equal?(group)
+
             if ancestor.type?(:if, :case, :case_match)
               branches[ancestor] = child
+            elsif ancestor.type?(:any_block, *LOOP_TYPES)
+              branches.clear
             end
             child = ancestor
           end
+          branches
         end
 
         def lines_msg(numbers)

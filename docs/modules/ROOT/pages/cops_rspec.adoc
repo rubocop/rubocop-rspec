@@ -5880,7 +5880,9 @@ Unify `before` and `after` hooks when possible.
 However, `around` hooks are allowed to be defined multiple times,
 as unifying them would typically make the code harder to read.
 Hooks defined in class methods are also ignored, as are hooks in
-different branches of one conditional, which never both run.
+different branches of one conditional, which never both run. A
+conditional inside an iterator can take every branch, so hooks in
+its branches are still checked.
 
 [#examples-rspecscatteredsetup]
 === Examples

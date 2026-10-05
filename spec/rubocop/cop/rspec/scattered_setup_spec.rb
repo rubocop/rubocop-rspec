@@ -297,6 +297,69 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
     RUBY
   end
 
+  it 'registers an offense for branches of a conditional inside an iterator' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        [true, false].each do |flag|
+          if flag
+            before { setup_a }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 6).
+          else
+            before { setup_b }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 4).
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for branches of a case inside an iterator' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        %i[a b].each do |key|
+          case key
+          when :a
+            before { setup_a }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 7).
+          when :b
+            before { setup_b }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 5).
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for branches of a conditional inside a loop' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        while next_flag
+          if flag
+            before { setup_a }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 6).
+          else
+            before { setup_b }
+            ^^^^^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 4).
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores an iterator inside one branch of a conditional' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        if flag
+          items.each do |item|
+            before { setup(item) }
+          end
+        else
+          before { setup_b }
+        end
+      end
+    RUBY
+  end
+
   it 'still registers an offense for hooks distinguished only by position' do
     expect_offense(<<~RUBY)
       describe Foo do
