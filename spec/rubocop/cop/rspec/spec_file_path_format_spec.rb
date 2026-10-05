@@ -357,81 +357,136 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     end
   end
 
-  context 'when configured with an IgnoreMetadata list' do
-    let(:cop_config) do
-      {
-        'IgnoreMetadata' => [
-          'prepare', { 'type' => 'model' }, { 'type' => 'routing' },
-          { 'skip' => %w[database network] }, { 'enabled' => true },
-          { 'disabled' => false }, { 'reason' => nil }, { 'level' => 1 },
-          { 'ratio' => 1.5 }, { 'nested' => [%w[database]] }
-        ]
-      }
-    end
+  shared_examples 'it skips ignored metadata' do |entry, metadata|
+    context 'with configured IgnoreMetadata' do
+      let(:cop_config) { { 'IgnoreMetadata' => [entry] } }
 
-    [
-      ':prepare',
-      'prepare: false',
-      'prepare: nil',
-      'prepare: dynamic_value',
-      'prepare: false, **options',
-      'type: :model',
-      'type: :routing',
-      'type: "model"',
-      '{type: :model}',
-      '**options, type: :model',
-      'type: :request, type: :model',
-      '{dynamic_key => :request, type: :model}',
-      '{type: :model, "other" => false}',
-      ':enabled, enabled: false',
-      'enabled: true',
-      'disabled: false',
-      'reason: nil',
-      'level: 1',
-      'level: 1.0',
-      'ratio: 1.5',
-      'skip: [:database, :network]',
-      'skip: ["database", "network"]',
-      'nested: [[:database]]'
-    ].each do |metadata|
-      it "does not register an offense for #{metadata}" do
+      it 'does not register an offense' do
         expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
           describe MyClass, #{metadata} do; end
         RUBY
       end
     end
 
-    [
-      ':other',
-      ':prepare, "description"',
-      '{type: :model}, "description"',
-      'other: {type: :model}',
-      'type: :request',
-      'type: dynamic_value',
-      'type: "#{dynamic_value}"',
-      'type: :"#{dynamic_value}"',
-      'type: :model, **options',
-      'type: :model, type: :request',
-      '{type: :model, dynamic_key => :request}',
-      'enabled: false',
-      'disabled: true',
-      'reason: dynamic_value',
-      'level: "1"',
-      'skip: :database',
-      'skip: [:database]',
-      'skip: [:network, :database]',
-      'skip: [:database, :network, :extra]',
-      'skip: [dynamic_value, :network]',
-      'skip: [*values, :network]',
-      'nested: [[dynamic_value]]'
-    ].each do |metadata|
-      it "registers an offense for #{metadata}" do
+    context 'with empty IgnoreMetadata' do
+      let(:cop_config) { { 'IgnoreMetadata' => {} } }
+
+      it 'registers an offense' do
         expect_offense(<<~RUBY, 'wrong_class_spec.rb', metadata: metadata)
           describe MyClass, %{metadata} do; end
           ^^^^^^^^^^^^^^^^^^^{metadata} Spec path should end with `my_class*_spec.rb`.
         RUBY
       end
     end
+  end
+
+  shared_examples 'it checks other metadata' do |metadata|
+    it 'registers an offense' do
+      expect_offense(<<~RUBY, 'wrong_class_spec.rb', metadata: metadata)
+        describe MyClass, %{metadata} do; end
+        ^^^^^^^^^^^^^^^^^^^{metadata} Spec path should end with `my_class*_spec.rb`.
+      RUBY
+    end
+  end
+
+  context 'when configured with an IgnoreMetadata list' do
+    let(:cop_config) do
+      {
+        'IgnoreMetadata' => [
+          'prepare', { 'type' => 'model' }, { 'type' => 'routing' },
+          { 'resources' => %w[database network] }, { 'enabled' => true },
+          { 'disabled' => false }, { 'reason' => nil }, { 'level' => 1 },
+          { 'ratio' => 1.5 }, { 'nested' => [%w[database]] }
+        ]
+      }
+    end
+
+    it_behaves_like 'it skips ignored metadata', 'prepare', ':prepare'
+    it_behaves_like 'it skips ignored metadata', 'prepare', 'prepare: false'
+    it_behaves_like 'it skips ignored metadata', 'prepare', 'prepare: nil'
+    it_behaves_like 'it skips ignored metadata',
+                    'prepare',
+                    'prepare: dynamic_value'
+    it_behaves_like 'it skips ignored metadata',
+                    'prepare',
+                    'prepare: false, **options'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    'type: :model'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'routing' },
+                    'type: :routing'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    'type: "model"'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    '{type: :model}'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    '**options, type: :model'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    'type: :request, type: :model'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    '{dynamic_key => :request, type: :model}'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' },
+                    '{type: :model, "other" => false}'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'enabled' => true },
+                    ':enabled, enabled: false'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'enabled' => true },
+                    'enabled: true'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'disabled' => false },
+                    'disabled: false'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'reason' => nil },
+                    'reason: nil'
+    it_behaves_like 'it skips ignored metadata', { 'level' => 1 }, 'level: 1'
+    it_behaves_like 'it skips ignored metadata', { 'level' => 1 }, 'level: 1.0'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'ratio' => 1.5 },
+                    'ratio: 1.5'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'resources' => %w[database network] },
+                    'resources: [:database, :network]'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'resources' => %w[database network] },
+                    'resources: ["database", "network"]'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'nested' => [%w[database]] },
+                    'nested: [[:database]]'
+
+    it_behaves_like 'it checks other metadata', ':other'
+    it_behaves_like 'it checks other metadata', ':prepare, "description"'
+    it_behaves_like 'it checks other metadata', '{type: :model}, "description"'
+    it_behaves_like 'it checks other metadata', 'other: {type: :model}'
+    it_behaves_like 'it checks other metadata', 'type: :request'
+    it_behaves_like 'it checks other metadata', 'type: dynamic_value'
+    it_behaves_like 'it checks other metadata', 'type: "#{dynamic_value}"'
+    it_behaves_like 'it checks other metadata', 'type: :"#{dynamic_value}"'
+    it_behaves_like 'it checks other metadata', 'type: :model, **options'
+    it_behaves_like 'it checks other metadata', 'type: :model, type: :request'
+    it_behaves_like 'it checks other metadata',
+                    '{type: :model, dynamic_key => :request}'
+    it_behaves_like 'it checks other metadata', 'enabled: false'
+    it_behaves_like 'it checks other metadata', 'disabled: true'
+    it_behaves_like 'it checks other metadata', 'reason: dynamic_value'
+    it_behaves_like 'it checks other metadata', 'level: "1"'
+    it_behaves_like 'it checks other metadata', 'resources: :database'
+    it_behaves_like 'it checks other metadata', 'resources: [:database]'
+    it_behaves_like 'it checks other metadata',
+                    'resources: [:network, :database]'
+    it_behaves_like 'it checks other metadata',
+                    'resources: [:database, :network, :extra]'
+    it_behaves_like 'it checks other metadata',
+                    'resources: [dynamic_value, :network]'
+    it_behaves_like 'it checks other metadata', 'resources: [*values, :network]'
+    it_behaves_like 'it checks other metadata', 'nested: [[dynamic_value]]'
   end
 
   context 'when a list entry contains multiple metadata keys' do
@@ -462,18 +517,22 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     end
   end
 
-  [[], [{}], [123], nil, 'prepare'].each do |setting|
-    context "when IgnoreMetadata is #{setting.inspect}" do
-      let(:cop_config) { { 'IgnoreMetadata' => setting } }
+  shared_examples 'it does not ignore metadata' do |setting|
+    let(:cop_config) { { 'IgnoreMetadata' => setting } }
 
-      it 'does not suppress an offense' do
-        expect_offense(<<~RUBY, 'wrong_class_spec.rb')
-          describe MyClass, :prepare, type: :routing do; end
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*_spec.rb`.
-        RUBY
-      end
+    it 'does not suppress an offense' do
+      expect_offense(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, :prepare, type: :routing do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*_spec.rb`.
+      RUBY
     end
   end
+
+  it_behaves_like 'it does not ignore metadata', []
+  it_behaves_like 'it does not ignore metadata', [{}]
+  it_behaves_like 'it does not ignore metadata', [123]
+  it_behaves_like 'it does not ignore metadata', nil
+  it_behaves_like 'it does not ignore metadata', 'prepare'
 
   # We intentionally isolate all of the plugin specs in this context
   # rubocop:disable RSpec/NestedGroups

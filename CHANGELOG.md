@@ -2,7 +2,7 @@
 
 ## Master (Unreleased)
 
-- Allow `RSpec/SpecFilePathFormat` to ignore multiple metadata values or key presence using an `IgnoreMetadata` list. Array-valued metadata matches exactly; the legacy mapping format remains supported. ([@snowyukitty])
+- Allow `RSpec/SpecFilePathFormat` to ignore multiple metadata values or key presence using an `IgnoreMetadata` list. Array-valued metadata matches exactly; the Hash format remains supported. ([@snowyukitty])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])

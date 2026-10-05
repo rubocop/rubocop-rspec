@@ -19,7 +19,7 @@ RSpec.describe 'RuboCop::CLI run', :isolated_environment do # rubocop:disable RS
             - prepare
             - type: model
             - type: :routing
-            - skip: [database, network]
+            - resources: [database, network]
       YAML
     end
 
@@ -34,7 +34,7 @@ RSpec.describe 'RuboCop::CLI run', :isolated_environment do # rubocop:disable RS
         describe MyClass, prepare: false do; end
       RUBY
       create_file('spec/database_spec.rb', <<~RUBY)
-        describe MyClass, skip: [:database, :network] do; end
+        describe MyClass, resources: [:database, :network] do; end
       RUBY
 
       expect(exit_code).to eq(0)
