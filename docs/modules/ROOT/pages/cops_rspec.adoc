@@ -6316,6 +6316,18 @@ ignore a key regardless of its value. For example, `[prepare,
 `prepare: false`, `prepare: nil`, `type: :model` or `type: :routing`.
 Any matching entry or key/value pair is enough to ignore a group.
 
+Configure this Array in YAML with separate entries:
+
+  RSpec/SpecFilePathFormat:
+    IgnoreMetadata:
+      - prepare
+      - type: model
+      - type: routing
+      - resources: [database, network]
+
+Separate Hash entries allow several values for the same key without
+duplicate YAML keys.
+
 In the Array format, a configured value of `model` matches both
 `type: :model` and `type: 'model'`. String and Symbol values compare by
 their spelling, including inside Arrays. Array values must match the
