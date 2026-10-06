@@ -23,6 +23,18 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       #
+      #   # good - instance variables of a class whose body the spec opens,
+      #   # here through rspec-rails' `controller`
+      #   describe MyController do
+      #     controller do
+      #       before_action { head :forbidden unless @resource }
+      #
+      #       def index
+      #         render json: @resource
+      #       end
+      #     end
+      #   end
+      #
       # @example with AssignmentOnly configuration
       #   # rubocop.yml
       #   # RSpec/InstanceVariable:
@@ -88,9 +100,32 @@ module RuboCop
 
         def valid_usage?(node)
           node.each_ancestor(:block).any? do |block|
-            dynamic_class?(block) || reopened_class?(block) ||
-              custom_matcher?(block)
+            in_body?(block, node) &&
+              (dynamic_class?(block) || reopened_class?(block) ||
+               custom_matcher?(block) || class_body?(block))
           end
+        end
+
+        def in_body?(block, node)
+          block.body&.source_range&.contains?(node.source_range)
+        end
+
+        def class_body?(block)
+          defines_method?(block.body) && !declares_rspec_dsl?(block)
+        end
+
+        def defines_method?(body)
+          statements = body.begin_type? ? body.children : [body]
+          statements.any?(&:any_def_type?)
+        end
+
+        def declares_rspec_dsl?(block)
+          block.each_node(:block).any? { |node| rspec_dsl?(node) }
+        end
+
+        def rspec_dsl?(node)
+          spec_group?(node) || example?(node) || hook?(node) ||
+            let?(node) || subject?(node) || include?(node)
         end
 
         def assignment_only?
