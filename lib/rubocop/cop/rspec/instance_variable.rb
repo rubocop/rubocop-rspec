@@ -23,6 +23,16 @@ module RuboCop
       #     it { expect(foo).to be_empty }
       #   end
       #
+      #   # good - an instance variable of a class whose body the spec opens,
+      #   # here through rspec-rails' `controller`
+      #   describe MyController do
+      #     controller do
+      #       def index
+      #         render json: @resource
+      #       end
+      #     end
+      #   end
+      #
       # @example with AssignmentOnly configuration
       #   # rubocop.yml
       #   # RSpec/InstanceVariable:
@@ -87,10 +97,42 @@ module RuboCop
         private
 
         def valid_usage?(node)
-          node.each_ancestor(:block).any? do |block|
-            dynamic_class?(block) || reopened_class?(block) ||
-              custom_matcher?(block)
+          inside_example = false
+
+          node.each_ancestor(:block) do |block|
+            return true if opens_another_body?(block, node, inside_example)
+
+            inside_example ||= example_scope?(block)
           end
+
+          false
+        end
+
+        def opens_another_body?(block, node, inside_example)
+          return false unless in_body?(block, node)
+
+          dynamic_class?(block) || reopened_class?(block) ||
+            custom_matcher?(block) || (!inside_example && class_body?(block))
+        end
+
+        def in_body?(block, node)
+          block.body&.source_range&.contains?(node.source_range)
+        end
+
+        def class_body?(node)
+          !example_scope?(node) && defines_method?(node.body)
+        end
+
+        def defines_method?(body)
+          statements = body.begin_type? ? body.children : [body]
+          statements.any?(&:any_def_type?)
+        end
+
+        # A `def` in an example group belongs to the example group, so the
+        # instance variables in it are the example's and stay flagged.
+        def example_scope?(node)
+          spec_group?(node) || example?(node) || hook?(node) ||
+            let?(node) || subject?(node) || include?(node)
         end
 
         def assignment_only?
