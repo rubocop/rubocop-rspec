@@ -57,7 +57,7 @@ module RuboCop
       #   it 'does something', skip: 'reason' do
       #   end
       class PendingWithoutReason < Base
-        MSG = 'Give the reason for pending or skip.'
+        MSG = 'Give the reason for %<pending>s.'
 
         # @!method skipped_in_example?(node)
         def_node_matcher :skipped_in_example?, <<~PATTERN
@@ -122,29 +122,29 @@ module RuboCop
 
         def on_skipped_by_in_example_method(node)
           skipped_in_example?(node) do |pending|
-            add_offense(node, message: "Give the reason for #{pending}.")
+            add_offense(node, message: format(MSG, pending: pending))
           end
         end
 
         def on_pending_by_metadata(node)
           metadata_without_reason?(node) do |pending|
-            add_offense(node, message: "Give the reason for #{pending}.")
+            add_offense(node, message: format(MSG, pending: pending))
           end
         end
 
         def on_skipped_by_example_method(node)
           skipped_by_example_method?(node) do |pending|
-            add_offense(node, message: "Give the reason for #{pending}.")
+            add_offense(node, message: format(MSG, pending: pending))
           end
 
           skipped_by_example_method_with_block?(node.parent) do |pending|
-            add_offense(node, message: "Give the reason for #{pending}.")
+            add_offense(node, message: format(MSG, pending: pending))
           end
         end
 
         def on_skipped_by_example_group_method(node)
           skipped_by_example_group_method?(node) do
-            add_offense(node, message: 'Give the reason for skip.')
+            add_offense(node, message: format(MSG, pending: :skip))
           end
         end
       end

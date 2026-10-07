@@ -43,31 +43,19 @@ module RuboCop
 
             offending_range = range(node, offending_node)
 
-            msg = message_for(offending_node, offending_range.source)
+            alternative = matcher_for(
+              offending_node.method_name,
+              offending_node.first_argument.source.to_i
+            )
+            msg = format(MSG, alternative: alternative,
+                              original: offending_range.source)
             add_offense(offending_range, message: msg) do |corrector|
-              autocorrect(corrector, offending_node, offending_range)
+              corrector.replace(offending_range, alternative)
             end
           end
         end
 
         private
-
-        def autocorrect(corrector, node, range)
-          replacement = matcher_for(
-            node.method_name,
-            node.first_argument.source.to_i
-          )
-
-          corrector.replace(range, replacement)
-        end
-
-        def message_for(node, source)
-          alternative = matcher_for(
-            node.method_name,
-            node.first_argument.source.to_i
-          )
-          format(MSG, alternative: alternative, original: source)
-        end
 
         def matcher_for(method, count)
           matcher = count == 1 ? 'once' : 'twice'

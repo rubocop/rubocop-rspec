@@ -24,22 +24,8 @@ module RuboCop
           return if hash.children.any?(&:kwsplat_type?)
 
           add_offense(hash) do |corrector|
-            remove_empty_metadata(corrector, hash)
+            remove_with_preceding_comma(corrector, hash)
           end
-        end
-
-        private
-
-        def remove_empty_metadata(corrector, node)
-          corrector.remove(
-            range_with_surrounding_comma(
-              range_with_surrounding_space(
-                node.source_range,
-                side: :left
-              ),
-              :left
-            )
-          )
         end
       end
     end
