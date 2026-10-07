@@ -156,11 +156,7 @@ module RuboCop
           return true unless body
           return false if conditionals_with_examples?(body)
 
-          if body.type?(:if, :case)
-            !examples_in_branches?(body)
-          else
-            !examples?(body)
-          end
+          !examples?(body)
         end
 
         def conditionals_with_examples?(body)

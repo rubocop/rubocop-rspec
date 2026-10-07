@@ -83,7 +83,7 @@ module RuboCop
             style_detected(scope_name)
             msg = explicit_message(scope_name)
             add_offense(method_send, message: msg) do |corrector|
-              autocorrect(corrector, node, method_send)
+              autocorrect(corrector, method_send)
             end
           end
         end
@@ -93,7 +93,7 @@ module RuboCop
 
         private
 
-        def autocorrect(corrector, _node, method_send)
+        def autocorrect(corrector, method_send)
           scope = implicit_style? ? '' : "(#{style.inspect})"
           corrector.replace(
             LocationHelp.arguments_with_whitespace(method_send), scope
@@ -106,11 +106,7 @@ module RuboCop
 
           msg = explicit_message(nil)
           add_offense(method_send.loc.selector, message: msg) do |corrector|
-            scope = "(#{style.inspect})"
-            corrector.replace(
-              LocationHelp.arguments_with_whitespace(method_send),
-              scope
-            )
+            autocorrect(corrector, method_send)
           end
         end
 

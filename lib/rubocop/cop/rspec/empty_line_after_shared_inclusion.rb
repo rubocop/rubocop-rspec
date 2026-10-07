@@ -46,13 +46,6 @@ module RuboCop
 
         MSG = 'Add an empty line after shared example inclusion.'
 
-        # @!method spec_group?(node)
-        def_node_matcher :spec_group?, <<~PATTERN
-          (block (send #rspec?
-               {#SharedGroups.all #ExampleGroups.all}
-            ...) ...)
-        PATTERN
-
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless spec_group?(node)
 

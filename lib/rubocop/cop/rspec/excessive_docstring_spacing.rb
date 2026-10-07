@@ -83,13 +83,7 @@ module RuboCop
         end
 
         def docstring(node)
-          expr = node.source_range
-
-          Parser::Source::Range.new(
-            expr.source_buffer,
-            expr.begin_pos + 1,
-            expr.end_pos - 1
-          )
+          node.source_range.adjust(begin_pos: 1, end_pos: -1)
         end
 
         # Recursive processing is required to process nested dstr nodes

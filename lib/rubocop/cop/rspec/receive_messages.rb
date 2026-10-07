@@ -31,6 +31,7 @@ module RuboCop
       class ReceiveMessages < Base
         extend AutoCorrector
         include RangeHelp
+        include RepeatedItems
 
         MSG = 'Use `receive_messages` instead of multiple stubs on lines ' \
               '%<loc>s.'
@@ -71,20 +72,19 @@ module RuboCop
         private
 
         def repeated_receive_message(node)
-          node
-            .children
-            .select { |child| allow_receive_message?(child) }
-            .group_by { |child| allow_argument(child) }
-            .values
-            .reject(&:one?)
-            .flat_map { |items| add_repeated_lines_and_arguments(items) }
+          candidates =
+            node.children.select { |child| allow_receive_message?(child) }
+          find_repeated_groups(
+            candidates,
+            key_proc: ->(child) { allow_argument(child) }
+          ).flat_map { |items| add_repeated_lines_and_arguments(items) }
         end
 
         def add_repeated_lines_and_arguments(items)
           uniq_items = uniq_items(items)
-          repeated_lines = uniq_items.map(&:first_line)
-          uniq_items.map do |item|
-            [item, repeated_lines - [item.first_line], arguments(uniq_items)]
+          arguments = arguments(uniq_items)
+          add_repeated_lines(uniq_items).map do |item, repeated_lines|
+            [item, repeated_lines, arguments]
           end
         end
 

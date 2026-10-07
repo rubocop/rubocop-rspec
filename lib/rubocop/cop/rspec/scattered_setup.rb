@@ -52,8 +52,9 @@ module RuboCop
           return unless example_group?(node)
 
           repeated_hooks(node).each do |occurrences|
-            occurrences.each do |occurrence|
-              message = message(occurrences, occurrence)
+            add_repeated_lines(occurrences).each do |occurrence, lines|
+              message = format(MSG, hook_name: occurrence.method_name,
+                                    lines: lines_msg(lines))
               add_offense(occurrence, message: message) do |corrector|
                 autocorrect(corrector, occurrences.first, occurrence)
               end
@@ -80,13 +81,6 @@ module RuboCop
           else
             "lines #{numbers.join(', ')}"
           end
-        end
-
-        def message(occurrences, occurrence)
-          lines = occurrences.map(&:first_line)
-          lines_except_current = lines - [occurrence.first_line]
-          format(MSG, hook_name: occurrences.first.method_name,
-                      lines: lines_msg(lines_except_current))
         end
 
         def autocorrect(corrector, first_occurrence, occurrence)
