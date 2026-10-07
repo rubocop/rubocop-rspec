@@ -6326,7 +6326,12 @@ Configure this Array in YAML with separate entries:
       - resources: [database, network]
 
 Separate Hash entries allow several values for the same key without
-duplicate YAML keys.
+duplicate YAML keys. Each `-` starts a new Array entry; the two `type`
+keys belong to different Hashes, so neither replaces the other.
+
+Array entries match both String and Symbol metadata keys by spelling.
+For example, `prepare` also matches `"prepare" => false`. When both
+key forms are present, their values remain separate alternatives.
 
 In the Array format, a configured value of `model` matches both
 `type: :model` and `type: 'model'`. String and Symbol values compare by

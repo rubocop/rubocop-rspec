@@ -27,7 +27,12 @@ module RuboCop
       #       - resources: [database, network]
       #
       # Separate Hash entries allow several values for the same key without
-      # duplicate YAML keys.
+      # duplicate YAML keys. Each `-` starts a new Array entry; the two `type`
+      # keys belong to different Hashes, so neither replaces the other.
+      #
+      # Array entries match both String and Symbol metadata keys by spelling.
+      # For example, `prepare` also matches `"prepare" => false`. When both
+      # key forms are present, their values remain separate alternatives.
       #
       # In the Array format, a configured value of `model` matches both
       # `type: :model` and `type: 'model'`. String and Symbol values compare by
@@ -144,11 +149,13 @@ module RuboCop
             case entry
             when Hash
               entry.any? do |key, value|
-                metadata.key?(key.to_s) &&
-                  metadata[key.to_s] == normalize_metadata_value(value)
+                [key.to_s, key.to_s.to_sym].any? do |metadata_key|
+                  metadata.key?(metadata_key) &&
+                    metadata[metadata_key] == normalize_metadata_value(value)
+                end
               end
             when String, Symbol
-              metadata.key?(entry.to_s)
+              metadata.key?(entry.to_s) || metadata.key?(entry.to_sym)
             else
               false
             end
@@ -158,9 +165,7 @@ module RuboCop
             arguments = arguments.dup
             hash = arguments.pop if arguments.last&.hash_type?
             metadata = hash_metadata(hash)
-            while arguments.last&.sym_type?
-              metadata[arguments.pop.value.to_s] = true
-            end
+            metadata[arguments.pop.value] = true while arguments.last&.sym_type?
             metadata
           end
 
@@ -168,8 +173,8 @@ module RuboCop
             return {} unless hash
 
             hash.children.each_with_object({}) do |node, metadata|
-              if node.pair_type? && node.key.sym_type?
-                key = node.key.value.to_s
+              if node.pair_type? && node.key.type?(:sym, :str)
+                key = node.key.value
                 metadata[key] = literal_metadata_value(node.value)
               elsif unknown_metadata_key?(node)
                 metadata.transform_values! { UNKNOWN_METADATA }

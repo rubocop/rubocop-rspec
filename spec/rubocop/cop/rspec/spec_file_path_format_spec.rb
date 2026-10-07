@@ -404,6 +404,22 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     it_behaves_like 'it skips ignored metadata', 'prepare', ':prepare'
     it_behaves_like 'it skips ignored metadata', 'prepare', 'prepare: false'
     it_behaves_like 'it skips ignored metadata', 'prepare', 'prepare: nil'
+    it_behaves_like 'it skips ignored metadata', 'prepare', '"prepare" => false'
+    it_behaves_like 'it skips ignored metadata', 'prepare', '"prepare" => nil'
+    it_behaves_like 'it skips ignored metadata',
+                    'prepare', '"prepare" => dynamic_value'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' }, '"type" => :model'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' }, '"type" => "model"'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' }, '{"type" => :model, type: :request}'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'type' => 'model' }, '{type: :model, "type" => :request}'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'enabled' => true }, ':enabled, "enabled" => false'
+    it_behaves_like 'it skips ignored metadata',
+                    { 'disabled' => false }, ':disabled, "disabled" => false'
     it_behaves_like 'it skips ignored metadata',
                     'prepare',
                     'prepare: dynamic_value'
@@ -466,6 +482,14 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     it_behaves_like 'it checks other metadata', '{type: :model}, "description"'
     it_behaves_like 'it checks other metadata', 'other: {type: :model}'
     it_behaves_like 'it checks other metadata', 'type: :request'
+    it_behaves_like 'it checks other metadata', '"type" => :request'
+    it_behaves_like 'it checks other metadata', '"type" => dynamic_value'
+    it_behaves_like 'it checks other metadata', '"type" => :model, **options'
+    it_behaves_like 'it checks other metadata',
+                    '{"type" => :model, "type" => :request}'
+    it_behaves_like 'it checks other metadata',
+                    '{"type" => :model, "type" => dynamic_value}'
+    it_behaves_like 'it checks other metadata', '"#{dynamic_key}" => :model'
     it_behaves_like 'it checks other metadata', 'type: dynamic_value'
     it_behaves_like 'it checks other metadata', 'type: "#{dynamic_value}"'
     it_behaves_like 'it checks other metadata', 'type: :"#{dynamic_value}"'
