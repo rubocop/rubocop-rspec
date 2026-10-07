@@ -11,7 +11,9 @@ module RuboCop
         def inside_example_group?(node)
           return spec_group?(node) if example_group_root?(node)
 
-          root = node.ancestors.find { |parent| example_group_root?(parent) }
+          root = node.each_ancestor.find do |parent|
+            example_group_root?(parent)
+          end
 
           spec_group?(root)
         end
