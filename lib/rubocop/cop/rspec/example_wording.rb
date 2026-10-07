@@ -171,8 +171,9 @@ module RuboCop
         end
 
         def insufficient_examples
-          examples = cop_config.fetch('DisallowedExamples', [])
-          examples.map! { |example| preprocess(example) }
+          @insufficient_examples ||=
+            cop_config.fetch('DisallowedExamples', [])
+              .to_set { |example| preprocess(example) }
         end
 
         def preprocess(message)
