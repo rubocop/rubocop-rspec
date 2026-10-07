@@ -47,9 +47,8 @@ module RuboCop
         MSG = 'Use %<style>s for variable names.'
 
         def on_send(node)
-          return unless inside_example_group?(node)
-
           variable_definition?(node) do |variable|
+            return unless inside_example_group?(node)
             return if variable.type?(:dstr, :dsym)
             return if matches_allowed_pattern?(variable.value)
 
