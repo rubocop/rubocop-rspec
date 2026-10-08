@@ -5,6 +5,49 @@ module RuboCop
     module RSpec
       # Checks that spec file paths are consistent and well-formed.
       #
+      # `IgnoreMetadata` accepts a Hash or an Array. The Hash format matches
+      # metadata key/value pairs, such as `type: :routing` with the default
+      # `IgnoreMetadata: {type=>routing}`. This format remains supported.
+      # The Hash format compares Symbol metadata values with String config
+      # values, so `type: :routing` matches but `type: 'routing'` does not.
+      #
+      # Use the Array format to ignore several values for the same key, or to
+      # ignore a key regardless of its value. For example, `[prepare,
+      # {type=>model}, {type=>routing}]` ignores groups with `:prepare`,
+      # `prepare: false`, `prepare: nil`, `type: :model` or `type: :routing`.
+      # Any matching entry or key/value pair is enough to ignore a group.
+      #
+      # Configure this Array in YAML with separate entries:
+      #
+      #   RSpec/SpecFilePathFormat:
+      #     IgnoreMetadata:
+      #       - prepare
+      #       - type: model
+      #       - type: routing
+      #       - resources: [database, network]
+      #
+      # Separate Hash entries allow several values for the same key without
+      # duplicate YAML keys. Each `-` starts a new Array entry; the two `type`
+      # keys belong to different Hashes, so neither replaces the other.
+      #
+      # Array entries match both String and Symbol metadata keys by spelling.
+      # For example, `prepare` also matches `"prepare" => false`. When both
+      # key forms are present, their values remain separate alternatives.
+      #
+      # In the Array format, a configured value of `model` matches both
+      # `type: :model` and `type: 'model'`. String and Symbol values compare by
+      # their spelling, including inside Arrays. Array values must match the
+      # complete Array in the same order.
+      #
+      # The Array format reads metadata arguments written on the top-level
+      # example group, such as `describe MyClass, :prepare, type: :model`.
+      # It does not evaluate variables or method calls, or read metadata added
+      # by RSpec configuration. A key can still match a presence entry when
+      # its value is unknown, but cannot match a configured literal value.
+      #
+      # An Array replaces the default `IgnoreMetadata: {type=>routing}`.
+      # Include `{type=>routing}` in an Array to keep ignoring routing specs.
+      #
       # @example
       #   # bad
       #   whatever_spec.rb         # describe MyClass
@@ -32,6 +75,21 @@ module RuboCop
       # @example `IgnoreMetadata: {type=>routing}` (default)
       #   # good
       #   whatever_spec.rb         # describe MyClass, type: :routing do; end
+      #
+      # @example `IgnoreMetadata: [prepare, {type=>model}, {type=>routing}]`
+      #   # good
+      #   whatever_spec.rb         # describe MyClass, :prepare do; end
+      #   whatever_spec.rb         # describe MyClass, prepare: false do; end
+      #   whatever_spec.rb         # describe MyClass, type: :model do; end
+      #   whatever_spec.rb         # describe MyClass, type: :routing do; end
+      #
+      # @example `IgnoreMetadata: [{resources=>[database, network]}]`
+      #   # good
+      #   x_spec.rb # describe MyClass, resources: %i[database network] do; end
+      #
+      #   # bad
+      #   x_spec.rb # describe MyClass, resources: :database do; end
+      #   x_spec.rb # describe MyClass, resources: %i[network database] do; end
       #
       # @example `EnforcedInflector: active_support`
       #   # Enable to use ActiveSupport's inflector for custom acronyms
@@ -67,6 +125,92 @@ module RuboCop
         end
 
         private
+
+        # Matches explicit RSpec metadata against list-format filters.
+        class MetadataFilter
+          UNKNOWN_METADATA = Object.new.freeze
+          STATIC_VALUES = %i[true false nil].zip([true, false, nil]).to_h.freeze
+          private_constant :UNKNOWN_METADATA, :STATIC_VALUES
+
+          def initialize(entries)
+            @entries = entries
+          end
+
+          def ignored?(arguments)
+            metadata = explicit_metadata(arguments)
+            @entries.any? do |entry|
+              ignored_metadata_entry?(entry, metadata)
+            end
+          end
+
+          private
+
+          def ignored_metadata_entry?(entry, metadata)
+            case entry
+            when Hash
+              entry.any? do |key, value|
+                [key.to_s, key.to_s.to_sym].any? do |metadata_key|
+                  metadata.key?(metadata_key) &&
+                    metadata[metadata_key] == normalize_metadata_value(value)
+                end
+              end
+            when String, Symbol
+              metadata.key?(entry.to_s) || metadata.key?(entry.to_sym)
+            else
+              false
+            end
+          end
+
+          def explicit_metadata(arguments)
+            arguments = arguments.dup
+            hash = arguments.pop if arguments.last&.hash_type?
+            metadata = hash_metadata(hash)
+            metadata[arguments.pop.value] = true while arguments.last&.sym_type?
+            metadata
+          end
+
+          def hash_metadata(hash)
+            return {} unless hash
+
+            hash.children.each_with_object({}) do |node, metadata|
+              if node.pair_type? && node.key.type?(:sym, :str)
+                key = node.key.value
+                metadata[key] = literal_metadata_value(node.value)
+              elsif unknown_metadata_key?(node)
+                metadata.transform_values! { UNKNOWN_METADATA }
+              end
+            end
+          end
+
+          def unknown_metadata_key?(node)
+            !node.pair_type? || !node.key.basic_literal?
+          end
+
+          def literal_metadata_value(node)
+            case node.type
+            when :array
+              node.children.map { |child| literal_metadata_value(child) }
+            when :sym
+              node.value.to_s
+            when :str, :int, :float
+              node.value
+            else
+              STATIC_VALUES.fetch(node.type, UNKNOWN_METADATA)
+            end
+          end
+
+          def normalize_metadata_value(value)
+            case value
+            when Array
+              value.map { |item| normalize_metadata_value(item) }
+            when Symbol
+              value.to_s
+            else
+              value
+            end
+          end
+        end
+        private_constant :MetadataFilter
 
         # Inflector module that uses ActiveSupport for advanced inflection rules
         module ActiveSupportInflector
@@ -132,6 +276,11 @@ module RuboCop
         end
 
         def ignore_metadata?(arguments)
+          if ignore_metadata.is_a?(Array)
+            return MetadataFilter.new(ignore_metadata).ignored?(arguments)
+          end
+          return false unless ignore_metadata.is_a?(Hash)
+
           arguments.any? do |argument|
             metadata_key_value(argument).any? do |key, value|
               ignore_metadata.values_at(key.to_s).include?(value.to_s)

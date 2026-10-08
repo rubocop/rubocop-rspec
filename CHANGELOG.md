@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Allow `RSpec/SpecFilePathFormat` to ignore multiple metadata values or key presence using an `IgnoreMetadata` list. Array-valued metadata matches exactly; the Hash format remains supported. ([@snowyukitty])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])
@@ -1129,6 +1130,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
 [@smcgivern]: https://github.com/smcgivern
+[@snowyukitty]: https://github.com/snowyukitty
 [@splattael]: https://github.com/splattael
 [@stephannv]: https://github.com/stephannv
 [@sucicfilip]: https://github.com/sucicfilip

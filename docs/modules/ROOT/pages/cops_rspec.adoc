@@ -6299,10 +6299,53 @@ context 'Something', :z, variable, :a, :b
 | Yes
 | No
 | 2.24
-| 3.8
+| <<next>>
 |===
 
 Checks that spec file paths are consistent and well-formed.
+
+`IgnoreMetadata` accepts a Hash or an Array. The Hash format matches
+metadata key/value pairs, such as `type: :routing` with the default
+`IgnoreMetadata: {type=>routing}`. This format remains supported.
+The Hash format compares Symbol metadata values with String config
+values, so `type: :routing` matches but `type: 'routing'` does not.
+
+Use the Array format to ignore several values for the same key, or to
+ignore a key regardless of its value. For example, `[prepare,
+{type=>model}, {type=>routing}]` ignores groups with `:prepare`,
+`prepare: false`, `prepare: nil`, `type: :model` or `type: :routing`.
+Any matching entry or key/value pair is enough to ignore a group.
+
+Configure this Array in YAML with separate entries:
+
+  RSpec/SpecFilePathFormat:
+    IgnoreMetadata:
+      - prepare
+      - type: model
+      - type: routing
+      - resources: [database, network]
+
+Separate Hash entries allow several values for the same key without
+duplicate YAML keys. Each `-` starts a new Array entry; the two `type`
+keys belong to different Hashes, so neither replaces the other.
+
+Array entries match both String and Symbol metadata keys by spelling.
+For example, `prepare` also matches `"prepare" => false`. When both
+key forms are present, their values remain separate alternatives.
+
+In the Array format, a configured value of `model` matches both
+`type: :model` and `type: 'model'`. String and Symbol values compare by
+their spelling, including inside Arrays. Array values must match the
+complete Array in the same order.
+
+The Array format reads metadata arguments written on the top-level
+example group, such as `describe MyClass, :prepare, type: :model`.
+It does not evaluate variables or method calls, or read metadata added
+by RSpec configuration. A key can still match a presence entry when
+its value is unknown, but cannot match a configured literal value.
+
+An Array replaces the default `IgnoreMetadata: {type=>routing}`.
+Include `{type=>routing}` in an Array to keep ignoring routing specs.
 
 [#examples-rspecspecfilepathformat]
 === Examples
@@ -6355,6 +6398,31 @@ my_class_spec.rb         # describe MyClass, '#method'
 ----
 # good
 whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
+[#_ignoremetadata_-_prepare_-_type__model__-_type__routing___-rspecspecfilepathformat]
+==== `IgnoreMetadata: [prepare, {type=>model}, {type=>routing}]`
+
+[source,ruby]
+----
+# good
+whatever_spec.rb         # describe MyClass, :prepare do; end
+whatever_spec.rb         # describe MyClass, prepare: false do; end
+whatever_spec.rb         # describe MyClass, type: :model do; end
+whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
+[#_ignoremetadata_-__resources___database_-network____-rspecspecfilepathformat]
+==== `IgnoreMetadata: [{resources=>[database, network]}]`
+
+[source,ruby]
+----
+# good
+x_spec.rb # describe MyClass, resources: %i[database network] do; end
+
+# bad
+x_spec.rb # describe MyClass, resources: :database do; end
+x_spec.rb # describe MyClass, resources: %i[network database] do; end
 ----
 
 [#_enforcedinflector_-active_support_-rspecspecfilepathformat]
