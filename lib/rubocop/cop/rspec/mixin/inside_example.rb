@@ -8,7 +8,11 @@ module RuboCop
         private
 
         def inside_example?(node)
-          node.each_ancestor(:block).any? { |ancestor| example?(ancestor) }
+          !enclosing_example(node).nil?
+        end
+
+        def enclosing_example(node)
+          node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
         end
       end
     end
