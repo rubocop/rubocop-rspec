@@ -8,7 +8,10 @@ module RuboCop
       # Unify `before` and `after` hooks when possible.
       # However, `around` hooks are allowed to be defined multiple times,
       # as unifying them would typically make the code harder to read.
-      # Hooks defined in class methods are also ignored.
+      # Hooks defined in class methods are also ignored, as are hooks in
+      # different branches of one conditional, which never both run. A
+      # conditional inside an iterator can take every branch, so hooks in
+      # its branches are still checked.
       #
       # @example
       #   # bad
@@ -39,6 +42,15 @@ module RuboCop
       #     end
       #   end
       #
+      #   # good
+      #   describe Foo do
+      #     if flag
+      #       before { setup1 }
+      #     else
+      #       before { setup2 }
+      #     end
+      #   end
+      #
       class ScatteredSetup < Base
         include FinalEndLocation
         include RangeHelp
@@ -48,15 +60,21 @@ module RuboCop
         MSG = 'Do not define multiple `%<hook_name>s` hooks in the same ' \
               'example group (also defined on %<lines>s).'
 
+        LOOP_TYPES = %i[while until while_post until_post for].freeze
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
 
           repeated_hooks(node).each do |occurrences|
-            add_repeated_lines(occurrences).each do |occurrence, lines|
+            occurrences.each do |occurrence|
+              group = co_occurring_group(occurrences, occurrence, node)
+              next if group.one?
+
+              lines = group.map(&:first_line) - [occurrence.first_line]
               message = format(MSG, hook_name: occurrence.method_name,
                                     lines: lines_msg(lines))
               add_offense(occurrence, message: message) do |corrector|
-                autocorrect(corrector, occurrences.first, occurrence)
+                autocorrect(corrector, group.first, occurrence)
               end
             end
           end
@@ -73,6 +91,54 @@ module RuboCop
             hooks,
             key_proc: ->(hook) { [hook.name, hook.scope, hook.metadata] }
           ).map { |hook_group| hook_group.map(&:to_node) }
+        end
+
+        # Keeps the occurrences' order, so the group's earliest hook is the same
+        # anchor for every member and the corrections merge in one direction.
+        def co_occurring_group(occurrences, occurrence, group)
+          peers = co_occurring(occurrences, occurrence, group)
+          occurrences.select do |hook|
+            hook.equal?(occurrence) || peers.include?(hook)
+          end
+        end
+
+        # Hooks in different branches of one conditional never both run, so they
+        # are not scattered setup. A hook outside the conditional does run
+        # alongside one inside it, so only divergence at a shared conditional
+        # counts.
+        def co_occurring(occurrences, occurrence, group)
+          occurrences.reject do |other|
+            other.equal?(occurrence) ||
+              mutually_exclusive?(occurrence, other, group)
+          end
+        end
+
+        def mutually_exclusive?(node, other, group)
+          branches = enclosing_branches(other, group)
+
+          enclosing_branches(node, group).any? do |conditional, branch|
+            branches.key?(conditional) && !branches[conditional].equal?(branch)
+          end
+        end
+
+        # Maps each `if`/`case` between this node and its example group to the
+        # branch the node sits in. A conditional inside a block or loop can be
+        # evaluated more than once, taking each branch in turn, so only
+        # conditionals outside every such block or loop are kept.
+        def enclosing_branches(node, group)
+          branches = {}
+          child = node
+          node.each_ancestor do |ancestor|
+            break if ancestor.equal?(group)
+
+            if ancestor.type?(:if, :case, :case_match)
+              branches[ancestor] = child
+            elsif ancestor.type?(:any_block, *LOOP_TYPES)
+              branches.clear
+            end
+            child = ancestor
+          end
+          branches
         end
 
         def lines_msg(numbers)
