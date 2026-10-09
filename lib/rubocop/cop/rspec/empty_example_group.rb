@@ -138,10 +138,9 @@ module RuboCop
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
-          return if node.each_ancestor(:any_def).any?
-          return if inside_example?(node)
-
           example_group_body(node) do |body|
+            next if node.each_ancestor(:any_def).any?
+            next if inside_example?(node)
             next unless offensive?(body)
 
             add_offense(node.send_node) do |corrector|
@@ -156,11 +155,7 @@ module RuboCop
           return true unless body
           return false if conditionals_with_examples?(body)
 
-          if body.type?(:if, :case)
-            !examples_in_branches?(body)
-          else
-            !examples?(body)
-          end
+          !examples?(body)
         end
 
         def conditionals_with_examples?(body)

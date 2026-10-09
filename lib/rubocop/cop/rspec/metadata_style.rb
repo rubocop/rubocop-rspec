@@ -66,7 +66,7 @@ module RuboCop
         def autocorrect_symbol(corrector, node)
           return if match_ambiguous_trailing_metadata?(node.parent)
 
-          remove_symbol(corrector, node)
+          remove_with_preceding_comma(corrector, node)
           insert_pair(corrector, node)
         end
 
@@ -148,24 +148,12 @@ module RuboCop
 
         def remove_pair(corrector, node)
           if !node.parent.braces? || node.left_siblings.any?
-            remove_pair_following(corrector, node)
+            remove_with_preceding_comma(corrector, node)
           elsif node.right_siblings.any?
             remove_pair_preceding(corrector, node)
           else
             corrector.remove(node)
           end
-        end
-
-        def remove_pair_following(corrector, node)
-          corrector.remove(
-            range_with_surrounding_comma(
-              range_with_surrounding_space(
-                node.source_range,
-                side: :left
-              ),
-              :left
-            )
-          )
         end
 
         def remove_pair_preceding(corrector, node)
@@ -176,18 +164,6 @@ module RuboCop
                 :right
               ),
               side: :right
-            )
-          )
-        end
-
-        def remove_symbol(corrector, node)
-          corrector.remove(
-            range_with_surrounding_comma(
-              range_with_surrounding_space(
-                node.source_range,
-                side: :left
-              ),
-              :left
             )
           )
         end

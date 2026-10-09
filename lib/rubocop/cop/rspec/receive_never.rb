@@ -41,7 +41,7 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return unless node.method?(:never) && method_on_stub?(node)
+          return unless method_on_stub?(node)
           return unless used_with_expect?(node)
 
           add_offense(node.loc.selector) do |corrector|

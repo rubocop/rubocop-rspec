@@ -2,9 +2,12 @@
 
 ## Master (Unreleased)
 
+- Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
+- Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
 - Speed up loading rubocop-rspec by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
+- Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
@@ -13,6 +16,9 @@
 - Fix `RSpec/SpecFilePathFormat` raising when `EnforcedInflector: active_support` and RuboCop is invoked from outside the project root. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not crash on `itblock`/`numblock` example groups with Ruby 3.4 and Prism. ([@pcbeingused333])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` nested inside `include` matchers. ([@ydah])
+- Fix an incorrect autocorrect for `RSpec/SharedExamples` when the shared example name cannot be written as a plain symbol or a single-quoted string. ([@viralpraxis])
+- Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
+- Fix `RSpec/Dialect` to ignore configured method names on non-RSpec receivers. ([@iamzayn19])
 
 ## 3.10.2 (2026-06-06)
 
@@ -1055,6 +1061,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@harrylewis]: https://github.com/harrylewis
 [@hasghari]: https://github.com/hasghari
 [@hosamaly]: https://github.com/hosamaly
+[@iamzayn19]: https://github.com/iamzayn19
 [@ignaciovillaverde]: https://github.com/ignaciovillaverde
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
@@ -1137,6 +1144,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@topalovic]: https://github.com/topalovic
 [@twalpole]: https://github.com/twalpole
 [@ushi-as]: https://github.com/ushi-as
+[@viralpraxis]: https://github.com/viralpraxis
 [@vzvu3k6k]: https://github.com/vzvu3k6k
 [@walf443]: https://github.com/walf443
 [@yasu551]: https://github.com/yasu551

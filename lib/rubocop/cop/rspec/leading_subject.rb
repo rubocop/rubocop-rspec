@@ -47,19 +47,33 @@ module RuboCop
         private
 
         def check_previous_nodes(node)
-          offending_node(node) do |offender|
-            msg = format(MSG, offending: offender.method_name)
-            add_offense(node, message: msg) do |corrector|
-              autocorrect(corrector, node, offender)
-            end
+          offender = preceding_offender(node)
+          return unless offender
+
+          msg = format(MSG, offending: offender.method_name)
+          add_offense(node, message: msg) do |corrector|
+            target = move_target(node)
+            autocorrect(corrector, node, target) if target
           end
         end
 
-        def offending_node(node)
-          parent(node).each_child_node.find do |sibling|
-            break if sibling.equal?(node)
+        def preceding_offender(node)
+          preceding_siblings(node).find { |sibling| offending?(sibling) }
+        end
 
-            yield sibling if offending?(sibling)
+        def move_target(node)
+          target = nil
+          preceding_siblings(node).reverse_each do |sibling|
+            break if subject?(sibling)
+
+            target = sibling if offending?(sibling)
+          end
+          target
+        end
+
+        def preceding_siblings(node)
+          parent(node).each_child_node.take_while do |sibling|
+            !sibling.equal?(node)
           end
         end
 

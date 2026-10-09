@@ -44,8 +44,7 @@ module RuboCop
 
       def metadata
         (extract_metadata(node) || [])
-          .map { |meta| transform_metadata(meta) }
-          .flatten
+          .flat_map { |meta| transform_metadata(meta) }
           .inject(&:merge)
       end
 

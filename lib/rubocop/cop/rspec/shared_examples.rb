@@ -96,7 +96,15 @@ module RuboCop
           end
 
           def preferred_style
-            ":#{node.value.to_s.downcase.tr(' ', '_')}"
+            name = node.value.to_s.downcase.tr(' ', '_')
+
+            plain_symbol?(name) ? ":#{name}" : ":#{name.inspect}"
+          end
+
+          private
+
+          def plain_symbol?(name)
+            /\A[a-zA-Z_]\w*[!?]?\z/.match?(name)
           end
         end
 
@@ -116,7 +124,13 @@ module RuboCop
           end
 
           def preferred_style
-            "'#{node.value.to_s.tr('_', ' ')}'"
+            to_string_literal(node.value.to_s.tr('_', ' '))
+          end
+
+          private
+
+          def to_string_literal(string)
+            string.match?(/['\\]/) ? string.inspect : "'#{string}'"
           end
         end
       end

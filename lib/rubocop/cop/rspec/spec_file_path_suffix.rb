@@ -23,10 +23,8 @@ module RuboCop
 
         MSG = 'Spec path should end with `_spec.rb`.'
 
-        def on_top_level_example_group(node)
-          example_group?(node) do
-            add_global_offense(MSG) unless correct_path?
-          end
+        def on_top_level_example_group(_node)
+          add_global_offense(MSG) unless correct_path?
         end
 
         private

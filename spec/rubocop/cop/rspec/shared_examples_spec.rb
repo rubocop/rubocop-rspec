@@ -42,6 +42,17 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
       RUBY
     end
 
+    it 'registers an offense and quotes a title containing a single quote' do
+      expect_offense(<<~RUBY)
+        shared_examples :"a's_b"
+                        ^^^^^^^^ Prefer "a's b" over `:"a's_b"` to titleize shared examples.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        shared_examples "a's b"
+      RUBY
+    end
+
     it 'does not register an offense when using string title' do
       expect_no_offenses(<<~RUBY)
         it_behaves_like 'foo bar baz'
@@ -116,6 +127,17 @@ RSpec.describe RuboCop::Cop::RSpec::SharedExamples do
         end
 
         RSpec.shared_examples :foo_bar_baz
+      RUBY
+    end
+
+    it 'registers an offense and quotes a title that is not a plain symbol' do
+      expect_offense(<<~RUBY)
+        shared_examples 'a `b`'
+                        ^^^^^^^ Prefer :"a_`b`" over `"a `b`"` to symbolize shared examples.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        shared_examples :"a_`b`"
       RUBY
     end
 

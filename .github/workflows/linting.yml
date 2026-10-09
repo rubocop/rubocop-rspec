@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Mdformat
-        uses: ydah/mdformat-action@19c467fb015bb66f35abe33327e7a15c552877bc # v1.0.0
+        uses: ydah/mdformat-action@f15b43346e95022e0728b75ac90142f5db3c4016 # v1.0.1
         with:
           number: true
         env:

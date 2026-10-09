@@ -67,16 +67,12 @@ module RuboCop
 
           repeated_hooks(node).each do |occurrences|
             occurrences.each do |occurrence|
-              peers = co_occurring(occurrences, occurrence, node)
-              next if peers.empty?
+              group = co_occurring_group(occurrences, occurrence, node)
+              next if group.one?
 
-              # Anchor on the set's earliest hook, the same for every member,
-              # so the corrections all merge in one direction.
-              group = occurrences.select do |hook|
-                hook.equal?(occurrence) || peers.include?(hook)
-              end
-
-              message = message(group, occurrence)
+              lines = group.map(&:first_line) - [occurrence.first_line]
+              message = format(MSG, hook_name: occurrence.method_name,
+                                    lines: lines_msg(lines))
               add_offense(occurrence, message: message) do |corrector|
                 autocorrect(corrector, group.first, occurrence)
               end
@@ -95,6 +91,15 @@ module RuboCop
             hooks,
             key_proc: ->(hook) { [hook.name, hook.scope, hook.metadata] }
           ).map { |hook_group| hook_group.map(&:to_node) }
+        end
+
+        # Keeps the occurrences' order, so the group's earliest hook is the same
+        # anchor for every member and the corrections merge in one direction.
+        def co_occurring_group(occurrences, occurrence, group)
+          peers = co_occurring(occurrences, occurrence, group)
+          occurrences.select do |hook|
+            hook.equal?(occurrence) || peers.include?(hook)
+          end
         end
 
         # Hooks in different branches of one conditional never both run, so they
@@ -142,13 +147,6 @@ module RuboCop
           else
             "lines #{numbers.join(', ')}"
           end
-        end
-
-        def message(occurrences, occurrence)
-          lines = occurrences.map(&:first_line)
-          lines_except_current = lines - [occurrence.first_line]
-          format(MSG, hook_name: occurrences.first.method_name,
-                      lines: lines_msg(lines_except_current))
         end
 
         def autocorrect(corrector, first_occurrence, occurrence)
