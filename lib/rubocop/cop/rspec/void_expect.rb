@@ -31,14 +31,12 @@ module RuboCop
 
         def on_send(node)
           return unless expect?(node)
-          return unless inside_example?(node)
 
           check_expect(node)
         end
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless expect_block?(node)
-          return unless inside_example?(node)
 
           check_expect(node)
         end
@@ -47,12 +45,14 @@ module RuboCop
 
         def check_expect(node)
           return unless void?(node)
+          return unless inside_example?(node)
 
           add_offense(node)
         end
 
         def void?(expect)
           parent = expect.parent
+          return false unless parent
           return true if parent.begin_type?
 
           parent.block_type? && parent.body == expect
