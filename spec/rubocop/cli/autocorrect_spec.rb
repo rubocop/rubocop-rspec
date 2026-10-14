@@ -47,6 +47,14 @@ RSpec.describe 'RuboCop::CLI --autocorrect' do # rubocop:disable RSpec/DescribeC
         let(:a)      { b        }
       RUBY
     end
+
+    # Before RuboCop 1.92, an incompatibility was only honored when declared
+    # by the cop whose correction was applied first.
+    it 'declares `Layout/ExtraSpacing` incompatible with them' do
+      expect(RuboCop::Cop::Layout::ExtraSpacing.autocorrect_incompatible_with)
+        .to include(RuboCop::Cop::RSpec::AlignLeftLetBrace,
+                    RuboCop::Cop::RSpec::AlignRightLetBrace)
+    end
   end
 
   context 'when corrects `RSpec/LetBeforeExamples` with ' \
