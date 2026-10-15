@@ -347,15 +347,171 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
     end
   end
 
-  context 'when configured with `IgnoreMetadata: { "foo" => "bar" }`' do
-    let(:cop_config) { { 'IgnoreMetadata' => { 'foo' => 'bar' } } }
+  def yaml_config(yaml)
+    YAML.safe_load(yaml, permitted_classes: [Symbol])
+  end
 
-    it 'does not register an offense when include ignored metadata' do
-      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
-        describe MyClass, foo: :bar do; end
+  shared_examples 'it skips ignored metadata' do |entry, metadata|
+    context "with `- #{entry}` in IgnoreMetadata" do
+      let(:cop_config) { yaml_config(<<~YAML) }
+        IgnoreMetadata:
+          - #{entry}
+      YAML
+
+      it 'does not register an offense' do
+        expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+          describe MyClass, #{metadata} do; end
+        RUBY
+      end
+    end
+
+    context 'with empty IgnoreMetadata' do
+      let(:cop_config) { yaml_config('IgnoreMetadata: []') }
+
+      it 'registers an offense' do
+        expect_offense(<<~RUBY, 'wrong_class_spec.rb', metadata: metadata)
+          describe MyClass, %{metadata} do; end
+          ^^^^^^^^^^^^^^^^^^^{metadata} Spec path should end with `my_class*_spec.rb`.
+        RUBY
+      end
+    end
+  end
+
+  shared_examples 'it flags unmatched metadata' do |metadata|
+    it 'registers an offense' do
+      expect_offense(<<~RUBY, 'wrong_class_spec.rb', metadata: metadata)
+        describe MyClass, %{metadata} do; end
+        ^^^^^^^^^^^^^^^^^^^{metadata} Spec path should end with `my_class*_spec.rb`.
       RUBY
     end
   end
+
+  it_behaves_like 'it skips ignored metadata', 'prepare', ':prepare'
+  it_behaves_like 'it skips ignored metadata', 'prepare', 'prepare: true'
+  it_behaves_like 'it skips ignored metadata', 'prepare',
+                  '*tags, :prepare, type: :model'
+  it_behaves_like 'it skips ignored metadata', 'prepare',
+                  ':prepare, :"#{kind}", type: :model'
+  it_behaves_like 'it skips ignored metadata', 'prepare',
+                  '*tags, prepare: true'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  '[], type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  '1, type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  '"#{context}", type: :model'
+  it_behaves_like 'it skips ignored metadata', 'prepare',
+                  ':prepare, prepare: false'
+  it_behaves_like 'it skips ignored metadata', ':prepare', ':prepare'
+  it_behaves_like 'it skips ignored metadata', 'type: model', 'type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: :model', 'type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  'type: :request, type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  '**options, type: :model'
+  it_behaves_like 'it skips ignored metadata', 'type: model',
+                  '{dynamic_key => :request, type: :model}'
+  it_behaves_like 'it skips ignored metadata', 'margin: 3', 'margin: 3'
+  it_behaves_like 'it skips ignored metadata', 'ratio: 1.5', 'ratio: 1.5'
+  it_behaves_like 'it skips ignored metadata', 'redis: ~', 'redis: nil'
+  it_behaves_like 'it skips ignored metadata', 'uses_transaction: false',
+                  'uses_transaction: false'
+
+  context 'when configured with a list' do
+    let(:cop_config) { yaml_config(<<~YAML) }
+      IgnoreMetadata:
+        - prepare
+        - type: model
+        - margin: 3
+        - redis: ~
+        - uses_transaction: false
+    YAML
+
+    it_behaves_like 'it flags unmatched metadata', ':other'
+    it_behaves_like 'it flags unmatched metadata', 'prepare: false'
+    it_behaves_like 'it flags unmatched metadata', 'prepare: nil'
+    it_behaves_like 'it flags unmatched metadata', 'prepare: dynamic_value'
+    it_behaves_like 'it flags unmatched metadata', 'type: :request'
+    it_behaves_like 'it flags unmatched metadata', ':type, type: :model'
+    it_behaves_like 'it flags unmatched metadata', '*tags, type: :model'
+    it_behaves_like 'it flags unmatched metadata', ':"#{kind}", type: :model'
+    it_behaves_like 'it flags unmatched metadata',
+                    ':prepare, *tags, type: :model'
+    it_behaves_like 'it flags unmatched metadata', 'type: :model, **options'
+    it_behaves_like 'it flags unmatched metadata',
+                    '{type: :model, dynamic_key => :request}'
+    it_behaves_like 'it flags unmatched metadata', 'type: "model"'
+    it_behaves_like 'it flags unmatched metadata', 'type: dynamic_value'
+    it_behaves_like 'it flags unmatched metadata', 'type: :"#{dynamic_value}"'
+    it_behaves_like 'it flags unmatched metadata', 'other: {type: :model}'
+    it_behaves_like 'it flags unmatched metadata', 'margin: 3.0'
+    it_behaves_like 'it flags unmatched metadata', 'margin: "3"'
+    it_behaves_like 'it flags unmatched metadata', 'redis: dynamic_value'
+    it_behaves_like 'it flags unmatched metadata', ':redis'
+    it_behaves_like 'it flags unmatched metadata', 'uses_transaction: nil'
+    it_behaves_like 'it flags unmatched metadata', 'uses_transaction: true'
+  end
+
+  it_behaves_like 'it skips ignored metadata', 'foo: bar', 'foo: :bar'
+
+  context 'when configured with a hash' do
+    let(:cop_config) { yaml_config(<<~YAML) }
+      IgnoreMetadata:
+        type: model
+        foo: bar
+    YAML
+
+    it_behaves_like 'it flags unmatched metadata', 'type: :request'
+    it_behaves_like 'it flags unmatched metadata', 'foo: "bar"'
+
+    it 'treats each pair as a separate entry' do
+      expect_no_offenses(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, type: :model do; end
+      RUBY
+    end
+  end
+
+  shared_examples 'it rejects IgnoreMetadata' do |setting, message|
+    let(:cop_config) { yaml_config("IgnoreMetadata: #{setting}") }
+
+    it 'raises a configuration error' do
+      expect { cop.validate_config }.to raise_error(
+        RuboCop::ValidationError,
+        "RSpec/SpecFilePathFormat IgnoreMetadata #{message}"
+      )
+    end
+  end
+
+  it_behaves_like 'it rejects IgnoreMetadata', 'prepare', 'must be a list'
+  it_behaves_like 'it rejects IgnoreMetadata', '~', 'must be a list'
+  it_behaves_like 'it rejects IgnoreMetadata', '[{type: job, inline: true}]',
+                  'list entries must contain at most one key/value pair. ' \
+                  'Split multiple pairs into separate list entries.'
+  it_behaves_like 'it rejects IgnoreMetadata', '[123]',
+                  'entries must be tags or `key: value` pairs, got: 123'
+  it_behaves_like 'it rejects IgnoreMetadata', '[~]',
+                  'entries must be tags or `key: value` pairs, got: nil'
+  it_behaves_like 'it rejects IgnoreMetadata', '[[prepare, true, x]]',
+                  'entries must be tags or `key: value` pairs, ' \
+                  'got: ["prepare", true, "x"]'
+  it_behaves_like 'it rejects IgnoreMetadata', '[{1: x}]',
+                  'entries must be tags or `key: value` pairs, got: 1'
+  it_behaves_like 'it rejects IgnoreMetadata', '{1: x}',
+                  'entries must be tags or `key: value` pairs, got: 1'
+
+  shared_examples 'it does not ignore metadata' do |setting|
+    let(:cop_config) { yaml_config("IgnoreMetadata: #{setting}") }
+
+    it 'does not suppress an offense' do
+      expect_offense(<<~RUBY, 'wrong_class_spec.rb')
+        describe MyClass, :prepare, type: :routing do; end
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Spec path should end with `my_class*_spec.rb`.
+      RUBY
+    end
+  end
+
+  it_behaves_like 'it does not ignore metadata', '[]'
+  it_behaves_like 'it does not ignore metadata', '[{}]'
 
   # We intentionally isolate all of the plugin specs in this context
   # rubocop:disable RSpec/NestedGroups
