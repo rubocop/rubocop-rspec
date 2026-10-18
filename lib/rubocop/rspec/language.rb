@@ -15,7 +15,21 @@ module RuboCop
       extend RuboCop::NodePattern::Macros
 
       class << self
-        attr_accessor :config
+        attr_reader :config
+
+        def config=(config)
+          @sets = nil unless config.equal?(@config)
+          @config = config
+        end
+
+        # Checks membership in a configured list of method names, caching each
+        # list as a Set of symbols to avoid per-call String allocations.
+        def configured?(element, *path)
+          element = element.to_sym if element.is_a?(String)
+          list = config.dig(*path)
+          @sets ||= {}.compare_by_identity
+          (@sets[list] ||= list.to_set(&:to_sym)).include?(element)
+        end
       end
 
       # @!method rspec?(node)
@@ -75,7 +89,7 @@ module RuboCop
       # rubocop:disable Naming/PredicateMethod
       module ErrorMatchers # :nodoc:
         def self.all(element)
-          Language.config['ErrorMatchers'].include?(element.to_s)
+          Language.configured?(element, 'ErrorMatchers')
         end
       end
 
@@ -88,15 +102,15 @@ module RuboCop
           end
 
           def regular(element)
-            Language.config['ExampleGroups']['Regular'].include?(element.to_s)
+            Language.configured?(element, 'ExampleGroups', 'Regular')
           end
 
           def focused(element)
-            Language.config['ExampleGroups']['Focused'].include?(element.to_s)
+            Language.configured?(element, 'ExampleGroups', 'Focused')
           end
 
           def skipped(element)
-            Language.config['ExampleGroups']['Skipped'].include?(element.to_s)
+            Language.configured?(element, 'ExampleGroups', 'Skipped')
           end
         end
       end
@@ -111,38 +125,38 @@ module RuboCop
           end
 
           def regular(element)
-            Language.config['Examples']['Regular'].include?(element.to_s)
+            Language.configured?(element, 'Examples', 'Regular')
           end
 
           def focused(element)
-            Language.config['Examples']['Focused'].include?(element.to_s)
+            Language.configured?(element, 'Examples', 'Focused')
           end
 
           def skipped(element)
-            Language.config['Examples']['Skipped'].include?(element.to_s)
+            Language.configured?(element, 'Examples', 'Skipped')
           end
 
           def pending(element)
-            Language.config['Examples']['Pending'].include?(element.to_s)
+            Language.configured?(element, 'Examples', 'Pending')
           end
         end
       end
 
       module Expectations # :nodoc:
         def self.all(element)
-          Language.config['Expectations'].include?(element.to_s)
+          Language.configured?(element, 'Expectations')
         end
       end
 
       module Helpers # :nodoc:
         def self.all(element)
-          Language.config['Helpers'].include?(element.to_s)
+          Language.configured?(element, 'Helpers')
         end
       end
 
       module Hooks # :nodoc:
         def self.all(element)
-          Language.config['Hooks'].include?(element.to_s)
+          Language.configured?(element, 'Hooks')
         end
       end
 
@@ -161,11 +175,11 @@ module RuboCop
           end
 
           def examples(element)
-            Language.config['Includes']['Examples'].include?(element.to_s)
+            Language.configured?(element, 'Includes', 'Examples')
           end
 
           def context(element)
-            Language.config['Includes']['Context'].include?(element.to_s)
+            Language.configured?(element, 'Includes', 'Context')
           end
         end
       end
@@ -189,28 +203,30 @@ module RuboCop
           end
 
           def examples(element)
-            Language.config['SharedGroups']['Examples'].include?(element.to_s)
+            Language.configured?(element, 'SharedGroups', 'Examples')
           end
 
           def context(element)
-            Language.config['SharedGroups']['Context'].include?(element.to_s)
+            Language.configured?(element, 'SharedGroups', 'Context')
           end
         end
       end
 
       module Subjects # :nodoc:
         def self.all(element)
-          Language.config['Subjects'].include?(element.to_s)
+          Language.configured?(element, 'Subjects')
         end
       end
       # rubocop:enable Naming/PredicateMethod
 
       # This is used in Dialect and DescribeClass cops to detect RSpec blocks.
       module ALL # :nodoc:
+        CONCEPTS = [ErrorMatchers, ExampleGroups, Examples, Expectations,
+                    Helpers, Hooks, Includes, Runners, SharedGroups,
+                    Subjects].freeze
+
         def self.all(element)
-          [ErrorMatchers, ExampleGroups, Examples, Expectations, Helpers, Hooks,
-           Includes, Runners, SharedGroups, Subjects]
-            .find { |concept| concept.all(element) }
+          CONCEPTS.find { |concept| concept.all(element) }
         end
       end
 
