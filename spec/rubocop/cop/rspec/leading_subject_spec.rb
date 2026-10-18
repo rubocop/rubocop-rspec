@@ -375,4 +375,27 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       RUBY
     end
   end
+
+  it 'keeps Sorbet `sig` blocks attached when moving `subject`' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        sig { returns(Hash) }
+        let(:params) { foo }
+
+        sig { returns(User) }
+        subject { described_class.new }
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        sig { returns(User) }
+        subject { described_class.new }
+        sig { returns(Hash) }
+        let(:params) { foo }
+
+      end
+    RUBY
+  end
 end
