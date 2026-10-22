@@ -5914,6 +5914,14 @@ describe Foo do
   subject { Foo }
   before { prepare }
 end
+
+# good - a Sorbet `sig` belongs to the `let` it precedes
+describe Foo do
+  sig { returns(Integer) }
+  let(:foo) { 1 }
+  sig { returns(Integer) }
+  let(:bar) { 2 }
+end
 ----
 
 [#references-rspecscatteredlet]
