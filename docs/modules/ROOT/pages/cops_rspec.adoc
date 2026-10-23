@@ -6299,10 +6299,48 @@ context 'Something', :z, variable, :a, :b
 | Yes
 | No
 | 2.24
-| 3.8
+| <<next>>
 |===
 
 Checks that spec file paths are consistent and well-formed.
+
+`IgnoreMetadata` allows to ignore specs based on the top-level
+example group's metadata. It accepts a Hash or an Array.
+It accepts multiple separate entries; they are alternatives, not
+combinations of metadata conditions.
+
+The Array format allows defining several values for the same key, and
+match on key-only with the RSpec semantics.
+
+Each entry must contain at most one key/value pair.
+
+A scalar entry such as `prepare` matches a bare `:prepare` or
+literal `prepare: true`, but not `prepare: false` or any other value.
+As in RSpec, a bare tag overrides the same Symbol key in the
+metadata Hash.
+
+Keys and string values are treated as Symbols, so `type: routing`
+matches `type: :routing` but not `type: 'routing'`. Numbers, `true`,
+`false` and `~` (`nil`) match as is.
+
+The `-` starts a new Array entry. For example:
+
+  RSpec/SpecFilePathFormat:
+    IgnoreMetadata:
+      - prepare # ignores groups with `:prepare` or `prepare: true`
+      - type: model
+      - type: routing
+
+The Hash format matches metadata key/value pairs, such as
+`type: :routing` with `IgnoreMetadata: {type=>routing}`.
+
+User entries merge with the default `- type: routing` filter.
+To replace the default, configure `inherit_mode` for this cop:
+
+  RSpec/SpecFilePathFormat:
+    inherit_mode:
+      override: [IgnoreMetadata]
+    IgnoreMetadata: []
 
 [#examples-rspecspecfilepathformat]
 === Examples
@@ -6348,12 +6386,24 @@ my_class_spec.rb         # describe MyClass, '#method'
 my_class_spec.rb         # describe MyClass, '#method'
 ----
 
-[#_ignoremetadata_-_type__routing__-_default_-rspecspecfilepathformat]
-==== `IgnoreMetadata: {type=>routing}` (default)
+[#_ignoremetadata_-__type__routing___-_default_-rspecspecfilepathformat]
+==== `IgnoreMetadata: [{type=>routing}]` (default)
 
 [source,ruby]
 ----
 # good
+whatever_spec.rb         # describe MyClass, type: :routing do; end
+----
+
+[#_ignoremetadata_-_prepare_-_type__model__-_type__routing___-rspecspecfilepathformat]
+==== `IgnoreMetadata: [prepare, {type=>model}, {type=>routing}]`
+
+[source,ruby]
+----
+# good
+whatever_spec.rb         # describe MyClass, :prepare do; end
+whatever_spec.rb         # describe MyClass, prepare: true do; end
+whatever_spec.rb         # describe MyClass, type: :model do; end
 whatever_spec.rb         # describe MyClass, type: :routing do; end
 ----
 
@@ -6390,9 +6440,13 @@ whatever_spec.rb         # describe MyClass, type: :routing do; end
 | `false`
 | Boolean
 
+| inherit_mode
+| `{"merge" => ["IgnoreMetadata"]}`
+| 
+
 | IgnoreMetadata
 | `{"type" => "routing"}`
-| 
+| Array
 
 | InflectorPath
 | `./config/initializers/inflections.rb`
