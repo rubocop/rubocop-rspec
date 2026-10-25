@@ -50,6 +50,30 @@ jobs:
           bundler-cache: true
       - run: NO_COVERAGE=true bundle exec rake ${{ matrix.task }}
 
+  # Temporary debugging job, not meant to be merged.
+  # ruby-head fails `internal_investigation` with bogus Lint/DeprecatedReference
+  # offenses since rubydex 0.4.2. Run both rubydex versions side by side on
+  # ruby-head to isolate the culprit.
+  debug-rubydex:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rubydex:
+          - "0.4.1"
+          - "0.4.2"
+    name: "Debug: ruby-head with rubydex ${{ matrix.rubydex }}"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Pin rubydex
+        run: |
+          sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '${{ matrix.rubydex }}', require: false/" Gemfile
+          grep rubydex Gemfile
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+        with:
+          ruby-version: ruby-head
+          bundler-cache: true
+      - run: NO_COVERAGE=true bundle exec rake internal_investigation
+
   coverage:
     runs-on: ubuntu-latest
     name: "Test coverage"
