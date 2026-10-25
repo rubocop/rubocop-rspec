@@ -57,6 +57,7 @@ jobs:
   debug-rubydex:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         rubydex:
           - "0.4.1"
