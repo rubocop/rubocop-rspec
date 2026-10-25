@@ -16,7 +16,7 @@ jobs:
     name: Confirm config and documentation
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby
           bundler-cache: true
@@ -44,7 +44,7 @@ jobs:
     name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
@@ -68,7 +68,7 @@ jobs:
         run: |
           sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '${{ matrix.rubydex }}', require: false/" Gemfile
           grep rubydex Gemfile
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby-head
           bundler-cache: true
@@ -79,7 +79,7 @@ jobs:
     name: "Test coverage"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby
           bundler-cache: true
@@ -99,7 +99,7 @@ jobs:
         run: |
           echo "gem 'rubocop', github: 'rubocop/rubocop'" > Gemfile.local
           cat Gemfile.local
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby
           bundler-cache: true
@@ -121,7 +121,7 @@ jobs:
           sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
             rubocop-rspec.gemspec > Gemfile.local
           cat Gemfile.local
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby
           bundler-cache: true
@@ -144,7 +144,7 @@ jobs:
             gem 'rspec-mocks', github: 'rspec/rspec', branch: 'main'
             gem 'rspec-support', github: 'rspec/rspec', branch: 'main'
           EOF
-      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           ruby-version: ruby
           bundler-cache: true
@@ -156,7 +156,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: set up Ruby
-        uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+        uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
         with:
           # Specify the minimum Ruby version 2.7 required for Prism to run.
           ruby-version: "2.7"
