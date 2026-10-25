@@ -52,40 +52,30 @@ jobs:
 
   # Temporary debugging job, not meant to be merged.
   # ruby-head fails `internal_investigation` with bogus Lint/DeprecatedReference
-  # offenses. Both rubydex 0.4.1 and 0.4.2 fail, so rubydex is exonerated.
-  # Next suspects vs. the last green run (2026-10-14): the ruby-head snapshot
-  # itself, rubocop 1.92.0 -> 1.92.1, and parser 3.3.12.0 -> 3.3.13.0.
+  # offenses. All gem-level rollbacks (rubydex, rubocop, parser) fail
+  # identically, so the regression is in the ruby-head build between
+  # ruby/ruby@5b1c373522 (2026-10-17, green) and b4ae8a7189 (2026-10-21, red).
+  # That window contains the prism v2.0.0 final landing in ruby/ruby. Test
+  # whether forcing the parse.y compiler makes the offenses vanish.
   debug-rubydex:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - label: control
-            rubocop: ""
-            parser: ""
-          - label: oct14-green-combo
-            rubocop: "1.92.0"
-            parser: "3.3.12.0"
-          - label: only-rubocop-1.92.0
-            rubocop: "1.92.0"
-            parser: ""
-          - label: only-parser-3.3.12.0
-            rubocop: ""
-            parser: "3.3.12.0"
+          - label: prism-compiler-control
+            rubyopt: ""
+          - label: parsey-compiler
+            rubyopt: "--parser=parse.y"
     name: "Debug: ruby-head, ${{ matrix.label }}"
+    env:
+      RUBYOPT: ${{ matrix.rubyopt }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Pin rubydex to 0.4.1 (exonerated, kept fixed)
         run: |
           sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '0.4.1', require: false/" Gemfile
           grep rubydex Gemfile
-      - name: Pin rubocop and parser
-        run: |
-          touch Gemfile.local
-          [ -n "${{ matrix.rubocop }}" ] && echo "gem 'rubocop', '${{ matrix.rubocop }}'" >> Gemfile.local
-          [ -n "${{ matrix.parser }}" ] && echo "gem 'parser', '${{ matrix.parser }}'" >> Gemfile.local
-          cat Gemfile.local
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: ruby-head
