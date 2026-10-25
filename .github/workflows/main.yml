@@ -52,35 +52,28 @@ jobs:
 
   # Temporary debugging job, not meant to be merged.
   # ruby-head fails `internal_investigation` with bogus Lint/DeprecatedReference
-  # offenses. Gem rollbacks and the parse.y compiler are exonerated. rubydex
-  # ships precompiled glue for Ruby 3.2-4.0 only; on ruby-head it compiles from
-  # source, and the bundler cache key (ABI 4.1.0+6) may serve a bundle compiled
-  # against an older ruby-head snapshot. Test with the cache disabled.
+  # offenses. Exonerated so far: rubydex 0.4.1/0.4.2, rubocop, parser, the
+  # prism compiler (parse.y behaves identically), and the bundler cache (a
+  # fresh from-source compile of rubydex against current ruby-head fails too).
+  # This job runs debug_rubydex_repro.rb, which exercises rubydex's
+  # deprecated? flag directly, without RuboCop, on ruby-head and on 4.0 as a
+  # healthy in-run control.
   debug-rubydex:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - label: bundler-cache-control
-            cache: true
-          - label: no-bundler-cache
-            cache: false
-    name: "Debug: ruby-head, ${{ matrix.label }}"
+        ruby:
+          - "4.0"
+          - ruby-head
+    name: "Debug: rubydex repro on ${{ matrix.ruby }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Pin rubydex to 0.4.1 (exonerated, kept fixed)
-        run: |
-          sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '0.4.1', require: false/" Gemfile
-          grep rubydex Gemfile
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
-          ruby-version: ruby-head
-          bundler-cache: ${{ matrix.cache }}
-      # Needed when bundler-cache is false, since setup-ruby only runs
-      # `bundle install` as part of the caching path.
-      - run: bundle install
-      - run: NO_COVERAGE=true bundle exec rake internal_investigation
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: bundle exec ruby debug_rubydex_repro.rb
 
   coverage:
     runs-on: ubuntu-latest
