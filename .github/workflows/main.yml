@@ -77,6 +77,9 @@ jobs:
         with:
           ruby-version: ruby-head
           bundler-cache: ${{ matrix.cache }}
+      # Needed when bundler-cache is false, since setup-ruby only runs
+      # `bundle install` as part of the caching path.
+      - run: bundle install
       - run: NO_COVERAGE=true bundle exec rake internal_investigation
 
   coverage:
