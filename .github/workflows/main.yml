@@ -52,23 +52,40 @@ jobs:
 
   # Temporary debugging job, not meant to be merged.
   # ruby-head fails `internal_investigation` with bogus Lint/DeprecatedReference
-  # offenses since rubydex 0.4.2. Run both rubydex versions side by side on
-  # ruby-head to isolate the culprit.
+  # offenses. Both rubydex 0.4.1 and 0.4.2 fail, so rubydex is exonerated.
+  # Next suspects vs. the last green run (2026-10-14): the ruby-head snapshot
+  # itself, rubocop 1.92.0 -> 1.92.1, and parser 3.3.12.0 -> 3.3.13.0.
   debug-rubydex:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        rubydex:
-          - "0.4.1"
-          - "0.4.2"
-    name: "Debug: ruby-head with rubydex ${{ matrix.rubydex }}"
+        include:
+          - label: control
+            rubocop: ""
+            parser: ""
+          - label: oct14-green-combo
+            rubocop: "1.92.0"
+            parser: "3.3.12.0"
+          - label: only-rubocop-1.92.0
+            rubocop: "1.92.0"
+            parser: ""
+          - label: only-parser-3.3.12.0
+            rubocop: ""
+            parser: "3.3.12.0"
+    name: "Debug: ruby-head, ${{ matrix.label }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Pin rubydex
+      - name: Pin rubydex to 0.4.1 (exonerated, kept fixed)
         run: |
-          sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '${{ matrix.rubydex }}', require: false/" Gemfile
+          sed -i "s/gem 'rubydex', require: false/gem 'rubydex', '0.4.1', require: false/" Gemfile
           grep rubydex Gemfile
+      - name: Pin rubocop and parser
+        run: |
+          touch Gemfile.local
+          [ -n "${{ matrix.rubocop }}" ] && echo "gem 'rubocop', '${{ matrix.rubocop }}'" >> Gemfile.local
+          [ -n "${{ matrix.parser }}" ] && echo "gem 'parser', '${{ matrix.parser }}'" >> Gemfile.local
+          cat Gemfile.local
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: ruby-head
