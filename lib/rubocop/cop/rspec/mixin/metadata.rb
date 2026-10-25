@@ -59,7 +59,9 @@ module RuboCop
         def remove_with_preceding_comma(corrector, node)
           corrector.remove(
             range_with_surrounding_comma(
-              range_with_surrounding_space(node.source_range, side: :left),
+              range_with_surrounding_space(
+                node.source_range, side: :left, whitespace: true
+              ),
               :left
             )
           )
