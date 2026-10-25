@@ -11,25 +11,33 @@ failures = []
 
 FIXTURE = <<~RUBY
   module Fixture
-    INT_CONST = 3
+    INT_FIRST = 1
+    SYM_CONST = :sym
+    FLOAT_CONST = 1.0
+    TRUE_CONST = true
+    NIL_CONST = nil
+    BIGNUM_CONST = 2**70
     STR_CONST = 'x'.freeze
-    REGEX_CONST = /foo/i.freeze
-    ARRAY_CONST = %i[a b].freeze
-    SET_CONST = Set[:a].freeze
-    PATH_CONST = Pathname.new(__dir__)
+    HASH_CONST = { a: 1 }.freeze
+    RANGE_CONST = (1..2)
+    INT_LAST = 2
 
-    # @deprecated Use INT_CONST instead.
+    # @deprecated Use INT_FIRST instead.
     OLD_REGEX = /old/.freeze
   end
 RUBY
 
 EXPECTED = {
-  'INT_CONST' => false,
+  'INT_FIRST' => false,
+  'SYM_CONST' => false,
+  'FLOAT_CONST' => false,
+  'TRUE_CONST' => false,
+  'NIL_CONST' => false,
+  'BIGNUM_CONST' => false,
   'STR_CONST' => false,
-  'REGEX_CONST' => false,
-  'ARRAY_CONST' => false,
-  'SET_CONST' => false,
-  'PATH_CONST' => false,
+  'HASH_CONST' => false,
+  'RANGE_CONST' => false,
+  'INT_LAST' => false,
   'OLD_REGEX' => true
 }.freeze
 
