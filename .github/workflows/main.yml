@@ -52,24 +52,21 @@ jobs:
 
   # Temporary debugging job, not meant to be merged.
   # ruby-head fails `internal_investigation` with bogus Lint/DeprecatedReference
-  # offenses. All gem-level rollbacks (rubydex, rubocop, parser) fail
-  # identically, so the regression is in the ruby-head build between
-  # ruby/ruby@5b1c373522 (2026-10-17, green) and b4ae8a7189 (2026-10-21, red).
-  # That window contains the prism v2.0.0 final landing in ruby/ruby. Test
-  # whether forcing the parse.y compiler makes the offenses vanish.
+  # offenses. Gem rollbacks and the parse.y compiler are exonerated. rubydex
+  # ships precompiled glue for Ruby 3.2-4.0 only; on ruby-head it compiles from
+  # source, and the bundler cache key (ABI 4.1.0+6) may serve a bundle compiled
+  # against an older ruby-head snapshot. Test with the cache disabled.
   debug-rubydex:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - label: prism-compiler-control
-            rubyopt: ""
-          - label: parsey-compiler
-            rubyopt: "--parser=parse.y"
+          - label: bundler-cache-control
+            cache: true
+          - label: no-bundler-cache
+            cache: false
     name: "Debug: ruby-head, ${{ matrix.label }}"
-    env:
-      RUBYOPT: ${{ matrix.rubyopt }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Pin rubydex to 0.4.1 (exonerated, kept fixed)
@@ -79,7 +76,7 @@ jobs:
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: ruby-head
-          bundler-cache: true
+          bundler-cache: ${{ matrix.cache }}
       - run: NO_COVERAGE=true bundle exec rake internal_investigation
 
   coverage:
