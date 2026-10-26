@@ -153,6 +153,46 @@ RSpec.describe RuboCop::Cop::RSpec::Output do
     expect_no_corrections
   end
 
+  it 'does not autocorrect an output call whose value is used' do
+    expect_offense(<<~RUBY)
+      expect(foo).to match_array [p, bar]
+                                  ^ Do not write to stdout in specs.
+      result = puts(foo)
+               ^^^^^^^^^ Do not write to stdout in specs.
+      ok? && puts(foo)
+             ^^^^^^^^^ Do not write to stdout in specs.
+      ok? ? print(foo) : bar
+            ^^^^^^^^^^ Do not write to stdout in specs.
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'autocorrects an output call in an `if` branch but not in its condition' do
+    expect_offense(<<~RUBY)
+      if ok? then puts foo end
+                  ^^^^^^^^ Do not write to stdout in specs.
+      if puts(foo) then bar end
+         ^^^^^^^^^ Do not write to stdout in specs.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      if ok? then  end
+      if puts(foo) then bar end
+    RUBY
+  end
+
+  it 'autocorrects an output call that is the body of a block' do
+    expect_offense(<<~RUBY)
+      it { puts foo }
+           ^^^^^^^^ Do not write to stdout in specs.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it {  }
+    RUBY
+  end
+
   it 'registers an offense when `p` method with positional argument' do
     expect_offense(<<~RUBY)
       p(do_something)
