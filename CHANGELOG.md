@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix `RSpec/ScatteredLet` to not treat a Sorbet `sig` block above a `let` as a separator, and keep `sig` blocks attached to the nodes they precede when autocorrecting `RSpec/ScatteredLet`, `RSpec/LeadingSubject`, `RSpec/LetBeforeExamples` and `RSpec/HooksBeforeExamples`. ([@corsonknowles])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])

@@ -187,4 +187,72 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
       end
     RUBY
   end
+
+  context 'with Sorbet `sig` blocks attached to `let`s' do
+    it 'does not register an offense for `sig`s between `let`s' do
+      expect_no_offenses(<<~RUBY)
+        describe User do
+          sig { returns(Integer) }
+          let(:a) { a }
+
+          sig { returns(Integer) }
+          let(:b) { b }
+          let(:c) { c }
+        end
+      RUBY
+    end
+
+    it 'moves a scattered `let` together with its `sig`' do
+      expect_offense(<<~RUBY)
+        describe User do
+          sig { returns(Integer) }
+          let(:a) { a }
+          it { expect(subject.foo).to eq(a) }
+          sig { returns(Integer) }
+          let(:b) { b }
+          ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+          sig { returns(Integer) }
+          let(:c) { c }
+          ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe User do
+          sig { returns(Integer) }
+          let(:a) { a }
+          sig { returns(Integer) }
+          let(:b) { b }
+          sig { returns(Integer) }
+          let(:c) { c }
+          it { expect(subject.foo).to eq(a) }
+        end
+      RUBY
+    end
+
+    it 'registers an offense when the `sig` belongs to another node' do
+      expect_offense(<<~RUBY)
+        describe User do
+          let(:a) { a }
+          sig { returns(Integer) }
+          def helper
+            42
+          end
+          let(:b) { b }
+          ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe User do
+          let(:a) { a }
+          let(:b) { b }
+          sig { returns(Integer) }
+          def helper
+            42
+          end
+        end
+      RUBY
+    end
+  end
 end
