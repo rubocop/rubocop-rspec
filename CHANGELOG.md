@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Allow `RSpec/SpecFilePathFormat` to ignore multiple values of the same metadata key (e.g. `type: :feature` + `type: :job`) and boolean tags. The Hash format remains supported. User entries merge with the default `type: routing` filter; use `inherit_mode: {override: [IgnoreMetadata]}` to replace it. ([@snowyukitty])
 - Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
@@ -1130,6 +1131,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@seanpdoyle]: https://github.com/seanpdoyle
 [@sl4vr]: https://github.com/sl4vr
 [@smcgivern]: https://github.com/smcgivern
+[@snowyukitty]: https://github.com/snowyukitty
 [@splattael]: https://github.com/splattael
 [@starlexxx]: https://github.com/Starlexxx
 [@stephannv]: https://github.com/stephannv
