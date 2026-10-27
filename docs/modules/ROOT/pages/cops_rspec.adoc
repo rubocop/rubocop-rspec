@@ -3200,6 +3200,16 @@ describe MyClass do
   let(:foo) { [] }
   it { expect(foo).to be_empty }
 end
+
+# good - an instance variable of a class whose body the spec opens,
+# here through rspec-rails' `controller`
+describe MyController do
+  controller do
+    def index
+      render json: @resource
+    end
+  end
+end
 ----
 
 [#with-assignmentonly-configuration-rspecinstancevariable]
