@@ -48,6 +48,22 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
       end
     end
 
+    context 'with boolean metadata after a comma with trailing whitespace' do
+      it 'registers offense' do
+        expect_offense(<<~RUBY)
+          describe 'Something',\s
+                   a: true do
+                   ^^^^^^^ Use symbol style for metadata.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe 'Something', :a do
+          end
+        RUBY
+      end
+    end
+
     context 'with 2 boolean keyword arguments metadata' do
       it 'registers offense' do
         expect_offense(<<~RUBY)
