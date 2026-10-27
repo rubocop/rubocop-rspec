@@ -70,10 +70,21 @@ module RuboCop
         private
 
         def autocorrect(corrector, node)
-          parent = node.parent
-          return if parent.respond_to?(:modifier_form?) && parent.modifier_form?
+          corrector.remove(node) if statement?(node)
+        end
 
-          corrector.remove(node)
+        def statement?(node)
+          parent = node.parent
+          return true if parent.nil? || parent.type?(:begin, :kwbegin)
+          return branch?(parent, node) if parent.if_type?
+
+          parent.type?(:any_block, :any_def) && parent.body.equal?(node)
+        end
+
+        def branch?(if_node, node)
+          return false if if_node.ternary? || if_node.modifier_form?
+
+          !if_node.condition.equal?(node)
         end
 
         def match_gvar?(sym)
