@@ -142,6 +142,17 @@ RSpec.describe RuboCop::Cop::RSpec::Output do
     RUBY
   end
 
+  it 'does not autocorrect the body of a modifier condition' do
+    expect_offense(<<~RUBY)
+      puts 'error' unless success?
+      ^^^^^^^^^^^^ Do not write to stdout in specs.
+      print 'retrying' while retry?
+      ^^^^^^^^^^^^^^^^ Do not write to stdout in specs.
+    RUBY
+
+    expect_no_corrections
+  end
+
   it 'registers an offense when `p` method with positional argument' do
     expect_offense(<<~RUBY)
       p(do_something)
