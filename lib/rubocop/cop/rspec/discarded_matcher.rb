@@ -55,26 +55,23 @@ module RuboCop
 
         def check_discarded_matcher(send_node, node)
           return unless matcher_call?(send_node)
-          return unless inside_example?(node)
-          return unless example_with_matcher_expectation?(node)
+          return unless (example_node = enclosing_example(node))
 
           target = find_outermost_chain(node)
           return unless void_value?(target)
+          return unless example_with_matcher_expectation?(example_node)
 
           add_offense(target, message: format(MSG, method: node.method_name))
         end
 
-        def example_with_matcher_expectation?(node)
-          example_node =
-            node.each_ancestor(:block).find { |ancestor| example?(ancestor) }
-
+        def example_with_matcher_expectation?(example_node)
           example_node.each_descendant(:send).any? do |send_node|
             expectation_with_matcher?(send_node)
           end
         end
 
         def expectation_with_matcher?(node)
-          %i[to to_not not_to].include?(node.method_name) &&
+          Runners.all(node.method_name) &&
             node.arguments.any? do |arg|
               arg.each_node(:send).any? { |s| matcher_call?(s) }
             end
