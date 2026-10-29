@@ -12,6 +12,10 @@ jobs:
       actions: write
       contents: write
       id-token: write
+    env:
+      # A fine-grained token with contents write access to rubocop/docs.rubocop.org,
+      # which sending it a repository dispatch requires.
+      DISPATCH_TOKEN: ${{ secrets.RELEASE_DISPATCH_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Ruby
@@ -28,3 +32,13 @@ jobs:
           gh release create $(git tag --points-at @) \
             --title "RuboCop RSpec $(git tag --points-at @)" \
             --notes-file relnotes.md
+      # Adds the tag to docs.rubocop.org's playbook and publishes the docs.
+      - name: Publish the docs
+        if: env.DISPATCH_TOKEN != ''
+        env:
+          GH_TOKEN: ${{ env.DISPATCH_TOKEN }}
+        run: |
+          gh api repos/rubocop/docs.rubocop.org/dispatches \
+            -f event_type=release \
+            -f 'client_payload[project]=rubocop-rspec' \
+            -f "client_payload[tag]=$(git tag --points-at @)"
