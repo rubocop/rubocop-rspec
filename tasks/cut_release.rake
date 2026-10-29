@@ -28,13 +28,6 @@ namespace :cut_release do
     RuboCop::ConfigLoader.default_configuration = nil # invalidate loaded conf
   end
 
-  def update_docs(version)
-    update_file('docs/antora.yml') do |antora_metadata|
-      antora_metadata.sub('version: ~',
-                          "version: '#{version_sans_patch(version)}'")
-    end
-  end
-
   def add_header_to_changelog(version)
     update_file('CHANGELOG.md') do |changelog|
       changelog.sub("## Master (Unreleased)\n\n",
@@ -49,7 +42,6 @@ namespace :cut_release do
 
     update_cop_versions(new_version)
     `bundle exec rake generate_cops_documentation`
-    update_docs(new_version) if %w[major minor].include?(release_type)
     add_header_to_changelog(new_version)
 
     puts "Changed version from #{old_version} to #{new_version}."
