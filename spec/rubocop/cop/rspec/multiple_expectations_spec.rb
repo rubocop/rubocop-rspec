@@ -16,6 +16,15 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect twice', :aggregate_failures do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
     end
 
     it 'approves of one expectation per example' do
@@ -42,6 +51,15 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect_any_instance_of twice', :aggregate_failures do
+            expect_any_instance_of(Foo).to receive(:bar)
+            expect_any_instance_of(Foo).to receive(:baz)
+          end
+        end
+      RUBY
     end
 
     it 'flags multiple is_expected' do
@@ -54,6 +72,15 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect_any_instance_of twice', :aggregate_failures do
+            is_expected.to receive(:bar)
+            is_expected.to receive(:baz)
+          end
+        end
+      RUBY
     end
 
     it 'flags multiple expects with blocks' do
@@ -61,6 +88,15 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
         describe Foo do
           it 'uses expect with block twice' do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect { something }.to change(Foo.count)
+            expect { something }.to change(Bar.count)
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect with block twice', :aggregate_failures do
             expect { something }.to change(Foo.count)
             expect { something }.to change(Bar.count)
           end
@@ -93,10 +129,88 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'has multiple aggregate_failures calls', :aggregate_failures do
+            aggregate_failures do
+            end
+            aggregate_failures do
+            end
+          end
+        end
+      RUBY
     end
   end
 
   context 'with metadata' do
+    it 'adds `:aggregate_failures` after symbol metadata' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it('uses expect twice', :foo) { expect(foo).to eq(bar); expect(baz).to eq(bar) }
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it('uses expect twice', :foo, :aggregate_failures) { expect(foo).to eq(bar); expect(baz).to eq(bar) }
+        end
+      RUBY
+    end
+
+    it 'adds `:aggregate_failures` before hash metadata' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it 'uses expect twice', foo: 1 do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+
+          it 'uses expect twice', :foo, bar: 1 do
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect twice', :aggregate_failures, foo: 1 do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+
+          it 'uses expect twice', :foo, :aggregate_failures, bar: 1 do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+    end
+
+    it 'does not autocorrect examples without a description' do
+      expect_offense(<<~RUBY)
+        describe Foo do
+          it do
+          ^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+
+          it foo: 1 do
+          ^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+
+      expect_no_corrections
+    end
+
     it 'ignores examples with `:aggregate_failures`' do
       expect_no_offenses(<<~RUBY)
         describe Foo do
@@ -151,6 +265,8 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'checks examples with `aggregate_failures: false`' do
@@ -163,6 +279,8 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'checks example groups with `aggregate_failures: false`' do
@@ -175,6 +293,8 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
           end
         end
       RUBY
+
+      expect_no_corrections
     end
 
     it 'checks examples with siblings with `aggregate_failures: true`' do
@@ -182,6 +302,19 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
         describe Foo do
           it 'uses expect twice' do
           ^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [2/1].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+          it 'with aggregate_failures', aggregate_failures: true do
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect twice', :aggregate_failures do
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
           end
@@ -231,6 +364,16 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleExpectations do
         describe Foo do
           it 'uses expect three times' do
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Example has too many expectations [3/2].
+            expect(foo).to eq(bar)
+            expect(baz).to eq(bar)
+            expect(qux).to eq(bar)
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe Foo do
+          it 'uses expect three times', :aggregate_failures do
             expect(foo).to eq(bar)
             expect(baz).to eq(bar)
             expect(qux).to eq(bar)

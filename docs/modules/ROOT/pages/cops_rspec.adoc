@@ -4188,15 +4188,27 @@ end
 
 | Enabled
 | Yes
-| No
+| Always (Unsafe)
 | 1.7
-| 1.21
+| <<next>>
 |===
 
 Checks if examples contain too many `expect` calls.
 
 This cop is configurable using the `Max` option
 and works with `--auto-gen-config`.
+
+Autocorrection adds `:aggregate_failures` metadata to the example,
+unless it already sets `aggregate_failures`, either directly or
+through an enclosing example group, or has no description.
+
+[#safety-rspecmultipleexpectations]
+=== Safety
+
+This cop's autocorrection is unsafe because with
+`:aggregate_failures`, the example keeps running after a failed
+expectation, which can trigger side effects that would otherwise
+not happen.
 
 [#examples-rspecmultipleexpectations]
 === Examples

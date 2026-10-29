@@ -10,6 +10,16 @@ module RuboCop
       # This cop is configurable using the `Max` option
       # and works with `--auto-gen-config`.
       #
+      # Autocorrection adds `:aggregate_failures` metadata to the example,
+      # unless it already sets `aggregate_failures`, either directly or
+      # through an enclosing example group, or has no description.
+      #
+      # @safety
+      #   This cop's autocorrection is unsafe because with
+      #   `:aggregate_failures`, the example keeps running after a failed
+      #   expectation, which can trigger side effects that would otherwise
+      #   not happen.
+      #
       # @example
       #   # bad
       #   describe UserCreator do
@@ -67,6 +77,8 @@ module RuboCop
       #   end
       #
       class MultipleExpectations < Base
+        extend AutoCorrector
+
         MSG = 'Example has too many expectations [%<total>d/%<max>d].'
 
         ANYTHING = ->(_node) { true }
@@ -137,11 +149,27 @@ module RuboCop
               total: expectation_count,
               max: max_expectations
             )
-          )
+          ) do |corrector|
+            autocorrect(corrector, node)
+          end
         end
 
         def max_expectations
           Integer(cop_config.fetch('Max', 1))
+        end
+
+        def autocorrect(corrector, example_node)
+          # respect an explicitly disabled `aggregate_failures`
+          return if find_aggregate_failures(example_node)
+
+          description, *metadata = example_node.send_node.arguments
+          return if description.nil? || description.hash_type?
+
+          metadata.pop if metadata.last&.hash_type?
+          corrector.insert_after(
+            metadata.last || description,
+            ', :aggregate_failures'
+          )
         end
       end
     end
