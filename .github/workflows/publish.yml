@@ -18,8 +18,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
-          bundler-cache: true
           ruby-version: ruby
+      - run: bundle install
       - uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b # v1.4.1
       - name: Create a GitHub release
         env:
