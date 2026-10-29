@@ -2,6 +2,6 @@ rules:
   unpinned-uses:
     config:
       policies:
-        actions/*: ref-pin
-        ruby/*: ref-pin
+        actions/checkout: ref-pin
+        ruby/setup-ruby: ref-pin
         "*": hash-pin
