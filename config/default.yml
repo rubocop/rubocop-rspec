@@ -208,7 +208,7 @@ RSpec/ChangeByZero:
 
 RSpec/ClassCheck:
   Description: Enforces consistent use of `be_a` or `be_kind_of`.
-  StyleGuide: "#is-a-vs-kind-of"
+  StyleGuide: https://rubystyle.guide#is-a-vs-kind-of
   Enabled: true
   VersionAdded: '2.13'
   EnforcedStyle: be_a
