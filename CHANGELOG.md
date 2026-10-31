@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
 - Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
@@ -1011,6 +1012,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@akiomik]: https://github.com/akiomik
 [@akrox58]: https://github.com/akrox58
 [@alexwayfer]: https://github.com/AlexWayfer
+[@andrewfader]: https://github.com/andrewfader
 [@andrykonchin]: https://github.com/andrykonchin
 [@andyw8]: https://github.com/andyw8
 [@anthony-robin]: https://github.com/anthony-robin
