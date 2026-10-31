@@ -5892,6 +5892,10 @@ Checks for let scattered across the example group.
 
 Group lets together
 
+Autocorrection does not move a `let!` above a hook, because `let!`
+runs as a `before` hook and moving it would change the order in which
+the setup runs.
+
 [#examples-rspecscatteredlet]
 === Examples
 
