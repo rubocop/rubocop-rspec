@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
 - Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
@@ -1017,6 +1018,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@aried3r]: https://github.com/aried3r
 [@baberthal]: https://github.com/baberthal
 [@backus]: https://github.com/backus
+[@bbatsov]: https://github.com/bbatsov
 [@bcgraham]: https://github.com/bcgraham
 [@biinari]: https://github.com/biinari
 [@bmorrall]: https://github.com/bmorrall
