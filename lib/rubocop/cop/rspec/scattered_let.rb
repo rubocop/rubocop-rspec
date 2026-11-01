@@ -7,6 +7,10 @@ module RuboCop
       #
       # Group lets together
       #
+      # Autocorrection does not move a `let!` above a hook, because `let!`
+      # runs as a `before` hook and moving it would change the order in which
+      # the setup runs.
+      #
       # @example
       #   # bad
       #   describe Foo do
@@ -53,11 +57,24 @@ module RuboCop
             end
 
             add_offense(node) do |corrector|
-              RuboCop::RSpec::Corrector::MoveNode.new(
-                node, corrector, processed_source
-              ).move_after(reference_let)
+              autocorrect(corrector, node, reference_let)
             end
           end
+        end
+
+        def autocorrect(corrector, node, reference_let)
+          return if let_bang_across_hook?(node, reference_let)
+
+          RuboCop::RSpec::Corrector::MoveNode.new(
+            node, corrector, processed_source
+          ).move_after(reference_let)
+        end
+
+        def let_bang_across_hook?(node, reference_let)
+          return false unless node.method?(:let!)
+
+          node.left_siblings[(reference_let.sibling_index + 1)..]
+            .any? { |sibling| hook?(sibling) }
         end
       end
     end
