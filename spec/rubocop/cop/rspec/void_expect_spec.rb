@@ -53,6 +53,14 @@ RSpec.describe RuboCop::Cop::RSpec::VoidExpect do
     RUBY
   end
 
+  it 'ignores void expect outside of an example' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        expect(something)
+      end
+    RUBY
+  end
+
   context 'when expect has no parent node' do
     it 'does not register an offense' do
       expect_no_offenses(<<~RUBY)
