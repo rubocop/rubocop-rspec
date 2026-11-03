@@ -63,11 +63,18 @@ module RuboCop
           return if node.arguments.any? { |arg| arg.type?(:hash, :block_pass) }
 
           add_offense(node) do |corrector|
-            corrector.remove(node)
+            autocorrect(corrector, node)
           end
         end
 
         private
+
+        def autocorrect(corrector, node)
+          parent = node.parent
+          return if parent.respond_to?(:modifier_form?) && parent.modifier_form?
+
+          corrector.remove(node)
+        end
 
         def match_gvar?(sym)
           %i[$stdout $stderr].include?(sym)

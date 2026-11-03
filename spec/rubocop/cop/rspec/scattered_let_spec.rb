@@ -140,6 +140,41 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredLet do
     RUBY
   end
 
+  it 'flags but does not autocorrect a `let!` that would move above a hook' do
+    expect_offense(<<~RUBY)
+      describe User do
+        let!(:a) { a }
+        before { prepare }
+        let!(:b) { b }
+        ^^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'moves a `let` above a hook but leaves a `let!` behind it' do
+    expect_offense(<<~RUBY)
+      describe User do
+        let(:a) { a }
+        before { prepare }
+        let!(:b) { b }
+        ^^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+        let(:c) { c }
+        ^^^^^^^^^^^^^ Group all let/let! blocks in the example group together.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe User do
+        let(:a) { a }
+        let(:c) { c }
+        before { prepare }
+        let!(:b) { b }
+      end
+    RUBY
+  end
+
   it 'flags `let` with proc argument' do
     expect_offense(<<~RUBY)
       describe User do

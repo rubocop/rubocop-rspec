@@ -3,6 +3,9 @@
 ## Master (Unreleased)
 
 - Fix `RSpec/ScatteredLet` to not treat a Sorbet `sig` block above a `let` as a separator, and keep `sig` blocks attached to the nodes they precede when autocorrecting `RSpec/ScatteredLet`, `RSpec/LeadingSubject`, `RSpec/LetBeforeExamples` and `RSpec/HooksBeforeExamples`. ([@corsonknowles])
+- Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
+- Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
+- Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])
@@ -1011,12 +1014,14 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@akiomik]: https://github.com/akiomik
 [@akrox58]: https://github.com/akrox58
 [@alexwayfer]: https://github.com/AlexWayfer
+[@andrewfader]: https://github.com/andrewfader
 [@andrykonchin]: https://github.com/andrykonchin
 [@andyw8]: https://github.com/andyw8
 [@anthony-robin]: https://github.com/anthony-robin
 [@aried3r]: https://github.com/aried3r
 [@baberthal]: https://github.com/baberthal
 [@backus]: https://github.com/backus
+[@bbatsov]: https://github.com/bbatsov
 [@bcgraham]: https://github.com/bcgraham
 [@biinari]: https://github.com/biinari
 [@bmorrall]: https://github.com/bmorrall
@@ -1131,6 +1136,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@sl4vr]: https://github.com/sl4vr
 [@smcgivern]: https://github.com/smcgivern
 [@splattael]: https://github.com/splattael
+[@starlexxx]: https://github.com/Starlexxx
 [@stephannv]: https://github.com/stephannv
 [@sucicfilip]: https://github.com/sucicfilip
 [@swelther]: https://github.com/swelther

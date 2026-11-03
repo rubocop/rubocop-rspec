@@ -10,7 +10,9 @@ gem 'rake'
 gem 'rspec', '~> 3.11'
 gem 'rubocop-performance', '~> 1.24'
 gem 'rubocop-rake', '~> 0.7'
-gem 'rubydex', require: false, platforms: :ruby if RUBY_VERSION >= '3.2'
+if RUBY_VERSION >= '3.2'
+  gem 'rubydex', '!= 0.4.3', require: false, platforms: :ruby
+end
 gem 'simplecov', '~> 1' if RUBY_VERSION >= '3.2'
 gem 'yard', '>= 0.9.39'
 
