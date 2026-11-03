@@ -266,6 +266,51 @@ RSpec.describe RuboCop::Cop::RSpec::PredicateMatcher do
         RUBY
       end
 
+      it 'registers an offense for a predicate matcher with an ' \
+         'operator actual' do
+        expect_offense(<<~RUBY)
+          expect(foo + bar).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo + bar).empty?).to #{matcher_true}
+        RUBY
+      end
+
+      it 'registers an offense for a predicate matcher with an actual ' \
+         'that binds looser than a method call' do
+        expect_offense(<<~RUBY)
+          expect(foo && bar).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+          expect(!foo).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+          expect(foo = bar).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+          expect(foo 1).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect((foo && bar).empty?).to #{matcher_true}
+          expect((!foo).empty?).to #{matcher_true}
+          expect((foo = bar).empty?).to #{matcher_true}
+          expect((foo 1).empty?).to #{matcher_true}
+        RUBY
+      end
+
+      it 'registers an offense for a predicate matcher with an ' \
+         'indexed actual' do
+        expect_offense(<<~RUBY)
+          expect(foo[0]).to be_empty
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Prefer using `empty?` over `be_empty` matcher.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          expect(foo[0].empty?).to #{matcher_true}
+        RUBY
+      end
+
       it 'registers an offense for a predicate mather with argument' do
         expect_offense(<<~RUBY)
           expect(foo).to be_something(1, 2)
