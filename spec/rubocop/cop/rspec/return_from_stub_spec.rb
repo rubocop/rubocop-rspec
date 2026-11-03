@@ -329,5 +329,37 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub do
         library.visit.and_return(book)
       RUBY
     end
+
+    it 'registers an offense but does not correct when the stub ' \
+       'already has a block' do
+      expect_offense(<<~RUBY)
+        allow(A).to receive(:b) do
+          puts :ok
+        end.and_return(1)
+            ^^^^^^^^^^ Use block for static values.
+      RUBY
+
+      expect_no_corrections
+    end
+
+    it 'registers an offense but does not correct when the stub ' \
+       'has a numbered block' do
+      expect_offense(<<~RUBY)
+        allow(A).to receive(:b) { _1 }.and_return(1)
+                                       ^^^^^^^^^^ Use block for static values.
+      RUBY
+
+      expect_no_corrections
+    end
+
+    it 'registers an offense but does not correct when the stub ' \
+       'has an `it` block', :ruby34, unsupported_on: :parser do
+      expect_offense(<<~RUBY)
+        allow(A).to receive(:b) { it }.and_return(1)
+                                       ^^^^^^^^^^ Use block for static values.
+      RUBY
+
+      expect_no_corrections
+    end
   end
 end
