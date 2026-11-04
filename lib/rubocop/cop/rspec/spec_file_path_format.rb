@@ -5,6 +5,44 @@ module RuboCop
     module RSpec
       # Checks that spec file paths are consistent and well-formed.
       #
+      # `IgnoreMetadata` allows to ignore specs based on the top-level
+      # example group's metadata. It accepts a Hash or an Array.
+      # It accepts multiple separate entries; they are alternatives, not
+      # combinations of metadata conditions.
+      #
+      # The Array format allows defining several values for the same key, and
+      # match on key-only with the RSpec semantics.
+      #
+      # Each entry must contain at most one key/value pair.
+      #
+      # A scalar entry such as `prepare` matches a bare `:prepare` or
+      # literal `prepare: true`, but not `prepare: false` or any other value.
+      # As in RSpec, a bare tag overrides the same Symbol key in the
+      # metadata Hash.
+      #
+      # Keys and string values are treated as Symbols, so `type: routing`
+      # matches `type: :routing` but not `type: 'routing'`. Numbers, `true`,
+      # `false` and `~` (`nil`) match as is.
+      #
+      # The `-` starts a new Array entry. For example:
+      #
+      #   RSpec/SpecFilePathFormat:
+      #     IgnoreMetadata:
+      #       - prepare # ignores groups with `:prepare` or `prepare: true`
+      #       - type: model
+      #       - type: routing
+      #
+      # The Hash format matches metadata key/value pairs, such as
+      # `type: :routing` with `IgnoreMetadata: {type=>routing}`.
+      #
+      # User entries merge with the default `- type: routing` filter.
+      # To replace the default, configure `inherit_mode` for this cop:
+      #
+      #   RSpec/SpecFilePathFormat:
+      #     inherit_mode:
+      #       override: [IgnoreMetadata]
+      #     IgnoreMetadata: []
+      #
       # @example
       #   # bad
       #   whatever_spec.rb         # describe MyClass
@@ -29,8 +67,15 @@ module RuboCop
       #   # good
       #   my_class_spec.rb         # describe MyClass, '#method'
       #
-      # @example `IgnoreMetadata: {type=>routing}` (default)
+      # @example `IgnoreMetadata: [{type=>routing}]` (default)
       #   # good
+      #   whatever_spec.rb         # describe MyClass, type: :routing do; end
+      #
+      # @example `IgnoreMetadata: [prepare, {type=>model}, {type=>routing}]`
+      #   # good
+      #   whatever_spec.rb         # describe MyClass, :prepare do; end
+      #   whatever_spec.rb         # describe MyClass, prepare: true do; end
+      #   whatever_spec.rb         # describe MyClass, type: :model do; end
       #   whatever_spec.rb         # describe MyClass, type: :routing do; end
       #
       # @example `EnforcedInflector: active_support`
@@ -53,8 +98,9 @@ module RuboCop
           (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
         PATTERN
 
-        # @!method metadata_key_value(node)
-        def_node_search :metadata_key_value, '(pair (sym $_key) (sym $_value))'
+        def validate_config
+          metadata_filter
+        end
 
         def on_top_level_example_group(node)
           return unless top_level_groups.one?
@@ -67,6 +113,121 @@ module RuboCop
         end
 
         private
+
+        # Matches explicit RSpec metadata against `IgnoreMetadata` entries.
+        class MetadataFilter
+          UNKNOWN = Object.new.freeze
+          LITERALS = %i[true false nil].zip([true, false, nil]).to_h.freeze
+          private_constant :UNKNOWN, :LITERALS
+
+          def initialize(config)
+            @entries =
+              case config
+              when Hash then config.map { |key, value| entry(key, value) }
+              when Array then config.flat_map { |item| list_entries(item) }
+              else config_error!('must be a list')
+              end
+          end
+
+          def ignored?(arguments)
+            metadata = explicit_metadata(arguments)
+            @entries.any? do |key, value|
+              metadata.fetch(key, UNKNOWN).eql?(value)
+            end
+          end
+
+          private
+
+          def list_entries(item)
+            case item
+            when String, Symbol then [entry(item, true)]
+            when Hash then hash_entries(item)
+            # NOTE: RuboCop converts a user's Hash into `[key, value]` pairs
+            # when merging it with the default list (see `inherit_mode`).
+            # TODO: Remove this, and the Hash format, in the next major version.
+            when Array
+              item.size == 2 ? [entry(*item)] : invalid_entry!(item)
+            else invalid_entry!(item)
+            end
+          end
+
+          def hash_entries(item)
+            if item.size > 1
+              config_error!('list entries must contain at most one key/value ' \
+                            'pair. Split multiple pairs into separate list ' \
+                            'entries.')
+            end
+            item.map { |key, value| entry(key, value) }
+          end
+
+          def entry(key, value)
+            invalid_entry!(key) unless key.is_a?(String) || key.is_a?(Symbol)
+
+            [key.to_sym, value.is_a?(String) ? value.to_sym : value]
+          end
+
+          def invalid_entry!(item)
+            config_error!('entries must be tags or `key: value` pairs, ' \
+                          "got: #{item.inspect}")
+          end
+
+          def config_error!(message)
+            raise ValidationError,
+                  "RSpec/SpecFilePathFormat IgnoreMetadata #{message}"
+          end
+
+          def explicit_metadata(arguments)
+            arguments = arguments.dup
+            metadata = arguments.last&.hash_type? ? literals(arguments.pop) : {}
+            apply_metadata_tags(metadata, arguments)
+          end
+
+          def apply_metadata_tags(metadata, arguments)
+            tags = arguments.reverse.take_while(&:any_sym_type?)
+            if uncertain_metadata_tags?(arguments, tags)
+              invalidate_metadata_values!(metadata)
+            end
+            tags.each_with_object(metadata) do |node, result|
+              result[node.value] = true if node.sym_type?
+            end
+          end
+
+          # Positional Symbols can only overwrite Hash values with true.
+          def invalidate_metadata_values!(metadata)
+            metadata.transform_values! { |value| value.equal?(true) || UNKNOWN }
+          end
+
+          def uncertain_metadata_tags?(arguments, tags)
+            previous = arguments[-tags.size - 1]
+            tags.any?(&:dsym_type?) || unknown_metadata_argument?(previous)
+          end
+
+          def unknown_metadata_argument?(node)
+            node && !node.basic_literal? &&
+              !node.type?(:array, :hash, :dstr, :regexp, :dregx)
+          end
+
+          def literals(hash)
+            hash.children.each_with_object({}) do |node, metadata|
+              if node.pair_type? && node.key.sym_type?
+                metadata[node.key.value] = metadata_value(node.value)
+              elsif unknown_metadata_key?(node)
+                metadata.transform_values! { UNKNOWN }
+              end
+            end
+          end
+
+          def unknown_metadata_key?(node)
+            !node.pair_type? || !node.key.basic_literal?
+          end
+
+          def metadata_value(node)
+            return node.value if node.type?(:sym, :int, :float)
+
+            LITERALS.fetch(node.type, UNKNOWN)
+          end
+        end
+        private_constant :MetadataFilter
 
         # Inflector module that uses ActiveSupport for advanced inflection rules
         module ActiveSupportInflector
@@ -132,11 +293,7 @@ module RuboCop
         end
 
         def ignore_metadata?(arguments)
-          arguments.any? do |argument|
-            metadata_key_value(argument).any? do |key, value|
-              ignore_metadata.values_at(key.to_s).include?(value.to_s)
-            end
-          end
+          metadata_filter.ignored?(arguments)
         end
 
         def correct_path_pattern(class_name, arguments)
@@ -163,14 +320,10 @@ module RuboCop
 
           File.join(
             constants.filter_map do |name|
-              path = custom_transform.fetch(name) { camel_to_snake_case(name) }
+              path = custom_transform.fetch(name) { inflector.call(name) }
               path unless path.empty?
             end
           )
-        end
-
-        def camel_to_snake_case(string)
-          inflector.call(string)
         end
 
         def custom_transform
@@ -181,8 +334,9 @@ module RuboCop
           cop_config['IgnoreMethods']
         end
 
-        def ignore_metadata
-          cop_config.fetch('IgnoreMetadata', {})
+        def metadata_filter
+          @metadata_filter ||=
+            MetadataFilter.new(cop_config.fetch('IgnoreMetadata', []))
         end
 
         def filename_ends_with?(pattern)
