@@ -13,7 +13,7 @@ gem 'rubocop-rake', '~> 0.7'
 if RUBY_VERSION >= '3.2'
   gem 'rubydex', '!= 0.4.3', require: false, platforms: :ruby
 end
-gem 'simplecov', '~> 1' if RUBY_VERSION >= '3.2'
+gem 'simplecov', '>= 1.3' if RUBY_VERSION >= '3.3'
 gem 'yard', '>= 0.9.39'
 
 # FIXME: Remove when the next prism version is released.

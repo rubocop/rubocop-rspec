@@ -3,7 +3,7 @@
 require 'rubocop'
 require 'rubocop/rspec/support'
 
-unless ENV['NO_COVERAGE'] || RUBY_VERSION < '3.1'
+if RUBY_VERSION >= '3.3' && !ENV['NO_COVERAGE']
   require 'simplecov'
   SimpleCov.start
 end
