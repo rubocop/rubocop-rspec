@@ -1,0 +1,7 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        actions/checkout: ref-pin
+        ruby/setup-ruby: ref-pin
+        "*": hash-pin
