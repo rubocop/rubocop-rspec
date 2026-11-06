@@ -47,6 +47,38 @@ RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
     RUBY
   end
 
+  it 'registers an offense when using match with string containing ' \
+     'a backslash' do
+    expect_offense(<<~'RUBY')
+      it do
+        expect(path).to match(/C:\\/)
+                        ^^^^^^^^^^^^^ Prefer using `include("C:\\")` when the regex is a simple string literal.
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      it do
+        expect(path).to include("C:\\")
+      end
+    RUBY
+  end
+
+  it 'registers an offense when using match with string containing ' \
+     'a backslash and a single quote' do
+    expect_offense(<<~'RUBY')
+      it do
+        expect(text).to match(/it\\'s/)
+                        ^^^^^^^^^^^^^^^ Prefer using `include("it\\'s")` when the regex is a simple string literal.
+      end
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      it do
+        expect(text).to include("it\\'s")
+      end
+    RUBY
+  end
+
   it 'registers an offense when using match with string containing newline' do
     expect_offense(<<~RUBY)
       it do
