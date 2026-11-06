@@ -90,8 +90,8 @@ module RuboCop
         end
 
         def to_string_literal(string)
-          if string.include?("'")
-            %("#{string.gsub('"', '\"')}")
+          if string.match?(/['\\]/)
+            string.inspect
           else
             "'#{string}'"
           end
