@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix `RSpec/ScatteredLet` to not treat a Sorbet `sig` block above a `let` as a separator, and keep `sig` blocks attached to the nodes they precede when autocorrecting `RSpec/ScatteredLet`, `RSpec/LeadingSubject`, `RSpec/LetBeforeExamples` and `RSpec/HooksBeforeExamples`. ([@corsonknowles])
 - Fix an incorrect autocorrect for `RSpec/MatchWithSimpleRegex` when the regex contains a backslash, which produced invalid or semantically different code. ([@ihamzatarar])
 - Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
 - Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
