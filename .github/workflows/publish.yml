@@ -12,7 +12,10 @@ jobs:
       actions: write
       contents: write
       id-token: write
-      pull-requests: write
+    env:
+      # A fine-grained token with contents write access to rubocop/docs.rubocop.org,
+      # which sending it a repository dispatch requires.
+      DISPATCH_TOKEN: ${{ secrets.RELEASE_DISPATCH_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Ruby
@@ -29,18 +32,13 @@ jobs:
           gh release create $(git tag --points-at @) \
             --title "RuboCop RSpec $(git tag --points-at @)" \
             --notes-file relnotes.md
-      - name: Replace version in Antora config
+      # Adds the tag to docs.rubocop.org's playbook and publishes the docs.
+      - name: Publish the docs
+        if: env.DISPATCH_TOKEN != ''
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ env.DISPATCH_TOKEN }}
         run: |
-          sed -i 's/version:.*$/version: ~/' docs/antora.yml
-          if ! git diff --exit-code docs/antora.yml; then
-            branch=switch-docs-version-$(git tag --points-at @)
-            git config user.name "${GITHUB_ACTOR}"
-            git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-            git checkout -b "$branch"
-            git add docs/antora.yml
-            git commit -m "Switch docs version back"
-            git push -u origin "$branch"
-            gh pr create --fill --head "$branch"
-          fi
+          gh api repos/rubocop/docs.rubocop.org/dispatches \
+            -f event_type=release \
+            -f 'client_payload[project]=rubocop-rspec' \
+            -f "client_payload[tag]=$(git tag --points-at @)"
