@@ -78,6 +78,8 @@ module RuboCop
           corrected = strip_excessive_whitespace(text)
 
           add_offense(docstring) do |corrector|
+            next unless docstring.source == text
+
             corrector.replace(docstring, corrected)
           end
         end
