@@ -3,6 +3,7 @@
 ## Master (Unreleased)
 
 - Allow `RSpec/SpecFilePathFormat` to ignore multiple values of the same metadata key (e.g. `type: :feature` + `type: :job`) and boolean tags. The Hash format remains supported. User entries merge with the default `type: routing` filter; use `inherit_mode: {override: [IgnoreMetadata]}` to replace it. ([@snowyukitty])
+- Fix an incorrect autocorrect for `RSpec/MatchWithSimpleRegex` when the regex contains a backslash, which produced invalid or semantically different code. ([@ihamzatarar])
 - Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
 - Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
 - Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
@@ -1068,6 +1069,7 @@ Compatibility release so users can upgrade RuboCop to 0.51.0. No new features.
 [@hosamaly]: https://github.com/hosamaly
 [@iamzayn19]: https://github.com/iamzayn19
 [@ignaciovillaverde]: https://github.com/ignaciovillaverde
+[@ihamzatarar]: https://github.com/ihamzatarar
 [@jaredbeck]: https://github.com/jaredbeck
 [@jaredmoody]: https://github.com/jaredmoody
 [@jdufresne]: https://github.com/jdufresne

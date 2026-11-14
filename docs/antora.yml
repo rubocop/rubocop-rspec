@@ -1,5 +1,6 @@
 name: rubocop-rspec
 title: RuboCop RSpec
-version: ~
+# No version here: docs.rubocop.org derives it from the release tag
+# (v3.11.0 becomes 3.11), so patch versions don't appear in the docs.
 nav:
   - modules/ROOT/nav.adoc
