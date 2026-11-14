@@ -10,16 +10,9 @@ gem 'rake'
 gem 'rspec', '~> 3.11'
 gem 'rubocop-performance', '~> 1.24'
 gem 'rubocop-rake', '~> 0.7'
-if RUBY_VERSION >= '3.2'
-  gem 'rubydex', '!= 0.4.3', require: false, platforms: :ruby
-end
+gem 'rubydex', require: false, platforms: :ruby if RUBY_VERSION >= '3.2'
 gem 'simplecov', '>= 1.3' if RUBY_VERSION >= '3.3'
 gem 'yard', '>= 0.9.39'
-
-# FIXME: Remove when the next prism version is released.
-if RUBY_VERSION < '3.0' || RUBY_ENGINE == 'jruby'
-  gem 'prism', '!= 1.5.0', '!= 1.5.1'
-end
 
 local_gemfile = 'Gemfile.local'
 eval_gemfile(local_gemfile) if File.exist?(local_gemfile)
