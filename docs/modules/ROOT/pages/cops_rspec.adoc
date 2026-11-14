@@ -6314,7 +6314,7 @@ It accepts multiple separate entries; they are alternatives, not
 combinations of metadata conditions.
 
 The Array format allows defining several values for the same key, and
-match on key-only with the RSpec semantics.
+match a scalar entry as a bare tag or an explicit `key: true`.
 
 Each entry must contain at most one key/value pair.
 

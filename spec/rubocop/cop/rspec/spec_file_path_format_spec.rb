@@ -499,6 +499,15 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathFormat, :config do
   it_behaves_like 'it rejects IgnoreMetadata', '{1: x}',
                   'entries must be tags or `key: value` pairs, got: 1'
 
+  it_behaves_like 'it rejects IgnoreMetadata', '[{skip: [database]}]',
+                  'values must be scalar literals'
+  it_behaves_like 'it rejects IgnoreMetadata', '{skip: [database]}',
+                  'values must be scalar literals'
+  it_behaves_like 'it rejects IgnoreMetadata', '[{skip: {database: true}}]',
+                  'values must be scalar literals'
+  it_behaves_like 'it rejects IgnoreMetadata', '{skip: {database: true}}',
+                  'values must be scalar literals'
+
   shared_examples 'it does not ignore metadata' do |setting|
     let(:cop_config) { yaml_config("IgnoreMetadata: #{setting}") }
 

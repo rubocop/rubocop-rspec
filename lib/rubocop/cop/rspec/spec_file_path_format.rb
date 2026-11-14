@@ -11,7 +11,7 @@ module RuboCop
       # combinations of metadata conditions.
       #
       # The Array format allows defining several values for the same key, and
-      # match on key-only with the RSpec semantics.
+      # match a scalar entry as a bare tag or an explicit `key: true`.
       #
       # Each entry must contain at most one key/value pair.
       #
@@ -118,7 +118,9 @@ module RuboCop
         class MetadataFilter
           UNKNOWN = Object.new.freeze
           LITERALS = %i[true false nil].zip([true, false, nil]).to_h.freeze
-          private_constant :UNKNOWN, :LITERALS
+          VALUE_TYPES = [Symbol, String, Integer, Float, TrueClass,
+                         FalseClass, NilClass].freeze
+          private_constant :UNKNOWN, :LITERALS, :VALUE_TYPES
 
           def initialize(config)
             @entries =
@@ -162,6 +164,9 @@ module RuboCop
 
           def entry(key, value)
             invalid_entry!(key) unless key.is_a?(String) || key.is_a?(Symbol)
+            unless VALUE_TYPES.any? { |type| value.is_a?(type) }
+              config_error!('values must be scalar literals')
+            end
 
             [key.to_sym, value.is_a?(String) ? value.to_sym : value]
           end
