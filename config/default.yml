@@ -968,15 +968,18 @@ RSpec/SpecFilePathFormat:
     RuboCop: rubocop
     RSpec: rspec
   IgnoreMethods: false
+  inherit_mode:
+    merge:
+      - IgnoreMetadata
   IgnoreMetadata:
-    type: routing
+    - type: routing
   InflectorPath: "./config/initializers/inflections.rb"
   SupportedInflectors:
     - default
     - active_support
   EnforcedInflector: default
   VersionAdded: '2.24'
-  VersionChanged: '3.8'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
 
 RSpec/SpecFilePathSuffix:
