@@ -54,6 +54,7 @@ module RuboCop
             format(MSG, example: method)
           end
         end
+        alias on_send on_block
 
         private
 

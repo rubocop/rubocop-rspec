@@ -400,4 +400,110 @@ RSpec.describe RuboCop::Cop::RSpec::PendingWithoutReason, :ruby27 do
       RUBY
     end
   end
+
+  context 'when using a block-pass' do
+    it 'registers offense for pending/skip by example method' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          pending 'does something', &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for pending.
+          skip 'does something', &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+          xit 'does something', &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for xit.
+          skip(&blk)
+          ^^^^^^^^^^ Give the reason for skip.
+        end
+      RUBY
+    end
+
+    it 'registers offense for pending/skip by metadata on example' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does something', :pending, &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for pending.
+          it 'does something', :skip, &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+          it 'does something', pending: true, &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for pending.
+          it 'does something', skip: true, &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+          it('does something', :foo, :skip, &blk)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+        end
+      RUBY
+    end
+
+    it 'registers offense for pending/skip by metadata on example group' do
+      expect_offense(<<~RUBY)
+        describe 'something', :pending, &blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for pending.
+        describe 'something', skip: true, &blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+      RUBY
+    end
+
+    it 'registers no offense when pending/skip by metadata has a reason' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does something', pending: 'reason', &blk
+          it 'does something', skip: 'reason', &blk
+          it 'does something', :focus, &blk
+          it 'does something', &blk
+        end
+      RUBY
+    end
+
+    it 'registers offense for xdescribe in an example group' do
+      expect_offense(<<~RUBY)
+        RSpec.describe 'Foo' do
+          xdescribe 'something', &blk
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+        end
+      RUBY
+    end
+
+    it 'registers offense for a top-level xdescribe' do
+      expect_offense(<<~RUBY)
+        RSpec.xdescribe 'something', &blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Give the reason for skip.
+        RSpec.describe 'other' do
+        end
+      RUBY
+    end
+
+    it 'registers offense for skip without reason inside an example' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does something' do
+            skip(&blk)
+            ^^^^^^^^^^ Give the reason for skip.
+          end
+        end
+      RUBY
+    end
+
+    it 'registers no offense for pending/skip with a reason inside an example' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does something' do
+            pending 'reason', &blk
+            skip 'reason', &blk
+          end
+        end
+      RUBY
+    end
+
+    it 'registers no offense for pending/skip outside of specs' do
+      expect_no_offenses(<<~RUBY)
+        FactoryBot.define do
+          factory :task do
+            pending(&blk)
+            skip 'foo', &blk
+          end
+        end
+      RUBY
+    end
+  end
+
 end

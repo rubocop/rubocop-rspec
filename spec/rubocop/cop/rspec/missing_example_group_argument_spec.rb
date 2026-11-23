@@ -52,4 +52,36 @@ RSpec.describe RuboCop::Cop::RSpec::MissingExampleGroupArgument do
       end
     RUBY
   end
+
+  it 'checks first argument of describe with block-pass' do
+    expect_offense(<<~RUBY)
+      describe(&blk)
+      ^^^^^^^^^^^^^^ The first argument to `describe` should not be empty.
+
+      RSpec.describe(&blk)
+      ^^^^^^^^^^^^^^^^^^^^ The first argument to `describe` should not be empty.
+    RUBY
+  end
+
+  it 'checks first argument of nested context with block-pass' do
+    expect_offense(<<~RUBY)
+      describe FooClass do
+        context(&blk)
+        ^^^^^^^^^^^^^ The first argument to `context` should not be empty.
+      end
+    RUBY
+  end
+
+  it 'accepts describe with an argument and block-pass' do
+    expect_no_offenses(<<~RUBY)
+      describe FooClass, &blk
+      RSpec.describe(FooClass, &blk)
+    RUBY
+  end
+
+  it 'accepts methods with a name like an example block and block-pass' do
+    expect_no_offenses(<<~RUBY)
+      foo.describe(&blk)
+    RUBY
+  end
 end

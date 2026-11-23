@@ -108,13 +108,17 @@ module RuboCop
           find_nested_example_groups(node) do |example_group, nesting|
             self.max = nesting
             add_offense(
-              example_group.send_node,
+              group_send_node(example_group),
               message: message(nesting)
             )
           end
         end
 
         private
+
+        def group_send_node(example_group)
+          example_group.send_type? ? example_group : example_group.send_node
+        end
 
         def find_nested_example_groups(node, nesting: 1, &block)
           example_group = example_group?(node)
@@ -126,7 +130,7 @@ module RuboCop
                            nesting
                          end
 
-          node.each_child_node(:block, :begin) do |child|
+          node.each_child_node(:block, :begin, :send) do |child|
             find_nested_example_groups(child, nesting: next_nesting, &block)
           end
         end

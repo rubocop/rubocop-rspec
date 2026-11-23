@@ -130,4 +130,47 @@ RSpec.describe RuboCop::Cop::RSpec::UndescriptiveLiteralsDescription, :config do
       end
     RUBY
   end
+
+  it 'registers an offense when using `describe` with only regex ' \
+     'and block-pass' do
+    expect_offense(<<~RUBY)
+      describe /time/, &blk
+               ^^^^^^ Description should be descriptive.
+    RUBY
+  end
+
+  it 'registers an offense when using `it` with only Integer and block-pass' do
+    expect_offense(<<~RUBY)
+      it 1, &blk
+         ^ Description should be descriptive.
+    RUBY
+  end
+
+  it 'registers an offense when using `context` with only execute string ' \
+     'and block-pass' do
+    expect_offense(<<~RUBY)
+      context `time`, &blk
+              ^^^^^^ Description should be descriptive.
+    RUBY
+  end
+
+  it 'does not register an offense when using `it` with a string ' \
+     'and block-pass' do
+    expect_no_offenses(<<~RUBY)
+      it 'is descriptive', &blk
+    RUBY
+  end
+
+  it 'does not register an offense when using `it` with a literal ' \
+     'and metadata and block-pass' do
+    expect_no_offenses(<<~RUBY)
+      it 1, :flag, &blk
+    RUBY
+  end
+
+  it 'does not register an offense when using `it` with only block-pass' do
+    expect_no_offenses(<<~RUBY)
+      it(&blk)
+    RUBY
+  end
 end

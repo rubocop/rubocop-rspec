@@ -49,7 +49,10 @@ module RuboCop
 
         # @!method example_groups_or_example?(node)
         def_node_matcher :example_groups_or_example?, <<~PATTERN
-          (block (send #rspec? {#ExampleGroups.all #Examples.all} $_) ...)
+          {
+            (block (send #rspec? {#ExampleGroups.all #Examples.all} $_) ...)
+            (send #rspec? {#ExampleGroups.all #Examples.all} $_ block_pass)
+          }
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
@@ -57,6 +60,7 @@ module RuboCop
             add_offense(arg) if offense?(arg)
           end
         end
+        alias on_send on_block
 
         private
 

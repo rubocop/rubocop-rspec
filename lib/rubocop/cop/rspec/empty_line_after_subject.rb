@@ -30,6 +30,8 @@ module RuboCop
             format(MSG, subject: method)
           end
         end
+
+        alias on_send on_block
       end
     end
   end

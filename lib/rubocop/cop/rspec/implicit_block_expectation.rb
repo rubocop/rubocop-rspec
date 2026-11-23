@@ -32,6 +32,11 @@ module RuboCop
         # @!method lambda_subject?(node)
         def_node_matcher :lambda_subject?, '(block #lambda? ...)'
 
+        # @!method lambda_subject_definition?(node)
+        def_node_matcher :lambda_subject_definition?, <<~PATTERN
+          (block (send nil? #Subjects.all ...) _ #lambda_subject?)
+        PATTERN
+
         # @!method implicit_expect(node)
         def_node_matcher :implicit_expect, <<~PATTERN
           $(send nil? {:is_expected :should :should_not} ...)
@@ -40,7 +45,7 @@ module RuboCop
         def on_send(node)
           implicit_expect(node) do |implicit_expect|
             subject = nearest_subject(implicit_expect)
-            add_offense(implicit_expect) if lambda_subject?(subject&.body)
+            add_offense(implicit_expect) if lambda_subject_definition?(subject)
           end
         end
 

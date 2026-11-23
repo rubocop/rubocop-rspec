@@ -36,6 +36,7 @@ module RuboCop
             format(MSG, example_group: method)
           end
         end
+        alias on_send on_block
       end
     end
   end

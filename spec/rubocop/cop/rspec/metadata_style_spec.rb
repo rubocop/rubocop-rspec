@@ -187,6 +187,29 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
         RUBY
       end
     end
+
+    context 'with a block-pass' do
+      it 'registers offense for boolean keyword arguments metadata' do
+        expect_offense(<<~RUBY)
+          it 'Something', a: true, &blk
+                          ^^^^^^^ Use symbol style for metadata.
+          it('Something', :a => true, &blk)
+                          ^^^^^^^^^^ Use symbol style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it 'Something', :a, &blk
+          it('Something', :a, &blk)
+        RUBY
+      end
+
+      it 'registers no offense for symbol metadata' do
+        expect_no_offenses(<<~RUBY)
+          describe 'Something', :a, &blk
+          describe 'Something', &blk
+        RUBY
+      end
+    end
   end
 
   context 'with `EnforcedStyle: hash`' do
@@ -360,6 +383,85 @@ RSpec.describe RuboCop::Cop::RSpec::MetadataStyle do
         RUBY
 
         expect_no_corrections
+      end
+    end
+
+    context 'with a block-pass' do
+      it 'registers offense for symbol metadata without parentheses' do
+        expect_offense(<<~RUBY)
+          describe 'Something', :a, &blk
+                                ^^ Use hash style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          describe 'Something', a: true, &blk
+        RUBY
+      end
+
+      it 'registers offense for symbol metadata with parentheses' do
+        expect_offense(<<~RUBY)
+          it('Something', :a, &blk)
+                          ^^ Use hash style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it('Something', a: true, &blk)
+        RUBY
+      end
+
+      it 'registers offense for 2 symbol metadata' do
+        expect_offense(<<~RUBY)
+          it 'Something', :a, :b, &blk
+                              ^^ Use hash style for metadata.
+                          ^^ Use hash style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it 'Something', b: true, a: true, &blk
+        RUBY
+      end
+
+      it 'registers offense for symbol metadata with an existing hash' do
+        expect_offense(<<~RUBY)
+          it 'Something', :a, b: true, &blk
+                          ^^ Use hash style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it 'Something', b: true, a: true, &blk
+        RUBY
+      end
+
+      it 'registers offense for symbol metadata with an empty hash' do
+        expect_offense(<<~RUBY)
+          it 'Something', :a, {}, &blk
+                          ^^ Use hash style for metadata.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          it 'Something', { a: true }, &blk
+        RUBY
+      end
+
+      it 'does not autocorrect ambiguous trailing metadata' do
+        expect_offense(<<~RUBY)
+          it 'Something', :a, b, &blk
+                          ^^ Use hash style for metadata.
+        RUBY
+
+        expect_no_corrections
+      end
+
+      it 'registers no offense for boolean keyword arguments metadata' do
+        expect_no_offenses(<<~RUBY)
+          describe 'Something', a: true, &blk
+        RUBY
+      end
+
+      it 'does not treat the block-pass as metadata' do
+        expect_no_offenses(<<~RUBY)
+          describe 'Something', &blk
+        RUBY
       end
     end
   end

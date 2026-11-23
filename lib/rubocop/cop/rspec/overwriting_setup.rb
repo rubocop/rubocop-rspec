@@ -27,11 +27,17 @@ module RuboCop
 
         # @!method setup?(node)
         def_node_matcher :setup?, <<~PATTERN
-          (block (send nil? {#Helpers.all #Subjects.all} ...) ...)
+          {
+            (block (send nil? {#Helpers.all #Subjects.all} ...) ...)
+            (send nil? {#Helpers.all #Subjects.all} ... block_pass)
+          }
         PATTERN
 
         # @!method first_argument_name(node)
-        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_))'
+        def_node_matcher :first_argument_name, '(send _ _ ({str sym} $_) ...)'
+
+        # @!method unnamed_setup?(node)
+        def_node_matcher :unnamed_setup?, '(send _ _ (block_pass ...)?)'
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group_with_body?(node)
@@ -48,16 +54,14 @@ module RuboCop
 
         def find_duplicates(node)
           setup_expressions = Set.new
-          node.each_child_node(:block) do |child|
+          node.each_child_node(:block, :send) do |child|
             next unless common_setup?(child)
 
-            name = if child.send_node.arguments?
-                     first_argument_name(child.send_node).to_sym
-                   else
-                     :subject
-                   end
+            call = call_node(child)
+            name = unnamed_setup?(call) ? :subject : first_argument_name(call)
+            next unless name
 
-            yield child, name unless setup_expressions.add?(name)
+            yield child, name.to_sym unless setup_expressions.add?(name.to_sym)
           end
         end
 
@@ -65,8 +69,14 @@ module RuboCop
           return false unless setup?(node)
 
           # Search only for setup with basic_literal arguments (e.g. :sym, :str)
-          # or no arguments at all.
-          node.send_node.arguments.all?(&:basic_literal?)
+          # or no arguments at all. A block-pass argument is ignored.
+          call_node(node).arguments.all? do |argument|
+            argument.basic_literal? || argument.block_pass_type?
+          end
+        end
+
+        def call_node(node)
+          node.send_type? ? node : node.send_node
         end
       end
     end

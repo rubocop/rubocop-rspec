@@ -186,4 +186,48 @@ RSpec.describe RuboCop::Cop::RSpec::NestedGroups do
       RUBY
     end
   end
+
+  it 'flags nested example groups using a block-pass' do
+    expect_offense(<<~RUBY)
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            context 'when baz', &blk
+            ^^^^^^^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'flags nested example groups using a block-pass next to other nodes' do
+    expect_offense(<<~RUBY)
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar' do
+            let(:foo) { bar }
+            context 'when baz', &blk
+            ^^^^^^^^^^^^^^^^^^^^^^^^ Maximum example group nesting exceeded [4/3].
+          end
+        end
+      end
+    RUBY
+  end
+
+  it 'does not flag a top-level example group using a block-pass' do
+    expect_no_offenses(<<~RUBY)
+      describe MyClass, &blk
+    RUBY
+  end
+
+  it 'does not flag nested example groups using a block-pass within the ' \
+     'limit' do
+    expect_no_offenses(<<~RUBY)
+      describe MyClass do
+        context 'when foo' do
+          context 'when bar', &blk
+        end
+      end
+    RUBY
+  end
 end

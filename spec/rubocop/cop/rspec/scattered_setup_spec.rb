@@ -227,4 +227,102 @@ RSpec.describe RuboCop::Cop::RSpec::ScatteredSetup do
       end
     RUBY
   end
+
+  it 'flags multiple block-pass hooks without autocorrecting' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before(&bar)
+        ^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before(&baz)
+        ^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'flags a block hook and a block-pass hook without autocorrecting' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { bar }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before(&baz)
+        ^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'flags a block-pass hook and a block hook without autocorrecting' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before(&bar)
+        ^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 3).
+        before { baz }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'flags block-pass hooks with the same scope and metadata' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        after(:each, :special, &bar)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `after` hooks in the same example group (also defined on line 3).
+        after(:example, special: true, &baz)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Do not define multiple `after` hooks in the same example group (also defined on line 2).
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'only merges block hooks when a block-pass hook is in between' do
+    expect_offense(<<~RUBY)
+      describe Foo do
+        before { bar }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 3, 4).
+        before(&blk)
+        ^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 2, 4).
+        before { baz }
+        ^^^^^^^^^^^^^^ Do not define multiple `before` hooks in the same example group (also defined on lines 2, 3).
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe Foo do
+        before { bar
+      baz  }
+        before(&blk)
+      end
+    RUBY
+  end
+
+  it 'ignores block-pass hooks with different scopes or names' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        before(&bar)
+        before(:all, &bar)
+        after(&bar)
+        before(:each, :special, &bar)
+        around(&bar)
+        around(&baz)
+      end
+    RUBY
+  end
+
+  it 'ignores block-pass hooks defined inside class methods' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo do
+        before(&bar)
+        def self.setup
+          before(&baz)
+        end
+        setup
+      end
+    RUBY
+  end
 end

@@ -215,4 +215,52 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
       RUBY
     end
   end
+
+  context 'with a block-pass instead of a block' do
+    it 'flags a non-constant first argument' do
+      expect_offense(<<~RUBY)
+        describe "bad describe", &blk
+                 ^^^^^^^^^^^^^^ The first argument to describe should be the class or module being tested.
+      RUBY
+    end
+
+    it 'flags a non-constant first argument with metadata' do
+      expect_offense(<<~RUBY)
+        describe "bad describe", :foo, &blk
+                 ^^^^^^^^^^^^^^ The first argument to describe should be the class or module being tested.
+      RUBY
+    end
+
+    it 'supports a constant first argument' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe Foo, &blk
+      RUBY
+    end
+
+    it 'supports a string constant first argument' do
+      expect_no_offenses(<<~RUBY)
+        describe 'Foo::Bar', &blk
+      RUBY
+    end
+
+    it 'ignores feature specs' do
+      expect_no_offenses(<<~RUBY)
+        describe 'my new feature', type: :feature, &blk
+      RUBY
+    end
+
+    it 'does not flag the block-pass itself' do
+      expect_no_offenses(<<~RUBY)
+        describe(&blk)
+      RUBY
+    end
+
+    it 'flags non-ignored `type` metadata' do
+      expect_offense(<<~RUBY)
+        describe 'wow', blah, type: :wow, &blk
+                 ^^^^^ The first argument to describe should be the class or module being tested.
+      RUBY
+    end
+  end
+
 end

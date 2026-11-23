@@ -55,11 +55,19 @@ module RuboCop
 
         # @!method doc_string_and_metadata(node)
         def_node_matcher :doc_string_and_metadata, <<~PATTERN
-          (block (send _ _ $_ $...) ...)
+          {
+            (block (send _ _ $_ $...) ...)
+            (send _ _ $_ $... block_pass)
+          }
         PATTERN
 
         # @!method empty_description?(node)
-        def_node_matcher :empty_description?, '(block (send _ _) ...)'
+        def_node_matcher :empty_description?, <<~PATTERN
+          {
+            (block (send _ _) ...)
+            (send _ _ block_pass)
+          }
+        PATTERN
 
         def on_begin(node)
           return unless several_example_groups?(node)

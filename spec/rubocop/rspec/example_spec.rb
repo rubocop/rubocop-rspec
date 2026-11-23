@@ -52,6 +52,29 @@ RSpec.describe RuboCop::RSpec::Example, :config do
       .to eq(s(:begin, s(:send, nil, :bar), s(:send, nil, :baz)))
   end
 
+  it 'extracts doc string for block-pass examples' do
+    expect(example_node("it('does x', &blk)").doc_string)
+      .to eq(s(:str, 'does x'))
+  end
+
+  it 'returns nil doc string for block-pass examples without doc strings' do
+    expect(example_node('it(&blk)').doc_string).to be_nil
+  end
+
+  it 'extracts keywords without block-pass' do
+    expect(example_node("it('foo', :bar, &blk)").metadata)
+      .to eq([s(:sym, :bar)])
+  end
+
+  it 'returns nil keywords for block-pass examples without doc strings' do
+    expect(example_node('it(&blk)').metadata).to be_nil
+  end
+
+  it 'extracts block-pass as implementation' do
+    expect(example_node("it('foo', &blk)").implementation)
+      .to eq(s(:block_pass, s(:send, nil, :blk)))
+  end
+
   it 'returns node' do
     node = s(:sym, :node)
     expect(described_class.new(node).to_node).to be(node)

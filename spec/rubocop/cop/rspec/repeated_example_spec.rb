@@ -250,4 +250,52 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExample do
       end
     RUBY
   end
+
+  it 'registers an offense for repeated examples with block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        ^^^^^^^^^^^^^^^^^ Don't repeat examples within an example group. Repeated on line(s) 3.
+        it 'does y', &blk
+        ^^^^^^^^^^^^^^^^^ Don't repeat examples within an example group. Repeated on line(s) 2.
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples with different procs' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        it 'does y', &other_blk
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples without descriptions ' \
+     'with different procs' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it(&blk)
+        it(&other_blk)
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples with different metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', :a, &blk
+        it 'does y', :b, &blk
+      end
+    RUBY
+  end
+
+  it 'does not flag a block-pass example and a block example' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        it('does y') { blk }
+      end
+    RUBY
+  end
 end

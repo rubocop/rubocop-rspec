@@ -25,9 +25,12 @@ module RuboCop
 
         # @!method second_string_literal_argument(node)
         def_node_matcher :second_string_literal_argument, <<~PATTERN
-          (block
-            (send #rspec? :describe _first_argument ${str dstr} ...)
-          ...)
+          {
+            (block
+              (send #rspec? :describe _first_argument ${str dstr} ...)
+            ...)
+            (send #rspec? :describe _first_argument ${str dstr} ... block_pass)
+          }
         PATTERN
 
         # @!method method_name?(node)

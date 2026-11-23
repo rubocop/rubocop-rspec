@@ -379,4 +379,82 @@ RSpec.describe RuboCop::Cop::RSpec::HookArgument do
       end
     end
   end
+
+  context 'with block-pass hooks and EnforcedStyle :implicit' do
+    let(:enforced_style) { :implicit }
+
+    it 'detects :each and :example' do
+      expect_offense(<<~RUBY)
+        before(:each, &blk)
+        ^^^^^^^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
+        after :example, &blk
+        ^^^^^^^^^^^^^^^^^^^^ Omit the default `:example` argument for RSpec hooks.
+        config.around(:each, &blk)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^ Omit the default `:each` argument for RSpec hooks.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before(&blk)
+        after &blk
+        config.around(&blk)
+      RUBY
+    end
+
+    it 'does not flag hooks without default scopes' do
+      expect_no_offenses(<<~RUBY)
+        before(&blk)
+        after(:all, &blk)
+        around(:each, :focus, &blk)
+      RUBY
+    end
+  end
+
+  context 'with block-pass hooks and EnforcedStyle :each' do
+    let(:enforced_style) { :each }
+
+    it 'detects :example and hooks without default scopes' do
+      expect_offense(<<~RUBY)
+        before(:example, &blk)
+        ^^^^^^^^^^^^^^^^^^^^^^ Use `:each` for RSpec hooks.
+        after(&blk)
+        ^^^^^ Use `:each` for RSpec hooks.
+        around &blk
+        ^^^^^^ Use `:each` for RSpec hooks.
+        config.before(&blk)
+               ^^^^^^ Use `:each` for RSpec hooks.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before(:each, &blk)
+        after(:each, &blk)
+        around :each, &blk
+        config.before(:each, &blk)
+      RUBY
+    end
+
+    it 'does not flag :each' do
+      expect_no_offenses(<<~RUBY)
+        before(:each, &blk)
+        after(:all, &blk)
+      RUBY
+    end
+  end
+
+  context 'with block-pass hooks and EnforcedStyle :example' do
+    let(:enforced_style) { :example }
+
+    it 'detects :each and hooks without default scopes' do
+      expect_offense(<<~RUBY)
+        before(:each, &blk)
+        ^^^^^^^^^^^^^^^^^^^ Use `:example` for RSpec hooks.
+        after(&blk)
+        ^^^^^ Use `:example` for RSpec hooks.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        before(:example, &blk)
+        after(:example, &blk)
+      RUBY
+    end
+  end
 end

@@ -83,8 +83,15 @@ module RuboCop
           end
         end
 
+        def mergeable?(first_occurrence, occurrence)
+          first_occurrence != occurrence &&
+            first_occurrence.any_block_type? &&
+            occurrence.any_block_type? &&
+            first_occurrence.body
+        end
+
         def autocorrect(corrector, first_occurrence, occurrence)
-          return if first_occurrence == occurrence || !first_occurrence.body
+          return unless mergeable?(first_occurrence, occurrence)
 
           # Take heredocs into account
           body = occurrence.body&.source_range&.with(

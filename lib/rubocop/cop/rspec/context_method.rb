@@ -31,22 +31,32 @@ module RuboCop
 
         # @!method context_method(node)
         def_node_matcher :context_method, <<~PATTERN
-          (block
+          {
+            (block
+              (send #rspec? :context
+                ${(str #method_name?) (dstr (str #method_name?) ...)}
+              ...)
+            ...)
             (send #rspec? :context
               ${(str #method_name?) (dstr (str #method_name?) ...)}
-            ...)
-          ...)
+            ... block_pass)
+          }
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           context_method(node) do |context|
             add_offense(context) do |corrector|
-              corrector.replace(node.send_node.loc.selector, 'describe')
+              corrector.replace(send_node(node).loc.selector, 'describe')
             end
           end
         end
+        alias on_send on_block
 
         private
+
+        def send_node(node)
+          node.send_type? ? node : node.send_node
+        end
 
         def method_name?(description)
           description.start_with?('.', '#')

@@ -288,4 +288,65 @@ RSpec.describe RuboCop::Cop::RSpec::HooksBeforeExamples do
       RUBY
     end
   end
+
+  it 'flags a block-pass `before` after `it`' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        it { is_expected.to be_after_before_hook }
+        before(&setup)
+        ^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        before(&setup)
+        it { is_expected.to be_after_before_hook }
+      end
+    RUBY
+  end
+
+  it 'flags `before` after a block-pass example' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        it 'works', &blk
+        before { setup }
+        ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        before { setup }
+        it 'works', &blk
+      end
+    RUBY
+  end
+
+  it 'flags `before` after a block-pass example group' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        describe 'nested', &blk
+        before { setup }
+        ^^^^^^^^^^^^^^^^ Move `before` above the examples in the group.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        before { setup }
+        describe 'nested', &blk
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass hooks before block-pass examples' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe User do
+        before(&setup)
+        after(&teardown)
+        it 'works', &blk
+      end
+    RUBY
+  end
 end

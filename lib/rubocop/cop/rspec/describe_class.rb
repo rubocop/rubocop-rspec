@@ -42,12 +42,15 @@ module RuboCop
 
         # @!method example_group_with_ignored_metadata?(node)
         def_node_matcher :example_group_with_ignored_metadata?, <<~PATTERN
-          (send #rspec? :describe ... (hash <#ignored_metadata? ...>))
+          {
+            (send #rspec? :describe ... (hash <#ignored_metadata? ...>))
+            (send #rspec? :describe ... (hash <#ignored_metadata? ...>) block_pass)
+          }
         PATTERN
 
         # @!method not_a_const_described(node)
         def_node_matcher :not_a_const_described, <<~PATTERN
-          (send #rspec? :describe $[!const !#string_constant?] ...)
+          (send #rspec? :describe $[!const !#string_constant? !block_pass] ...)
         PATTERN
 
         # @!method sym_pair(node)
@@ -56,9 +59,11 @@ module RuboCop
         PATTERN
 
         def on_top_level_group(node)
-          return if example_group_with_ignored_metadata?(node.send_node)
+          send_node = node.send_type? ? node : node.send_node
 
-          not_a_const_described(node.send_node) do |described|
+          return if example_group_with_ignored_metadata?(send_node)
+
+          not_a_const_described(send_node) do |described|
             add_offense(described)
           end
         end

@@ -281,4 +281,58 @@ RSpec.describe RuboCop::Cop::RSpec::SortMetadata do
       RUBY
     end
   end
+
+  context 'with a block-pass' do
+    it 'registers an offense for unsorted symbol metadata' do
+      expect_offense(<<~RUBY)
+        it 'works', :b, :a, &blk
+                    ^^^^^^ Sort metadata alphabetically.
+        describe 'Something', :b, :a, &blk
+                              ^^^^^^ Sort metadata alphabetically.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it 'works', :a, :b, &blk
+        describe 'Something', :a, :b, &blk
+      RUBY
+    end
+
+    it 'registers an offense for unsorted symbol and hash metadata' do
+      expect_offense(<<~RUBY)
+        it('works', :b, :a, foo: 'bar', baz: true, &blk)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Sort metadata alphabetically.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        it('works', :a, :b, baz: true, foo: 'bar', &blk)
+      RUBY
+    end
+
+    it 'registers an offense when the last argument before the block-pass ' \
+       'could be a hash' do
+      expect_offense(<<~RUBY)
+        describe 'Something', :z, :a, some_hash, &blk
+                              ^^^^^^ Sort metadata alphabetically.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        describe 'Something', :a, :z, some_hash, &blk
+      RUBY
+    end
+
+    it 'does not register an offense for sorted metadata' do
+      expect_no_offenses(<<~RUBY)
+        it 'works', :a, :b, baz: true, foo: 'bar', &blk
+        describe 'Something', &blk
+      RUBY
+    end
+
+    it 'does not treat the block-pass as metadata' do
+      expect_no_offenses(<<~RUBY)
+        describe 'Something', &blk
+        describe 'Something', 'description', &blk
+      RUBY
+    end
+  end
+
 end

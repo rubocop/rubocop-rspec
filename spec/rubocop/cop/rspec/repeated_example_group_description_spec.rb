@@ -240,4 +240,56 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupDescription do
       end
     RUBY
   end
+
+  it 'registers an offense for repeated describe descriptions ' \
+     'with block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'repeated', &blk
+      ^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [2]
+      describe 'repeated', &other_blk
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [1]
+    RUBY
+  end
+
+  it 'registers an offense for a block-pass group repeating a block group' do
+    expect_offense(<<~RUBY)
+      context 'repeated', &blk
+      ^^^^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [2]
+      context 'repeated' do
+      ^^^^^^^^^^^^^^^^^^^^^ Repeated context block description on line(s) [1]
+        it { is_expected.to be_truthy }
+      end
+    RUBY
+  end
+
+  it 'registers an offense for repeated class descriptions with block-pass' do
+    expect_offense(<<~RUBY)
+      describe Bar, &blk
+      ^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [2]
+      describe Bar, &blk
+      ^^^^^^^^^^^^^^^^^^ Repeated describe block description on line(s) [1]
+    RUBY
+  end
+
+  it 'does not register offense for different block-pass descriptions' do
+    expect_no_offenses(<<~RUBY)
+      describe 'foo', &blk
+      describe 'bar', &blk
+    RUBY
+  end
+
+  it 'does not register offense for block-pass groups with different ' \
+     'metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe 'foo', :a, &blk
+      describe 'foo', :b, &blk
+    RUBY
+  end
+
+  it 'does not register offense for block-pass groups without descriptions' do
+    expect_no_offenses(<<~RUBY)
+      describe(&blk)
+      describe(&blk)
+    RUBY
+  end
 end

@@ -2,6 +2,7 @@
 
 ## Master (Unreleased)
 
+- Fix false negatives for cops that did not recognise the block-pass form of RSpec DSL calls, e.g. `let(:a, &blk)`, `subject(&blk)`, `before(&blk)`, `it 'x', &blk` and `describe Foo, &blk`. Affects `RSpec/ContextMethod`, `RSpec/ContextWording`, `RSpec/DescribeClass`, `RSpec/DescribedClassModuleWrapping`, `RSpec/EmptyLineAfterExample`, `RSpec/EmptyLineAfterExampleGroup`, `RSpec/EmptyLineAfterHook`, `RSpec/EmptyLineAfterSubject`, `RSpec/EmptyMetadata`, `RSpec/ExampleWithoutDescription`, `RSpec/ExampleWording`, `RSpec/HookArgument`, `RSpec/HooksBeforeExamples`, `RSpec/LeadingSubject`, `RSpec/MetadataStyle`, `RSpec/MissingExampleGroupArgument`, `RSpec/MultipleSubjects`, `RSpec/NestedGroups`, `RSpec/OverwritingSetup`, `RSpec/PendingWithoutReason`, `RSpec/RepeatedDescription`, `RSpec/RepeatedExample`, `RSpec/RepeatedExampleGroupBody`, `RSpec/RepeatedExampleGroupDescription`, `RSpec/ScatteredSetup`, `RSpec/SortMetadata` and `RSpec/UndescriptiveLiteralsDescription`. ([@darhazer])
 - Fix an incorrect autocorrect for `RSpec/MatchWithSimpleRegex` when the regex contains a backslash, which produced invalid or semantically different code. ([@ihamzatarar])
 - Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
 - Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])

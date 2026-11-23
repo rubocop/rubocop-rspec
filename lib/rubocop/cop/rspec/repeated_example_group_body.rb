@@ -50,17 +50,40 @@ module RuboCop
 
         # @!method several_example_groups?(node)
         def_node_matcher :several_example_groups?, <<~PATTERN
-          (begin <#example_group_with_body? #example_group_with_body? ...>)
+          (begin <#group_with_body? #group_with_body? ...>)
+        PATTERN
+
+        # @!method group_with_body?(node)
+        def_node_matcher :group_with_body?, <<~PATTERN
+          {
+            #example_group_with_body?
+            (send #rspec? #ExampleGroups.all ... block_pass)
+          }
         PATTERN
 
         # @!method metadata(node)
-        def_node_matcher :metadata, '(block (send _ _ _ $...) ...)'
+        def_node_matcher :metadata, <<~PATTERN
+          {
+            (block (send _ _ _ $...) ...)
+            (send _ _ _ $... block_pass)
+          }
+        PATTERN
 
         # @!method body(node)
-        def_node_matcher :body, '(block _ args $...)'
+        def_node_matcher :body, <<~PATTERN
+          {
+            (block _ args $...)
+            (send _ _ ... $block_pass)
+          }
+        PATTERN
 
         # @!method const_arg(node)
-        def_node_matcher :const_arg, '(block (send _ _ $const ...) ...)'
+        def_node_matcher :const_arg, <<~PATTERN
+          {
+            (block (send _ _ $const ...) ...)
+            (send _ _ $const ... block_pass)
+          }
+        PATTERN
 
         def on_begin(node)
           return unless several_example_groups?(node)
@@ -74,7 +97,7 @@ module RuboCop
 
         def repeated_group_bodies(node)
           items = node.children
-            .select { |child| example_group_with_body?(child) }
+            .select { |child| group_with_body?(child) }
             .reject { |child| skip_or_pending_inside_block?(child) }
 
           find_repeated_groups(

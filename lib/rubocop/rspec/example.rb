@@ -5,13 +5,23 @@ module RuboCop
     # Wrapper for RSpec examples
     class Example < Concept
       # @!method extract_doc_string(node)
-      def_node_matcher :extract_doc_string,     '(send _ _ $_ ...)'
+      def_node_matcher :extract_doc_string, '(send _ _ $!block_pass ...)'
 
       # @!method extract_metadata(node)
-      def_node_matcher :extract_metadata,       '(send _ _ _ $...)'
+      def_node_matcher :extract_metadata, <<~PATTERN
+        {
+          (send _ _ !block_pass $... block_pass)
+          (send _ _ !block_pass $...)
+        }
+      PATTERN
 
       # @!method extract_implementation(node)
-      def_node_matcher :extract_implementation, '(block send args $_)'
+      def_node_matcher :extract_implementation, <<~PATTERN
+        {
+          (block send args $_)
+          (send _ _ ... $block_pass)
+        }
+      PATTERN
 
       def doc_string
         extract_doc_string(definition)

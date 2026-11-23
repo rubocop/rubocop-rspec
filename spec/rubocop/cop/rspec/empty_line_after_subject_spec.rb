@@ -218,4 +218,60 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterSubject do
       end
     RUBY
   end
+
+  it 'flags a missing empty line after a block-pass subject' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        subject(&blk)
+        ^^^^^^^^^^^^^ Add an empty line after `subject`.
+        let(:foo) { bar }
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject(&blk)
+
+        let(:foo) { bar }
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a named block-pass subject!' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        subject!(:foo, &blk)
+        ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `subject!`.
+        it { is_expected.to be_valid }
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject!(:foo, &blk)
+
+        it { is_expected.to be_valid }
+      end
+    RUBY
+  end
+
+  it 'does not flag a block-pass subject followed by an empty line' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe User do
+        subject(&blk)
+
+        let(:foo) { bar }
+      end
+    RUBY
+  end
+
+  it 'does not flag a last block-pass subject' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe User do
+        let(:foo) { bar }
+
+        subject(&blk)
+      end
+    RUBY
+  end
 end

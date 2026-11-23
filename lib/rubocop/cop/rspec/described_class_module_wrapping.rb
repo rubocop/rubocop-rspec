@@ -24,7 +24,10 @@ module RuboCop
 
         # @!method include_rspec_blocks?(node)
         def_node_search :include_rspec_blocks?, <<~PATTERN
-          (any_block (send #explicit_rspec? #ExampleGroups.all ...) ...)
+          {
+            (any_block (send #explicit_rspec? #ExampleGroups.all ...) ...)
+            (send #explicit_rspec? #ExampleGroups.all ... block_pass)
+          }
         PATTERN
 
         def on_module(node)

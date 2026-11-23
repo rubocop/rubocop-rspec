@@ -26,7 +26,10 @@ module RuboCop
 
       # @!method example_group?(node)
       def_node_matcher :example_group?, <<~PATTERN
-        (any_block (send #rspec? #ExampleGroups.all ...) ...)
+        {
+          (any_block (send #rspec? #ExampleGroups.all ...) ...)
+          (send #rspec? #ExampleGroups.all ... block_pass)
+        }
       PATTERN
 
       # @!method shared_group?(node)
@@ -35,9 +38,12 @@ module RuboCop
 
       # @!method spec_group?(node)
       def_node_matcher :spec_group?, <<~PATTERN
-        (any_block (send #rspec?
-             {#SharedGroups.all #ExampleGroups.all}
-          ...) ...)
+        {
+          (any_block (send #rspec?
+               {#SharedGroups.all #ExampleGroups.all}
+            ...) ...)
+          (send #rspec? {#SharedGroups.all #ExampleGroups.all} ... block_pass)
+        }
       PATTERN
 
       # @!method example_group_with_body?(node)
@@ -46,11 +52,19 @@ module RuboCop
       PATTERN
 
       # @!method example?(node)
-      def_node_matcher :example?, '(block (send nil? #Examples.all ...) ...)'
+      def_node_matcher :example?, <<~PATTERN
+        {
+          (block (send nil? #Examples.all ...) ...)
+          (send nil? #Examples.all ... block_pass)
+        }
+      PATTERN
 
       # @!method hook?(node)
       def_node_matcher :hook?, <<~PATTERN
-        (any_block (send nil? #Hooks.all ...) ...)
+        {
+          (any_block (send nil? #Hooks.all ...) ...)
+          (send nil? #Hooks.all ... block_pass)
+        }
       PATTERN
 
       # @!method let?(node)
@@ -70,7 +84,12 @@ module RuboCop
       PATTERN
 
       # @!method subject?(node)
-      def_node_matcher :subject?, '(block (send nil? #Subjects.all ...) ...)'
+      def_node_matcher :subject?, <<~PATTERN
+        {
+          (block (send nil? #Subjects.all ...) ...)
+          (send nil? #Subjects.all ... block_pass)
+        }
+      PATTERN
 
       # rubocop:disable Naming/PredicateMethod
       module ErrorMatchers # :nodoc:

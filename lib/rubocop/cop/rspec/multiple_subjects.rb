@@ -54,6 +54,14 @@ module RuboCop
 
         MSG = 'Do not set more than one subject per example group'
 
+        # @!method named_subject?(node)
+        def_node_matcher :named_subject?, <<~PATTERN
+          {
+            (block (send nil? _ !block_pass ...) ...)
+            (send nil? _ !block_pass ...)
+          }
+        PATTERN
+
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
           return unless example_group?(node)
 
@@ -78,12 +86,9 @@ module RuboCop
           end
         end
 
-        def named_subject?(node)
-          node.send_node.arguments?
-        end
-
         def rename_autocorrect(corrector, node)
-          corrector.replace(node.send_node.loc.selector, 'let')
+          call = node.send_type? ? node : node.send_node
+          corrector.replace(call.loc.selector, 'let')
         end
 
         def remove_autocorrect(corrector, node)

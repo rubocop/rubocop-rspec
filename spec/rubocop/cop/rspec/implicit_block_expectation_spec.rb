@@ -130,4 +130,38 @@ RSpec.describe RuboCop::Cop::RSpec::ImplicitBlockExpectation do
       end
     RUBY
   end
+
+  it 'ignores a block-pass subject' do
+    expect_no_offenses(<<~RUBY)
+      describe do
+        subject(&blk)
+        it { is_expected.to change { something }.to(new_value) }
+      end
+    RUBY
+  end
+
+  it 'ignores a block-pass subject nested in a group with a lambda subject' do
+    expect_no_offenses(<<~RUBY)
+      describe do
+        subject { -> { boom } }
+
+        context 'nested' do
+          subject(:named, &blk)
+          it { is_expected.to change { something }.to(new_value) }
+        end
+      end
+    RUBY
+  end
+
+  it 'flags lambda in subject next to block-pass examples and hooks' do
+    expect_offense(<<~RUBY)
+      describe do
+        subject { -> { boom } }
+        before(&blk)
+        it 'works', &blk
+        it { is_expected.to change { something }.to(new_value) }
+             ^^^^^^^^^^^ Avoid implicit block expectations.
+      end
+    RUBY
+  end
 end

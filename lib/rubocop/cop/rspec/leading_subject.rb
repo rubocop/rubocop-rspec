@@ -44,6 +44,8 @@ module RuboCop
           check_previous_nodes(node)
         end
 
+        alias on_send on_block
+
         private
 
         def check_previous_nodes(node)

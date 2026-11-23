@@ -51,10 +51,15 @@ module RuboCop
         #
         #   @yield [Symbol] subject name
         def_node_matcher :subject?, <<-PATTERN
-          (block
+          {
+            (block
+              (send nil?
+                { #Subjects.all (sym $_) | $#Subjects.all }
+              ) args ...)
             (send nil?
               { #Subjects.all (sym $_) | $#Subjects.all }
-            ) args ...)
+              block_pass)
+          }
         PATTERN
 
         # @!method subject_calls(node, method_name)
@@ -95,7 +100,7 @@ module RuboCop
         end
 
         def detect_offenses_in_example(node, subject_names)
-          return unless node.body
+          return unless node.block_type? && node.body
 
           subjects_used = Hash.new(false)
 
@@ -109,7 +114,7 @@ module RuboCop
         end
 
         def detect_subjects_in_scope(node)
-          node.each_descendant(:block).with_object({}) do |child, h|
+          node.each_descendant(:block, :send).with_object({}) do |child, h|
             subject?(child) do |name|
               outer_example_group = child.each_ancestor(:block).find do |a|
                 example_group?(a)

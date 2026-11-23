@@ -11,10 +11,14 @@ module RuboCop
 
         # @!method rspec_metadata(node)
         def_node_matcher :rspec_metadata, <<~PATTERN
-          (block
+          {
+            (block
+              (send
+                #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ $...)
+              ...)
             (send
-              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ $...)
-            ...)
+              #rspec? {#Examples.all #ExampleGroups.all #SharedGroups.all #Hooks.all} _ $... block_pass)
+          }
         PATTERN
 
         # @!method rspec_configure(node)
@@ -24,7 +28,10 @@ module RuboCop
 
         # @!method metadata_in_block(node)
         def_node_search :metadata_in_block, <<~PATTERN
-          (send (lvar %) #Hooks.all _ $...)
+          {
+            (send (lvar %) #Hooks.all _ $... block_pass)
+            (send (lvar %) #Hooks.all _ $...)
+          }
         PATTERN
 
         def on_block(node)
@@ -40,6 +47,12 @@ module RuboCop
         end
         alias on_numblock on_block
         alias on_itblock on_block
+
+        def on_send(node)
+          rspec_metadata(node) do |metadata_arguments|
+            on_metadata_arguments(metadata_arguments)
+          end
+        end
 
         def on_metadata(_symbols, _hash)
           raise ::NotImplementedError

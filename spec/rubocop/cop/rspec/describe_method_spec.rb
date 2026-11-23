@@ -50,4 +50,22 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeMethod do
       end
     RUBY
   end
+
+  it 'enforces non-method names with a block-pass' do
+    expect_offense(<<~RUBY)
+      describe Some::Class, 'nope', &blk
+                            ^^^^^^ The second argument to describe should be the method being tested. '#instance' or '.class'.
+    RUBY
+  end
+
+  it 'skips methods starting with a . or # with a block-pass' do
+    expect_no_offenses(<<~RUBY)
+      describe Some::Class, '.asdf', &blk
+    RUBY
+  end
+
+  it 'ignores describes with only a class and a block-pass' do
+    expect_no_offenses('describe Some::Class, &blk')
+  end
+
 end

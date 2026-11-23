@@ -290,4 +290,52 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExampleGroup do
       end
     RUBY
   end
+
+  it 'checks for empty line after describe with block-pass' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        describe '#bar', &blk
+        ^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `describe`.
+        describe '#baz' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe Foo do
+        describe '#bar', &blk
+
+        describe '#baz' do
+        end
+      end
+    RUBY
+  end
+
+  it 'checks for empty line after shared group with block-pass' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        shared_examples 'bar', &blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `shared_examples`.
+        it_behaves_like 'bar'
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe Foo do
+        shared_examples 'bar', &blk
+
+        it_behaves_like 'bar'
+      end
+    RUBY
+  end
+
+  it 'approves empty line after describe with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        describe '#bar', &blk
+
+        context 'baz', &blk
+      end
+    RUBY
+  end
 end

@@ -262,4 +262,44 @@ RSpec.describe RuboCop::Cop::RSpec::ContextWording do
       RUBY
     end
   end
+
+  it 'finds context without `when` at the beginning with block-pass' do
+    expect_offense(<<~'RUBY')
+      context 'the display name not present', &blk
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Context description should match /^when\b/, /^with\b/, or /^without\b/.
+    RUBY
+  end
+
+  it 'finds shared_context without `when` at the beginning with block-pass' do
+    expect_offense(<<~'RUBY')
+      shared_context 'the display name not present', &blk
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Context description should match /^when\b/, /^with\b/, or /^without\b/.
+    RUBY
+  end
+
+  it 'finds context with metadata and block-pass' do
+    expect_offense(<<~'RUBY')
+      context 'the display name not present', :foo, &blk
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Context description should match /^when\b/, /^with\b/, or /^without\b/.
+    RUBY
+  end
+
+  it "skips descriptions beginning with 'when' with block-pass" do
+    expect_no_offenses(<<~RUBY)
+      context 'when the display name is not present', &blk
+    RUBY
+  end
+
+  it 'skips describe with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      describe 'the display name not present', &blk
+    RUBY
+  end
+
+  it 'skips context with a non-string argument and block-pass' do
+    expect_no_offenses(<<~RUBY)
+      context Foo, &blk
+      context(&blk)
+    RUBY
+  end
 end

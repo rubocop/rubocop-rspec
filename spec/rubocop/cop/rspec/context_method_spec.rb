@@ -58,4 +58,38 @@ RSpec.describe RuboCop::Cop::RSpec::ContextMethod do
       end
     RUBY
   end
+
+  it 'flags context with `.` at the beginning with block-pass' do
+    expect_offense(<<~RUBY)
+      context '.foo_bar', &blk
+              ^^^^^^^^^^ Use `describe` for testing methods.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe '.foo_bar', &blk
+    RUBY
+  end
+
+  it 'flags context with `#` at the beginning with block-pass and metadata' do
+    expect_offense(<<~RUBY)
+      RSpec.context('#foo_bar', :foo, &blk)
+                    ^^^^^^^^^^ Use `describe` for testing methods.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe('#foo_bar', :foo, &blk)
+    RUBY
+  end
+
+  it 'ignores context without `.` or `#` at the beginning with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      context 'foo_bar', &blk
+    RUBY
+  end
+
+  it 'ignores describe with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      describe '#foo_bar', &blk
+    RUBY
+  end
 end

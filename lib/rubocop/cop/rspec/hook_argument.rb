@@ -67,12 +67,18 @@ module RuboCop
 
         # @!method scoped_hook(node)
         def_node_matcher :scoped_hook, <<~PATTERN
-          (any_block $(send _ #Hooks.all (sym ${:each :example})) ...)
+          {
+            (any_block $(send _ #Hooks.all (sym ${:each :example})) ...)
+            $(send _ #Hooks.all (sym ${:each :example}) block_pass)
+          }
         PATTERN
 
         # @!method unscoped_hook(node)
         def_node_matcher :unscoped_hook, <<~PATTERN
-          (any_block $(send _ #Hooks.all) ...)
+          {
+            (any_block $(send _ #Hooks.all) ...)
+            $(send _ #Hooks.all block_pass)
+          }
         PATTERN
 
         def on_block(node)
@@ -90,14 +96,30 @@ module RuboCop
 
         alias on_numblock on_block
         alias on_itblock on_block
+        alias on_send on_block
 
         private
 
         def autocorrect(corrector, method_send)
-          scope = implicit_style? ? '' : "(#{style.inspect})"
-          corrector.replace(
-            LocationHelp.arguments_with_whitespace(method_send), scope
+          if method_send.block_argument?
+            autocorrect_block_pass(corrector, method_send)
+          else
+            scope = implicit_style? ? '' : "(#{style.inspect})"
+            corrector.replace(
+              LocationHelp.arguments_with_whitespace(method_send), scope
+            )
+          end
+        end
+
+        # Replace everything between the method name and the block-pass
+        # argument, keeping the block-pass argument itself untouched.
+        def autocorrect_block_pass(corrector, method_send)
+          opening = method_send.parenthesized? ? '(' : ' '
+          scope = implicit_style? ? '' : "#{style.inspect}, "
+          range = method_send.loc.selector.end.join(
+            method_send.last_argument.source_range.begin
           )
+          corrector.replace(range, "#{opening}#{scope}")
         end
 
         def check_implicit(method_send)

@@ -64,6 +64,7 @@ module RuboCop
           {
             (send nil? ${#Examples.skipped #Examples.pending})
             (any_block (send nil? ${#Examples.skipped}) ...)
+            (send nil? ${#Examples.skipped} block_pass)
           }
         PATTERN
 
@@ -77,15 +78,30 @@ module RuboCop
           (any_block (send nil? ${#Examples.skipped #Examples.pending} ...) ...)
         PATTERN
 
+        # @!method skipped_by_example_method_with_block_pass?(node)
+        def_node_matcher :skipped_by_example_method_with_block_pass?, <<~PATTERN
+          (send nil? ${#Examples.skipped #Examples.pending} ... block_pass)
+        PATTERN
+
         # @!method metadata_without_reason?(node)
         def_node_matcher :metadata_without_reason?, <<~PATTERN
-          (send #rspec?
-            {#ExampleGroups.all #Examples.all} ...
-            {
-              <(sym ${:pending :skip}) ...>
-              (hash <(pair (sym ${:pending :skip}) true) ...>)
-            }
-          )
+          {
+            (send #rspec?
+              {#ExampleGroups.all #Examples.all} ...
+              {
+                <(sym ${:pending :skip}) ...>
+                (hash <(pair (sym ${:pending :skip}) true) ...>)
+              }
+            )
+            (send #rspec?
+              {#ExampleGroups.all #Examples.all} ...
+              {
+                <(sym ${:pending :skip}) ...>
+                (hash <(pair (sym ${:pending :skip}) true) ...>)
+              }
+              block_pass
+            )
+          }
         PATTERN
 
         # @!method skipped_by_example_group_method?(node)
@@ -115,8 +131,7 @@ module RuboCop
         end
 
         def block_node_example_group?(node)
-          node.block_node &&
-            example_group?(node.block_node) &&
+          example_group?(node.block_node || node) &&
             explicit_rspec?(node.receiver)
         end
 
@@ -138,6 +153,10 @@ module RuboCop
           end
 
           skipped_by_example_method_with_block?(node.parent) do |pending|
+            add_offense(node, message: format(MSG, pending: pending))
+          end
+
+          skipped_by_example_method_with_block_pass?(node) do |pending|
             add_offense(node, message: format(MSG, pending: pending))
           end
         end

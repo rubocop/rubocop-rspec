@@ -35,6 +35,8 @@ module RuboCop
               (send nil? #Examples.all ...)
             } ...)
             (send nil? #Includes.examples ...)
+            (send nil? #Examples.all ... block_pass)
+            (send #rspec? #ExampleGroups.all ... block_pass)
           }
         PATTERN
 

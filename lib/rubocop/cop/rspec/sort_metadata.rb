@@ -30,7 +30,10 @@ module RuboCop
 
         # @!method match_ambiguous_trailing_metadata?(node)
         def_node_matcher :match_ambiguous_trailing_metadata?, <<~PATTERN
-          (send _ _ _ ... !{hash sym any_str})
+          {
+            (send _ _ _ ... !{hash sym any_str block_pass})
+            (send _ _ _ ... !{hash sym any_str} block_pass)
+          }
         PATTERN
 
         def on_metadata(args, hash)

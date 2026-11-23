@@ -9,6 +9,18 @@ RSpec.describe RuboCop::Cop::RSpec::SpecFilePathSuffix do
     RUBY
   end
 
+  it 'registers an offense for a block-pass example group in a bad file' do
+    expect_global_offense(<<~RUBY, 'spec/models/user.rb', message)
+      describe User, '#foo', &blk
+    RUBY
+  end
+
+  it 'registers no offense for a block-pass example group in a good file' do
+    expect_no_offenses(<<~RUBY, 'spec/models/user_spec.rb')
+      describe User, '#foo', &blk
+    RUBY
+  end
+
   it 'registers an offense for a file missing a .rb' do
     expect_global_offense(<<~RUBY, 'my_class/foo_specorb', message)
       describe MyClass, '#foo' do; end

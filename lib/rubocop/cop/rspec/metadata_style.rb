@@ -31,7 +31,10 @@ module RuboCop
 
         # @!method extract_metadata_hash(node)
         def_node_matcher :extract_metadata_hash, <<~PATTERN
-          (send _ _ _ ... $hash)
+          {
+            (send _ _ _ ... $hash)
+            (send _ _ _ ... $hash block_pass)
+          }
         PATTERN
 
         # @!method match_boolean_metadata_pair?(node)
@@ -41,7 +44,10 @@ module RuboCop
 
         # @!method match_ambiguous_trailing_metadata?(node)
         def_node_matcher :match_ambiguous_trailing_metadata?, <<~PATTERN
-          (send _ _ _ ... !{hash sym})
+          {
+            (send _ _ _ ... !{hash sym block_pass})
+            (send _ _ _ ... !{hash sym} block_pass)
+          }
         PATTERN
 
         def on_metadata(symbols, hash)
@@ -94,12 +100,21 @@ module RuboCop
         end
 
         def insert_pair_as_last_argument(corrector, node)
-          corrector.insert_before(
-            node.parent.location.end || node.parent.source_range.with(
-              begin_pos: node.parent.source_range.end_pos
-            ),
-            ", #{format_symbol_to_pair_source(node)}"
-          )
+          send_node = node.parent
+          pair_source = ", #{format_symbol_to_pair_source(node)}"
+
+          if send_node.block_argument?
+            corrector.insert_before(
+              send_node.arguments[-2].source_range.end, pair_source
+            )
+          else
+            corrector.insert_before(
+              send_node.location.end || send_node.source_range.with(
+                begin_pos: send_node.source_range.end_pos
+              ),
+              pair_source
+            )
+          end
         end
 
         def insert_pair_to_empty_hash_metadata(corrector, node, hash_node)

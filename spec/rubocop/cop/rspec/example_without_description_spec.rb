@@ -57,6 +57,33 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
         end
       RUBY
     end
+
+    it 'flags `it` with a empty strings for description and block-pass' do
+      expect_offense(<<~RUBY)
+        it '', &blk
+           ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'flags `specify` with a empty strings for description and ' \
+       'block-pass' do
+      expect_offense(<<~RUBY)
+        specify('', &blk)
+                ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'ignores `it` with a description and block-pass' do
+      expect_no_offenses(<<~RUBY)
+        it 'is good', &blk
+      RUBY
+    end
+
+    it 'ignores `it` without an argument and with block-pass' do
+      expect_no_offenses(<<~RUBY)
+        it(&blk)
+      RUBY
+    end
   end
 
   context 'with EnforcedStyle `single_line_only`' do
@@ -102,6 +129,26 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
       expect_offense(<<~RUBY)
         specify('') { expect(subject).to be_good }
                 ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'flags `it` with an empty string for description and block-pass' do
+      expect_offense(<<~RUBY)
+        it '', &blk
+           ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'ignores `it` missing description with block-pass in single-line ' \
+       'examples' do
+      expect_no_offenses(<<~RUBY)
+        it(&blk)
+      RUBY
+    end
+
+    it 'ignores `it` with a description and block-pass' do
+      expect_no_offenses(<<~RUBY)
+        it 'is good', &blk
       RUBY
     end
   end
@@ -153,6 +200,33 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWithoutDescription do
         specify 'is good' do
           expect(subject).to be_good
         end
+      RUBY
+    end
+
+    it 'flags `it` missing description with block-pass' do
+      expect_offense(<<~RUBY)
+        it(&blk)
+        ^^^^^^^^ Add a description.
+      RUBY
+    end
+
+    it 'flags `specify` missing description with block-pass' do
+      expect_offense(<<~RUBY)
+        specify(&blk)
+        ^^^^^^^^^^^^^ Add a description.
+      RUBY
+    end
+
+    it 'flags `it` with an empty string for description and block-pass' do
+      expect_offense(<<~RUBY)
+        it '', &blk
+           ^^ Omit the argument when you want to have auto-generated description.
+      RUBY
+    end
+
+    it 'ignores `it` with a description and block-pass' do
+      expect_no_offenses(<<~RUBY)
+        it 'is good', &blk
       RUBY
     end
   end

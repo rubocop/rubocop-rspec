@@ -80,4 +80,90 @@ RSpec.describe RuboCop::Cop::RSpec::MultipleSubjects do
       end
     RUBY
   end
+
+  it 'registers an offense for repeated block-pass subjects' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        subject(&blk)
+        ^^^^^^^^^^^^^ Do not set more than one subject per example group
+        subject(&other_blk)
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe 'hello there' do
+        subject(&other_blk)
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a block-pass subject followed by a block' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        subject(&blk)
+        ^^^^^^^^^^^^^ Do not set more than one subject per example group
+        subject { 2 }
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe 'hello there' do
+        subject { 2 }
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a block subject followed by a block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        subject { 1 }
+        ^^^^^^^^^^^^^ Do not set more than one subject per example group
+        subject(&blk)
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe 'hello there' do
+        subject(&blk)
+      end
+    RUBY
+  end
+
+  it 'renames overwritten named block-pass subjects to let' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        subject(:a, &blk)
+        ^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
+        subject(:b) { 2 }
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      describe 'hello there' do
+        let(:a, &blk)
+        subject(:b) { 2 }
+      end
+    RUBY
+  end
+
+  it 'does not try to autocorrect block-pass subject!' do
+    expect_offense(<<~RUBY)
+      describe 'hello there' do
+        subject!(:a, &blk)
+        ^^^^^^^^^^^^^^^^^^ Do not set more than one subject per example group
+        subject!(:b, &blk)
+      end
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'ignores a single block-pass subject' do
+    expect_no_offenses(<<~RUBY)
+      describe 'hello there' do
+        subject(&blk)
+        let(:a, &blk)
+      end
+    RUBY
+  end
 end

@@ -35,7 +35,7 @@ module RuboCop
           return if top_level_example_groups.one?
           return unless top_level_example_groups.first.equal?(node)
 
-          add_offense(node.send_node)
+          add_offense(node.send_type? ? node : node.send_node)
         end
       end
     end

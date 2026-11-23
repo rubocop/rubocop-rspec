@@ -6,9 +6,10 @@ module RuboCop
     class Hook < Concept
       # @!method extract_metadata(node)
       def_node_matcher :extract_metadata, <<~PATTERN
-        (block
-          (send _ _ #valid_scope? ? $...) ...
-        )
+        {
+          (block (send _ _ #valid_scope? ? $...) ...)
+          (send _ _ #valid_scope? ? $... block_pass)
+        }
       PATTERN
 
       def name
@@ -80,7 +81,12 @@ module RuboCop
       end
 
       def scope_argument
-        node.send_node.first_argument
+        argument = call_node.first_argument
+        argument unless argument&.block_pass_type?
+      end
+
+      def call_node
+        node.send_type? ? node : node.send_node
       end
 
       def inside_class_self?(node)

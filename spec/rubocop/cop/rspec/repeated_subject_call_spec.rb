@@ -155,4 +155,57 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedSubjectCall do
       subject
     RUBY
   end
+
+  it 'does not crash on block-pass examples and examples inside groups' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it 'works', &blk
+        specify(&blk)
+
+        context 'nested', &blk
+      end
+    RUBY
+  end
+
+  it 'still registers an offense in block examples next to block-pass ones' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        it 'works', &blk
+
+        it do
+          expect { subject }.to change { Foo.count }
+          expect { subject }.to not_change { Foo.count }
+          ^^^^^^^^^^^^^^^^^^ Calls to subject are memoized, this block is misleading
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a named block-pass subject' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        subject(:thing, &blk)
+
+        it do
+          expect { thing }.to change { Foo.count }
+          expect { thing }.to not_change { Foo.count }
+          ^^^^^^^^^^^^^^^^ Calls to subject are memoized, this block is misleading
+        end
+      end
+    RUBY
+  end
+
+  it 'registers an offense for an unnamed block-pass subject' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        subject(&blk)
+
+        it do
+          expect { subject }.to change { Foo.count }
+          expect { subject }.to not_change { Foo.count }
+          ^^^^^^^^^^^^^^^^^^ Calls to subject are memoized, this block is misleading
+        end
+      end
+    RUBY
+  end
 end

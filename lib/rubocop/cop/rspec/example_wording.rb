@@ -72,10 +72,16 @@ module RuboCop
 
         # @!method it_description(node)
         def_node_matcher :it_description, <<~PATTERN
-          (block (send _ :it ${
-            (str $_)
-            (dstr (str $_ ) ...)
-          } ...) ...)
+          {
+            (block (send _ :it ${
+              (str $_)
+              (dstr (str $_ ) ...)
+            } ...) ...)
+            (send _ :it ${
+              (str $_)
+              (dstr (str $_ ) ...)
+            } ... block_pass)
+          }
         PATTERN
 
         def on_block(node) # rubocop:disable InternalAffairs/NumblockHandler, InternalAffairs/ItblockHandler
@@ -92,6 +98,7 @@ module RuboCop
             end
           end
         end
+        alias on_send on_block
 
         private
 

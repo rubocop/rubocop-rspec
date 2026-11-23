@@ -444,4 +444,69 @@ RSpec.describe RuboCop::Cop::RSpec::ExampleWording do
       expect_no_corrections
     end
   end
+
+  it 'finds description with `should` at the beginning with block-pass' do
+    expect_offense(<<~RUBY)
+      it 'should do something', &blk
+          ^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it 'does something', &blk
+    RUBY
+  end
+
+  it 'finds description with `will` at the beginning with block-pass' do
+    expect_offense(<<~RUBY)
+      it('will do something', :flag, &blk)
+          ^^^^^^^^^^^^^^^^^ Do not use the future tense when describing your tests.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it('does something', :flag, &blk)
+    RUBY
+  end
+
+  it 'finds interpolated description with `should` with block-pass' do
+    expect_offense(<<~'RUBY')
+      it "should do #{something}", &blk
+          ^^^^^^^^^^^^^^^^^^^^^^ Do not use should when describing your tests.
+    RUBY
+
+    expect_correction(<<~'RUBY')
+      it "does #{something}", &blk
+    RUBY
+  end
+
+  it 'finds leading it with block-pass' do
+    expect_offense(<<~RUBY)
+      it 'it does something', &blk
+          ^^^^^^^^^^^^^^^^^ Do not repeat 'it' when describing your tests.
+    RUBY
+
+    expect_correction(<<~RUBY)
+      it 'does something', &blk
+    RUBY
+  end
+
+  it 'flags an unclear description with block-pass' do
+    expect_offense(<<~RUBY)
+      it 'works', &blk
+          ^^^^^ Your example description is insufficient.
+    RUBY
+
+    expect_no_corrections
+  end
+
+  it 'skips descriptions without `should` at the beginning with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      it 'does something', &blk
+    RUBY
+  end
+
+  it 'skips block-pass examples without a description' do
+    expect_no_offenses(<<~RUBY)
+      it(&blk)
+    RUBY
+  end
 end

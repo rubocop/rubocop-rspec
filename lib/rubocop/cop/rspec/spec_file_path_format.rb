@@ -50,7 +50,10 @@ module RuboCop
 
         # @!method example_group_arguments(node)
         def_node_matcher :example_group_arguments, <<~PATTERN
-          (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
+          {
+            (block $(send #rspec? #ExampleGroups.all $_ $...) ...)
+            $(send #rspec? #ExampleGroups.all $_ $... block_pass)
+          }
         PATTERN
 
         # @!method metadata_key_value(node)

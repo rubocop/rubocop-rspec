@@ -281,4 +281,98 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterExample do
       RUBY
     end
   end
+
+  it 'flags a missing empty line after a block-pass `it`' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        it 'does this', &blk
+        ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `it`.
+        it 'does that' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe Foo do
+        it 'does this', &blk
+
+        it 'does that' do
+        end
+      end
+    RUBY
+  end
+
+  it 'flags a missing empty line after a block-pass `specify`' do
+    expect_offense(<<~RUBY)
+      RSpec.describe Foo do
+        specify(&blk)
+        ^^^^^^^^^^^^^ Add an empty line after `specify`.
+        it 'does that' do
+        end
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe Foo do
+        specify(&blk)
+
+        it 'does that' do
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores consecutive one-liners with block-pass' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it 'does this', &blk
+        it { two }
+        it 'does that', &blk
+      end
+    RUBY
+  end
+
+  it 'ignores a block-pass example followed by an empty line' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it 'does this', &blk
+
+        it 'does that' do
+        end
+      end
+    RUBY
+  end
+
+  it 'ignores a block-pass example that is the last statement' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe Foo do
+        it 'does this' do
+        end
+
+        it 'does that', &blk
+      end
+    RUBY
+  end
+
+  context 'when AllowConsecutiveOneLiners is false' do
+    let(:cop_config) { { 'AllowConsecutiveOneLiners' => false } }
+
+    it 'flags consecutive one-liners with block-pass' do
+      expect_offense(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does this', &blk
+          ^^^^^^^^^^^^^^^^^^^^ Add an empty line after `it`.
+          it 'does that', &blk
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describe Foo do
+          it 'does this', &blk
+
+          it 'does that', &blk
+        end
+      RUBY
+    end
+  end
 end

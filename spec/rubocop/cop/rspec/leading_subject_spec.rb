@@ -375,4 +375,83 @@ RSpec.describe RuboCop::Cop::RSpec::LeadingSubject do
       RUBY
     end
   end
+
+  it 'registers an offense for a block-pass subject after a let' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        let(:params) { foo }
+
+        subject(&blk)
+        ^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject(&blk)
+        let(:params) { foo }
+
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a block-pass subject after a block-pass let' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        let(:params, &blk)
+        subject(:a, &other_blk)
+        ^^^^^^^^^^^^^^^^^^^^^^^ Declare `subject` above any other `let` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject(:a, &other_blk)
+        let(:params, &blk)
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a subject after a block-pass hook' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        before(&blk)
+        subject { foo }
+        ^^^^^^^^^^^^^^^ Declare `subject` above any other `before` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject { foo }
+        before(&blk)
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a subject after a block-pass example' do
+    expect_offense(<<~RUBY)
+      RSpec.describe User do
+        it 'works', &blk
+        subject { foo }
+        ^^^^^^^^^^^^^^^ Declare `subject` above any other `it` declarations.
+      end
+    RUBY
+
+    expect_correction(<<~RUBY)
+      RSpec.describe User do
+        subject { foo }
+        it 'works', &blk
+      end
+    RUBY
+  end
+
+  it 'does not register an offense for a leading block-pass subject' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe User do
+        subject(&blk)
+        let(:params, &other_blk)
+      end
+    RUBY
+  end
 end

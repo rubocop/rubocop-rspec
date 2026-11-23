@@ -331,4 +331,56 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedExampleGroupBody do
       end
     RUBY
   end
+
+  it 'registers an offense for repeated describe body with block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'cool feature x', &blk
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [2]
+      describe 'cool feature y', &blk
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [1]
+    RUBY
+  end
+
+  it 'registers an offense for repeated body with block-pass and ' \
+     'identical module arg' do
+    expect_offense(<<~RUBY)
+      describe Foo, &blk
+      ^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [2]
+      describe Foo, &blk
+      ^^^^^^^^^^^^^^^^^^ Repeated describe block body on line(s) [1]
+    RUBY
+  end
+
+  it 'does not register offense for different block-pass bodies' do
+    expect_no_offenses(<<~RUBY)
+      describe 'cool feature x', &blk
+      describe 'cool feature y', &other_blk
+    RUBY
+  end
+
+  it 'does not register offense for block-pass groups with different ' \
+     'module args' do
+    expect_no_offenses(<<~RUBY)
+      describe Foo, &blk
+      describe Bar, &blk
+    RUBY
+  end
+
+  it 'does not register offense for block-pass groups with different ' \
+     'metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe 'cool feature', :a, &blk
+      describe 'cool feature', :b, &blk
+    RUBY
+  end
+
+  it 'does not register offense when a block-pass group and a block group ' \
+     'are mixed' do
+    expect_no_offenses(<<~RUBY)
+      describe 'cool feature x', &blk
+      describe 'cool feature y' do
+        it { is_expected.to be_truthy }
+      end
+    RUBY
+  end
 end

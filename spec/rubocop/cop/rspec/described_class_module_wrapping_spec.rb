@@ -59,4 +59,21 @@ RSpec.describe RuboCop::Cop::RSpec::DescribedClassModuleWrapping, :ruby27 do
       end
     RUBY
   end
+
+  it 'registers an offense when RSpec.describe with a block-pass is nested ' \
+     'within a module' do
+    expect_offense(<<~RUBY)
+      module MyModule
+      ^^^^^^^^^^^^^^^ Avoid opening modules and defining specs within them.
+        RSpec.describe MyClass, &blk
+      end
+    RUBY
+  end
+
+  it 'allows a describe with a block-pass in the outermost scope' do
+    expect_no_offenses(<<~RUBY)
+      RSpec.describe MyClass, &blk
+    RUBY
+  end
+
 end

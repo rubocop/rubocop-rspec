@@ -69,6 +69,7 @@ module RuboCop
 
         alias on_numblock on_block
         alias on_itblock on_block
+        alias on_send on_block
 
         private
 

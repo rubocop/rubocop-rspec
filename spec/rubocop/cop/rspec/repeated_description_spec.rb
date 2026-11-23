@@ -236,4 +236,76 @@ RSpec.describe RuboCop::Cop::RSpec::RepeatedDescription do
       end
     RUBY
   end
+
+  it 'registers an offense for repeated descriptions with block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        ^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+        it 'does x', &other_blk
+        ^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+      end
+    RUBY
+  end
+
+  it 'registers an offense for a block-pass repeating a block description' do
+    expect_offense(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        ^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+        it('does x') { expect(foo).to be(bar) }
+        ^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+      end
+    RUBY
+  end
+
+  it 'registers an offense for repeated descriptions with same metadata ' \
+     'and block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', :flag, &blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+        it 'does x', :flag, &other_blk
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples with different metadata' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', :flag, &blk
+        it 'does x', &blk
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples with different descriptions' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it 'does x', &blk
+        it 'does y', &blk
+      end
+    RUBY
+  end
+
+  it 'does not flag block-pass examples without descriptions' do
+    expect_no_offenses(<<~RUBY)
+      describe 'doing x' do
+        it(&blk)
+        it(&other_blk)
+      end
+    RUBY
+  end
+
+  it 'registers an offense when repeated its are used with block-pass' do
+    expect_offense(<<~RUBY)
+      describe 'doing x' do
+        its(:x, &blk)
+        ^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+        its(:x, &blk)
+        ^^^^^^^^^^^^^ Don't repeat descriptions within an example group.
+      end
+    RUBY
+  end
 end

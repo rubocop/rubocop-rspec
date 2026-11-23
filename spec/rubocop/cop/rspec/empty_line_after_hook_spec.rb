@@ -516,4 +516,89 @@ RSpec.describe RuboCop::Cop::RSpec::EmptyLineAfterHook do
       end
     end
   end
+
+  context 'with block-pass hooks' do
+    it 'registers an offense for a missing empty line after `before`' do
+      expect_offense(<<~RUBY)
+        RSpec.describe User do
+          before(&setup)
+          ^^^^^^^^^^^^^^ Add an empty line after `before`.
+          it { does_something }
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describe User do
+          before(&setup)
+
+          it { does_something }
+        end
+      RUBY
+    end
+
+    it 'registers an offense for a scoped hook without parentheses' do
+      expect_offense(<<~RUBY)
+        RSpec.describe User do
+          after :all, &teardown
+          ^^^^^^^^^^^^^^^^^^^^^ Add an empty line after `after`.
+          it { does_something }
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        RSpec.describe User do
+          after :all, &teardown
+
+          it { does_something }
+        end
+      RUBY
+    end
+
+    it 'does not register an offense with an empty line after the hook' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe User do
+          before(&setup)
+
+          it { does_something }
+        end
+      RUBY
+    end
+
+    it 'allows consecutive one-liner hooks by default' do
+      expect_no_offenses(<<~RUBY)
+        RSpec.describe User do
+          before(&setup)
+          after(&teardown)
+
+          it { does_something }
+        end
+      RUBY
+    end
+
+    context 'when AllowConsecutiveOneLiners is false' do
+      let(:cop_config) { { 'AllowConsecutiveOneLiners' => false } }
+
+      it 'registers an offense for consecutive one-liner hooks' do
+        expect_offense(<<~RUBY)
+          RSpec.describe User do
+            before(&setup)
+            ^^^^^^^^^^^^^^ Add an empty line after `before`.
+            after(&teardown)
+            ^^^^^^^^^^^^^^^^ Add an empty line after `after`.
+            it { does_something }
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          RSpec.describe User do
+            before(&setup)
+
+            after(&teardown)
+
+            it { does_something }
+          end
+        RUBY
+      end
+    end
+  end
 end
