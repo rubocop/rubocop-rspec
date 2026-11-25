@@ -201,10 +201,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~RUBY)
-        describe '#mymethod (is cool)' do
-        end
-      RUBY
+      expect_no_corrections
     end
 
     it 'flags \-separated multiline interpolated strings with ' \
@@ -216,10 +213,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~'RUBY')
-        describe "##{object} (is cool)" do
-        end
-      RUBY
+      expect_no_corrections
     end
   end
 
@@ -407,10 +401,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~RUBY)
-        context 'when doing something like this' do
-        end
-      RUBY
+      expect_no_corrections
     end
 
     it 'flags \-separated multiline interpolated strings with leading ' \
@@ -422,10 +413,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~'RUBY')
-        context "when doing something like #{object}" do
-        end
-      RUBY
+      expect_no_corrections
     end
   end
 
@@ -638,10 +626,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~RUBY)
-        it 'does something and correctly fix' do
-        end
-      RUBY
+      expect_no_corrections
     end
 
     it 'flags \-separated multiline interpolated strings with leading ' \
@@ -653,10 +638,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~'RUBY')
-        it "does something with #{object}" do
-        end
-      RUBY
+      expect_no_corrections
     end
   end
 
@@ -706,10 +688,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
         end
       RUBY
 
-      expect_correction(<<~RUBY)
-        skip 'this please and thank you !' do
-        end
-      RUBY
+      expect_no_corrections
     end
 
     it 'supports `skip` (without a block)' do
@@ -719,9 +698,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
             '  and thank you  !'
       RUBY
 
-      expect_correction(<<~RUBY)
-        skip 'this please and thank you !'
-      RUBY
+      expect_no_corrections
     end
   end
 
@@ -757,7 +734,7 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
   end
 
   it 'flags \-separated multiline interpolated strings with ' \
-     'leading whitespace and corrects trailing empty lines' do
+     'leading whitespace and trailing empty lines' do
     expect_offense(<<~'RUBY')
       describe "  ##{object} " \
                 ^^^^^^^^^^^^^^^^ Excessive whitespace.
@@ -767,10 +744,17 @@ RSpec.describe RuboCop::Cop::RSpec::ExcessiveDocstringSpacing do
       end
     RUBY
 
-    expect_correction(<<~'RUBY')
-      describe "##{object} (is cool)" do
+    expect_no_corrections
+  end
+
+  it 'flags but does not correct strings with escape sequences' do
+    expect_offense(<<~'RUBY')
+      it "says \"hi\"  now" do
+          ^^^^^^^^^^^^^^^^ Excessive whitespace.
       end
     RUBY
+
+    expect_no_corrections
   end
 
   it 'does not register an offense when receiver is not non-RSpec' do
