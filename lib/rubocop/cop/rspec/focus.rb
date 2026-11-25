@@ -73,18 +73,22 @@ module RuboCop
         PATTERN
 
         def on_send(node)
-          return if node.chained? || node.each_ancestor(:any_def).any?
+          return if node.chained?
 
           if focused_block?(node)
-            on_focused_block(node)
+            on_focused_block(node) unless inside_def?(node)
           else
             metadata(node) do |focus|
-              on_metadata(focus)
+              on_metadata(focus) unless inside_def?(node)
             end
           end
         end
 
         private
+
+        def inside_def?(node)
+          node.each_ancestor(:any_def).any?
+        end
 
         def on_focused_block(node)
           add_offense(node) do |corrector|
