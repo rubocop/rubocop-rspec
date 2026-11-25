@@ -102,6 +102,7 @@ module RuboCop
           def call(corrector)
             # Heredoc autocorrection is not yet implemented.
             return if heredoc?
+            return if receiver_with_block?
 
             corrector.replace(range, " { #{replacement} }")
           end
@@ -112,6 +113,10 @@ module RuboCop
 
           def heredoc?
             arg.loc.is_a?(Parser::Source::Map::Heredoc)
+          end
+
+          def receiver_with_block?
+            receiver.any_block_type?
           end
 
           def range
