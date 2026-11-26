@@ -11,6 +11,7 @@
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
 - Speed up loading rubocop-rspec by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
+- Bump RuboCop requirement to 1.92+. ([@bquorning])
 - Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
