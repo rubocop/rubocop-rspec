@@ -23,7 +23,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: ruby
-      - uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b # v1.4.1
+      - uses: rubygems/release-gem@5c53f5308233b7c0f47411f0471b3faae6fa57b2 # v1.4.2
       - name: Create a GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
