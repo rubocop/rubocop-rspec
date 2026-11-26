@@ -24,16 +24,4 @@ require_relative 'rubocop/rspec/hook'
 
 require_relative 'rubocop/cop/rspec'
 
-# We have to register our autocorrect incompatibilities in RuboCop's cops
-# as well so we do not hit infinite loops
-
-RuboCop::Cop::Layout::ExtraSpacing.singleton_class.prepend(
-  Module.new do
-    def autocorrect_incompatible_with
-      super.push(RuboCop::Cop::RSpec::AlignLeftLetBrace)
-      .push(RuboCop::Cop::RSpec::AlignRightLetBrace)
-    end
-  end
-)
-
 RuboCop::AST::Node.include(RuboCop::RSpec::Node)
