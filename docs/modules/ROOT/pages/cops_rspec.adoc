@@ -3798,10 +3798,10 @@ it { is_expected.to match_array(%w(tremble in fear foolish mortals)) }
 | Enabled by default | Safe | Supports autocorrection | Version Added | Version Changed
 
 | Pending
-| Yes
-| Always
+| No
+| Always (Unsafe)
 | 3.10
-| -
+| <<next>>
 |===
 
 Enforces the use of `include` matcher instead of `match` when the
@@ -3810,6 +3810,24 @@ matcher is a simple string literal without regex-specific features.
 When `match` is used with a regex that contains only literal characters
 (no anchors, character classes, quantifiers, alternations, or
 metacharacters), it's clearer to use the `include` matcher instead.
+
+[#safety-rspecmatchwithsimpleregex]
+=== Safety
+
+This cop is unsafe because `match` and `include` behave differently
+for values that are not strings. `match` uses `Regexp#===`, which
+also matches symbols, while `include` requires the actual value to
+respond to `include?`. For collections, `include` checks for an
+element (or a key, for hashes) instead of matching a pattern.
+
+[source,ruby]
+----
+expect(:foobar).to match(/foo/)     # passes
+expect(:foobar).to include('foo')   # fails
+
+expect(['foo']).to match(/foo/)     # fails
+expect(['foo']).to include('foo')   # passes
+----
 
 [#examples-rspecmatchwithsimpleregex]
 === Examples
