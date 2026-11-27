@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'rubocop'
     permissions:
-      actions: write
       contents: write
       id-token: write
     env:
@@ -18,11 +17,13 @@ jobs:
       DISPATCH_TOKEN: ${{ secrets.RELEASE_DISPATCH_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Ruby
         uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
-          bundler-cache: true
           ruby-version: ruby
+      - run: bundle install
       - uses: rubygems/release-gem@5c53f5308233b7c0f47411f0471b3faae6fa57b2 # v1.4.2
       - name: Create a GitHub release
         env:
