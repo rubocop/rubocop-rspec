@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+- Fix a potential ReDoS in `RSpec/DescribeClass` when a string argument contains many capital letters on Ruby < 3.2. ([@bquorning])
+
 ## 3.11.0 (2026-11-27)
 
 - Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
