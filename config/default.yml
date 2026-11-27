@@ -375,7 +375,7 @@ RSpec/EmptyLineAfterHook:
 RSpec/EmptyLineAfterSharedInclusion:
   Description: Checks for empty line after shared example inclusion.
   Enabled: pending
-  VersionAdded: "<<next>>"
+  VersionAdded: '3.11'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSharedInclusion
 
 RSpec/EmptyLineAfterSubject:

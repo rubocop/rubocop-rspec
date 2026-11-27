@@ -1670,7 +1670,7 @@ it { does_something }
 | Pending
 | Yes
 | Always
-| <<next>>
+| 3.11
 | -
 |===
 
