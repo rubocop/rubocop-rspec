@@ -187,6 +187,16 @@ RSpec.describe RuboCop::Cop::RSpec::MatchWithSimpleRegex, :config do
     RUBY
   end
 
+  it 'does not register an offense when using match with variable referring ' \
+     'to a regex' do
+    expect_no_offenses(<<~RUBY)
+      it do
+        regex = /foo/
+        expect('foobar').to match(regex)
+      end
+    RUBY
+  end
+
   it 'does not register an offense when using match with string ' \
      'instead of regex' do
     expect_no_offenses(<<~RUBY)

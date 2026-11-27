@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'regexp_parser'
-
 module RuboCop
   module Cop
     module RSpec
@@ -11,6 +9,22 @@ module RuboCop
       # When `match` is used with a regex that contains only literal characters
       # (no anchors, character classes, quantifiers, alternations, or
       # metacharacters), it's clearer to use the `include` matcher instead.
+      #
+      # @safety
+      #   This cop is unsafe because `match` and `include` behave differently
+      #   for values that are not strings. `match` uses `Regexp#===`, which
+      #   also matches symbols, while `include` requires the actual value to
+      #   respond to `include?`. For collections, `include` checks for an
+      #   element (or a key, for hashes) instead of matching a pattern.
+      #
+      #   [source,ruby]
+      #   ----
+      #   expect(:foobar).to match(/foo/)     # passes
+      #   expect(:foobar).to include('foo')   # fails
+      #
+      #   expect(['foo']).to match(/foo/)     # fails
+      #   expect(['foo']).to include('foo')   # passes
+      #   ----
       #
       # @example
       #   # bad
@@ -67,8 +81,7 @@ module RuboCop
           return false if node.interpolation?
           return false if node.regopt.children.any?
 
-          parsed = Regexp::Parser.parse(node.content)
-          parsed.expressions.all? { |expr| simple_expression?(expr) }
+          node.parsed_tree.expressions.all? { |expr| simple_expression?(expr) }
         end
 
         def simple_expression?(expr)
@@ -81,8 +94,7 @@ module RuboCop
 
         # Reconstruct the literal string that the regex matches
         def regexp_to_string(node)
-          parsed = Regexp::Parser.parse(node.content)
-          string_content = parsed.expressions.map do |expr|
+          string_content = node.parsed_tree.expressions.map do |expr|
             expr.respond_to?(:char) ? expr.char : expr.text
           end.join
 

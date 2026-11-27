@@ -654,7 +654,9 @@ RSpec/MatchWithSimpleRegex:
   Description: Enforces the use of `include` matcher instead of `match` when the matcher
     is a simple string literal without regex-specific features.
   Enabled: pending
+  Safe: false
   VersionAdded: '3.10'
+  VersionChanged: "<<next>>"
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchWithSimpleRegex
 
 RSpec/MessageChain:
