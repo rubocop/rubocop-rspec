@@ -108,6 +108,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
       RUBY
     end
 
+    it 'checks strings with many capital letters followed by a non-word' do
+      expect_offense(<<~RUBY)
+        describe 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!' do
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The first argument to describe should be the class or module being tested.
+        end
+      RUBY
+    end
+
     it 'checks empty strings' do
       expect_offense(<<~RUBY)
         describe '' do
@@ -124,6 +132,14 @@ RSpec.describe RuboCop::Cop::RSpec::DescribeClass do
       end
 
       describe do
+      end
+    RUBY
+  end
+
+  it 'flags a Symbol' do
+    expect_offense(<<~RUBY)
+      describe :this_is_not_a_string do
+               ^^^^^^^^^^^^^^^^^^^^^ The first argument to describe should be the class or module being tested.
       end
     RUBY
   end

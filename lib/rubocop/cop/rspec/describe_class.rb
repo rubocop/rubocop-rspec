@@ -72,8 +72,12 @@ module RuboCop
         end
 
         def string_constant?(described)
-          described.str_type? &&
-            described.value.match?(/^(?:(?:::)?[A-Z]\w*)+$/)
+          return false unless described.str_type?
+          return false if described.value.empty?
+
+          parts = described.value.split('::')
+          parts.shift if parts.first.empty?
+          parts.all? { |part| part.match?(/^[A-Z]\w*$/) }
         end
 
         def ignored_metadata
