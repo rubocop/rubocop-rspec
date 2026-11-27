@@ -2,17 +2,16 @@
 
 ## Master (Unreleased)
 
+## 3.11.0 (2026-11-27)
+
+- Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
 - Fix an incorrect autocorrect for `RSpec/MatchWithSimpleRegex` when the regex contains a backslash, which produced invalid or semantically different code. ([@ihamzatarar])
 - Fix an incorrect autocorrect for `RSpec/ScatteredLet` that moved a `let!` above a hook, changing the order the setup ran in. ([@andrewfader])
-- Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
 - Fix an incorrect autocorrect for `RSpec/Output` when the output call is the body of a modifier condition or loop. ([@Starlexxx])
 - Fix an error for `RSpec/ImplicitExpect` when the runner is separated from `is_expected` by whitespace. ([@viralpraxis])
 - Fix false positives for `RSpec/InstanceVariable` when an instance variable is used inside a `class_eval` or `module_eval` block. ([@corsonknowles])
 - Fix `RSpec/LeadingSubject` to not move a subject above another subject, avoiding an autocorrect clash with `RSpec/MultipleSubjects` that could remove a subject used in tests. ([@pcbeingused333])
 - Fix false positives for `RSpec/Pending` when using SimpleCov 1.x `skip` filters. ([@gee-forr])
-- Speed up loading rubocop-rspec by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
-- Bump RuboCop requirement to 1.92+. ([@bquorning])
-- Add new cop `RSpec/EmptyLineAfterSharedInclusion`. ([@sucicfilip])
 - Fix false positives for `RSpec/SpecFilePathFormat` when matching spec partials. ([@ydah])
 - Fix incorrect autocorrection for `RSpec/DescribedClass` when using nested example groups with `EnforcedStyle: explicit`. ([@ydah])
 - Fix `RSpec/MatchWithSimpleRegex` to ignore `match` outside examples. ([@ydah])
@@ -24,6 +23,9 @@
 - Fix an incorrect autocorrect for `RSpec/PredicateMatcher` with `EnforcedStyle: explicit` when `Style/TrailingCommaInArguments` corrects the same expectation. ([@viralpraxis])
 - Fix `RSpec/Dialect` to ignore configured method names on non-RSpec receivers. ([@iamzayn19])
 - Mark `RSpec/MatchWithSimpleRegex` as unsafe. ([@bquorning])
+- Point the style guide link of `RSpec/ClassCheck` at the Ruby style guide, since the RSpec style guide has no guideline for it. ([@bbatsov])
+- Speed up loading rubocop-rspec by lazily loading only the cops needed for a run. This requires RuboCop 1.89.0+. ([@koic])
+- Bump RuboCop requirement to 1.92+. ([@bquorning])
 
 ## 3.10.2 (2026-06-06)
 
