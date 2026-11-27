@@ -6,6 +6,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -16,6 +19,8 @@ jobs:
     name: Confirm config and documentation
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: ruby
@@ -43,6 +48,8 @@ jobs:
     name: "Ruby ${{ matrix.ruby }}: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: "${{ matrix.ruby }}"
@@ -54,6 +61,8 @@ jobs:
     name: "Test coverage"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           ruby-version: ruby
@@ -70,6 +79,8 @@ jobs:
     name: "Edge RuboCop: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Use latest RuboCop from `master`
         run: |
           echo "gem 'rubocop', github: 'rubocop/rubocop'" > Gemfile.local
@@ -91,6 +102,8 @@ jobs:
     name: "Oldest RuboCop: ${{ matrix.task }}"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Use oldest RuboCop allowed by gemspec
         run: |
           sed -nr "s/ *spec.add_dependency 'rubocop'.*'>= ([0-9\.]+)'/gem 'rubocop', '= \1'/p" \
@@ -109,6 +122,8 @@ jobs:
     name: RSpec 4
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Use latest RSpec 4 from `main` branch
         run: |
           sed -e '/rspec/d' -i Gemfile
@@ -130,6 +145,8 @@ jobs:
     name: Prism
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: set up Ruby
         uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:

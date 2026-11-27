@@ -23,5 +23,4 @@ jobs:
         with:
           advanced-security: false
           annotations: true
-          min-confidence: high
           version: v1.26.1
